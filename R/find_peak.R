@@ -1,0 +1,41 @@
+#' Find the peak date of an incidence curve
+#'
+#' This function can be used to find the peak of an epidemic curve stored as an
+#' `incidence` object.
+#'
+#' @author Thibaut Jombart \email{thibautjombart@@gmail.com}, Zhian N. Kamvar
+#'   \email{zkamvar@@gmail.com}
+#'
+#' @md
+#'
+#' @param x An `incidence` object.
+#' @param pool If `TRUE` (default), any groups will be pooled before finding
+#'   a peak. If `FALSE`, separate peaks will be found for each group.
+#'
+#' @return The date of the (first) highest incidence in the data.
+#'
+#' @seealso [estimate_peak()] for bootstrap estimates of the peak time
+#'
+#' @export
+find_peak <- function(x, pool = TRUE) {
+  if (!inherits(x, "incidence")) {
+    stop("x is not an incidence object")
+  }
+
+  count_var <- get_count_vars(x)
+  group_vars <- get_group_vars(x)
+  date_var <- get_date_vars(x)[1]
+
+  if ((length(group_vars) > 0) && pool) {
+    msg <- paste("'x' is stratified by groups",
+                 "pooling groups before finding peaks",
+                 sep = "\n")
+    message(msg)
+    x <- pool(x)
+
+  } else if (length(group_vars) > 0) {
+    x <- group_by(x, across(all_of(group_vars)))
+  }
+
+  dplyr::slice_max(x, .data[[count_var]], order_by = .data[[date_var]], n = 1)
+}
