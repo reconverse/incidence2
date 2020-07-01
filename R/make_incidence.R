@@ -63,7 +63,7 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   x <- group_by(x, .data$date_group)
   if (!is.null(groups)) {
     #x <- group_by(x, across(all_of(groups)), .add = TRUE)
-    x <- group_by(x, across((groups)), .add = TRUE)
+    x <- group_by(x, across( {{groups}}), .add = TRUE)
   }
 
   x <- summarise(x, count = n(), .groups = "drop")

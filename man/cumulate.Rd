@@ -23,10 +23,18 @@ for different types of objects:
 \item \code{incidence} objects: computes cumulative incidence over time
 }
 }
-\seealso{
-The \code{\link[=incidence]{incidence()}} function to generate the 'incidence'
-objects.
+\examples{
+dat <- data.frame(
+  dates = as.integer(c(0,1,2,2,3,5,7)),
+  groups = factor(c(1, 2, 3, 3, 3, 3, 1))
+)
+
+i <- incidence(dat, date_index = dates, groups = groups)
+i
+
+cumulative_i <- cumulate(i)
+cumulative_i
 }
 \author{
-Thibaut Jombart \email{thibautjombart@gmail.com}
+Thibaut Jombart
 }

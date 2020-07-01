@@ -2,12 +2,9 @@
 % Please edit documentation in R/conversion.R
 \name{as.data.frame.incidence}
 \alias{as.data.frame.incidence}
-\alias{as_tibble.incidence}
-\title{Conversion of incidence objects}
+\title{Convert incident object to dataframe}
 \usage{
 \method{as.data.frame}{incidence}(x, ...)
-
-as_tibble.incidence(x, ...)
 }
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
@@ -15,8 +12,13 @@ as_tibble.incidence(x, ...)
 \item{...}{Not used.}
 }
 \description{
-These functions convert \code{incidence} objects into other classes.
+Convert incident object to dataframe
 }
-\seealso{
-the \code{\link[=incidence]{incidence()}} function to generate the 'incidence' objects.
+\examples{
+dat <- data.frame(dates = Sys.Date() + 1:100,
+                  names = rep(c("Jo", "John"), 5))
+
+dat <- incidence(dat, date_index = dates, groups = names)
+as.data.frame(dat)
+
 }

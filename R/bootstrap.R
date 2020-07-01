@@ -6,7 +6,6 @@
 #'
 #' @author Thibaut Jombart \email{thibautjombart@@gmail.com}, Tim Taylor
 #'
-#' @export
 #'
 #' @details As original data are not stored in `incidence` objects, the
 #'   bootstrapping is achieved by multinomial sampling of date bins weighted by
@@ -22,6 +21,19 @@
 #' @return An `incidence` object.
 #'
 #' @seealso [find_peak()] to use estimate peak date using bootstrap
+#'
+#' @examples
+#' if (requireNamespace("outbreaks", quietly = TRUE)) {
+#'   withAutoprint( {
+#'     data(fluH7N9_china_2013, package = "outbreaks")
+#'     i <- incidence(fluH7N9_china_2013, date_index = date_of_onset)
+#'     i
+#'
+#'     x <- bootstrap(i)
+#'     x
+#'    })
+#' }
+#' @export
 bootstrap <- function(x, randomise_groups = FALSE) {
   if (!inherits(x, "incidence")) {
     stop("x is not an incidence object")

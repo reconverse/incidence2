@@ -27,6 +27,18 @@ As original data are not stored in \code{incidence} objects, the
 bootstrapping is achieved by multinomial sampling of date bins weighted by
 their relative incidence.
 }
+\examples{
+if (requireNamespace("outbreaks", quietly = TRUE)) {
+  withAutoprint( {
+    data(fluH7N9_china_2013, package = "outbreaks")
+    i <- incidence(fluH7N9_china_2013, date_index = date_of_onset)
+    i
+
+    x <- bootstrap(i)
+    x
+   })
+}
+}
 \seealso{
 \code{\link[=find_peak]{find_peak()}} to use estimate peak date using bootstrap
 }

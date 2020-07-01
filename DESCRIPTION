@@ -29,7 +29,8 @@ Imports:
     dplyr (>= 1.0.0),
     tibble,
     ellipsis,
-    vctrs
+    vctrs,
+    magrittr
 Suggests: 
     outbreaks,
     testthat,

@@ -38,6 +38,25 @@
 #'   approach and [find_peak()] to find the peak in a single
 #'   `incidence` object.
 #'
+#' @examples
+#' if (requireNamespace("outbreaks", quietly = TRUE)) {
+#'   withAutoprint( {
+#'     # load data and create incidence
+#'     data(fluH7N9_china_2013, package = "outbreaks")
+#'     i <- incidence(fluH7N9_china_2013, date_index = date_of_onset)
+#'     i
+#'
+#'     # one simple bootstrap
+#'     x <- bootstrap(i)
+#'     x
+#'
+#'     # find 95% CI for peak time using bootstrap
+#'     peak_data <- estimate_peak(i)
+#'     peak_data
+#'     summary(peak_data$peaks)
+#'   })
+#' }
+#'
 #' @export
 estimate_peak <- function(x, n = 100, alpha = 0.05) {
   if (!inherits(x, "incidence")) {
