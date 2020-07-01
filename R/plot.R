@@ -1,53 +1,181 @@
-plot.incidence <- function(x, color = "black", col_pal = incidence_pal1,
-                           border = NA, xlab = "", ylab = NULL,
-                           labels_week = has_weeks(x),
-                           labels_iso = has_isoweeks(x),
-                           show_cases = FALSE, n_breaks = 6) {
+## Plotting notes
+##
+## Note 1: By default, the annotation of bars in geom_bar puts the label in the
+## middle of the bar. This is wrong in our case as the annotation of a time
+## interval is the lower (left) bound, and should therefore be left-aligned
+## with the bar. Note that we cannot use position_nudge to create the
+## x-offset as we need the 'position' argument for stacking. This can be
+## addressed by adding interval/2 to the x-axis, but this only works until we
+## have an interval such as "month", "quarter", or "year" where the number of
+## days for each can vary. To alleviate this, we can create a new column that
+## counts the number of days within each interval.
+##
+## Note 2: it seems safest to specify the aes() as part of the geom,
+## not in ggplot(), as it interacts badly with some other geoms like
+## geom_ribbon - used e.g. in projections::add_projections().
+##
+## Note 3: because of the way 'fill' works, we need to specify it through
+## 'aes' if not directly in the geom. This causes the kludge below, where we
+## make a fake constant group to specify the color and remove the legend.
+##
+## Note 4: when there are groups, and the 'color' argument does not have one
+## value per group, we generate colors from a color palette. This means that
+## by default, the palette is used, but the user can manually specify the
+## colors.
+
+
+#' @export
+plot_facets <- function(x, color = "black", alpha = 0.7, border = NA, xlab = "", ylab = NULL,
+           labels_week = has_weeks(x), labels_iso = has_isoweeks(x),
+           show_cases = FALSE, n_breaks = 6) {
 
   # get relevant variables
   date_var <- get_date_vars(x)[1]
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
 
-
-  df <- x
-
-  ylab <- ylabel(df, ylab)
-
-  ## By default, the annotation of bars in geom_bar puts the label in the
-  ## middle of the bar. This is wrong in our case as the annotation of a time
-  ## interval is the lower (left) bound, and should therefore be left-aligned
-  ## with the bar. Note that we cannot use position_nudge to create the
-  ## x-offset as we need the 'position' argument for stacking. This can be
-  ## addressed by adding interval/2 to the x-axis, but this only works until we
-  ## have an interval such as "month", "quarter", or "year" where the number of
-  ## days for each can vary. To alleviate this, we can create a new column that
-  ## counts the number of days within each interval.
-
-  ## Adding a variable for width in ggplot
-  df$interval_days <- get_interval(x, integer = TRUE)
-  ## if the date type is POSIXct, then the interval is actually interval seconds
-  ## and needs to be converted to days
-  if (inherits(df[[date_var]], "POSIXct")) {
-    df$interval_days <- df$interval_days * 86400 # 24h * 60m * 60s
-  }
-  ## Important note: it seems safest to specify the aes() as part of the geom,
-  ## not in ggplot(), as it interacts badly with some other geoms like
-  ## geom_ribbon - used e.g. in projections::add_projections().
-
-
-  ## add mid-interval positions for x-axis
+  # set axis variables
   x_axis <- date_var
   y_axis <- count_var
 
+  # copy data
+  df <- x
+
+  # generate label for y-axis
+  ylab <- ylabel(df, ylab)
+
+  # Adding a variable for width in ggplot
+  df <- add_interval_days(df)
+
   out <- ggplot(df) +
-    geom_col(aes(x = !!sym(x_axis) + interval_days/2, y = !!sym(y_axis)))
+    geom_col(aes(x = !!sym(x_axis) + interval_days/2, y = !!sym(y_axis)),
+             width = df$interval_days,
+             color = border,
+             alpha = alpha) +
+    labs(x = xlab, y = ylab)
+
+  if (show_cases) {
+    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
+    squaredf[[count_var]] <- 1
+    squares <- geom_col(aes(x = !!sym(x_axis) + interval_days/2, y = !!sym(y_axis)),
+                        color = if (is.na(border)) "white" else border,
+                        fill  = NA,
+                        position = "stack",
+                        data = squaredf,
+                        width = squaredf$interval_days)
+    out <- out + squares
+  }
 
   if (!is.null(group_vars)) {
     out <- out + facet_wrap(vars(!!!syms(group_vars)))
   }
-   out
+
+  out <- out + scale_x_incidence(df, n_breaks, labels_week)
+  out
 }
+
+#' @export
+plot_single <- function(x, group = NULL, stack = c("stack", "dodge"),
+                        color = "black", col_pal = incidence_pal1, alpha = 0.7,
+                        border = NA, xlab = "", ylab = NULL, n_breaks = 6,
+                        show_cases = FALSE, labels_week = has_weeks(x),
+                        labels_iso = has_isoweeks(x)) {
+
+  # get relevant variables
+  date_var <- get_date_vars(x)[1]
+  count_var <- get_count_vars(x)
+  group_vars <- get_group_vars(x)
+
+  # warnings
+  if (length(group) > 1) {
+    stop("A single plot can only stack/dodge one variable")
+  }
+
+  if (!is.null(group)) {
+    if (!group %in% group_vars) {
+      msg <- sprintf("%s not a grouping variable incidence object", group)
+      stop(msg)
+    }
+  }
+
+  # set axis variables
+  x_axis <- date_var
+  y_axis <- count_var
+
+  # copy data
+  df <- x
+
+  # generate label for y-axis
+  ylab <- ylabel(df, ylab)
+
+  # Adding a variable for width in ggplot
+  df <- add_interval_days(df)
+
+  if (is.null(group)) {
+    out <- ggplot(df) +
+      geom_col(aes(x = !!sym(x_axis) + interval_days/2, y = !!sym(y_axis)),
+               width = df$interval_days,
+               color = border,
+               alpha = alpha) +
+      labs(x = xlab, y = ylab)
+  } else if (length(group) == 1) {
+    group_names <- unique(df[[group_vars]])
+    n_groups <- length(group_names)
+    if (!is.null(names(color))) {
+      tmp <- color[group_names]
+      matched <- names(color) %in% names(tmp)
+      if (!all(matched)) {
+        removed <- paste(names(color)[!matched],
+                         color[!matched],
+                         sep = '" = "',
+                         collapse = '", "')
+        message(sprintf("%d colors were not used: \"%s\"", sum(!matched), removed))
+      }
+      color <- tmp
+    }
+
+    ## find group colors
+    if (length(color) != n_groups) {
+      msg <- "The number of colors (%d) did not match the number of groups (%d)"
+      msg <- paste0(msg, ".\nUsing `col_pal` instead.")
+      default_color <- length(color) == 1L && color == "black"
+      if (!default_color) {
+        message(sprintf(msg, length(color), n_groups))
+      }
+      group_colors <- col_pal(n_groups)
+    } else {
+      group_colors <- color
+    }
+
+    ## add colors to the plot
+    out <- ggplot(df) +
+      geom_col(aes(x = !!sym(x_axis) + interval_days/2, y = !!sym(y_axis)),
+               width = df$interval_days,
+               color = border,
+               alpha = alpha,
+               position = stack) +
+      labs(x = xlab, y = ylab) +
+      aes(fill = !!sym(group_vars)) +
+      scale_fill_manual(values = group.colors)
+  }
+
+  if (show_cases && (stack == "stack" || is.null(group_vars))) {
+    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
+    squaredf[[count_var]] <- 1
+    squares <- geom_col(aes(x = !!sym(x_axis) + interval_days/2, y = !!sym(y_axis)),
+                        color = if (is.na(border)) "white" else border,
+                        fill  = NA,
+                        position = "stack",
+                        data = squaredf,
+                        width = squaredf$interval_days)
+    out <- out + squares
+  }
+
+  out <- out + scale_x_incidence(df, n_breaks, labels_week)
+  out
+
+}
+
 
 has_weeks <- function(x) {
   if (length(get_date_vars(x) > 1)) {
@@ -106,3 +234,34 @@ ylabel <- function(x, ylab) {
   }
   ylab
 }
+
+add_interval_days <- function(x) {
+  x$interval_days <- get_interval(x, integer = TRUE)
+
+  ## if the date type is POSIXct, then the interval is actually interval seconds
+  ## and needs to be converted to days
+  date_var <- get_date_vars(x)[1]
+  if (inherits(x[[date_var]], "POSIXct")) {
+    x$interval_days <- x$interval_days * 86400 # 24h * 60m * 60s
+  }
+  x
+}
+
+
+
+
+#' Plot an incidence object
+#' @export
+plot.incidence <- function(x, color = "black", col_pal = incidence_pal1,
+                           alpha = 0.7, border = NA, xlab = "", ylab = NULL,
+                           labels_week = has_weeks(x),
+                           labels_iso = has_isoweeks(x),
+                           show_cases = FALSE, n_breaks = 6,
+                           facet = TRUE,
+                           stack = c("none", "color", "dodge"), ...) {
+
+  ellipsis::check_dots_empty()
+
+
+}
+
