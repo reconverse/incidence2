@@ -19,6 +19,23 @@ The date of the (first) highest incidence in the data.
 This function can be used to find the peak of an epidemic curve stored as an
 \code{incidence} object.
 }
+\examples{
+if (requireNamespace("outbreaks", quietly = TRUE)) {
+  withAutoprint( {
+    # load data and create incidence
+    data(fluH7N9_china_2013, package = "outbreaks")
+    i <- incidence(fluH7N9_china_2013, date_index = date_of_onset)
+    i
+
+    # one simple bootstrap
+    x <- bootstrap(i)
+    x
+
+    ## find 95\% CI for peak time using bootstrap
+    find_peak(i)
+  })
+}
+}
 \seealso{
 \code{\link[=estimate_peak]{estimate_peak()}} for bootstrap estimates of the peak time
 }

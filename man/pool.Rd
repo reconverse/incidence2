@@ -17,6 +17,22 @@ This function pools incidence across specified groups of an \code{incidence}
 object. The resulting \code{\link[=incidence]{incidence()}} object will contains counts summed over
 the groups present in the input.
 }
+\examples{
+if (requireNamespace("outbreaks", quietly = TRUE)) {
+  withAutoprint({
+    data(ebola_sim_clean, package = "outbreaks")
+    dat <- ebola_sim_clean$linelist
+    i <- incidence(dat,
+                   date_index = date_of_onset,
+                   groups = c(gender, hospital))
+
+    i \%>\% pool()
+
+    i \%>\% pool(hospital)
+  })
+}
+
+}
 \seealso{
 The \code{\link[=incidence]{incidence()}} function to generate the 'incidence'
 objects.

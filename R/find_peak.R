@@ -16,6 +16,22 @@
 #'
 #' @seealso [estimate_peak()] for bootstrap estimates of the peak time
 #'
+#' @examples
+#' if (requireNamespace("outbreaks", quietly = TRUE)) {
+#'   withAutoprint( {
+#'     # load data and create incidence
+#'     data(fluH7N9_china_2013, package = "outbreaks")
+#'     i <- incidence(fluH7N9_china_2013, date_index = date_of_onset)
+#'     i
+#'
+#'     # one simple bootstrap
+#'     x <- bootstrap(i)
+#'     x
+#'
+#'     ## find 95% CI for peak time using bootstrap
+#'     find_peak(i)
+#'   })
+#' }
 #' @export
 find_peak <- function(x, pool = TRUE) {
   if (!inherits(x, "incidence")) {

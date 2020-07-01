@@ -1,8 +1,8 @@
 #' @return
 #'   - `get_count_vars()`: The count variable of x.
-#' @rdname accessors
 #' @aliases get_count_vars
 #' @export
+#' @rdname accessors
 get_count_vars <- function(x, ...) {
   UseMethod("get_count_vars")
 }
