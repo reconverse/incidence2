@@ -48,6 +48,33 @@
 #'  - `scale_x_incidence()` produces and appropriate `ggplot2` scale based on
 #'    an incidence object.
 #'
+#' @examples
+#' if (requireNamespace("outbreaks", quietly = TRUE)) {
+#'   withAutoprint({
+#'     data(ebola_sim_clean, package = "outbreaks")
+#'     dat <- ebola_sim_clean$linelist
+#'
+#'     inci <- incidence(dat,
+#'                       date_index = date_of_onset,
+#'                       interval = 7,
+#'                       groups = hospital)
+#'
+#'     inci2 <- incidence(dat,
+#'                       date_index = date_of_onset,
+#'                       interval = 7,
+#'                       groups = c(hospital, gender))
+#'
+#'     plot(inci)
+#'     plot(inci, group = FALSE)
+#'     plot(inci, stack = FALSE)
+#'     plot_facet(inci)
+#'
+#'     plot_facet(inci2)
+#'     plot(inci2, group = FALSE)
+#'   })
+#' }
+
+#'
 #' @export
 plot.incidence <- function(x, group = TRUE, stack = TRUE,
                            color = "black", col_pal = incidence_pal1,
