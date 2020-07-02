@@ -135,7 +135,7 @@ plot(i_7_sex, stack = TRUE, border = "grey")
 we can facet our plot:
 
 ```{r genderfacet}
-facet_plot(i_7_sex)
+facet_plot(i_7_sex, n_breaks = 4)
 ```
 
 and we can also group by multiple variables

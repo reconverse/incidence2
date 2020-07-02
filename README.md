@@ -88,8 +88,9 @@ functionalities.
 ## Loading the data
 
 This example uses the simulated Ebola Virus Disease (EVD) outbreak from
-the package [*outbreaks*](https://github.com/reconhub/outbreaks) showing
-how to compute incidence for various time steps and manipulate the data.
+the package [*outbreaks*](https://github.com/reconhub/outbreaks). It
+shows how to compute incidence for various time steps and manipulate the
+data.
 
 First, we load the data:
 
@@ -200,7 +201,7 @@ plot(i_7_sex, stack = TRUE, border = "grey")
 we can facet our plot:
 
 ``` r
-facet_plot(i_7_sex)
+facet_plot(i_7_sex, n_breaks = 4)
 ```
 
 ![](figs/genderfacet-1.png)<!-- -->
