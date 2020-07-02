@@ -29,20 +29,19 @@
 #' @param labels_week labels_week a logical value indicating whether labels x axis tick
 #'   marks are in week format YYYY-Www when plotting weekly incidence; defaults to
 #'   TRUE.
-#' @param ... Not used.
+#' @param ... other arguments to pass to [ggplot2::facet_wrap()].
 #'
 #' @return
-#'  - `plot_single`, `plot_facet()` and `plot()` a [ggplot2::ggplot()] object.
+#'  - `facet_plot()` and `plot()` generate a [ggplot2::ggplot()] object.
 #'  - `make_breaks()` a two-element list. The "breaks" element will contain the
 #'    evenly-spaced breaks as either dates or numbers and the "labels" element
 #'    will contain either a vector of weeks OR a [ggplot2::waiver()] object.
 #'  - `scale_x_incidence()` a \pkg{ggplot2} "ScaleContinuous" object.
 #'
 #' @details
-#'  - `plot_single` creates a one-pane graph of an incidence object.
-#'  - `plot_facet` creates a multi-facet graph of a grouped incidence object.
+#'  - `plot` creates a one-pane graph of an incidence object.
+#'  - `facet_plot` creates a multi-facet graph of a grouped incidence object.
 #'    If the object has no groups it returns the same outout as a call to
-#'  - `plot` is just a convenience wrapper around `plot_single`
 #'  - `make_breaks()` calculates breaks from an incidence object that always
 #'    align with the bins and start on the first observed incidence.
 #'  - `scale_x_incidence()` produces and appropriate `ggplot2` scale based on
@@ -67,9 +66,9 @@
 #'     plot(inci)
 #'     plot(inci, group = FALSE)
 #'     plot(inci, stack = FALSE)
-#'     plot_facet(inci)
+#'     facet_plot(inci)
 #'
-#'     plot_facet(inci2)
+#'     facet_plot(inci2)
 #'     plot(inci2, group = FALSE)
 #'   })
 #' }
@@ -118,6 +117,57 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
 
 #' @export
 #' @rdname plot.incidence
+facet_plot <- function(x, color = "black", alpha = 0.7, border = NA,
+                       xlab = "", ylab = NULL, n_breaks = 6,
+                       show_cases = FALSE, labels_week = has_weeks(x), ...) {
+
+  # get relevant variables
+  date_var <- get_date_vars(x)[1]
+  count_var <- get_count_vars(x)
+  group_vars <- get_group_vars(x)
+
+  # set axis variables
+  x_axis <- date_var
+  y_axis <- count_var
+
+  # copy data
+  df <- x
+
+  # generate label for y-axis
+  ylab <- ylabel(df, ylab)
+
+  # Adding a variable for width in ggplot
+  df <- add_interval_days(df)
+
+  out <- ggplot2::ggplot(df) +
+    ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+                      width = df$interval_days,
+                      color = border,
+                      alpha = alpha) +
+    ggplot2::labs(x = xlab, y = ylab)
+
+  if (show_cases) {
+    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
+    squaredf[[count_var]] <- 1
+    squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+                                 color = if (is.na(border)) "white" else border,
+                                 fill  = NA,
+                                 position = "stack",
+                                 data = squaredf,
+                                 width = squaredf$interval_days)
+    out <- out + squares
+  }
+
+  if (!is.null(group_vars)) {
+    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), ...)
+  }
+
+  out <- out + scale_x_incidence(df, n_breaks, labels_week)
+  out
+
+}
+
+
 plot_single <- function(x, group = TRUE, stack = TRUE,
                         color = "black", col_pal = incidence_pal1, alpha = 0.7,
                         border = NA, xlab = "", ylab = NULL, n_breaks = 6,
@@ -214,57 +264,7 @@ plot_single <- function(x, group = TRUE, stack = TRUE,
 
 }
 
-#' @export
-#' @rdname plot.incidence
-plot_facet <- function(x, color = "black", alpha = 0.7, border = NA,
-                       xlab = "", ylab = NULL, n_breaks = 6,
-                       show_cases = FALSE, labels_week = has_weeks(x)) {
 
-  # get relevant variables
-  date_var <- get_date_vars(x)[1]
-  count_var <- get_count_vars(x)
-  group_vars <- get_group_vars(x)
-
-  # set axis variables
-  x_axis <- date_var
-  y_axis <- count_var
-
-  # copy data
-  df <- x
-
-  # generate label for y-axis
-  ylab <- ylabel(df, ylab)
-
-  # Adding a variable for width in ggplot
-  df <- add_interval_days(df)
-
-  out <- ggplot2::ggplot(df) +
-    ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                      width = df$interval_days,
-                      color = border,
-                      alpha = alpha) +
-    ggplot2::labs(x = xlab, y = ylab)
-
-  if (show_cases) {
-    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
-    squaredf[[count_var]] <- 1
-    squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                                 color = if (is.na(border)) "white" else border,
-                                 fill  = NA,
-                                 position = "stack",
-                                 data = squaredf,
-                                 width = squaredf$interval_days)
-    out <- out + squares
-  }
-
-  if (!is.null(group_vars)) {
-    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)))
-  }
-
-  out <- out + scale_x_incidence(df, n_breaks, labels_week)
-  out
-
-}
 
 
 

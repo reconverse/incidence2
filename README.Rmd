@@ -55,8 +55,7 @@ The main features of the package include:
   time interval can be used; the returned object is a tibble subclass called
   *incidence*.
 
-- plotting functions including **`plot_single()`**, **`plot_facet()`** and 
-  **`plot()`** (a convenience wrapper around `plot_single()`): these functions
+- plotting functions **`plot()`** and **`facet_plot()`**: these functions
   return customised ggplot2 plots of *incidence* objects 
   (see `?plot.incidence` for details).
 
@@ -117,8 +116,8 @@ We compute the weekly incidence:
 ```{r incid7}
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
 i_7
-plot(i_7)
 summary(i_7)
+plot(i_7)
 ```
 
 `incidence()` can also compute incidence by specified groups using the `groups`
@@ -129,13 +128,14 @@ in a single, stacked chart:
 i_7_sex <- incidence(dat, interval = "week", 
                      date_index = date_of_onset, groups = gender)
 i_7_sex
+summary(i_7_sex)
 plot(i_7_sex, stack = TRUE, border = "grey")
 ```
 
 we can facet our plot:
 
 ```{r genderfacet}
-plot_facet(i_7_sex)
+facet_plot(i_7_sex)
 ```
 
 and we can also group by multiple variables
@@ -146,6 +146,54 @@ i_7_sh <-
   dat %>% 
   incidence(date_index = date_of_onset, interval = "week", 
             groups = c(gender, hospital))
-i_7_sh %>% plot_facet(n_breaks = 2)
+i_7_sh
+i_7_sh %>% summary()
+i_7_sh %>% facet_plot(n_breaks = 2, nrow = 4)
 ```
 
+
+## Handling `incident` objects
+
+`incidence` objects can be manipulated easily using both operators from base R
+and dplyr.. The `[` operator implements normal subsetting of rows and columns.
+For instance, to keep only the first 20 weeks of the epidemic:
+
+```{r start}
+plot(i_7[1:20, ])
+```
+
+incidence2 extends common dplyr verbs and this allows easy temporal subsetting:
+
+```{r tail}
+i_7 %>% 
+  filter(date_group >= as.Date("2015-01-01")) %>% 
+  plot(border = "white")
+```
+
+Subsetting groups can also matter. For instance, let's try and visualise the
+incidence based on onset of symptoms by outcome:
+
+```{r i7outcome}
+i_7_outcome <- incidence(dat,
+                         date_index = date_of_onset,
+                         interval = 7, 
+                         groups = outcome)
+i_7_outcome
+summary(i_7_outcome)
+plot(i_7_outcome, stack = TRUE, border = "grey")
+facet_plot(i_7_outcome, border = "grey", n_breaks = 3)
+```
+
+```{r i7outcome_cum}
+i_7_outcome_cum <- cumulate(i_7_outcome)
+i_7_outcome_cum
+plot(i_7_outcome_cum, border = "grey")
+```
+
+Groups can also be collapsed into a single time series using `pool`:
+
+```{r pool}
+i_pooled <- pool(i_7_outcome)
+i_pooled
+identical(i_7, i_pooled)
+```

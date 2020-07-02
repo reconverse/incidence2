@@ -2,8 +2,7 @@
 % Please edit documentation in R/plot.R, R/scale_x_incidence.R
 \name{plot.incidence}
 \alias{plot.incidence}
-\alias{plot_single}
-\alias{plot_facet}
+\alias{facet_plot}
 \alias{scale_x_incidence}
 \alias{make_breaks}
 \title{Plotting functions}
@@ -24,22 +23,7 @@
   ...
 )
 
-plot_single(
-  x,
-  group = TRUE,
-  stack = TRUE,
-  color = "black",
-  col_pal = incidence_pal1,
-  alpha = 0.7,
-  border = NA,
-  xlab = "",
-  ylab = NULL,
-  n_breaks = 6,
-  show_cases = FALSE,
-  labels_week = has_weeks(x)
-)
-
-plot_facet(
+facet_plot(
   x,
   color = "black",
   alpha = 0.7,
@@ -48,7 +32,8 @@ plot_facet(
   ylab = NULL,
   n_breaks = 6,
   show_cases = FALSE,
-  labels_week = has_weeks(x)
+  labels_week = has_weeks(x),
+  ...
 )
 
 scale_x_incidence(x, n_breaks = 6, labels_week = TRUE, ...)
@@ -101,7 +86,7 @@ on how the \verb{$date} element is stored in the incidence object.}
 }
 \value{
 \itemize{
-\item \code{plot_single}, \code{plot_facet()} and \code{plot()} a \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object.
+\item \code{facet_plot()} and \code{plot()} generate a \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object.
 \item \code{make_breaks()} a two-element list. The "breaks" element will contain the
 evenly-spaced breaks as either dates or numbers and the "labels" element
 will contain either a vector of weeks OR a \code{\link[ggplot2:waiver]{ggplot2::waiver()}} object.
@@ -113,10 +98,9 @@ incidence2 includes two plotting functions to simplify graph creation.
 }
 \details{
 \itemize{
-\item \code{plot_single} creates a one-pane graph of an incidence object.
-\item \code{plot_facet} creates a multi-facet graph of a grouped incidence object.
+\item \code{plot} creates a one-pane graph of an incidence object.
+\item \code{facet_plot} creates a multi-facet graph of a grouped incidence object.
 If the object has no groups it returns the same outout as a call to
-\item \code{plot} is just a convenience wrapper around \code{plot_single}
 \item \code{make_breaks()} calculates breaks from an incidence object that always
 align with the bins and start on the first observed incidence.
 \item \code{scale_x_incidence()} produces and appropriate \code{ggplot2} scale based on
@@ -142,9 +126,9 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
     plot(inci)
     plot(inci, group = FALSE)
     plot(inci, stack = FALSE)
-    plot_facet(inci)
+    facet_plot(inci)
 
-    plot_facet(inci2)
+    facet_plot(inci2)
     plot(inci2, group = FALSE)
   })
 }
