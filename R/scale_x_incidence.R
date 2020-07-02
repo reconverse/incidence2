@@ -59,7 +59,7 @@ make_breaks <- function(x, n_breaks = 6L, labels_week = TRUE) {
     # The interval is a character like "2 weeks" and we have to figure out how
     # to split these manually
     has_number <- grepl("\\d", interval)
-    tims       <- ceiling(x$timespan/(n_breaks*mean(get_interval(x, integer = TRUE))))
+    tims       <- ceiling(get_timespan(x)/(n_breaks*mean(get_interval(x, integer = TRUE))))
     if (has_number) {
       ni <- as.integer(strsplit(interval, " ", fixed = TRUE)[[1L]][1L])
       # the replacement should be a multiple of the number
