@@ -1,3 +1,68 @@
+#' Plotting functions
+#'
+#' incidence2 includes two plotting functions to simplify graph creation.
+#'
+#' @param x An [incidence()] object.
+#' @param group A single variable to group the plot by.  If NULL (default) all
+#'   groups No grouping will be applied.
+#' @param stack A logical indicating if bars of multiple groups should be
+#'   stacked, or displayed side-by-side.
+#' @param color The color to be used for the filling of the bars; NA for
+#'   invisible bars; defaults to "black".
+#' @param col_pal col_pal The color palette to be used for the groups; defaults
+#'   to `incidence_pal1`. See [incidence_pal1()] for other palettes implemented
+#'   in incidence2.
+#' @param alpha The alpha level for color transparency, with 1 being fully
+#'   opaque and 0 fully transparent; defaults to 0.7.
+#' @param border The color to be used for the borders of the bars; NA for
+#'   invisible borders; defaults to NA.
+#' @param xlab The label to be used for the x-axis; empty by default.
+#' @param ylab The label to be used for the y-axis; by default, a label will be
+#'   generated automatically according to the time interval used in incidence
+#'   computation.
+#' @param n_breaks n_breaks the ideal number of breaks to be used for the x-axis
+#'   labeling
+#' @param show_cases if `TRUE` (default: `FALSE`), then each observation will be
+#'   colored by a border. The border defaults to a white border unless specified
+#'   otherwise. This is normally used outbreaks with a small number of cases.
+#'   Note: this can only be used if `stack = TRUE`
+#' @param labels_week labels_week a logical value indicating whether labels x axis tick
+#'   marks are in week format YYYY-Www when plotting weekly incidence; defaults to
+#'   TRUE.
+#' @param ... Not used.
+#'
+#' @return
+#'  - `plot_single`, `plot_facet()` and `plot()` a [ggplot2::ggplot()] object.
+#'  - `make_breaks()` a two-element list. The "breaks" element will contain the
+#'    evenly-spaced breaks as either dates or numbers and the "labels" element
+#'    will contain either a vector of weeks OR a [ggplot2::waiver()] object.
+#'  - `scale_x_incidence()` a \pkg{ggplot2} "ScaleContinuous" object.
+#'
+#' @details
+#'  - `plot_single` creates a one-pane graph of an incidence object.
+#'  - `plot_facet` creates a multi-facet graph of a grouped incidence object.
+#'    If the object has no groups it returns the same outout as a call to
+#'  - `plot` is just a convenience wrapper around `plot_single`
+#'  - `make_breaks()` calculates breaks from an incidence object that always
+#'    align with the bins and start on the first observed incidence.
+#'  - `scale_x_incidence()` produces and appropriate `ggplot2` scale based on
+#'    an incidence object.
+#'
+#' @export
+plot.incidence <- function(x, group = NULL, stack = TRUE,
+                           color = "black", col_pal = incidence_pal1,
+                           alpha = 0.7, border = NA, xlab = "", ylab = NULL,
+                           n_breaks = 6, show_cases = FALSE,
+                           labels_week = has_weeks(x), ...) {
+
+  ellipsis::check_dots_empty()
+  plot_single(x, group, stack, color, col_pal, alpha,
+               border, xlab, ylab, n_breaks,
+               show_cases, labels_week)
+
+}
+
+
 ## Plotting notes
 ##
 ## Note 1: By default, the annotation of bars in geom_bar puts the label in the
@@ -25,75 +90,28 @@
 
 
 #' @export
-plot_facets <- function(x, color = "black", alpha = 0.7, border = NA, xlab = "", ylab = NULL,
-           labels_week = has_weeks(x), labels_iso = has_isoweeks(x),
-           show_cases = FALSE, n_breaks = 6) {
-
-  # get relevant variables
-  date_var <- get_date_vars(x)[1]
-  count_var <- get_count_vars(x)
-  group_vars <- get_group_vars(x)
-
-  # set axis variables
-  x_axis <- date_var
-  y_axis <- count_var
-
-  # copy data
-  df <- x
-
-  # generate label for y-axis
-  ylab <- ylabel(df, ylab)
-
-  # Adding a variable for width in ggplot
-  df <- add_interval_days(df)
-
-  out <- ggplot(df) +
-    geom_col(aes(x = !!sym(x_axis) + interval_days/2, y = !!sym(y_axis)),
-             width = df$interval_days,
-             color = border,
-             alpha = alpha) +
-    labs(x = xlab, y = ylab)
-
-  if (show_cases) {
-    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
-    squaredf[[count_var]] <- 1
-    squares <- geom_col(aes(x = !!sym(x_axis) + interval_days/2, y = !!sym(y_axis)),
-                        color = if (is.na(border)) "white" else border,
-                        fill  = NA,
-                        position = "stack",
-                        data = squaredf,
-                        width = squaredf$interval_days)
-    out <- out + squares
-  }
-
-  if (!is.null(group_vars)) {
-    out <- out + facet_wrap(vars(!!!syms(group_vars)))
-  }
-
-  out <- out + scale_x_incidence(df, n_breaks, labels_week)
-  out
-}
-
-#' @export
-plot_single <- function(x, group = NULL, stack = c("stack", "dodge"),
+#' @rdname plot.incidence
+plot_single <- function(x, group = NULL, stack = TRUE,
                         color = "black", col_pal = incidence_pal1, alpha = 0.7,
                         border = NA, xlab = "", ylab = NULL, n_breaks = 6,
-                        show_cases = FALSE, labels_week = has_weeks(x),
-                        labels_iso = has_isoweeks(x)) {
+                        show_cases = FALSE, labels_week = has_weeks(x)) {
 
   # get relevant variables
   date_var <- get_date_vars(x)[1]
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
+
+  # Handle stacking
+  stack.txt <- if (stack) "stack" else "dodge"
 
   # warnings
   if (length(group) > 1) {
-    stop("A single plot can only stack/dodge one variable")
+    stop("A single plot can only stack/dodge one variable.\n Please use `plot_facet` for multigroup plots.")
   }
 
   if (!is.null(group)) {
     if (!group %in% group_vars) {
-      msg <- sprintf("%s not a grouping variable incidence object", group)
+      msg <- sprintf("%s not a grouping variable in incidence object", group)
       stop(msg)
     }
   }
@@ -112,12 +130,12 @@ plot_single <- function(x, group = NULL, stack = c("stack", "dodge"),
   df <- add_interval_days(df)
 
   if (is.null(group)) {
-    out <- ggplot(df) +
-      geom_col(aes(x = !!sym(x_axis) + interval_days/2, y = !!sym(y_axis)),
+    out <- ggplot2::ggplot(df) +
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                width = df$interval_days,
                color = border,
                alpha = alpha) +
-      labs(x = xlab, y = ylab)
+      ggplot2::labs(x = xlab, y = ylab)
   } else if (length(group) == 1) {
     group_names <- unique(df[[group_vars]])
     n_groups <- length(group_names)
@@ -148,21 +166,21 @@ plot_single <- function(x, group = NULL, stack = c("stack", "dodge"),
     }
 
     ## add colors to the plot
-    out <- ggplot(df) +
-      geom_col(aes(x = !!sym(x_axis) + interval_days/2, y = !!sym(y_axis)),
+    out <- ggplot2::ggplot(df) +
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                width = df$interval_days,
                color = border,
                alpha = alpha,
-               position = stack) +
-      labs(x = xlab, y = ylab) +
-      aes(fill = !!sym(group_vars)) +
-      scale_fill_manual(values = group.colors)
+               position = stack.txt) +
+      ggplot2::labs(x = xlab, y = ylab) +
+      ggplot2::aes(fill = !!sym(group_vars)) +
+      ggplot2::scale_fill_manual(values = group_colors)
   }
 
-  if (show_cases && (stack == "stack" || is.null(group_vars))) {
+  if (show_cases && (stack == TRUE || is.null(group_vars))) {
     squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
     squaredf[[count_var]] <- 1
-    squares <- geom_col(aes(x = !!sym(x_axis) + interval_days/2, y = !!sym(y_axis)),
+    squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                         color = if (is.na(border)) "white" else border,
                         fill  = NA,
                         position = "stack",
@@ -175,6 +193,58 @@ plot_single <- function(x, group = NULL, stack = c("stack", "dodge"),
   out
 
 }
+
+#' @export
+#' @rdname plot.incidence
+plot_facet <- function(x, color = "black", alpha = 0.7, border = NA,
+                        xlab = "", ylab = NULL, n_breaks = 6,
+                        show_cases = FALSE, labels_week = has_weeks(x)) {
+
+  # get relevant variables
+  date_var <- get_date_vars(x)[1]
+  count_var <- get_count_vars(x)
+  group_vars <- get_group_vars(x)
+
+  # set axis variables
+  x_axis <- date_var
+  y_axis <- count_var
+
+  # copy data
+  df <- x
+
+  # generate label for y-axis
+  ylab <- ylabel(df, ylab)
+
+  # Adding a variable for width in ggplot
+  df <- add_interval_days(df)
+
+  out <- ggplot2::ggplot(df) +
+    ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+             width = df$interval_days,
+             color = border,
+             alpha = alpha) +
+    ggplot2::labs(x = xlab, y = ylab)
+
+  if (show_cases) {
+    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
+    squaredf[[count_var]] <- 1
+    squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+                        color = if (is.na(border)) "white" else border,
+                        fill  = NA,
+                        position = "stack",
+                        data = squaredf,
+                        width = squaredf$interval_days)
+    out <- out + squares
+  }
+
+  if (!is.null(group_vars)) {
+    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)))
+  }
+
+  out <- out + scale_x_incidence(df, n_breaks, labels_week)
+  out
+}
+
 
 
 has_weeks <- function(x) {
@@ -246,22 +316,3 @@ add_interval_days <- function(x) {
   }
   x
 }
-
-
-
-
-#' Plot an incidence object
-#' @export
-plot.incidence <- function(x, color = "black", col_pal = incidence_pal1,
-                           alpha = 0.7, border = NA, xlab = "", ylab = NULL,
-                           labels_week = has_weeks(x),
-                           labels_iso = has_isoweeks(x),
-                           show_cases = FALSE, n_breaks = 6,
-                           facet = TRUE,
-                           stack = c("none", "color", "dodge"), ...) {
-
-  ellipsis::check_dots_empty()
-
-
-}
-

@@ -11,7 +11,7 @@
 NULL
 
 
-#' @importFrom  rlang .data :=
+#' @importFrom  rlang .data := sym syms
 NULL
 
 #' @importFrom utils head tail

@@ -2,25 +2,53 @@
 % Please edit documentation in R/plot.R, R/scale_x_incidence.R
 \name{plot.incidence}
 \alias{plot.incidence}
+\alias{plot_single}
+\alias{plot_facet}
 \alias{scale_x_incidence}
 \alias{make_breaks}
-\title{Plot an incidence object}
+\title{Plotting functions}
 \usage{
 \method{plot}{incidence}(
   x,
+  group = NULL,
+  stack = TRUE,
   color = "black",
   col_pal = incidence_pal1,
   alpha = 0.7,
   border = NA,
   xlab = "",
   ylab = NULL,
-  labels_week = has_weeks(x),
-  labels_iso = has_isoweeks(x),
-  show_cases = FALSE,
   n_breaks = 6,
-  facet = TRUE,
-  stack = c("none", "color", "dodge"),
+  show_cases = FALSE,
+  labels_week = has_weeks(x),
   ...
+)
+
+plot_single(
+  x,
+  group = NULL,
+  stack = TRUE,
+  color = "black",
+  col_pal = incidence_pal1,
+  alpha = 0.7,
+  border = NA,
+  xlab = "",
+  ylab = NULL,
+  n_breaks = 6,
+  show_cases = FALSE,
+  labels_week = has_weeks(x)
+)
+
+plot_facet(
+  x,
+  color = "black",
+  alpha = 0.7,
+  border = NA,
+  xlab = "",
+  ylab = NULL,
+  n_breaks = 6,
+  show_cases = FALSE,
+  labels_week = has_weeks(x)
 )
 
 scale_x_incidence(x, n_breaks = 6, labels_week = TRUE, ...)
@@ -28,10 +56,70 @@ scale_x_incidence(x, n_breaks = 6, labels_week = TRUE, ...)
 make_breaks(x, n_breaks = 6L, labels_week = TRUE)
 }
 \arguments{
+\item{x}{An \code{\link[=incidence]{incidence()}} object.}
+
+\item{group}{A single variable to group the plot by.  If NULL (default) all
+groups No grouping will be applied.}
+
+\item{stack}{A logical indicating if bars of multiple groups should be
+stacked, or displayed side-by-side.}
+
+\item{color}{The color to be used for the filling of the bars; NA for
+invisible bars; defaults to "black".}
+
+\item{col_pal}{col_pal The color palette to be used for the groups; defaults
+to \code{incidence_pal1}. See \code{\link[=incidence_pal1]{incidence_pal1()}} for other palettes implemented
+in incidence2.}
+
+\item{alpha}{The alpha level for color transparency, with 1 being fully
+opaque and 0 fully transparent; defaults to 0.7.}
+
+\item{border}{The color to be used for the borders of the bars; NA for
+invisible borders; defaults to NA.}
+
+\item{xlab}{The label to be used for the x-axis; empty by default.}
+
+\item{ylab}{The label to be used for the y-axis; by default, a label will be
+generated automatically according to the time interval used in incidence
+computation.}
+
+\item{n_breaks}{n_breaks the ideal number of breaks to be used for the x-axis
+labeling}
+
+\item{show_cases}{if \code{TRUE} (default: \code{FALSE}), then each observation will be
+colored by a border. The border defaults to a white border unless specified
+otherwise. This is normally used outbreaks with a small number of cases.
+Note: this can only be used if \code{stack = TRUE}}
+
+\item{labels_week}{labels_week a logical value indicating whether labels x axis tick
+marks are in week format YYYY-Www when plotting weekly incidence; defaults to
+TRUE.}
+
 \item{...}{arguments passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date()}},
 \code{\link[ggplot2:scale_date]{ggplot2::scale_x_datetime()}}, or \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}, depending
 on how the \verb{$date} element is stored in the incidence object.}
 }
+\value{
+\itemize{
+\item \code{plot_single}, \code{plot_facet()} and \code{plot()} a \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object.
+\item \code{make_breaks()} a two-element list. The "breaks" element will contain the
+evenly-spaced breaks as either dates or numbers and the "labels" element
+will contain either a vector of weeks OR a \code{\link[ggplot2:waiver]{ggplot2::waiver()}} object.
+\item \code{scale_x_incidence()} a \pkg{ggplot2} "ScaleContinuous" object.
+}
+}
 \description{
-Plot an incidence object
+incidence2 includes two plotting functions to simplify graph creation.
+}
+\details{
+\itemize{
+\item \code{plot_single} creates a one-pane graph of an incidence object.
+\item \code{plot_facet} creates a multi-facet graph of a grouped incidence object.
+If the object has no groups it returns the same outout as a call to
+\item \code{plot} is just a convenience wrapper around \code{plot_single}
+\item \code{make_breaks()} calculates breaks from an incidence object that always
+align with the bins and start on the first observed incidence.
+\item \code{scale_x_incidence()} produces and appropriate \code{ggplot2} scale based on
+an incidence object.
+}
 }

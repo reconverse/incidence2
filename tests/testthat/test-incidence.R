@@ -348,8 +348,8 @@ test_that("corner cases", {
   expect_error(incidence(data.frame(dates = 1), date_index = dates, interval = "week"),
                "The interval 'week' can only be used for Dates")
 
-  #expect_error(incidence(data.frame(dates = as.Date(Sys.Date())), date_index = dates, standard = "TRUE"),
-  #             "The argument `standard` must be either `TRUE` or `FALSE`")
+  expect_error(incidence(data.frame(dates = as.Date(Sys.Date())), date_index = dates, standard = "TRUE"),
+               "The argument `standard` must be either `TRUE` or `FALSE`")
 
   expect_error(incidence(data.frame(dates = sample(10)), date_index = dates, intrval = 2),
                class = "rlib_error_dots_nonempty")
