@@ -10,7 +10,7 @@
 \usage{
 \method{plot}{incidence}(
   x,
-  group = NULL,
+  group = TRUE,
   stack = TRUE,
   color = "black",
   col_pal = incidence_pal1,
@@ -26,7 +26,7 @@
 
 plot_single(
   x,
-  group = NULL,
+  group = TRUE,
   stack = TRUE,
   color = "black",
   col_pal = incidence_pal1,
@@ -58,8 +58,8 @@ make_breaks(x, n_breaks = 6L, labels_week = TRUE)
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
 
-\item{group}{A single variable to group the plot by.  If NULL (default) all
-groups No grouping will be applied.}
+\item{group}{A logical indicating if the plot should show groups.  If false
+a pooled plot will be produced.}
 
 \item{stack}{A logical indicating if bars of multiple groups should be
 stacked, or displayed side-by-side.}

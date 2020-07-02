@@ -3,8 +3,8 @@
 #' incidence2 includes two plotting functions to simplify graph creation.
 #'
 #' @param x An [incidence()] object.
-#' @param group A single variable to group the plot by.  If NULL (default) all
-#'   groups No grouping will be applied.
+#' @param group A logical indicating if the plot should show groups.  If false
+#'   a pooled plot will be produced.
 #' @param stack A logical indicating if bars of multiple groups should be
 #'   stacked, or displayed side-by-side.
 #' @param color The color to be used for the filling of the bars; NA for
@@ -49,7 +49,7 @@
 #'    an incidence object.
 #'
 #' @export
-plot.incidence <- function(x, group = NULL, stack = TRUE,
+plot.incidence <- function(x, group = TRUE, stack = TRUE,
                            color = "black", col_pal = incidence_pal1,
                            alpha = 0.7, border = NA, xlab = "", ylab = NULL,
                            n_breaks = 6, show_cases = FALSE,
@@ -91,7 +91,7 @@ plot.incidence <- function(x, group = NULL, stack = TRUE,
 
 #' @export
 #' @rdname plot.incidence
-plot_single <- function(x, group = NULL, stack = TRUE,
+plot_single <- function(x, group = TRUE, stack = TRUE,
                         color = "black", col_pal = incidence_pal1, alpha = 0.7,
                         border = NA, xlab = "", ylab = NULL, n_breaks = 6,
                         show_cases = FALSE, labels_week = has_weeks(x)) {
@@ -105,15 +105,8 @@ plot_single <- function(x, group = NULL, stack = TRUE,
   stack.txt <- if (stack) "stack" else "dodge"
 
   # warnings
-  if (length(group) > 1) {
-    stop("A single plot can only stack/dodge one variable.\n Please use `plot_facet` for multigroup plots.")
-  }
-
-  if (!is.null(group)) {
-    if (!group %in% group_vars) {
-      msg <- sprintf("%s not a grouping variable in incidence object", group)
-      stop(msg)
-    }
+  if (group && length(group_vars) > 1) {
+    stop("A single plot can only stack/dodge one variable.\n Please `pool` the object first or use `plot_facet`\n")
   }
 
   # set axis variables
@@ -129,14 +122,14 @@ plot_single <- function(x, group = NULL, stack = TRUE,
   # Adding a variable for width in ggplot
   df <- add_interval_days(df)
 
-  if (is.null(group)) {
+  if (!group || (group && length(group_vars) == 0)) {
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                width = df$interval_days,
                color = border,
                alpha = alpha) +
       ggplot2::labs(x = xlab, y = ylab)
-  } else if (length(group) == 1) {
+  } else if (length(group_vars) == 1) {
     group_names <- unique(df[[group_vars]])
     n_groups <- length(group_names)
     if (!is.null(names(color))) {
@@ -197,8 +190,8 @@ plot_single <- function(x, group = NULL, stack = TRUE,
 #' @export
 #' @rdname plot.incidence
 plot_facet <- function(x, color = "black", alpha = 0.7, border = NA,
-                        xlab = "", ylab = NULL, n_breaks = 6,
-                        show_cases = FALSE, labels_week = has_weeks(x)) {
+                       xlab = "", ylab = NULL, n_breaks = 6,
+                       show_cases = FALSE, labels_week = has_weeks(x)) {
 
   # get relevant variables
   date_var <- get_date_vars(x)[1]
@@ -220,20 +213,20 @@ plot_facet <- function(x, color = "black", alpha = 0.7, border = NA,
 
   out <- ggplot2::ggplot(df) +
     ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-             width = df$interval_days,
-             color = border,
-             alpha = alpha) +
+                      width = df$interval_days,
+                      color = border,
+                      alpha = alpha) +
     ggplot2::labs(x = xlab, y = ylab)
 
   if (show_cases) {
     squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
     squaredf[[count_var]] <- 1
     squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                        color = if (is.na(border)) "white" else border,
-                        fill  = NA,
-                        position = "stack",
-                        data = squaredf,
-                        width = squaredf$interval_days)
+                                 color = if (is.na(border)) "white" else border,
+                                 fill  = NA,
+                                 position = "stack",
+                                 data = squaredf,
+                                 width = squaredf$interval_days)
     out <- out + squares
   }
 
@@ -243,6 +236,7 @@ plot_facet <- function(x, color = "black", alpha = 0.7, border = NA,
 
   out <- out + scale_x_incidence(df, n_breaks, labels_week)
   out
+
 }
 
 
