@@ -95,7 +95,7 @@ functionalities.
 
 ## Loading the data
 This example uses the simulated Ebola Virus Disease (EVD) outbreak from the
-package [*outbreaks*](https://github.com/reconhub/outbreaks) showing how to
+package [*outbreaks*](https://github.com/reconhub/outbreaks). It shows how to
 compute incidence for various time steps and manipulate the data.
 
 First, we load the data:
