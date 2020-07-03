@@ -1,9 +1,8 @@
 #' Summary of a given incidence object
 #'
 #' @param object An 'incidence' object.
-#'
+#' @param ... Not used.
 #' @export
-#' @rdname incidence
 summary.incidence <- function(object, ...) {
 
   # get the date and count variables

@@ -92,7 +92,7 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
 
   # warnings
   if (group && length(group_vars) > 1) {
-    stop("A single plot can only stack/dodge one variable.\n Please `pool` the object first or use `plot_facet`\n")
+    stop("A single plot can only stack/dodge one variable.\n Please `pool` the object first or use `facet_plot`\n")
   }
 
   # set axis variables
@@ -281,7 +281,7 @@ ylabel <- function(x, ylab) {
       } else if (interval == 7) {
         ylab <- "weekly incidence"
       } else if (interval == 14) {
-        ylab <- "semi-weekly incidence"
+        ylab <- "bi-weekly incidence"
       } else {
         ylab <- sprintf("incidence by period of %d days", interval)
       }
