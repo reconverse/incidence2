@@ -82,9 +82,95 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
                            labels_week = has_weeks(x), ...) {
 
   ellipsis::check_dots_empty()
-  plot_single(x, group, stack, color, col_pal, alpha,
-               border, xlab, ylab, n_breaks,
-               show_cases, labels_week)
+  # get relevant variables
+  date_var <- get_date_vars(x)[1]
+  count_var <- get_count_vars(x)
+  group_vars <- get_group_vars(x)
+
+  # Handle stacking
+  stack.txt <- if (stack) "stack" else "dodge"
+
+  # warnings
+  if (group && length(group_vars) > 1) {
+    stop("A single plot can only stack/dodge one variable.\n Please `pool` the object first or use `plot_facet`\n")
+  }
+
+  # set axis variables
+  x_axis <- date_var
+  y_axis <- count_var
+
+  # copy data
+  df <- x
+
+  # generate label for y-axis
+  ylab <- ylabel(df, ylab)
+
+  # Adding a variable for width in ggplot
+  df <- add_interval_days(df)
+
+  if (!group || (group && length(group_vars) == 0)) {
+    out <- ggplot2::ggplot(df) +
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+                        width = df$interval_days,
+                        color = border,
+                        alpha = alpha) +
+      ggplot2::labs(x = xlab, y = ylab)
+  } else if (length(group_vars) == 1) {
+    group_names <- unique(df[[group_vars]])
+    n_groups <- length(group_names)
+    if (!is.null(names(color))) {
+      tmp <- color[group_names]
+      matched <- names(color) %in% names(tmp)
+      if (!all(matched)) {
+        removed <- paste(names(color)[!matched],
+                         color[!matched],
+                         sep = '" = "',
+                         collapse = '", "')
+        message(sprintf("%d colors were not used: \"%s\"", sum(!matched), removed))
+      }
+      color <- tmp
+    }
+
+    ## find group colors
+    if (length(color) != n_groups) {
+      msg <- "The number of colors (%d) did not match the number of groups (%d)"
+      msg <- paste0(msg, ".\nUsing `col_pal` instead.")
+      default_color <- length(color) == 1L && color == "black"
+      if (!default_color) {
+        message(sprintf(msg, length(color), n_groups))
+      }
+      group_colors <- col_pal(n_groups)
+    } else {
+      group_colors <- color
+    }
+
+    ## add colors to the plot
+    out <- ggplot2::ggplot(df) +
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+                        width = df$interval_days,
+                        color = border,
+                        alpha = alpha,
+                        position = stack.txt) +
+      ggplot2::labs(x = xlab, y = ylab) +
+      ggplot2::aes(fill = !!sym(group_vars)) +
+      ggplot2::scale_fill_manual(values = group_colors)
+  }
+
+  if (show_cases && (stack == TRUE || is.null(group_vars))) {
+    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
+    squaredf[[count_var]] <- 1
+    squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+                                 color = if (is.na(border)) "white" else border,
+                                 fill  = NA,
+                                 position = "stack",
+                                 data = squaredf,
+                                 width = squaredf$interval_days)
+    out <- out + squares
+  }
+
+  out <- out + scale_x_incidence(df, n_breaks, labels_week)
+  out
+
 
 }
 
@@ -167,109 +253,8 @@ facet_plot <- function(x, color = "black", alpha = 0.7, border = NA,
 
 }
 
-
-plot_single <- function(x, group = TRUE, stack = TRUE,
-                        color = "black", col_pal = incidence_pal1, alpha = 0.7,
-                        border = NA, xlab = "", ylab = NULL, n_breaks = 6,
-                        show_cases = FALSE, labels_week = has_weeks(x)) {
-
-  # get relevant variables
-  date_var <- get_date_vars(x)[1]
-  count_var <- get_count_vars(x)
-  group_vars <- get_group_vars(x)
-
-  # Handle stacking
-  stack.txt <- if (stack) "stack" else "dodge"
-
-  # warnings
-  if (group && length(group_vars) > 1) {
-    stop("A single plot can only stack/dodge one variable.\n Please `pool` the object first or use `plot_facet`\n")
-  }
-
-  # set axis variables
-  x_axis <- date_var
-  y_axis <- count_var
-
-  # copy data
-  df <- x
-
-  # generate label for y-axis
-  ylab <- ylabel(df, ylab)
-
-  # Adding a variable for width in ggplot
-  df <- add_interval_days(df)
-
-  if (!group || (group && length(group_vars) == 0)) {
-    out <- ggplot2::ggplot(df) +
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-               width = df$interval_days,
-               color = border,
-               alpha = alpha) +
-      ggplot2::labs(x = xlab, y = ylab)
-  } else if (length(group_vars) == 1) {
-    group_names <- unique(df[[group_vars]])
-    n_groups <- length(group_names)
-    if (!is.null(names(color))) {
-      tmp <- color[group_names]
-      matched <- names(color) %in% names(tmp)
-      if (!all(matched)) {
-        removed <- paste(names(color)[!matched],
-                         color[!matched],
-                         sep = '" = "',
-                         collapse = '", "')
-        message(sprintf("%d colors were not used: \"%s\"", sum(!matched), removed))
-      }
-      color <- tmp
-    }
-
-    ## find group colors
-    if (length(color) != n_groups) {
-      msg <- "The number of colors (%d) did not match the number of groups (%d)"
-      msg <- paste0(msg, ".\nUsing `col_pal` instead.")
-      default_color <- length(color) == 1L && color == "black"
-      if (!default_color) {
-        message(sprintf(msg, length(color), n_groups))
-      }
-      group_colors <- col_pal(n_groups)
-    } else {
-      group_colors <- color
-    }
-
-    ## add colors to the plot
-    out <- ggplot2::ggplot(df) +
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-               width = df$interval_days,
-               color = border,
-               alpha = alpha,
-               position = stack.txt) +
-      ggplot2::labs(x = xlab, y = ylab) +
-      ggplot2::aes(fill = !!sym(group_vars)) +
-      ggplot2::scale_fill_manual(values = group_colors)
-  }
-
-  if (show_cases && (stack == TRUE || is.null(group_vars))) {
-    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
-    squaredf[[count_var]] <- 1
-    squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                        color = if (is.na(border)) "white" else border,
-                        fill  = NA,
-                        position = "stack",
-                        data = squaredf,
-                        width = squaredf$interval_days)
-    out <- out + squares
-  }
-
-  out <- out + scale_x_incidence(df, n_breaks, labels_week)
-  out
-
-}
-
-
-
-
-
 has_weeks <- function(x) {
-  if (length(get_date_vars(x) > 1)) {
+  if (length(get_date_vars(x)) > 1) {
     TRUE
   } else {
     FALSE
@@ -277,7 +262,7 @@ has_weeks <- function(x) {
 }
 
 has_isoweeks <- function(x) {
-  if (length(get_date_vars(x) == 3)) {
+  if (length(get_date_vars(x)) == 3) {
     TRUE
   } else {
     FALSE
