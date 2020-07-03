@@ -1,9 +1,9 @@
 #' Print an incidence object.
 #'
 #' @param x An 'incidence' object.
+#' @param ... Not used.
 #'
 #' @export
-#' @rdname incidence
 print.incidence <- function(x, ...) {
 
 
