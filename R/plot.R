@@ -10,12 +10,11 @@
 #' @param color The color to be used for the filling of the bars; NA for
 #'   invisible bars; defaults to "black".
 #' @param col_pal col_pal The color palette to be used for the groups; defaults
-#'   to `incidence_pal1`. See [incidence_pal1()] for other palettes implemented
-#'   in incidence2.
+#'   to `incidence_pal`.
 #' @param alpha The alpha level for color transparency, with 1 being fully
 #'   opaque and 0 fully transparent; defaults to 0.7.
 #' @param border The color to be used for the borders of the bars; NA for
-#'   invisible borders; defaults to NA.
+#'   invisible borders; defaults to `"white"`.
 #' @param xlab The label to be used for the x-axis; empty by default.
 #' @param ylab The label to be used for the y-axis; by default, a label will be
 #'   generated automatically according to the time interval used in incidence
@@ -76,8 +75,8 @@
 #'
 #' @export
 plot.incidence <- function(x, group = TRUE, stack = TRUE,
-                           color = "black", col_pal = incidence_pal1,
-                           alpha = 0.7, border = NA, xlab = "", ylab = NULL,
+                           color = incidence_pal(1), col_pal = incidence_pal,
+                           alpha = 0.7, border = "white", xlab = "", ylab = NULL,
                            n_breaks = 6, show_cases = FALSE,
                            labels_week = has_weeks(x), ...) {
 
@@ -113,7 +112,9 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                         width = df$interval_days,
                         color = border,
+                        fill = color,
                         alpha = alpha) +
+      ggplot2::theme_bw() +
       ggplot2::labs(x = xlab, y = ylab)
   } else if (length(group_vars) == 1) {
     group_names <- unique(df[[group_vars]])
@@ -144,6 +145,8 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
       group_colors <- color
     }
 
+    na_color <- group_colors[length(group_colors)]
+
     ## add colors to the plot
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
@@ -151,9 +154,10 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
                         color = border,
                         alpha = alpha,
                         position = stack.txt) +
+      ggplot2::theme_bw() +
       ggplot2::labs(x = xlab, y = ylab) +
       ggplot2::aes(fill = !!sym(group_vars)) +
-      ggplot2::scale_fill_manual(values = group_colors)
+      ggplot2::scale_fill_manual(values = group_colors, na.value = na_color)
   }
 
   if (show_cases && (stack == TRUE || is.null(group_vars))) {
@@ -164,7 +168,8 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
                                  fill  = NA,
                                  position = "stack",
                                  data = squaredf,
-                                 width = squaredf$interval_days)
+                                 width = squaredf$interval_days) +
+      ggplot2::theme_bw()
     out <- out + squares
   }
 
@@ -203,7 +208,7 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
 
 #' @export
 #' @rdname plot.incidence
-facet_plot <- function(x, color = "black", alpha = 0.7, border = NA,
+facet_plot <- function(x, color = incidence_pal(1), alpha = 0.7, border = "white",
                        xlab = "", ylab = NULL, n_breaks = 6,
                        show_cases = FALSE, labels_week = has_weeks(x), ...) {
 
@@ -229,7 +234,9 @@ facet_plot <- function(x, color = "black", alpha = 0.7, border = NA,
     ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                       width = df$interval_days,
                       color = border,
+                      fill = color,
                       alpha = alpha) +
+    ggplot2::theme_bw() +
     ggplot2::labs(x = xlab, y = ylab)
 
   if (show_cases) {
@@ -240,7 +247,8 @@ facet_plot <- function(x, color = "black", alpha = 0.7, border = NA,
                                  fill  = NA,
                                  position = "stack",
                                  data = squaredf,
-                                 width = squaredf$interval_days)
+                                 width = squaredf$interval_days) +
+      ggplot2::theme_bw()
     out <- out + squares
   }
 
