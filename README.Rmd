@@ -129,7 +129,7 @@ i_7_sex <- incidence(dat, interval = "week",
                      date_index = date_of_onset, groups = gender)
 i_7_sex
 summary(i_7_sex)
-plot(i_7_sex, stack = TRUE, border = "grey")
+plot(i_7_sex, stack = TRUE)
 ```
 
 we can facet our plot:
@@ -180,14 +180,14 @@ i_7_outcome <- incidence(dat,
                          groups = outcome)
 i_7_outcome
 summary(i_7_outcome)
-plot(i_7_outcome, stack = TRUE, border = "grey")
-facet_plot(i_7_outcome, border = "grey", n_breaks = 3)
+plot(i_7_outcome, stack = TRUE)
+facet_plot(i_7_outcome, n_breaks = 3)
 ```
 
 ```{r i7outcome_cum}
 i_7_outcome_cum <- cumulate(i_7_outcome)
 i_7_outcome_cum
-plot(i_7_outcome_cum, border = "grey")
+plot(i_7_outcome_cum, border = NA)
 ```
 
 Groups can also be collapsed into a single time series using `regroup`:

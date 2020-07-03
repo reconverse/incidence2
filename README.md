@@ -52,8 +52,8 @@ The main features of the package include:
   - Compatible with [dplyr](https://dplyr.tidyverse.org/) for data
     manipulation.
 
-  - **`regroup()`**: regroup incidence from different groups into one global
-    incidence time series.
+  - **`regroup()`**: regroup incidence from different groups into one
+    global incidence time series.
 
   - **`cumulate()`**: computes cumulative incidence over time from an
     `incidence` object.
@@ -193,7 +193,9 @@ summary(i_7_sex)
 #>   <fct>  <int>
 #> 1 f       2934
 #> 2 m       2895
-plot(i_7_sex, stack = TRUE, border = "grey")
+plot(i_7_sex, stack = TRUE)
+#> The number of colors (1) did not match the number of groups (2).
+#> Using `col_pal` instead.
 ```
 
 ![](figs/genderstack-1.png)<!-- -->
@@ -328,13 +330,15 @@ summary(i_7_outcome)
 #> 1 Death    2564
 #> 2 Recover  1963
 #> 3 <NA>     1302
-plot(i_7_outcome, stack = TRUE, border = "grey")
+plot(i_7_outcome, stack = TRUE)
+#> The number of colors (1) did not match the number of groups (3).
+#> Using `col_pal` instead.
 ```
 
 ![](figs/i7outcome-1.png)<!-- -->
 
 ``` r
-facet_plot(i_7_outcome, border = "grey", n_breaks = 3)
+facet_plot(i_7_outcome, n_breaks = 3)
 ```
 
 ![](figs/i7outcome-2.png)<!-- -->
@@ -360,7 +364,9 @@ i_7_outcome_cum
 #>  9 2014-04-21 2014-W17 2014-W17 Recover     3
 #> 10 2014-04-28 2014-W18 2014-W18 <NA>        4
 #> # … with 158 more rows
-plot(i_7_outcome_cum, border = "grey")
+plot(i_7_outcome_cum, border = NA)
+#> The number of colors (1) did not match the number of groups (3).
+#> Using `col_pal` instead.
 ```
 
 ![](figs/i7outcome_cum-1.png)<!-- -->

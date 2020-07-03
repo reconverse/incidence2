@@ -1,60 +1,43 @@
-#' Color palettes used in incidence
+#' Color palette used in incidence
 #'
-#' These functions are color palettes used in incidence.
+#' This function creates the default color palette used in incidence. It is based
+#' on the colour-blind friendly palette's of Paul Tol
+#' (https://personal.sron.nl/~pault/#sec:qualitative)
 #'
 #' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
 #'
 #' @param n a number of colors
 #'
-#' @rdname palettes
-#' @aliases palettes incidence_pal1 incidence_pal1_light incidence_pal1_dark
+#' @aliases palettes incidence_pal
 #'
-#' @export
 #' @importFrom grDevices colorRampPalette
 #'
 #' @examples
 #'
-#' plot(1:4, cex=8, pch=20, col = incidence_pal1(4),
-#'      main = "palette: incidence_pal1")
-#' plot(1:100, cex=8, pch=20, col = incidence_pal1(100),
-#'      main ="palette: incidence_pal1")
-#' plot(1:100, cex=8, pch=20, col = incidence_pal1_light(100),
-#'      main="palette: incidence_pal1_light")
-#' plot(1:100, cex=8, pch=20, col = incidence_pal1_dark(100),
-#'      main="palette: incidence_pal1_dark")
+#' plot(1:4, cex=8, pch=20, col = incidence_pal(4),
+#'      main = "palette: incidence_pal")
 #'
-incidence_pal1 <- function(n){
-  if(!is.numeric(n)) stop("n is not a number")
-  colors <- c("#aa3939", "#4a6a8a", "#d4aa6a","#499371")
-  if (n < 4) return(colors[1:n])
-  return(colorRampPalette(colors)(n))
-}
-
-
-
-
-
-#' @export
 #' @rdname palettes
-
-incidence_pal1_light <- function(n){
-  if(!is.numeric(n)) stop("n is not a number")
-  colors <- c("#d46a6a", "#738ca6", "#ffddaa","#76b096")
-  if (n < 4) return(colors[1:n])
-  return(colorRampPalette(colors)(n))
-}
-
-
-
-
-
-
 #' @export
-#' @rdname palettes
+incidence_pal <- function(n){
+  if (!is.numeric(n)) {
+    stop("n is not a number")
+  }
 
-incidence_pal1_dark <- function(n){
-  if(!is.numeric(n)) stop("n is not a number")
-  colors <- c("#801515", "#2b4c6f", "#aa7d39","#277552")
-  if (n < 4) return(colors[1:n])
-  return(colorRampPalette(colors)(n))
+  col_vibrant <- c(
+    "#0077BB",
+    "#33BBEE",
+    "#009988",
+    "#EE7733",
+    "#CC3311",
+    "#EE3377",
+    "#BBBBBB"
+  )
+
+  if (n < 7) {
+    return(col_vibrant[1:n])
+  }
+
+  return(colorRampPalette(col_vibrant)(n))
 }
+

@@ -11,10 +11,10 @@
   x,
   group = TRUE,
   stack = TRUE,
-  color = "black",
-  col_pal = incidence_pal1,
+  color = incidence_pal(1),
+  col_pal = incidence_pal,
   alpha = 0.7,
-  border = NA,
+  border = "white",
   xlab = "",
   ylab = NULL,
   n_breaks = 6,
@@ -25,9 +25,9 @@
 
 facet_plot(
   x,
-  color = "black",
+  color = incidence_pal(1),
   alpha = 0.7,
-  border = NA,
+  border = "white",
   xlab = "",
   ylab = NULL,
   n_breaks = 6,
@@ -53,14 +53,13 @@ stacked, or displayed side-by-side.}
 invisible bars; defaults to "black".}
 
 \item{col_pal}{col_pal The color palette to be used for the groups; defaults
-to \code{incidence_pal1}. See \code{\link[=incidence_pal1]{incidence_pal1()}} for other palettes implemented
-in incidence2.}
+to \code{incidence_pal}.}
 
 \item{alpha}{The alpha level for color transparency, with 1 being fully
 opaque and 0 fully transparent; defaults to 0.7.}
 
 \item{border}{The color to be used for the borders of the bars; NA for
-invisible borders; defaults to NA.}
+invisible borders; defaults to \code{"white"}.}
 
 \item{xlab}{The label to be used for the x-axis; empty by default.}
 
