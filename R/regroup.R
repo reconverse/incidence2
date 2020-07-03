@@ -1,7 +1,7 @@
-#' Pool 'incidence' across groups
+#' Regroup 'incidence' objects
 #'
-#' This function pools incidence across specified groups of an `incidence`
-#' object. The resulting [incidence()] object will contains counts summed over
+#' This function regroups an [incidence()] object across the specified groups.
+#' The resulting [incidence()] object will contains counts summed over
 #' the groups present in the input.
 #'
 #' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
@@ -22,14 +22,14 @@
 #'                    date_index = date_of_onset,
 #'                    groups = c(gender, hospital))
 #'
-#'     i %>% pool()
+#'     i %>% regroup()
 #'
-#'     i %>% pool(hospital)
+#'     i %>% regroup(hospital)
 #'   })
 #' }
 #'
 #' @export
-pool <- function(x, groups = NULL){
+regroup <- function(x, groups = NULL){
 
   if (!inherits(x, "incidence")) {
     stop(sprintf(
@@ -65,3 +65,16 @@ pool <- function(x, groups = NULL){
   )
   tibble::validate_tibble(tbl)
 }
+#' Pool 'incidence' objects
+#'
+#' Pool was a function from the original incidence package that has now been
+#'   deprecated in favour of [regroup()]
+#'
+#' @param ... Not used.
+#'
+#' @keywords internal
+#' @export
+pool <- function(...) {
+  message("The pool function has been deprecated.  Please use regroup() instead.")
+}
+

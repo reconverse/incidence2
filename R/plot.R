@@ -4,7 +4,7 @@
 #'
 #' @param x An [incidence()] object.
 #' @param group A logical indicating if the plot should show groups.  If false
-#'   a pooled plot will be produced.
+#'   a regrouped plot will be produced.
 #' @param stack A logical indicating if bars of multiple groups should be
 #'   stacked, or displayed side-by-side.
 #' @param color The color to be used for the filling of the bars; NA for
@@ -92,7 +92,7 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
 
   # warnings
   if (group && length(group_vars) > 1) {
-    stop("A single plot can only stack/dodge one variable.\n Please `pool` the object first or use `facet_plot`\n")
+    stop("A single plot can only stack/dodge one variable.\n Please `regroup` the object first or use `facet_plot`\n")
   }
 
   # set axis variables

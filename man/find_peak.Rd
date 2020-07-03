@@ -4,12 +4,12 @@
 \alias{find_peak}
 \title{Find the peak date of an incidence curve}
 \usage{
-find_peak(x, pool = TRUE)
+find_peak(x, regroup = TRUE)
 }
 \arguments{
 \item{x}{An \code{incidence} object.}
 
-\item{pool}{If \code{TRUE} (default), any groups will be pooled before finding
+\item{regroup}{If \code{TRUE} (default), any groups will be regrouped before finding
 a peak. If \code{FALSE}, separate peaks will be found for each group.}
 }
 \value{
