@@ -1,4 +1,4 @@
-context("pool function")
+context("regroup function")
 
 
 int <- sample(-3L:50L, 100, replace = TRUE)
@@ -9,17 +9,17 @@ dat <- data.frame(dates, group_1, group_2)
 x <- incidence(dat, date_index = "dates",
                interval = "2 weeks", groups = c(group_1, group_2))
 
-test_that("pool works", {
+test_that("regroup works", {
 
-  # pool to know groups
+  # regroup to know groups
   expected <- incidence(dat, date_index = "dates", interval = "2 weeks")
-  expect_equal(pool(x), expected)
+  expect_equal(regroup(x), expected)
 
-  # pool to one group
+  # regroup to one group
   expected <- incidence(dat, date_index = "dates",
                         interval = "2 weeks", groups = group_1)
-  expect_equal(pool(x, group_1), expected)
+  expect_equal(regroup(x, group_1), expected)
 
-  # pool none-incidence object
-  expect_error(pool("test"), "x should be an 'incidence' object.")
+  # regroup none-incidence object
+  expect_error(regroup("test"), "x should be an 'incidence' object.")
 })

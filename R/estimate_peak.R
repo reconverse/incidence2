@@ -69,10 +69,10 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
 
   if (length(group_vars) > 1L) {
     msg <- paste("'x' is stratified by groups",
-                 "pooling groups before finding peaks",
+                 "regrouping groups before finding peaks",
                  sep = "\n")
     message(msg)
-    x <- pool(x)
+    x <- regroup(x)
   }
 
   out <- list()

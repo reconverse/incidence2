@@ -61,7 +61,7 @@ The main features of the package include:
 
 - Compatible with [dplyr](https://dplyr.tidyverse.org/) for data manipulation.
 
-- **`pool()`**: pool incidence from different groups into one global incidence
+- **`regroup()`**: regroup incidence from different groups into one global incidence
   time series.
 
 - **`cumulate()`**: computes cumulative incidence over time from an `incidence`
@@ -190,10 +190,10 @@ i_7_outcome_cum
 plot(i_7_outcome_cum, border = "grey")
 ```
 
-Groups can also be collapsed into a single time series using `pool`:
+Groups can also be collapsed into a single time series using `regroup`:
 
-```{r pool}
-i_pooled <- pool(i_7_outcome)
-i_pooled
-identical(i_7, i_pooled)
+```{r regroup}
+i_regrouped <- regroup(i_7_outcome)
+i_regrouped
+identical(i_7, i_regrouped)
 ```

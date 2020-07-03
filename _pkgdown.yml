@@ -51,7 +51,7 @@ reference:
     Functions for manipulating incidence objects by date or group
   contents:
   - '`subset.incidence`'
-  - '`pool`'
+  - '`regroup`'
   - '`cumulate`'
 - title: Parameter Estimation
   desc: >

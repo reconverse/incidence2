@@ -48,11 +48,11 @@ test_that("find_peak can find the peak", {
 
   expect_error(find_peak(1:10), "x is not an incidence object")
 
-  expect_message(p1 <- find_peak(x), "'x' is stratified by groups\npooling groups before finding peaks")
+  expect_message(p1 <- find_peak(x), "'x' is stratified by groups\nregrouping groups before finding peaks")
 
   expect_equal(nrow(p1), 1L)
 
-  expect_equal(find_peak(x, pool = FALSE)$groups, c("tata", "toto"))
+  expect_equal(find_peak(x, regroup = FALSE)$groups, c("tata", "toto"))
 })
 
 
@@ -64,15 +64,15 @@ test_that("estimate_peak can roughly estimate it", {
   y <- incidence(dat2, date_index = dates, interval = 3)
 
 
-  expect_message(e1 <- estimate_peak(x), "'x' is stratified by groups\npooling groups before finding peaks")
+  expect_message(e1 <- estimate_peak(x), "'x' is stratified by groups\nregrouping groups before finding peaks")
 
   e2 <- estimate_peak(y)
   expect_named(e1, c("observed", "estimated", "ci", "peaks"))
   expect_named(e2, c("observed", "estimated", "ci", "peaks"))
 
   # The observed is identical to find_peak
-  expect_identical(e1$observed, find_peak(pool(x)))
-  expect_identical(e2$observed, find_peak(pool(y)))
+  expect_identical(e1$observed, find_peak(regroup(x)))
+  expect_identical(e2$observed, find_peak(regroup(y)))
 
   # The number of peaks defaults to 100
   expect_identical(nrow(e1$peaks), 100L)

@@ -44,7 +44,7 @@ make_breaks(x, n_breaks = 6L, labels_week = TRUE)
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
 
 \item{group}{A logical indicating if the plot should show groups.  If false
-a pooled plot will be produced.}
+a regrouped plot will be produced.}
 
 \item{stack}{A logical indicating if bars of multiple groups should be
 stacked, or displayed side-by-side.}
