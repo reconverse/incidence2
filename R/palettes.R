@@ -1,43 +1,46 @@
-#' Color palette used in incidence
+#' Color palettes used in incidence
 #'
-#' This function creates the default color palette used in incidence. It is based
-#' on the colour-blind friendly palette's of Paul Tol
-#' (https://personal.sron.nl/~pault/#sec:qualitative)
+#' These functions are color palettes used in incidence. The palettes come from
+#' https://personal.sron.nl/~pault/#sec:qualitative and exclude `grey`, which
+#' is reserved for missing data.
 #'
 #' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
 #'
 #' @param n a number of colors
 #'
-#' @aliases palettes incidence_pal
+#' @aliases palettes vibrant muted
 #'
 #' @importFrom grDevices colorRampPalette
 #'
 #' @examples
-#'
-#' plot(1:4, cex=8, pch=20, col = incidence_pal(4),
-#'      main = "palette: incidence_pal")
-#'
-#' @rdname palettes
 #' @export
-incidence_pal <- function(n){
-  if (!is.numeric(n)) {
-    stop("n is not a number")
-  }
+#' @rdname palettes
+vibrant <- make_palette(vibrant_colors, suggest = "muted")
 
-  col_vibrant <- c(
-    "#0077BB",
-    "#33BBEE",
-    "#009988",
-    "#EE7733",
-    "#CC3311",
-    "#EE3377",
-    "#BBBBBB"
-  )
+#' @export
+#' @rdname palettes
+muted <- make_palette(muted_colors)
 
-  if (n < 7) {
-    return(col_vibrant[1:n])
-  }
 
-  return(colorRampPalette(col_vibrant)(n))
-}
 
+# Source: color palettes come from https://personal.sron.nl/~pault/#sec:qualitative
+vibrant_colors <- c(
+  "#0077BB",
+  "#33BBEE",
+  "#009988",
+  "#EE7733",
+  "#CC3311",
+  "#EE3377"
+)
+
+muted_colors <- c(
+  "#332288",
+  "#88CCEE",
+  "#44AA99",
+  "#117733",
+  "#999933",
+  "#DDCC77",
+  "#CC6677",
+  "#882255",
+  "#AA4499"
+)

@@ -37,6 +37,11 @@ test_that("get_timespan works", {
   expect_error(get_timespan("test"), "Not implemented for class character")
 })
 
+test_that("get_n works", {
+  expect_equal(get_n(x), 100L)
+  expect_error(get_n("test"), "Not implemented for class character")
+})
+
 
 
 

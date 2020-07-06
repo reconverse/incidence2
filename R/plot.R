@@ -1,3 +1,28 @@
+## Plotting notes
+##
+## Note 1: By default, the annotation of bars in geom_bar puts the label in the
+## middle of the bar. This is wrong in our case as the annotation of a time
+## interval is the lower (left) bound, and should therefore be left-aligned
+## with the bar. Note that we cannot use position_nudge to create the
+## x-offset as we need the 'position' argument for stacking. This can be
+## addressed by adding interval/2 to the x-axis, but this only works until we
+## have an interval such as "month", "quarter", or "year" where the number of
+## days for each can vary. To alleviate this, we can create a new column that
+## counts the number of days within each interval.
+##
+## Note 2: it seems safest to specify the aes() as part of the geom,
+## not in ggplot(), as it interacts badly with some other geoms like
+## geom_ribbon - used e.g. in projections::add_projections().
+##
+## Note 3: because of the way 'fill' works, we need to specify it through
+## 'aes' if not directly in the geom. This causes the kludge below, where we
+## make a fake constant group to specify the color and remove the legend.
+##
+## Note 4: when there are groups, and the 'color' argument does not have one
+## value per group, we generate colors from a color palette. This means that
+## by default, the palette is used, but the user can manually specify the
+## colors.
+
 #' Plotting functions
 #'
 #' incidence2 includes two plotting functions to simplify graph creation.
@@ -7,14 +32,12 @@
 #'   a regrouped plot will be produced.
 #' @param stack A logical indicating if bars of multiple groups should be
 #'   stacked, or displayed side-by-side.
-#' @param color The color to be used for the filling of the bars; NA for
-#'   invisible bars; defaults to "black".
 #' @param col_pal col_pal The color palette to be used for the groups; defaults
-#'   to `incidence_pal`.
+#'   to `vibrant` (see `?palettes`).
 #' @param alpha The alpha level for color transparency, with 1 being fully
 #'   opaque and 0 fully transparent; defaults to 0.7.
-#' @param border The color to be used for the borders of the bars; NA for
-#'   invisible borders; defaults to `"white"`.
+#' @param color The color to be used for the borders of the bars; NA for
+#'   invisible borders; defaults to `NA`.
 #' @param xlab The label to be used for the x-axis; empty by default.
 #' @param ylab The label to be used for the y-axis; by default, a label will be
 #'   generated automatically according to the time interval used in incidence
@@ -25,6 +48,7 @@
 #'   colored by a border. The border defaults to a white border unless specified
 #'   otherwise. This is normally used outbreaks with a small number of cases.
 #'   Note: this can only be used if `stack = TRUE`
+#' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
 #' @param labels_week labels_week a logical value indicating whether labels x axis tick
 #'   marks are in week format YYYY-Www when plotting weekly incidence; defaults to
 #'   TRUE.
@@ -75,12 +99,14 @@
 #'
 #' @export
 plot.incidence <- function(x, group = TRUE, stack = TRUE,
-                           color = incidence_pal(1), col_pal = incidence_pal,
-                           alpha = 0.7, border = "white", xlab = "", ylab = NULL,
-                           n_breaks = 6, show_cases = FALSE,
+                           col_pal = vibrant, alpha = 0.7, color = NA,
+                           xlab = "", ylab = NULL, n_breaks = 6,
+                           show_cases = FALSE, na_color = "grey",
                            labels_week = has_weeks(x), ...) {
 
+
   ellipsis::check_dots_empty()
+
   # get relevant variables
   date_var <- get_date_vars(x)[1]
   count_var <- get_count_vars(x)
@@ -91,7 +117,13 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
 
   # warnings
   if (group && length(group_vars) > 1) {
-    stop("A single plot can only stack/dodge one variable.\n Please `regroup` the object first or use `facet_plot`\n")
+    msg <- paste0("Note - plotting by date only:",
+                  "    `plot` can only stack/dodge by one variable.",
+                  "    Please `regroup` the object to one variable or use facet_plot for multiple.",
+                  sep = "\n")
+    message(msg)
+    x <- pool(x)
+    group_vars <- get_group_vars(x)
   }
 
   # set axis variables
@@ -111,47 +143,21 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                         width = df$interval_days,
-                        color = border,
-                        fill = color,
+                        color = color,
+                        fill = col_pal(1),
                         alpha = alpha) +
       ggplot2::theme_bw() +
       ggplot2::labs(x = xlab, y = ylab)
   } else if (length(group_vars) == 1) {
     group_names <- unique(df[[group_vars]])
     n_groups <- length(group_names)
-    if (!is.null(names(color))) {
-      tmp <- color[group_names]
-      matched <- names(color) %in% names(tmp)
-      if (!all(matched)) {
-        removed <- paste(names(color)[!matched],
-                         color[!matched],
-                         sep = '" = "',
-                         collapse = '", "')
-        message(sprintf("%d colors were not used: \"%s\"", sum(!matched), removed))
-      }
-      color <- tmp
-    }
-
-    ## find group colors
-    if (length(color) != n_groups) {
-      msg <- "The number of colors (%d) did not match the number of groups (%d)"
-      msg <- paste0(msg, ".\nUsing `col_pal` instead.")
-      default_color <- length(color) == 1L && color == "black"
-      if (!default_color) {
-        message(sprintf(msg, length(color), n_groups))
-      }
-      group_colors <- col_pal(n_groups)
-    } else {
-      group_colors <- color
-    }
-
-    na_color <- group_colors[length(group_colors)]
+    group_colors <- col_pal(n_groups)
 
     ## add colors to the plot
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                         width = df$interval_days,
-                        color = border,
+                        color = color,
                         alpha = alpha,
                         position = stack.txt) +
       ggplot2::theme_bw() +
@@ -164,7 +170,7 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
     squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
     squaredf[[count_var]] <- 1
     squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                                 color = if (is.na(border)) "white" else border,
+                                 color = if (is.na(color)) "white" else color,
                                  fill  = NA,
                                  position = "stack",
                                  data = squaredf,
@@ -180,42 +186,18 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
 }
 
 
-## Plotting notes
-##
-## Note 1: By default, the annotation of bars in geom_bar puts the label in the
-## middle of the bar. This is wrong in our case as the annotation of a time
-## interval is the lower (left) bound, and should therefore be left-aligned
-## with the bar. Note that we cannot use position_nudge to create the
-## x-offset as we need the 'position' argument for stacking. This can be
-## addressed by adding interval/2 to the x-axis, but this only works until we
-## have an interval such as "month", "quarter", or "year" where the number of
-## days for each can vary. To alleviate this, we can create a new column that
-## counts the number of days within each interval.
-##
-## Note 2: it seems safest to specify the aes() as part of the geom,
-## not in ggplot(), as it interacts badly with some other geoms like
-## geom_ribbon - used e.g. in projections::add_projections().
-##
-## Note 3: because of the way 'fill' works, we need to specify it through
-## 'aes' if not directly in the geom. This causes the kludge below, where we
-## make a fake constant group to specify the color and remove the legend.
-##
-## Note 4: when there are groups, and the 'color' argument does not have one
-## value per group, we generate colors from a color palette. This means that
-## by default, the palette is used, but the user can manually specify the
-## colors.
-
-
 #' @export
 #' @rdname plot.incidence
-facet_plot <- function(x, color = incidence_pal(1), alpha = 0.7, border = "white",
-                       xlab = "", ylab = NULL, n_breaks = 6,
-                       show_cases = FALSE, labels_week = has_weeks(x), ...) {
+facet_plot <- function(x, fill = NULL, col_pal = vibrant, alpha = 0.7,
+                       color = "white", xlab = "", ylab = NULL, n_breaks = 6,
+                       show_cases = FALSE, labels_week = has_weeks(x),
+                       na_color = "grey", ...) {
 
   # get relevant variables
   date_var <- get_date_vars(x)[1]
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
+
 
   # set axis variables
   x_axis <- date_var
@@ -230,14 +212,34 @@ facet_plot <- function(x, color = incidence_pal(1), alpha = 0.7, border = "white
   # Adding a variable for width in ggplot
   df <- add_interval_days(df)
 
-  out <- ggplot2::ggplot(df) +
-    ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                      width = df$interval_days,
-                      color = border,
-                      fill = color,
-                      alpha = alpha) +
-    ggplot2::theme_bw() +
-    ggplot2::labs(x = xlab, y = ylab)
+  # get fill
+  if (is.null(rlang::enexpr(fill))) {
+    out <- ggplot2::ggplot(df) +
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+                        width = df$interval_days,
+                        color = color,
+                        fill = col_pal(1),
+                        alpha = alpha) +
+      ggplot2::theme_bw() +
+      ggplot2::labs(x = xlab, y = ylab)
+  } else {
+    df
+    fill <- arg_values(!!rlang::enexpr(fill))
+    fill_names <- unique(df[[fill]])
+    n_fill <- length(fill_names)
+    fill_colors <- col_pal(n_fill)
+
+    out <- ggplot2::ggplot(df) +
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+                        width = df$interval_days,
+                        color = color,
+                        alpha = alpha) +
+      ggplot2::theme_bw() +
+      ggplot2::theme(legend.position = "bottom") +
+      ggplot2::labs(x = xlab, y = ylab) +
+      ggplot2::aes(fill = !!sym(fill)) +
+      ggplot2::scale_fill_manual(values = fill_colors, na.value = na_color)
+  }
 
   if (show_cases) {
     squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
@@ -253,7 +255,7 @@ facet_plot <- function(x, color = incidence_pal(1), alpha = 0.7, border = "white
   }
 
   if (!is.null(group_vars)) {
-    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), ...)
+    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)))
   }
 
   out <- out + scale_x_incidence(df, n_breaks, labels_week)

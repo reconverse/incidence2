@@ -11,28 +11,30 @@
   x,
   group = TRUE,
   stack = TRUE,
-  color = incidence_pal(1),
-  col_pal = incidence_pal,
+  col_pal = vibrant,
   alpha = 0.7,
-  border = "white",
+  color = NA,
   xlab = "",
   ylab = NULL,
   n_breaks = 6,
   show_cases = FALSE,
+  na_color = "grey",
   labels_week = has_weeks(x),
   ...
 )
 
 facet_plot(
   x,
-  color = incidence_pal(1),
+  fill = NULL,
+  col_pal = vibrant,
   alpha = 0.7,
-  border = "white",
+  color = "white",
   xlab = "",
   ylab = NULL,
   n_breaks = 6,
   show_cases = FALSE,
   labels_week = has_weeks(x),
+  na_color = "grey",
   ...
 )
 
@@ -49,17 +51,14 @@ a regrouped plot will be produced.}
 \item{stack}{A logical indicating if bars of multiple groups should be
 stacked, or displayed side-by-side.}
 
-\item{color}{The color to be used for the filling of the bars; NA for
-invisible bars; defaults to "black".}
-
 \item{col_pal}{col_pal The color palette to be used for the groups; defaults
-to \code{incidence_pal}.}
+to \code{vibrant} (see \code{?palettes}).}
 
 \item{alpha}{The alpha level for color transparency, with 1 being fully
 opaque and 0 fully transparent; defaults to 0.7.}
 
-\item{border}{The color to be used for the borders of the bars; NA for
-invisible borders; defaults to \code{"white"}.}
+\item{color}{The color to be used for the borders of the bars; NA for
+invisible borders; defaults to \code{NA}.}
 
 \item{xlab}{The label to be used for the x-axis; empty by default.}
 
@@ -74,6 +73,8 @@ labeling}
 colored by a border. The border defaults to a white border unless specified
 otherwise. This is normally used outbreaks with a small number of cases.
 Note: this can only be used if \code{stack = TRUE}}
+
+\item{na_color}{The colour to plot \code{NA} values in graphs (default: \code{grey}).}
 
 \item{labels_week}{labels_week a logical value indicating whether labels x axis tick
 marks are in week format YYYY-Www when plotting weekly incidence; defaults to
