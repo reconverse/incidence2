@@ -48,10 +48,15 @@
 #'   colored by a border. The border defaults to a white border unless specified
 #'   otherwise. This is normally used outbreaks with a small number of cases.
 #'   Note: this can only be used if `stack = TRUE`
-#' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
+#' @param border If show_cases is TRUE this represents the color used for the
+#'   borders of the individual squares plotted (defaults to `"white"`).
 #' @param labels_week labels_week a logical value indicating whether labels x axis tick
 #'   marks are in week format YYYY-Www when plotting weekly incidence; defaults to
 #'   TRUE.
+#' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
+#' @param legend Should a legend accompany the facet_plot
+#' @param fill Which variable to colour the fact_plot by.  If NULL (default) no
+#'   distinction is made on facet colors.
 #' @param ... other arguments to pass to [ggplot2::facet_wrap()].
 #'
 #' @return
@@ -101,7 +106,8 @@
 plot.incidence <- function(x, group = TRUE, stack = TRUE,
                            col_pal = vibrant, alpha = 0.7, color = NA,
                            xlab = "", ylab = NULL, n_breaks = 6,
-                           show_cases = FALSE, na_color = "grey",
+                           show_cases = FALSE, border = "white",
+                           na_color = "grey",
                            labels_week = has_weeks(x), ...) {
 
 
@@ -117,12 +123,12 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
 
   # warnings
   if (group && length(group_vars) > 1) {
-    msg <- paste0("Note - plotting by date only:",
-                  "    `plot` can only stack/dodge by one variable.",
-                  "    Please `regroup` the object to one variable or use facet_plot for multiple.",
+    msg <- paste0("Note - plotting by date only:\n",
+                  " * `plot` can only stack/dodge by one variable.\n",
+                  " * Please `regroup` the object to one variable or use `facet_plot`.\n",
                   sep = "\n")
     message(msg)
-    x <- pool(x)
+    x <- regroup(x)
     group_vars <- get_group_vars(x)
   }
 
@@ -170,7 +176,7 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
     squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
     squaredf[[count_var]] <- 1
     squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                                 color = if (is.na(color)) "white" else color,
+                                 color = if (is.na(border)) "white" else border,
                                  fill  = NA,
                                  position = "stack",
                                  data = squaredf,
@@ -190,13 +196,15 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
 #' @rdname plot.incidence
 facet_plot <- function(x, fill = NULL, col_pal = vibrant, alpha = 0.7,
                        color = "white", xlab = "", ylab = NULL, n_breaks = 6,
-                       show_cases = FALSE, labels_week = has_weeks(x),
-                       na_color = "grey", ...) {
+                       show_cases = FALSE, border = "white",
+                       labels_week = has_weeks(x), na_color = "grey",
+                       legend = TRUE, ...) {
 
   # get relevant variables
   date_var <- get_date_vars(x)[1]
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
+  legend <- if (legend) "bottom" else "none"
 
 
   # set axis variables
@@ -236,7 +244,7 @@ facet_plot <- function(x, fill = NULL, col_pal = vibrant, alpha = 0.7,
                         alpha = alpha) +
       ggplot2::theme_bw() +
       #ggplot2::theme(legend.position = "bottom") +
-      ggplot2::theme(legend.position = "none") +
+      ggplot2::theme(legend.position = legend) +
       ggplot2::labs(x = xlab, y = ylab) +
       ggplot2::aes(fill = !!sym(fill)) +
       ggplot2::scale_fill_manual(values = fill_colors, na.value = na_color)
@@ -256,7 +264,7 @@ facet_plot <- function(x, fill = NULL, col_pal = vibrant, alpha = 0.7,
   }
 
   if (!is.null(group_vars)) {
-    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)))
+    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), ...)
   }
 
   out <- out + scale_x_incidence(df, n_breaks, labels_week)

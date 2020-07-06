@@ -18,6 +18,7 @@
   ylab = NULL,
   n_breaks = 6,
   show_cases = FALSE,
+  border = "white",
   na_color = "grey",
   labels_week = has_weeks(x),
   ...
@@ -33,8 +34,10 @@ facet_plot(
   ylab = NULL,
   n_breaks = 6,
   show_cases = FALSE,
+  border = "white",
   labels_week = has_weeks(x),
   na_color = "grey",
+  legend = TRUE,
   ...
 )
 
@@ -74,6 +77,9 @@ colored by a border. The border defaults to a white border unless specified
 otherwise. This is normally used outbreaks with a small number of cases.
 Note: this can only be used if \code{stack = TRUE}}
 
+\item{border}{If show_cases is TRUE this represents the color used for the
+borders of the individual squares plotted (defaults to \code{"white"}).}
+
 \item{na_color}{The colour to plot \code{NA} values in graphs (default: \code{grey}).}
 
 \item{labels_week}{labels_week a logical value indicating whether labels x axis tick
@@ -83,6 +89,11 @@ TRUE.}
 \item{...}{arguments passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date()}},
 \code{\link[ggplot2:scale_date]{ggplot2::scale_x_datetime()}}, or \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}, depending
 on how the \verb{$date} element is stored in the incidence object.}
+
+\item{fill}{Which variable to colour the fact_plot by.  If NULL (default) no
+distinction is made on facet colors.}
+
+\item{legend}{Should a legend accompany the facet_plot}
 }
 \value{
 \itemize{
