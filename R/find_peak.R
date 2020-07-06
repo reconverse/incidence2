@@ -35,7 +35,7 @@
 #' @export
 find_peak <- function(x, regroup = TRUE) {
   if (!inherits(x, "incidence")) {
-    stop("x is not an incidence object")
+    stop(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
   }
 
   count_var <- get_count_vars(x)
@@ -43,10 +43,10 @@ find_peak <- function(x, regroup = TRUE) {
   date_var <- get_date_vars(x)[1]
 
   if ((length(group_vars) > 0) && regroup) {
-    msg <- paste("'x' is stratified by groups",
+    msg <- paste("`%s` is stratified by groups",
                  "regrouping groups before finding peaks",
                  sep = "\n")
-    message(msg)
+    message(sprintf(msg, deparse(substitute(x))))
     x <- regroup(x)
 
   } else if (length(group_vars) > 0) {

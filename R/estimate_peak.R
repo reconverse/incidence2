@@ -68,10 +68,10 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
   date_var <- get_date_vars(x)[1]
 
   if (length(group_vars) > 1L) {
-    msg <- paste("'x' is stratified by groups",
+    msg <- paste("%s is stratified by groups",
                  "regrouping groups before finding peaks",
                  sep = "\n")
-    message(msg)
+    message(sprintf(msg, deparse(substitute(x))))
     x <- regroup(x)
   }
 
