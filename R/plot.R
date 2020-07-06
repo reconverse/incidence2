@@ -235,7 +235,8 @@ facet_plot <- function(x, fill = NULL, col_pal = vibrant, alpha = 0.7,
                         color = color,
                         alpha = alpha) +
       ggplot2::theme_bw() +
-      ggplot2::theme(legend.position = "bottom") +
+      #ggplot2::theme(legend.position = "bottom") +
+      ggplot2::theme(legend.position = "none") +
       ggplot2::labs(x = xlab, y = ylab) +
       ggplot2::aes(fill = !!sym(fill)) +
       ggplot2::scale_fill_manual(values = fill_colors, na.value = na_color)
