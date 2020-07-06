@@ -148,7 +148,7 @@ i_7_sh <-
             groups = c(gender, hospital))
 i_7_sh
 i_7_sh %>% summary()
-i_7_sh %>% facet_plot(n_breaks = 2, nrow = 4)
+i_7_sh %>% facet_plot(n_breaks = 2, nrow = 4, fill = hospital)
 ```
 
 

@@ -257,7 +257,7 @@ i_7_sh %>% summary()
 #> 4 Princess Christian Maternity Hospital (PCMH)   420
 #> 5 Rokupa Hospital                                451
 #> 6 <NA>                                          1456
-i_7_sh %>% facet_plot(n_breaks = 2, nrow = 4)
+i_7_sh %>% facet_plot(n_breaks = 2, nrow = 4, fill = hospital)
 ```
 
 ![](figs/genderhospital-1.png)<!-- -->
