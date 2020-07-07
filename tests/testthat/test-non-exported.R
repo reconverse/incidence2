@@ -87,3 +87,20 @@ test_that("check_interval", {
   expect_equal(check_interval(2.4), 2)
   expect_equal(check_interval(2.7), 3)
 })
+
+
+test_that("get_type_of_week", {
+  int <- sample(-3L:50L, 100, replace = TRUE)
+  dates <- as.Date("2018-01-31") + int
+  dat <- data.frame(dates)
+
+  x <- incidence(dat, date_index = "dates", interval = "2 weeks sunday")
+  expect_equal(get_type_of_week(x), "MMWR")
+
+  x <- incidence(dat, date_index = "dates", interval = "week")
+  expect_equal(get_type_of_week(x), "ISO")
+
+  x <- incidence(dat, date_index = "dates", interval = "2 weeks wednesday")
+  expect_equal(get_type_of_week(x), "(Wednesday)")
+
+})
