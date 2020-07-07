@@ -13,6 +13,9 @@
 #' @importFrom grDevices colorRampPalette
 #'
 #' @examples
+#' vibrant(5)
+#' muted(10)
+#'
 #' @export
 #' @rdname palettes
 vibrant <- make_palette(vibrant_colors, suggest = "muted")
