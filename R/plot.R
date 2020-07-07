@@ -126,20 +126,22 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
   stack.txt <- if (stack) "stack" else "dodge"
 
   # warnings
-  if (length(group_vars) > 1) {
+  if (is.null(fill) && length(group_vars) > 1) {
     msg <- paste("plot() can only stack/dodge by one variable.",
                  "For multi-facet plotting try facet_plot()",
                  sep = "\n")
     message(msg)
-
-    if (is.null(fill)) {
-      x <- regroup(x)
-    } else {
-      x <- regroup(x, fill)
-    }
-
+    x <- regroup(x)
     group_vars <- get_group_vars(x)
   }
+
+  if (!is.null(fill)) {
+    x <- regroup(x, !!rlang::enexpr(fill))
+    group_vars <- get_group_vars(x)
+  }
+
+
+
 
   # set axis variables
   x_axis <- date_var
