@@ -74,11 +74,12 @@ new_bare_tibble <- function(x) {
 #' @export
 `[.incidence` <- function(x, i, j, ...) {
   out <- NextMethod()
-  # if (all(names(out) %in% names(x))) {
-  #   incidence_reconstruct(out, x)
-  # } else {
-  #   new_bare_tibble(out)
-  # }
+  incidence_reconstruct(out, x)
+}
+
+#' @export
+`[<-.incidence` <- function(x, i, j, ..., value) {
+  out <- NextMethod()
   incidence_reconstruct(out, x)
 }
 
