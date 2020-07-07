@@ -83,6 +83,11 @@ test_that("operations that drop class", {
 
   x <-
     inci %>%
+    select(-1)
+  expect_false(inherits(x, "incidence"))
+
+  x <-
+    inci %>%
     pull(5)
 
   expect_false(inherits(x, "incidence"))
