@@ -329,7 +329,7 @@ summary(i_7_outcome)
 #> 1 Death    2564
 #> 2 Recover  1963
 #> 3 <NA>     1302
-plot(i_7_outcome, stack = TRUE)
+plot(i_7_outcome, fill = outcome)
 ```
 
 ![](figs/i7outcome-1.png)<!-- -->
@@ -361,7 +361,7 @@ i_7_outcome_cum
 #>  9 2014-04-21 2014-W17 2014-W17 Recover     3
 #> 10 2014-04-28 2014-W18 2014-W18 <NA>        4
 #> # … with 158 more rows
-plot(i_7_outcome_cum)
+plot(i_7_outcome_cum, fill = outcome)
 ```
 
 ![](figs/i7outcome_cum-1.png)<!-- -->

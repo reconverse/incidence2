@@ -181,14 +181,14 @@ i_7_outcome <- incidence(dat,
                          groups = outcome)
 i_7_outcome
 summary(i_7_outcome)
-plot(i_7_outcome, stack = TRUE)
+plot(i_7_outcome, fill = outcome)
 facet_plot(i_7_outcome, n_breaks = 3)
 ```
 
 ```{r i7outcome_cum}
 i_7_outcome_cum <- cumulate(i_7_outcome)
 i_7_outcome_cum
-plot(i_7_outcome_cum)
+plot(i_7_outcome_cum, fill = outcome)
 ```
 
 Groups can also be collapsed into a single time series using `regroup`:
