@@ -193,12 +193,12 @@ summary(i_7_sex)
 #>   <fct>  <int>
 #> 1 f       2934
 #> 2 m       2895
-plot(i_7_sex, stack = TRUE, color = "black")
+plot(i_7_sex, fill = "gender", color = "black")
 ```
 
 ![](figs/genderstack-1.png)<!-- -->
 
-we can facet our plot:
+we can facet our plot (grouping detected automatically):
 
 ``` r
 facet_plot(i_7_sex, n_breaks = 4)
@@ -206,7 +206,8 @@ facet_plot(i_7_sex, n_breaks = 4)
 
 ![](figs/genderfacet-1.png)<!-- -->
 
-and we can also group by multiple variables
+and we can also group by multiple variables specifying different facets
+and fills
 
 ``` r
 # incidence is compatible with the magrittr pipe operator
@@ -257,7 +258,7 @@ i_7_sh %>% summary()
 #> 4 Princess Christian Maternity Hospital (PCMH)   420
 #> 5 Rokupa Hospital                                451
 #> 6 <NA>                                          1456
-i_7_sh %>% facet_plot(n_breaks = 2, nrow = 4, fill = hospital)
+i_7_sh %>% facet_plot(facets = gender, fill = hospital)
 ```
 
 ![](figs/genderhospital-1.png)<!-- -->

@@ -28,10 +28,12 @@
 #' incidence2 includes two plotting functions to simplify graph creation.
 #'
 #' @param x An [incidence()] object.
-#' @param group A logical indicating if the plot should show groups.  If false
-#'   a regrouped plot will be produced.
+#' @param fill Which variable to color plots by. If NULL no distinction if made
+#'   for plot colors.
+#' @param facets Which variable to facet plots by.  If NULL will use all
+#'   groupings of the incidence object.
 #' @param stack A logical indicating if bars of multiple groups should be
-#'   stacked, or displayed side-by-side.
+#'   stacked, or displayed side-by-side. Only used if fill is not NULL.
 #' @param col_pal col_pal The color palette to be used for the groups; defaults
 #'   to `vibrant` (see `?palettes`).
 #' @param alpha The alpha level for color transparency, with 1 being fully
@@ -55,8 +57,6 @@
 #'   TRUE.
 #' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
 #' @param legend Should a legend accompany the facet_plot
-#' @param fill Which variable to colour the fact_plot by.  If NULL (default) no
-#'   distinction is made on facet colors.
 #' @param ... other arguments to pass to [ggplot2::facet_wrap()].
 #'
 #' @return
@@ -92,18 +92,19 @@
 #'                       groups = c(hospital, gender))
 #'
 #'     plot(inci)
-#'     plot(inci, group = FALSE)
-#'     plot(inci, stack = FALSE)
-#'     facet_plot(inci)
+#'     plot(inci, fill = hospital)
+#'     plot(inci, fill = hospital, stack = FALSE)
 #'
+#'     facet_plot(inci)
 #'     facet_plot(inci2)
-#'     plot(inci2, group = FALSE)
+#'     facet_plot(inci2, facets = gender)
+#'     facet_plot(inci2, facets = hospital, fill = gender)
 #'   })
 #' }
 
 #'
 #' @export
-plot.incidence <- function(x, group = TRUE, stack = TRUE,
+plot.incidence <- function(x, fill = NULL, stack = TRUE,
                            col_pal = vibrant, alpha = 0.7, color = NA,
                            xlab = "", ylab = NULL, n_breaks = 6,
                            show_cases = FALSE, border = "white",
@@ -112,6 +113,9 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
 
 
   ellipsis::check_dots_empty()
+
+  # convert inputs to character
+  fill <- arg_values(!!rlang::enexpr(fill))
 
   # get relevant variables
   date_var <- get_date_vars(x)[1]
@@ -122,13 +126,18 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
   stack.txt <- if (stack) "stack" else "dodge"
 
   # warnings
-  if (group && length(group_vars) > 1) {
-    msg <- paste0("Note - plotting by date only:\n",
-                  " * `plot` can only stack/dodge by one variable.\n",
-                  " * Please `regroup` the object to one variable or use `facet_plot`.\n",
-                  sep = "\n")
+  if (length(group_vars) > 1) {
+    msg <- paste("plot() can only stack/dodge by one variable.",
+                 "For multi-facet plotting try facet_plot()",
+                 sep = "\n")
     message(msg)
-    x <- regroup(x)
+
+    if (is.null(fill)) {
+      x <- regroup(x)
+    } else {
+      x <- regroup(x, fill)
+    }
+
     group_vars <- get_group_vars(x)
   }
 
@@ -145,7 +154,7 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
   # Adding a variable for width in ggplot
   df <- add_interval_days(df)
 
-  if (!group || (group && length(group_vars) == 0)) {
+  if (is.null(fill)) {
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                         width = df$interval_days,
@@ -194,18 +203,23 @@ plot.incidence <- function(x, group = TRUE, stack = TRUE,
 
 #' @export
 #' @rdname plot.incidence
-facet_plot <- function(x, fill = NULL, col_pal = vibrant, alpha = 0.7,
-                       color = "white", xlab = "", ylab = NULL, n_breaks = 6,
+facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
+                       alpha = 0.7, color = NA,
+                       xlab = "", ylab = NULL, n_breaks = 3,
                        show_cases = FALSE, border = "white",
                        labels_week = has_weeks(x), na_color = "grey",
                        legend = TRUE, ...) {
+
+
+  # convert inputs to character
+  facets <- arg_values(!!rlang::enexpr(facets))
+  fill <- arg_values(!!rlang::enexpr(fill))
 
   # get relevant variables
   date_var <- get_date_vars(x)[1]
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
   legend <- if (legend) "bottom" else "none"
-
 
   # set axis variables
   x_axis <- date_var
@@ -221,7 +235,7 @@ facet_plot <- function(x, fill = NULL, col_pal = vibrant, alpha = 0.7,
   df <- add_interval_days(df)
 
   # get fill
-  if (is.null(rlang::enexpr(fill))) {
+  if (is.null(fill)) {
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                         width = df$interval_days,
@@ -231,8 +245,6 @@ facet_plot <- function(x, fill = NULL, col_pal = vibrant, alpha = 0.7,
       ggplot2::theme_bw() +
       ggplot2::labs(x = xlab, y = ylab)
   } else {
-    df
-    fill <- arg_values(!!rlang::enexpr(fill))
     fill_names <- unique(df[[fill]])
     n_fill <- length(fill_names)
     fill_colors <- col_pal(n_fill)
@@ -243,7 +255,6 @@ facet_plot <- function(x, fill = NULL, col_pal = vibrant, alpha = 0.7,
                         color = color,
                         alpha = alpha) +
       ggplot2::theme_bw() +
-      #ggplot2::theme(legend.position = "bottom") +
       ggplot2::theme(legend.position = legend) +
       ggplot2::labs(x = xlab, y = ylab) +
       ggplot2::aes(fill = !!sym(fill)) +
@@ -263,8 +274,10 @@ facet_plot <- function(x, fill = NULL, col_pal = vibrant, alpha = 0.7,
     out <- out + squares
   }
 
-  if (!is.null(group_vars)) {
+  if (is.null(facets) && !is.null(group_vars)) {
     out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), ...)
+  } else if (!is.null(facets)) {
+    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), ...)
   }
 
   out <- out + scale_x_incidence(df, n_breaks, labels_week)

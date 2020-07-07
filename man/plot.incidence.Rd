@@ -9,7 +9,7 @@
 \usage{
 \method{plot}{incidence}(
   x,
-  group = TRUE,
+  fill = NULL,
   stack = TRUE,
   col_pal = vibrant,
   alpha = 0.7,
@@ -26,13 +26,14 @@
 
 facet_plot(
   x,
+  facets = NULL,
   fill = NULL,
   col_pal = vibrant,
   alpha = 0.7,
-  color = "white",
+  color = NA,
   xlab = "",
   ylab = NULL,
-  n_breaks = 6,
+  n_breaks = 3,
   show_cases = FALSE,
   border = "white",
   labels_week = has_weeks(x),
@@ -48,11 +49,11 @@ make_breaks(x, n_breaks = 6L, labels_week = TRUE)
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
 
-\item{group}{A logical indicating if the plot should show groups.  If false
-a regrouped plot will be produced.}
+\item{fill}{Which variable to color plots by. If NULL no distinction if made
+for plot colors.}
 
 \item{stack}{A logical indicating if bars of multiple groups should be
-stacked, or displayed side-by-side.}
+stacked, or displayed side-by-side. Only used if fill is not NULL.}
 
 \item{col_pal}{col_pal The color palette to be used for the groups; defaults
 to \code{vibrant} (see \code{?palettes}).}
@@ -90,8 +91,8 @@ TRUE.}
 \code{\link[ggplot2:scale_date]{ggplot2::scale_x_datetime()}}, or \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}, depending
 on how the \verb{$date} element is stored in the incidence object.}
 
-\item{fill}{Which variable to colour the fact_plot by.  If NULL (default) no
-distinction is made on facet colors.}
+\item{facets}{Which variable to facet plots by.  If NULL will use all
+groupings of the incidence object.}
 
 \item{legend}{Should a legend accompany the facet_plot}
 }
@@ -135,12 +136,13 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
                       groups = c(hospital, gender))
 
     plot(inci)
-    plot(inci, group = FALSE)
-    plot(inci, stack = FALSE)
-    facet_plot(inci)
+    plot(inci, fill = hospital)
+    plot(inci, fill = hospital, stack = FALSE)
 
+    facet_plot(inci)
     facet_plot(inci2)
-    plot(inci2, group = FALSE)
+    facet_plot(inci2, facets = gender)
+    facet_plot(inci2, facets = hospital, fill = gender)
   })
 }
 

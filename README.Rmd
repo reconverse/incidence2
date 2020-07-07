@@ -129,16 +129,17 @@ i_7_sex <- incidence(dat, interval = "week",
                      date_index = date_of_onset, groups = gender)
 i_7_sex
 summary(i_7_sex)
-plot(i_7_sex, stack = TRUE, color = "black")
+plot(i_7_sex, fill = "gender", color = "black")
 ```
 
-we can facet our plot:
+we can facet our plot (grouping detected automatically):
 
 ```{r genderfacet}
 facet_plot(i_7_sex, n_breaks = 4)
 ```
 
-and we can also group by multiple variables
+and we can also group by multiple variables specifying different facets and 
+fills
 
 ```{r genderhospital}
 # incidence is compatible with the magrittr pipe operator
@@ -148,7 +149,7 @@ i_7_sh <-
             groups = c(gender, hospital))
 i_7_sh
 i_7_sh %>% summary()
-i_7_sh %>% facet_plot(n_breaks = 2, nrow = 4, fill = hospital)
+i_7_sh %>% facet_plot(facets = gender, fill = hospital)
 ```
 
 
