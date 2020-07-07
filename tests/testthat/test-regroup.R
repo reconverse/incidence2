@@ -23,3 +23,14 @@ test_that("regroup works", {
   # regroup none-incidence object
   expect_error(regroup("test"), "x should be an 'incidence' object.")
 })
+
+
+test_that("pool errors with message on use", {
+  expect_error(
+    pool(x),
+    "The pool function has been deprecated.  Please use regroup() instead.",
+    fixed = TRUE
+  )
+})
+
+

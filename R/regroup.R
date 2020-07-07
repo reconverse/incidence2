@@ -75,6 +75,6 @@ regroup <- function(x, groups = NULL){
 #' @keywords internal
 #' @export
 pool <- function(...) {
-  message("The pool function has been deprecated.  Please use regroup() instead.")
+  stop("The pool function has been deprecated.  Please use regroup() instead.")
 }
 
