@@ -68,7 +68,7 @@ test_that("estimate_peak can roughly estimate it", {
   y <- incidence(dat2, date_index = dates, interval = 3)
 
 
-  expect_message(e1 <- estimate_peak(x), "`x` is stratified by groups\nregrouping groups before finding peaks")
+  expect_message(e1 <- estimate_peak(x), "x is stratified by groups\nregrouping groups before finding peaks")
 
   e2 <- estimate_peak(y)
   expect_named(e1, c("observed", "estimated", "ci", "peaks"))

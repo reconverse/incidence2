@@ -89,6 +89,9 @@ test_that("check_interval", {
 })
 
 
+
+
+
 test_that("get_type_of_week", {
   int <- sample(-3L:50L, 100, replace = TRUE)
   dates <- as.Date("2018-01-31") + int
@@ -104,3 +107,5 @@ test_that("get_type_of_week", {
   expect_equal(get_type_of_week(x), "(Wednesday)")
 
 })
+
+
