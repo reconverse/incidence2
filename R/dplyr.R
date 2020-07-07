@@ -107,10 +107,10 @@ new_bare_tibble <- function(x) {
 }
 
 
-
-dplyr_reconstruct.incidence <- function(data, template) {
-  incidence_reconstruct(data, template)
-}
+# not needed due to below
+#dplyr_reconstruct.incidence <- function(data, template) {
+#  incidence_reconstruct(data, template)
+#}
 
 
 # Registered in `.onLoad()`
