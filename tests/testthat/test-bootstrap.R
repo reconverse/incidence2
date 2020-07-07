@@ -23,7 +23,7 @@ test_that("Bootstrap incidence with groups", {
 
   x <- incidence(dat, date_index = DATES, interval = 3, groups = groups)
   y <- bootstrap(x)
-  z <- bootstrap(x, TRUE)
+  z <- bootstrap(x, randomise_groups = TRUE)
 
   expect_identical(sum(x$count), sum(y$count))
 
@@ -36,7 +36,11 @@ test_that("Bootstrap incidence with groups", {
   expect_identical(attr(x, "interval"), attr(y, "interval"))
 
   expect_identical(attr(x, "interval"), attr(z, "interval"))
+
+  expect_true(setequal(y$groups, z$groups))
 })
+
+
 
 
 context("Mountain Climbing")

@@ -432,7 +432,19 @@ test_that("Expected values, no group", {
   # expect_equal_to_reference(res7, file = "rds/incidence.res7.rds")
   # expect_equal_to_reference(res8, file = "rds/incidence.res8.rds")
 })
+test_that("na_as_group", {
+  dat <- data.frame(
+      date = Sys.Date() + 1:10,
+      names = c(NA, paste("group", 2:9, sep = "_"), NA)
+  )
 
+  x <- incidence(dat, date_index = date, groups = names, na_as_group = FALSE)
+  expect_true(all(dat$date_group %in% (Sys.Date() + 2:9)))
+  expect_equal(get_n(x), 8)
+})
+
+
+# TODO
 # test_that("Expected values, with groups", {
 #
 #
