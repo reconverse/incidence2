@@ -33,7 +33,7 @@ get_interval.incidence <- function(x, integer = TRUE, ...) {
   if (is.character(interval)) {
     res <- get_interval_type(interval)
     n   <- get_interval_number(interval)
-    date_var <- attr(x, "date")[1]
+    date_var <- attr(x, "date")
     dates <- unique(x[[date_var]])
     res <- switch(res,
                   day     = 1L * n,

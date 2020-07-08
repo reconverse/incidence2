@@ -111,7 +111,7 @@ and aggregated count of observations grouped according to the specified
 interval and, optionally, the given groups.  By default it will contain the
 following columns:
 \itemize{
-\item \strong{date_group}:  The dates marking the left side of the bins used for
+\item \strong{bin_date}:  The dates marking the left side of the bins used for
 counting events. When \code{standard = TRUE} and the interval represents weeks,
 months, quarters, or years, the first date will represent the first
 standard date (See Interval specification, below).

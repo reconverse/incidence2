@@ -63,7 +63,18 @@ regroup <- function(x, groups = NULL){
                             nrow = nrow(tbl),
                             class = "incidence"
   )
-  tibble::validate_tibble(tbl)
+  tbl <- tibble::validate_tibble(tbl)
+
+  if (has_weeks(x)) {
+    week_start <- get_week_start(interval)
+    week_var <- attr(x, "date_group")
+    date_var <- get_date_vars(x)
+    tbl[[week_var]] <- aweek::date2week(tbl[[date_var]], week_start, floor_day = TRUE)
+    tbl <- dplyr::relocate(tbl, .data[[week_var]], .after = .data[[date_var]])
+    attr(tbl, "date_group") <- week_var
+  }
+
+  tbl
 }
 #' Pool 'incidence' objects
 #'

@@ -16,7 +16,7 @@ test_that("get_group_vars works", {
 
 
 test_that("get_date_vars works", {
-  expect_equal(get_date_vars(x), c("date_group", "weeks", "isoweeks"))
+  expect_equal(get_date_vars(x), c("bin_date"))
   expect_error(get_date_vars("test"), "Not implemented for class character")
 })
 
@@ -32,7 +32,7 @@ test_that("get_interval works", {
 })
 
 test_that("get_timespan works", {
-  span <- as.integer(max(x$date_group) - min(x$date_group) + 1)
+  span <- as.integer(max(x$bin_date) - min(x$bin_date) + 1)
   expect_equal(get_timespan(x), span)
   expect_error(get_timespan("test"), "Not implemented for class character")
 })

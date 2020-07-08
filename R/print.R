@@ -9,7 +9,7 @@ print.incidence <- function(x, ...) {
 
   # get the date and count variables
   count_var <- attr(x, "count")
-  date_var <- attr(x, "date")[1]
+  date_var <- attr(x, "date")
 
   # title
   cat("<incidence object>\n")

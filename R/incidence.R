@@ -32,7 +32,7 @@
 #'   interval and, optionally, the given groups.  By default it will contain the
 #'   following columns:
 #'
-#'   - **date_group**:  The dates marking the left side of the bins used for
+#'   - **bin_date**:  The dates marking the left side of the bins used for
 #'   counting events. When `standard = TRUE` and the interval represents weeks,
 #'   months, quarters, or years, the first date will represent the first
 #'   standard date (See Interval specification, below).
@@ -236,18 +236,7 @@ incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
     ...
   )
 
-  if (check_week(interval) && standard) {
-    # dates are the first days of corresponding ISOweeks.
-    week_start <- get_week_start(interval)
-    out$weeks <- aweek::date2week(out$date_group, week_start, floor_day = TRUE)
-    attr(out, "date") <- c(attr(out, "date"), "weeks")
-    out <- dplyr::relocate(out, .data$weeks, .after = .data$date_group)
-    if (attr(out$weeks, "week_start") == 1) {
-      out$isoweeks <- as.character(out$weeks)
-      attr(out, "date") <- c(attr(out, "date"), "isoweeks")
-      out <- dplyr::relocate(out, .data$isoweeks, .after = .data$weeks)
-    }
-  }
+  out <- group_labels(out, interval, standard)
 
   out
 }
@@ -315,18 +304,7 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
     ...
   )
 
-  if (check_week(interval) && standard) {
-    # dates are the first days of corresponding ISOweeks.
-    week_start <- get_week_start(interval)
-    out$weeks <- aweek::date2week(out$date_group, week_start, floor_day = TRUE)
-    attr(out, "date") <- c(attr(out, "date"), "weeks")
-    out <- dplyr::relocate(out, .data$weeks, .after = .data$date_group)
-    if (attr(out$weeks, "week_start") == 1) {
-      out$isoweeks <- as.character(out$weeks)
-      attr(out, "date") <- c(attr(out, "date"), "isoweeks")
-      out <- dplyr::relocate(out, .data$isoweeks, .after = .data$weeks)
-    }
-  }
+  out <- group_labels(out, interval, standard)
 
   out
 }
@@ -376,8 +354,9 @@ incidence.integer <- function(x, date_index, interval = 1L,
     ...
   )
 
-  out$date_group <- as.integer(out$date_group)
+  out$bin_date <- as.integer(out$bin_date)
   attr(out, "interval") <- as.integer(attr(out, "interval"))
+
   out
 }
 
@@ -422,7 +401,7 @@ incidence.numeric <- function(x, date_index, interval = 1L,
     ...
   )
 
-  out$date_group <- as.numeric(out$date_group)
+  out$bin_date <- as.numeric(out$bin_date)
   out
 }
 
@@ -469,9 +448,50 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
     ...
   )
 
-  out$date_group <- as.POSIXlt(out$date_group)
+  attr(out, "type") <- "POSIXt"
+  out$bin_date <- as.POSIXlt(out$bin_date)
   if (inherits(dates, "POSIXct")) {
-    out$date_group <- as.POSIXct(out$date_group)
+    out$bin_date <- as.POSIXct(out$bin_date)
   }
   out
 }
+
+
+group_labels <- function(x, interval, standard) {
+  date_var <- get_date_vars(x)
+
+
+  if (check_week(interval) && standard) {
+    week_start <- get_week_start(interval)
+    x$date_group <- aweek::date2week(x[[date_var]], week_start, floor_day = TRUE)
+    attr(x, "date_group") <- "date_group"
+    x <- dplyr::relocate(x, .data$date_group, .after = .data[[date_var]])
+  }
+
+  date_interval <- is.character(interval) && is_date_interval(interval)
+  is_month <- interval == "month" || interval == "1 month" || interval == "1 months"
+  is_quarter <- interval == "quarter" || interval == "1 quarter" || interval == "1 quarters"
+  is_year <- interval == "year" || interval == "1 year" || interval == "1 years"
+
+  if (date_interval && is_month) {
+    x$date_group <- format(x[[date_var]], "%b %y")
+    attr(x, "date_group") <- "date_group"
+    x <- dplyr::relocate(x, .data$date_group, .after = .data[[date_var]])
+  }
+
+  if (date_interval && is_quarter) {
+    x$date_group <- paste(quarters(x[[date_var]]), format(x[[date_var]], "%Y"))
+    attr(x, "date_group") <- "date_group"
+    x <- dplyr::relocate(x, .data$date_group, .after = .data[[date_var]])
+  }
+
+  if (date_interval && is_year) {
+    x$date_group <- format(x[[date_var]], "%Y")
+    attr(x, "date_group") <- "date_group"
+    x <- dplyr::relocate(x, .data$date_group, .after = .data[[date_var]])
+  }
+  x
+}
+
+
+

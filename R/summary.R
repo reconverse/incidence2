@@ -7,7 +7,7 @@ summary.incidence <- function(object, ...) {
 
   # get the date and count variables
   count_var <- attr(object, "count")
-  date_var <- attr(object, "date")[1]
+  date_var <- attr(object, "date")
 
   # title
   cat("<incidence object>\n\n")

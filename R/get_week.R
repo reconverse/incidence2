@@ -51,9 +51,11 @@ get_week_duration <- function(the_interval) {
 
 
 get_type_of_week <- function(x) {
-  date_var <- attr(x, "date")[1]
+  date_var <- attr(x, "date")
+  week_var <- attr(x, "date_group")
+
   switch(
-    as.character(attr(x$weeks, "week_start")),
+    as.character(attr(x[[week_var]], "week_start")),
     "1" = "ISO",
     "7" = "MMWR",
     sprintf("(%s)", weekdays(x[[date_var]][1]))

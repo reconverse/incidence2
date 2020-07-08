@@ -41,7 +41,7 @@ bootstrap <- function(x, randomise_groups = FALSE) {
 
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
-  date_vars <- get_date_vars(x)
+  date_var <- get_date_vars(x)
 
 
   tbl <- select(x, !all_of(count_var))
@@ -52,7 +52,7 @@ bootstrap <- function(x, randomise_groups = FALSE) {
     replace = TRUE
   )
 
-  tbl <- group_by(tbl, across(all_of(c(date_vars, group_vars))))
+  tbl <- group_by(tbl, across(all_of(c(date_var, group_vars))))
   tbl <- summarise(tbl, {{count_var}} := n(), .groups = "drop")
 
   if (randomise_groups) {
@@ -64,7 +64,7 @@ bootstrap <- function(x, randomise_groups = FALSE) {
   # create subclass of tibble
   tbl <- tibble::new_tibble(tbl,
                             groups = group_vars,
-                            date = date_vars,
+                            date = date_var,
                             count = count_var,
                             interval = attr(x, "interval"),
                             cumulative = attr(x, "cumulative"),
