@@ -26,8 +26,8 @@ test_that("get_count_vars works", {
 })
 
 test_that("get_interval works", {
-  expect_equal(get_interval(x), 14L)
-  expect_equal(get_interval(x, integer = FALSE), "2 weeks")
+  expect_equal(get_interval(x, integer = TRUE), 14L)
+  expect_equal(get_interval(x), "2 weeks")
   expect_error(get_interval("test"), "Not implemented for class character")
 })
 

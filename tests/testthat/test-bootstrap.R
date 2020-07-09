@@ -33,9 +33,9 @@ test_that("Bootstrap incidence with groups", {
 
   expect_identical(names(x), names(z))
 
-  expect_identical(attr(x, "interval"), attr(y, "interval"))
+  expect_identical(get_interval(x), get_interval(y))
 
-  expect_identical(attr(x, "interval"), attr(z, "interval"))
+  expect_identical(get_interval(x), get_interval(z))
 
   expect_true(setequal(y$groups, z$groups))
 })

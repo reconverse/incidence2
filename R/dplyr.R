@@ -29,13 +29,13 @@ incidence_reconstructable <- function(x, to) {
     return(FALSE)
   }
 
-  # TODO this needs redoing!!! (works for weeks, harder for other group_labels!)
+  # TODO - this needs thinking about
   # check interval is the same or a multiple off
-  # to_interval <- get_interval(to)
-  # x_intervals <- unique(diff(x[[date_var[1]]]))
-  # if (!(all((x_intervals %% to_interval) == 0))) {
-  #   return(FALSE)
-  # }
+  #to_interval <- get_interval(to, integer = TRUE)
+  #x_intervals <- unique(diff(x[[date_var[1]]]))
+  #if (!(all((x_intervals %% to_interval) == 0))) {
+  #  return(FALSE)
+  #}
 
   TRUE
 }
@@ -101,12 +101,6 @@ new_bare_tibble <- function(x) {
   if (!is.null(group_vars)) {
     group_index <- which(current_names %in% group_vars)
     attr(x, "groups") <- value[group_index]
-  }
-
-  date_group_var <- attr(x, "date_group")
-  if (!is.null(date_group_var)) {
-    group_index <- which(current_names %in% date_group_var)
-    attr(x, "date_group") <- value[group_index]
   }
 
   out <- NextMethod()

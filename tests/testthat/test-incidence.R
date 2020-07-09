@@ -27,7 +27,7 @@ test_that("construction - default, integer input", {
   expect_false(any(is.na(x$count)))
   expect_equal(nrow(x), diff(range(dat)) + 1)
   expect_equal(sum(x$count), length(dat))
-  expect_true(all(diff(x$bin_date) == attr(x, "interval")))
+  expect_true(all(diff(x$bin_date) == get_interval(x)))
 
   ## USING INCIDENCE PER 3 DAYS
   x <- incidence(data.frame(dates = dat), date_index = dates, interval = 3)
@@ -43,7 +43,7 @@ test_that("construction - default, integer input", {
   ## results
   expect_false(any(is.na(x$count)))
   expect_equal(sum(x$count), length(dat))
-  expect_true(all(diff(x$bin_date) == attr(x, "interval")))
+  expect_true(all(diff(x$bin_date) == get_interval(x)))
 })
 
 test_that("construction - ISO week", {
@@ -70,7 +70,7 @@ test_that("construction - ISO week", {
   ## results
   expect_false(any(is.na(inc_isoweek$count)))
   expect_equal(sum(inc_isoweek$count), length(dat))
-  expect_true(all(diff(inc_isoweek$bin_date) == attr(inc_isoweek, "interval")))
+  expect_true(all(diff(inc_isoweek$bin_date) == get_interval(inc_isoweek)))
 })
 
 

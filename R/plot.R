@@ -121,7 +121,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
   date_var <- get_date_vars(x)
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
-  interval <- attr(x, "interval")
+  interval <- get_interval(x)
 
   # Handle stacking
   stack.txt <- if (stack) "stack" else "dodge"
@@ -232,7 +232,7 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
   legend <- if (legend) "bottom" else "none"
-  interval <- attr(x, "interval")
+  interval <- get_interval(x)
 
   # set axis variables
   x_axis <- date_var
@@ -303,7 +303,7 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
 }
 
 has_weeks <- function(x) {
-  date_group <- attr(x, "date_group")
+  date_group <- get_date_group_vars(x)
   if (!is.null(date_group)) {
     if (class(x[[date_group]]) == "aweek") {
       return(TRUE)
@@ -314,7 +314,7 @@ has_weeks <- function(x) {
 
 has_isoweeks <- function(x) {
   if (has_weeks(x)) {
-    date_group <- attr(x, "date_group")
+    date_group <- get_date_group_vars(x)
     weeks <- x[[date_group]]
     if (attr(weeks, "week_start") == 1) {
       return(TRUE)
@@ -326,8 +326,8 @@ has_isoweeks <- function(x) {
 ylabel <- function(x, ylab) {
   if (is.null(ylab)) {
 
-    interval <- attr(x, "interval")
-    date_vars <- attr(x, "date")
+    interval <- get_interval(x)
+    date_vars <- get_date_vars(x)
 
     if (is.numeric(interval)) {
       if (interval == 1) {

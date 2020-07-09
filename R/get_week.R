@@ -51,8 +51,8 @@ get_week_duration <- function(the_interval) {
 
 
 get_type_of_week <- function(x) {
-  date_var <- attr(x, "date")
-  week_var <- attr(x, "date_group")
+  date_var <- get_date_vars(x)
+  week_var <- get_date_group_vars(x)
 
   switch(
     as.character(attr(x[[week_var]], "week_start")),

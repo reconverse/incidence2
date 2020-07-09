@@ -8,8 +8,8 @@ print.incidence <- function(x, ...) {
 
 
   # get the date and count variables
-  count_var <- attr(x, "count")
-  date_var <- attr(x, "date")
+  count_var <- get_count_vars(x)
+  date_var <- get_date_vars(x)
 
   # title
   cat("<incidence object>\n")
@@ -21,7 +21,7 @@ print.incidence <- function(x, ...) {
   ))
 
   # interval
-  interval <- attr(x, "interval")
+  interval <- get_interval(x)
   if (is.integer(interval)) {
     cat(sprintf("[interval: %d %s]\n", interval, ifelse(interval < 2, "day", "days")))
   } else if (grepl("\\d", interval)) {

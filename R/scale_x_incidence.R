@@ -1,6 +1,6 @@
 #' @param ... arguments passed to [ggplot2::scale_x_date()],
-#' [ggplot2::scale_x_datetime()], or [ggplot2::scale_x_continuous()], depending
-#' on how the `$date` element is stored in the incidence object.
+#'   [ggplot2::scale_x_datetime()], or [ggplot2::scale_x_continuous()],
+#'   depending  on how the date_index element is stored in the incidence object.
 #' @export
 #' @rdname plot.incidence
 scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, ...) {
@@ -54,7 +54,7 @@ make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
   ## Choosing between scale_x_date, scale_x_datetime, and scale_x_continuous
 
   # labels should be dates or numbers
-  interval <- attr(x, "interval")
+  interval <- get_interval(x)
   if (is.character(interval)) {
     # The interval is a character like "2 weeks" and we have to figure out how
     # to split these manually
@@ -79,7 +79,7 @@ make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
   is_year <- interval == "year" || interval == "1 year" || interval == "1 years"
 
   if (has_weeks(x)) {
-    date_group <- attr(x, "date_group")
+    date_group <- get_date_group_vars(x)
     weeks <- x[[date_group]]
 
     # If the data are in weeks, we should make sure that the line up correctly

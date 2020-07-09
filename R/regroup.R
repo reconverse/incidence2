@@ -42,10 +42,10 @@ regroup <- function(x, groups = NULL){
   column_names <- names(x)
   check_presence(groups, column_names)
 
-  date_var <- attr(x, "date")
-  count_var <- attr(x, "count")
+  date_var <- get_date_vars(x)
+  count_var <- get_count_vars(x)
   cumulate <- attr(x, "cumulative")
-  interval <- attr(x, "interval")
+  interval <- get_interval(x)
 
   tbl <- group_by(x, across(all_of(date_var)))
   if (!is.null(groups)) {
@@ -67,7 +67,7 @@ regroup <- function(x, groups = NULL){
 
   if (has_weeks(x)) {
     week_start <- get_week_start(interval)
-    week_var <- attr(x, "date_group")
+    week_var <- get_date_group_vars(x)
     date_var <- get_date_vars(x)
     tbl[[week_var]] <- aweek::date2week(tbl[[date_var]], week_start, floor_day = TRUE)
     tbl <- dplyr::relocate(tbl, .data[[week_var]], .after = .data[[date_var]])

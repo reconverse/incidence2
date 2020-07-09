@@ -17,12 +17,12 @@ get_interval.default <- function(x, ...) {
                paste(class(x), collapse = ", ")))
 }
 
-#' @param integer When `TRUE` (default), the interval will be converted to an
+#' @param integer When `TRUE`, the interval will be converted to an
 #'   integer vector if it is stored as a character in the incidence object.
 #' @rdname accessors
 #' @aliases get_interval.incidence
 #' @export
-get_interval.incidence <- function(x, integer = TRUE, ...) {
+get_interval.incidence <- function(x, integer = FALSE, ...) {
   ellipsis::check_dots_empty()
 
   interval <- attr(x, "interval")
@@ -33,7 +33,7 @@ get_interval.incidence <- function(x, integer = TRUE, ...) {
   if (is.character(interval)) {
     res <- get_interval_type(interval)
     n   <- get_interval_number(interval)
-    date_var <- attr(x, "date")
+    date_var <- get_date_vars(x)
     dates <- unique(x[[date_var]])
     res <- switch(res,
                   day     = 1L * n,
@@ -45,7 +45,7 @@ get_interval.incidence <- function(x, integer = TRUE, ...) {
     return(res)
   } else {
     stop(sprintf("I don't know how to convert a %s to an integer",
-                 paste(class(x$interval), collapse = ", ")))
+                 paste(class(interval), collapse = ", ")))
   }
 }
 
