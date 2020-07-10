@@ -8,7 +8,7 @@ navbar:
     menu:
       - text: "Using the incidence package"
       - text: "Introduction"
-        href: articles/introduction.html
+        href: articles/Introduction.html
       - text: "Handling incidence objects"
         href: articles/handling_incidence_objects.html
       - text: "Customizing incidence plots"
