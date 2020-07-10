@@ -109,7 +109,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
                            xlab = "", ylab = NULL, n_breaks = 6,
                            show_cases = FALSE, border = "white",
                            na_color = "grey",
-                           group_labels = TRUE, ...) {
+                           group_labels = TRUE, centre_labels = FALSE,  ...) {
 
 
   ellipsis::check_dots_empty()
@@ -159,7 +159,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
   ylab <- ylabel(df, ylab)
 
   # Adding a variable for width in ggplot
-  if (to_label(interval)) {
+  if (to_label(interval) && centre_labels) {
     df$interval_days <- 0
   } else {
     df$interval_days <- interval_days(df)
@@ -219,7 +219,8 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
                        alpha = 0.7, color = NA,
                        xlab = "", ylab = NULL, n_breaks = 3,
                        show_cases = FALSE, border = "white",
-                       group_labels = has_weeks(x), na_color = "grey",
+                       na_color = "grey",
+                       group_labels = TRUE, centre_labels = FALSE,
                        legend = TRUE, ...) {
 
 
@@ -245,7 +246,7 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
   ylab <- ylabel(df, ylab)
 
   # Adding a variable for width in ggplot
-  if (to_label(interval)) {
+  if (to_label(interval) && centre_labels) {
     df$interval_days <- 0
   } else {
     df$interval_days <- interval_days(df)
@@ -381,17 +382,20 @@ interval_days <- function(x) {
 
 to_label <- function(interval) {
 
-  date_interval <- is.character(interval) && is_date_interval(interval)
+  if (is.character(interval)) {
+    interval <- tolower(interval)
+  }
 
-  is_day <- (interval == 1 | interval == 1L | interval == "day" || interval == "1 day" || interval == "1 days")
+  is_day <- (interval %in% (c("day", "1 day", "1 days"))) || (interval %in% c(1, 1L))
 
-  is_week <- (interval == "week" || interval == "1 week" || interval == "1 weeks") && date_interval
+  # TODO - add 7 day weeks to this
+  is_week <- interval == "week" || interval == "1 week" || interval == "1 weeks"
 
-  is_month <- (interval == "month" || interval == "1 month" || interval == "1 months") && date_interval
+  is_month <- interval == "month" || interval == "1 month" || interval == "1 months"
 
-  is_quarter <- (interval == "quarter" || interval == "1 quarter" || interval == "1 quarters") && date_interval
+  is_quarter <- interval == "quarter" || interval == "1 quarter" || interval == "1 quarters"
 
-  is_year <- (interval == "year" || interval == "1 year" || interval == "1 years") && date_interval
+  is_year <- interval == "year" || interval == "1 year" || interval == "1 years"
 
   is_day || is_week || is_month || is_quarter || is_year
 
