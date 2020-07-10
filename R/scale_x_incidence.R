@@ -1,8 +1,6 @@
 #' @param ... arguments passed to [ggplot2::scale_x_date()],
 #'   [ggplot2::scale_x_datetime()], or [ggplot2::scale_x_continuous()],
 #'   depending  on how the date_index element is stored in the incidence object.
-#' @export
-#' @rdname plot.incidence
 scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, ...) {
 
   date_var <- get_date_vars(x)
@@ -27,8 +25,6 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, ...) {
   out
 }
 
-#' @export
-#' @rdname plot.incidence
 make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
   stopifnot(inherits(x, "incidence"), is.logical(group_labels), is.numeric(n_breaks))
 

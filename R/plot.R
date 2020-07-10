@@ -64,19 +64,11 @@
 #'
 #' @return
 #'  - `facet_plot()` and `plot()` generate a [ggplot2::ggplot()] object.
-#'  - `make_breaks()` a two-element list. The "breaks" element will contain the
-#'    evenly-spaced breaks as either dates or numbers and the "labels" element
-#'    will contain either a vector of weeks OR a [ggplot2::waiver()] object.
-#'  - `scale_x_incidence()` a \pkg{ggplot2} "ScaleContinuous" object.
 #'
 #' @details
 #'  - `plot` creates a one-pane graph of an incidence object.
 #'  - `facet_plot` creates a multi-facet graph of a grouped incidence object.
 #'    If the object has no groups it returns the same outout as a call to
-#'  - `make_breaks()` calculates breaks from an incidence object that always
-#'    align with the bins and start on the first observed incidence.
-#'  - `scale_x_incidence()` produces and appropriate `ggplot2` scale based on
-#'    an incidence object.
 #'
 #' @examples
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {

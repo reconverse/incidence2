@@ -74,11 +74,14 @@ The main features of the package include:
 
 # Installing the package
 
-To install the development, *github* version of the package use:
+The package is not yet on CRAN but to install the development, *github*
+version of the package use:
 
 ``` r
 devtools::install_github("reconhub/incidence2")
 ```
+
+Note that this requires the package *devtools* installed.
 
 # Resources
 
@@ -89,7 +92,7 @@ below. More detailed tutorials are distributed as vignettes with the
 package:
 
 ``` r
-vignette("introduction", package="incidence")
+vignette("Introduction", package="incidence")
 vignette("handling_incidence_objects", package="incidence")
 vignette("customizing_plots", package="incidence")
 vignette("bootstrapping", package="incidence")
@@ -113,10 +116,10 @@ join.
 
 # A quick overview
 
-This example uses the simulated Ebola Virus Disease (EVD) outbreak from
-the package [*outbreaks*](https://github.com/reconhub/outbreaks). It
-shows how to compute incidence for various time steps and manipulate the
-data.
+This short example uses the simulated Ebola Virus Disease (EVD) outbreak
+from the package [*outbreaks*](https://github.com/reconhub/outbreaks).
+It shows how to compute incidence for various time steps plot the
+resulting incidence tables.
 
 First, we load the data:
 

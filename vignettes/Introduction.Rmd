@@ -1,0 +1,95 @@
+---
+title: "Introduction to the incidence package"
+author: "Tim Taylor, Thibaut Jombart and Zhina N. Kamvar"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(incidence2)
+```
+
+*incidence* implements functions and classes to compute, handle and visualise 
+incidences from linelist data. This vignette provides an introduction to current
+features and is more extensive than the overview provided in README.md.
+
+
+# Installing the package
+
+The package is not yet on CRAN but to install the development, *github* version
+of the package use:
+
+```{r install2, eval=FALSE}
+devtools::install_github("reconhub/incidence2")
+```
+
+
+# What does it do?
+
+The main features of the package include:
+
+- **`incidence()`**: compute incidence from linelist datasets; any fixed
+  time interval can be used; the returned object is a tibble subclass called
+  *incidence*.
+
+- plotting functions **`plot()`** and **`facet_plot()`**: these functions
+  return customised ggplot2 plots of *incidence* objects 
+  (see `?plot.incidence` for details).
+
+- Compatible with [dplyr](https://dplyr.tidyverse.org/) for data manipulation.
+
+- **`regroup()`**: regroup incidence from different groups into one global incidence
+  time series.
+
+- **`cumulate()`**: computes cumulative incidence over time from an `incidence`
+  object.
+  
+- **`bootstrap()`**: generates a bootstrapped *incidence()* object by re-sampling,
+  with replacement, the original dates of events.
+
+- **`find_peak()`**: locates the peak time of the epicurve.
+
+- **`estimate_peak()`**: uses bootstrap to estimate the peak time (and related
+  confidence interval) of a partially observed outbreak.
+  
+- **`print()`** and **`summary()`** functions.
+
+- Conversion functions:
+    
+    - **`as.data.frame()`**: converts an `incidence()` object into a `data.frame`.
+    
+    - **`as_tibble()`**: convertss an `incidence()` object into a `tibble`.
+
+- Accessor functions: **`get_count_vars()`**, **`get_date_vars()`**,
+  **`get_group_vars()`**, **`get_interval()`**, **`get_timespan()`** and
+  **`get_n()`**.
+
+
+# Worked example: simulated Ebola outbreak
+
+This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
+[*outbreaks*](http://github.com/reconhub/outbreaks). We will compute incidence
+for various time steps and illustrate how to easily plot the data.
+
+## Loading the data
+
+```{r, data}
+library(outbreaks)
+library(incidence)
+
+dat <- ebola_sim$linelist
+class(dat)
+str(dat)
+```
+
+## Computing and plotting incidence

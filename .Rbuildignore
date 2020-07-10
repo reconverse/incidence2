@@ -23,3 +23,6 @@ bug_reports/*
 ^revdep/
 ^_pkgdown.yml$
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
