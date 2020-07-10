@@ -160,7 +160,7 @@ and dplyr.. The `[` operator implements normal subsetting of rows and columns.
 For instance, to keep only the first 20 weeks of the epidemic:
 
 ```{r start}
-plot(i_7[1:20, ])
+plot(i_7[1:20, ], color = "white")
 ```
 
 incidence2 extends common dplyr verbs and this allows easy temporal subsetting:

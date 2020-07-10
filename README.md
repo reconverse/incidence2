@@ -271,7 +271,7 @@ and columns. For instance, to keep only the first 20 weeks of the
 epidemic:
 
 ``` r
-plot(i_7[1:20, ])
+plot(i_7[1:20, ], color = "white")
 ```
 
 ![](figs/start-1.png)<!-- -->
