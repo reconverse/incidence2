@@ -18,6 +18,8 @@
 #'
 #'     get_date_vars(i)
 #'
+#'     get_date_group_vars(i)
+#'
 #'     get_interval(i)
 #'
 #'     get_n(i)

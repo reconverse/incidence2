@@ -65,7 +65,7 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
 
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
-  date_var <- get_date_vars(x)[1]
+  date_var <- get_date_vars(x)
 
   if (length(group_vars) >= 1L) {
     msg <- paste("%s is stratified by groups",

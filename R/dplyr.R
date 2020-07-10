@@ -29,12 +29,13 @@ incidence_reconstructable <- function(x, to) {
     return(FALSE)
   }
 
+  # TODO - this needs thinking about
   # check interval is the same or a multiple off
-  to_interval <- get_interval(to)
-  x_intervals <- unique(diff(x[[date_var[1]]]))
-  if (!(all((x_intervals %% to_interval) == 0))) {
-    return(FALSE)
-  }
+  #to_interval <- get_interval(to, integer = TRUE)
+  #x_intervals <- unique(diff(x[[date_var[1]]]))
+  #if (!(all((x_intervals %% to_interval) == 0))) {
+  #  return(FALSE)
+  #}
 
   TRUE
 }

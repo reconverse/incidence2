@@ -1,13 +1,13 @@
 #' @param ... arguments passed to [ggplot2::scale_x_date()],
-#' [ggplot2::scale_x_datetime()], or [ggplot2::scale_x_continuous()], depending
-#' on how the `$date` element is stored in the incidence object.
+#'   [ggplot2::scale_x_datetime()], or [ggplot2::scale_x_continuous()],
+#'   depending  on how the date_index element is stored in the incidence object.
 #' @export
 #' @rdname plot.incidence
-scale_x_incidence <- function(x, n_breaks = 6, labels_week = TRUE, ...) {
+scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, ...) {
 
-  date_var <- get_date_vars(x)[1]
+  date_var <- get_date_vars(x)
 
-  breaks <- make_breaks(x, n_breaks, labels_week)
+  breaks <- make_breaks(x, n_breaks, group_labels)
 
   if (inherits(x[[date_var]], "Date")) {
 
@@ -29,8 +29,8 @@ scale_x_incidence <- function(x, n_breaks = 6, labels_week = TRUE, ...) {
 
 #' @export
 #' @rdname plot.incidence
-make_breaks <- function(x, n_breaks = 6L, labels_week = TRUE) {
-  stopifnot(inherits(x, "incidence"), is.logical(labels_week), is.numeric(n_breaks))
+make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
+  stopifnot(inherits(x, "incidence"), is.logical(group_labels), is.numeric(n_breaks))
 
   date_var <- get_date_vars(x)[1]
   ## Defining breaks for the x axis --------------------------------------------
@@ -54,7 +54,7 @@ make_breaks <- function(x, n_breaks = 6L, labels_week = TRUE) {
   ## Choosing between scale_x_date, scale_x_datetime, and scale_x_continuous
 
   # labels should be dates or numbers
-  interval <- attr(x, "interval")
+  interval <- get_interval(x)
   if (is.character(interval)) {
     # The interval is a character like "2 weeks" and we have to figure out how
     # to split these manually
@@ -73,16 +73,33 @@ make_breaks <- function(x, n_breaks = 6L, labels_week = TRUE) {
     breaks <- seq(x[[date_var]][1], x[[date_var]][nrow(x)], by = db)
   }
 
+  date_interval <- is.character(interval) && is_date_interval(interval)
+  is_month <- interval == "month" || interval == "1 month" || interval == "1 months"
+  is_quarter <- interval == "quarter" || interval == "1 quarter" || interval == "1 quarters"
+  is_year <- interval == "year" || interval == "1 year" || interval == "1 years"
+
   if (has_weeks(x)) {
-    week_var <- get_date_vars(x)[2]
+    date_group <- get_date_group_vars(x)
+    weeks <- x[[date_group]]
+
     # If the data are in weeks, we should make sure that the line up correctly
     w <- aweek::date2week(breaks,
-                          week_start = attr(x[[week_var]], "week_start"),
+                          week_start = attr(weeks, "week_start"),
                           floor_day = TRUE)
     breaks <- aweek::week2date(w)
-    labels <- if (labels_week) w else ggplot2::waiver()
+    labels <- if (group_labels) w else ggplot2::waiver()
+  } else if (date_interval && is_month) {
+    m <- format(breaks, "%b %y")
+    labels <- if (group_labels) m else ggplot2::waiver()
+  } else if (date_interval && is_quarter) {
+    q <- paste(quarters(breaks), format(breaks, "%Y"))
+    labels <- if (group_labels) q else ggplot2::waiver()
+  } else if (date_interval && is_year) {
+    y <- format(breaks, "%Y")
+    labels <- if (group_labels) y else ggplot2::waiver()
   } else {
     labels <- ggplot2::waiver()
   }
+
   list(breaks = breaks, labels = labels)
 }

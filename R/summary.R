@@ -6,8 +6,8 @@
 summary.incidence <- function(object, ...) {
 
   # get the date and count variables
-  count_var <- attr(object, "count")
-  date_var <- attr(object, "date")[1]
+  count_var <- get_count_vars(object)
+  date_var <- get_date_vars(object)
 
   # title
   cat("<incidence object>\n\n")
@@ -19,7 +19,7 @@ summary.incidence <- function(object, ...) {
   ))
 
   # interval
-  interval <- attr(object, "interval")
+  interval <- get_interval(object)
   if (is.integer(interval)) {
     cat(sprintf("interval: %d %s\n", interval, ifelse(interval < 2, "day", "days")))
   } else if (grepl("\\d", interval)) {
@@ -38,7 +38,7 @@ summary.incidence <- function(object, ...) {
   cat(sprintf("timespan: %d days\n\n", get_timespan(object)))
 
   # groups
-  groups <- attr(object, "groups")
+  groups <- get_group_vars(object)
   if (!is.null(groups)) {
     cat(sprintf("%d grouped %s\n\n", length(groups), ifelse(length(groups) < 2, "variable", "variables")))
 

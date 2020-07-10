@@ -20,7 +20,7 @@
   show_cases = FALSE,
   border = "white",
   na_color = "grey",
-  labels_week = has_weeks(x),
+  group_labels = TRUE,
   ...
 )
 
@@ -36,15 +36,15 @@ facet_plot(
   n_breaks = 3,
   show_cases = FALSE,
   border = "white",
-  labels_week = has_weeks(x),
+  group_labels = has_weeks(x),
   na_color = "grey",
   legend = TRUE,
   ...
 )
 
-scale_x_incidence(x, n_breaks = 6, labels_week = TRUE, ...)
+scale_x_incidence(x, n_breaks = 6, group_labels = TRUE, ...)
 
-make_breaks(x, n_breaks = 6L, labels_week = TRUE)
+make_breaks(x, n_breaks = 6L, group_labels = TRUE)
 }
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
@@ -83,7 +83,7 @@ borders of the individual squares plotted (defaults to \code{"white"}).}
 
 \item{na_color}{The colour to plot \code{NA} values in graphs (default: \code{grey}).}
 
-\item{labels_week}{labels_week a logical value indicating whether labels x axis tick
+\item{group_labels}{group_labels a logical value indicating whether labels x axis tick
 marks are in week format YYYY-Www when plotting weekly incidence; defaults to
 TRUE.}
 
@@ -92,7 +92,7 @@ TRUE.}
 on how the \verb{$date} element is stored in the incidence object.}
 
 \item{facets}{Which variable to facet plots by.  If NULL will use all
-groupings of the incidence object.}
+group_labels of the incidence object.}
 
 \item{legend}{Should a legend accompany the facet_plot}
 }

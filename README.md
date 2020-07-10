@@ -128,18 +128,18 @@ i_7
 #> [interval: 7 days]
 #> [cumulative: FALSE]
 #> 
-#>    date_group weeks    isoweeks count
-#>    <date>     <aweek>  <chr>    <int>
-#>  1 2014-04-07 2014-W15 2014-W15     1
-#>  2 2014-04-14 2014-W16 2014-W16     1
-#>  3 2014-04-21 2014-W17 2014-W17     5
-#>  4 2014-04-28 2014-W18 2014-W18     4
-#>  5 2014-05-05 2014-W19 2014-W19    12
-#>  6 2014-05-12 2014-W20 2014-W20    17
-#>  7 2014-05-19 2014-W21 2014-W21    15
-#>  8 2014-05-26 2014-W22 2014-W22    19
-#>  9 2014-06-02 2014-W23 2014-W23    23
-#> 10 2014-06-09 2014-W24 2014-W24    21
+#>    bin_date   date_group count
+#>    <date>     <aweek>    <int>
+#>  1 2014-04-07 2014-W15       1
+#>  2 2014-04-14 2014-W16       1
+#>  3 2014-04-21 2014-W17       5
+#>  4 2014-04-28 2014-W18       4
+#>  5 2014-05-05 2014-W19      12
+#>  6 2014-05-12 2014-W20      17
+#>  7 2014-05-19 2014-W21      15
+#>  8 2014-05-26 2014-W22      19
+#>  9 2014-06-02 2014-W23      23
+#> 10 2014-06-09 2014-W24      21
 #> # … with 46 more rows
 summary(i_7)
 #> <incidence object>
@@ -166,18 +166,18 @@ i_7_sex
 #> [interval: 1 week]
 #> [cumulative: FALSE]
 #> 
-#>    date_group weeks    isoweeks gender count
-#>    <date>     <aweek>  <chr>    <fct>  <int>
-#>  1 2014-04-07 2014-W15 2014-W15 f          1
-#>  2 2014-04-07 2014-W15 2014-W15 m          0
-#>  3 2014-04-14 2014-W16 2014-W16 f          0
-#>  4 2014-04-14 2014-W16 2014-W16 m          1
-#>  5 2014-04-21 2014-W17 2014-W17 f          5
-#>  6 2014-04-21 2014-W17 2014-W17 m          0
-#>  7 2014-04-28 2014-W18 2014-W18 f          2
-#>  8 2014-04-28 2014-W18 2014-W18 m          2
-#>  9 2014-05-05 2014-W19 2014-W19 f          9
-#> 10 2014-05-05 2014-W19 2014-W19 m          3
+#>    bin_date   date_group gender count
+#>    <date>     <aweek>    <fct>  <int>
+#>  1 2014-04-07 2014-W15   f          1
+#>  2 2014-04-07 2014-W15   m          0
+#>  3 2014-04-14 2014-W16   f          0
+#>  4 2014-04-14 2014-W16   m          1
+#>  5 2014-04-21 2014-W17   f          5
+#>  6 2014-04-21 2014-W17   m          0
+#>  7 2014-04-28 2014-W18   f          2
+#>  8 2014-04-28 2014-W18   m          2
+#>  9 2014-05-05 2014-W19   f          9
+#> 10 2014-05-05 2014-W19   m          3
 #> # … with 102 more rows
 summary(i_7_sex)
 #> <incidence object>
@@ -221,18 +221,18 @@ i_7_sh
 #> [interval: 1 week]
 #> [cumulative: FALSE]
 #> 
-#>    date_group weeks    isoweeks gender hospital                            count
-#>    <date>     <aweek>  <chr>    <fct>  <fct>                               <int>
-#>  1 2014-04-07 2014-W15 2014-W15 f      Military Hospital                       1
-#>  2 2014-04-07 2014-W15 2014-W15 m      Military Hospital                       0
-#>  3 2014-04-07 2014-W15 2014-W15 f      Connaught Hospital                      0
-#>  4 2014-04-07 2014-W15 2014-W15 m      Connaught Hospital                      0
-#>  5 2014-04-07 2014-W15 2014-W15 f      other                                   0
-#>  6 2014-04-07 2014-W15 2014-W15 m      other                                   0
-#>  7 2014-04-07 2014-W15 2014-W15 f      <NA>                                    0
-#>  8 2014-04-07 2014-W15 2014-W15 m      <NA>                                    0
-#>  9 2014-04-07 2014-W15 2014-W15 f      Princess Christian Maternity Hospi…     0
-#> 10 2014-04-07 2014-W15 2014-W15 m      Princess Christian Maternity Hospi…     0
+#>    bin_date   date_group gender hospital                                   count
+#>    <date>     <aweek>    <fct>  <fct>                                      <int>
+#>  1 2014-04-07 2014-W15   f      Military Hospital                              1
+#>  2 2014-04-07 2014-W15   m      Military Hospital                              0
+#>  3 2014-04-07 2014-W15   f      Connaught Hospital                             0
+#>  4 2014-04-07 2014-W15   m      Connaught Hospital                             0
+#>  5 2014-04-07 2014-W15   f      other                                          0
+#>  6 2014-04-07 2014-W15   m      other                                          0
+#>  7 2014-04-07 2014-W15   f      <NA>                                           0
+#>  8 2014-04-07 2014-W15   m      <NA>                                           0
+#>  9 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0
+#> 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0
 #> # … with 662 more rows
 i_7_sh %>% summary()
 #> <incidence object>
@@ -281,7 +281,7 @@ subsetting:
 
 ``` r
 i_7 %>% 
-  filter(date_group >= as.Date("2015-01-01")) %>% 
+  filter(bin_date >= as.Date("2015-01-01")) %>% 
   plot(color = "white")
 ```
 
@@ -301,18 +301,18 @@ i_7_outcome
 #> [interval: 7 days]
 #> [cumulative: FALSE]
 #> 
-#>    date_group weeks    isoweeks outcome count
-#>    <date>     <aweek>  <chr>    <fct>   <int>
-#>  1 2014-04-07 2014-W15 2014-W15 <NA>        1
-#>  2 2014-04-07 2014-W15 2014-W15 Death       0
-#>  3 2014-04-07 2014-W15 2014-W15 Recover     0
-#>  4 2014-04-14 2014-W16 2014-W16 <NA>        1
-#>  5 2014-04-14 2014-W16 2014-W16 Death       0
-#>  6 2014-04-14 2014-W16 2014-W16 Recover     0
-#>  7 2014-04-21 2014-W17 2014-W17 <NA>        1
-#>  8 2014-04-21 2014-W17 2014-W17 Death       1
-#>  9 2014-04-21 2014-W17 2014-W17 Recover     3
-#> 10 2014-04-28 2014-W18 2014-W18 <NA>        1
+#>    bin_date   date_group outcome count
+#>    <date>     <aweek>    <fct>   <int>
+#>  1 2014-04-07 2014-W15   <NA>        1
+#>  2 2014-04-07 2014-W15   Death       0
+#>  3 2014-04-07 2014-W15   Recover     0
+#>  4 2014-04-14 2014-W16   <NA>        1
+#>  5 2014-04-14 2014-W16   Death       0
+#>  6 2014-04-14 2014-W16   Recover     0
+#>  7 2014-04-21 2014-W17   <NA>        1
+#>  8 2014-04-21 2014-W17   Death       1
+#>  9 2014-04-21 2014-W17   Recover     3
+#> 10 2014-04-28 2014-W18   <NA>        1
 #> # … with 158 more rows
 summary(i_7_outcome)
 #> <incidence object>
@@ -348,18 +348,18 @@ i_7_outcome_cum
 #> [interval: 7 days]
 #> [cumulative: TRUE]
 #> 
-#>    date_group weeks    isoweeks outcome count
-#>    <date>     <aweek>  <chr>    <fct>   <int>
-#>  1 2014-04-07 2014-W15 2014-W15 <NA>        1
-#>  2 2014-04-07 2014-W15 2014-W15 Death       0
-#>  3 2014-04-07 2014-W15 2014-W15 Recover     0
-#>  4 2014-04-14 2014-W16 2014-W16 <NA>        2
-#>  5 2014-04-14 2014-W16 2014-W16 Death       0
-#>  6 2014-04-14 2014-W16 2014-W16 Recover     0
-#>  7 2014-04-21 2014-W17 2014-W17 <NA>        3
-#>  8 2014-04-21 2014-W17 2014-W17 Death       1
-#>  9 2014-04-21 2014-W17 2014-W17 Recover     3
-#> 10 2014-04-28 2014-W18 2014-W18 <NA>        4
+#>    bin_date   date_group outcome count
+#>    <date>     <aweek>    <fct>   <int>
+#>  1 2014-04-07 2014-W15   <NA>        1
+#>  2 2014-04-07 2014-W15   Death       0
+#>  3 2014-04-07 2014-W15   Recover     0
+#>  4 2014-04-14 2014-W16   <NA>        2
+#>  5 2014-04-14 2014-W16   Death       0
+#>  6 2014-04-14 2014-W16   Recover     0
+#>  7 2014-04-21 2014-W17   <NA>        3
+#>  8 2014-04-21 2014-W17   Death       1
+#>  9 2014-04-21 2014-W17   Recover     3
+#> 10 2014-04-28 2014-W18   <NA>        4
 #> # … with 158 more rows
 plot(i_7_outcome_cum, fill = outcome)
 ```
@@ -376,18 +376,18 @@ i_regrouped
 #> [interval: 7 days]
 #> [cumulative: FALSE]
 #> 
-#>    date_group weeks    isoweeks count
-#>    <date>     <aweek>  <chr>    <int>
-#>  1 2014-04-07 2014-W15 2014-W15     1
-#>  2 2014-04-14 2014-W16 2014-W16     1
-#>  3 2014-04-21 2014-W17 2014-W17     5
-#>  4 2014-04-28 2014-W18 2014-W18     4
-#>  5 2014-05-05 2014-W19 2014-W19    12
-#>  6 2014-05-12 2014-W20 2014-W20    17
-#>  7 2014-05-19 2014-W21 2014-W21    15
-#>  8 2014-05-26 2014-W22 2014-W22    19
-#>  9 2014-06-02 2014-W23 2014-W23    23
-#> 10 2014-06-09 2014-W24 2014-W24    21
+#>    bin_date   date_group count
+#>    <date>     <aweek>    <int>
+#>  1 2014-04-07 2014-W15       1
+#>  2 2014-04-14 2014-W16       1
+#>  3 2014-04-21 2014-W17       5
+#>  4 2014-04-28 2014-W18       4
+#>  5 2014-05-05 2014-W19      12
+#>  6 2014-05-12 2014-W20      17
+#>  7 2014-05-19 2014-W21      15
+#>  8 2014-05-26 2014-W22      19
+#>  9 2014-06-02 2014-W23      23
+#> 10 2014-06-09 2014-W24      21
 #> # … with 46 more rows
 identical(i_7, i_regrouped)
 #> [1] TRUE

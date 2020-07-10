@@ -41,8 +41,8 @@ cumulate.incidence <- function(x) {
     stop("x is already a cumulative incidence")
   }
   out <- x
-  groups <- attr(out, "groups")
-  count_var <- attr(out, "count")
+  groups <- get_group_vars(x)
+  count_var <- get_count_vars(x)
   if (!is.null(groups)) {
     out <- group_by(out, across(all_of({{groups}})))
   }

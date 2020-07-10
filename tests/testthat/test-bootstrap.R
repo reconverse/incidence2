@@ -33,9 +33,9 @@ test_that("Bootstrap incidence with groups", {
 
   expect_identical(names(x), names(z))
 
-  expect_identical(attr(x, "interval"), attr(y, "interval"))
+  expect_identical(get_interval(x), get_interval(y))
 
-  expect_identical(attr(x, "interval"), attr(z, "interval"))
+  expect_identical(get_interval(x), get_interval(z))
 
   expect_true(setequal(y$groups, z$groups))
 })
@@ -83,8 +83,8 @@ test_that("estimate_peak can roughly estimate it", {
   expect_identical(nrow(e2$peaks), 100L)
 
   # The observed falls within the confidence interval
-  expect_gte(as.integer(e1$observed$date_group), as.integer(e1$ci[1]))
-  expect_lte(as.integer(e1$observed$date_group), as.integer(e1$ci[2]))
-  expect_gte(as.integer(e2$observed$date_group), as.integer(e2$ci[1]))
-  expect_lte(as.integer(e2$observed$date_group), as.integer(e2$ci[2]))
+  expect_gte(as.integer(e1$observed$bin_date), as.integer(e1$ci[1]))
+  expect_lte(as.integer(e1$observed$bin_date), as.integer(e1$ci[2]))
+  expect_gte(as.integer(e2$observed$bin_date), as.integer(e2$ci[1]))
+  expect_lte(as.integer(e2$observed$bin_date), as.integer(e2$ci[2]))
 })

@@ -20,8 +20,11 @@
 #' make_breaks_easier(d, 2L)
 make_breaks_easier <- function(dates, the_interval, first_date = NULL,
                                last_date = NULL, dots = 1L) {
+
   the_interval <- valid_interval_character(the_interval)
+
   date_interval <- is.character(the_interval) && is_date_interval(the_interval)
+
   is_month <- grepl("month", the_interval, ignore.case = TRUE)
   is_quarter <- grepl("quarter", the_interval, ignore.case = TRUE)
   is_year <- grepl("year", the_interval, ignore.case = TRUE)

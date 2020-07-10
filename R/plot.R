@@ -31,7 +31,7 @@
 #' @param fill Which variable to color plots by. If NULL no distinction if made
 #'   for plot colors.
 #' @param facets Which variable to facet plots by.  If NULL will use all
-#'   groupings of the incidence object.
+#'   group_labels of the incidence object.
 #' @param stack A logical indicating if bars of multiple groups should be
 #'   stacked, or displayed side-by-side. Only used if fill is not NULL.
 #' @param col_pal col_pal The color palette to be used for the groups; defaults
@@ -52,7 +52,7 @@
 #'   Note: this can only be used if `stack = TRUE`
 #' @param border If show_cases is TRUE this represents the color used for the
 #'   borders of the individual squares plotted (defaults to `"white"`).
-#' @param labels_week labels_week a logical value indicating whether labels x axis tick
+#' @param group_labels group_labels a logical value indicating whether labels x axis tick
 #'   marks are in week format YYYY-Www when plotting weekly incidence; defaults to
 #'   TRUE.
 #' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
@@ -109,7 +109,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
                            xlab = "", ylab = NULL, n_breaks = 6,
                            show_cases = FALSE, border = "white",
                            na_color = "grey",
-                           labels_week = has_weeks(x), ...) {
+                           group_labels = TRUE, centre_labels = FALSE,  ...) {
 
 
   ellipsis::check_dots_empty()
@@ -118,9 +118,10 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
   fill <- arg_values(!!rlang::enexpr(fill))
 
   # get relevant variables
-  date_var <- get_date_vars(x)[1]
+  date_var <- get_date_vars(x)
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
+  interval <- get_interval(x)
 
   # Handle stacking
   stack.txt <- if (stack) "stack" else "dodge"
@@ -158,12 +159,17 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
   ylab <- ylabel(df, ylab)
 
   # Adding a variable for width in ggplot
-  df <- add_interval_days(df)
+  if (to_label(interval) && centre_labels) {
+    df$interval_days <- 0
+  } else {
+    df$interval_days <- interval_days(df)
+  }
+
 
   if (is.null(fill)) {
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                        width = df$interval_days,
+                        width = interval_days(df),
                         color = color,
                         fill = col_pal(1),
                         alpha = alpha) +
@@ -177,7 +183,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
     ## add colors to the plot
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                        width = df$interval_days,
+                        width = interval_days(df),
                         color = color,
                         alpha = alpha,
                         position = stack.txt) +
@@ -195,12 +201,12 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
                                  fill  = NA,
                                  position = "stack",
                                  data = squaredf,
-                                 width = squaredf$interval_days) +
+                                 width = interval_days(df)) +
       ggplot2::theme_bw()
     out <- out + squares
   }
 
-  out <- out + scale_x_incidence(df, n_breaks, labels_week)
+  out <- out + scale_x_incidence(df, n_breaks, group_labels)
   out
 
 
@@ -213,7 +219,8 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
                        alpha = 0.7, color = NA,
                        xlab = "", ylab = NULL, n_breaks = 3,
                        show_cases = FALSE, border = "white",
-                       labels_week = has_weeks(x), na_color = "grey",
+                       na_color = "grey",
+                       group_labels = TRUE, centre_labels = FALSE,
                        legend = TRUE, ...) {
 
 
@@ -222,10 +229,11 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
   fill <- arg_values(!!rlang::enexpr(fill))
 
   # get relevant variables
-  date_var <- get_date_vars(x)[1]
+  date_var <- get_date_vars(x)
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
   legend <- if (legend) "bottom" else "none"
+  interval <- get_interval(x)
 
   # set axis variables
   x_axis <- date_var
@@ -238,13 +246,17 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
   ylab <- ylabel(df, ylab)
 
   # Adding a variable for width in ggplot
-  df <- add_interval_days(df)
+  if (to_label(interval) && centre_labels) {
+    df$interval_days <- 0
+  } else {
+    df$interval_days <- interval_days(df)
+  }
 
   # get fill
   if (is.null(fill)) {
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                        width = df$interval_days,
+                        width = interval_days(df),
                         color = color,
                         fill = col_pal(1),
                         alpha = alpha) +
@@ -257,7 +269,7 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
 
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                        width = df$interval_days,
+                        width = interval_days(df),
                         color = color,
                         alpha = alpha) +
       ggplot2::theme_bw() +
@@ -275,7 +287,7 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
                                  fill  = NA,
                                  position = "stack",
                                  data = squaredf,
-                                 width = squaredf$interval_days) +
+                                 width = interval_days(df)) +
       ggplot2::theme_bw()
     out <- out + squares
   }
@@ -286,32 +298,37 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
     out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), ...)
   }
 
-  out <- out + scale_x_incidence(df, n_breaks, labels_week)
+  out <- out + scale_x_incidence(df, n_breaks, group_labels)
   out
 
 }
 
 has_weeks <- function(x) {
-  if (length(get_date_vars(x)) > 1) {
-    TRUE
-  } else {
-    FALSE
+  date_group <- get_date_group_vars(x)
+  if (!is.null(date_group)) {
+    if (class(x[[date_group]]) == "aweek") {
+      return(TRUE)
+    }
   }
+  FALSE
 }
 
 has_isoweeks <- function(x) {
-  if (length(get_date_vars(x)) == 3) {
-    TRUE
-  } else {
-    FALSE
+  if (has_weeks(x)) {
+    date_group <- get_date_group_vars(x)
+    weeks <- x[[date_group]]
+    if (attr(weeks, "week_start") == 1) {
+      return(TRUE)
+    }
   }
+  FALSE
 }
 
 ylabel <- function(x, ylab) {
   if (is.null(ylab)) {
 
-    interval <- attr(x, "interval")
-    date_vars <- attr(x, "date")
+    interval <- get_interval(x)
+    date_vars <- get_date_vars(x)
 
     if (is.numeric(interval)) {
       if (interval == 1) {
@@ -349,14 +366,66 @@ ylabel <- function(x, ylab) {
   ylab
 }
 
-add_interval_days <- function(x) {
-  x$interval_days <- get_interval(x, integer = TRUE)
+interval_days <- function(x) {
+
+  interval_days <- get_interval(x, integer = TRUE)
 
   ## if the date type is POSIXct, then the interval is actually interval seconds
   ## and needs to be converted to days
-  date_var <- get_date_vars(x)[1]
+  date_var <- get_date_vars(x)
   if (inherits(x[[date_var]], "POSIXct")) {
-    x$interval_days <- x$interval_days * 86400 # 24h * 60m * 60s
+    interval_days <- interval_days * 86400 # 24h * 60m * 60s
   }
-  x
+
+  interval_days
 }
+
+to_label <- function(interval) {
+
+  if (is.character(interval)) {
+    interval <- tolower(interval)
+  }
+
+  is_day <- (interval %in% (c("day", "1 day", "1 days"))) || (interval %in% c(1, 1L))
+
+  # TODO - add 7 day weeks to this
+  is_week <- interval == "week" || interval == "1 week" || interval == "1 weeks"
+
+  is_month <- interval == "month" || interval == "1 month" || interval == "1 months"
+
+  is_quarter <- interval == "quarter" || interval == "1 quarter" || interval == "1 quarters"
+
+  is_year <- interval == "year" || interval == "1 year" || interval == "1 years"
+
+  is_day || is_week || is_month || is_quarter || is_year
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

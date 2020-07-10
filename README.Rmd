@@ -167,7 +167,7 @@ incidence2 extends common dplyr verbs and this allows easy temporal subsetting:
 
 ```{r tail}
 i_7 %>% 
-  filter(date_group >= as.Date("2015-01-01")) %>% 
+  filter(bin_date >= as.Date("2015-01-01")) %>% 
   plot(color = "white")
 ```
 

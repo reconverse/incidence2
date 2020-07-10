@@ -57,10 +57,10 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
 
   # generate grouped_dates
   grouped_dates <- group_dates(x[[date_index]], breaks)
-  x <- mutate(x, date_group = grouped_dates)
+  x <- mutate(x, bin_date = grouped_dates)
 
   # Aggregate by date then groups
-  x <- group_by(x, .data$date_group)
+  x <- group_by(x, .data$bin_date)
   if (!is.null(groups)) {
     #x <- group_by(x, across(all_of(groups)), .add = TRUE)
     x <- group_by(x, across( {{groups}}), .add = TRUE)
@@ -68,24 +68,24 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
 
   x <- summarise(x, count = n(), .groups = "drop")
 
-  # Add in missing groupings and give them zero count
+  # Add in missing group_labels and give them zero count
   days <- seq(first_date, last_date, by = 1)
   grouped_days <- unique(group_dates(days, breaks))
   if (!is.null(groups)) {
     unique_groups <- lapply(groups, function(gr) unique(x[[gr]]))
     names(unique_groups) <- groups
-    unique_groups$date_group <- grouped_days
+    unique_groups$bin_date <- grouped_days
     combinations <- expand.grid(unique_groups)
   } else {
-    combinations <- data.frame(date_group = grouped_days)
+    combinations <- data.frame(bin_date = grouped_days)
   }
 
-  x <- left_join(combinations, x, by = c("date_group", groups))
+  x <- left_join(combinations, x, by = c("bin_date", groups))
   x$count[is.na(x$count)] <- 0L
 
   # filter out NA
   if (!na_as_group) {
-    x <- filter(x, !is.na(.data$date_group))
+    x <- filter(x, !is.na(.data$bin_date))
     x <- filter(x, across( {{groups}} , ~!is.na(.)))
   }
 
@@ -95,12 +95,12 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   }
 
   # reorder (dates, groups, counts)
-  x <- x[c("date_group", groups, "count")]
+  x <- x[c("bin_date", groups, "count")]
 
   # create subclass of tibble
   tbl <- tibble::new_tibble(x,
                             groups = groups,
-                            date = "date_group",
+                            date = "bin_date",
                             count = "count",
                             interval = interval,
                             cumulative = FALSE,
