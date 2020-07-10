@@ -21,6 +21,7 @@
   border = "white",
   na_color = "grey",
   group_labels = TRUE,
+  centre_labels = FALSE,
   ...
 )
 
@@ -36,8 +37,9 @@ facet_plot(
   n_breaks = 3,
   show_cases = FALSE,
   border = "white",
-  group_labels = has_weeks(x),
   na_color = "grey",
+  group_labels = TRUE,
+  centre_labels = FALSE,
   legend = TRUE,
   ...
 )
@@ -87,14 +89,18 @@ borders of the individual squares plotted (defaults to \code{"white"}).}
 marks are in week format YYYY-Www when plotting weekly incidence; defaults to
 TRUE.}
 
+\item{centre_labels}{Sgould labels on the axis be centred on the bars. This
+only applies to intervals that produce unambiguous labels (i.e \verb{1 day},
+\verb{1 month}, \verb{1 quarter} or \verb{1 year}).  Defaults to \code{FALSE}/}
+
 \item{...}{arguments passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date()}},
-\code{\link[ggplot2:scale_date]{ggplot2::scale_x_datetime()}}, or \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}, depending
-on how the \verb{$date} element is stored in the incidence object.}
+\code{\link[ggplot2:scale_date]{ggplot2::scale_x_datetime()}}, or \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}},
+depending  on how the date_index element is stored in the incidence object.}
 
 \item{facets}{Which variable to facet plots by.  If NULL will use all
 group_labels of the incidence object.}
 
-\item{legend}{Should a legend accompany the facet_plot}
+\item{legend}{Should a legend accompany the facet_plot.}
 }
 \value{
 \itemize{

@@ -29,92 +29,121 @@ incidence_reconstructable <- function(x, to) {
     return(FALSE)
   }
 
-  # TODO - this needs thinking about
+  # TODO add tests for this
   # check interval is the same or a multiple off
-  #to_interval <- get_interval(to, integer = TRUE)
-  #x_intervals <- unique(diff(x[[date_var[1]]]))
-  #if (!(all((x_intervals %% to_interval) == 0))) {
-  #  return(FALSE)
-  #}
+  to_interval <- get_interval(to)
 
+  if (is.numeric(to_interval)) {
+    x_intervals <- unique(diff(x[[date_var]]))
+    if (!(all((x_intervals %% to_interval) == 0))) {
+      return(FALSE)
+    }
+  } else if (is.character(to_interval)) {
+    if (grepl("week", to_interval, ignore.case = TRUE)) {
+      to_interval <- get_interval(to, integer = TRUE)
+      x_intervals <- unique(diff(x[[date_var]]))
+      if (!all((x_intervals %% to_interval) == 0)) {
+        return(FALSE)
+      }
+    } else if (grepl("month", to_interval, ignore.case = TRUE)) {
+      dates <- x[[date_var]]
+      days <- as.integer(format(dates, "%d"))
+      if (!all(days == 1L)) {
+        return(FALSE)
+      }
+    } else if (grepl("quarter", to_interval, ignore.case = TRUE)) {
+      dates <- x[[date_var]]
+      days <- as.integer(format(dates, "%d"))
+      months <- as.integer(format(dates, "%m"))
+      if (!all(days == 1L) || !all(months %in% c(1L, 4L, 7L, 10L))) {
+        return(FALSE)
+      }
+    } else if (grepl("year", to_interval, ignore.case = TRUE)) {
+      dates <- x[[date_var]]
+      days <- as.integer(format(dates, "%d"))
+      months <- as.integer(format(dates, "%m"))
+      if (!all(days == 1L) || !all(months == 1L)) {
+        return(FALSE)
+      }
+    }
+  }
   TRUE
 }
 
 
 
-incidence_reconstruct <- function(x, to) {
-  if (incidence_reconstructable(x, to)) {
-    df_reconstruct(x, to)
-  } else {
-    new_bare_tibble(x)
-  }
-}
-
-
-
-df_reconstruct <- function(x, to) {
-  attrs <- attributes(to)
-
-  # Keep column and row names of `x`
-  attrs$names <- names(x)
-  attrs$row.names <- .row_names_info(x, type = 0L)
-
-  # Otherwise copy over attributes of `to`
-  attributes(x) <- attrs
-
-  x
-}
-
-
-new_bare_tibble <- function(x) {
-  # Strips all attributes off `x` since `new_tibble()` currently doesn't
-  x <- vctrs::new_data_frame(x)
-  tibble::new_tibble(x, nrow = nrow(x))
-}
-
-#' @export
-`[.incidence` <- function(x, i, j, ...) {
-  out <- NextMethod()
-  incidence_reconstruct(out, x)
-}
-
-#' @export
-`[<-.incidence` <- function(x, i, j, ..., value) {
-  out <- NextMethod()
-  incidence_reconstruct(out, x)
-}
-
-#' @export
-`names<-.incidence` <- function(x, value) {
-
-  current_names <- names(x)
-
-  date_var <- attr(x, "date")
-  date_index <- which(current_names %in% date_var)
-  attr(x, "date") <- value[date_index]
-
-  count_var <- attr(x, "count")
-  count_index <- which(current_names %in% count_var)
-  attr(x, "count") <- value[count_index]
-
-  group_vars <- attr(x, "groups")
-  if (!is.null(group_vars)) {
-    group_index <- which(current_names %in% group_vars)
-    attr(x, "groups") <- value[group_index]
+  incidence_reconstruct <- function(x, to) {
+    if (incidence_reconstructable(x, to)) {
+      df_reconstruct(x, to)
+    } else {
+      new_bare_tibble(x)
+    }
   }
 
-  out <- NextMethod()
-  incidence_reconstruct(out, x)
-}
 
 
-# not needed due to below
-#dplyr_reconstruct.incidence <- function(data, template) {
-#  incidence_reconstruct(data, template)
-#}
+  df_reconstruct <- function(x, to) {
+    attrs <- attributes(to)
+
+    # Keep column and row names of `x`
+    attrs$names <- names(x)
+    attrs$row.names <- .row_names_info(x, type = 0L)
+
+    # Otherwise copy over attributes of `to`
+    attributes(x) <- attrs
+
+    x
+  }
 
 
-# Registered in `.onLoad()`
-dplyr_reconstruct_incidence <- function(data, template) {
-  incidence_reconstruct(data, template)
-}
+  new_bare_tibble <- function(x) {
+    # Strips all attributes off `x` since `new_tibble()` currently doesn't
+    x <- vctrs::new_data_frame(x)
+    tibble::new_tibble(x, nrow = nrow(x))
+  }
+
+  #' @export
+  `[.incidence` <- function(x, i, j, ...) {
+    out <- NextMethod()
+    incidence_reconstruct(out, x)
+  }
+
+  #' @export
+  `[<-.incidence` <- function(x, i, j, ..., value) {
+    out <- NextMethod()
+    incidence_reconstruct(out, x)
+  }
+
+  #' @export
+  `names<-.incidence` <- function(x, value) {
+    current_names <- names(x)
+
+    date_var <- attr(x, "date")
+    date_index <- which(current_names %in% date_var)
+    attr(x, "date") <- value[date_index]
+
+    count_var <- attr(x, "count")
+    count_index <- which(current_names %in% count_var)
+    attr(x, "count") <- value[count_index]
+
+    group_vars <- attr(x, "groups")
+    if (!is.null(group_vars)) {
+      group_index <- which(current_names %in% group_vars)
+      attr(x, "groups") <- value[group_index]
+    }
+
+    out <- NextMethod()
+    incidence_reconstruct(out, x)
+  }
+
+
+  # not needed due to below
+  #dplyr_reconstruct.incidence <- function(data, template) {
+  #  incidence_reconstruct(data, template)
+  #}
+
+
+  # Registered in `.onLoad()`
+  dplyr_reconstruct_incidence <- function(data, template) {
+    incidence_reconstruct(data, template)
+  }

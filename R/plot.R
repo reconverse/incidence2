@@ -56,7 +56,10 @@
 #'   marks are in week format YYYY-Www when plotting weekly incidence; defaults to
 #'   TRUE.
 #' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
-#' @param legend Should a legend accompany the facet_plot
+#' @param legend Should a legend accompany the facet_plot.
+#' @param centre_labels Sgould labels on the axis be centred on the bars. This
+#'   only applies to intervals that produce unambiguous labels (i.e `1 day`,
+#'   `1 month`, `1 quarter` or `1 year`).  Defaults to `FALSE`/
 #' @param ... other arguments to pass to [ggplot2::facet_wrap()].
 #'
 #' @return
