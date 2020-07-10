@@ -80,7 +80,7 @@ for various time steps and illustrate how to easily plot the data.
 
 ## Loading the data
 
-```{r, data}
+```{r data}
 library(outbreaks)
 library(incidence2)
 
@@ -95,7 +95,7 @@ To compute daily incidence we must pass observation data in the form of a
 a date variable in the data that we can use to index the input:
 
 We compute the daily incidence:
-```{r, incid1}
+```{r incid1}
 i <- incidence(dat, date_index = date_of_onset)
 i
 summary(i)
@@ -105,7 +105,7 @@ plot(i)
 The daily incidence is quite noisy, but we can easily compute other incidence
 using larger time intervals:
 
-```{r, interv}
+```{r interv}
 
 # weekly, starting on Monday (ISO week, default)
 i_weekly <- incidence(dat, date_index = date_of_onset, interval = "1 week")
@@ -126,7 +126,7 @@ plot(i_monthly, color = "white")
 with both the `plot()` function for a single plot and the `facet_plot()`
 function for a multi-faceted plot across groups:
 
-```{r, gender}
+```{r gender}
 i_weekly_sex <- incidence(dat, date_index = date_of_onset,
                      interval = "1 week", groups = gender)
 i_weekly_sex
@@ -141,11 +141,9 @@ facet_plot(i_weekly_sex, fill = gender, color = "white", )
 
 There is no limit to the number of groups that we group by and this allows
 us to both facet and fill by different variables:
-```{r, gender_hospital}
-i_weekly <- incidence(dat, date_index = date_of_onset,
-                     interval = "1 week", groups = c(gender, hospital))
-i_weekly %>% 
-  facet_plot(facet = hospital, fill = gender)
+```{r outcome_hospital}
+inci <- incidence(dat, date_index = date_of_onset,
+                     interval = "1 week", groups = c(outcome, hospital, gender))
+inci %>% 
+  facet_plot(facet = hospital, fill = outcome)
 ```
-
-

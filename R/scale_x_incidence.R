@@ -1,6 +1,3 @@
-#' @param ... arguments passed to [ggplot2::scale_x_date()],
-#'   [ggplot2::scale_x_datetime()], or [ggplot2::scale_x_continuous()],
-#'   depending  on how the date_index element is stored in the incidence object.
 scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, ...) {
 
   date_var <- get_date_vars(x)

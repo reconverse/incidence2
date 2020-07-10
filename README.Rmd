@@ -21,8 +21,10 @@ knitr::opts_chunk$set(
 [![codecov](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2)
 <!-- badges: end -->
 
+<br>
+**<span style="color: red;">Disclaimer</span>**
 
-**Disclaimer:** this package is a work in progress. Please reach out to the
+This package is a work in progress. Please reach out to the
 authors before using.
 
 
@@ -52,6 +54,7 @@ The main features of the package include:
   (see `?plot.incidence` for details).
 
 - Compatible with [dplyr](https://dplyr.tidyverse.org/) for data manipulation.
+  (see `vignette("handling_incidence_objects")` for more details).
 
 - **`regroup()`**: regroup incidence from different groups into one global incidence
   time series.
@@ -98,12 +101,10 @@ Note that this requires the package *devtools* installed.
 An short overview of *incidence* is provided below in the worked example below.
 More detailed tutorials are distributed as vignettes with the package:
 
-```{r, vignettes, eval = FALSE}
-vignette("Introduction", package="incidence")
-vignette("handling_incidence_objects", package="incidence")
-vignette("customizing_plots", package="incidence")
-vignette("bootstrapping", package="incidence")
-```
+* `vignette("Introduction")`
+* `vignette("handling_incidence_objects")`
+* `vignette("customizing_plots")`
+* `vignette("bootstrapping")`
 
 ## Websites
 

@@ -13,8 +13,10 @@ status](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)]
 [![codecov](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2)
 <!-- badges: end -->
 
-**Disclaimer:** this package is a work in progress. Please reach out to
-the authors before using.
+<br> **<span style="color: red;">Disclaimer</span>**
+
+This package is a work in progress. Please reach out to the authors
+before using.
 
 # Scope
 
@@ -42,7 +44,8 @@ The main features of the package include:
     (see `?plot.incidence` for details).
 
   - Compatible with [dplyr](https://dplyr.tidyverse.org/) for data
-    manipulation.
+    manipulation. (see `vignette("handling_incidence_objects")` for more
+    details).
 
   - **`regroup()`**: regroup incidence from different groups into one
     global incidence time series.
@@ -91,12 +94,10 @@ An short overview of *incidence* is provided below in the worked example
 below. More detailed tutorials are distributed as vignettes with the
 package:
 
-``` r
-vignette("Introduction", package="incidence")
-vignette("handling_incidence_objects", package="incidence")
-vignette("customizing_plots", package="incidence")
-vignette("bootstrapping", package="incidence")
-```
+  - `vignette("Introduction")`
+  - `vignette("handling_incidence_objects")`
+  - `vignette("customizing_plots")`
+  - `vignette("bootstrapping")`
 
 ## Websites
 
@@ -234,7 +235,7 @@ facet_plot(i_7_sex, n_breaks = 4)
 <img src="man/figures/README-genderfacet-1.png" width="100%" />
 
 and we can also group by multiple variables specifying different facets
-and fills
+and fills:
 
 ``` r
 # incidence is compatible with the magrittr pipe operator

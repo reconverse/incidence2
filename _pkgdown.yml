@@ -22,13 +22,16 @@ navbar:
     href: https://github.com/reconhub/incidence2
 
 reference:
-- title: Data Conversion
+- title: Incidence objects
   desc: >
-    Functions for computing and converting incidence objects
+    Functions for computing, viewing and converting incidence objects
   contents:
   - '`incidence`'
+  - '`print.incidence`'
+  - '`summary.incidence`'
   - '`as.data.frame.incidence`'
   - '`as_tibble.incidence`'
+
 - title: Incidence Curve Visualisation
   desc: >
     Functions for plotting incidence curves and models
@@ -47,12 +50,13 @@ reference:
   - '`get_n`'
   - '`get_timespan`'
 
-- title: Data Manipulation
+- title: Tidy data manipulation
   desc: >
     Functions for manipulating incidence objects by date or group
   contents:
-  - '`regroup`'
   - '`cumulate`'
+  - '`regroup`'
+
 - title: Parameter Estimation
   desc: >
     Functions for estimating parameters such as peak and doubling time
