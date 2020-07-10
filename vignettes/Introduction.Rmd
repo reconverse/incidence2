@@ -93,3 +93,53 @@ str(dat)
 ```
 
 ## Computing and plotting incidence
+To compute daily incidence we must pass observation data in the form of a
+*data.frame* or *tibble* to the `incidence()`. We must also pass the name of
+a date variable in the data that we can use to index the input:
+
+We compute the daily incidence:
+```{r, incid1}
+i <- incidence(dat, date_index = date_of_onset)
+i
+summary(i)
+plot(i)
+```
+
+The daily incidence is quite noisy, but we can easily compute other incidence
+using larger time intervals:
+
+```{r, interv}
+
+# weekly, starting on Monday (ISO week, default)
+i_weekly <- incidence(dat, date_index = date_of_onset, interval = "1 week")
+plot(i_weekly)
+
+# bi-weekly, starting on Saturday
+i_biweekly <- incidence(dat, date_index = date_of_onset, interval = "2 saturday weeks")
+plot(i_biweekly, color = "white")
+
+## monthly
+i_monthly <- incidence(dat, date_index = date_of_onset, interval = "1 month")
+plot(i_monthly, color = "white")
+```
+
+## Grouping
+`incidence` can also aggregate incidence by specified groups using the `groups`
+argument. For instance, we can compute incidence by gender and plot with both
+the `plot()` function for a single plot and the `facet_plot()` function for a
+multi-facetted plot across groups:
+
+```{r, gender}
+i_weekly_sex <- incidence(dat, date_index = date_of_onset,
+                     interval = "1 week", groups = gender)
+i_weekly_sex
+summary(i_weekly_sex)
+
+# A singular plot
+plot(i_weekly_sex, fill = gender)
+
+# a multi-facet plot
+plot_facet(i_weekly_sex, fill = gender, color = "white", )
+```
+
+
