@@ -51,6 +51,8 @@ scale_x_incidence(x, n_breaks = 6, group_labels = TRUE, format = NULL, ...)
 \arguments{
 \item{angle}{Angle to rotate x-axis labels (default 90 degrees)}
 
+\item{size}{text size in pts.}
+
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
 
 \item{fill}{Which variable to color plots by. If NULL no distinction if made
@@ -96,15 +98,15 @@ only applies to intervals that produce unambiguous labels (i.e \verb{1 day},
 \verb{1 month}, \verb{1 quarter} or \verb{1 year}).  Defaults to \code{FALSE}/}
 
 \item{...}{arguments passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date()}},
-\code{\link[ggplot2:scale_date]{ggplot2::scale_x_datetime()}}, or \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}, depending
-on how the \verb{$date} element is stored in the incidence object.}
+\code{\link[ggplot2:scale_date]{ggplot2::scale_x_datetime()}}, or \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}},
+depending on how the \verb{$date} element is stored in the incidence object.}
 
 \item{facets}{Which variable to facet plots by.  If NULL will use all
 group_labels of the incidence object.}
 
 \item{legend}{Should a legend accompany the facet_plot.}
 
-\item{plot}{A ggplot2 incidence graph.}
+\item{format}{Character string of desired format.  See \code{?strptime}.}
 }
 \value{
 \itemize{
