@@ -56,7 +56,7 @@
 #'   marks are in week format YYYY-Www when plotting weekly incidence; defaults to
 #'   TRUE.
 #' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
-#' @param legend Should a legend accompany the facet_plot.
+#' @param legend Position of legend in plot.
 #' @param centre_labels Sgould labels on the axis be centred on the bars. This
 #'   only applies to intervals that produce unambiguous labels (i.e `1 day`,
 #'   `1 month`, `1 quarter` or `1 year`).  Defaults to `FALSE`/
@@ -104,7 +104,9 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
                            xlab = "", ylab = NULL, n_breaks = 6,
                            show_cases = FALSE, border = "white",
                            na_color = "grey",
-                           group_labels = TRUE, centre_labels = FALSE,  ...) {
+                           group_labels = TRUE, centre_labels = FALSE,
+                           legend = c("right", "left", "bottom", "top", "none"),
+                           ...) {
 
 
   ellipsis::check_dots_empty()
@@ -117,6 +119,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
   interval <- get_interval(x)
+  legend <- match.arg(legend)
 
   # Handle stacking
   stack.txt <- if (stack) "stack" else "dodge"
@@ -139,9 +142,6 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
     x <- regroup(x, !!rlang::enexpr(fill))
     group_vars <- get_group_vars(x)
   }
-
-
-
 
   # set axis variables
   x_axis <- date_var
@@ -183,6 +183,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
                         alpha = alpha,
                         position = stack.txt) +
       ggplot2::theme_bw() +
+      ggplot2::theme(legend.position = legend) +
       ggplot2::labs(x = xlab, y = ylab) +
       ggplot2::aes(fill = !!sym(group_vars)) +
       ggplot2::scale_fill_manual(values = group_colors, na.value = na_color)
@@ -216,8 +217,8 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
                        show_cases = FALSE, border = "white",
                        na_color = "grey",
                        group_labels = TRUE, centre_labels = FALSE,
-                       legend = TRUE, ...) {
-
+                       legend = c("bottom", "top", "left", "right", "none"),
+                       ...) {
 
   # convert inputs to character
   facets <- arg_values(!!rlang::enexpr(facets))
@@ -227,8 +228,8 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
   date_var <- get_date_vars(x)
   count_var <- get_count_vars(x)
   group_vars <- get_group_vars(x)
-  legend <- if (legend) "bottom" else "none"
   interval <- get_interval(x)
+  legend <- match.arg(legend)
 
   # set axis variables
   x_axis <- date_var
