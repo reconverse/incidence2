@@ -160,6 +160,7 @@
   na_color = <span class='st'>"grey"</span>,
   group_labels = <span class='fl'>TRUE</span>,
   centre_labels = <span class='fl'>FALSE</span>,
+  legend = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>, <span class='st'>"bottom"</span>, <span class='st'>"top"</span>, <span class='st'>"none"</span>),
   <span class='kw'>...</span>
 )
 
@@ -178,7 +179,7 @@
   na_color = <span class='st'>"grey"</span>,
   group_labels = <span class='fl'>TRUE</span>,
   centre_labels = <span class='fl'>FALSE</span>,
-  legend = <span class='fl'>TRUE</span>,
+  legend = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bottom"</span>, <span class='st'>"top"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"none"</span>),
   <span class='kw'>...</span>
 )
 
@@ -268,6 +269,10 @@ only applies to intervals that produce unambiguous labels (i.e <code>1 day</code
 <code>1 month</code>, <code>1 quarter</code> or <code>1 year</code>).  Defaults to <code>FALSE</code>/</p></td>
     </tr>
     <tr>
+      <th>legend</th>
+      <td><p>Position of legend in plot.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>arguments passed to <code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>ggplot2::scale_x_date()</a></code>,
 <code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>ggplot2::scale_x_datetime()</a></code>, or <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>ggplot2::scale_x_continuous()</a></code>,
@@ -277,10 +282,6 @@ depending on how the <code>$date</code> element is stored in the incidence objec
       <th>facets</th>
       <td><p>Which variable to facet plots by.  If NULL will use all
 group_labels of the incidence object.</p></td>
-    </tr>
-    <tr>
-      <th>legend</th>
-      <td><p>Should a legend accompany the facet_plot.</p></td>
     </tr>
     <tr>
       <th>format</th>
