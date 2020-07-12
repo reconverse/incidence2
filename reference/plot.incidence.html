@@ -192,6 +192,10 @@
       <td><p>Angle to rotate x-axis labels (default 90 degrees)</p></td>
     </tr>
     <tr>
+      <th>size</th>
+      <td><p>text size in pts.</p></td>
+    </tr>
+    <tr>
       <th>x</th>
       <td><p>An <code><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence()</a></code> object.</p></td>
     </tr>
@@ -266,8 +270,8 @@ only applies to intervals that produce unambiguous labels (i.e <code>1 day</code
     <tr>
       <th>...</th>
       <td><p>arguments passed to <code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>ggplot2::scale_x_date()</a></code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>ggplot2::scale_x_datetime()</a></code>, or <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>ggplot2::scale_x_continuous()</a></code>, depending
-on how the <code>$date</code> element is stored in the incidence object.</p></td>
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>ggplot2::scale_x_datetime()</a></code>, or <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>ggplot2::scale_x_continuous()</a></code>,
+depending on how the <code>$date</code> element is stored in the incidence object.</p></td>
     </tr>
     <tr>
       <th>facets</th>
@@ -279,8 +283,8 @@ group_labels of the incidence object.</p></td>
       <td><p>Should a legend accompany the facet_plot.</p></td>
     </tr>
     <tr>
-      <th>plot</th>
-      <td><p>A ggplot2 incidence graph.</p></td>
+      <th>format</th>
+      <td><p>Character string of desired format.  See <code><a href='https://rdrr.io/r/base/strptime.html'>?strptime</a></code>.</p></td>
     </tr>
     </table>
 
