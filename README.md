@@ -13,8 +13,10 @@ status](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)]
 [![codecov](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2)
 <!-- badges: end -->
 
-**Disclaimer:** this package is a work in progress. Please reach out to
-the authors before using.
+<br> **<span style="color: red;">Disclaimer</span>**
+
+This package is a work in progress. Please reach out to the authors
+before using.
 
 # Scope
 
@@ -29,14 +31,6 @@ and graphing of incidence objects. The “fitting” functions of
 separate, package with a more consistent interface, more choice of
 underlying models, and tidier outputs.
 
-# Installing the package
-
-To install the development, *github* version of the package use:
-
-``` r
-devtools::install_github("reconhub/incidence2")
-```
-
 # What does it do?
 
 The main features of the package include:
@@ -50,7 +44,8 @@ The main features of the package include:
     (see `?plot.incidence` for details).
 
   - Compatible with [dplyr](https://dplyr.tidyverse.org/) for data
-    manipulation.
+    manipulation. (see `vignette("handling_incidence_objects")` for more
+    details).
 
   - **`regroup()`**: regroup incidence from different groups into one
     global incidence time series.
@@ -80,40 +75,73 @@ The main features of the package include:
     **`get_group_vars()`**, **`get_interval()`**, **`get_timespan()`**
     and **`get_n()`**.
 
+# Installing the package
+
+The package is not yet on CRAN but to install the development, *github*
+version of the package use:
+
+``` r
+devtools::install_github("reconhub/incidence2")
+```
+
+Note that this requires the package *devtools* installed.
+
+# Resources
+
+## Vignettes
+
+An short overview of *incidence* is provided below in the worked example
+below. More detailed tutorials are distributed as vignettes with the
+package:
+
+  - `vignette("Introduction")`
+  - `vignette("handling_incidence_objects")`
+  - `vignette("customizing_plots")`
+  - `vignette("bootstrapping")`
+
+## Websites
+
+The following websites are available:
+
+  - The *incidence2* project on *github*, useful for developers,
+    contributors, and users wanting to post issues, bug reports and
+    feature requests: <br> <https://github.com/reconhub/incidence2>
+
+## Getting help online
+
+Bug reports and feature requests should be posted on *github* using the
+[*issue* system](https://github.com/reconhub/incidence/issues). All
+other questions should be posted on the **RECON** slack channel see
+<https://www.repidemicsconsortium.org/forum/> for details on how to
+join.
+
 # A quick overview
 
-The following worked example provides a brief overview of the package’s
-functionalities.
-
-## Loading the data
-
-This example uses the simulated Ebola Virus Disease (EVD) outbreak from
-the package [*outbreaks*](https://github.com/reconhub/outbreaks). It
-shows how to compute incidence for various time steps and manipulate the
-data.
+This short example uses the simulated Ebola Virus Disease (EVD) outbreak
+from the package [*outbreaks*](https://github.com/reconhub/outbreaks).
+It shows how to compute incidence for various time steps plot the
+resulting incidence tables.
 
 First, we load the data:
 
 ``` r
 library(outbreaks)
 library(incidence2)
-library(dplyr)
 
 dat <- ebola_sim_clean$linelist
-glimpse(dat)
-#> Rows: 5,829
-#> Columns: 11
-#> $ case_id                 <chr> "d1fafd", "53371b", "f5c3d8", "6c286a", "0f58…
-#> $ generation              <int> 0, 1, 1, 2, 2, 0, 3, 3, 2, 3, 4, 3, 4, 2, 4, …
-#> $ date_of_infection       <date> NA, 2014-04-09, 2014-04-18, NA, 2014-04-22, …
-#> $ date_of_onset           <date> 2014-04-07, 2014-04-15, 2014-04-21, 2014-04-…
-#> $ date_of_hospitalisation <date> 2014-04-17, 2014-04-20, 2014-04-25, 2014-04-…
-#> $ date_of_outcome         <date> 2014-04-19, NA, 2014-04-30, 2014-05-07, 2014…
-#> $ outcome                 <fct> NA, NA, Recover, Death, Recover, NA, Recover,…
-#> $ gender                  <fct> f, m, f, f, f, f, f, f, m, m, f, f, f, f, f, …
-#> $ hospital                <fct> Military Hospital, Connaught Hospital, other,…
-#> $ lon                     <dbl> -13.21799, -13.21491, -13.22804, -13.23112, -…
-#> $ lat                     <dbl> 8.473514, 8.464927, 8.483356, 8.464776, 8.452…
+str(dat)
+#> 'data.frame':    5829 obs. of  11 variables:
+#>  $ case_id                : chr  "d1fafd" "53371b" "f5c3d8" "6c286a" ...
+#>  $ generation             : int  0 1 1 2 2 0 3 3 2 3 ...
+#>  $ date_of_infection      : Date, format: NA "2014-04-09" ...
+#>  $ date_of_onset          : Date, format: "2014-04-07" "2014-04-15" ...
+#>  $ date_of_hospitalisation: Date, format: "2014-04-17" "2014-04-20" ...
+#>  $ date_of_outcome        : Date, format: "2014-04-19" NA ...
+#>  $ outcome                : Factor w/ 2 levels "Death","Recover": NA NA 2 1 2 NA 2 1 2 1 ...
+#>  $ gender                 : Factor w/ 2 levels "f","m": 1 2 1 1 1 1 1 1 2 2 ...
+#>  $ hospital               : Factor w/ 5 levels "Connaught Hospital",..: 2 1 3 NA 3 NA 1 4 3 5 ...
+#>  $ lon                    : num  -13.2 -13.2 -13.2 -13.2 -13.2 ...
+#>  $ lat                    : num  8.47 8.46 8.48 8.46 8.45 ...
 ```
 
 ## Computing and plotting incidence
@@ -151,7 +179,7 @@ summary(i_7)
 plot(i_7, color = "black")
 ```
 
-![](figs/incid7-1.png)<!-- -->
+<img src="man/figures/README-incid7-1.png" width="100%" />
 
 `incidence()` can also compute incidence by specified groups using the
 `groups` argument. For instance, we can compute the weekly incidence by
@@ -196,7 +224,7 @@ summary(i_7_sex)
 plot(i_7_sex, fill = "gender", color = "black")
 ```
 
-![](figs/genderstack-1.png)<!-- -->
+<img src="man/figures/README-genderstack-1.png" width="100%" />
 
 we can facet our plot (grouping detected automatically):
 
@@ -204,10 +232,10 @@ we can facet our plot (grouping detected automatically):
 facet_plot(i_7_sex, n_breaks = 4)
 ```
 
-![](figs/genderfacet-1.png)<!-- -->
+<img src="man/figures/README-genderfacet-1.png" width="100%" />
 
 and we can also group by multiple variables specifying different facets
-and fills
+and fills:
 
 ``` r
 # incidence is compatible with the magrittr pipe operator
@@ -261,134 +289,4 @@ i_7_sh %>% summary()
 i_7_sh %>% facet_plot(facets = gender, fill = hospital)
 ```
 
-![](figs/genderhospital-1.png)<!-- -->
-
-## Handling `incident` objects
-
-`incidence` objects can be manipulated easily using both operators from
-base R and dplyr.. The `[` operator implements normal subsetting of rows
-and columns. For instance, to keep only the first 20 weeks of the
-epidemic:
-
-``` r
-plot(i_7[1:20, ], color = "white")
-```
-
-![](figs/start-1.png)<!-- -->
-
-incidence2 extends common dplyr verbs and this allows easy temporal
-subsetting:
-
-``` r
-i_7 %>% 
-  filter(bin_date >= as.Date("2015-01-01")) %>% 
-  plot(color = "white")
-```
-
-![](figs/tail-1.png)<!-- -->
-
-Subsetting groups can also matter. For instance, let’s try and visualise
-the incidence based on onset of symptoms by outcome:
-
-``` r
-i_7_outcome <- incidence(dat,
-                         date_index = date_of_onset,
-                         interval = 7, 
-                         groups = outcome)
-i_7_outcome
-#> <incidence object>
-#> [5829 cases from days 2014-04-07 to 2015-04-27]
-#> [interval: 7 days]
-#> [cumulative: FALSE]
-#> 
-#>    bin_date   date_group outcome count
-#>    <date>     <aweek>    <fct>   <int>
-#>  1 2014-04-07 2014-W15   <NA>        1
-#>  2 2014-04-07 2014-W15   Death       0
-#>  3 2014-04-07 2014-W15   Recover     0
-#>  4 2014-04-14 2014-W16   <NA>        1
-#>  5 2014-04-14 2014-W16   Death       0
-#>  6 2014-04-14 2014-W16   Recover     0
-#>  7 2014-04-21 2014-W17   <NA>        1
-#>  8 2014-04-21 2014-W17   Death       1
-#>  9 2014-04-21 2014-W17   Recover     3
-#> 10 2014-04-28 2014-W18   <NA>        1
-#> # … with 158 more rows
-summary(i_7_outcome)
-#> <incidence object>
-#> 
-#> 5829 cases from days 2014-04-07 to 2015-04-27
-#> interval: 7 days
-#> cumulative: FALSE
-#> timespan: 386 days
-#> 
-#> 1 grouped variable
-#> 
-#>   outcome count
-#>   <fct>   <int>
-#> 1 Death    2564
-#> 2 Recover  1963
-#> 3 <NA>     1302
-plot(i_7_outcome, fill = outcome)
-```
-
-![](figs/i7outcome-1.png)<!-- -->
-
-``` r
-facet_plot(i_7_outcome, n_breaks = 3)
-```
-
-![](figs/i7outcome-2.png)<!-- -->
-
-``` r
-i_7_outcome_cum <- cumulate(i_7_outcome)
-i_7_outcome_cum
-#> <incidence object>
-#> [155032 cases from days 2014-04-07 to 2015-04-27]
-#> [interval: 7 days]
-#> [cumulative: TRUE]
-#> 
-#>    bin_date   date_group outcome count
-#>    <date>     <aweek>    <fct>   <int>
-#>  1 2014-04-07 2014-W15   <NA>        1
-#>  2 2014-04-07 2014-W15   Death       0
-#>  3 2014-04-07 2014-W15   Recover     0
-#>  4 2014-04-14 2014-W16   <NA>        2
-#>  5 2014-04-14 2014-W16   Death       0
-#>  6 2014-04-14 2014-W16   Recover     0
-#>  7 2014-04-21 2014-W17   <NA>        3
-#>  8 2014-04-21 2014-W17   Death       1
-#>  9 2014-04-21 2014-W17   Recover     3
-#> 10 2014-04-28 2014-W18   <NA>        4
-#> # … with 158 more rows
-plot(i_7_outcome_cum, fill = outcome)
-```
-
-![](figs/i7outcome_cum-1.png)<!-- -->
-
-Groups can also be collapsed into a single time series using `regroup`:
-
-``` r
-i_regrouped <- regroup(i_7_outcome)
-i_regrouped
-#> <incidence object>
-#> [5829 cases from days 2014-04-07 to 2015-04-27]
-#> [interval: 7 days]
-#> [cumulative: FALSE]
-#> 
-#>    bin_date   date_group count
-#>    <date>     <aweek>    <int>
-#>  1 2014-04-07 2014-W15       1
-#>  2 2014-04-14 2014-W16       1
-#>  3 2014-04-21 2014-W17       5
-#>  4 2014-04-28 2014-W18       4
-#>  5 2014-05-05 2014-W19      12
-#>  6 2014-05-12 2014-W20      17
-#>  7 2014-05-19 2014-W21      15
-#>  8 2014-05-26 2014-W22      19
-#>  9 2014-06-02 2014-W23      23
-#> 10 2014-06-09 2014-W24      21
-#> # … with 46 more rows
-identical(i_7, i_regrouped)
-#> [1] TRUE
-```
+<img src="man/figures/README-genderhospital-1.png" width="100%" />

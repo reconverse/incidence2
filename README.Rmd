@@ -6,9 +6,8 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.width = 8,
-  fig.height = 6,
-  fig.path = "figs/",
+  out.width = "100%",
+  fig.path = "man/figures/README-",
   echo = TRUE
 )
 
@@ -22,8 +21,12 @@ knitr::opts_chunk$set(
 [![codecov](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2)
 <!-- badges: end -->
 
-**Disclaimer:** this package is a work in progress. Please reach out to the
+<br>
+**<span style="color: red;">Disclaimer</span>**
+
+This package is a work in progress. Please reach out to the
 authors before using.
+
 
 # Scope
 
@@ -36,15 +39,6 @@ incidence objects. The "fitting" functions of
 [incidence](https://github.com/reconhub/incidence) (e.g. `incidence::fit`) 
 will likely find there place in a smaller, separate, package with a more 
 consistent interface, more choice of underlying models, and tidier outputs. 
-
-
-# Installing the package
-
-To install the development, *github* version of the package use:
-
-```{r install2, eval=FALSE}
-devtools::install_github("reconhub/incidence2")
-```
 
 
 # What does it do?
@@ -60,6 +54,7 @@ The main features of the package include:
   (see `?plot.incidence` for details).
 
 - Compatible with [dplyr](https://dplyr.tidyverse.org/) for data manipulation.
+  (see `vignette("handling_incidence_objects")` for more details).
 
 - **`regroup()`**: regroup incidence from different groups into one global incidence
   time series.
@@ -88,25 +83,57 @@ The main features of the package include:
   **`get_n()`**.
 
 
+# Installing the package
+
+The package is not yet on CRAN but to install the development, *github* version
+of the package use:
+
+```{r install2, eval=FALSE}
+devtools::install_github("reconhub/incidence2")
+```
+
+Note that this requires the package *devtools* installed.
+
+# Resources
+
+## Vignettes
+
+An short overview of *incidence* is provided below in the worked example below.
+More detailed tutorials are distributed as vignettes with the package:
+
+* `vignette("Introduction")`
+* `vignette("handling_incidence_objects")`
+* `vignette("customizing_plots")`
+* `vignette("bootstrapping")`
+
+## Websites
+
+The following websites are available:
+
+- The *incidence2* project on *github*, useful for developers, contributors, and users wanting to post issues, bug reports and feature requests: <br>
+<https://github.com/reconhub/incidence2>
+
+## Getting help online
+
+Bug reports and feature requests should be posted on *github* using the [*issue* system](https://github.com/reconhub/incidence/issues). All other questions
+should be posted on the **RECON** slack channel see 
+<https://www.repidemicsconsortium.org/forum/> for details on how to join.
+
+
 # A quick overview
 
-The following worked example provides a brief overview of the package's
-functionalities.
-
-## Loading the data
-This example uses the simulated Ebola Virus Disease (EVD) outbreak from the
-package [*outbreaks*](https://github.com/reconhub/outbreaks). It shows how to
-compute incidence for various time steps and manipulate the data.
+This short example uses the simulated Ebola Virus Disease (EVD) outbreak from
+the package [*outbreaks*](https://github.com/reconhub/outbreaks). It shows how
+to compute incidence for various time steps plot the resulting incidence tables.
 
 First, we load the data:
 
 ```{r data, message=FALSE}
 library(outbreaks)
 library(incidence2)
-library(dplyr)
 
 dat <- ebola_sim_clean$linelist
-glimpse(dat)
+str(dat)
 ```
 
 ## Computing and plotting incidence
@@ -139,7 +166,7 @@ facet_plot(i_7_sex, n_breaks = 4)
 ```
 
 and we can also group by multiple variables specifying different facets and 
-fills
+fills:
 
 ```{r genderhospital}
 # incidence is compatible with the magrittr pipe operator
@@ -153,48 +180,3 @@ i_7_sh %>% facet_plot(facets = gender, fill = hospital)
 ```
 
 
-## Handling `incident` objects
-
-`incidence` objects can be manipulated easily using both operators from base R
-and dplyr.. The `[` operator implements normal subsetting of rows and columns.
-For instance, to keep only the first 20 weeks of the epidemic:
-
-```{r start}
-plot(i_7[1:20, ], color = "white")
-```
-
-incidence2 extends common dplyr verbs and this allows easy temporal subsetting:
-
-```{r tail}
-i_7 %>% 
-  filter(bin_date >= as.Date("2015-01-01")) %>% 
-  plot(color = "white")
-```
-
-Subsetting groups can also matter. For instance, let's try and visualise the
-incidence based on onset of symptoms by outcome:
-
-```{r i7outcome}
-i_7_outcome <- incidence(dat,
-                         date_index = date_of_onset,
-                         interval = 7, 
-                         groups = outcome)
-i_7_outcome
-summary(i_7_outcome)
-plot(i_7_outcome, fill = outcome)
-facet_plot(i_7_outcome, n_breaks = 3)
-```
-
-```{r i7outcome_cum}
-i_7_outcome_cum <- cumulate(i_7_outcome)
-i_7_outcome_cum
-plot(i_7_outcome_cum, fill = outcome)
-```
-
-Groups can also be collapsed into a single time series using `regroup`:
-
-```{r regroup}
-i_regrouped <- regroup(i_7_outcome)
-i_regrouped
-identical(i_7, i_regrouped)
-```

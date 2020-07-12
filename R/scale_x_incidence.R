@@ -1,34 +1,46 @@
 #' @param ... arguments passed to [ggplot2::scale_x_date()],
-#'   [ggplot2::scale_x_datetime()], or [ggplot2::scale_x_continuous()],
-#'   depending  on how the date_index element is stored in the incidence object.
+#' [ggplot2::scale_x_datetime()], or [ggplot2::scale_x_continuous()], depending
+#' on how the `$date` element is stored in the incidence object.
 #' @export
 #' @rdname plot.incidence
-scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, ...) {
+scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, format = NULL, ...) {
 
   date_var <- get_date_vars(x)
 
   breaks <- make_breaks(x, n_breaks, group_labels)
 
   if (inherits(x[[date_var]], "Date")) {
-
+    if (is.null(format)) {
+      labels <- breaks$labels
+    } else {
+      labels <- format(breaks$breaks, format = format)
+    }
     out <- ggplot2::scale_x_date(breaks = breaks$breaks,
-                                 labels = breaks$labels,
+                                 labels = labels,
                                  ...)
   } else if (inherits(x[[date_var]], "POSIXt")) {
+    if (is.null(format)) {
+      labels <- breaks$labels
+    } else {
+      labels <- format(breaks$breaks, format = format)
+    }
     breaks$breaks <- as.POSIXct(as.POSIXlt(breaks$breaks))
     out <- ggplot2::scale_x_datetime(breaks   = breaks$breaks,
-                                     labels   = breaks$labels,
+                                     labels   = labels,
                                      timezone = "UTC",
                                      ...
     )
   } else {
+    if (!is.null(format)) {
+      message("Cannot format variable\n")
+    }
+
     out <- ggplot2::scale_x_continuous(breaks = breaks$breaks, ...)
   }
+
   out
 }
 
-#' @export
-#' @rdname plot.incidence
 make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
   stopifnot(inherits(x, "incidence"), is.logical(group_labels), is.numeric(n_breaks))
 
