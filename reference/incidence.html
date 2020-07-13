@@ -396,13 +396,13 @@ interval.</p>
 }</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
 #&gt; &gt; dat &lt;- ebola_sim_clean$linelist
 #&gt; &gt; dat %&gt;% incidence(date_of_onset)
-#&gt; &lt;incidence object&gt;
-#&gt; [5829 cases from days 2014-04-07 to 2015-04-30]
+#&gt; <span style='color: #555555;'>An incidence object: 389 x 2
+#&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-30]
 #&gt; [interval: 1 day]
 #&gt; [cumulative: FALSE]
 #&gt; 
 #&gt;    bin_date   count
-#&gt;    <span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07     1
 #&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-08     0
 #&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-09     0
@@ -416,8 +416,8 @@ interval.</p>
 #&gt; </span><span style='color: #555555;'># … with 379 more rows</span><span>
 #&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = 7, standard = FALSE)
-#&gt; &lt;incidence object&gt;
-#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]
+#&gt; </span><span style='color: #555555;'>An incidence object: 56 x 2
+#&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-27]
 #&gt; [interval: 7 days]
 #&gt; [cumulative: FALSE]
 #&gt; 
@@ -436,8 +436,8 @@ interval.</p>
 #&gt; </span><span style='color: #555555;'># … with 46 more rows</span><span>
 #&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "isoweek")
-#&gt; &lt;incidence object&gt;
-#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]
+#&gt; </span><span style='color: #555555;'>An incidence object: 56 x 3
+#&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-27]
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
 #&gt; 
@@ -456,8 +456,8 @@ interval.</p>
 #&gt; </span><span style='color: #555555;'># … with 46 more rows</span><span>
 #&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "epiweek")
-#&gt; &lt;incidence object&gt;
-#&gt; [5829 cases from days 2014-04-06 to 2015-04-26]
+#&gt; </span><span style='color: #555555;'>An incidence object: 56 x 3
+#&gt; </span><span>[5829 cases from days 2014-04-06 to 2015-04-26]
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
 #&gt; 
@@ -476,8 +476,8 @@ interval.</p>
 #&gt; </span><span style='color: #555555;'># … with 46 more rows</span><span>
 #&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "saturday epiweek")
-#&gt; &lt;incidence object&gt;
-#&gt; [5829 cases from days 2014-04-05 to 2015-04-25]
+#&gt; </span><span style='color: #555555;'>An incidence object: 56 x 3
+#&gt; </span><span>[5829 cases from days 2014-04-05 to 2015-04-25]
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
 #&gt; 
@@ -496,8 +496,8 @@ interval.</p>
 #&gt; </span><span style='color: #555555;'># … with 46 more rows</span><span>
 #&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = 7, groups = gender)
-#&gt; &lt;incidence object&gt;
-#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]
+#&gt; </span><span style='color: #555555;'>An incidence object: 112 x 4
+#&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-27]
 #&gt; [interval: 7 days]
 #&gt; [cumulative: FALSE]
 #&gt; 
@@ -517,8 +517,8 @@ interval.</p>
 #&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "2 weeks", groups = c(gender, 
 #&gt; +     hospital))
-#&gt; &lt;incidence object&gt;
-#&gt; [5829 cases from days 2014-04-07 to 2015-04-20]
+#&gt; </span><span style='color: #555555;'>An incidence object: 336 x 5
+#&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-20]
 #&gt; [interval: 2 weeks]
 #&gt; [cumulative: FALSE]
 #&gt; 
@@ -541,8 +541,8 @@ interval.</p>
 <span class='kw'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>dates</span>,
                   interval = <span class='st'>"week"</span>,
                   first_date = <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() <span class='op'>+</span> <span class='fl'>1</span>,
-                  standard = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>2 observations outside of [2020-07-14, 2020-07-22] were removed.</span></div><div class='output co'>#&gt; &lt;incidence object&gt;
-#&gt; [8 cases from days 2020-07-13 to 2020-07-20]
+                  standard = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>2 observations outside of [2020-07-14, 2020-07-22] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence object: 2 x 3
+#&gt; </span><span>[8 cases from days 2020-07-13 to 2020-07-20]
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
 #&gt; 

@@ -123,7 +123,7 @@
                   groups = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">gender</span>, <span class="kw">hospital</span>, <span class="kw">outcome</span>),
                   interval = <span class="st">"1 week"</span>)
 <span class="kw">inci</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
+<span class="co">#&gt; An incidence object: 2,016 x 6</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -144,7 +144,7 @@
 
 <span class="co"># regroup to just two groups</span>
 <span class="kw">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">gender</span>, <span class="kw">outcome</span>))
-<span class="co">#&gt; &lt;incidence object&gt;</span>
+<span class="co">#&gt; An incidence object: 336 x 5</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -165,7 +165,7 @@
 
 <span class="co"># drop all groups</span>
 <span class="kw">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span>()
-<span class="co">#&gt; &lt;incidence object&gt;</span>
+<span class="co">#&gt; An incidence object: 56 x 3</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -228,7 +228,7 @@
     <span class="kw">inci</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">gender</span> <span class="op">==</span> <span class="st">"f"</span>, <span class="kw">hospital</span> <span class="op">==</span> <span class="st">"Rokupa Hospital"</span>)
 <span class="kw">x</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
+<span class="co">#&gt; An incidence object: 2 x 5</span>
 <span class="co">#&gt; [2 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -245,23 +245,23 @@
     <span class="kw">inci</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(n = <span class="fl">10</span>)
 <span class="kw">x</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [27 cases from days 2014-05-19 to 2014-06-02]</span>
+<span class="co">#&gt; An incidence object: 10 x 5</span>
+<span class="co">#&gt; [23 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   date_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… f          2</span>
-<span class="co">#&gt;  2 2014-05-19 2014-W21   other                                      m          3</span>
-<span class="co">#&gt;  3 2014-05-19 2014-W21   Connaught Hospital                         m          4</span>
-<span class="co">#&gt;  4 2014-06-02 2014-W23   other                                      f          3</span>
-<span class="co">#&gt;  5 2014-06-02 2014-W23   &lt;NA&gt;                                       m          6</span>
+<span class="co">#&gt;  1 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
+<span class="co">#&gt;  2 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
+<span class="co">#&gt;  3 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… f          1</span>
+<span class="co">#&gt;  4 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… f          2</span>
+<span class="co">#&gt;  5 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… m          0</span>
 <span class="co">#&gt;  6 2014-05-19 2014-W21   Military Hospital                          f          2</span>
-<span class="co">#&gt;  7 2014-06-02 2014-W23   Military Hospital                          f          1</span>
-<span class="co">#&gt;  8 2014-05-19 2014-W21   Connaught Hospital                         f          3</span>
-<span class="co">#&gt;  9 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… m          0</span>
-<span class="co">#&gt; 10 2014-05-19 2014-W21   Military Hospital                          m          3</span>
+<span class="co">#&gt;  7 2014-06-02 2014-W23   Rokupa Hospital                            m          1</span>
+<span class="co">#&gt;  8 2014-05-19 2014-W21   Military Hospital                          m          3</span>
+<span class="co">#&gt;  9 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
+<span class="co">#&gt; 10 2014-06-02 2014-W23   &lt;NA&gt;                                       f          7</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
@@ -276,7 +276,7 @@
     <span class="kw">inci</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(future = <span class="kw">bin_date</span> <span class="op">+</span> <span class="fl">999</span>)
 <span class="kw">x</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
+<span class="co">#&gt; An incidence object: 24 x 6</span>
 <span class="co">#&gt; [63 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -325,7 +325,7 @@
     <span class="kw">inci</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span>())
 <span class="kw">x</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
+<span class="co">#&gt; An incidence object: 24 x 5</span>
 <span class="co">#&gt; [63 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -351,7 +351,7 @@
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(bin_date = <span class="kw">bin_date</span> <span class="op">+</span> <span class="fl">112</span>) <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="kw">inci</span>)
 <span class="kw">x</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
+<span class="co">#&gt; An incidence object: 26 x 5</span>
 <span class="co">#&gt; [68 cases from days 2014-05-19 to 2014-09-08]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
