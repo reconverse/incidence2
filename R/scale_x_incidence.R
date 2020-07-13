@@ -1,6 +1,7 @@
 #' @param ... arguments passed to [ggplot2::scale_x_date()],
-#' [ggplot2::scale_x_datetime()], or [ggplot2::scale_x_continuous()], depending
-#' on how the `$date` element is stored in the incidence object.
+#'   [ggplot2::scale_x_datetime()], or [ggplot2::scale_x_continuous()],
+#'   depending on how the `$date` element is stored in the incidence object.
+#' @param format Character string of desired format.  See `?strptime`.
 #' @export
 #' @rdname plot.incidence
 scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, format = NULL, ...) {
