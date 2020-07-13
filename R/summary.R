@@ -9,8 +9,11 @@ summary.incidence <- function(object, ...) {
   count_var <- get_count_vars(object)
   date_var <- get_date_vars(object)
 
-  # title
-  cat("<incidence object>\n\n")
+  # header
+  header <- sprintf("An incidence object: %s x %s\n",
+                    formatC(nrow(object), big.mark = ","),
+                    formatC(ncol(object), big.mark = ","))
+  cat(pillar::style_subtle(header))
 
   # cases over date range
   cat(sprintf(

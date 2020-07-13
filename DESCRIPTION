@@ -30,7 +30,8 @@ Imports:
     tibble,
     ellipsis,
     vctrs,
-    magrittr
+    magrittr,
+    pillar
 Suggests: 
     outbreaks,
     testthat,
