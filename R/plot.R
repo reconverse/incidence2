@@ -59,7 +59,8 @@
 #' @param legend Position of legend in plot.
 #' @param centre_labels Sgould labels on the axis be centred on the bars. This
 #'   only applies to intervals that produce unambiguous labels (i.e `1 day`,
-#'   `1 month`, `1 quarter` or `1 year`).  Defaults to `FALSE`/
+#'   `1 month`, `1 quarter` or `1 year`).  Defaults to `FALSE`.
+#' @param nrow Number of rows.
 #' @param ... other arguments to pass to [ggplot2::facet_wrap()].
 #'
 #' @return
@@ -218,7 +219,7 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
                        na_color = "grey",
                        group_labels = TRUE, centre_labels = FALSE,
                        legend = c("bottom", "top", "left", "right", "none"),
-                       ...) {
+                       nrow = NULL, ...) {
 
   # convert inputs to character
   facets <- arg_values(!!rlang::enexpr(facets))
@@ -289,9 +290,9 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
   }
 
   if (is.null(facets) && !is.null(group_vars)) {
-    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), ...)
+    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), nrow, ...)
   } else if (!is.null(facets)) {
-    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), ...)
+    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), nrow, ...)
   }
 
   out <- out + scale_x_incidence(df, n_breaks, group_labels)

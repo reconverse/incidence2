@@ -44,6 +44,7 @@ facet_plot(
   group_labels = TRUE,
   centre_labels = FALSE,
   legend = c("bottom", "top", "left", "right", "none"),
+  nrow = NULL,
   ...
 )
 
@@ -96,7 +97,7 @@ TRUE.}
 
 \item{centre_labels}{Sgould labels on the axis be centred on the bars. This
 only applies to intervals that produce unambiguous labels (i.e \verb{1 day},
-\verb{1 month}, \verb{1 quarter} or \verb{1 year}).  Defaults to \code{FALSE}/}
+\verb{1 month}, \verb{1 quarter} or \verb{1 year}).  Defaults to \code{FALSE}.}
 
 \item{legend}{Position of legend in plot.}
 
@@ -106,6 +107,8 @@ depending on how the \verb{$date} element is stored in the incidence object.}
 
 \item{facets}{Which variable to facet plots by.  If NULL will use all
 group_labels of the incidence object.}
+
+\item{nrow}{Number of rows.}
 
 \item{format}{Character string of desired format.  See \code{?strptime}.}
 }
