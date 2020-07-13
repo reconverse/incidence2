@@ -180,6 +180,7 @@
   group_labels = <span class='fl'>TRUE</span>,
   centre_labels = <span class='fl'>FALSE</span>,
   legend = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bottom"</span>, <span class='st'>"top"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"none"</span>),
+  nrow = <span class='kw'>NULL</span>,
   <span class='kw'>...</span>
 )
 
@@ -266,7 +267,7 @@ TRUE.</p></td>
       <th>centre_labels</th>
       <td><p>Sgould labels on the axis be centred on the bars. This
 only applies to intervals that produce unambiguous labels (i.e <code>1 day</code>,
-<code>1 month</code>, <code>1 quarter</code> or <code>1 year</code>).  Defaults to <code>FALSE</code>/</p></td>
+<code>1 month</code>, <code>1 quarter</code> or <code>1 year</code>).  Defaults to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>legend</th>
@@ -282,6 +283,10 @@ depending on how the <code>$date</code> element is stored in the incidence objec
       <th>facets</th>
       <td><p>Which variable to facet plots by.  If NULL will use all
 group_labels of the incidence object.</p></td>
+    </tr>
+    <tr>
+      <th>nrow</th>
+      <td><p>Number of rows.</p></td>
     </tr>
     <tr>
       <th>format</th>
