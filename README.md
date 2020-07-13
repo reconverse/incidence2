@@ -96,8 +96,6 @@ package:
 
   - `vignette("Introduction")`
   - `vignette("handling_incidence_objects")`
-  - `vignette("customizing_plots")`
-  - `vignette("bootstrapping")`
 
 ## Websites
 
