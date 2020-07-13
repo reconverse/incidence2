@@ -81,9 +81,20 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
   out$observed <- find_peak(x)
 
   ## peaks on 'n' bootstrap samples
-  peak_boot <- replicate(n,
-                         find_peak(bootstrap(x)),
-                         simplify = FALSE)
+  message("Estimating peaks from bootstrap samples\n")
+  pb <- txtProgressBar(min = 0, max = n, style = 3)
+  peak_boot <- lapply(1:n,
+                      function(i) {
+                        res <- find_peak(bootstrap(x))
+                        setTxtProgressBar(pb, i)
+                        res
+                      }
+  )
+  cat("\n\n")
+
+  # peak_boot <- replicate(n,
+  #                        find_peak(bootstrap(x)),
+  #                        simplify = FALSE)
 
   ## convert to vector without losing Date class
   peak_boot <- dplyr::bind_rows(peak_boot)
