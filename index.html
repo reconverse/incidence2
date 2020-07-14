@@ -191,12 +191,12 @@
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="kw">i_7</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, interval = <span class="fl">7</span>)
 <span class="kw">i_7</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
+<span class="co">#&gt; An incidence object: 56 x 3</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 7 days]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    bin_date   date_group count</span>
+<span class="co">#&gt;    bin_date   week_group count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;int&gt;</span>
 <span class="co">#&gt;  1 2014-04-07 2014-W15       1</span>
 <span class="co">#&gt;  2 2014-04-14 2014-W16       1</span>
@@ -210,8 +210,7 @@
 <span class="co">#&gt; 10 2014-06-09 2014-W24      21</span>
 <span class="co">#&gt; # … with 46 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">i_7</span>)
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; </span>
+<span class="co">#&gt; An incidence object: 56 x 3</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 7 days</span>
 <span class="co">#&gt; cumulative: FALSE</span>
@@ -224,12 +223,12 @@
 <span class="kw">i_7_sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, interval = <span class="st">"week"</span>, 
                      date_index = <span class="kw">date_of_onset</span>, groups = <span class="kw">gender</span>)
 <span class="kw">i_7_sex</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
+<span class="co">#&gt; An incidence object: 112 x 4</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    bin_date   date_group gender count</span>
+<span class="co">#&gt;    bin_date   week_group gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;  &lt;int&gt;</span>
 <span class="co">#&gt;  1 2014-04-07 2014-W15   f          1</span>
 <span class="co">#&gt;  2 2014-04-07 2014-W15   m          0</span>
@@ -243,8 +242,7 @@
 <span class="co">#&gt; 10 2014-05-05 2014-W19   m          3</span>
 <span class="co">#&gt; # … with 102 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">i_7_sex</span>)
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; </span>
+<span class="co">#&gt; An incidence object: 112 x 4</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 1 week</span>
 <span class="co">#&gt; cumulative: FALSE</span>
@@ -272,12 +270,12 @@
   <span class="fu"><a href="reference/incidence.html">incidence</a></span>(date_index = <span class="kw">date_of_onset</span>, interval = <span class="st">"week"</span>, 
             groups = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">gender</span>, <span class="kw">hospital</span>))
 <span class="kw">i_7_sh</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
+<span class="co">#&gt; An incidence object: 672 x 5</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    bin_date   date_group gender hospital                                   count</span>
+<span class="co">#&gt;    bin_date   week_group gender hospital                                   count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;  &lt;fct&gt;                                      &lt;int&gt;</span>
 <span class="co">#&gt;  1 2014-04-07 2014-W15   f      Military Hospital                              1</span>
 <span class="co">#&gt;  2 2014-04-07 2014-W15   m      Military Hospital                              0</span>
@@ -291,8 +289,7 @@
 <span class="co">#&gt; 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0</span>
 <span class="co">#&gt; # … with 662 more rows</span>
 <span class="kw">i_7_sh</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>()
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; </span>
+<span class="co">#&gt; An incidence object: 672 x 5</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 1 week</span>
 <span class="co">#&gt; cumulative: FALSE</span>

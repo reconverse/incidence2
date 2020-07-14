@@ -441,7 +441,7 @@ interval.</p>
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
 #&gt; 
-#&gt;    bin_date   date_group count
+#&gt;    bin_date   week_group count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07 2014-W15       1
 #&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-14 2014-W16       1
@@ -461,7 +461,7 @@ interval.</p>
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
 #&gt; 
-#&gt;    bin_date   date_group count
+#&gt;    bin_date   week_group count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-06 2014-W15       1
 #&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-13 2014-W16       1
@@ -481,7 +481,7 @@ interval.</p>
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
 #&gt; 
-#&gt;    bin_date   date_group count
+#&gt;    bin_date   week_group count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-05 2014-W14       1
 #&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-12 2014-W15       1
@@ -501,7 +501,7 @@ interval.</p>
 #&gt; [interval: 7 days]
 #&gt; [cumulative: FALSE]
 #&gt; 
-#&gt;    bin_date   date_group gender count
+#&gt;    bin_date   week_group gender count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07 2014-W15   f          1
 #&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-07 2014-W15   m          0
@@ -522,7 +522,7 @@ interval.</p>
 #&gt; [interval: 2 weeks]
 #&gt; [cumulative: FALSE]
 #&gt; 
-#&gt;    bin_date   date_group gender hospital                                   count
+#&gt;    bin_date   week_group gender hospital                                   count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>                                      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07 2014-W15   f      Military Hospital                              1
 #&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-07 2014-W15   m      Military Hospital                              0
@@ -541,15 +541,15 @@ interval.</p>
 <span class='kw'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>dates</span>,
                   interval = <span class='st'>"week"</span>,
                   first_date = <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() <span class='op'>+</span> <span class='fl'>1</span>,
-                  standard = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>2 observations outside of [2020-07-14, 2020-07-22] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence object: 2 x 3
+                  standard = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>2 observations outside of [2020-07-15, 2020-07-23] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence object: 2 x 3
 #&gt; </span><span>[8 cases from days 2020-07-13 to 2020-07-20]
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
 #&gt; 
-#&gt;   bin_date   date_group count
+#&gt;   bin_date   week_group count
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2020-07-13 2020-W29       7
-#&gt; </span><span style='color: #555555;'>2</span><span> 2020-07-20 2020-W30       1
+#&gt; </span><span style='color: #555555;'>1</span><span> 2020-07-13 2020-W29       6
+#&gt; </span><span style='color: #555555;'>2</span><span> 2020-07-20 2020-W30       2
 #&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
