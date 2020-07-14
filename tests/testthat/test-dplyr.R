@@ -170,14 +170,13 @@ test_that("operations that drop class", {
 
 
   # Changing rows to have wrong interval (e.g. not 2 weeks) drops class
-  x <- inci
   x <-
     inci %>%
     mutate(
       bin_date = replace(
         bin_date,
-        date_group == "2014-W21",
-        (bin_date + 3)[date_group == "2014-W21"]
+        week_group == "2014-W21",
+        (bin_date + 3)[week_group == "2014-W21"]
         )
     )
 

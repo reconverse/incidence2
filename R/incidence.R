@@ -463,9 +463,9 @@ group_labels <- function(x, interval, standard) {
 
   if (check_week(interval) && standard) {
     week_start <- get_week_start(interval)
-    x$date_group <- aweek::date2week(x[[date_var]], week_start, floor_day = TRUE)
-    attr(x, "date_group") <- "date_group"
-    x <- dplyr::relocate(x, .data$date_group, .after = .data[[date_var]])
+    x$week_group <- aweek::date2week(x[[date_var]], week_start, floor_day = TRUE)
+    attr(x, "date_group") <- "week_group"
+    x <- dplyr::relocate(x, .data$week_group, .after = .data[[date_var]])
   }
 
   date_interval <- is.character(interval) && is_date_interval(interval)

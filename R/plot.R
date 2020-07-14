@@ -245,7 +245,12 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
   # Adding a variable for width in ggplot
   if (to_label(interval) && centre_labels) {
     df$interval_days <- 0
-  } else {
+  } else if (!to_label(interval) && centre_labels) {
+    message(paste("centreing label for this interval is not possible",
+                  "defaulting to labels on left side of bins",
+                  sep = "\n"))
+  }
+    else {
     df$interval_days <- interval_days(df)
   }
 

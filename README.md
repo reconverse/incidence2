@@ -149,12 +149,12 @@ We compute the weekly incidence:
 ``` r
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
 i_7
-#> <incidence object>
+#> An incidence object: 56 x 3
 #> [5829 cases from days 2014-04-07 to 2015-04-27]
 #> [interval: 7 days]
 #> [cumulative: FALSE]
 #> 
-#>    bin_date   date_group count
+#>    bin_date   week_group count
 #>    <date>     <aweek>    <int>
 #>  1 2014-04-07 2014-W15       1
 #>  2 2014-04-14 2014-W16       1
@@ -168,8 +168,7 @@ i_7
 #> 10 2014-06-09 2014-W24      21
 #> # … with 46 more rows
 summary(i_7)
-#> <incidence object>
-#> 
+#> An incidence object: 56 x 3
 #> 5829 cases from days 2014-04-07 to 2015-04-27
 #> interval: 7 days
 #> cumulative: FALSE
@@ -187,12 +186,12 @@ gender and plot in a single, stacked chart:
 i_7_sex <- incidence(dat, interval = "week", 
                      date_index = date_of_onset, groups = gender)
 i_7_sex
-#> <incidence object>
+#> An incidence object: 112 x 4
 #> [5829 cases from days 2014-04-07 to 2015-04-27]
 #> [interval: 1 week]
 #> [cumulative: FALSE]
 #> 
-#>    bin_date   date_group gender count
+#>    bin_date   week_group gender count
 #>    <date>     <aweek>    <fct>  <int>
 #>  1 2014-04-07 2014-W15   f          1
 #>  2 2014-04-07 2014-W15   m          0
@@ -206,8 +205,7 @@ i_7_sex
 #> 10 2014-05-05 2014-W19   m          3
 #> # … with 102 more rows
 summary(i_7_sex)
-#> <incidence object>
-#> 
+#> An incidence object: 112 x 4
 #> 5829 cases from days 2014-04-07 to 2015-04-27
 #> interval: 1 week
 #> cumulative: FALSE
@@ -242,12 +240,12 @@ i_7_sh <-
   incidence(date_index = date_of_onset, interval = "week", 
             groups = c(gender, hospital))
 i_7_sh
-#> <incidence object>
+#> An incidence object: 672 x 5
 #> [5829 cases from days 2014-04-07 to 2015-04-27]
 #> [interval: 1 week]
 #> [cumulative: FALSE]
 #> 
-#>    bin_date   date_group gender hospital                                   count
+#>    bin_date   week_group gender hospital                                   count
 #>    <date>     <aweek>    <fct>  <fct>                                      <int>
 #>  1 2014-04-07 2014-W15   f      Military Hospital                              1
 #>  2 2014-04-07 2014-W15   m      Military Hospital                              0
@@ -261,8 +259,7 @@ i_7_sh
 #> 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0
 #> # … with 662 more rows
 i_7_sh %>% summary()
-#> <incidence object>
-#> 
+#> An incidence object: 672 x 5
 #> 5829 cases from days 2014-04-07 to 2015-04-27
 #> interval: 1 week
 #> cumulative: FALSE

@@ -13,6 +13,17 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, format = NUL
   if (inherits(x[[date_var]], "Date")) {
     if (is.null(format)) {
       labels <- breaks$labels
+      interval <- get_interval(x)
+      if (grepl("week", interval)) {
+        reg <- regexpr("^\\d+", interval)
+        if (reg != -1L) {
+          num_weeks <- regmatches(interval, reg)
+          if (num_weeks > 1) {
+            labels <- breaks$breaks
+          }
+        }
+      }
+
     } else {
       labels <- format(breaks$breaks, format = format)
     }
@@ -22,6 +33,16 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, format = NUL
   } else if (inherits(x[[date_var]], "POSIXt")) {
     if (is.null(format)) {
       labels <- breaks$labels
+      interval <- get_interval(x)
+      if (grepl("week", interval)) {
+        reg <- regexpr("^\\d+", interval)
+        if (reg != -1L) {
+          num_weeks <- regmatches(interval, reg)
+          if (num_weeks > 1) {
+            labels <- breaks$breaks
+          }
+        }
+      }
     } else {
       labels <- format(breaks$breaks, format = format)
     }
@@ -45,7 +66,7 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, format = NUL
 make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
   stopifnot(inherits(x, "incidence"), is.logical(group_labels), is.numeric(n_breaks))
 
-  date_var <- get_date_vars(x)[1]
+  date_var <- get_date_vars(x)
   ## Defining breaks for the x axis --------------------------------------------
   ##
   ## The x axis can either be integers, Dates, or POSIXt scales. Moreover,
@@ -76,7 +97,8 @@ make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
     if (has_number) {
       ni <- as.integer(strsplit(interval, " ", fixed = TRUE)[[1L]][1L])
       # the replacement should be a multiple of the number
-      replacement <- if (tims <= ni) ni else ceiling(tims/ni)*ni
+      #replacement <- if (tims <= ni) ni else ceiling(tims/ni)*ni
+      replacement <- if (tims <= ni) ni else tims*ni
       db <- gsub("\\d+", replacement, interval)
     } else if (interval == "quarter") {
       db <- paste(tims * 3, "months")
