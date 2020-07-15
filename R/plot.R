@@ -134,7 +134,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
   }
 
   if (!is.null(group_vars)) {
-    if (fill %in% group_vars) {
+    if (!is.null(fill) && fill %in% group_vars) {
       group_vars <- fill
     }
   }
