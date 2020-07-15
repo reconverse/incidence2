@@ -33,11 +33,12 @@
 #'     x
 #'    })
 #' }
+#' @importFrom dplyr select group_by summarise across n all_of
+#' @importFrom rlang :=
 #' @export
 bootstrap <- function(x, randomise_groups = FALSE) {
-  if (!inherits(x, "incidence")) {
-    stop("x is not an incidence object")
-  }
+
+  if (!inherits(x, "incidence")) stop("x is not an incidence object")
 
   count_var <- get_count_name(x)
   group_vars <- get_group_names(x)

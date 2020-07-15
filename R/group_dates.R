@@ -10,5 +10,3 @@ group_dates <- function(dates, breaks) {
   counts <- count_dates(dates, breaks)
   rep(breaks, counts)
 }
-
-

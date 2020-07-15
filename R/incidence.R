@@ -171,8 +171,11 @@ incidence <- function(x, date_index, interval = 1L, ...) {
   date_index <- arg_values(!!rlang::enexpr(date_index))
   UseMethod("incidence", x[[date_index]])
 }
+# -------------------------------------------------------------------------
 
 
+
+# -------------------------------------------------------------------------
 #' @export
 #' @rdname incidence
 incidence.default <- function(x, date_index, interval = 1L, ...) {
@@ -181,14 +184,20 @@ incidence.default <- function(x, date_index, interval = 1L, ...) {
   date_index <- arg_values(!!rlang::enexpr(date_index))
 
   x[[date_index]] <- check_dates(x[[date_index]])
+
+  # In theory the code should not run to here as check_dates should error:
+  # but you never know ...
   incidence(x, date_index, interval = interval, ...)
 }
+# -------------------------------------------------------------------------
 
+
+# -------------------------------------------------------------------------
 #' @param standard (Only applicable where date_index references a Date object)
 #'   When `TRUE` (default) and the `interval` one of "week", "month", "quarter",
 #'   or "year", then this will cause the bins for the counts to start at the
 #'   beginning of the interval (See Note).
-
+#'
 #' @export
 #' @rdname incidence
 incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
@@ -240,8 +249,10 @@ incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
 
   out
 }
+# -------------------------------------------------------------------------
 
 
+# -------------------------------------------------------------------------
 #' @param standard (Only applicable where date_index references a Date object)
 #'   When `TRUE` (default) and the `interval` one of "week", "month", "quarter",
 #'   or "year", then this will cause the bins for the counts to start at the
@@ -308,8 +319,10 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
 
   out
 }
+# -------------------------------------------------------------------------
 
 
+# -------------------------------------------------------------------------
 # The default incidence is designed for dates provided as integers, and a fixed
 # time interval defaulting to 1. 'bins' are time intervals, identified by the
 # left date, left-inclusive and right-exclusive, i.e. the time interval defined
@@ -359,7 +372,10 @@ incidence.integer <- function(x, date_index, interval = 1L,
 
   out
 }
+# -------------------------------------------------------------------------
 
+
+# -------------------------------------------------------------------------
 #' @export
 #' @rdname incidence
 incidence.numeric <- function(x, date_index, interval = 1L,
@@ -404,8 +420,10 @@ incidence.numeric <- function(x, date_index, interval = 1L,
   out$bin_date <- as.numeric(out$bin_date)
   out
 }
+# -------------------------------------------------------------------------
 
 
+# -------------------------------------------------------------------------
 #' @export
 #' @rdname incidence
 incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
@@ -455,8 +473,10 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
   }
   out
 }
+# -------------------------------------------------------------------------
 
 
+# -------------------------------------------------------------------------
 group_labels <- function(x, interval, standard) {
   date_var <- get_date_name(x)
 
@@ -492,6 +512,9 @@ group_labels <- function(x, interval, standard) {
   }
   x
 }
+# -------------------------------------------------------------------------
+
+
 
 
 

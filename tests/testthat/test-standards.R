@@ -12,10 +12,9 @@ incidence(dat, date_index = dates, interval = "week", standard = TRUE)
 
 test_that("standard will override first_date", {
 
-  # TODO think about this
-  #expect_output(
-  #  print(incidence(dat, date_index = dates, interval = "week", standard = TRUE)),
-  #  "2019-03-04")
+  expect_output(
+    print(incidence(dat, date_index = dates, interval = "week", standard = TRUE)),
+    "2019-03-04")
 
   expect_output(
     print(incidence(dat, date_index = dates, interval = "week", standard = TRUE)),

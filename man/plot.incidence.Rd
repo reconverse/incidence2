@@ -153,5 +153,4 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
     facet_plot(inci2, facets = hospital, fill = gender)
   })
 }
-
 }

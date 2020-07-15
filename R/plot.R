@@ -98,7 +98,7 @@
 #'   })
 #' }
 
-#'
+#' @importFrom rlang sym syms
 #' @export
 plot.incidence <- function(x, fill = NULL, stack = TRUE,
                            col_pal = vibrant, alpha = 0.7, color = NA,
@@ -209,7 +209,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
 
 }
 
-
+#' @importFrom rlang sym syms
 #' @export
 #' @rdname plot.incidence
 facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,

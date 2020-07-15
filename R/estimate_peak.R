@@ -92,10 +92,6 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
   )
   cat("\n\n")
 
-  # peak_boot <- replicate(n,
-  #                        find_peak(bootstrap(x)),
-  #                        simplify = FALSE)
-
   ## convert to vector without losing Date class
   peak_boot <- dplyr::bind_rows(peak_boot)
 
@@ -111,8 +107,10 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
   out$peaks <- peak_boot
   out
 }
+# -------------------------------------------------------------------------
 
 
+# -------------------------------------------------------------------------
 # quantiles for Date objects
 quantile_Date <- function(x, ...) {
   if (!inherits(x, "Date")) {
@@ -124,3 +122,4 @@ quantile_Date <- function(x, ...) {
   out <- stats::quantile(x_num, ...)
   first_date + out
 }
+# -------------------------------------------------------------------------

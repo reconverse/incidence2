@@ -48,7 +48,10 @@ get_interval.incidence <- function(x, integer = FALSE, ...) {
                  paste(class(interval), collapse = ", ")))
   }
 }
+# -------------------------------------------------------------------------
 
+
+# -------------------------------------------------------------------------
 get_interval_type <- function(x) {
   res <- NULL
   res <- if (grepl("day", x, ignore.case = TRUE)) "day" else res
@@ -58,15 +61,20 @@ get_interval_type <- function(x) {
   res <- if (grepl("year", x, ignore.case = TRUE)) "year" else res
   res
 }
+# -------------------------------------------------------------------------
 
+
+# -------------------------------------------------------------------------
 get_interval_number <- function(x) {
 
   if (!grepl("^\\d", x)) return(1L)
   as.integer(gsub("^(\\d*).+$", "\\1", x))
 
 }
+# -------------------------------------------------------------------------
 
 
+# -------------------------------------------------------------------------
 get_days_in_month <- function(dates, m = 1L) {
   dates <- floor_month(dates)
   res <- vapply(strsplit(format(dates), "-"),
@@ -75,7 +83,10 @@ get_days_in_month <- function(dates, m = 1L) {
                 months = m)
   as.integer(as.Date(res) - dates)
 }
+# -------------------------------------------------------------------------
 
+
+# -------------------------------------------------------------------------
 get_days_in_quarter <- function(dates, m = 1L) {
   dates <- floor_month(dates)
   res <- vapply(strsplit(format(dates), "-"),
@@ -84,7 +95,10 @@ get_days_in_quarter <- function(dates, m = 1L) {
                 months = 3L * m)
   as.integer(as.Date(res) - dates)
 }
+# -------------------------------------------------------------------------
 
+
+# -------------------------------------------------------------------------
 get_days_in_year <- function(dates, m = 1L) {
   dates <- floor_month(dates)
   res <- vapply(strsplit(format(dates), "-"),
@@ -93,11 +107,17 @@ get_days_in_year <- function(dates, m = 1L) {
                 months = 12L * m)
   as.integer(as.Date(res) - dates)
 }
+# -------------------------------------------------------------------------
 
+
+# -------------------------------------------------------------------------
 floor_month <- function(x) {
   x - as.integer(format(x, "%d")) + 1L
 }
+# -------------------------------------------------------------------------
 
+
+# -------------------------------------------------------------------------
 add_months <- function(x, months = 1L) {
   i <- as.integer(x[2]) + months
   if (i > 12L) {
@@ -107,3 +127,4 @@ add_months <- function(x, months = 1L) {
   x[2] <- sprintf("%02d", i)
   paste(x, collapse = "-")
 }
+# -------------------------------------------------------------------------

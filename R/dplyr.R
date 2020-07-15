@@ -82,10 +82,10 @@ incidence_can_reconstruct <- function(x, to) {
   }
   TRUE
 }
+# -------------------------------------------------------------------------
 
 
-
-
+# -------------------------------------------------------------------------
 #' Function to reconstruct object of incidence class
 #'
 #' Once you have encoded the invariant logic into incidence_can_reconstruct, we
@@ -104,8 +104,11 @@ incidence_reconstruct <- function(x, to) {
     new_bare_tibble(x)
   }
 }
+# -------------------------------------------------------------------------
 
 
+
+# -------------------------------------------------------------------------
 # This function is a data frame specific helper.  Currently we are recommended
 # to copy in to our own package but it may evenutally find it's way in to one of
 # the tidy packages. See:
@@ -121,7 +124,10 @@ df_reconstruct <- function(x, to) {
   attributes(x) <- attrs
   x
 }
+# -------------------------------------------------------------------------
 
+
+# -------------------------------------------------------------------------
 # new_bare_tibble() is a small wrapper around tibble::new_tibble() that also
 # forces extra attributes to be dropped through the use of
 # vctrs::new_data_frame(). In the future, new_tibble() might have an option
@@ -132,7 +138,10 @@ new_bare_tibble <- function(x) {
   x <- vctrs::new_data_frame(x)
   tibble::new_tibble(x, nrow = nrow(x))
 }
+# -------------------------------------------------------------------------
 
+
+# -------------------------------------------------------------------------
 # Need to define a few base R methods to ensure things work as expected
 
 #' @export
@@ -168,9 +177,12 @@ new_bare_tibble <- function(x) {
   out <- NextMethod()
   incidence_reconstruct(out, x)
 }
+# -------------------------------------------------------------------------
 
+
+# -------------------------------------------------------------------------
 # Registered in `.onLoad()` in zzz.R
 dplyr_reconstruct_incidence <- function(data, template) {
   incidence_reconstruct(data, template)
 }
-
+# -------------------------------------------------------------------------

@@ -32,6 +32,7 @@
 #'     find_peak(i)
 #'   })
 #' }
+#' @importFrom dplyr group_by across all_of
 #' @export
 find_peak <- function(x, regroup = TRUE) {
   if (!inherits(x, "incidence")) {

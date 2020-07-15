@@ -347,8 +347,8 @@ test_that("corner cases", {
   expect_error(incidence(data.frame(dates = 1), date_index = dates, interval = "week"),
                "The interval 'week' can only be used for Dates")
 
-  #expect_error(incidence(data.frame(dates = as.Date(Sys.Date())), date_index = dates, standard = "TRUE"),
-  #             "The argument `standard` must be either `TRUE` or `FALSE`")
+  expect_error(incidence(data.frame(dates = as.Date(Sys.Date())), date_index = dates, standard = "TRUE"),
+               "The argument `standard` must be either `TRUE` or `FALSE`")
 
   expect_error(incidence(data.frame(dates = sample(10)), date_index = dates, intrval = 2),
                class = "rlib_error_dots_nonempty")
@@ -395,13 +395,16 @@ test_that("incidence constructor can handle missing data", {
                            "1 missing observations were removed.")
 })
 
-# test_that("incidence constructor can handle data out of range with groups", {
-#   set.seed(the_seed)
-#   g <- sample(letters[1:2], length(dat), replace = TRUE)
-#   expect_message(incidence(data.frame(dates = dat), date_index = dates, first_date = 0, groups = g),
-#                  "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
-#   )
-# })
+test_that("incidence constructor can handle data out of range with groups", {
+ set.seed(the_seed)
+ g <- sample(letters[1:2], length(dat), replace = TRUE)
+ expect_message(incidence(data.frame(dates = dat, groups = g),
+                          date_index = dates,
+                          first_date = 0,
+                          groups = groups),
+                "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
+ )
+})
 
 test_that("Expected values, no group", {
 

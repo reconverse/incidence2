@@ -21,7 +21,6 @@ is reserved for missing data.
 \examples{
 vibrant(5)
 muted(10)
-
 }
 \author{
 Thibaut Jombart \email{thibautjombart@gmail.com}

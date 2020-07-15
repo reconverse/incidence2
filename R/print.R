@@ -6,7 +6,6 @@
 #' @export
 print.incidence <- function(x, ...) {
 
-
   # get the date and count variables
   count_var <- get_count_name(x)
   date_var <- get_date_name(x)

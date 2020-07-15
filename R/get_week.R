@@ -29,8 +29,10 @@ get_week_start <- function(weekday) {
   )
   gsub("epi", "", res) # if they specify something like "epiweek:saturday"
 }
+# -------------------------------------------------------------------------
 
 
+# -------------------------------------------------------------------------
 #' Translate a custom interval to a valid interval
 #'
 #' @param the_interval An interval like `"2 epiweeks"` or `"1 ISOweek"`.
@@ -48,8 +50,10 @@ get_week_duration <- function(the_interval) {
   res <- gsub("^(\\d*) ?.*(weeks?).*$", "\\1 \\2", tolower(the_interval), perl = TRUE)
   trimws(res)
 }
+# -------------------------------------------------------------------------
 
 
+# -------------------------------------------------------------------------
 get_type_of_week <- function(x) {
   date_var <- get_date_name(x)
   week_var <- get_date_group_names(x)
@@ -61,7 +65,4 @@ get_type_of_week <- function(x) {
     sprintf("(%s)", weekdays(x[[date_var]][1]))
   )
 }
-
-
-
-
+# -------------------------------------------------------------------------

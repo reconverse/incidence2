@@ -46,7 +46,8 @@ get_count_name <- function(x, ...) {
 #' @aliases get_count_name.default
 #' @export
 get_count_name.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s", class(x)[1]))
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
 #' @rdname accessors
@@ -73,7 +74,8 @@ get_date_group_names <- function(x, ...) {
 #' @aliases get_date_group_names.default
 #' @export
 get_date_group_names.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s", class(x)[1]))
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
 #' @rdname accessors
@@ -100,7 +102,8 @@ get_date_name <- function(x, ...) {
 #' @aliases get_date_name.default
 #' @export
 get_date_name.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s", class(x)[1]))
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
 #' @rdname accessors
@@ -128,7 +131,8 @@ get_group_names <- function(x, ...) {
 #' @aliases get_group_names.default
 #' @export
 get_group_names.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s", class(x)[1]))
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
 #' @rdname accessors
@@ -139,6 +143,3 @@ get_group_names.incidence <- function(x, ...) {
   attr(x, "groups")
 }
 # -------------------------------------------------------------------------
-
-
-

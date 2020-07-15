@@ -76,6 +76,10 @@ regroup <- function(x, groups = NULL){
 
   tbl
 }
+# -------------------------------------------------------------------------
+
+
+# -------------------------------------------------------------------------
 #' Pool 'incidence' objects
 #'
 #' Pool was a function from the original incidence package that has now been
@@ -88,4 +92,6 @@ regroup <- function(x, groups = NULL){
 pool <- function(...) {
   stop("The pool function has been deprecated.  Please use regroup() instead.")
 }
+# -------------------------------------------------------------------------
+
 
