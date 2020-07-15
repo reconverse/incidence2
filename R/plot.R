@@ -131,17 +131,12 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
                  "For multi-facet plotting try facet_plot()",
                  sep = "\n")
     message(msg)
-
-    if (is.null(fill)) {
-      x <- regroup(x)
-      group_vars <- get_group_names(x)
-    }
-
   }
 
-  if (!is.null(fill)) {
-    x <- regroup(x, !!rlang::enexpr(fill))
-    group_vars <- get_group_names(x)
+  if (!is.null(group_vars)) {
+    if (fill %in% group_vars) {
+      group_vars <- fill
+    }
   }
 
   # set axis variables
@@ -171,7 +166,16 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
                         alpha = alpha) +
       ggplot2::theme_bw() +
       ggplot2::labs(x = xlab, y = ylab)
-  } else if (length(group_vars) == 1) {
+  } else if (is.null(group_vars)) {
+    out <- ggplot2::ggplot(df) +
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+                        width = interval_days(df),
+                        color = color,
+                        fill = fill,
+                        alpha = alpha) +
+      ggplot2::theme_bw() +
+      ggplot2::labs(x = xlab, y = ylab)
+  } else if (group_vars == fill) {
     group_names <- unique(df[[group_vars]])
     n_groups <- length(group_names)
     group_colors <- col_pal(n_groups)
@@ -186,20 +190,23 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
       ggplot2::theme_bw() +
       ggplot2::theme(legend.position = legend) +
       ggplot2::labs(x = xlab, y = ylab) +
-      ggplot2::aes(fill = !!sym(group_vars)) +
+      ggplot2::aes(fill = !!sym(fill)) +
       ggplot2::scale_fill_manual(values = group_colors, na.value = na_color)
   }
 
-  if (show_cases && (stack == TRUE || is.null(group_vars))) {
-    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
+  if (show_cases && (stack == TRUE || is.null(fill))) {
+    squaredf <- suppressMessages(
+      df[rep(seq.int(nrow(df)), df[[count_var]]), ]
+    )
     squaredf[[count_var]] <- 1
-    squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                                 color = if (is.na(border)) "white" else border,
-                                 fill  = NA,
-                                 position = "stack",
-                                 data = squaredf,
-                                 width = interval_days(df)) +
-      ggplot2::theme_bw()
+    squares <-
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+                        color = if (is.na(border)) "white" else border,
+                        fill  = NA,
+                        position = "stack",
+                        data = squaredf,
+                        width = interval_days(df))
+
     out <- out + squares
   }
 
@@ -264,7 +271,7 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
                         alpha = alpha) +
       ggplot2::theme_bw() +
       ggplot2::labs(x = xlab, y = ylab)
-  } else {
+  } else if (fill %in% group_vars) {
     fill_names <- unique(df[[fill]])
     n_fill <- length(fill_names)
     fill_colors <- col_pal(n_fill)
@@ -279,18 +286,30 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
       ggplot2::labs(x = xlab, y = ylab) +
       ggplot2::aes(fill = !!sym(fill)) +
       ggplot2::scale_fill_manual(values = fill_colors, na.value = na_color)
+  } else {
+    out <- ggplot2::ggplot(df) +
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+                        width = interval_days(df),
+                        color = color,
+                        fill = fill,
+                        alpha = alpha) +
+      ggplot2::theme_bw() +
+      ggplot2::theme(legend.position = legend) +
+      ggplot2::labs(x = xlab, y = ylab)
   }
 
   if (show_cases) {
-    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
+    squaredf <- suppressMessages(
+      df[rep(seq.int(nrow(df)), df[[count_var]]), ]
+    )
+
     squaredf[[count_var]] <- 1
     squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                                  color = if (is.na(border)) "white" else border,
                                  fill  = NA,
                                  position = "stack",
                                  data = squaredf,
-                                 width = interval_days(df)) +
-      ggplot2::theme_bw()
+                                 width = interval_days(df))
     out <- out + squares
   }
 
