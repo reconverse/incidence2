@@ -39,9 +39,9 @@ bootstrap <- function(x, randomise_groups = FALSE) {
     stop("x is not an incidence object")
   }
 
-  count_var <- get_count_vars(x)
-  group_vars <- get_group_vars(x)
-  date_var <- get_date_vars(x)
+  count_var <- get_count_name(x)
+  group_vars <- get_group_names(x)
+  date_var <- get_date_name(x)
 
 
   tbl <- select(x, !all_of(count_var))
@@ -73,10 +73,14 @@ bootstrap <- function(x, randomise_groups = FALSE) {
   )
   tibble::validate_tibble(tbl)
 }
+# -------------------------------------------------------------------------
 
 
-
+# -------------------------------------------------------------------------
 # A fix for the behaviour of `sample` when first argument is of length 1.
 sample_ <- function(x, ...) {
   x[sample.int(length(x), ...)]
 }
+# -------------------------------------------------------------------------
+
+

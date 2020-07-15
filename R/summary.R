@@ -6,8 +6,8 @@
 summary.incidence <- function(object, ...) {
 
   # get the date and count variables
-  count_var <- get_count_vars(object)
-  date_var <- get_date_vars(object)
+  count_var <- get_count_name(object)
+  date_var <- get_date_name(object)
 
   # header
   header <- sprintf("An incidence object: %s x %s\n",
@@ -41,7 +41,7 @@ summary.incidence <- function(object, ...) {
   cat(sprintf("timespan: %d days\n\n", get_timespan(object)))
 
   # groups
-  groups <- get_group_vars(object)
+  groups <- get_group_names(object)
   if (!is.null(groups)) {
     cat(sprintf("%d grouped %s\n\n", length(groups), ifelse(length(groups) < 2, "variable", "variables")))
 

@@ -38,9 +38,9 @@ find_peak <- function(x, regroup = TRUE) {
     stop(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
   }
 
-  count_var <- get_count_vars(x)
-  group_vars <- get_group_vars(x)
-  date_var <- get_date_vars(x)
+  count_var <- get_count_name(x)
+  group_vars <- get_group_names(x)
+  date_var <- get_date_name(x)
 
   if ((length(group_vars) > 0) && regroup) {
     msg <- paste("`%s` is stratified by groups",

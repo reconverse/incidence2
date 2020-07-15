@@ -43,9 +43,9 @@ reference:
 - title: Accessors
   desc: Accessor functions for the incidence object
   contents:
-  - '`get_count_vars`'
-  - '`get_date_group_vars`'
-  - '`get_group_vars`'
+  - '`get_count_name`'
+  - '`get_date_group_names`'
+  - '`get_group_names`'
   - '`get_interval`'
   - '`get_n`'
   - '`get_timespan`'

@@ -9,20 +9,20 @@ dat <- data.frame(dates, group_1, group_2)
 x  <- incidence(dat, date_index = "dates", interval = "2 weeks", groups = group_1)
 
 
-test_that("get_group_vars works", {
-  expect_equal(get_group_vars(x), "group_1")
-  expect_error(get_group_vars("test"), "Not implemented for class character")
+test_that("get_group_names works", {
+  expect_equal(get_group_names(x), "group_1")
+  expect_error(get_group_names("test"), "Not implemented for class character")
 })
 
 
-test_that("get_date_vars works", {
-  expect_equal(get_date_vars(x), c("bin_date"))
-  expect_error(get_date_vars("test"), "Not implemented for class character")
+test_that("get_date_name works", {
+  expect_equal(get_date_name(x), c("bin_date"))
+  expect_error(get_date_name("test"), "Not implemented for class character")
 })
 
-test_that("get_count_vars works", {
-  expect_equal(get_count_vars(x), "count")
-  expect_error(get_count_vars("test"), "Not implemented for class character")
+test_that("get_count_name works", {
+  expect_equal(get_count_name(x), "count")
+  expect_error(get_count_name("test"), "Not implemented for class character")
 })
 
 test_that("get_interval works", {

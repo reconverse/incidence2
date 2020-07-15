@@ -6,7 +6,7 @@
 #' @rdname plot.incidence
 scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, format = NULL, ...) {
 
-  date_var <- get_date_vars(x)
+  date_var <- get_date_name(x)
 
   breaks <- make_breaks(x, n_breaks, group_labels)
 
@@ -66,7 +66,7 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, format = NUL
 make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
   stopifnot(inherits(x, "incidence"), is.logical(group_labels), is.numeric(n_breaks))
 
-  date_var <- get_date_vars(x)
+  date_var <- get_date_name(x)
   ## Defining breaks for the x axis --------------------------------------------
   ##
   ## The x axis can either be integers, Dates, or POSIXt scales. Moreover,
@@ -114,7 +114,7 @@ make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
   is_year <- interval == "year" || interval == "1 year" || interval == "1 years"
 
   if (has_weeks(x)) {
-    date_group <- get_date_group_vars(x)
+    date_group <- get_date_group_names(x)
     weeks <- x[[date_group]]
 
     # If the data are in weeks, we should make sure that the line up correctly

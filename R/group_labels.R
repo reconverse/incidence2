@@ -1,5 +1,5 @@
 group_labels <- function(x, interval, standard) {
-  date_var <- get_date_vars(x)
+  date_var <- get_date_name(x)
 
 
   if (check_week(interval) && standard) {
