@@ -51,6 +51,32 @@ test_that("check_presence works", {
   expect_equal(out, NULL)
 })
 
+test_that("check_boundaries", {
+  dates <- Sys.Date() + 1:10
+  first <- Sys.Date() + 2
+  last <- Sys.Date() + 3
+
+  expect_equal(check_boundaries(dates, first, "first"), first)
+  expect_equal(check_boundaries(dates, last, "last"), last)
+
+  reformatted <- format(first, "%d-%m-%Y")
+  msg <- "%s_date (%s) could not be converted to Date."
+  msg <- paste(msg, "Dates must be in ISO 8601 standard format (yyyy-mm-dd).")
+  expected_message <- sprintf(msg, "first", reformatted)
+  expect_error(check_boundaries(dates, reformatted, "first"),
+               expected_message,
+               fixed = TRUE)
+
+  msg <- "%s_date (%s) could not be converted to Date."
+  msg <- paste0(msg,
+                " Accepted formats are: ",
+                "\n  Date, POSIXct, integer, numeric, character.")
+  expected_message <- sprintf(msg, "first", "logical()")
+  expect_error(check_boundaries(dates, boundary = logical(), "first"),
+               expected_message,
+               fixed = TRUE)
+})
+
 
 test_that("check_interval", {
   skip_on_cran()

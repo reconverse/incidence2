@@ -1,45 +1,74 @@
 context("Accessor functions")
 
-
 int <- sample(-3L:50L, 100, replace = TRUE)
 dates <- as.Date("2018-01-31") + int
 group_1 <- sample(letters[1:3], length(dates), replace = TRUE)
 group_2 <- sample(letters[1:3], length(dates), replace = TRUE)
 dat <- data.frame(dates, group_1, group_2)
-x  <- incidence(dat, date_index = "dates", interval = "2 weeks", groups = group_1)
+x  <- incidence(dat, date_index = "dates", interval = "week", groups = group_1)
+x2  <- incidence(dat, date_index = "dates", interval = "2 weeks", groups = group_1)
 
 
 test_that("get_group_names works", {
-  expect_equal(get_group_names(x), "group_1")
+  expect_equal(get_group_names(x2), "group_1")
   expect_error(get_group_names("test"), "Not implemented for class character")
 })
 
 
 test_that("get_date_name works", {
-  expect_equal(get_date_name(x), c("bin_date"))
+  expect_equal(get_date_name(x2), c("bin_date"))
   expect_error(get_date_name("test"), "Not implemented for class character")
 })
 
+test_that("get_date_group_names works", {
+  expect_equal(get_date_group_names(x), c("week_group"))
+  expect_error(get_date_group_names("test"), "Not implemented for class character")
+})
+
 test_that("get_count_name works", {
-  expect_equal(get_count_name(x), "count")
+  expect_equal(get_count_name(x2), "count")
   expect_error(get_count_name("test"), "Not implemented for class character")
 })
 
-test_that("get_interval works", {
-  expect_equal(get_interval(x, integer = TRUE), 14L)
-  expect_equal(get_interval(x), "2 weeks")
-  expect_error(get_interval("test"), "Not implemented for class character")
-})
-
 test_that("get_timespan works", {
-  span <- as.integer(max(x$bin_date) - min(x$bin_date) + 1)
-  expect_equal(get_timespan(x), span)
+  span <- as.integer(max(x2$bin_date) - min(x2$bin_date) + 1)
+  expect_equal(get_timespan(x2), span)
   expect_error(get_timespan("test"), "Not implemented for class character")
 })
 
 test_that("get_n works", {
-  expect_equal(get_n(x), 100L)
+  expect_equal(get_n(x2), 100L)
   expect_error(get_n("test"), "Not implemented for class character")
+})
+
+
+test_that("get_interval works", {
+  expect_equal(get_interval(x2, integer = TRUE), 14L)
+  expect_equal(get_interval(x2), "2 weeks")
+  expect_error(get_interval("test"), "Not implemented for class character")
+
+  month_dates <- as.Date("2019-01-1") + 0:30
+  month_x  <- incidence(data.frame(month_dates),
+                        date_index = "month_dates",
+                        interval = "month")
+  expect_equal(get_interval(month_x, integer = TRUE), 31L)
+
+  quarter_dates <- seq(from = as.Date("2019-01-01"),
+                       to = as.Date("2019-03-31"),
+                       by = 1L)
+  quarter_x  <- incidence(data.frame(quarter_dates),
+                        date_index = "quarter_dates",
+                        interval = "quarter")
+  expect_equal(get_interval(quarter_x, integer = TRUE), 90L)
+
+  year_dates <- seq(from = as.Date("2019-01-01"),
+                       to = as.Date("2019-12-31"),
+                       by = 1L)
+  year_x  <- incidence(data.frame(year_dates),
+                          date_index = "year_dates",
+                          interval = "year")
+  expect_equal(get_interval(year_x, integer = TRUE), 365L)
+
 })
 
 
