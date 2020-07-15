@@ -103,6 +103,7 @@ More detailed tutorials are distributed as vignettes with the package:
 
 * `vignette("Introduction")`
 * `vignette("handling_incidence_objects")`
+* `vignette("Plotting")`
 
 ## Websites
 

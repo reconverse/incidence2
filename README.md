@@ -96,6 +96,7 @@ package:
 
   - `vignette("Introduction")`
   - `vignette("handling_incidence_objects")`
+  - `vignette("Plotting")`
 
 ## Websites
 
