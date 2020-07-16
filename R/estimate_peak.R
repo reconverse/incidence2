@@ -68,9 +68,7 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
   date_var <- get_date_name(x)
 
   if (length(group_vars) >= 1L) {
-    msg <- paste("%s is stratified by groups",
-                 "regrouping groups before finding peaks",
-                 sep = "\n")
+    msg <- "%s is stratified by groups; regrouping before finding peaks."
     message(sprintf(msg, deparse(substitute(x))))
     x <- regroup(x)
   }
@@ -81,31 +79,36 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
   out$observed <- find_peak(x)
 
   ## peaks on 'n' bootstrap samples
-  message("Estimating peaks from bootstrap samples\n")
+  message("Estimating peaks from bootstrap samples:\n")
   pb <- utils::txtProgressBar(min = 0, max = n, style = 3)
   peak_boot <- lapply(1:n,
                       function(i) {
-                        res <- find_peak(bootstrap(x))
+                        res <- find_peak(suppressMessages(bootstrap(x)))
                         utils::setTxtProgressBar(pb, i)
                         res
                       }
   )
   cat("\n\n")
 
-  ## convert to vector without losing Date class
-  peak_boot <- dplyr::bind_rows(peak_boot)
 
-  # store relevant stats
-  out$estimated <- mean(peak_boot[[count_var]])
-  QUANTILE <-
-    if (inherits(peak_boot[[date_var]], c("Date", "POSIX"))) {
-      quantile_Date
-    } else {
-      stats::quantile
-    }
-  out$ci <- QUANTILE(peak_boot[[date_var]], c(alpha / 2, 1 - alpha / 2))
-  out$peaks <- peak_boot
-  out
+  suppressMessages({
+    ## convert to vector without losing Date class
+    peak_boot <- dplyr::bind_rows(peak_boot)
+
+    # store relevant stats
+    out$estimated <- mean(peak_boot[[count_var]])
+    QUANTILE <-
+      if (inherits(peak_boot[[date_var]], c("Date", "POSIX"))) {
+        quantile_Date
+      } else {
+        stats::quantile
+      }
+
+    out$ci <- QUANTILE(peak_boot[[date_var]], c(alpha / 2, 1 - alpha / 2))
+    out$peaks <- peak_boot
+    out
+  })
+
 }
 # -------------------------------------------------------------------------
 
