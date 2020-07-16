@@ -104,9 +104,6 @@
     <li>
       <a href="../articles/customizing_incidence_plots.html">Customizing incidence plots</a>
     </li>
-    <li>
-      <a href="../articles/bootstrapping.html">Bootstrapping incidence objects</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -142,68 +139,68 @@
     <p>Access various elements of an incidence object</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_count_name</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>get_count_name</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_count_name</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_count_name</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for incidence</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_count_name</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_count_name</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_date_group_names</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_date_group_names</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_date_group_names</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_date_group_names</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for incidence</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_date_group_names</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_date_group_names</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_date_name</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_date_name</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_date_name</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_date_name</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for incidence</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_date_name</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_date_name</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_group_names</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_group_names</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_group_names</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_group_names</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for incidence</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_group_names</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_group_names</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_interval</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_interval</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for incidence</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_interval</a></span>(<span class='kw'>x</span>, integer = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
+<span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='kw'>integer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_n</a></span>(<span class='kw'>x</span>)
+<span class='fu'>get_n</span>(<span class='no'>x</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_n</a></span>(<span class='kw'>x</span>)
+<span class='fu'>get_n</span>(<span class='no'>x</span>)
 
 <span class='co'># S3 method for incidence</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_n</a></span>(<span class='kw'>x</span>)
+<span class='fu'>get_n</span>(<span class='no'>x</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_timespan</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_timespan</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_timespan</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>get_timespan</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for incidence</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_timespan</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>get_timespan</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An <code><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence()</a></code> object.</p></td>
+      <td><p>An <code><a href='incidence.html'>incidence()</a></code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -220,59 +217,59 @@ integer vector if it is stored as a character in the incidence object.</p></td>
 
     
 <ul>
-<li><p><code><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_count_name()</a></code>: The count variable of x.</p></li>
+<li><p><code>get_count_name()</code>: The count variable of x.</p></li>
 </ul>
 
 <ul>
-<li><p><code><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_date_group_names()</a></code>: a character vector of the date variables of x.</p></li>
+<li><p><code>get_date_group_names()</code>: a character vector of the date variables of x.</p></li>
 </ul>
 
 <ul>
-<li><p><code><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_date_name()</a></code>: a character vector of the date variables of x.</p></li>
+<li><p><code>get_date_name()</code>: a character vector of the date variables of x.</p></li>
 </ul>
 
 <ul>
-<li><p><code><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_group_names()</a></code>: a character vector of the group variables of x or
+<li><p><code>get_group_names()</code>: a character vector of the group variables of x or
 NULL if none are present.</p></li>
 </ul>
 
 <ul>
-<li><p><code><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_interval()</a></code>: if <code>integer = TRUE</code>, an integer vector, otherwise the
+<li><p><code>get_interval()</code>: if <code>integer = TRUE</code>, an integer vector, otherwise the
 character value of the <code>interval</code></p></li>
 </ul>
 
 <ul>
-<li><p><code><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_n()</a></code> The total number of cases stored in the object</p></li>
+<li><p><code>get_n()</code> The total number of cases stored in the object</p></li>
 </ul>
 
 <ul>
-<li><p><code><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_timespan()</a></code>: an <code>integer</code> denoting the timespan in days represented
+<li><p><code>get_timespan()</code>: an <code>integer</code> denoting the timespan in days represented
 by the incidence object.</p></li>
 </ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, quietly = <span class='fl'>TRUE</span>)) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
   <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span>({
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>ebola_sim_clean</span>, package = <span class='st'>"outbreaks"</span>)
-    <span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='kw'>ebola_sim_clean</span><span class='op'>$</span><span class='kw'>linelist</span>
-    <span class='kw'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>dat</span>,
-                   date_index = <span class='kw'>date_of_onset</span>,
-                   groups = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>gender</span>, <span class='kw'>hospital</span>))
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ebola_sim_clean</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"outbreaks"</span>)
+    <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim_clean</span>$<span class='no'>linelist</span>
+    <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>,
+                   <span class='kw'>date_index</span> <span class='kw'>=</span> <span class='no'>date_of_onset</span>,
+                   <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>gender</span>, <span class='no'>hospital</span>))
 
-    <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_count_name</a></span>(<span class='kw'>i</span>)
+    <span class='fu'>get_count_name</span>(<span class='no'>i</span>)
 
-    <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_group_names</a></span>(<span class='kw'>i</span>)
+    <span class='fu'>get_group_names</span>(<span class='no'>i</span>)
 
-    <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_date_name</a></span>(<span class='kw'>i</span>)
+    <span class='fu'>get_date_name</span>(<span class='no'>i</span>)
 
-    <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_date_group_names</a></span>(<span class='kw'>i</span>)
+    <span class='fu'>get_date_group_names</span>(<span class='no'>i</span>)
 
-    <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_interval</a></span>(<span class='kw'>i</span>)
+    <span class='fu'>get_interval</span>(<span class='no'>i</span>)
 
-    <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_n</a></span>(<span class='kw'>i</span>)
+    <span class='fu'>get_n</span>(<span class='no'>i</span>)
 
-    <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/accessors.html'>get_timespan</a></span>(<span class='kw'>i</span>)
+    <span class='fu'>get_timespan</span>(<span class='no'>i</span>)
   })
 }</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
 #&gt; &gt; dat &lt;- ebola_sim_clean$linelist
@@ -290,7 +287,8 @@ by the incidence object.</p></li>
 #&gt; &gt; get_n(i)
 #&gt; [1] 5829
 #&gt; &gt; get_timespan(i)
-#&gt; [1] 389</div><div class='input'></div></pre>
+#&gt; [1] 389</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -306,7 +304,7 @@ by the incidence object.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

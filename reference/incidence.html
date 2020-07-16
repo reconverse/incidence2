@@ -104,9 +104,6 @@
     <li>
       <a href="../articles/customizing_incidence_plots.html">Customizing incidence plots</a>
     </li>
-    <li>
-      <a href="../articles/bootstrapping.html">Bootstrapping incidence objects</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -142,72 +139,72 @@
     <p>Compute the incidence of events</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>x</span>, <span class='kw'>date_index</span>, interval = <span class='fl'>1L</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>incidence</span>(<span class='no'>x</span>, <span class='no'>date_index</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>x</span>, <span class='kw'>date_index</span>, interval = <span class='fl'>1L</span>, <span class='kw'>...</span>)
+<span class='fu'>incidence</span>(<span class='no'>x</span>, <span class='no'>date_index</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for Date</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>date_index</span>,
-  interval = <span class='fl'>1L</span>,
-  standard = <span class='fl'>TRUE</span>,
-  groups = <span class='kw'>NULL</span>,
-  na_as_group = <span class='fl'>TRUE</span>,
-  first_date = <span class='kw'>NULL</span>,
-  last_date = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>
+<span class='fu'>incidence</span>(
+  <span class='no'>x</span>,
+  <span class='no'>date_index</span>,
+  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
 )
 
 <span class='co'># S3 method for character</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>date_index</span>,
-  interval = <span class='fl'>1L</span>,
-  standard = <span class='fl'>TRUE</span>,
-  groups = <span class='kw'>NULL</span>,
-  na_as_group = <span class='fl'>TRUE</span>,
-  first_date = <span class='kw'>NULL</span>,
-  last_date = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>
+<span class='fu'>incidence</span>(
+  <span class='no'>x</span>,
+  <span class='no'>date_index</span>,
+  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
 )
 
 <span class='co'># S3 method for integer</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>date_index</span>,
-  interval = <span class='fl'>1L</span>,
-  groups = <span class='kw'>NULL</span>,
-  na_as_group = <span class='fl'>TRUE</span>,
-  first_date = <span class='kw'>NULL</span>,
-  last_date = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>
+<span class='fu'>incidence</span>(
+  <span class='no'>x</span>,
+  <span class='no'>date_index</span>,
+  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
 )
 
 <span class='co'># S3 method for numeric</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>date_index</span>,
-  interval = <span class='fl'>1L</span>,
-  groups = <span class='kw'>NULL</span>,
-  na_as_group = <span class='fl'>TRUE</span>,
-  first_date = <span class='kw'>NULL</span>,
-  last_date = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>
+<span class='fu'>incidence</span>(
+  <span class='no'>x</span>,
+  <span class='no'>date_index</span>,
+  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
 )
 
 <span class='co'># S3 method for POSIXt</span>
-<span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>date_index</span>,
-  interval = <span class='fl'>1L</span>,
-  standard = <span class='fl'>TRUE</span>,
-  groups = <span class='kw'>NULL</span>,
-  na_as_group = <span class='fl'>TRUE</span>,
-  first_date = <span class='kw'>NULL</span>,
-  last_date = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>
+<span class='fu'>incidence</span>(
+  <span class='no'>x</span>,
+  <span class='no'>date_index</span>,
+  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -352,46 +349,43 @@ can be prefixed (or posfixed) by a day of the week: "1 epiweek: Saturday".</p>
 number of days they encompass and warnings will be generated when the first
 date falls outside of a calendar date that is easily represented across the
 interval.</p>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Thibaut Jombart, Rich Fitzjohn, Zhian Kamvar, Tim Taylor</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, quietly = <span class='fl'>TRUE</span>)) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
   <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span>({
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>ebola_sim_clean</span>, package = <span class='st'>"outbreaks"</span>)
-    <span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='kw'>ebola_sim_clean</span><span class='op'>$</span><span class='kw'>linelist</span>
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ebola_sim_clean</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"outbreaks"</span>)
+    <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim_clean</span>$<span class='no'>linelist</span>
 
 
     <span class='co'># daily incidence</span>
-    <span class='kw'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>date_of_onset</span>)
+    <span class='no'>dat</span> <span class='kw'>%&gt;%</span>
+      <span class='fu'>incidence</span>(<span class='no'>date_of_onset</span>)
 
     <span class='co'># weekly incidence</span>
-    <span class='kw'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>date_of_onset</span>, interval = <span class='fl'>7</span>, standard = <span class='fl'>FALSE</span>)
+    <span class='no'>dat</span> <span class='kw'>%&gt;%</span>
+      <span class='fu'>incidence</span>(<span class='no'>date_of_onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
     <span class='co'># starting on a Monday</span>
-    <span class='kw'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>date_of_onset</span>, interval = <span class='st'>"isoweek"</span>)
+    <span class='no'>dat</span> <span class='kw'>%&gt;%</span>
+      <span class='fu'>incidence</span>(<span class='no'>date_of_onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"isoweek"</span>)
 
     <span class='co'># starting on a Sunday</span>
-    <span class='kw'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>date_of_onset</span>, interval = <span class='st'>"epiweek"</span>)
+    <span class='no'>dat</span> <span class='kw'>%&gt;%</span>
+      <span class='fu'>incidence</span>(<span class='no'>date_of_onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"epiweek"</span>)
 
     <span class='co'># starting on a Saturday</span>
-    <span class='kw'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>date_of_onset</span>, interval = <span class='st'>"saturday epiweek"</span>)
+    <span class='no'>dat</span> <span class='kw'>%&gt;%</span>
+      <span class='fu'>incidence</span>(<span class='no'>date_of_onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"saturday epiweek"</span>)
 
     <span class='co'># group by gender</span>
-    <span class='kw'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>date_of_onset</span>, interval = <span class='fl'>7</span>, groups = <span class='kw'>gender</span>)
+    <span class='no'>dat</span> <span class='kw'>%&gt;%</span>
+      <span class='fu'>incidence</span>(<span class='no'>date_of_onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>gender</span>)
 
     <span class='co'># group by gender and hospital</span>
-    <span class='kw'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>date_of_onset</span>,
-                interval = <span class='st'>"2 weeks"</span>,
-                groups = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>gender</span>, <span class='kw'>hospital</span>))
+    <span class='no'>dat</span> <span class='kw'>%&gt;%</span>
+      <span class='fu'>incidence</span>(<span class='no'>date_of_onset</span>,
+                <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"2 weeks"</span>,
+                <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>gender</span>, <span class='no'>hospital</span>))
   })
 }</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
 #&gt; &gt; dat &lt;- ebola_sim_clean$linelist
@@ -537,11 +531,11 @@ interval.</p>
 #&gt; </span><span style='color: #555555;'># … with 326 more rows</span><span>
 #&gt; </div><div class='input'>
 <span class='co'># use of first_date</span>
-<span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(dates = <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='op'>-</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>10</span>, replace = <span class='fl'>TRUE</span>))
-<span class='kw'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>dates</span>,
-                  interval = <span class='st'>"week"</span>,
-                  first_date = <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() <span class='op'>+</span> <span class='fl'>1</span>,
-                  standard = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>2 observations outside of [2020-07-17, 2020-07-26] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence object: 2 x 3
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(-<span class='fl'>3</span>:<span class='fl'>10</span>, <span class='fl'>10</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='no'>dat</span> <span class='kw'>%&gt;%</span> <span class='fu'>incidence</span>(<span class='no'>dates</span>,
+                  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"week"</span>,
+                  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fl'>1</span>,
+                  <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>2 observations outside of [2020-07-17, 2020-07-26] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence object: 2 x 3
 #&gt; </span><span>[8 cases from days 2020-07-13 to 2020-07-20]
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
@@ -566,7 +560,7 @@ interval.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

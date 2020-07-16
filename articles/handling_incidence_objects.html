@@ -63,9 +63,6 @@
     <li>
       <a href="../articles/customizing_incidence_plots.html">Customizing incidence plots</a>
     </li>
-    <li>
-      <a href="../articles/bootstrapping.html">Bootstrapping incidence objects</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -111,18 +108,17 @@
 <h2 class="hasAnchor">
 <a href="#regroup" class="anchor"></a>regroup</h2>
 <p>Sometimes you may find you’ve created a grouped <code><a href="../reference/incidence.html">incidence()</a></code> but now want to change the internal grouping. Assuming you are after a subset of the grouping already generated, then you can use to <code><a href="../reference/regroup.html">regroup()</a></code> function to get the desired aggregation:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/reconhub/incidence2">incidence2</a></span>)
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">outbreaks</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">incidence2</span>)
 
 <span class="co"># load data</span>
-<span class="kw">dat</span> <span class="op">&lt;-</span> <span class="kw">ebola_sim_clean</span><span class="op">$</span><span class="kw">linelist</span>
+<span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">ebola_sim_clean</span>$<span class="no">linelist</span>
 
 <span class="co"># generate the incidence object with 3 groups</span>
-<span class="kw">inci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>,
-                  groups = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">gender</span>, <span class="kw">hospital</span>, <span class="kw">outcome</span>),
-                  interval = <span class="st">"1 week"</span>)
-<span class="kw">inci</span>
+<span class="no">inci</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>,
+                  <span class="kw">groups</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">gender</span>, <span class="no">hospital</span>, <span class="no">outcome</span>),
+                  <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"1 week"</span>)
+<span class="no">inci</span>
 <span class="co">#&gt; An incidence object: 2,016 x 6</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
@@ -143,7 +139,7 @@
 <span class="co">#&gt; # … with 2,006 more rows</span>
 
 <span class="co"># regroup to just two groups</span>
-<span class="kw">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">gender</span>, <span class="kw">outcome</span>))
+<span class="no">inci</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">gender</span>, <span class="no">outcome</span>))
 <span class="co">#&gt; An incidence object: 336 x 5</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
@@ -164,7 +160,7 @@
 <span class="co">#&gt; # … with 326 more rows</span>
 
 <span class="co"># drop all groups</span>
-<span class="kw">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span>()
+<span class="no">inci</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span>()
 <span class="co">#&gt; An incidence object: 56 x 3</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
@@ -182,26 +178,22 @@
 <span class="co">#&gt;  8 2014-05-26 2014-W22      19</span>
 <span class="co">#&gt;  9 2014-06-02 2014-W23      23</span>
 <span class="co">#&gt; 10 2014-06-09 2014-W24      21</span>
-<span class="co">#&gt; # … with 46 more rows</span>
-</pre></div>
+<span class="co">#&gt; # … with 46 more rows</span></pre></body></html></div>
 </div>
 <div id="cumulate" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cumulate" class="anchor"></a>cumulate</h2>
 <p>We also provide a helper function, <code>cumulate</code>() to easily generate cumulative incidences:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">inci</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/cumulate.html">cumulate</a></span>() <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(facet = <span class="kw">hospital</span>)
-</pre></div>
-<p><img src="handling_incidence_objects_files/figure-html/cumulate-1.png" width="100%" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">inci</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/cumulate.html">cumulate</a></span>() <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facet</span> <span class="kw">=</span> <span class="no">hospital</span>)</pre></body></html></div>
+<p><img src="handling_incidence_objects_files/figure-html/cumulate-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="tidyverse-compatibility" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tidyverse-compatibility" class="anchor"></a>Tidyverse compatibility</h2>
 <p>incidence2 has been written with compatibility with the tidyverse (in particular (dplyr)[<a href="https://dplyr.tidyverse.org/" class="uri">https://dplyr.tidyverse.org/</a>]) at the forefront of design choices we have made. By this we mean that if an operation from dplyr is applied to an <code><a href="../reference/incidence.html">incidence()</a></code> object then as long as the invariants of the object are preserved (i.e. groups, interval and uniqueness of rows) then the object returned will be an <code><a href="../reference/incidence.html">incidence()</a></code> object. If the invariants are not preserved then a tibble will be returned instead. Some examples of these behaviours are given below:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
 <span class="co">#&gt; The following objects are masked from 'package:stats':</span>
@@ -212,22 +204,22 @@
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 
 <span class="co"># create incidence object</span>
-<span class="kw">inci</span> <span class="op">&lt;-</span>
-  <span class="kw">dat</span> <span class="op">%&gt;%</span>
+<span class="no">inci</span> <span class="kw">&lt;-</span>
+  <span class="no">dat</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(
-    date_index = <span class="kw">date_of_onset</span>,
-    interval = <span class="st">"2 weeks"</span>,
-    first_date = <span class="st">"2014-05-20"</span>,
-    last_date = <span class="st">"2014-06-10"</span>,
-    groups = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">hospital</span>, <span class="kw">gender</span>)
+    <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>,
+    <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"2 weeks"</span>,
+    <span class="kw">first_date</span> <span class="kw">=</span> <span class="st">"2014-05-20"</span>,
+    <span class="kw">last_date</span> <span class="kw">=</span> <span class="st">"2014-06-10"</span>,
+    <span class="kw">groups</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">hospital</span>, <span class="no">gender</span>)
   )
 <span class="co">#&gt; 5766 observations outside of [2014-05-20, 2014-06-10] were removed.</span>
 
 <span class="co"># filtering preserves class</span>
-<span class="kw">x</span> <span class="op">&lt;-</span>
-    <span class="kw">inci</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">gender</span> <span class="op">==</span> <span class="st">"f"</span>, <span class="kw">hospital</span> <span class="op">==</span> <span class="st">"Rokupa Hospital"</span>)
-<span class="kw">x</span>
+<span class="no">x</span> <span class="kw">&lt;-</span>
+    <span class="no">inci</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">gender</span> <span class="kw">==</span> <span class="st">"f"</span>, <span class="no">hospital</span> <span class="kw">==</span> <span class="st">"Rokupa Hospital"</span>)
+<span class="no">x</span>
 <span class="co">#&gt; An incidence object: 2 x 5</span>
 <span class="co">#&gt; [2 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
@@ -237,45 +229,45 @@
 <span class="co">#&gt;   &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;           &lt;fct&gt;  &lt;int&gt;</span>
 <span class="co">#&gt; 1 2014-05-19 2014-W21   Rokupa Hospital f          1</span>
 <span class="co">#&gt; 2 2014-06-02 2014-W23   Rokupa Hospital f          1</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">inci</span>))
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
 <span class="co"># slice operations preserve class</span>
-<span class="kw">x</span> <span class="op">&lt;-</span>
-    <span class="kw">inci</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(n = <span class="fl">10</span>)
-<span class="kw">x</span>
+<span class="no">x</span> <span class="kw">&lt;-</span>
+    <span class="no">inci</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">10</span>)
+<span class="no">x</span>
 <span class="co">#&gt; An incidence object: 10 x 5</span>
-<span class="co">#&gt; [22 cases from days 2014-05-19 to 2014-06-02]</span>
+<span class="co">#&gt; [32 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
-<span class="co">#&gt;  2 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
-<span class="co">#&gt;  3 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
-<span class="co">#&gt;  4 2014-06-02 2014-W23   other                                      m          2</span>
-<span class="co">#&gt;  5 2014-06-02 2014-W23   Military Hospital                          f          1</span>
-<span class="co">#&gt;  6 2014-05-19 2014-W21   other                                      m          3</span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21   other                                      f          1</span>
-<span class="co">#&gt;  8 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… f          1</span>
-<span class="co">#&gt;  9 2014-05-19 2014-W21   &lt;NA&gt;                                       f          5</span>
-<span class="co">#&gt; 10 2014-06-02 2014-W23   Military Hospital                          m          2</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">inci</span>))
+<span class="co">#&gt;  1 2014-06-02 2014-W23   other                                      f          3</span>
+<span class="co">#&gt;  2 2014-06-02 2014-W23   Connaught Hospital                         m          6</span>
+<span class="co">#&gt;  3 2014-05-19 2014-W21   Connaught Hospital                         f          3</span>
+<span class="co">#&gt;  4 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… f          2</span>
+<span class="co">#&gt;  5 2014-05-19 2014-W21   &lt;NA&gt;                                       f          5</span>
+<span class="co">#&gt;  6 2014-05-19 2014-W21   Connaught Hospital                         m          4</span>
+<span class="co">#&gt;  7 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… f          1</span>
+<span class="co">#&gt;  8 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… m          0</span>
+<span class="co">#&gt;  9 2014-06-02 2014-W23   &lt;NA&gt;                                       f          7</span>
+<span class="co">#&gt; 10 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
-<span class="kw">inci</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(<span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>() <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">inci</span>))
+<span class="no">inci</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(<span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>() <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
 <span class="co"># mutate preserve class</span>
-<span class="kw">x</span> <span class="op">&lt;-</span>
-    <span class="kw">inci</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(future = <span class="kw">bin_date</span> <span class="op">+</span> <span class="fl">999</span>)
-<span class="kw">x</span>
+<span class="no">x</span> <span class="kw">&lt;-</span>
+    <span class="no">inci</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">future</span> <span class="kw">=</span> <span class="no">bin_date</span> + <span class="fl">999</span>)
+<span class="no">x</span>
 <span class="co">#&gt; An incidence object: 24 x 6</span>
 <span class="co">#&gt; [63 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
@@ -294,18 +286,18 @@
 <span class="co">#&gt;  9 2014-05-19 2014-W21   other                           m          3 2017-02-11</span>
 <span class="co">#&gt; 10 2014-05-19 2014-W21   Princess Christian Maternity H… m          2 2017-02-11</span>
 <span class="co">#&gt; # … with 14 more rows</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">inci</span>))
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
 <span class="co"># rename preserve class</span>
-<span class="kw">x</span> <span class="op">&lt;-</span>
-  <span class="kw">inci</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span>(left_bin = <span class="kw">bin_date</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">inci</span>))
+<span class="no">x</span> <span class="kw">&lt;-</span>
+  <span class="no">inci</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span>(<span class="kw">left_bin</span> <span class="kw">=</span> <span class="no">bin_date</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
 <span class="co"># select returns a tibble unless all date, count and group variables are preserved</span>
-<span class="kw">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span><span class="fl">1</span>)
+<span class="no">inci</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="fl">1</span>)
 <span class="co">#&gt; Note: incidence class dropped in returned object</span>
 <span class="co">#&gt; # A tibble: 24 x 4</span>
 <span class="co">#&gt;    week_group hospital                                     gender count</span>
@@ -322,10 +314,10 @@
 <span class="co">#&gt; 10 2014-W21   Princess Christian Maternity Hospital (PCMH) m          2</span>
 <span class="co">#&gt; # … with 14 more rows</span>
 
-<span class="kw">x</span> <span class="op">&lt;-</span>
-    <span class="kw">inci</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span>())
-<span class="kw">x</span>
+<span class="no">x</span> <span class="kw">&lt;-</span>
+    <span class="no">inci</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">everything</a></span>())
+<span class="no">x</span>
 <span class="co">#&gt; An incidence object: 24 x 5</span>
 <span class="co">#&gt; [63 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
@@ -346,12 +338,12 @@
 <span class="co">#&gt; # … with 14 more rows</span>
 
 <span class="co"># Adding rows that are multiples of 2 weeks will maintain class</span>
-<span class="kw">x</span> <span class="op">&lt;-</span>
-    <span class="kw">inci</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span>(n = <span class="fl">2</span>) <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(bin_date = <span class="kw">bin_date</span> <span class="op">+</span> <span class="fl">112</span>) <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="kw">inci</span>)
-<span class="kw">x</span>
+<span class="no">x</span> <span class="kw">&lt;-</span>
+    <span class="no">inci</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">2</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">bin_date</span> <span class="kw">=</span> <span class="no">bin_date</span> + <span class="fl">112</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="no">inci</span>)
+<span class="no">x</span>
 <span class="co">#&gt; An incidence object: 26 x 5</span>
 <span class="co">#&gt; [68 cases from days 2014-05-19 to 2014-09-08]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
@@ -370,15 +362,15 @@
 <span class="co">#&gt;  9 2014-05-19 2014-W21-1 Connaught Hospital                         m          4</span>
 <span class="co">#&gt; 10 2014-05-19 2014-W21-1 Military Hospital                          m          3</span>
 <span class="co">#&gt; # … with 16 more rows</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">inci</span>))
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
 
 <span class="co"># Adding rows with dates that are not multiples of 2 weeks drops class</span>
-<span class="kw">inci</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span>(n = <span class="fl">2</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(bin_date = <span class="kw">bin_date</span> <span class="op">+</span> <span class="fl">30</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="kw">inci</span>)
+<span class="no">inci</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">2</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">bin_date</span> <span class="kw">=</span> <span class="no">bin_date</span> + <span class="fl">30</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="no">inci</span>)
 <span class="co">#&gt; Note: incidence class dropped in returned object</span>
 <span class="co">#&gt; # A tibble: 26 x 5</span>
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
@@ -393,8 +385,7 @@
 <span class="co">#&gt;  8 2014-05-19 2014-W21-1 &lt;NA&gt;                                       f          5</span>
 <span class="co">#&gt;  9 2014-05-19 2014-W21-1 Connaught Hospital                         m          4</span>
 <span class="co">#&gt; 10 2014-05-19 2014-W21-1 Military Hospital                          m          3</span>
-<span class="co">#&gt; # … with 16 more rows</span>
-</pre></div>
+<span class="co">#&gt; # … with 16 more rows</span></pre></body></html></div>
 </div>
 </div>
 <div id="accessing-variable-information" class="section level1">
@@ -416,12 +407,11 @@
 <h2 class="hasAnchor">
 <a href="#bootstrap" class="anchor"></a><code>bootstrap()</code>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">dat</span> <span class="op">&lt;-</span> <span class="kw">fluH7N9_china_2013</span>
-<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, groups = <span class="kw">gender</span>)
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">fluH7N9_china_2013</span>
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
 <span class="co">#&gt; 10 missing observations were removed.</span>
-<span class="fu"><a href="../reference/bootstrap.html">bootstrap</a></span>(<span class="kw">x</span>)
-<span class="co">#&gt; An incidence object: 52 x 3</span>
+<span class="fu"><a href="../reference/bootstrap.html">bootstrap</a></span>(<span class="no">x</span>)
+<span class="co">#&gt; An incidence object: 44 x 3</span>
 <span class="co">#&gt; [126 cases from days 2013-02-19 to 2013-07-27]</span>
 <span class="co">#&gt; [interval: 1 day]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -429,29 +419,27 @@
 <span class="co">#&gt;    bin_date   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
 <span class="co">#&gt;  1 2013-02-19 m          2</span>
-<span class="co">#&gt;  2 2013-02-27 m          1</span>
+<span class="co">#&gt;  2 2013-02-27 m          2</span>
 <span class="co">#&gt;  3 2013-03-09 f          1</span>
-<span class="co">#&gt;  4 2013-03-13 f          2</span>
-<span class="co">#&gt;  5 2013-03-17 m          1</span>
-<span class="co">#&gt;  6 2013-03-19 m          3</span>
-<span class="co">#&gt;  7 2013-03-20 m          2</span>
-<span class="co">#&gt;  8 2013-03-21 f          2</span>
-<span class="co">#&gt;  9 2013-03-22 m          3</span>
-<span class="co">#&gt; 10 2013-03-27 m          2</span>
-<span class="co">#&gt; # … with 42 more rows</span>
-</pre></div>
+<span class="co">#&gt;  4 2013-03-13 f          1</span>
+<span class="co">#&gt;  5 2013-03-20 m          3</span>
+<span class="co">#&gt;  6 2013-03-25 f          1</span>
+<span class="co">#&gt;  7 2013-03-27 m          1</span>
+<span class="co">#&gt;  8 2013-03-28 m          4</span>
+<span class="co">#&gt;  9 2013-03-29 f          3</span>
+<span class="co">#&gt; 10 2013-03-29 m          4</span>
+<span class="co">#&gt; # … with 34 more rows</span></pre></body></html></div>
 </div>
 <div id="find_peak" class="section level2">
 <h2 class="hasAnchor">
 <a href="#find_peak" class="anchor"></a><code>find_peak()</code>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">dat</span> <span class="op">&lt;-</span> <span class="kw">fluH7N9_china_2013</span>
-<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, groups = <span class="kw">gender</span>)
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">fluH7N9_china_2013</span>
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
 <span class="co">#&gt; 10 missing observations were removed.</span>
 
 <span class="co"># peaks across each group</span>
-<span class="kw">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span>(regroup = <span class="fl">FALSE</span>)
+<span class="no">x</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span>(<span class="kw">regroup</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   bin_date   gender count</span>
 <span class="co">#&gt;   &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
@@ -459,7 +447,7 @@
 <span class="co">#&gt; 2 2013-04-06 m          6</span>
 
 <span class="co"># peak without groupings</span>
-<span class="kw">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span>()
+<span class="no">x</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span>()
 <span class="co">#&gt; `.` is stratified by groups</span>
 <span class="co">#&gt; regrouping groups before finding peaks</span>
 <span class="co">#&gt; An incidence object: 1 x 2</span>
@@ -469,8 +457,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   bin_date   count</span>
 <span class="co">#&gt;   &lt;date&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 2013-04-03     7</span>
-</pre></div>
+<span class="co">#&gt; 1 2013-04-03     7</span></pre></body></html></div>
 </div>
 <div id="estimate_peak" class="section level2">
 <h2 class="hasAnchor">
@@ -482,11 +469,10 @@
 <li>dates with no events (zero incidence) will never be in bootstrapped datasets; and</li>
 <li>the reporting is assumed to be constant over time, i.e. every case is equally likely to be reported.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">dat</span> <span class="op">&lt;-</span> <span class="kw">fluH7N9_china_2013</span>
-<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, groups = <span class="kw">gender</span>)
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">fluH7N9_china_2013</span>
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
 <span class="co">#&gt; 10 missing observations were removed.</span>
-<span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span>(<span class="kw">x</span>)
+<span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span>(<span class="no">x</span>)
 <span class="co">#&gt; x is stratified by groups; regrouping before finding peaks.</span>
 <span class="co">#&gt; Estimating peaks from bootstrap samples:</span>
 <span class="co">#&gt; ================================================================================</span>
@@ -502,28 +488,27 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $estimated</span>
-<span class="co">#&gt; [1] 10.19</span>
+<span class="co">#&gt; [1] 10</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $ci</span>
 <span class="co">#&gt;         2.5%        97.5% </span>
-<span class="co">#&gt; "2013-03-29" "2013-04-13" </span>
+<span class="co">#&gt; "2013-03-28" "2013-04-17" </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $peaks</span>
 <span class="co">#&gt; # A tibble: 100 x 2</span>
 <span class="co">#&gt;    bin_date   count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-04-11     8</span>
-<span class="co">#&gt;  2 2013-04-10    10</span>
-<span class="co">#&gt;  3 2013-04-09     9</span>
-<span class="co">#&gt;  4 2013-04-08    10</span>
-<span class="co">#&gt;  5 2013-04-01    11</span>
-<span class="co">#&gt;  6 2013-04-06    10</span>
-<span class="co">#&gt;  7 2013-04-15     9</span>
-<span class="co">#&gt;  8 2013-04-11    10</span>
-<span class="co">#&gt;  9 2013-04-16    10</span>
-<span class="co">#&gt; 10 2013-04-06     9</span>
-<span class="co">#&gt; # … with 90 more rows</span>
-</pre></div>
+<span class="co">#&gt;  1 2013-04-06    10</span>
+<span class="co">#&gt;  2 2013-04-12    13</span>
+<span class="co">#&gt;  3 2013-04-11    11</span>
+<span class="co">#&gt;  4 2013-03-29     7</span>
+<span class="co">#&gt;  5 2013-04-06    10</span>
+<span class="co">#&gt;  6 2013-04-03    10</span>
+<span class="co">#&gt;  7 2013-04-13    11</span>
+<span class="co">#&gt;  8 2013-04-12    11</span>
+<span class="co">#&gt;  9 2013-04-01     9</span>
+<span class="co">#&gt; 10 2013-04-10    10</span>
+<span class="co">#&gt; # … with 90 more rows</span></pre></body></html></div>
 </div>
 </div>
   </div>
@@ -543,7 +528,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -106,9 +106,6 @@ the groups present in the input." />
     <li>
       <a href="../articles/customizing_incidence_plots.html">Customizing incidence plots</a>
     </li>
-    <li>
-      <a href="../articles/bootstrapping.html">Bootstrapping incidence objects</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -141,19 +138,19 @@ the groups present in the input." />
     </div>
 
     <div class="ref-description">
-    <p>This function regroups an <code><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence()</a></code> object across the specified groups.
-The resulting <code><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence()</a></code> object will contains counts summed over
+    <p>This function regroups an <code><a href='incidence.html'>incidence()</a></code> object across the specified groups.
+The resulting <code><a href='incidence.html'>incidence()</a></code> object will contains counts summed over
 the groups present in the input.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/regroup.html'>regroup</a></span>(<span class='kw'>x</span>, groups = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>regroup</span>(<span class='no'>x</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An <code><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence()</a></code> object.</p></td>
+      <td><p>An <code><a href='incidence.html'>incidence()</a></code> object.</p></td>
     </tr>
     <tr>
       <th>groups</th>
@@ -164,24 +161,21 @@ ignores all groups.</p></td>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>The <code><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence()</a></code> function to generate the 'incidence'
+    <div class='dont-index'><p>The <code><a href='incidence.html'>incidence()</a></code> function to generate the 'incidence'
 objects.</p></div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, quietly = <span class='fl'>TRUE</span>)) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
   <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span>({
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>ebola_sim_clean</span>, package = <span class='st'>"outbreaks"</span>)
-    <span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='kw'>ebola_sim_clean</span><span class='op'>$</span><span class='kw'>linelist</span>
-    <span class='kw'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>dat</span>,
-                   date_index = <span class='kw'>date_of_onset</span>,
-                   groups = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>gender</span>, <span class='kw'>hospital</span>))
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ebola_sim_clean</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"outbreaks"</span>)
+    <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim_clean</span>$<span class='no'>linelist</span>
+    <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>,
+                   <span class='kw'>date_index</span> <span class='kw'>=</span> <span class='no'>date_of_onset</span>,
+                   <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>gender</span>, <span class='no'>hospital</span>))
 
-    <span class='kw'>i</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/regroup.html'>regroup</a></span>()
+    <span class='no'>i</span> <span class='kw'>%&gt;%</span> <span class='fu'>regroup</span>()
 
-    <span class='kw'>i</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/regroup.html'>regroup</a></span>(<span class='kw'>hospital</span>)
+    <span class='no'>i</span> <span class='kw'>%&gt;%</span> <span class='fu'>regroup</span>(<span class='no'>hospital</span>)
   })
 }</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
 #&gt; &gt; dat &lt;- ebola_sim_clean$linelist
@@ -225,7 +219,8 @@ objects.</p></div>
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2014-04-08 other                                            0
 #&gt; </span><span style='color: #555555;'>10</span><span> 2014-04-08 Princess Christian Maternity Hospital (PCMH)     0
 #&gt; </span><span style='color: #555555;'># … with 2,324 more rows</span><span>
-#&gt; </div><div class='input'></div></span></pre>
+#&gt; </div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -241,7 +236,7 @@ objects.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

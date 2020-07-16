@@ -63,9 +63,6 @@
     <li>
       <a href="articles/customizing_incidence_plots.html">Customizing incidence plots</a>
     </li>
-    <li>
-      <a href="articles/bootstrapping.html">Bootstrapping incidence objects</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -106,7 +103,7 @@
 <p>The main features of the package include:</p>
 <ul>
 <li><p><strong><code><a href="reference/incidence.html">incidence()</a></code></strong>: compute incidence from linelist datasets; any fixed time interval can be used; the returned object is a tibble subclass called <em>incidence</em>.</p></li>
-<li><p>plotting functions <strong><code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code></strong> and <strong><code><a href="reference/plot.incidence.html">facet_plot()</a></code></strong>: these functions return customised ggplot2 plots of <em>incidence</em> objects (see <code><a href="reference/plot.incidence.html">?plot.incidence</a></code> for details).</p></li>
+<li><p>plotting functions <strong><code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code></strong> and <strong><code><a href="reference/plot.incidence.html">facet_plot()</a></code></strong>: these functions return customised ggplot2 plots of <em>incidence</em> objects (see <code><a href="reference/plot.incidence.html">?plot.incidence</a></code> for details).</p></li>
 <li><p>Compatible with <a href="https://dplyr.tidyverse.org/">dplyr</a> for data manipulation. (see <code><a href="articles/handling_incidence_objects.html">vignette("handling_incidence_objects")</a></code> for more details).</p></li>
 <li><p><strong><code><a href="reference/regroup.html">regroup()</a></code></strong>: regroup incidence from different groups into one global incidence time series.</p></li>
 <li><p><strong><code><a href="reference/cumulate.html">cumulate()</a></code></strong>: computes cumulative incidence over time from an <code>incidence</code> object.</p></li>
@@ -128,9 +125,7 @@
 <h1 class="hasAnchor">
 <a href="#installing-the-package" class="anchor"></a>Installing the package</h1>
 <p>The package is not yet on CRAN but to install the development, <em>github</em> version of the package use:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">devtools</span>::<span class="fu">install_github</span>(<span class="st">"reconhub/incidence2"</span>)
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"reconhub/incidence2"</span>)</pre></div>
 <p>Note that this requires the package <em>devtools</em> installed.</p>
 </div>
 <div id="resources" class="section level1">
@@ -143,7 +138,7 @@
 <ul>
 <li><code><a href="articles/Introduction.html">vignette("Introduction")</a></code></li>
 <li><code><a href="articles/handling_incidence_objects.html">vignette("handling_incidence_objects")</a></code></li>
-<li><code><a href="articles/Plotting.html">vignette("Plotting")</a></code></li>
+<li><code>vignette("Plotting")</code></li>
 </ul>
 </div>
 <div id="websites" class="section level2">
@@ -166,12 +161,11 @@
 <a href="#a-quick-overview" class="anchor"></a>A quick overview</h1>
 <p>This short example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="https://github.com/reconhub/outbreaks"><em>outbreaks</em></a>. It shows how to compute incidence for various time steps plot the resulting incidence tables.</p>
 <p>First, we load the data:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/reconhub/incidence2">incidence2</a></span>)
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">outbreaks</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">incidence2</span>)
 
-<span class="kw">dat</span> <span class="op">&lt;-</span> <span class="kw">ebola_sim_clean</span><span class="op">$</span><span class="kw">linelist</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">dat</span>)
+<span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">ebola_sim_clean</span>$<span class="no">linelist</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">dat</span>)
 <span class="co">#&gt; 'data.frame':    5829 obs. of  11 variables:</span>
 <span class="co">#&gt;  $ case_id                : chr  "d1fafd" "53371b" "f5c3d8" "6c286a" ...</span>
 <span class="co">#&gt;  $ generation             : int  0 1 1 2 2 0 3 3 2 3 ...</span>
@@ -183,15 +177,13 @@
 <span class="co">#&gt;  $ gender                 : Factor w/ 2 levels "f","m": 1 2 1 1 1 1 1 1 2 2 ...</span>
 <span class="co">#&gt;  $ hospital               : Factor w/ 5 levels "Connaught Hospital",..: 2 1 3 NA 3 NA 1 4 3 5 ...</span>
 <span class="co">#&gt;  $ lon                    : num  -13.2 -13.2 -13.2 -13.2 -13.2 ...</span>
-<span class="co">#&gt;  $ lat                    : num  8.47 8.46 8.48 8.46 8.45 ...</span>
-</pre></div>
+<span class="co">#&gt;  $ lat                    : num  8.47 8.46 8.48 8.46 8.45 ...</span></pre></div>
 <div id="computing-and-plotting-incidence" class="section level2">
 <h2 class="hasAnchor">
 <a href="#computing-and-plotting-incidence" class="anchor"></a>Computing and plotting incidence</h2>
 <p>We compute the weekly incidence:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">i_7</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, interval = <span class="fl">7</span>)
-<span class="kw">i_7</span>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="no">i_7</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="fl">7</span>)
+<span class="no">i_7</span>
 <span class="co">#&gt; An incidence object: 56 x 3</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 7 days]</span>
@@ -210,20 +202,18 @@
 <span class="co">#&gt;  9 2014-06-02 2014-W23      23</span>
 <span class="co">#&gt; 10 2014-06-09 2014-W24      21</span>
 <span class="co">#&gt; # … with 46 more rows</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">i_7</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">i_7</span>)
 <span class="co">#&gt; An incidence object: 56 x 3</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 7 days</span>
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; timespan: 386 days</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i_7</span>, color = <span class="st">"black"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">i_7</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"black"</span>)</pre></div>
 <p><img src="reference/figures/README-incid7-1.png" style="display: block; margin: auto;"></p>
 <p><code><a href="reference/incidence.html">incidence()</a></code> can also compute incidence by specified groups using the <code>groups</code> argument. For instance, we can compute the weekly incidence by gender and plot in a single, stacked chart:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">i_7_sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, interval = <span class="st">"week"</span>, 
-                     date_index = <span class="kw">date_of_onset</span>, groups = <span class="kw">gender</span>)
-<span class="kw">i_7_sex</span>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="no">i_7_sex</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"week"</span>,
+                     <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
+<span class="no">i_7_sex</span>
 <span class="co">#&gt; An incidence object: 112 x 4</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
@@ -242,7 +232,7 @@
 <span class="co">#&gt;  9 2014-05-05 2014-W19   f          9</span>
 <span class="co">#&gt; 10 2014-05-05 2014-W19   m          3</span>
 <span class="co">#&gt; # … with 102 more rows</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">i_7_sex</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">i_7_sex</span>)
 <span class="co">#&gt; An incidence object: 112 x 4</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 1 week</span>
@@ -255,22 +245,18 @@
 <span class="co">#&gt;   &lt;fct&gt;  &lt;int&gt;</span>
 <span class="co">#&gt; 1 f       2934</span>
 <span class="co">#&gt; 2 m       2895</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i_7_sex</span>, fill = <span class="st">"gender"</span>, color = <span class="st">"black"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">i_7_sex</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"gender"</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"black"</span>)</pre></div>
 <p><img src="reference/figures/README-genderstack-1.png" style="display: block; margin: auto;"></p>
 <p>we can facet our plot (grouping detected automatically):</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">i_7_sex</span>, n_breaks = <span class="fl">4</span>)
-</pre></div>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="reference/plot.incidence.html">facet_plot</a></span>(<span class="no">i_7_sex</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></div>
 <p><img src="reference/figures/README-genderfacet-1.png" style="display: block; margin: auto;"></p>
 <p>and we can also group by multiple variables specifying different facets and fills:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="co"># incidence is compatible with the magrittr pipe operator</span>
-<span class="kw">i_7_sh</span> <span class="op">&lt;-</span> 
-  <span class="kw">dat</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="reference/incidence.html">incidence</a></span>(date_index = <span class="kw">date_of_onset</span>, interval = <span class="st">"week"</span>, 
-            groups = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">gender</span>, <span class="kw">hospital</span>))
-<span class="kw">i_7_sh</span>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="co"># incidence is compatible with the magrittr pipe operator</span>
+<span class="no">i_7_sh</span> <span class="kw">&lt;-</span>
+  <span class="no">dat</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"week"</span>,
+            <span class="kw">groups</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">gender</span>, <span class="no">hospital</span>))
+<span class="no">i_7_sh</span>
 <span class="co">#&gt; An incidence object: 672 x 5</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
@@ -289,7 +275,7 @@
 <span class="co">#&gt;  9 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0</span>
 <span class="co">#&gt; 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0</span>
 <span class="co">#&gt; # … with 662 more rows</span>
-<span class="kw">i_7_sh</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>()
+<span class="no">i_7_sh</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>()
 <span class="co">#&gt; An incidence object: 672 x 5</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 1 week</span>
@@ -312,8 +298,7 @@
 <span class="co">#&gt; 4 Princess Christian Maternity Hospital (PCMH)   420</span>
 <span class="co">#&gt; 5 Rokupa Hospital                                451</span>
 <span class="co">#&gt; 6 &lt;NA&gt;                                          1456</span>
-<span class="kw">i_7_sh</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/plot.incidence.html">facet_plot</a></span>(facets = <span class="kw">gender</span>, fill = <span class="kw">hospital</span>)
-</pre></div>
+<span class="no">i_7_sh</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">hospital</span>)</pre></div>
 <p><img src="reference/figures/README-genderhospital-1.png" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -368,7 +353,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

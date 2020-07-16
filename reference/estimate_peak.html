@@ -106,9 +106,6 @@ on the resampling." />
     <li>
       <a href="../articles/customizing_incidence_plots.html">Customizing incidence plots</a>
     </li>
-    <li>
-      <a href="../articles/bootstrapping.html">Bootstrapping incidence objects</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -142,11 +139,11 @@ on the resampling." />
 
     <div class="ref-description">
     <p>This function can be used to estimate the peak of an epidemic curve stored as
-<code>incidence</code>, using bootstrap. See <code><a href='https://rdrr.io/pkg/incidence2/man/bootstrap.html'>bootstrap()</a></code> for more information
+<code>incidence</code>, using bootstrap. See <code><a href='bootstrap.html'>bootstrap()</a></code> for more information
 on the resampling.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/estimate_peak.html'>estimate_peak</a></span>(<span class='kw'>x</span>, n = <span class='fl'>100</span>, alpha = <span class='fl'>0.05</span>)</pre>
+    <pre class="usage"><span class='fu'>estimate_peak</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,30 +188,26 @@ equally likely to be reported</p></li>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/incidence2/man/bootstrap.html'>bootstrap()</a></code> for the bootstrapping underlying this
-approach and <code><a href='https://rdrr.io/pkg/incidence2/man/find_peak.html'>find_peak()</a></code> to find the peak in a single
+    <div class='dont-index'><p><code><a href='bootstrap.html'>bootstrap()</a></code> for the bootstrapping underlying this
+approach and <code><a href='find_peak.html'>find_peak()</a></code> to find the peak in a single
 <code>incidence</code> object.</p></div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>, with inputs on
-caveats from Michael Höhle.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, quietly = <span class='fl'>TRUE</span>)) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
   <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span>( {
     <span class='co'># load data and create incidence</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>fluH7N9_china_2013</span>, package = <span class='st'>"outbreaks"</span>)
-    <span class='kw'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>fluH7N9_china_2013</span>, date_index = <span class='kw'>date_of_onset</span>)
-    <span class='kw'>i</span>
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>fluH7N9_china_2013</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"outbreaks"</span>)
+    <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>fluH7N9_china_2013</span>, <span class='kw'>date_index</span> <span class='kw'>=</span> <span class='no'>date_of_onset</span>)
+    <span class='no'>i</span>
 
     <span class='co'># one simple bootstrap</span>
-    <span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/bootstrap.html'>bootstrap</a></span>(<span class='kw'>i</span>)
-    <span class='kw'>x</span>
+    <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bootstrap.html'>bootstrap</a></span>(<span class='no'>i</span>)
+    <span class='no'>x</span>
 
     <span class='co'># find 95% CI for peak time using bootstrap</span>
-    <span class='kw'>peak_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/estimate_peak.html'>estimate_peak</a></span>(<span class='kw'>i</span>)
-    <span class='kw'>peak_data</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>peak_data</span><span class='op'>$</span><span class='kw'>peaks</span>)
+    <span class='no'>peak_data</span> <span class='kw'>&lt;-</span> <span class='fu'>estimate_peak</span>(<span class='no'>i</span>)
+    <span class='no'>peak_data</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>peak_data</span>$<span class='no'>peaks</span>)
   })
 }</div><div class='output co'>#&gt; &gt; data(fluH7N9_china_2013, package = "outbreaks")
 #&gt; &gt; i &lt;- incidence(fluH7N9_china_2013, date_index = date_of_onset)</div><div class='output co'>#&gt; <span class='message'>10 missing observations were removed.</span></div><div class='output co'>#&gt; &gt; i
@@ -302,7 +295,8 @@ caveats from Michael Höhle.</p>
 #&gt;  Median :2013-04-06   Median :10.00  
 #&gt;  Mean   :2013-04-06   Mean   :10.28  
 #&gt;  3rd Qu.:2013-04-11   3rd Qu.:11.00  
-#&gt;  Max.   :2013-04-17   Max.   :16.00  </div><div class='input'></div></span></pre>
+#&gt;  Max.   :2013-04-17   Max.   :16.00  </div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -318,7 +312,7 @@ caveats from Michael Höhle.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
