@@ -45,15 +45,12 @@ bootstrap <- function(x, randomise_groups = FALSE) {
   date_var <- get_date_name(x)
 
 
-  tbl <- select(x, !all_of(count_var))
-  tbl <- suppressMessages(
-    dplyr::slice_sample(
-      tbl,
-      n = sum(x[[count_var]]),
-      weight_by = x[[count_var]],
-      replace = TRUE
-    )
-  )
+  tbl <- suppressMessages(select(x, !all_of(count_var)))
+  tbl <- dplyr::slice_sample(tbl,
+                             n = sum(x[[count_var]]),
+                             weight_by = x[[count_var]],
+                             replace = TRUE)
+
 
   tbl <- group_by(tbl, across(all_of(c(date_var, group_vars))))
   tbl <- summarise(tbl, {{count_var}} := n(), .groups = "drop")

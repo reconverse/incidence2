@@ -155,13 +155,45 @@ objects structure:
 * `get_timespan()`returns the number of days the object covers.
 
 
-# Finding peaks and bootstrapping
+# Bootstrapping and finding peaks
 
-## Find peak
-```{r findpeak}
+We provide functions to return the peak of the incidence data (grouped or 
+ungrouped), bootstrap from the incidence data, and estimate confidence intervals
+around a peak.
 
+## `bootstrap()`
+```{r bootstrap}
+dat <- fluH7N9_china_2013
+x <- incidence(dat, date_index = date_of_onset, groups = gender)
+bootstrap(x)
 ```
 
+## `find_peak()`
+```{r findpeak}
+dat <- fluH7N9_china_2013
+x <- incidence(dat, date_index = date_of_onset, groups = gender)
+
+# peaks across each group
+x %>% find_peak(regroup = FALSE)
+
+# peak without groupings
+x %>% find_peak()
+```
+
+## `estimate_peak()`
+Note that the bootstrapping approach used for estimating the peak time makes
+the following assumptions:
+
+- the total number of event is known (no uncertainty on total incidence);
+- dates with no events (zero incidence) will never be in bootstrapped datasets; and
+- the reporting is assumed to be constant over time, i.e. every case is
+  equally likely to be reported.
+  
+```{r estimatepeak}
+dat <- fluH7N9_china_2013
+x <- incidence(dat, date_index = date_of_onset, groups = gender)
+estimate_peak(x)
+```
 
 
 

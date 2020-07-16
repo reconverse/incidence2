@@ -80,7 +80,7 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
 
   ## peaks on 'n' bootstrap samples
   message("Estimating peaks from bootstrap samples:\n")
-  pb <- utils::txtProgressBar(min = 0, max = n, style = 3)
+  pb <- utils::txtProgressBar(min = 0, max = n, style = 1)
   peak_boot <- lapply(1:n,
                       function(i) {
                         res <- find_peak(suppressMessages(bootstrap(x)))
