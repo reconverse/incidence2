@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-We try to make `incidence()` objects providing helper functions for both
-manipulating and accessing data within the objects, and integration with
-[tidyverse](https://www.tidyverse.org/) verbs.
+We try to make `incidence()` objects easy to work with providing helper
+functions for both manipulating and accessing data within the objects, 
+and integration with [tidyverse](https://www.tidyverse.org/) verbs.
 
 # Modifying incidence objects
 
@@ -153,6 +153,17 @@ objects structure:
 * `get_interval()` returns the interval of the object.
 
 * `get_timespan()`returns the number of days the object covers.
+
+
+# Finding peaks and bootstrapping
+
+## Find peak
+```{r findpeak}
+
+```
+
+
+
 
 
 

@@ -49,6 +49,13 @@ test_that("find_peak can find the peak", {
   skip_on_cran()
 
   x <- incidence(dat, date_index = DATES, interval = 3, groups = groups)
+  tata_x <- dplyr::filter(x, groups == "tata")
+  toto_x <- dplyr::filter(x, groups == "toto")
+  no_group_x <- regroup(x)
+  group_peaks <- find_peak(x, regroup = FALSE)
+
+
+  expect_equal(no_group_x[which.max(no_group_x$count), ], find_peak(x))
 
   expect_error(find_peak(1:10), "`1:10` is not an incidence object")
 
@@ -56,7 +63,19 @@ test_that("find_peak can find the peak", {
 
   expect_equal(nrow(p1), 1L)
 
-  expect_equal(find_peak(x, regroup = FALSE)$groups, c("tata", "toto"))
+  expect_equal(group_peaks$groups, c("tata", "toto"))
+
+  expect_equal(
+    group_peaks[group_peaks$groups == "tata", ],
+    as_tibble(tata_x[which.max(tata_x$count), ])
+  )
+
+  expect_equal(
+    group_peaks[group_peaks$groups == "toto", ],
+    as_tibble(toto_x[which.max(toto_x$count), ])
+  )
+
+
 })
 
 

@@ -10,10 +10,10 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.align = "center",
+  out.width = "100%"
 )
 ```
 
-```{r setup}
-library(incidence2)
-```
+

@@ -27,11 +27,6 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
     i <- incidence(fluH7N9_china_2013, date_index = date_of_onset)
     i
 
-    # one simple bootstrap
-    x <- bootstrap(i)
-    x
-
-    ## find 95\% CI for peak time using bootstrap
     find_peak(i)
   })
 }

@@ -24,11 +24,6 @@
 #'     i <- incidence(fluH7N9_china_2013, date_index = date_of_onset)
 #'     i
 #'
-#'     # one simple bootstrap
-#'     x <- bootstrap(i)
-#'     x
-#'
-#'     ## find 95% CI for peak time using bootstrap
 #'     find_peak(i)
 #'   })
 #' }
@@ -41,7 +36,6 @@ find_peak <- function(x, regroup = TRUE) {
 
   count_var <- get_count_name(x)
   group_vars <- get_group_names(x)
-  date_var <- get_date_name(x)
 
   if ((length(group_vars) > 0) && regroup) {
     msg <- paste("`%s` is stratified by groups",
@@ -54,5 +48,6 @@ find_peak <- function(x, regroup = TRUE) {
     x <- group_by(x, across(all_of(group_vars)))
   }
 
-  dplyr::slice_max(x, .data[[count_var]], order_by = .data[[date_var]], n = 1)
+  res <- dplyr::slice_max(x, .data[[count_var]], n = 1, with_ties = FALSE)
+  ungroup(res)
 }
