@@ -4,10 +4,12 @@
 #' @param format Character string of desired format.  See `?strptime`.
 #' @param angle Angle to rotate x-axis labels.
 #' @param size text size in pts.
+#' @param coord_equal Should the x and y axis display with equal ratio.
 #' @export
 #' @rdname plot.incidence
 scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE,
-                              format = NULL, angle = 0, size = NULL, ...) {
+                              format = NULL, angle = 0, size = NULL,
+                              coord_equal = FALSE, ...) {
 
   date_var <- get_date_name(x)
 
@@ -62,8 +64,12 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE,
 
     out <- ggplot2::scale_x_continuous(breaks = breaks$breaks, ...)
   }
+  if (coord_equal) {
+    list(out, rotate_and_scale(angle, size), ggplot2::coord_equal())
+  } else {
+    list(out, rotate_and_scale(angle, size))
+  }
 
-  list(out, rotate_and_scale(angle, size))
 }
 
 make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
