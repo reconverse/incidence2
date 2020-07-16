@@ -47,7 +47,7 @@ i <- incidence(dat, date_index = date_of_onset, interval = 7,
 ```
 
 
-# The `plot.incidence()` function
+# `plot.incidence()`
 
 When calling `plot` on an `incidence()` object, the function `plot.incidence()`
 is implicitly used. To access its documentation, use `?plot.incidence`. In this
@@ -104,7 +104,77 @@ rectangles. It can be done by doing two things: first, adding using the option
 forces each case to be a square.
 
 ```{r, epiet}
-i_epiet <- incidence(dat[160:180, ], date_index = date_of_onset,)
-i_epiet %>% plot(i_epiet, color = "white", show_cases = TRUE,
+i_epiet <- incidence(dat[160:180, ], date_index = date_of_onset)
+i_epiet %>% plot(color = "white", show_cases = TRUE,
                  coord_equal = TRUE, angle = 45, size = 12)
+```
+
+
+# `facet_plot()`
+
+With stacked plots it can be difficult to ascertain difference between groups.
+For this reason we provide users the ability to make faceted plots with the
+`facet_plot()` function.  This function takes similar arguments to `plot()` but
+includes an additional facet argument:
+
+```{r, facets}
+i %>% facet_plot(facets = gender, n_breaks = 4)
+i %>% facet_plot(facets = hospital, fill = gender, n_breaks = 4, nrow = 4)
+i %>% facet_plot(facets = gender, fill = "grey")
+```
+
+
+# Miscellaneous
+
+## Centreing labels
+
+By default plots made with the *incidence2* package position the date labels
+to the left side of any grouping.  Sometimes it can be desirable to centre the
+labels within the bin and we make this possible providing that the interval is
+one of one week, one month, one quarter or one year:
+
+```{r, centreing}
+x <- incidence(dat, 
+               date_index = date_of_onset,
+               first_date = as.Date("2014-10-01") - 25,
+               last_date = as.Date("2014-10-01") + 25,
+               groups = hospital,
+               interval = "week") 
+  plot(x, fill = hospital, color = "black", n_breaks = nrow(x), 
+       angle = 45, size = 12, centre_labels = TRUE, legend = "top")
+```
+
+## Changing colors
+
+### The default palette
+
+A color palette is a function which outputs a specified number of colors. By
+default, the color used in *incidence* is called `vibrant()`. Its
+behaviour is different from usual palettes, in the sense that the first 6
+colours are not interpolated:
+
+```{r, vibrant,   fig.height = 8}
+par(mfrow = c(2, 1), mar = c(4,2,1,1))
+barplot(1:6, col = vibrant(6))
+barplot(1:20, col = vibrant(20))
+```
+
+We also provide a second palette called `muted()` where the first 9 colours are
+not interpolated:
+
+```{r, muted, fig.height = 8}
+par(mfrow = c(2,1), mar = c(4,2,1,1))
+barplot(1:9, col = muted(9))
+barplot(1:20, col = muted(20))
+```
+
+### Using different palettes
+
+Other color palettes can be provided via `col_pal`. Various palettes are part of
+the base R distribution, and many more are provided in additional packages. We 
+provide a couple of examples:
+
+```{r, palettes}
+i %>% regroup(hospital) %>% plot(fill = hospital, col_pal = rainbow) # see ?rainbow
+i %>% regroup(gender) %>% plot(fill = gender, col_pal = cm.colors)   # see ?cm.colors
 ```
