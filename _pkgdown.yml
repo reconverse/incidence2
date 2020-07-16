@@ -13,8 +13,6 @@ navbar:
         href: articles/handling_incidence_objects.html
       - text: "Customizing incidence plots"
         href: articles/customizing_incidence_plots.html
-      - text: "Bootstrapping incidence objects"
-        href: articles/bootstrapping.html
   - text: Changelog
     href: news/index.html
   right:
