@@ -177,7 +177,7 @@ summary(i_7)
 plot(i_7, color = "black")
 ```
 
-<img src="man/figures/README-incid7-1.png" width="100%" />
+<img src="man/figures/README-incid7-1.png" style="display: block; margin: auto;" />
 
 `incidence()` can also compute incidence by specified groups using the
 `groups` argument. For instance, we can compute the weekly incidence by
@@ -221,7 +221,7 @@ summary(i_7_sex)
 plot(i_7_sex, fill = "gender", color = "black")
 ```
 
-<img src="man/figures/README-genderstack-1.png" width="100%" />
+<img src="man/figures/README-genderstack-1.png" style="display: block; margin: auto;" />
 
 we can facet our plot (grouping detected automatically):
 
@@ -229,7 +229,7 @@ we can facet our plot (grouping detected automatically):
 facet_plot(i_7_sex, n_breaks = 4)
 ```
 
-<img src="man/figures/README-genderfacet-1.png" width="100%" />
+<img src="man/figures/README-genderfacet-1.png" style="display: block; margin: auto;" />
 
 and we can also group by multiple variables specifying different facets
 and fills:
@@ -285,4 +285,4 @@ i_7_sh %>% summary()
 i_7_sh %>% facet_plot(facets = gender, fill = hospital)
 ```
 
-<img src="man/figures/README-genderhospital-1.png" width="100%" />
+<img src="man/figures/README-genderhospital-1.png" style="display: block; margin: auto;" />
