@@ -52,6 +52,7 @@ scale_x_incidence(
   format = NULL,
   angle = 0,
   size = NULL,
+  coord_equal = FALSE,
   ...
 )
 }
@@ -116,6 +117,8 @@ group_labels of the incidence object.}
 \item{angle}{Angle to rotate x-axis labels.}
 
 \item{size}{text size in pts.}
+
+\item{coord_equal}{Should the x and y axis display with equal ratio.}
 }
 \value{
 \itemize{

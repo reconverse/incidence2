@@ -12,7 +12,9 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.align = "center"
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 5
 )
 ```
 
@@ -68,3 +70,41 @@ i %>% plot(color = "white")
 ```
 
 
+## Additional arguments
+`plot.incidence()` is designed for a high level of customization without needing
+knowledge of *ggplot2*.  To this end, there are multiple arguments that can
+be provided which have been set to sensible defaults. Some common changes you
+may wish to make are illustrated below (for a full description of arguments
+check out the accompanying help file `?plot.incidence`).
+
+We can easily fill the plot according to the groups present or a color of our
+choosing:
+
+```{r, fill}
+i %>% plot(fill = gender)
+i %>% plot(fill = hospital, legend = "bottom")
+i %>% plot(fill = "red")
+```
+
+Sometimes we may wish to change the formatting and rotation of the x-axis and
+this can be done by passing additional arguments for use by
+`scale_x_incidence()`:
+
+```{r, rotateandformat}
+i %>% plot(group_labels = FALSE, 
+           format = "%a %d %B %Y",
+           angle = 45)
+```
+
+## Applying the style of European Programme for Intervention Epidemiology Training (EPIET)
+
+For small datasets it is convention of EPIET to display individual cases as
+rectangles. It can be done by doing two things: first, adding using the option
+`show_cases = TRUE` with a white border. We also add `coord_equal = TRUE` which 
+forces each case to be a square.
+
+```{r, epiet}
+i_epiet <- incidence(dat[160:180, ], date_index = date_of_onset,)
+i_epiet %>% plot(i_epiet, color = "white", show_cases = TRUE,
+                 coord_equal = TRUE, angle = 45, size = 12)
+```
