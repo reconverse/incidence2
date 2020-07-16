@@ -84,6 +84,13 @@ version of the package use:
 devtools::install_github("reconhub/incidence2")
 ```
 
+By default this will not build local copies of the vignettes. If you
+would like them installed, instead use:
+
+``` r
+devtools::install_github("reconhub/incidence2", build_vignettes = TRUE)
+```
+
 Note that this requires the package *devtools* installed.
 
 # Resources
@@ -94,9 +101,9 @@ An short overview of *incidence* is provided below in the worked example
 below. More detailed tutorials are distributed as vignettes with the
 package:
 
-  - `vignette("Introduction")`
-  - `vignette("handling_incidence_objects")`
-  - `vignette("Plotting")`
+  - `vignette("Introduction", package = "incidence2)`
+  - `vignette("handling_incidence_objects", package = "incidence2)`
+  - `vignette("customizing_incidence_plots", package = "incidence2)`
 
 ## Websites
 
