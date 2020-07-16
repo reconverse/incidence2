@@ -199,7 +199,7 @@
 <span class="co">#&gt; timespan: 389 days</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i</span>)
 </pre></div>
-<p><img src="Introduction_files/figure-html/incid1-1.png" width="100%"></p>
+<p><img src="Introduction_files/figure-html/incid1-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 
@@ -207,21 +207,21 @@
 <span class="kw">i_weekly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, interval = <span class="st">"1 week"</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i_weekly</span>)
 </pre></div>
-<p><img src="Introduction_files/figure-html/interv-1.png" width="100%"></p>
+<p><img src="Introduction_files/figure-html/interv-1.png" width="100%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 
 <span class="co"># bi-weekly, starting on Saturday</span>
 <span class="kw">i_biweekly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, interval = <span class="st">"2 saturday weeks"</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i_biweekly</span>, color = <span class="st">"white"</span>)
 </pre></div>
-<p><img src="Introduction_files/figure-html/interv-2.png" width="100%"></p>
+<p><img src="Introduction_files/figure-html/interv-2.png" width="100%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
 
 <span class="co">## monthly</span>
 <span class="kw">i_monthly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, interval = <span class="st">"1 month"</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i_monthly</span>, color = <span class="st">"white"</span>)
 </pre></div>
-<p><img src="Introduction_files/figure-html/interv-3.png" width="100%"></p>
+<p><img src="Introduction_files/figure-html/interv-3.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
 <div id="grouping" class="section level2">
 <h2 class="hasAnchor">
@@ -266,13 +266,13 @@
 <span class="co"># A singular plot</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i_weekly_sex</span>, fill = <span class="kw">gender</span>)
 </pre></div>
-<p><img src="Introduction_files/figure-html/gender-1.png" width="100%"></p>
+<p><img src="Introduction_files/figure-html/gender-1.png" width="100%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
 
 <span class="co"># a multi-facet plot</span>
 <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">i_weekly_sex</span>, fill = <span class="kw">gender</span>, color = <span class="st">"white"</span>, )
 </pre></div>
-<p><img src="Introduction_files/figure-html/gender-2.png" width="100%"></p>
+<p><img src="Introduction_files/figure-html/gender-2.png" width="100%" style="display: block; margin: auto;"></p>
 <p>There is no limit to the number of groups that we group by and this allows us to both facet and fill by different variables:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="kw">inci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>,
@@ -280,7 +280,7 @@
 <span class="kw">inci</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(facets = <span class="kw">hospital</span>, fill = <span class="kw">outcome</span>, n_breaks = <span class="fl">4</span>, nrow = <span class="fl">3</span>)
 </pre></div>
-<p><img src="Introduction_files/figure-html/outcome_hospital-1.png" width="100%"></p>
+<p><img src="Introduction_files/figure-html/outcome_hospital-1.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
 </div>
   </div>

@@ -179,11 +179,6 @@ a peak. If <code>FALSE</code>, separate peaks will be found for each group.</p><
     <span class='kw'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='kw'>fluH7N9_china_2013</span>, date_index = <span class='kw'>date_of_onset</span>)
     <span class='kw'>i</span>
 
-    <span class='co'># one simple bootstrap</span>
-    <span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/bootstrap.html'>bootstrap</a></span>(<span class='kw'>i</span>)
-    <span class='kw'>x</span>
-
-    <span class='co'>## find 95% CI for peak time using bootstrap</span>
     <span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/find_peak.html'>find_peak</a></span>(<span class='kw'>i</span>)
   })
 }</div><div class='output co'>#&gt; &gt; data(fluH7N9_china_2013, package = "outbreaks")
@@ -207,35 +202,15 @@ a peak. If <code>FALSE</code>, separate peaks will be found for each group.</p><
 #&gt; </span><span style='color: #555555;'>10</span><span> 2013-02-28     0
 #&gt; </span><span style='color: #555555;'># … with 149 more rows</span><span>
 #&gt; 
-#&gt; &gt; x &lt;- bootstrap(i)</div><div class='output co'>#&gt; <span class='message'>Note: incidence class dropped in returned object</span></div><div class='output co'>#&gt; &gt; x
-#&gt; </span><span style='color: #555555;'>An incidence object: 36 x 2
-#&gt; </span><span>[126 cases from days 2013-02-19 to 2013-07-27]
-#&gt; [interval: 1 day]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    bin_date   count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-02-19     2
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-03-08     2
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-03-09     3
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-03-13     1
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-03-19     1
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-03-20     3
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-03-21     2
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-03-25     1
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-03-28     5
-#&gt; </span><span style='color: #555555;'>10</span><span> 2013-03-29     7
-#&gt; </span><span style='color: #555555;'># … with 26 more rows</span><span>
-#&gt; 
 #&gt; &gt; find_peak(i)
 #&gt; </span><span style='color: #555555;'>An incidence object: 1 x 2
-#&gt; </span><span>[1 cases from days 2013-07-27 to 2013-07-27]
+#&gt; </span><span>[7 cases from days 2013-04-03 to 2013-04-03]
 #&gt; [interval: 1 day]
 #&gt; [cumulative: FALSE]
 #&gt; 
 #&gt;   bin_date   count
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2013-07-27     1
+#&gt; </span><span style='color: #555555;'>1</span><span> 2013-04-03     7
 #&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
