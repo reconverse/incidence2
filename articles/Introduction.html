@@ -118,7 +118,7 @@
 <p>The main features of the package include:</p>
 <ul>
 <li><p><strong><code><a href="../reference/incidence.html">incidence()</a></code></strong>: compute incidence from linelist datasets; any fixed time interval can be used; the returned object is a tibble subclass called <em>incidence</em>.</p></li>
-<li><p>plotting functions <strong><code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code></strong> and <strong><code><a href="../reference/rotate_and_scale.html">facet_plot()</a></code></strong>: these functions return customised ggplot2 plots of <em>incidence</em> objects (see <code><a href="../reference/rotate_and_scale.html">?plot.incidence</a></code> for details).</p></li>
+<li><p>plotting functions <strong><code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code></strong> and <strong><code><a href="../reference/plot.incidence.html">facet_plot()</a></code></strong>: these functions return customised ggplot2 plots of <em>incidence</em> objects (see <code><a href="../reference/plot.incidence.html">?plot.incidence</a></code> for details).</p></li>
 <li><p>Compatible with <a href="https://dplyr.tidyverse.org/">dplyr</a> for data manipulation.</p></li>
 <li><p><strong><code><a href="../reference/regroup.html">regroup()</a></code></strong>: regroup incidence from different groups into one global incidence time series.</p></li>
 <li><p><strong><code><a href="../reference/cumulate.html">cumulate()</a></code></strong>: computes cumulative incidence over time from an <code>incidence</code> object.</p></li>
@@ -133,7 +133,7 @@
 <li><p><strong><code><a href="../reference/as_tibble.html">as_tibble()</a></code></strong>: convertss an <code><a href="../reference/incidence.html">incidence()</a></code> object into a <code>tibble</code>.</p></li>
 </ul>
 </li>
-<li><p>Accessor functions: <strong><code><a href="../reference/accessors.html">get_count_vars()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_date_vars()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_group_vars()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_interval()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_timespan()</a></code></strong> and <strong><code><a href="../reference/accessors.html">get_n()</a></code></strong>.</p></li>
+<li><p>Accessor functions: <strong><code><a href="../reference/accessors.html">get_count_name()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_date_name()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_group_names()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_interval()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_timespan()</a></code></strong> and <strong><code><a href="../reference/accessors.html">get_n()</a></code></strong>.</p></li>
 </ul>
 </div>
 <div id="worked-example-simulated-ebola-outbreak" class="section level1">
@@ -226,7 +226,7 @@
 <div id="grouping" class="section level2">
 <h2 class="hasAnchor">
 <a href="#grouping" class="anchor"></a>Grouping</h2>
-<p><code><a href="../reference/incidence.html">incidence()</a></code> can also aggregate incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender and plot with both the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function for a single plot and the <code><a href="../reference/rotate_and_scale.html">facet_plot()</a></code> function for a multi-faceted plot across groups:</p>
+<p><code><a href="../reference/incidence.html">incidence()</a></code> can also aggregate incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender and plot with both the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function for a single plot and the <code><a href="../reference/plot.incidence.html">facet_plot()</a></code> function for a multi-faceted plot across groups:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="kw">i_weekly_sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>,
                      interval = <span class="st">"1 week"</span>, groups = <span class="kw">gender</span>)
@@ -270,7 +270,7 @@
 <div class="sourceCode" id="cb8"><pre class="downlit">
 
 <span class="co"># a multi-facet plot</span>
-<span class="fu"><a href="../reference/rotate_and_scale.html">facet_plot</a></span>(<span class="kw">i_weekly_sex</span>, fill = <span class="kw">gender</span>, color = <span class="st">"white"</span>, )
+<span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">i_weekly_sex</span>, fill = <span class="kw">gender</span>, color = <span class="st">"white"</span>, )
 </pre></div>
 <p><img src="Introduction_files/figure-html/gender-2.png" width="100%"></p>
 <p>There is no limit to the number of groups that we group by and this allows us to both facet and fill by different variables:</p>
@@ -278,7 +278,7 @@
 <span class="kw">inci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>,
                      interval = <span class="st">"1 week"</span>, groups = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">outcome</span>, <span class="kw">hospital</span>, <span class="kw">gender</span>))
 <span class="kw">inci</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/rotate_and_scale.html">facet_plot</a></span>(facets = <span class="kw">hospital</span>, fill = <span class="kw">outcome</span>, n_breaks = <span class="fl">4</span>, nrow = <span class="fl">3</span>)
+  <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(facets = <span class="kw">hospital</span>, fill = <span class="kw">outcome</span>, n_breaks = <span class="fl">4</span>, nrow = <span class="fl">3</span>)
 </pre></div>
 <p><img src="Introduction_files/figure-html/outcome_hospital-1.png" width="100%"></p>
 </div>

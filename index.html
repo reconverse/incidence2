@@ -106,7 +106,7 @@
 <p>The main features of the package include:</p>
 <ul>
 <li><p><strong><code><a href="reference/incidence.html">incidence()</a></code></strong>: compute incidence from linelist datasets; any fixed time interval can be used; the returned object is a tibble subclass called <em>incidence</em>.</p></li>
-<li><p>plotting functions <strong><code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code></strong> and <strong><code><a href="reference/rotate_and_scale.html">facet_plot()</a></code></strong>: these functions return customised ggplot2 plots of <em>incidence</em> objects (see <code><a href="reference/rotate_and_scale.html">?plot.incidence</a></code> for details).</p></li>
+<li><p>plotting functions <strong><code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code></strong> and <strong><code><a href="reference/plot.incidence.html">facet_plot()</a></code></strong>: these functions return customised ggplot2 plots of <em>incidence</em> objects (see <code><a href="reference/plot.incidence.html">?plot.incidence</a></code> for details).</p></li>
 <li><p>Compatible with <a href="https://dplyr.tidyverse.org/">dplyr</a> for data manipulation. (see <code><a href="articles/handling_incidence_objects.html">vignette("handling_incidence_objects")</a></code> for more details).</p></li>
 <li><p><strong><code><a href="reference/regroup.html">regroup()</a></code></strong>: regroup incidence from different groups into one global incidence time series.</p></li>
 <li><p><strong><code><a href="reference/cumulate.html">cumulate()</a></code></strong>: computes cumulative incidence over time from an <code>incidence</code> object.</p></li>
@@ -121,7 +121,7 @@
 <li><p><strong><code><a href="reference/as_tibble.html">as_tibble()</a></code></strong>: convertss an <code><a href="reference/incidence.html">incidence()</a></code> object into a <code>tibble</code>.</p></li>
 </ul>
 </li>
-<li><p>Accessor functions: <strong><code><a href="reference/accessors.html">get_count_vars()</a></code></strong>, <strong><code><a href="reference/accessors.html">get_date_vars()</a></code></strong>, <strong><code><a href="reference/accessors.html">get_group_vars()</a></code></strong>, <strong><code><a href="reference/accessors.html">get_interval()</a></code></strong>, <strong><code><a href="reference/accessors.html">get_timespan()</a></code></strong> and <strong><code><a href="reference/accessors.html">get_n()</a></code></strong>.</p></li>
+<li><p>Accessor functions: <strong><code><a href="reference/accessors.html">get_count_name()</a></code></strong>, <strong><code><a href="reference/accessors.html">get_date_name()</a></code></strong>, <strong><code><a href="reference/accessors.html">get_group_names()</a></code></strong>, <strong><code><a href="reference/accessors.html">get_interval()</a></code></strong>, <strong><code><a href="reference/accessors.html">get_timespan()</a></code></strong> and <strong><code><a href="reference/accessors.html">get_n()</a></code></strong>.</p></li>
 </ul>
 </div>
 <div id="installing-the-package" class="section level1">
@@ -143,6 +143,7 @@
 <ul>
 <li><code><a href="articles/Introduction.html">vignette("Introduction")</a></code></li>
 <li><code><a href="articles/handling_incidence_objects.html">vignette("handling_incidence_objects")</a></code></li>
+<li><code>vignette("Plotting")</code></li>
 </ul>
 </div>
 <div id="websites" class="section level2">
@@ -259,7 +260,7 @@
 <p><img src="reference/figures/README-genderstack-1.png" width="100%"></p>
 <p>we can facet our plot (grouping detected automatically):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="reference/rotate_and_scale.html">facet_plot</a></span>(<span class="kw">i_7_sex</span>, n_breaks = <span class="fl">4</span>)
+<span class="fu"><a href="reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">i_7_sex</span>, n_breaks = <span class="fl">4</span>)
 </pre></div>
 <p><img src="reference/figures/README-genderfacet-1.png" width="100%"></p>
 <p>and we can also group by multiple variables specifying different facets and fills:</p>
@@ -311,7 +312,7 @@
 <span class="co">#&gt; 4 Princess Christian Maternity Hospital (PCMH)   420</span>
 <span class="co">#&gt; 5 Rokupa Hospital                                451</span>
 <span class="co">#&gt; 6 &lt;NA&gt;                                          1456</span>
-<span class="kw">i_7_sh</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/rotate_and_scale.html">facet_plot</a></span>(facets = <span class="kw">gender</span>, fill = <span class="kw">hospital</span>)
+<span class="kw">i_7_sh</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/plot.incidence.html">facet_plot</a></span>(facets = <span class="kw">gender</span>, fill = <span class="kw">hospital</span>)
 </pre></div>
 <p><img src="reference/figures/README-genderhospital-1.png" width="100%"></p>
 </div>

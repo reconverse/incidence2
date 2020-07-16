@@ -192,7 +192,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="kw">inci</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/cumulate.html">cumulate</a></span>() <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/rotate_and_scale.html">facet_plot</a></span>(facet = <span class="kw">hospital</span>)
+  <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(facet = <span class="kw">hospital</span>)
 </pre></div>
 <p><img src="handling_incidence_objects_files/figure-html/cumulate-1.png" width="100%"></p>
 </div>
@@ -246,22 +246,22 @@
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(n = <span class="fl">10</span>)
 <span class="kw">x</span>
 <span class="co">#&gt; An incidence object: 10 x 5</span>
-<span class="co">#&gt; [19 cases from days 2014-05-19 to 2014-06-02]</span>
+<span class="co">#&gt; [26 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-06-02 2014-W23   Military Hospital                          m          2</span>
-<span class="co">#&gt;  2 2014-05-19 2014-W21   other                                      m          3</span>
-<span class="co">#&gt;  3 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
-<span class="co">#&gt;  4 2014-06-02 2014-W23   Rokupa Hospital                            f          1</span>
-<span class="co">#&gt;  5 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
-<span class="co">#&gt;  6 2014-05-19 2014-W21   other                                      f          1</span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21   Military Hospital                          f          2</span>
-<span class="co">#&gt;  8 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… m          0</span>
-<span class="co">#&gt;  9 2014-05-19 2014-W21   Connaught Hospital                         f          3</span>
-<span class="co">#&gt; 10 2014-06-02 2014-W23   other                                      m          2</span>
+<span class="co">#&gt;  1 2014-05-19 2014-W21   Connaught Hospital                         f          3</span>
+<span class="co">#&gt;  2 2014-06-02 2014-W23   Military Hospital                          m          2</span>
+<span class="co">#&gt;  3 2014-05-19 2014-W21   &lt;NA&gt;                                       f          5</span>
+<span class="co">#&gt;  4 2014-05-19 2014-W21   other                                      m          3</span>
+<span class="co">#&gt;  5 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… f          1</span>
+<span class="co">#&gt;  6 2014-06-02 2014-W23   &lt;NA&gt;                                       m          6</span>
+<span class="co">#&gt;  7 2014-06-02 2014-W23   Military Hospital                          f          1</span>
+<span class="co">#&gt;  8 2014-06-02 2014-W23   Rokupa Hospital                            m          1</span>
+<span class="co">#&gt;  9 2014-06-02 2014-W23   other                                      m          2</span>
+<span class="co">#&gt; 10 2014-06-02 2014-W23   Connaught Hospital                         f          2</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
@@ -402,7 +402,7 @@
 <a href="#accessing-variable-information" class="anchor"></a>Accessing variable information</h1>
 <p>We provide multiple accessors to easily access information about an <code><a href="../reference/incidence.html">incidence()</a></code> objects structure:</p>
 <ul>
-<li><p><code><a href="../reference/accessors.html">get_count_vars()</a></code>, <code><a href="../reference/accessors.html">get_date_vars()</a></code>, <code><a href="../reference/accessors.html">get_date_group_vars()</a></code> and <code><a href="../reference/accessors.html">get_group_vars()</a></code> all return character vectors of the column names corresponding to the requested variables.</p></li>
+<li><p><code><a href="../reference/accessors.html">get_count_name()</a></code>, <code><a href="../reference/accessors.html">get_date_name()</a></code>, <code><a href="../reference/accessors.html">get_date_group_names()</a></code> and <code><a href="../reference/accessors.html">get_group_names()</a></code> all return character vectors of the column names corresponding to the requested variables.</p></li>
 <li><p><code><a href="../reference/accessors.html">get_n()</a></code> returns the number of observations.</p></li>
 <li><p><code><a href="../reference/accessors.html">get_interval()</a></code> returns the interval of the object.</p></li>
 <li><p><code><a href="../reference/accessors.html">get_timespan()</a></code>returns the number of days the object covers.</p></li>
