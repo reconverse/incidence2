@@ -57,11 +57,11 @@
 #'   TRUE.
 #' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
 #' @param legend Position of legend in plot.
-#' @param centre_labels Sgould labels on the axis be centred on the bars. This
+#' @param centre_labels Should labels on the axis be centred on the bars. This
 #'   only applies to intervals that produce unambiguous labels (i.e `1 day`,
 #'   `1 month`, `1 quarter` or `1 year`).  Defaults to `FALSE`.
 #' @param nrow Number of rows.
-#' @param ... other arguments to pass to [ggplot2::facet_wrap()].
+#' @param ... other arguments to pass to [scale_x_incidence()].
 #'
 #' @return
 #'  - `facet_plot()` and `plot()` generate a [ggplot2::ggplot()] object.
@@ -110,7 +110,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
                            ...) {
 
 
-  ellipsis::check_dots_empty()
+  ellipsis::check_dots_used()
 
   # convert inputs to character
   fill <- arg_values(!!rlang::enexpr(fill))
@@ -210,7 +210,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
     out <- out + squares
   }
 
-  out <- out + scale_x_incidence(df, n_breaks, group_labels)
+  out <- out + scale_x_incidence(df, n_breaks, group_labels, ...)
   out
 
 
@@ -227,6 +227,8 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
                        group_labels = TRUE, centre_labels = FALSE,
                        legend = c("bottom", "top", "left", "right", "none"),
                        nrow = NULL, ...) {
+
+  ellipsis::check_dots_used()
 
   # convert inputs to character
   facets <- arg_values(!!rlang::enexpr(facets))
@@ -319,7 +321,7 @@ facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
     out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), nrow, ...)
   }
 
-  out <- out + scale_x_incidence(df, n_breaks, group_labels)
+  out <- out + scale_x_incidence(df, n_breaks, group_labels, ...)
   out
 
 }

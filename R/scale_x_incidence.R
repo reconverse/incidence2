@@ -2,9 +2,12 @@
 #'   [ggplot2::scale_x_datetime()], or [ggplot2::scale_x_continuous()],
 #'   depending on how the `$date` element is stored in the incidence object.
 #' @param format Character string of desired format.  See `?strptime`.
+#' @param angle Angle to rotate x-axis labels.
+#' @param size text size in pts.
 #' @export
 #' @rdname plot.incidence
-scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, format = NULL, ...) {
+scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE,
+                              format = NULL, angle = 0, size = NULL, ...) {
 
   date_var <- get_date_name(x)
 
@@ -60,7 +63,7 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE, format = NUL
     out <- ggplot2::scale_x_continuous(breaks = breaks$breaks, ...)
   }
 
-  out
+  list(out, rotate_and_scale(angle, size))
 }
 
 make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
@@ -138,3 +141,22 @@ make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
 
   list(breaks = breaks, labels = labels)
 }
+
+#' Rotate and scale incidence plot labels
+#'
+#' @param angle Angle to rotate x-axis labels.
+#' @param size text size in pts.
+#'
+#' @noRd
+rotate_and_scale <- function(angle = 0, size = NULL) {
+  if (is.null(size)) {
+    ggplot2::theme(
+      axis.text.x = ggplot2::element_text(hjust = 1, angle = angle)
+    )
+  } else {
+    ggplot2::theme(
+      axis.text.x = ggplot2::element_text(angle = angle, hjust = 1, size = size)
+    )
+  }
+}
+
