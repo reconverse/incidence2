@@ -246,22 +246,22 @@
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(n = <span class="fl">10</span>)
 <span class="kw">x</span>
 <span class="co">#&gt; An incidence object: 10 x 5</span>
-<span class="co">#&gt; [34 cases from days 2014-05-19 to 2014-06-02]</span>
+<span class="co">#&gt; [22 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-06-02 2014-W23   other                                      m          2</span>
-<span class="co">#&gt;  2 2014-05-19 2014-W21   Military Hospital                          m          3</span>
-<span class="co">#&gt;  3 2014-05-19 2014-W21   &lt;NA&gt;                                       f          5</span>
-<span class="co">#&gt;  4 2014-06-02 2014-W23   Rokupa Hospital                            f          1</span>
-<span class="co">#&gt;  5 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… f          2</span>
-<span class="co">#&gt;  6 2014-05-19 2014-W21   Rokupa Hospital                            m          1</span>
-<span class="co">#&gt;  7 2014-06-02 2014-W23   Connaught Hospital                         m          6</span>
-<span class="co">#&gt;  8 2014-06-02 2014-W23   &lt;NA&gt;                                       m          6</span>
-<span class="co">#&gt;  9 2014-06-02 2014-W23   Rokupa Hospital                            m          1</span>
-<span class="co">#&gt; 10 2014-06-02 2014-W23   &lt;NA&gt;                                       f          7</span>
+<span class="co">#&gt;  1 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
+<span class="co">#&gt;  2 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
+<span class="co">#&gt;  3 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
+<span class="co">#&gt;  4 2014-06-02 2014-W23   other                                      m          2</span>
+<span class="co">#&gt;  5 2014-06-02 2014-W23   Military Hospital                          f          1</span>
+<span class="co">#&gt;  6 2014-05-19 2014-W21   other                                      m          3</span>
+<span class="co">#&gt;  7 2014-05-19 2014-W21   other                                      f          1</span>
+<span class="co">#&gt;  8 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… f          1</span>
+<span class="co">#&gt;  9 2014-05-19 2014-W21   &lt;NA&gt;                                       f          5</span>
+<span class="co">#&gt; 10 2014-06-02 2014-W23   Military Hospital                          m          2</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
@@ -408,12 +408,122 @@
 <li><p><code><a href="../reference/accessors.html">get_timespan()</a></code>returns the number of days the object covers.</p></li>
 </ul>
 </div>
-<div id="finding-peaks-and-bootstrapping" class="section level1">
+<div id="bootstrapping-and-finding-peaks" class="section level1">
 <h1 class="hasAnchor">
-<a href="#finding-peaks-and-bootstrapping" class="anchor"></a>Finding peaks and bootstrapping</h1>
-<div id="find-peak" class="section level2">
+<a href="#bootstrapping-and-finding-peaks" class="anchor"></a>Bootstrapping and finding peaks</h1>
+<p>We provide functions to return the peak of the incidence data (grouped or ungrouped), bootstrap from the incidence data, and estimate confidence intervals around a peak.</p>
+<div id="bootstrap" class="section level2">
 <h2 class="hasAnchor">
-<a href="#find-peak" class="anchor"></a>Find peak</h2>
+<a href="#bootstrap" class="anchor"></a><code>bootstrap()</code>
+</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">dat</span> <span class="op">&lt;-</span> <span class="kw">fluH7N9_china_2013</span>
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, groups = <span class="kw">gender</span>)
+<span class="co">#&gt; 10 missing observations were removed.</span>
+<span class="fu"><a href="../reference/bootstrap.html">bootstrap</a></span>(<span class="kw">x</span>)
+<span class="co">#&gt; An incidence object: 52 x 3</span>
+<span class="co">#&gt; [126 cases from days 2013-02-19 to 2013-07-27]</span>
+<span class="co">#&gt; [interval: 1 day]</span>
+<span class="co">#&gt; [cumulative: FALSE]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    bin_date   gender count</span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;  1 2013-02-19 m          2</span>
+<span class="co">#&gt;  2 2013-02-27 m          1</span>
+<span class="co">#&gt;  3 2013-03-09 f          1</span>
+<span class="co">#&gt;  4 2013-03-13 f          2</span>
+<span class="co">#&gt;  5 2013-03-17 m          1</span>
+<span class="co">#&gt;  6 2013-03-19 m          3</span>
+<span class="co">#&gt;  7 2013-03-20 m          2</span>
+<span class="co">#&gt;  8 2013-03-21 f          2</span>
+<span class="co">#&gt;  9 2013-03-22 m          3</span>
+<span class="co">#&gt; 10 2013-03-27 m          2</span>
+<span class="co">#&gt; # … with 42 more rows</span>
+</pre></div>
+</div>
+<div id="find_peak" class="section level2">
+<h2 class="hasAnchor">
+<a href="#find_peak" class="anchor"></a><code>find_peak()</code>
+</h2>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw">dat</span> <span class="op">&lt;-</span> <span class="kw">fluH7N9_china_2013</span>
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, groups = <span class="kw">gender</span>)
+<span class="co">#&gt; 10 missing observations were removed.</span>
+
+<span class="co"># peaks across each group</span>
+<span class="kw">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span>(regroup = <span class="fl">FALSE</span>)
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   bin_date   gender count</span>
+<span class="co">#&gt;   &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
+<span class="co">#&gt; 1 2013-04-03 f          3</span>
+<span class="co">#&gt; 2 2013-04-06 m          6</span>
+
+<span class="co"># peak without groupings</span>
+<span class="kw">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span>()
+<span class="co">#&gt; `.` is stratified by groups</span>
+<span class="co">#&gt; regrouping groups before finding peaks</span>
+<span class="co">#&gt; An incidence object: 1 x 2</span>
+<span class="co">#&gt; [7 cases from days 2013-04-03 to 2013-04-03]</span>
+<span class="co">#&gt; [interval: 1 day]</span>
+<span class="co">#&gt; [cumulative: FALSE]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   bin_date   count</span>
+<span class="co">#&gt;   &lt;date&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 2013-04-03     7</span>
+</pre></div>
+</div>
+<div id="estimate_peak" class="section level2">
+<h2 class="hasAnchor">
+<a href="#estimate_peak" class="anchor"></a><code>estimate_peak()</code>
+</h2>
+<p>Note that the bootstrapping approach used for estimating the peak time makes the following assumptions:</p>
+<ul>
+<li>the total number of event is known (no uncertainty on total incidence);</li>
+<li>dates with no events (zero incidence) will never be in bootstrapped datasets; and</li>
+<li>the reporting is assumed to be constant over time, i.e. every case is equally likely to be reported.</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="kw">dat</span> <span class="op">&lt;-</span> <span class="kw">fluH7N9_china_2013</span>
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, groups = <span class="kw">gender</span>)
+<span class="co">#&gt; 10 missing observations were removed.</span>
+<span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span>(<span class="kw">x</span>)
+<span class="co">#&gt; x is stratified by groups; regrouping before finding peaks.</span>
+<span class="co">#&gt; Estimating peaks from bootstrap samples:</span>
+<span class="co">#&gt; ================================================================================</span>
+<span class="co">#&gt; $observed</span>
+<span class="co">#&gt; An incidence object: 1 x 2</span>
+<span class="co">#&gt; [7 cases from days 2013-04-03 to 2013-04-03]</span>
+<span class="co">#&gt; [interval: 1 day]</span>
+<span class="co">#&gt; [cumulative: FALSE]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   bin_date   count</span>
+<span class="co">#&gt;   &lt;date&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 2013-04-03     7</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $estimated</span>
+<span class="co">#&gt; [1] 10.19</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ci</span>
+<span class="co">#&gt;         2.5%        97.5% </span>
+<span class="co">#&gt; "2013-03-29" "2013-04-13" </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $peaks</span>
+<span class="co">#&gt; # A tibble: 100 x 2</span>
+<span class="co">#&gt;    bin_date   count</span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt;</span>
+<span class="co">#&gt;  1 2013-04-11     8</span>
+<span class="co">#&gt;  2 2013-04-10    10</span>
+<span class="co">#&gt;  3 2013-04-09     9</span>
+<span class="co">#&gt;  4 2013-04-08    10</span>
+<span class="co">#&gt;  5 2013-04-01    11</span>
+<span class="co">#&gt;  6 2013-04-06    10</span>
+<span class="co">#&gt;  7 2013-04-15     9</span>
+<span class="co">#&gt;  8 2013-04-11    10</span>
+<span class="co">#&gt;  9 2013-04-16    10</span>
+<span class="co">#&gt; 10 2013-04-06     9</span>
+<span class="co">#&gt; # … with 90 more rows</span>
+</pre></div>
 </div>
 </div>
   </div>
