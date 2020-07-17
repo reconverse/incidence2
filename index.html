@@ -126,6 +126,8 @@
 <a href="#installing-the-package" class="anchor"></a>Installing the package</h1>
 <p>The package is not yet on CRAN but to install the development, <em>github</em> version of the package use:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"reconhub/incidence2"</span>)</pre></div>
+<p>By default this will not build local copies of the vignettes. If you would like them installed, instead use:</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"reconhub/incidence2"</span>, <span class="kw">build_vignettes</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
 <p>Note that this requires the package <em>devtools</em> installed.</p>
 </div>
 <div id="resources" class="section level1">
@@ -136,9 +138,9 @@
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
 <p>An short overview of <em>incidence</em> is provided below in the worked example below. More detailed tutorials are distributed as vignettes with the package:</p>
 <ul>
-<li><code><a href="articles/Introduction.html">vignette("Introduction")</a></code></li>
-<li><code><a href="articles/handling_incidence_objects.html">vignette("handling_incidence_objects")</a></code></li>
-<li><code>vignette("Plotting")</code></li>
+<li><code>vignette("Introduction", package = "incidence2)</code></li>
+<li><code>vignette("handling_incidence_objects", package = "incidence2)</code></li>
+<li><code>vignette("customizing_incidence_plots", package = "incidence2)</code></li>
 </ul>
 </div>
 <div id="websites" class="section level2">
@@ -161,7 +163,7 @@
 <a href="#a-quick-overview" class="anchor"></a>A quick overview</h1>
 <p>This short example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="https://github.com/reconhub/outbreaks"><em>outbreaks</em></a>. It shows how to compute incidence for various time steps plot the resulting incidence tables.</p>
 <p>First, we load the data:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">outbreaks</span>)
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">outbreaks</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">incidence2</span>)
 
 <span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">ebola_sim_clean</span>$<span class="no">linelist</span>
@@ -182,7 +184,7 @@
 <h2 class="hasAnchor">
 <a href="#computing-and-plotting-incidence" class="anchor"></a>Computing and plotting incidence</h2>
 <p>We compute the weekly incidence:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="no">i_7</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="fl">7</span>)
+<div class="sourceCode" id="cb4"><pre class="r"><span class="no">i_7</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="fl">7</span>)
 <span class="no">i_7</span>
 <span class="co">#&gt; An incidence object: 56 x 3</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
@@ -211,7 +213,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">i_7</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"black"</span>)</pre></div>
 <p><img src="reference/figures/README-incid7-1.png" style="display: block; margin: auto;"></p>
 <p><code><a href="reference/incidence.html">incidence()</a></code> can also compute incidence by specified groups using the <code>groups</code> argument. For instance, we can compute the weekly incidence by gender and plot in a single, stacked chart:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="no">i_7_sex</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"week"</span>,
+<div class="sourceCode" id="cb5"><pre class="r"><span class="no">i_7_sex</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"week"</span>,
                      <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
 <span class="no">i_7_sex</span>
 <span class="co">#&gt; An incidence object: 112 x 4</span>
@@ -248,10 +250,10 @@
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">i_7_sex</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"gender"</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"black"</span>)</pre></div>
 <p><img src="reference/figures/README-genderstack-1.png" style="display: block; margin: auto;"></p>
 <p>we can facet our plot (grouping detected automatically):</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="reference/plot.incidence.html">facet_plot</a></span>(<span class="no">i_7_sex</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></div>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/plot.incidence.html">facet_plot</a></span>(<span class="no">i_7_sex</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></div>
 <p><img src="reference/figures/README-genderfacet-1.png" style="display: block; margin: auto;"></p>
 <p>and we can also group by multiple variables specifying different facets and fills:</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="co"># incidence is compatible with the magrittr pipe operator</span>
+<div class="sourceCode" id="cb7"><pre class="r"><span class="co"># incidence is compatible with the magrittr pipe operator</span>
 <span class="no">i_7_sh</span> <span class="kw">&lt;-</span>
   <span class="no">dat</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"week"</span>,
