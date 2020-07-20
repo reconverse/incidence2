@@ -109,8 +109,67 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
                            legend = c("right", "left", "bottom", "top", "none"),
                            ...) {
 
+  ellipsis::check_dots_used()
+
+  out <- plot_basic(x, !!rlang::enexpr(fill), stack,
+                    col_pal, alpha, color,
+                    xlab, ylab, n_breaks,
+                    show_cases, border,
+                    na_color,
+                    group_labels, centre_labels,
+                    legend = match.arg(legend))
+
+  out + scale_x_incidence(x, n_breaks, group_labels, ...)
+
+
+}
+
+#' @importFrom rlang sym syms
+#' @export
+#' @rdname plot.incidence
+
+facet_plot <- function(x, facets = NULL, stack = TRUE, fill = NULL,
+                       col_pal = vibrant, alpha = 0.7, color = NA,
+                       xlab = "", ylab = NULL, n_breaks = 3,
+                       show_cases = FALSE, border = "white",
+                       na_color = "grey",
+                       group_labels = TRUE, centre_labels = FALSE,
+                       legend = c("bottom", "top", "left", "right", "none"),
+                       nrow = NULL, ...) {
 
   ellipsis::check_dots_used()
+
+  # convert inputs to character
+  facets <- arg_values(!!rlang::enexpr(facets))
+  fill <- arg_values(!!rlang::enexpr(fill))
+  group_vars <- get_group_names(x)
+
+  out <- plot_basic(x, !!rlang::enexpr(fill), stack,
+                    col_pal, alpha, color,
+                    xlab, ylab, n_breaks,
+                    show_cases, border,
+                    na_color,
+                    group_labels, centre_labels,
+                    legend = match.arg(legend))
+
+
+  if (is.null(facets) && !is.null(group_vars)) {
+    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), nrow, ...)
+  } else if (!is.null(facets)) {
+    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), nrow, ...)
+  }
+
+  out + scale_x_incidence(x, n_breaks, group_labels, ...)
+}
+
+plot_basic <- function(x, fill = NULL, stack = TRUE,
+                       col_pal = vibrant, alpha = 0.7, color = NA,
+                       xlab = "", ylab = NULL, n_breaks = 6,
+                       show_cases = FALSE, border = "white",
+                       na_color = "grey",
+                       group_labels = TRUE, centre_labels = FALSE,
+                       legend = c("right", "left", "bottom", "top", "none")
+) {
 
   # convert inputs to character
   fill <- arg_values(!!rlang::enexpr(fill))
@@ -133,14 +192,6 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
     message(msg)
   }
 
-  if (!is.null(group_vars)) {
-    if (!is.null(fill) && fill %in% group_vars) {
-      group_vars <- fill
-    } else if (!is.null(fill) && !fill %in% group_vars) {
-      group_vars <- NULL
-    }
-  }
-
   # set axis variables
   x_axis <- date_var
   y_axis <- count_var
@@ -152,12 +203,23 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
   ylab <- ylabel(df, ylab)
 
   # Adding a variable for width in ggplot
+  df$interval_days <- interval_days(df)
   if (to_label(interval) && centre_labels) {
     df$interval_days <- 0
-  } else {
-    df$interval_days <- interval_days(df)
+  } else if (!to_label(interval) && centre_labels) {
+    message(paste("centreing label for this interval is not possible",
+                  "defaulting to labels on left side of bins",
+                  sep = "\n"))
   }
 
+
+  if (!is.null(group_vars)) {
+    if (!is.null(fill) && all(fill %in% group_vars)) {
+      group_vars <- fill
+    } else if (!is.null(fill) && !all(fill %in% group_vars)) {
+      group_vars <- NULL
+    }
+  }
 
   if (is.null(fill)) {
     out <- ggplot2::ggplot(df) +
@@ -168,7 +230,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
                         alpha = alpha) +
       ggplot2::theme_bw() +
       ggplot2::labs(x = xlab, y = ylab)
-  } else if (is.null(group_vars)) {
+  } else if (!all(fill %in% group_vars)) {
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
                         width = interval_days(df),
@@ -194,6 +256,8 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
       ggplot2::labs(x = xlab, y = ylab) +
       ggplot2::aes(fill = !!sym(fill)) +
       ggplot2::scale_fill_manual(values = group_colors, na.value = na_color)
+  } else {
+    stop("TODO - something fishy with fill!")
   }
 
   if (show_cases && (stack == TRUE || is.null(fill))) {
@@ -212,121 +276,10 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
     out <- out + squares
   }
 
-  out <- out + scale_x_incidence(df, n_breaks, group_labels, ...)
-  out
-
-
-}
-
-#' @importFrom rlang sym syms
-#' @export
-#' @rdname plot.incidence
-facet_plot <- function(x, facets = NULL, fill = NULL, col_pal = vibrant,
-                       alpha = 0.7, color = NA,
-                       xlab = "", ylab = NULL, n_breaks = 3,
-                       show_cases = FALSE, border = "white",
-                       na_color = "grey",
-                       group_labels = TRUE, centre_labels = FALSE,
-                       legend = c("bottom", "top", "left", "right", "none"),
-                       nrow = NULL, ...) {
-
-  ellipsis::check_dots_used()
-
-  # convert inputs to character
-  facets <- arg_values(!!rlang::enexpr(facets))
-  fill <- arg_values(!!rlang::enexpr(fill))
-
-  # get relevant variables
-  date_var <- get_date_name(x)
-  count_var <- get_count_name(x)
-  group_vars <- get_group_names(x)
-  interval <- get_interval(x)
-  legend <- match.arg(legend)
-
-  # set axis variables
-  x_axis <- date_var
-  y_axis <- count_var
-
-  # copy data
-  df <- x
-
-  # generate label for y-axis
-  ylab <- ylabel(df, ylab)
-
-  # Adding a variable for width in ggplot
-  if (to_label(interval) && centre_labels) {
-    df$interval_days <- 0
-  } else if (!to_label(interval) && centre_labels) {
-    message(paste("centreing label for this interval is not possible",
-                  "defaulting to labels on left side of bins",
-                  sep = "\n"))
-  }
-    else {
-    df$interval_days <- interval_days(df)
-  }
-
-  # get fill
-  if (is.null(fill)) {
-    out <- ggplot2::ggplot(df) +
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                        width = interval_days(df),
-                        color = color,
-                        fill = col_pal(1),
-                        alpha = alpha) +
-      ggplot2::theme_bw() +
-      ggplot2::labs(x = xlab, y = ylab)
-  } else if (fill %in% group_vars) {
-    fill_names <- unique(df[[fill]])
-    n_fill <- length(fill_names)
-    fill_colors <- col_pal(n_fill)
-
-    out <- ggplot2::ggplot(df) +
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                        width = interval_days(df),
-                        color = color,
-                        alpha = alpha) +
-      ggplot2::theme_bw() +
-      ggplot2::theme(legend.position = legend) +
-      ggplot2::labs(x = xlab, y = ylab) +
-      ggplot2::aes(fill = !!sym(fill)) +
-      ggplot2::scale_fill_manual(values = fill_colors, na.value = na_color)
-  } else {
-    out <- ggplot2::ggplot(df) +
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                        width = interval_days(df),
-                        color = color,
-                        fill = fill,
-                        alpha = alpha) +
-      ggplot2::theme_bw() +
-      ggplot2::theme(legend.position = legend) +
-      ggplot2::labs(x = xlab, y = ylab)
-  }
-
-  if (show_cases) {
-    squaredf <- suppressMessages(
-      df[rep(seq.int(nrow(df)), df[[count_var]]), ]
-    )
-
-    squaredf[[count_var]] <- 1
-    squares <- ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
-                                 color = if (is.na(border)) "white" else border,
-                                 fill  = NA,
-                                 position = "stack",
-                                 data = squaredf,
-                                 width = interval_days(df))
-    out <- out + squares
-  }
-
-  if (is.null(facets) && !is.null(group_vars)) {
-    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), nrow, ...)
-  } else if (!is.null(facets)) {
-    out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), nrow, ...)
-  }
-
-  out <- out + scale_x_incidence(df, n_breaks, group_labels, ...)
   out
 
 }
+
 
 has_weeks <- function(x) {
   date_group <- get_date_group_names(x)
@@ -425,32 +378,3 @@ to_label <- function(interval) {
   is_day || is_week || is_month || is_quarter || is_year
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
