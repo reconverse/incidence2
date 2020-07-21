@@ -187,11 +187,17 @@
 <a href="#facet_plot" class="anchor"></a><code>facet_plot()</code>
 </h1>
 <p>With stacked plots it can be difficult to ascertain difference between groups. For this reason we provide users the ability to make faceted plots with the <code><a href="../reference/plot.incidence.html">facet_plot()</a></code> function. This function takes similar arguments to <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> but includes an additional facet argument:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>)
+<span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
+<span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></body></html></div>
 <p><img src="customizing_incidence_plots_files/figure-html/facets-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">hospital</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">hospital</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">4</span>)
+<span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
+<span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></body></html></div>
 <p><img src="customizing_incidence_plots_files/figure-html/facets-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"grey"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"grey"</span>)
+<span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
+<span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></body></html></div>
 <p><img src="customizing_incidence_plots_files/figure-html/facets-3.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="miscellaneous" class="section level1">

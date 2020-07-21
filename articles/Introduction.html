@@ -258,7 +258,9 @@
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">inci</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>,
                      <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"1 week"</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">outcome</span>, <span class="no">hospital</span>, <span class="no">gender</span>))
 <span class="no">inci</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">hospital</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">outcome</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
+  <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">hospital</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">outcome</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>)
+<span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
+<span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></body></html></div>
 <p><img src="Introduction_files/figure-html/outcome_hospital-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>

@@ -162,6 +162,7 @@
 <span class='fu'>facet_plot</span>(
   <span class='no'>x</span>,
   <span class='kw'>facets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>vibrant</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
@@ -349,7 +350,10 @@ If the object has no groups it returns the same outout as a call to</p></li>
 #&gt; &gt; inci &lt;- incidence(dat, date_index = date_of_onset, interval = 7, groups = hospital)
 #&gt; &gt; inci2 &lt;- incidence(dat, date_index = date_of_onset, interval = 7, groups = c(hospital, 
 #&gt; +     gender))
-#&gt; &gt; plot(inci)</div><div class='img'><img src='plot.incidence-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inci, fill = hospital)</div><div class='img'><img src='plot.incidence-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inci, fill = hospital, stack = FALSE)</div><div class='img'><img src='plot.incidence-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci)</div><div class='img'><img src='plot.incidence-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci2)</div><div class='img'><img src='plot.incidence-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci2, facets = gender)</div><div class='img'><img src='plot.incidence-6.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci2, facets = hospital, fill = gender)</div><div class='img'><img src='plot.incidence-7.png' alt='' width='700' height='433' /></div></pre>
+#&gt; &gt; plot(inci)</div><div class='img'><img src='plot.incidence-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inci, fill = hospital)</div><div class='img'><img src='plot.incidence-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inci, fill = hospital, stack = FALSE)</div><div class='img'><img src='plot.incidence-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci)</div><div class='output co'>#&gt; &gt; facet_plot(inci2)</div><div class='output co'>#&gt; <span class='message'>plot() can only stack/dodge by one variable.</span>
+#&gt; <span class='message'>For multi-facet plotting try facet_plot()</span></div><div class='img'><img src='plot.incidence-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci2, facets = gender)</div><div class='output co'>#&gt; <span class='message'>plot() can only stack/dodge by one variable.</span>
+#&gt; <span class='message'>For multi-facet plotting try facet_plot()</span></div><div class='img'><img src='plot.incidence-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci2, facets = hospital, fill = gender)</div><div class='output co'>#&gt; <span class='message'>plot() can only stack/dodge by one variable.</span>
+#&gt; <span class='message'>For multi-facet plotting try facet_plot()</span></div><div class='img'><img src='plot.incidence-6.png' alt='' width='700' height='433' /></div><div class='img'><img src='plot.incidence-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

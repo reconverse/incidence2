@@ -186,7 +186,9 @@
 <p>We also provide a helper function, <code>cumulate</code>() to easily generate cumulative incidences:</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">inci</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/cumulate.html">cumulate</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facet</span> <span class="kw">=</span> <span class="no">hospital</span>)</pre></body></html></div>
+  <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facet</span> <span class="kw">=</span> <span class="no">hospital</span>)
+<span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
+<span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></body></html></div>
 <p><img src="handling_incidence_objects_files/figure-html/cumulate-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="tidyverse-compatibility" class="section level2">
@@ -238,22 +240,22 @@
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">10</span>)
 <span class="no">x</span>
 <span class="co">#&gt; An incidence object: 10 x 5</span>
-<span class="co">#&gt; [32 cases from days 2014-05-19 to 2014-06-02]</span>
+<span class="co">#&gt; [27 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-06-02 2014-W23   Connaught Hospital                         m          6</span>
-<span class="co">#&gt;  2 2014-06-02 2014-W23   &lt;NA&gt;                                       f          7</span>
-<span class="co">#&gt;  3 2014-05-19 2014-W21   Military Hospital                          f          2</span>
-<span class="co">#&gt;  4 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
-<span class="co">#&gt;  5 2014-05-19 2014-W21   Rokupa Hospital                            m          1</span>
-<span class="co">#&gt;  6 2014-06-02 2014-W23   Rokupa Hospital                            f          1</span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
-<span class="co">#&gt;  8 2014-05-19 2014-W21   &lt;NA&gt;                                       f          5</span>
-<span class="co">#&gt;  9 2014-05-19 2014-W21   other                                      m          3</span>
-<span class="co">#&gt; 10 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
+<span class="co">#&gt;  1 2014-06-02 2014-W23   &lt;NA&gt;                                       m          6</span>
+<span class="co">#&gt;  2 2014-06-02 2014-W23   Connaught Hospital                         m          6</span>
+<span class="co">#&gt;  3 2014-06-02 2014-W23   Military Hospital                          m          2</span>
+<span class="co">#&gt;  4 2014-05-19 2014-W21   other                                      m          3</span>
+<span class="co">#&gt;  5 2014-06-02 2014-W23   Military Hospital                          f          1</span>
+<span class="co">#&gt;  6 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
+<span class="co">#&gt;  7 2014-06-02 2014-W23   other                                      f          3</span>
+<span class="co">#&gt;  8 2014-05-19 2014-W21   other                                      f          1</span>
+<span class="co">#&gt;  9 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… f          1</span>
+<span class="co">#&gt; 10 2014-06-02 2014-W23   Connaught Hospital                         f          2</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
@@ -412,22 +414,22 @@
 <span class="co">#&gt; 10 missing observations were removed.</span>
 <span class="fu"><a href="../reference/bootstrap.html">bootstrap</a></span>(<span class="no">x</span>)
 <span class="co">#&gt; An incidence object: 51 x 3</span>
-<span class="co">#&gt; [126 cases from days 2013-02-19 to 2013-07-10]</span>
+<span class="co">#&gt; [126 cases from days 2013-03-08 to 2013-07-27]</span>
 <span class="co">#&gt; [interval: 1 day]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-02-19 m          1</span>
-<span class="co">#&gt;  2 2013-02-27 m          3</span>
-<span class="co">#&gt;  3 2013-03-07 f          2</span>
-<span class="co">#&gt;  4 2013-03-08 f          2</span>
-<span class="co">#&gt;  5 2013-03-09 f          2</span>
-<span class="co">#&gt;  6 2013-03-17 m          2</span>
-<span class="co">#&gt;  7 2013-03-19 m          2</span>
-<span class="co">#&gt;  8 2013-03-20 m          5</span>
-<span class="co">#&gt;  9 2013-03-21 f          3</span>
-<span class="co">#&gt; 10 2013-03-22 m          1</span>
+<span class="co">#&gt;  1 2013-03-08 f          1</span>
+<span class="co">#&gt;  2 2013-03-09 f          1</span>
+<span class="co">#&gt;  3 2013-03-13 f          2</span>
+<span class="co">#&gt;  4 2013-03-17 m          2</span>
+<span class="co">#&gt;  5 2013-03-19 m          2</span>
+<span class="co">#&gt;  6 2013-03-20 m          6</span>
+<span class="co">#&gt;  7 2013-03-21 f          3</span>
+<span class="co">#&gt;  8 2013-03-22 m          2</span>
+<span class="co">#&gt;  9 2013-03-25 f          1</span>
+<span class="co">#&gt; 10 2013-03-25 m          1</span>
 <span class="co">#&gt; # … with 41 more rows</span></pre></body></html></div>
 </div>
 <div id="find_peak" class="section level2">
@@ -488,26 +490,26 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $estimated</span>
-<span class="co">#&gt; [1] 10.19</span>
+<span class="co">#&gt; [1] 10.08</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $ci</span>
 <span class="co">#&gt;         2.5%        97.5% </span>
-<span class="co">#&gt; "2013-03-29" "2013-04-12" </span>
+<span class="co">#&gt; "2013-03-29" "2013-04-13" </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $peaks</span>
 <span class="co">#&gt; # A tibble: 100 x 2</span>
 <span class="co">#&gt;    bin_date   count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-04-03    11</span>
-<span class="co">#&gt;  2 2013-04-10     9</span>
-<span class="co">#&gt;  3 2013-04-06    13</span>
-<span class="co">#&gt;  4 2013-04-03    11</span>
-<span class="co">#&gt;  5 2013-04-03    11</span>
-<span class="co">#&gt;  6 2013-04-01    11</span>
-<span class="co">#&gt;  7 2013-04-11    10</span>
-<span class="co">#&gt;  8 2013-04-06    12</span>
-<span class="co">#&gt;  9 2013-04-12     9</span>
-<span class="co">#&gt; 10 2013-03-29    14</span>
+<span class="co">#&gt;  1 2013-04-11    11</span>
+<span class="co">#&gt;  2 2013-04-01     9</span>
+<span class="co">#&gt;  3 2013-04-03     8</span>
+<span class="co">#&gt;  4 2013-04-06    15</span>
+<span class="co">#&gt;  5 2013-04-14    10</span>
+<span class="co">#&gt;  6 2013-04-11    10</span>
+<span class="co">#&gt;  7 2013-04-06    10</span>
+<span class="co">#&gt;  8 2013-04-03    11</span>
+<span class="co">#&gt;  9 2013-04-08     8</span>
+<span class="co">#&gt; 10 2013-04-11    12</span>
 <span class="co">#&gt; # … with 90 more rows</span></pre></body></html></div>
 </div>
 </div>
