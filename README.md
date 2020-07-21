@@ -290,6 +290,8 @@ i_7_sh %>% summary()
 #> 5 Rokupa Hospital                                451
 #> 6 <NA>                                          1456
 i_7_sh %>% facet_plot(facets = gender, fill = hospital)
+#> plot() can only stack/dodge by one variable.
+#> For multi-facet plotting try facet_plot()
 ```
 
 <img src="man/figures/README-genderhospital-1.png" style="display: block; margin: auto;" />

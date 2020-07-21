@@ -28,6 +28,7 @@
 facet_plot(
   x,
   facets = NULL,
+  stack = TRUE,
   fill = NULL,
   col_pal = vibrant,
   alpha = 0.7,
