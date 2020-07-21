@@ -30,7 +30,7 @@ reference:
   - '`as.data.frame.incidence`'
   - '`as_tibble.incidence`'
 
-- title: Incidence Curve Visualisation
+- title: Incidence curve visualisation
   desc: >
     Functions for plotting incidence curves and models
   contents:

@@ -9,8 +9,8 @@
 #' @md
 #'
 #' @param x An `incidence` object.
-#' @param regroup If `TRUE` (default), any groups will be regrouped before finding
-#'   a peak. If `FALSE`, separate peaks will be found for each group.
+#' @param regroup If `TRUE` (default), any groups will be regrouped before
+#'   finding a peak. If `FALSE`, separate peaks will be found for each group.
 #'
 #' @return The date of the (first) highest incidence in the data.
 #'

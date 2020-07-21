@@ -94,9 +94,9 @@ borders of the individual squares plotted (defaults to \code{"white"}).}
 
 \item{na_color}{The colour to plot \code{NA} values in graphs (default: \code{grey}).}
 
-\item{group_labels}{group_labels a logical value indicating whether labels x axis tick
-marks are in week format YYYY-Www when plotting weekly incidence; defaults to
-TRUE.}
+\item{group_labels}{group_labels a logical value indicating whether labels x
+axis tick marks are in week format YYYY-Www when plotting weekly incidence;
+defaults to TRUE.}
 
 \item{centre_labels}{Should labels on the axis be centred on the bars. This
 only applies to intervals that produce unambiguous labels (i.e \verb{1 day},

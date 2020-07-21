@@ -59,7 +59,10 @@ test_that("find_peak can find the peak", {
 
   expect_error(find_peak(1:10), "`1:10` is not an incidence object")
 
-  expect_message(p1 <- find_peak(x), "`x` is stratified by groups\nregrouping groups before finding peaks")
+  expect_message(
+    p1 <- find_peak(x),
+    "`x` is stratified by groups\nregrouping groups before finding peaks"
+  )
 
   expect_equal(nrow(p1), 1L)
 

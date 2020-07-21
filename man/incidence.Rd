@@ -150,7 +150,8 @@ the bin will start at the beginning of the interval just before the first
 observation by default. For example, if the first case was recorded on
 Wednesday, 2018-05-09:
 \itemize{
-\item "week"    : first day of the week (i.e. Monday, 2018-05-07) (defaults to ISO weeks, see "Week intervals", below)
+\item "week"    : first day of the week (i.e. Monday, 2018-05-07) (defaults to
+ISO weeks, see "Week intervals", below)
 \item "month"   : first day of the month (i.e. 2018-05-01)
 \item "quarter" : first day of the quarter (i.e. 2018-04-01)
 \item "year"    : first day of the calendar year (i.e. 2018-01-01)

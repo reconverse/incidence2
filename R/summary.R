@@ -43,7 +43,9 @@ summary.incidence <- function(object, ...) {
   # groups
   groups <- get_group_names(object)
   if (!is.null(groups)) {
-    cat(sprintf("%d grouped %s\n\n", length(groups), ifelse(length(groups) < 2, "variable", "variables")))
+    cat(sprintf("%d grouped %s\n\n",
+                length(groups),
+                ifelse(length(groups) < 2, "variable", "variables")))
 
     for (gr in groups) {
       tmp <- group_by(object, .data[[gr]])

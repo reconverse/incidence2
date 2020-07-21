@@ -16,8 +16,8 @@
 #'
 #' @param first_date,last_date optional first/last dates to be used. When
 #'   these are `NULL` (default), the dates from the first/last dates are taken
-#'   from the observations. If these dates are provided, the observations will be
-#'   trimmed to the range of \[first_date, last_date\].
+#'   from the observations. If these dates are provided, the observations will
+#'   be trimmed to the range of \[first_date, last_date\].
 #'
 #' @param ... Additional arguments. Currently used just for the standard
 #'   argument.

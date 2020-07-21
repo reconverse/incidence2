@@ -1,4 +1,3 @@
-# TODO documentation
 check_timespan <- function(x) {
   max_days <- as.difftime(getOption("incidence.max.days"), units = "days")
   my_range <- range(x, na.rm = TRUE)

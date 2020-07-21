@@ -52,9 +52,9 @@
 #'   Note: this can only be used if `stack = TRUE`
 #' @param border If show_cases is TRUE this represents the color used for the
 #'   borders of the individual squares plotted (defaults to `"white"`).
-#' @param group_labels group_labels a logical value indicating whether labels x axis tick
-#'   marks are in week format YYYY-Www when plotting weekly incidence; defaults to
-#'   TRUE.
+#' @param group_labels group_labels a logical value indicating whether labels x
+#'   axis tick marks are in week format YYYY-Www when plotting weekly incidence;
+#'   defaults to TRUE.
 #' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
 #' @param legend Position of legend in plot.
 #' @param centre_labels Should labels on the axis be centred on the bars. This
@@ -223,7 +223,8 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
 
   if (is.null(fill)) {
     out <- ggplot2::ggplot(df) +
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2,
+                                     y = !!sym(y_axis)),
                         width = interval_days(df),
                         color = color,
                         fill = col_pal(1),
@@ -232,7 +233,8 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
       ggplot2::labs(x = xlab, y = ylab)
   } else if (!all(fill %in% group_vars)) {
     out <- ggplot2::ggplot(df) +
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2,
+                                     y = !!sym(y_axis)),
                         width = interval_days(df),
                         color = color,
                         fill = fill,
@@ -246,7 +248,8 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
 
     ## add colors to the plot
     out <- ggplot2::ggplot(df) +
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2,
+                                     y = !!sym(y_axis)),
                         width = interval_days(df),
                         color = color,
                         alpha = alpha,
@@ -266,7 +269,8 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
     )
     squaredf[[count_var]] <- 1
     squares <-
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2, y = !!sym(y_axis)),
+      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2,
+                                     y = !!sym(y_axis)),
                         color = if (is.na(border)) "white" else border,
                         fill  = NA,
                         position = "stack",
@@ -366,7 +370,6 @@ to_label <- function(interval) {
 
   is_day <- (interval %in% (c("day", "1 day", "1 days"))) || (interval %in% c(1, 1L))
 
-  # TODO - add 7 day weeks to this
   is_week <- interval == "week" || interval == "1 week" || interval == "1 weeks"
 
   is_month <- interval == "month" || interval == "1 month" || interval == "1 months"

@@ -33,7 +33,10 @@ test_that("construction - default, integer input", {
   x <- incidence(data.frame(dates = dat), date_index = dates, interval = 3)
 
   ## String numbers can be interpreted as intervals
-  expect_identical(x, incidence(data.frame(dates = dat), date_index = dates, interval = "3"))
+  expect_identical(
+    x,
+    incidence(data.frame(dates = dat), date_index = dates, interval = "3")
+  )
 
   ## classes
   expect_is(x, "incidence")
@@ -64,8 +67,6 @@ test_that("construction - ISO week", {
   ## classes
   expect_is(inc_week, "incidence")
   expect_is(inc_isoweek, "incidence")
-
-  # TODO - think about more tests here
 
   ## results
   expect_false(any(is.na(inc_isoweek$count)))
@@ -306,12 +307,19 @@ test_that("construction - character input", {
   datc <- as.character(dats)
 
   i_date <- incidence(data.frame(dates = dats), date_index = dates)
-  i_char <- incidence(data.frame(dates = datc, stringsAsFactors = FALSE), date_index = dates)
-  i_chaw <- incidence(data.frame(dates = paste(datc, "   "), stringsAsFactors = FALSE), date_index = dates)
+  i_char <- incidence(data.frame(dates = datc, stringsAsFactors = FALSE),
+                      date_index = dates)
+  i_chaw <- incidence(
+    data.frame(dates = paste(datc, "   "), stringsAsFactors = FALSE),
+    date_index = dates
+  )
 
   expect_message(
-    i_cham <- incidence(data.frame(dates = c(datc, NA, NA), stringsAsFactors = FALSE), date_index = dates),
-    "2 missing observations were removed.")
+    i_cham <- incidence(
+      data.frame(dates = c(datc, NA, NA), stringsAsFactors = FALSE),
+      date_index = dates),
+    "2 missing observations were removed."
+  )
 
   expect_is(i_date, "incidence")
   expect_identical(i_date, i_char)
@@ -341,51 +349,69 @@ test_that("corner cases", {
   expect_error(incidence(data.frame(dates = 1), date_index = dates, interval = "grind"),
                "The interval 'grind' is not valid. Please supply an integer.")
 
-  expect_error(incidence(data.frame(dates = as.Date(Sys.Date())), date_index = dates, last_date = "core"),
+  expect_error(incidence(data.frame(dates = as.Date(Sys.Date())),
+                         date_index = dates,
+                         last_date = "core"),
                "last_date \\(core\\) could not be converted to Date. Dates must be in ISO 8601 standard format \\(yyyy-mm-dd\\)")
 
-  expect_error(incidence(data.frame(dates = 1), date_index = dates, interval = "week"),
+  expect_error(incidence(data.frame(dates = 1),
+                         date_index = dates,
+                         interval = "week"),
                "The interval 'week' can only be used for Dates")
 
-  expect_error(incidence(data.frame(dates = as.Date(Sys.Date())), date_index = dates, standard = "TRUE"),
+  expect_error(incidence(data.frame(dates = as.Date(Sys.Date())),
+                         date_index = dates,
+                         standard = "TRUE"),
                "The argument `standard` must be either `TRUE` or `FALSE`")
 
-  expect_error(incidence(data.frame(dates = sample(10)), date_index = dates, intrval = 2),
+  expect_error(incidence(data.frame(dates = sample(10)),
+                         date_index = dates,
+                         intrval = 2),
                class = "rlib_error_dots_nonempty")
 
-  expect_error(incidence(data.frame(dates = 1), date_index = dates, were = "wolf"),
+  expect_error(incidence(data.frame(dates = 1),
+                         date_index = dates,
+                         were = "wolf"),
                class = "rlib_error_dots_nonempty")
 
 
-  expect_warning(incidence(data.frame(dates = c(dat_dates, as.Date("1900-01-01"))), date_index = dates),
-                 "greater than 18262 days \\[1900-01-01 to"
-  )
+  expect_warning(
+    incidence(data.frame(dates = c(dat_dates, as.Date("1900-01-01"))),
+              date_index = dates),
+    "greater than 18262 days \\[1900-01-01 to")
 
   msg <- 'Not all dates are in ISO 8601 standard format \\(yyyy-mm-dd\\). The first incorrect date is'
-  expect_error(incidence(data.frame(dates = 'daldkadl', stringsAsFactors = FALSE), date_index = dates),
-               paste(msg, "daldkadl"))
+  expect_error(
+    incidence(data.frame(dates = 'daldkadl', stringsAsFactors = FALSE),
+              date_index = dates),
+    paste(msg, "daldkadl"))
 
   dats <- as.character(Sys.Date() + sample(-10:10, 5))
   dats[3] <- "1Q84-04-15"
-  expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE), date_index = dates),
+  expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE),
+                         date_index = dates),
                paste(msg, "1Q84-04-15"))
 
   dats[3] <- "2018-69-11"
-  expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE), date_index = dates),
+  expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE),
+                         date_index = dates),
                paste(msg, "2018-69-11"))
 
   dats[3] <- "01-01-11"
-  expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE), date_index = dates),
+  expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE),
+                         date_index = dates),
                paste(msg, "01-01-11"))
 
   dats[3] <- "01-Apr-11"
-  expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE), date_index = dates),
+  expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE),
+                         date_index = dates),
                paste(msg, "01-Apr-11"))
 
   msg <- paste0("Input could not be converted to date. Accepted formats are:\n",
                 "Date, POSIXct, integer, numeric, character")
-  expect_error(incidence(data.frame(dates = factor("2001-01-01")), date_index = dates),
-               msg)
+  expect_error(incidence(data.frame(dates = factor("2001-01-01")),
+                         date_index = dates),
+                msg)
 })
 
 test_that("incidence constructor can handle missing data", {

@@ -16,9 +16,10 @@
 #' the following assumptions:
 #'
 #' - the total number of event is known (no uncertainty on total incidence)
-#' - dates with no events (zero incidence) will never be in bootstrapped datasets
+#' - dates with no events (zero incidence) will never be in bootstrapped
+#'   datasets
 #' - the reporting is assumed to be constant over time, i.e. every case is
-#' equally likely to be reported
+#'   equally likely to be reported
 #'
 #' @param x An `incidence` object.
 #'

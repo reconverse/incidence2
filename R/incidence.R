@@ -68,7 +68,8 @@
 #' observation by default. For example, if the first case was recorded on
 #' Wednesday, 2018-05-09:
 #'
-#'  - "week"    : first day of the week (i.e. Monday, 2018-05-07) (defaults to ISO weeks, see "Week intervals", below)
+#'  - "week"    : first day of the week (i.e. Monday, 2018-05-07) (defaults to
+#'                ISO weeks, see "Week intervals", below)
 #'  - "month"   : first day of the month (i.e. 2018-05-01)
 #'  - "quarter" : first day of the quarter (i.e. 2018-04-01)
 #'  - "year"    : first day of the calendar year (i.e. 2018-01-01)
@@ -205,9 +206,6 @@ incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
                            first_date = NULL, last_date = NULL, ...) {
 
   # Dots only present for potential future use.
-  # This should catch and error if used
-  # TODO - check this and later on.exit actions
-  #ellipsis::check_dots_used(action = rlang::abort)
   ellipsis::check_dots_empty()
 
 
@@ -265,9 +263,6 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
                                 first_date = NULL, last_date = NULL, ...) {
 
   # Dots only present for potential future use.
-  # This should catch and error if used
-  # TODO - check this and later on.exit actions
-  #ellipsis::check_dots_used()
   ellipsis::check_dots_empty()
 
   # change date_index and group to character vectors
@@ -383,9 +378,6 @@ incidence.numeric <- function(x, date_index, interval = 1L,
                               first_date = NULL, last_date = NULL, ...) {
 
   # Dots only present for potential future use.
-  # This should catch and error if used
-  # TODO - check this and later on.exit actions
-  #ellipsis::check_dots_used()
   ellipsis::check_dots_empty()
 
   # change date_index and group to character vectors
@@ -431,9 +423,6 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
                              first_date = NULL, last_date = NULL, ...) {
 
   # Dots only present for potential future use.
-  # This should catch and error if used
-  # TODO - check this and later on.exit actions
-  #ellipsis::check_dots_used()
   ellipsis::check_dots_empty()
 
   # change date_index and group to character vectors

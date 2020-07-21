@@ -38,7 +38,8 @@ Note that the bootstrapping approach used for estimating the peak time makes
 the following assumptions:
 \itemize{
 \item the total number of event is known (no uncertainty on total incidence)
-\item dates with no events (zero incidence) will never be in bootstrapped datasets
+\item dates with no events (zero incidence) will never be in bootstrapped
+datasets
 \item the reporting is assumed to be constant over time, i.e. every case is
 equally likely to be reported
 }

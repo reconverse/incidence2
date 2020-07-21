@@ -61,8 +61,7 @@ inci %>%
 ```
 
 ## Tidyverse compatibility
-incidence2 has been written with compatibility with the tidyverse
-(in particular (dplyr)[https://dplyr.tidyverse.org/]) at the forefront of
+incidence2 has been written with *tidyverse* compatibility (in particular [dplyr](https://dplyr.tidyverse.org/)) at the forefront of the
 design choices we have made.  By this we mean that if an operation from
 dplyr is applied to an `incidence()` object then as long as the invariants of
 the object are preserved (i.e. groups, interval and uniqueness of rows) then

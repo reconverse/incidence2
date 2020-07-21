@@ -9,8 +9,8 @@ find_peak(x, regroup = TRUE)
 \arguments{
 \item{x}{An \code{incidence} object.}
 
-\item{regroup}{If \code{TRUE} (default), any groups will be regrouped before finding
-a peak. If \code{FALSE}, separate peaks will be found for each group.}
+\item{regroup}{If \code{TRUE} (default), any groups will be regrouped before
+finding a peak. If \code{FALSE}, separate peaks will be found for each group.}
 }
 \value{
 The date of the (first) highest incidence in the data.
