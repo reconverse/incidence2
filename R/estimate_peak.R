@@ -91,13 +91,12 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
   )
   cat("\n\n")
 
-
   suppressMessages({
     ## convert to vector without losing Date class
     peak_boot <- dplyr::bind_rows(peak_boot)
 
     # store relevant stats
-    out$estimated <- mean(peak_boot[[count_var]])
+    out$estimated <- mean(peak_boot[[date_var]])
     QUANTILE <-
       if (inherits(peak_boot[[date_var]], c("Date", "POSIX"))) {
         quantile_Date
