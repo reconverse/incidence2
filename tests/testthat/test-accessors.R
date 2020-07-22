@@ -14,6 +14,10 @@ test_that("get_group_names works", {
   expect_error(get_group_names("test"), "Not implemented for class character")
 })
 
+test_that("get_dates works", {
+  expect_equal(get_dates(x2), x2$bin_date)
+  expect_error(get_dates("test"), "Not implemented for class character")
+})
 
 test_that("get_dates_name works", {
   expect_equal(get_dates_name(x2), c("bin_date"))
@@ -23,6 +27,11 @@ test_that("get_dates_name works", {
 test_that("get_date_group_names works", {
   expect_equal(get_date_group_names(x), c("week_group"))
   expect_error(get_date_group_names("test"), "Not implemented for class character")
+})
+
+test_that("get_counts works", {
+  expect_equal(get_counts(x2), x2$count)
+  expect_error(get_counts("test"), "Not implemented for class character")
 })
 
 test_that("get_counts_name works", {
