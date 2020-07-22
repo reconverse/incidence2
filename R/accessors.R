@@ -131,7 +131,7 @@ get_dates <- function(x, ...) {
 #' @rdname accessors
 #' @aliases get_dates.default
 #' @export
-get_datese.default <- function(x, ...) {
+get_dates.default <- function(x, ...) {
   stop(sprintf("Not implemented for class %s",
                paste(class(x), collapse = ", ")))
 }

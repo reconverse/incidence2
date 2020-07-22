@@ -15,7 +15,6 @@
 \alias{get_date_group_names.incidence}
 \alias{get_dates_name.incidence}
 \alias{get_dates}
-\alias{get_datese.default}
 \alias{get_dates.default}
 \alias{get_dates.incidence}
 \alias{get_dates_name.default}
@@ -53,7 +52,7 @@ get_date_group_names(x, ...)
 
 get_dates(x, ...)
 
-get_datese.default(x, ...)
+\method{get_dates}{default}(x, ...)
 
 \method{get_dates}{incidence}(x, ...)
 
