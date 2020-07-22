@@ -188,11 +188,19 @@ the following assumptions:
 - dates with no events (zero incidence) will never be in bootstrapped datasets; and
 - the reporting is assumed to be constant over time, i.e. every case is
   equally likely to be reported.
+
+Also note that `estimate_peak()` will always returns a list:
   
 ```{r estimatepeak}
 dat <- fluH7N9_china_2013
 x <- incidence(dat, date_index = date_of_onset, groups = gender)
-estimate_peak(x)
+
+# across groups present in incidence
+x %>% estimate_peak()
+
+# regrouping
+x %>% regroup() %>% estimate_peak()
+
 ```
 
 
