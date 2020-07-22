@@ -15,7 +15,7 @@ tidy.estimate_peak <- function(x, ...) {
       tibble::tibble(
         grouping = nms[i],
         estimate = x[[i]]$estimated,
-        obs = sum(x[[i]]$peaks[[count_var]]),
+        n = sum(x[[i]]$peaks[[count_var]]),
         conf.low = x[[i]]$ci[1],
         conf.high = x[[i]]$ci[2])
     }
