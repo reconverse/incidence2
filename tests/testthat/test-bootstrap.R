@@ -89,24 +89,23 @@ test_that("estimate_peak can roughly estimate it", {
   dat2 <- data.frame(dates, stringsAsFactors = FALSE)
   y <- incidence(dat2, date_index = dates, interval = 3)
 
-  msg <- "x is stratified by groups; regrouping before finding peaks."
-  expect_message(e1 <- estimate_peak(x), msg)
-
+  #msg <- "x is stratified by groups; regrouping before finding peaks."
+  #expect_message(e1 <- estimate_peak(x), msg)
+  e1 <- estimate_peak(x)
   e2 <- estimate_peak(y)
-  expect_named(e1, c("observed", "estimated", "ci", "peaks"))
-  expect_named(e2, c("observed", "estimated", "ci", "peaks"))
+  expect_named(e1[[1]], c("observed", "estimated", "ci", "peaks"))
+  expect_named(e2[[1]], c("observed", "estimated", "ci", "peaks"))
 
   # The observed is identical to find_peak
-  expect_identical(e1$observed, find_peak(regroup(x)))
-  expect_identical(e2$observed, find_peak(regroup(y)))
+  expect_identical(e2[[1]]$observed, find_peak(y))
 
   # The number of peaks defaults to 100
-  expect_identical(nrow(e1$peaks), 100L)
-  expect_identical(nrow(e2$peaks), 100L)
+  expect_identical(nrow(e1[[1]]$peaks), 100L)
+  expect_identical(nrow(e2[[1]]$peaks), 100L)
 
   # The observed falls within the confidence interval
-  expect_gte(as.integer(e1$observed$bin_date), as.integer(e1$ci[1]))
-  expect_lte(as.integer(e1$observed$bin_date), as.integer(e1$ci[2]))
-  expect_gte(as.integer(e2$observed$bin_date), as.integer(e2$ci[1]))
-  expect_lte(as.integer(e2$observed$bin_date), as.integer(e2$ci[2]))
+  expect_gte(as.integer(e1[[1]]$observed$bin_date), as.integer(e1[[1]]$ci[1]))
+  expect_lte(as.integer(e1[[1]]$observed$bin_date), as.integer(e1[[1]]$ci[2]))
+  expect_gte(as.integer(e2[[1]]$observed$bin_date), as.integer(e2[[1]]$ci[1]))
+  expect_lte(as.integer(e2[[1]]$observed$bin_date), as.integer(e2[[1]]$ci[2]))
 })

@@ -28,6 +28,8 @@
 #' @param alpha The type 1 error chosen for the confidence interval; defaults to
 #'   0.05.
 #'
+#' @param progress Should a progress bar be displayed (default = TRUE)
+#'
 #' @return A list containing the following items:
 #'
 #' - `observed`: the peak incidence of the original dataset
@@ -59,20 +61,44 @@
 #' }
 #'
 #' @export
-estimate_peak <- function(x, n = 100, alpha = 0.05) {
+estimate_peak <- function(x, n = 100, alpha = 0.05, progress = TRUE) {
   if (!inherits(x, "incidence")) {
     stop("x is not an incidence object")
   }
 
-  count_var <- get_count_name(x)
   group_vars <- get_group_names(x)
-  date_var <- get_date_name(x)
-
-  if (length(group_vars) >= 1L) {
-    msg <- "%s is stratified by groups; regrouping before finding peaks."
-    message(sprintf(msg, deparse(substitute(x))))
-    x <- regroup(x)
+  if (!is.null(group_vars)) {
+    tmp <- suppressMessages(x[group_vars])
+    split_x <- split(x, as.list(tmp), sep = "-")
+  } else {
+    split_x = list(x)
   }
+
+
+  out <- lapply(
+    1:length(split_x),
+    function(i) {
+      dat <- split_x[[i]]
+      bootstrap_peak(regroup(dat),
+                     n = n,
+                     alpha = alpha,
+                     iteration = i,
+                     num_iterations = length(split_x),
+                     progress = progress)
+    }
+  )
+  names(out) <- names(split_x)
+  class(out) <- "estimate_peak"
+  out
+
+}
+# -------------------------------------------------------------------------
+
+
+bootstrap_peak <- function(x, n = 100, alpha = 0.05, iteration = 1,
+                           num_iterations = 1, progress = FALSE) {
+
+  date_var <- get_date_name(x)
 
   out <- list()
 
@@ -80,16 +106,30 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
   out$observed <- find_peak(x)
 
   ## peaks on 'n' bootstrap samples
-  message("Estimating peaks from bootstrap samples:\n")
-  pb <- utils::txtProgressBar(min = 0, max = n, style = 1)
-  peak_boot <- lapply(1:n,
-                      function(i) {
-                        res <- find_peak(suppressMessages(bootstrap(x)))
-                        utils::setTxtProgressBar(pb, i)
-                        res
-                      }
-  )
-  cat("\n\n")
+
+  if (progress) {
+    if (num_iterations > 1) {
+      msg <- sprintf("Group %s of %s; Estimating peaks from bootstrap samples:\n",
+                     iteration,
+                     num_iterations)
+    } else {
+      msg <- "Estimating peaks from bootstrap samples:\n"
+    }
+
+    message(msg)
+    pb <- utils::txtProgressBar(min = 0, max = n, style = 1)
+    peak_boot <- lapply(1:n,
+                        function(i) {
+                          res <- find_peak(suppressMessages(bootstrap(x)))
+                          utils::setTxtProgressBar(pb, i)
+                          res
+                        }
+    )
+    cat("\n\n")
+  } else {
+    peak_boot <- lapply(1:n, function(i) find_peak(suppressMessages(bootstrap(x))))
+  }
+
 
   suppressMessages({
     ## convert to vector without losing Date class
@@ -108,9 +148,8 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
     out$peaks <- peak_boot
     out
   })
-
 }
-# -------------------------------------------------------------------------
+
 
 
 # -------------------------------------------------------------------------
