@@ -143,7 +143,7 @@ on the resampling." />
 on the resampling.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>estimate_peak</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
+    <pre class="usage"><span class='fu'>estimate_peak</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,6 +160,10 @@ on the resampling.</p>
       <th>alpha</th>
       <td><p>The type 1 error chosen for the confidence interval; defaults to
 0.05.</p></td>
+    </tr>
+    <tr>
+      <th>progress</th>
+      <td><p>Should a progress bar be displayed (default = TRUE)</p></td>
     </tr>
     </table>
 
@@ -255,7 +259,8 @@ approach and <code><a href='find_peak.html'>find_peak()</a></code> to find the p
 #&gt; &gt; peak_data &lt;- estimate_peak(i)</div><div class='output co'>#&gt; <span class='message'>Estimating peaks from bootstrap samples:</span></div><div class='output co'>#&gt; ================================================================================
 #&gt; 
 #&gt; &gt; peak_data
-#&gt; $observed
+#&gt; [[1]]
+#&gt; [[1]]$observed
 #&gt; </span><span style='color: #555555;'>An incidence object: 1 x 2
 #&gt; </span><span>[7 cases from days 2013-04-03 to 2013-04-03]
 #&gt; [interval: 1 day]
@@ -266,14 +271,14 @@ approach and <code><a href='find_peak.html'>find_peak()</a></code> to find the p
 #&gt; </span><span style='color: #555555;'>1</span><span> 2013-04-03     7
 #&gt; 
 #&gt; 
-#&gt; $estimated
+#&gt; [[1]]$estimated
 #&gt; [1] "2013-04-06"
 #&gt; 
-#&gt; $ci
+#&gt; [[1]]$ci
 #&gt;         2.5%        97.5% 
 #&gt; "2013-03-29" "2013-04-14" 
 #&gt; 
-#&gt; $peaks
+#&gt; [[1]]$peaks
 #&gt; </span><span style='color: #555555;'># A tibble: 100 x 2</span><span>
 #&gt;    bin_date   count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -289,14 +294,12 @@ approach and <code><a href='find_peak.html'>find_peak()</a></code> to find the p
 #&gt; </span><span style='color: #555555;'>10</span><span> 2013-04-06     9
 #&gt; </span><span style='color: #555555;'># … with 90 more rows</span><span>
 #&gt; 
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "estimate_peak"
 #&gt; &gt; summary(peak_data$peaks)
-#&gt;     bin_date              count      
-#&gt;  Min.   :2013-03-28   Min.   : 7.00  
-#&gt;  1st Qu.:2013-04-01   1st Qu.: 9.00  
-#&gt;  Median :2013-04-06   Median :10.00  
-#&gt;  Mean   :2013-04-06   Mean   :10.28  
-#&gt;  3rd Qu.:2013-04-11   3rd Qu.:11.00  
-#&gt;  Max.   :2013-04-17   Max.   :16.00  </div><div class='input'>
+#&gt; Length  Class   Mode 
+#&gt;      0   NULL   NULL </div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
