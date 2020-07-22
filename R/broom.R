@@ -2,14 +2,15 @@
 #' @export
 generics::tidy
 
-
 #' @export
 tidy.estimate_peak <- function(x, ...) {
   nms <- names(x)
+  if (is.null(nms)) nms <- "all_groups"
+
   result <- lapply(
     seq_along(nms),
     function(i) {
-      date_var <- get_date_name(x[[i]]$observed)
+
       count_var <- get_count_name(x[[i]]$observed)
       tibble::tibble(
         grouping = nms[i],

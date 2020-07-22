@@ -30,7 +30,7 @@
 #'
 #' @param progress Should a progress bar be displayed (default = TRUE)
 #'
-#' @return A list containing the following items:
+#' @return An S3 object, estimate_peak, containing the following items:
 #'
 #' - `observed`: the peak incidence of the original dataset
 #' - `estimated`: the mean peak time of the bootstrap datasets
