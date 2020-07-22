@@ -31,7 +31,8 @@ Imports:
     ellipsis,
     vctrs,
     magrittr,
-    pillar
+    pillar,
+    generics
 Suggests: 
     outbreaks,
     testthat,

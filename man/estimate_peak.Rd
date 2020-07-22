@@ -4,7 +4,7 @@
 \alias{estimate_peak}
 \title{Estimate the peak date of an incidence curve using bootstrap}
 \usage{
-estimate_peak(x, n = 100, alpha = 0.05)
+estimate_peak(x, n = 100, alpha = 0.05, progress = TRUE)
 }
 \arguments{
 \item{x}{An \code{incidence} object.}
@@ -13,6 +13,8 @@ estimate_peak(x, n = 100, alpha = 0.05)
 
 \item{alpha}{The type 1 error chosen for the confidence interval; defaults to
 0.05.}
+
+\item{progress}{Should a progress bar be displayed (default = TRUE)}
 }
 \value{
 A list containing the following items:
