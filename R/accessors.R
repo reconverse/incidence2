@@ -12,11 +12,13 @@
 #'                    date_index = date_of_onset,
 #'                    groups = c(gender, hospital))
 #'
-#'     get_count_name(i)
+#'     get_counts(i)
+#'     get_counts_name(i)
 #'
 #'     get_group_names(i)
 #'
-#'     get_date_name(i)
+#'     get_dates(i)
+#'     get_dates_name(i)
 #'
 #'     get_date_group_names(i)
 #'
@@ -34,26 +36,54 @@ NULL
 
 # -------------------------------------------------------------------------
 #' @return
-#'   - `get_count_name()`: The count variable of x.
-#' @aliases get_count_name
+#'   - `get_counts`: The count vector from x.
+#' @aliases get_counts
 #' @export
 #' @rdname accessors
-get_count_name <- function(x, ...) {
-  UseMethod("get_count_name")
+get_counts <- function(x, ...) {
+  UseMethod("get_counts")
 }
 
 #' @rdname accessors
-#' @aliases get_count_name.default
+#' @aliases get_counts.default
 #' @export
-get_count_name.default <- function(x, ...) {
+get_counts.default <- function(x, ...) {
   stop(sprintf("Not implemented for class %s",
                paste(class(x), collapse = ", ")))
 }
 
 #' @rdname accessors
-#' @aliases get_count_name.incidence
+#' @aliases get_counts.incidence
 #' @export
-get_count_name.incidence <- function(x, ...) {
+get_counts.incidence <- function(x, ...) {
+  ellipsis::check_dots_empty()
+  x[[attr(x, "count")]]
+}
+# -------------------------------------------------------------------------
+
+
+# -------------------------------------------------------------------------
+#' @return
+#'   - `get_counts_name()`: The name of the count variable of x.
+#' @aliases get_counts_name
+#' @export
+#' @rdname accessors
+get_counts_name <- function(x, ...) {
+  UseMethod("get_counts_name")
+}
+
+#' @rdname accessors
+#' @aliases get_counts_name.default
+#' @export
+get_counts_name.default <- function(x, ...) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
+#' @rdname accessors
+#' @aliases get_counts_name.incidence
+#' @export
+get_counts_name.incidence <- function(x, ...) {
   ellipsis::check_dots_empty()
   attr(x, "count")
 }
@@ -62,9 +92,9 @@ get_count_name.incidence <- function(x, ...) {
 
 # -------------------------------------------------------------------------
 #' @return
-#'   - `get_date_group_names()`: a character vector of the date variables of x.
+#'   - `get_date_group_names()`: The names of the date group variables of x.
 #' @rdname accessors
-#' @aliases get_date_name
+#' @aliases get_dates_name
 #' @export
 get_date_group_names <- function(x, ...) {
   UseMethod("get_date_group_names")
@@ -79,7 +109,7 @@ get_date_group_names.default <- function(x, ...) {
 }
 
 #' @rdname accessors
-#' @aliases get_date_name.incidence
+#' @aliases get_dates_name.incidence
 #' @export
 get_date_group_names.incidence <- function(x, ...) {
   ellipsis::check_dots_empty()
@@ -90,26 +120,54 @@ get_date_group_names.incidence <- function(x, ...) {
 
 # -------------------------------------------------------------------------
 #' @return
-#'   - `get_date_name()`: a character vector of the date variables of x.
+#'   - `get_dates()`: The date vector from x.
 #' @rdname accessors
-#' @aliases get_date_name
+#' @aliases get_dates_name
 #' @export
-get_date_name <- function(x, ...) {
-  UseMethod("get_date_name")
+get_dates <- function(x, ...) {
+  UseMethod("get_dates")
 }
 
 #' @rdname accessors
-#' @aliases get_date_name.default
+#' @aliases get_dates.default
 #' @export
-get_date_name.default <- function(x, ...) {
+get_datese.default <- function(x, ...) {
   stop(sprintf("Not implemented for class %s",
                paste(class(x), collapse = ", ")))
 }
 
 #' @rdname accessors
-#' @aliases get_date_name.incidence
+#' @aliases get_dates.incidence
 #' @export
-get_date_name.incidence <- function(x, ...) {
+get_dates.incidence <- function(x, ...) {
+  ellipsis::check_dots_empty()
+  x[[attr(x, "date")]]
+}
+# -------------------------------------------------------------------------
+
+
+# -------------------------------------------------------------------------
+#' @return
+#'   - `get_dates_name()`: The name of the date variable of x.
+#' @rdname accessors
+#' @aliases get_dates_name
+#' @export
+get_dates_name <- function(x, ...) {
+  UseMethod("get_dates_name")
+}
+
+#' @rdname accessors
+#' @aliases get_dates_name.default
+#' @export
+get_dates_name.default <- function(x, ...) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
+#' @rdname accessors
+#' @aliases get_dates_name.incidence
+#' @export
+get_dates_name.incidence <- function(x, ...) {
   ellipsis::check_dots_empty()
   attr(x, "date")
 }

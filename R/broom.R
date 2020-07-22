@@ -11,7 +11,7 @@ tidy.estimate_peak <- function(x, ...) {
     seq_along(nms),
     function(i) {
 
-      count_var <- get_count_name(x[[i]]$observed)
+      count_var <- get_counts_name(x[[i]]$observed)
       tibble::tibble(
         grouping = nms[i],
         estimate = x[[i]]$estimated,

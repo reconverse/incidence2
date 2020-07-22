@@ -144,7 +144,7 @@ inci %>%
 We provide multiple accessors to easily access information about an `incidence()`
 objects structure:
 
-* `get_count_name()`, `get_date_name()`, `get_date_group_names()` and 
+* `get_counts_name()`, `get_dates_name()`, `get_date_group_names()` and 
   `get_group_names()` all return character vectors of the column names corresponding
   to the requested variables.
 

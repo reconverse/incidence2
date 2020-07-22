@@ -17,7 +17,7 @@ estimate_peak(x, n = 100, alpha = 0.05, progress = TRUE)
 \item{progress}{Should a progress bar be displayed (default = TRUE)}
 }
 \value{
-A list containing the following items:
+An S3 object, estimate_peak, containing the following items:
 \itemize{
 \item \code{observed}: the peak incidence of the original dataset
 \item \code{estimated}: the mean peak time of the bootstrap datasets

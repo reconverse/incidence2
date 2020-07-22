@@ -7,8 +7,8 @@
 print.incidence <- function(x, ...) {
 
   # get the date and count variables
-  count_var <- get_count_name(x)
-  date_var <- get_date_name(x)
+  count_var <- get_counts_name(x)
+  date_var <- get_dates_name(x)
 
   # header
   header <- sprintf("An incidence object: %s x %s\n",

@@ -3,15 +3,22 @@
 %   R/get_timespan.R
 \name{accessors}
 \alias{accessors}
-\alias{get_count_name}
-\alias{get_count_name.default}
-\alias{get_count_name.incidence}
+\alias{get_counts}
+\alias{get_counts.default}
+\alias{get_counts.incidence}
+\alias{get_counts_name}
+\alias{get_counts_name.default}
+\alias{get_counts_name.incidence}
 \alias{get_date_group_names}
-\alias{get_date_name}
+\alias{get_dates_name}
 \alias{get_date_group_names.default}
 \alias{get_date_group_names.incidence}
-\alias{get_date_name.incidence}
-\alias{get_date_name.default}
+\alias{get_dates_name.incidence}
+\alias{get_dates}
+\alias{get_datese.default}
+\alias{get_dates.default}
+\alias{get_dates.incidence}
+\alias{get_dates_name.default}
 \alias{get_group_names}
 \alias{get_group_names.default}
 \alias{get_group_names.incidence}
@@ -26,11 +33,17 @@
 \alias{get_timespan.incidence}
 \title{Access various elements of an incidence object}
 \usage{
-get_count_name(x, ...)
+get_counts(x, ...)
 
-\method{get_count_name}{default}(x, ...)
+\method{get_counts}{default}(x, ...)
 
-\method{get_count_name}{incidence}(x, ...)
+\method{get_counts}{incidence}(x, ...)
+
+get_counts_name(x, ...)
+
+\method{get_counts_name}{default}(x, ...)
+
+\method{get_counts_name}{incidence}(x, ...)
 
 get_date_group_names(x, ...)
 
@@ -38,11 +51,17 @@ get_date_group_names(x, ...)
 
 \method{get_date_group_names}{incidence}(x, ...)
 
-get_date_name(x, ...)
+get_dates(x, ...)
 
-\method{get_date_name}{default}(x, ...)
+get_datese.default(x, ...)
 
-\method{get_date_name}{incidence}(x, ...)
+\method{get_dates}{incidence}(x, ...)
+
+get_dates_name(x, ...)
+
+\method{get_dates_name}{default}(x, ...)
+
+\method{get_dates_name}{incidence}(x, ...)
 
 get_group_names(x, ...)
 
@@ -78,15 +97,23 @@ integer vector if it is stored as a character in the incidence object.}
 }
 \value{
 \itemize{
-\item \code{get_count_name()}: The count variable of x.
+\item \code{get_counts}: The count vector from x.
 }
 
 \itemize{
-\item \code{get_date_group_names()}: a character vector of the date variables of x.
+\item \code{get_counts_name()}: The name of the count variable of x.
 }
 
 \itemize{
-\item \code{get_date_name()}: a character vector of the date variables of x.
+\item \code{get_date_group_names()}: The names of the date group variables of x.
+}
+
+\itemize{
+\item \code{get_dates()}: The date vector from x.
+}
+
+\itemize{
+\item \code{get_dates_name()}: The name of the date variable of x.
 }
 
 \itemize{
@@ -120,11 +147,13 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
                    date_index = date_of_onset,
                    groups = c(gender, hospital))
 
-    get_count_name(i)
+    get_counts(i)
+    get_counts_name(i)
 
     get_group_names(i)
 
-    get_date_name(i)
+    get_dates(i)
+    get_dates_name(i)
 
     get_date_group_names(i)
 

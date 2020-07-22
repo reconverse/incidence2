@@ -175,8 +175,8 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
   fill <- arg_values(!!rlang::enexpr(fill))
 
   # get relevant variables
-  date_var <- get_date_name(x)
-  count_var <- get_count_name(x)
+  date_var <- get_dates_name(x)
+  count_var <- get_counts_name(x)
   group_vars <- get_group_names(x)
   interval <- get_interval(x)
   legend <- match.arg(legend)
@@ -310,7 +310,7 @@ ylabel <- function(x, ylab) {
   if (is.null(ylab)) {
 
     interval <- get_interval(x)
-    date_vars <- get_date_name(x)
+    date_vars <- get_dates_name(x)
 
     if (is.numeric(interval)) {
       if (interval == 1) {
@@ -354,7 +354,7 @@ interval_days <- function(x) {
 
   ## if the date type is POSIXct, then the interval is actually interval seconds
   ## and needs to be converted to days
-  date_var <- get_date_name(x)
+  date_var <- get_dates_name(x)
   if (inherits(x[[date_var]], "POSIXct")) {
     interval_days <- interval_days * 86400 # 24h * 60m * 60s
   }

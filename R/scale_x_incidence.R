@@ -11,7 +11,7 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE,
                               format = NULL, angle = 0, size = NULL,
                               coord_equal = FALSE, ...) {
 
-  date_var <- get_date_name(x)
+  date_var <- get_dates_name(x)
 
   breaks <- make_breaks(x, n_breaks, group_labels)
 
@@ -75,7 +75,7 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE,
 make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
   stopifnot(inherits(x, "incidence"), is.logical(group_labels), is.numeric(n_breaks))
 
-  date_var <- get_date_name(x)
+  date_var <- get_dates_name(x)
   ## Defining breaks for the x axis --------------------------------------------
   ##
   ## The x axis can either be integers, Dates, or POSIXt scales. Moreover,

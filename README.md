@@ -71,7 +71,7 @@ The main features of the package include:
       - **`as_tibble()`**: convertss an `incidence()` object into a
         `tibble`.
 
-  - Accessor functions: **`get_count_name()`**, **`get_date_name()`**,
+  - Accessor functions: **`get_counts_name()`**, **`get_dates_name()`**,
     **`get_group_names()`**, **`get_interval()`**, **`get_timespan()`**
     and **`get_n()`**.
 

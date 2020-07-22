@@ -467,7 +467,7 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
 
 # -------------------------------------------------------------------------
 group_labels <- function(x, interval, standard) {
-  date_var <- get_date_name(x)
+  date_var <- get_dates_name(x)
 
 
   if (check_week(interval) && standard) {

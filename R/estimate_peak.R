@@ -98,7 +98,7 @@ estimate_peak <- function(x, n = 100, alpha = 0.05, progress = TRUE) {
 bootstrap_peak <- function(x, n = 100, alpha = 0.05, iteration = 1,
                            num_iterations = 1, progress = FALSE) {
 
-  date_var <- get_date_name(x)
+  date_var <- get_dates_name(x)
 
   out <- list()
 
