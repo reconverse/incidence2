@@ -26,3 +26,4 @@ bug_reports/*
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^codemeta\.json$
