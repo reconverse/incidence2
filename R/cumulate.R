@@ -33,7 +33,7 @@ cumulate.default <- function(x) {
   cumsum(x)
 }
 
-#' @importFrom dplyr group_by across all_of mutate ungroup
+#' @importFrom dplyr grouped_df across all_of mutate ungroup
 #' @export
 #' @rdname cumulate
 cumulate.incidence <- function(x) {
@@ -45,7 +45,7 @@ cumulate.incidence <- function(x) {
   groups <- get_group_names(x)
   count_var <- get_counts_name(x)
   if (!is.null(groups)) {
-    out <- group_by(out, across(all_of({{groups}})))
+    out <- grouped_df(out, groups)
   }
   out <- mutate(out, count = cumsum(.data[[count_var]]))
   out <- ungroup(out)

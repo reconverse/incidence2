@@ -27,7 +27,7 @@
 #'     find_peak(i)
 #'   })
 #' }
-#' @importFrom dplyr group_by across all_of
+#' @importFrom dplyr grouped_df across all_of
 #' @export
 find_peak <- function(x, regroup = TRUE) {
   if (!inherits(x, "incidence")) {
@@ -45,7 +45,7 @@ find_peak <- function(x, regroup = TRUE) {
     x <- regroup(x)
 
   } else if (length(group_vars) > 0) {
-    x <- group_by(x, across(all_of(group_vars)))
+    x <- grouped_df(x, group_vars)
   }
 
   res <- dplyr::slice_max(x, .data[[count_var]], n = 1, with_ties = FALSE)

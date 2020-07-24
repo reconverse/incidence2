@@ -47,7 +47,7 @@ regroup <- function(x, groups = NULL){
   cumulate <- attr(x, "cumulative")
   interval <- get_interval(x)
 
-  tbl <- group_by(x, across(all_of(date_var)))
+  tbl <- grouped_df(x, date_var)
   if (!is.null(groups)) {
     tbl <- group_by(tbl, across(all_of(groups)), .add = TRUE)
   }
