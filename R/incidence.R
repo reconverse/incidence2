@@ -51,9 +51,6 @@
 #'   these will have a special `"week_start"` attribute indicating which day of
 #'   the ISO week the week starts on (see Weeks, below).
 #'
-#'   - **isoweeks**: ISO 8601 week format YYYY-Www, which is returned only when
-#'   ISO week-based weekly incidence is computed.
-#'
 #' @note
 #'
 #' \subsection{Input data (`dates`)}{
@@ -133,7 +130,7 @@
 #'
 #'     # weekly incidence
 #'     dat %>%
-#'       incidence(date_of_onset, interval = 7, standard = FALSE)
+#'       incidence(date_of_onset, interval = "week", standard = FALSE)
 #'
 #'     # starting on a Monday
 #'     dat %>%
@@ -163,8 +160,7 @@
 #' dat <- data.frame(dates = Sys.Date() + sample(-3:10, 10, replace = TRUE))
 #' dat %>% incidence(dates,
 #'                   interval = "week",
-#'                   first_date = Sys.Date() + 1,
-#'                   standard = TRUE)
+#'                   first_date = Sys.Date() + 1)
 #' @export
 incidence <- function(x, date_index, interval = 1L, ...) {
 
@@ -438,6 +434,8 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
       (length(first_date) == 1 || is.null(first_date)),
     "The argument `last_date` should be of length one if not null" =
       (length(last_date) == 1 || is.null(last_date)),
+    "The argument `standard` must be either `TRUE` or `FALSE`." =
+      (is.logical(standard)),
     "The argument `na_as_group` must be either `TRUE` or `FALSE`." =
       (is.logical(na_as_group))
   )
@@ -452,6 +450,7 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
     na_as_group = na_as_group,
     first_date = first_date,
     last_date = last_date,
+    standard = standard,
     ...
   )
 

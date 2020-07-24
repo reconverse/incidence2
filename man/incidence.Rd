@@ -128,8 +128,6 @@ year of the given week and ww represents the numeric week of the year.
 This will be a produced from the function \code{\link[aweek:date2week]{aweek::date2week()}}. Note that
 these will have a special \code{"week_start"} attribute indicating which day of
 the ISO week the week starts on (see Weeks, below).
-\item \strong{isoweeks}: ISO 8601 week format YYYY-Www, which is returned only when
-ISO week-based weekly incidence is computed.
 }
 }
 \description{
@@ -215,7 +213,7 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 
     # weekly incidence
     dat \%>\%
-      incidence(date_of_onset, interval = 7, standard = FALSE)
+      incidence(date_of_onset, interval = "week", standard = FALSE)
 
     # starting on a Monday
     dat \%>\%
@@ -245,8 +243,7 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 dat <- data.frame(dates = Sys.Date() + sample(-3:10, 10, replace = TRUE))
 dat \%>\% incidence(dates,
                   interval = "week",
-                  first_date = Sys.Date() + 1,
-                  standard = TRUE)
+                  first_date = Sys.Date() + 1)
 }
 \author{
 Thibaut Jombart, Rich Fitzjohn, Zhian Kamvar, Tim Taylor
