@@ -240,22 +240,22 @@
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">10</span>)
 <span class="no">x</span>
 <span class="co">#&gt; An incidence object: 10 x 5</span>
-<span class="co">#&gt; [21 cases from days 2014-05-19 to 2014-06-02]</span>
+<span class="co">#&gt; [26 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-06-02 2014-W23   other                                      f          3</span>
-<span class="co">#&gt;  2 2014-06-02 2014-W23   Military Hospital                          m          2</span>
-<span class="co">#&gt;  3 2014-06-02 2014-W23   Military Hospital                          f          1</span>
+<span class="co">#&gt;  1 2014-05-19 2014-W21   Military Hospital                          f          2</span>
+<span class="co">#&gt;  2 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
+<span class="co">#&gt;  3 2014-06-02 2014-W23   &lt;NA&gt;                                       f          7</span>
 <span class="co">#&gt;  4 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… f          1</span>
-<span class="co">#&gt;  5 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… f          2</span>
-<span class="co">#&gt;  6 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21   Connaught Hospital                         m          4</span>
-<span class="co">#&gt;  8 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
-<span class="co">#&gt;  9 2014-05-19 2014-W21   other                                      f          1</span>
-<span class="co">#&gt; 10 2014-05-19 2014-W21   Rokupa Hospital                            m          1</span>
+<span class="co">#&gt;  5 2014-06-02 2014-W23   Rokupa Hospital                            f          1</span>
+<span class="co">#&gt;  6 2014-05-19 2014-W21   Military Hospital                          m          3</span>
+<span class="co">#&gt;  7 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
+<span class="co">#&gt;  8 2014-05-19 2014-W21   Rokupa Hospital                            m          1</span>
+<span class="co">#&gt;  9 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
+<span class="co">#&gt; 10 2014-05-19 2014-W21   Connaught Hospital                         m          4</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
@@ -413,24 +413,24 @@
 <span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
 <span class="co">#&gt; 10 missing observations were removed.</span>
 <span class="fu"><a href="../reference/bootstrap.html">bootstrap</a></span>(<span class="no">x</span>)
-<span class="co">#&gt; An incidence object: 48 x 3</span>
-<span class="co">#&gt; [126 cases from days 2013-02-19 to 2013-07-27]</span>
+<span class="co">#&gt; An incidence object: 50 x 3</span>
+<span class="co">#&gt; [126 cases from days 2013-03-07 to 2013-07-27]</span>
 <span class="co">#&gt; [interval: 1 day]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-02-19 m          1</span>
-<span class="co">#&gt;  2 2013-02-27 m          1</span>
-<span class="co">#&gt;  3 2013-03-07 f          3</span>
-<span class="co">#&gt;  4 2013-03-08 f          2</span>
+<span class="co">#&gt;  1 2013-03-07 f          1</span>
+<span class="co">#&gt;  2 2013-03-09 f          1</span>
+<span class="co">#&gt;  3 2013-03-13 f          2</span>
+<span class="co">#&gt;  4 2013-03-17 m          1</span>
 <span class="co">#&gt;  5 2013-03-19 m          1</span>
-<span class="co">#&gt;  6 2013-03-20 m          4</span>
-<span class="co">#&gt;  7 2013-03-21 f          3</span>
-<span class="co">#&gt;  8 2013-03-22 m          1</span>
-<span class="co">#&gt;  9 2013-03-25 f          2</span>
-<span class="co">#&gt; 10 2013-03-25 m          2</span>
-<span class="co">#&gt; # … with 38 more rows</span></pre></body></html></div>
+<span class="co">#&gt;  6 2013-03-20 m          1</span>
+<span class="co">#&gt;  7 2013-03-22 m          1</span>
+<span class="co">#&gt;  8 2013-03-27 m          1</span>
+<span class="co">#&gt;  9 2013-03-28 m          7</span>
+<span class="co">#&gt; 10 2013-03-29 f          1</span>
+<span class="co">#&gt; # … with 40 more rows</span></pre></body></html></div>
 </div>
 <div id="find_peak" class="section level2">
 <h2 class="hasAnchor">
@@ -497,22 +497,22 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[1]]$ci</span>
 <span class="co">#&gt;         2.5%        97.5% </span>
-<span class="co">#&gt; "2013-03-29" "2013-04-14" </span>
+<span class="co">#&gt; "2013-03-29" "2013-04-15" </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[1]]$peaks</span>
 <span class="co">#&gt; # A tibble: 100 x 2</span>
 <span class="co">#&gt;    bin_date   count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-04-06    13</span>
-<span class="co">#&gt;  2 2013-04-03    10</span>
-<span class="co">#&gt;  3 2013-04-15    10</span>
-<span class="co">#&gt;  4 2013-04-12    12</span>
-<span class="co">#&gt;  5 2013-04-01    10</span>
-<span class="co">#&gt;  6 2013-04-06    11</span>
-<span class="co">#&gt;  7 2013-04-12    12</span>
-<span class="co">#&gt;  8 2013-04-08     9</span>
-<span class="co">#&gt;  9 2013-03-29    14</span>
-<span class="co">#&gt; 10 2013-04-13    11</span>
+<span class="co">#&gt;  1 2013-04-03     9</span>
+<span class="co">#&gt;  2 2013-04-11     9</span>
+<span class="co">#&gt;  3 2013-04-03    12</span>
+<span class="co">#&gt;  4 2013-03-29     9</span>
+<span class="co">#&gt;  5 2013-04-03    11</span>
+<span class="co">#&gt;  6 2013-03-29     9</span>
+<span class="co">#&gt;  7 2013-04-08    15</span>
+<span class="co">#&gt;  8 2013-04-17    11</span>
+<span class="co">#&gt;  9 2013-04-11    11</span>
+<span class="co">#&gt; 10 2013-04-06    11</span>
 <span class="co">#&gt; # … with 90 more rows</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; </span>
@@ -524,19 +524,19 @@
 <span class="co">#&gt; # A tibble: 13 x 5</span>
 <span class="co">#&gt;    grouping  estimate       n conf.low   conf.high </span>
 <span class="co">#&gt;    &lt;chr&gt;     &lt;date&gt;     &lt;int&gt; &lt;date&gt;     &lt;date&gt;    </span>
-<span class="co">#&gt;  1 Anhui     2013-03-23   211 2013-03-07 2013-04-14</span>
-<span class="co">#&gt;  2 Beijing   2013-04-10   158 2013-04-03 2013-05-03</span>
-<span class="co">#&gt;  3 Fujian    2013-04-21   230 2013-04-17 2013-04-27</span>
+<span class="co">#&gt;  1 Anhui     2013-03-25   215 2013-03-07 2013-04-14</span>
+<span class="co">#&gt;  2 Beijing   2013-04-10   156 2013-04-03 2013-05-03</span>
+<span class="co">#&gt;  3 Fujian    2013-04-21   228 2013-04-17 2013-04-27</span>
 <span class="co">#&gt;  4 Guangdong 2013-07-27   100 2013-07-27 2013-07-27</span>
 <span class="co">#&gt;  5 Hebei     2013-07-10   100 2013-07-10 2013-07-10</span>
-<span class="co">#&gt;  6 Henan     2013-04-06   186 2013-04-04 2013-04-15</span>
-<span class="co">#&gt;  7 Hunan     2013-04-20   157 2013-04-18 2013-04-25</span>
-<span class="co">#&gt;  8 Jiangsu   2013-03-29   400 2013-03-09 2013-04-17</span>
-<span class="co">#&gt;  9 Jiangxi   2013-04-19   272 2013-04-16 2013-04-29</span>
-<span class="co">#&gt; 10 Shandong  2013-04-16   158 2013-04-14 2013-04-23</span>
-<span class="co">#&gt; 11 Shanghai  2013-03-30   523 2013-03-04 2013-04-10</span>
+<span class="co">#&gt;  6 Henan     2013-04-06   189 2013-04-04 2013-04-15</span>
+<span class="co">#&gt;  7 Hunan     2013-04-19   149 2013-04-18 2013-04-25</span>
+<span class="co">#&gt;  8 Jiangsu   2013-03-27   388 2013-03-08 2013-04-17</span>
+<span class="co">#&gt;  9 Jiangxi   2013-04-18   267 2013-04-16 2013-04-29</span>
+<span class="co">#&gt; 10 Shandong  2013-04-16   152 2013-04-14 2013-04-23</span>
+<span class="co">#&gt; 11 Shanghai  2013-03-29   521 2013-03-09 2013-04-10</span>
 <span class="co">#&gt; 12 Taiwan    2013-04-15   100 2013-04-15 2013-04-15</span>
-<span class="co">#&gt; 13 Zhejiang  2013-04-10   707 2013-04-06 2013-04-13</span></pre></body></html></div>
+<span class="co">#&gt; 13 Zhejiang  2013-04-10   689 2013-04-02 2013-04-13</span></pre></body></html></div>
 </div>
 </div>
   </div>

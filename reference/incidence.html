@@ -282,8 +282,6 @@ year of the given week and ww represents the numeric week of the year.
 This will be a produced from the function <code><a href='https://rdrr.io/pkg/aweek/man/date2week.html'>aweek::date2week()</a></code>. Note that
 these will have a special <code>"week_start"</code> attribute indicating which day of
 the ISO week the week starts on (see Weeks, below).</p></li>
-<li><p><strong>isoweeks</strong>: ISO 8601 week format YYYY-Www, which is returned only when
-ISO week-based weekly incidence is computed.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
@@ -364,7 +362,7 @@ interval.</p>
 
     <span class='co'># weekly incidence</span>
     <span class='no'>dat</span> <span class='kw'>%&gt;%</span>
-      <span class='fu'>incidence</span>(<span class='no'>date_of_onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+      <span class='fu'>incidence</span>(<span class='no'>date_of_onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"week"</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
     <span class='co'># starting on a Monday</span>
     <span class='no'>dat</span> <span class='kw'>%&gt;%</span>
@@ -410,10 +408,10 @@ interval.</p>
 #&gt; </span><span style='color: #555555;'>10</span><span> 2014-04-16     0
 #&gt; </span><span style='color: #555555;'># … with 379 more rows</span><span>
 #&gt; 
-#&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = 7, standard = FALSE)
+#&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "week", standard = FALSE)
 #&gt; </span><span style='color: #555555;'>An incidence object: 56 x 2
 #&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-27]
-#&gt; [interval: 7 days]
+#&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
 #&gt; 
 #&gt;    bin_date   count
@@ -535,8 +533,7 @@ interval.</p>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(-<span class='fl'>3</span>:<span class='fl'>10</span>, <span class='fl'>10</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 <span class='no'>dat</span> <span class='kw'>%&gt;%</span> <span class='fu'>incidence</span>(<span class='no'>dates</span>,
                   <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"week"</span>,
-                  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fl'>1</span>,
-                  <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>2 observations outside of [2020-07-25, 2020-08-03] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence object: 3 x 3
+                  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>2 observations outside of [2020-07-25, 2020-08-03] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence object: 3 x 3
 #&gt; </span><span>[8 cases from days 2020-07-20 to 2020-08-03]
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
