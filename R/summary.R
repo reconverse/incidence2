@@ -48,7 +48,7 @@ summary.incidence <- function(object, ...) {
                 ifelse(length(groups) < 2, "variable", "variables")))
 
     for (gr in groups) {
-      tmp <- group_by(object, .data[[gr]])
+      tmp <- grouped_df(object, gr)
       tmp <- summarise(tmp, count = sum( .data[[count_var]] ))
       tmp <- format(tmp)
       cat(tmp[-1], sep = "\n")

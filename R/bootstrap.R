@@ -33,7 +33,7 @@
 #'     x
 #'    })
 #' }
-#' @importFrom dplyr select group_by summarise across n all_of
+#' @importFrom dplyr select grouped_df summarise across n all_of
 #' @importFrom rlang :=
 #' @export
 bootstrap <- function(x, randomise_groups = FALSE) {
@@ -52,7 +52,7 @@ bootstrap <- function(x, randomise_groups = FALSE) {
                              replace = TRUE)
 
 
-  tbl <- group_by(tbl, across(all_of(c(date_var, group_vars))))
+  tbl <- grouped_df(tbl, c(date_var, group_vars))
   tbl <- summarise(tbl, {{count_var}} := n(), .groups = "drop")
 
   if (randomise_groups) {
