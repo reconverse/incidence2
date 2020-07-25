@@ -119,7 +119,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
                     group_labels, centre_labels,
                     legend = match.arg(legend))
 
-  out + scale_x_incidence(x, n_breaks, group_labels, ...)
+ out + scale_x_incidence(x, n_breaks, group_labels, ...)
 
 
 }
@@ -151,7 +151,6 @@ facet_plot <- function(x, facets = NULL, stack = TRUE, fill = NULL,
                     na_color,
                     group_labels, centre_labels,
                     legend = match.arg(legend))
-
 
   if (is.null(facets) && !is.null(group_vars)) {
     out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), nrow, ...)
@@ -278,6 +277,25 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
                         width = interval_days(df))
 
     out <- out + squares
+  }
+
+
+  if (!is.null(attr(x, "rolling_average"))) {
+    if (centre_labels) {
+      shift = 0
+    } else {
+      shift <- mean(get_interval(df, integer = TRUE))/2
+    }
+
+    date_var <- get_dates_name(x)
+    out <-
+      out +
+      ggplot2::geom_point(ggplot2::aes(x = !!sym(date_var) + shift ,
+                                       y = rolling_average),
+                          position = ggplot2::position_stack()) +
+      ggplot2::geom_line(ggplot2::aes(x = !!sym(date_var) + shift ,
+                                      y = rolling_average),
+                         position = ggplot2::position_stack())
   }
 
   out
