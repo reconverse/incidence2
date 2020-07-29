@@ -57,15 +57,13 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   )
 
   # generate grouped_dates
-  grouped_dates <- group_dates(x[[date_index]], breaks)
-  x <- mutate(x, bin_date = grouped_dates)
+  x <- grouped_df(x, c(date_index, groups))
+  x <- summarise(x, count = count_dates(.data[[date_index]], breaks), .groups = "keep")
+  x <- mutate(x, {{date_index}} := breaks)
+  x <- summarise(x, count = sum(count), .groups = "keep")
+  colnames(x) <- c("bin_date", colnames(x)[-1])
+  x <- ungroup(x)
 
-  # Aggregate by date then groups
-  x <- group_by(x, .data$bin_date)
-  if (!is.null(groups)) {
-    x <- group_by(x, across( {{groups}}), .add = TRUE)
-  }
-  x <- summarise(x, count = n(), .groups = "drop")
 
   # Add in missing group_labels and give them zero count
   days <- seq(first_date, last_date, by = 1)
