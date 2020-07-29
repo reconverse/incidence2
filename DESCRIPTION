@@ -37,7 +37,8 @@ Imports:
     vctrs,
     magrittr,
     pillar,
-    generics
+    generics,
+    slider
 Suggests: 
     outbreaks,
     testthat,

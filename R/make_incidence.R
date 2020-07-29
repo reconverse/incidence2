@@ -60,7 +60,7 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   x <- grouped_df(x, c(date_index, groups))
   x <- summarise(x, count = count_dates(.data[[date_index]], breaks), .groups = "keep")
   x <- mutate(x, {{date_index}} := breaks)
-  x <- summarise(x, count = sum(count), .groups = "keep")
+  x <- summarise(x, count = sum(.data$count), .groups = "keep")
   colnames(x) <- c("bin_date", colnames(x)[-1])
   x <- ungroup(x)
 
