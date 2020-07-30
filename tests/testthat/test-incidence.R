@@ -511,7 +511,7 @@ test_that("Expected values, with groups", {
   expect_equal_to_reference(res.g.3, file = "rds/res.g.3.rds")
 
   dates <- as.Date(c("2020-07-30", "2020-07-30", rep("2020-08-06", 3)))
-  group1 <- c("Bob", "Bob", "Bob", "George", "george")
+  group1 <- c("Bob", "Bob", "Bob", "George", "George")
   group2 <- c("Cat", "Cat", "Dog", "Dog", "Mouse")
   dat <- data.frame(dates, group1, group2)
   res.g.4 <- incidence(dat,
