@@ -43,7 +43,8 @@ Suggests:
     outbreaks,
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: 
     knitr
 Roxygen: list(markdown = TRUE)
