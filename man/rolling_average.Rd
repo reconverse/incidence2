@@ -2,9 +2,12 @@
 % Please edit documentation in R/rolling_average.R
 \name{rolling_average}
 \alias{rolling_average}
-\title{Add a rolling average}
+\alias{remove_rolling}
+\title{Add and remove a rolling average}
 \usage{
 rolling_average(x, before = 2)
+
+remove_rolling(x)
 }
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
@@ -12,10 +15,14 @@ rolling_average(x, before = 2)
 \item{before}{how many prior dates to group with.}
 }
 \value{
-A \code{\link[=incidence]{incidence()}} object with an additional \code{rolling_average} column.
+\itemize{
+\item \code{rolling_average} An \code{\link[=incidence]{incidence()}} object with an additional, averaged,
+column.
+\item \code{remove_rolling} An \code{\link[=incidence]{incidence()}} object.
+}
 }
 \description{
-Add a rolling average
+Add and remove a rolling average
 }
 \note{
 If groups are present the average will be calculated across each
@@ -39,5 +46,9 @@ inci \%>\%
 inci \%>\%
   rolling_average(before = 2) \%>\%
   facet_plot(color = "white")
+
+inci \%>\%
+  rolling_average() \%>\%
+  remove_rolling()
 
 }

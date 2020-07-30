@@ -1,4 +1,4 @@
-#' Add a rolling average
+#' Add and remove a rolling average
 #'
 #' @param x An [incidence()] object.
 #' @param before how many prior dates to group with.
@@ -6,7 +6,10 @@
 #' @note If groups are present the average will be calculated across each
 #' grouping, therefore care is required when plotting.
 #'
-#' @return A [incidence()] object with an additional `rolling_average` column.
+#' @return
+#'   - `rolling_average` An [incidence()] object with an additional, averaged,
+#'     column.
+#'   - `remove_rolling` An [incidence()] object.
 #'
 #' @examples
 #' data(ebola_sim_clean, package = "outbreaks")
@@ -27,6 +30,11 @@
 #'   rolling_average(before = 2) %>%
 #'   facet_plot(color = "white")
 #'
+#' inci %>%
+#'   rolling_average() %>%
+#'   remove_rolling()
+#'
+#' @rdname rolling_average
 #' @export
 rolling_average <- function(x, before = 2) {
   group_vars <- get_group_names(x)
@@ -49,8 +57,19 @@ rolling_average <- function(x, before = 2) {
 
   # TODO - change this hackiness
   colnames(out)[length(out)] <- "rolling_average"
-  attr(out, "rolling_average") <- before
+  attr(out, "rolling_average") <- "rolling_average"
+  attr(out, "before") <- before
   out
+}
+
+
+#' @rdname rolling_average
+#' @export
+remove_rolling <- function(x) {
+  ra <- attr(x, "rolling_average")
+  x[[ra]] <- NULL
+  attr(x, "rolling_average") <- NULL
+  attr(x, "before") <- NULL
 }
 
 

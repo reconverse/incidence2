@@ -281,8 +281,8 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
     out <- out + squares
   }
 
-
-  if (!is.null(attr(x, "rolling_average"))) {
+  ra <- attr(x, "rolling_average")
+  if (!is.null(ra)) {
     if (centre_labels) {
       shift = 0
     } else {
@@ -293,10 +293,10 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
     out <-
       out +
       ggplot2::geom_point(ggplot2::aes(x = !!sym(date_var) + shift ,
-                                       y = rolling_average),
+                                       y = !!sym(ra)),
                           position = ggplot2::position_stack()) +
       ggplot2::geom_line(ggplot2::aes(x = !!sym(date_var) + shift ,
-                                      y = rolling_average),
+                                      y = !!sym(ra)),
                          position = ggplot2::position_stack())
   }
 
