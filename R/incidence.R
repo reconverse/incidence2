@@ -201,16 +201,12 @@ incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
                            groups = NULL, na_as_group = TRUE,
                            first_date = NULL, last_date = NULL, ...) {
 
-  # Dots only present for potential future use.
   ellipsis::check_dots_empty()
-
 
   # change date_index and group to character vectors
   date_index <- arg_values(!!rlang::enexpr(date_index))
   groups <- arg_values(!!rlang::enexpr(groups))
 
-  # make sure input can be used (other checks in make incidence)
-  # R 4.0. makes use of a new `stopifnot` format
   stopifnot(
     "The argument `date_index` should be of length one" =
       (length(date_index) == 1),
@@ -258,15 +254,12 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
                                 groups = NULL, na_as_group = TRUE,
                                 first_date = NULL, last_date = NULL, ...) {
 
-  # Dots only present for potential future use.
   ellipsis::check_dots_empty()
 
   # change date_index and group to character vectors
   date_index <- arg_values(!!rlang::enexpr(date_index))
   groups <- arg_values(!!rlang::enexpr(groups))
 
-  # make sure input can be used (other checks in make incidence)
-  # R 4.0. makes use of a new `stopifnot` format
   stopifnot(
     "The argument `date_index` should be of length one" =
       (length(date_index) == 1),
@@ -325,16 +318,12 @@ incidence.integer <- function(x, date_index, interval = 1L,
                               groups = NULL, na_as_group = TRUE,
                               first_date = NULL, last_date = NULL, ...) {
 
-  # Dots only present for potential future use.
-  # This should catch and error if used
   ellipsis::check_dots_empty()
 
   # change date_index and group to character vectors
   date_index <- arg_values(!!rlang::enexpr(date_index))
   groups <- arg_values(!!rlang::enexpr(groups))
 
-  # make sure input can be used (other checks in make incidence)
-  # R 4.0. makes use of a new `stopifnot` format
   stopifnot(
     "The argument `date_index` should be of length one" =
       (length(date_index) == 1),
@@ -373,15 +362,12 @@ incidence.numeric <- function(x, date_index, interval = 1L,
                               groups = NULL, na_as_group = TRUE,
                               first_date = NULL, last_date = NULL, ...) {
 
-  # Dots only present for potential future use.
   ellipsis::check_dots_empty()
 
   # change date_index and group to character vectors
   date_index <- arg_values(!!rlang::enexpr(date_index))
   groups <- arg_values(!!rlang::enexpr(groups))
 
-  # make sure input can be used (other checks in make incidence)
-  # R 4.0. makes use of a new `stopifnot` format
   stopifnot(
     "The argument `date_index` should be of length one" =
       (length(date_index) == 1),
@@ -418,15 +404,12 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
                              groups = NULL, na_as_group = TRUE,
                              first_date = NULL, last_date = NULL, ...) {
 
-  # Dots only present for potential future use.
   ellipsis::check_dots_empty()
 
   # change date_index and group to character vectors
   date_index <- arg_values(!!rlang::enexpr(date_index))
   groups <- arg_values(!!rlang::enexpr(groups))
 
-  # make sure input can be used (other checks in make incidence)
-  # R 4.0. makes use of a new `stopifnot` format
   stopifnot(
     "The argument `date_index` should be of length one" =
       (length(date_index) == 1),
