@@ -111,10 +111,11 @@
 <li><p>plotting functions <strong><code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code></strong> and <strong><code><a href="reference/plot.incidence.html">facet_plot()</a></code></strong>: these functions return customised ggplot2 plots of <em>incidence</em> objects (see <code><a href="reference/plot.incidence.html">?plot.incidence</a></code> for details).</p></li>
 <li><p>Compatible with <a href="https://dplyr.tidyverse.org/">dplyr</a> for data manipulation. (see <code><a href="articles/handling_incidence_objects.html">vignette("handling_incidence_objects")</a></code> for more details).</p></li>
 <li><p><strong><code><a href="reference/regroup.html">regroup()</a></code></strong>: regroup incidence from different groups into one global incidence time series.</p></li>
-<li><p><strong><code><a href="reference/cumulate.html">cumulate()</a></code></strong>: computes cumulative incidence over time from an <code>incidence</code> object.</p></li>
-<li><p><strong><code><a href="reference/bootstrap.html">bootstrap()</a></code></strong>: generates a bootstrapped <em>incidence()</em> object by re-sampling, with replacement, the original dates of events.</p></li>
+<li><p><strong><code><a href="reference/cumulate.html">cumulate()</a></code></strong>: computes cumulative incidence over time from an <code><a href="reference/incidence.html">incidence()</a></code> object.</p></li>
+<li><p><strong><code>rolling_average</code></strong> and <strong><code>remove_rolling</code></strong>: add or remove a rolling average to/from an <code><a href="reference/incidence.html">incidence()</a></code> object.</p></li>
+<li><p><strong><code><a href="reference/bootstrap.html">bootstrap()</a></code></strong>: generates a bootstrapped <code><a href="reference/incidence.html">incidence()</a></code> object by re-sampling, with replacement, the original dates of events.</p></li>
 <li><p><strong><code><a href="reference/find_peak.html">find_peak()</a></code></strong>: locates the peak time of the epicurve.</p></li>
-<li><p><strong><code><a href="reference/estimate_peak.html">estimate_peak()</a></code></strong>: uses bootstrap to estimate the peak time (and related confidence interval) of a partially observed outbreak.</p></li>
+<li><p><strong><code><a href="reference/estimate_peak.html">estimate_peak()</a></code></strong>: uses bootstrap to estimate the peak time (and related confidence interval) of a partially observed outbreak. We can use <strong><code><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy()</a></code></strong> to generate nicer looking output.</p></li>
 <li><p><strong><code><a href="https://rdrr.io/r/base/print.html">print()</a></code></strong> and <strong><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code></strong> functions.</p></li>
 <li>
 <p>Conversion functions:</p>
@@ -191,26 +192,26 @@
 <p>We compute the weekly incidence:</p>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="no">i_7</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="fl">7</span>)
 <span class="no">i_7</span>
-<span class="co">#&gt; An incidence object: 56 x 3</span>
+<span class="co">#&gt; An incidence object: 56 x 2</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 7 days]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    bin_date   week_group count</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-04-07 2014-W15       1</span>
-<span class="co">#&gt;  2 2014-04-14 2014-W16       1</span>
-<span class="co">#&gt;  3 2014-04-21 2014-W17       5</span>
-<span class="co">#&gt;  4 2014-04-28 2014-W18       4</span>
-<span class="co">#&gt;  5 2014-05-05 2014-W19      12</span>
-<span class="co">#&gt;  6 2014-05-12 2014-W20      17</span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21      15</span>
-<span class="co">#&gt;  8 2014-05-26 2014-W22      19</span>
-<span class="co">#&gt;  9 2014-06-02 2014-W23      23</span>
-<span class="co">#&gt; 10 2014-06-09 2014-W24      21</span>
+<span class="co">#&gt;    bin_date   count</span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt;</span>
+<span class="co">#&gt;  1 2014-04-07     1</span>
+<span class="co">#&gt;  2 2014-04-14     1</span>
+<span class="co">#&gt;  3 2014-04-21     5</span>
+<span class="co">#&gt;  4 2014-04-28     4</span>
+<span class="co">#&gt;  5 2014-05-05    12</span>
+<span class="co">#&gt;  6 2014-05-12    17</span>
+<span class="co">#&gt;  7 2014-05-19    15</span>
+<span class="co">#&gt;  8 2014-05-26    19</span>
+<span class="co">#&gt;  9 2014-06-02    23</span>
+<span class="co">#&gt; 10 2014-06-09    21</span>
 <span class="co">#&gt; # … with 46 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">i_7</span>)
-<span class="co">#&gt; An incidence object: 56 x 3</span>
+<span class="co">#&gt; An incidence object: 56 x 2</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 7 days</span>
 <span class="co">#&gt; cumulative: FALSE</span>
@@ -232,10 +233,10 @@
 <span class="co">#&gt;  2 2014-04-07 2014-W15   m          0</span>
 <span class="co">#&gt;  3 2014-04-14 2014-W16   f          0</span>
 <span class="co">#&gt;  4 2014-04-14 2014-W16   m          1</span>
-<span class="co">#&gt;  5 2014-04-21 2014-W17   f          5</span>
-<span class="co">#&gt;  6 2014-04-21 2014-W17   m          0</span>
-<span class="co">#&gt;  7 2014-04-28 2014-W18   f          2</span>
-<span class="co">#&gt;  8 2014-04-28 2014-W18   m          2</span>
+<span class="co">#&gt;  5 2014-04-21 2014-W17   f          4</span>
+<span class="co">#&gt;  6 2014-04-21 2014-W17   m          1</span>
+<span class="co">#&gt;  7 2014-04-28 2014-W18   f          4</span>
+<span class="co">#&gt;  8 2014-04-28 2014-W18   m          0</span>
 <span class="co">#&gt;  9 2014-05-05 2014-W19   f          9</span>
 <span class="co">#&gt; 10 2014-05-05 2014-W19   m          3</span>
 <span class="co">#&gt; # … with 102 more rows</span>
@@ -271,16 +272,16 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   week_group gender hospital                                   count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;  &lt;fct&gt;                                      &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-04-07 2014-W15   f      Military Hospital                              1</span>
-<span class="co">#&gt;  2 2014-04-07 2014-W15   m      Military Hospital                              0</span>
-<span class="co">#&gt;  3 2014-04-07 2014-W15   f      Connaught Hospital                             0</span>
-<span class="co">#&gt;  4 2014-04-07 2014-W15   m      Connaught Hospital                             0</span>
+<span class="co">#&gt;  1 2014-04-07 2014-W15   f      Connaught Hospital                             0</span>
+<span class="co">#&gt;  2 2014-04-07 2014-W15   m      Connaught Hospital                             0</span>
+<span class="co">#&gt;  3 2014-04-07 2014-W15   f      Military Hospital                              1</span>
+<span class="co">#&gt;  4 2014-04-07 2014-W15   m      Military Hospital                              0</span>
 <span class="co">#&gt;  5 2014-04-07 2014-W15   f      other                                          0</span>
 <span class="co">#&gt;  6 2014-04-07 2014-W15   m      other                                          0</span>
-<span class="co">#&gt;  7 2014-04-07 2014-W15   f      &lt;NA&gt;                                           0</span>
-<span class="co">#&gt;  8 2014-04-07 2014-W15   m      &lt;NA&gt;                                           0</span>
-<span class="co">#&gt;  9 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0</span>
-<span class="co">#&gt; 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0</span>
+<span class="co">#&gt;  7 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0</span>
+<span class="co">#&gt;  8 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0</span>
+<span class="co">#&gt;  9 2014-04-07 2014-W15   f      Rokupa Hospital                                0</span>
+<span class="co">#&gt; 10 2014-04-07 2014-W15   m      Rokupa Hospital                                0</span>
 <span class="co">#&gt; # … with 662 more rows</span>
 <span class="no">i_7_sh</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>()
 <span class="co">#&gt; An incidence object: 672 x 5</span>
@@ -351,6 +352,7 @@
 <li><a href="https://CRAN.R-project.org/package=incidence2"><img src="https://www.r-pkg.org/badges/version/incidence2" alt="CRAN status"></a></li>
 <li><a href="https://github.com/reconhub/incidence2/actions"><img src="https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/gh/reconhub/incidence2"><img src="https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://codecov.io/gh/reconhub/incidence2?branch=master"><img src="https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
