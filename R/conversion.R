@@ -46,9 +46,34 @@ as_tibble.incidence <- function(x, ...) {
 #' @export
 #' @name as_tibble
 tibble::as_tibble()
-
 # -------------------------------------------------------------------------
 
+#' Convert a data frame to incidence object
+#'
+#' @param x An object that can be treated as a data frame.
+#'
+#' @param date_index The time index of the given data in x.  This should be the
+#'   name, with or without quotation, corresponding to a date column in x of the
+#'   class:  integer, numeric, Date, POSIXct, POSIXlt, and character.
+#'
+#' @param counts_var The count variable in x.
+#'
+#' @param group_vars An optional vector giving the names of the groups of
+#'   observations for which incidence should be grouped.  This can be given with
+#'   or without quotation.
+#'
+#' @param interval An integer or character indicating the (fixed) size of the
+#'   time interval used for computing the incidence; defaults to 1 day. This can
+#'   also be a text string that corresponds to a valid date interval: day, week,
+#'   month, quarter, or year.
+#'
+#' @param standard (Only applicable where date_index references a Date object)
+#'   When `TRUE` (default) and the `interval` one of "week", "month", "quarter",
+#'   or "year", then this will cause the bins for the counts to start at the
+#'   beginning of the interval.
+#'
+#' @param ... Not currently used.
+#'
 #' @rdname as_incidence
 #' @export
 as_incidence <- function(x, date_index, counts_var,

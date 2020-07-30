@@ -68,8 +68,8 @@ estimate_peak <- function(x, n = 100, alpha = 0.05, progress = TRUE) {
 
   group_vars <- get_group_names(x)
   if (!is.null(group_vars)) {
-    tmp <- suppressMessages(x[group_vars])
-    split_x <- split(x, as.list(tmp), sep = "-")
+    f_groups <- lapply(suppressMessages(x[group_vars]), factor, exclude = NULL)
+    split_x <- split(x, f_groups, sep = "-")
   } else {
     split_x = list(x)
   }

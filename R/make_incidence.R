@@ -56,14 +56,27 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
     dots = dots
   )
 
-  # generate grouped_dates
-  x <- grouped_df(x, c(date_index, groups))
-  x <- summarise(x, count = count_dates(.data[[date_index]], breaks), .groups = "keep")
-  x <- mutate(x, {{date_index}} := breaks)
-  x <- summarise(x, count = sum(.data$count), .groups = "keep")
-  colnames(x) <- c("bin_date", colnames(x)[-1])
-  x <- ungroup(x)
-
+  # generate grouped_dates and aggregate across dates then groups
+  if (!is.null(groups)) {
+    f_groups <- lapply(x[groups], factor, exclude = NULL)
+    split_x <- split(x, f_groups, sep = "-")
+    out <- lapply(
+      split_x,
+      function(z) {
+        grouped_dates <- group_dates(z[[date_index]], breaks)
+        z <- mutate(z, bin_date = grouped_dates)
+        z <- group_by(z, .data$bin_date)
+        z <- group_by(z, across( {{groups}}), .add = TRUE)
+        summarise(z, count = n(), .groups = "drop")
+      }
+    )
+    x <- dplyr::bind_rows(out)
+  } else {
+    grouped_dates <- group_dates(x[[date_index]], breaks)
+    x <- mutate(x, bin_date = grouped_dates)
+    x <- group_by(x, .data$bin_date)
+    x <- summarise(x, count = n(), .groups = "drop")
+  }
 
   # Add in missing group_labels and give them zero count
   days <- seq(first_date, last_date, by = 1)
