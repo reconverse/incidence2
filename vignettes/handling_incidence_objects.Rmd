@@ -60,6 +60,37 @@ inci %>%
   facet_plot(facet = hospital)
 ```
 
+## `rolling_average`
+We can easily add to an `incidence()` object a rolling average, across groupings, 
+of the current and previous observations:
+
+```{r rolling_average}
+inci <- 
+  dat %>% 
+  incidence(
+    date_index = date_of_onset,
+    interval = "week",
+    last_date = "2014-10-05",
+    groups = gender)
+
+# adding the rolling average
+ra <- rolling_average(inci, before = 2)
+ra
+
+# remove the rolling average
+remove_rolling(ra)
+
+# plotting across the groups
+ra %>% facet_plot(color = "white")
+
+# we must remove groups if we want the overall rolling average
+inci %>% 
+  regroup %>% 
+  rolling_average() %>% 
+  plot
+```
+
+
 ## Tidyverse compatibility
 incidence2 has been written with *tidyverse* compatibility (in particular [dplyr](https://dplyr.tidyverse.org/)) at the forefront of the
 design choices we have made.  By this we mean that if an operation from
