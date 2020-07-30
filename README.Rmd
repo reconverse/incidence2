@@ -65,13 +65,17 @@ The main features of the package include:
 - **`cumulate()`**: computes cumulative incidence over time from an `incidence`
   object.
   
+- **`rolling_average`** and **`remove_rolling`**: add or remove a rolling 
+  average to an incidence object.
+  
 - **`bootstrap()`**: generates a bootstrapped *incidence()* object by re-sampling,
   with replacement, the original dates of events.
 
 - **`find_peak()`**: locates the peak time of the epicurve.
 
 - **`estimate_peak()`**: uses bootstrap to estimate the peak time (and related
-  confidence interval) of a partially observed outbreak.
+  confidence interval) of a partially observed outbreak. We can use **`tidy()`**
+  to generate nicer looking output.
   
 - **`print()`** and **`summary()`** functions.
 

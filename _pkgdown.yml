@@ -51,19 +51,23 @@ reference:
   - '`get_n`'
   - '`get_timespan`'
 
-- title: Tidy data manipulation
+- title: Data manipulation
   desc: >
     Functions for manipulating incidence objects by date or group
   contents:
   - '`cumulate`'
   - '`regroup`'
+  - '`rolling_average`'
+  - '`remove_rolling`'
 
 - title: Parameter Estimation
   desc: >
     Functions for estimating parameters such as peak and doubling time
   contents:
+  - '`find_peak`'
   - '`bootstrap`'
   - '`estimate_peak`'
-  - '`find_peak`'
+  - '`tidy`'
+
 
 

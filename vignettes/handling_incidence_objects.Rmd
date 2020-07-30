@@ -72,6 +72,17 @@ inci <- incidence(dat,
                   interval = "week", 
                   last_date = "2014-10-05")
 
+# to add a rolling average we pass an incidence object to `rolling_average`
+ra <- 
+  inci %>% 
+  rolling_average(before = 2)
+
+ra
+
+# to remove a rolling average we pass the object to remove_rolling
+ra %>% remove_rolling()
+
+# plotting 
 inci %>%  
   rolling_average(before = 2) %>% 
   plot(color = "white")
