@@ -11,6 +11,8 @@ status](https://www.r-pkg.org/badges/version/incidence2)](https://CRAN.R-project
 [![R build
 status](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/incidence2/actions)
 [![codecov](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2)
+[![Codecov test
+coverage](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2?branch=master)
 <!-- badges: end -->
 
 <br> **<span style="color: red;">Disclaimer</span>**
@@ -51,15 +53,19 @@ The main features of the package include:
     global incidence time series.
 
   - **`cumulate()`**: computes cumulative incidence over time from an
-    `incidence` object.
+    `incidence()` object.
 
-  - **`bootstrap()`**: generates a bootstrapped *incidence()* object by
+  - **`rolling_average`** and **`remove_rolling`**: add or remove a
+    rolling average to/from an `incidence()` object.
+
+  - **`bootstrap()`**: generates a bootstrapped `incidence()` object by
     re-sampling, with replacement, the original dates of events.
 
   - **`find_peak()`**: locates the peak time of the epicurve.
 
   - **`estimate_peak()`**: uses bootstrap to estimate the peak time (and
-    related confidence interval) of a partially observed outbreak.
+    related confidence interval) of a partially observed outbreak. We
+    can use **`tidy()`** to generate nicer looking output.
 
   - **`print()`** and **`summary()`** functions.
 
@@ -157,26 +163,26 @@ We compute the weekly incidence:
 ``` r
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
 i_7
-#> An incidence object: 56 x 3
+#> An incidence object: 56 x 2
 #> [5829 cases from days 2014-04-07 to 2015-04-27]
 #> [interval: 7 days]
 #> [cumulative: FALSE]
 #> 
-#>    bin_date   week_group count
-#>    <date>     <aweek>    <int>
-#>  1 2014-04-07 2014-W15       1
-#>  2 2014-04-14 2014-W16       1
-#>  3 2014-04-21 2014-W17       5
-#>  4 2014-04-28 2014-W18       4
-#>  5 2014-05-05 2014-W19      12
-#>  6 2014-05-12 2014-W20      17
-#>  7 2014-05-19 2014-W21      15
-#>  8 2014-05-26 2014-W22      19
-#>  9 2014-06-02 2014-W23      23
-#> 10 2014-06-09 2014-W24      21
+#>    bin_date   count
+#>    <date>     <int>
+#>  1 2014-04-07     1
+#>  2 2014-04-14     1
+#>  3 2014-04-21     5
+#>  4 2014-04-28     4
+#>  5 2014-05-05    12
+#>  6 2014-05-12    17
+#>  7 2014-05-19    15
+#>  8 2014-05-26    19
+#>  9 2014-06-02    23
+#> 10 2014-06-09    21
 #> # … with 46 more rows
 summary(i_7)
-#> An incidence object: 56 x 3
+#> An incidence object: 56 x 2
 #> 5829 cases from days 2014-04-07 to 2015-04-27
 #> interval: 7 days
 #> cumulative: FALSE
@@ -205,10 +211,10 @@ i_7_sex
 #>  2 2014-04-07 2014-W15   m          0
 #>  3 2014-04-14 2014-W16   f          0
 #>  4 2014-04-14 2014-W16   m          1
-#>  5 2014-04-21 2014-W17   f          5
-#>  6 2014-04-21 2014-W17   m          0
-#>  7 2014-04-28 2014-W18   f          2
-#>  8 2014-04-28 2014-W18   m          2
+#>  5 2014-04-21 2014-W17   f          4
+#>  6 2014-04-21 2014-W17   m          1
+#>  7 2014-04-28 2014-W18   f          4
+#>  8 2014-04-28 2014-W18   m          0
 #>  9 2014-05-05 2014-W19   f          9
 #> 10 2014-05-05 2014-W19   m          3
 #> # … with 102 more rows
@@ -255,16 +261,16 @@ i_7_sh
 #> 
 #>    bin_date   week_group gender hospital                                   count
 #>    <date>     <aweek>    <fct>  <fct>                                      <int>
-#>  1 2014-04-07 2014-W15   f      Military Hospital                              1
-#>  2 2014-04-07 2014-W15   m      Military Hospital                              0
-#>  3 2014-04-07 2014-W15   f      Connaught Hospital                             0
-#>  4 2014-04-07 2014-W15   m      Connaught Hospital                             0
+#>  1 2014-04-07 2014-W15   f      Connaught Hospital                             0
+#>  2 2014-04-07 2014-W15   m      Connaught Hospital                             0
+#>  3 2014-04-07 2014-W15   f      Military Hospital                              1
+#>  4 2014-04-07 2014-W15   m      Military Hospital                              0
 #>  5 2014-04-07 2014-W15   f      other                                          0
 #>  6 2014-04-07 2014-W15   m      other                                          0
-#>  7 2014-04-07 2014-W15   f      <NA>                                           0
-#>  8 2014-04-07 2014-W15   m      <NA>                                           0
-#>  9 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0
-#> 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0
+#>  7 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0
+#>  8 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0
+#>  9 2014-04-07 2014-W15   f      Rokupa Hospital                                0
+#> 10 2014-04-07 2014-W15   m      Rokupa Hospital                                0
 #> # … with 662 more rows
 i_7_sh %>% summary()
 #> An incidence object: 672 x 5
