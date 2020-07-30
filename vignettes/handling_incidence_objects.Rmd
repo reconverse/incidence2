@@ -87,7 +87,7 @@ ra %>% facet_plot(color = "white")
 inci %>% 
   regroup %>% 
   rolling_average() %>% 
-  plot
+  plot(color = "white")
 ```
 
 
