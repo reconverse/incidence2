@@ -70,6 +70,7 @@ remove_rolling <- function(x) {
   x[[ra]] <- NULL
   attr(x, "rolling_average") <- NULL
   attr(x, "before") <- NULL
+  x
 }
 
 
