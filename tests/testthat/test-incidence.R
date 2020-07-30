@@ -442,25 +442,35 @@ test_that("Expected values, no group", {
   expect_true(
     all(incidence(data.frame(dates = sample(1:10)), date_index = dates)$count == 1L))
 
-  # set.seed(1)
-  #res1 <- incidence(c(3,2,-1,1,1))
-  #res2 <- incidence(c(0,0,0))
-  # res3 <- incidence(sample(1:80, 1000, replace = TRUE))
-  # res4 <- incidence(as.Date("1984-01-01") + sample(1:100, 200, replace = TRUE))
-  #res5 <- incidence(c(3,2,-1,1,1), 2L)
-  #res6 <- incidence(c(0,0,0), 3L)
-  # res7 <- incidence(sample(1:80, 1000, replace = TRUE), 4L)
-  # res8 <- incidence(as.Date("1984-01-01") + sample(1:100, 200, replace = TRUE), 12L)
+  set.seed(1)
 
-  #expect_equal_to_reference(res1, file = "rds/incidence.res1.rds")
-  #expect_equal_to_reference(res2, file = "rds/incidence.res2.rds")
-  # expect_equal_to_reference(res3, file = "rds/incidence.res3.rds")
-  # expect_equal_to_reference(res4, file = "rds/incidence.res4.rds")
-  #expect_equal_to_reference(res5, file = "rds/incidence.res5.rds")
-  #expect_equal_to_reference(res6, file = "rds/incidence.res6.rds")
-  # expect_equal_to_reference(res7, file = "rds/incidence.res7.rds")
-  # expect_equal_to_reference(res8, file = "rds/incidence.res8.rds")
+  dat <- data.frame(dates = c(3,2,-1,1,1))
+  res1 <- incidence(dat, date_index = dates)
+  expect_equal_to_reference(res1, file = "rds/incidence.res1.rds")
+
+  dat <- data.frame(dates = c(0,0,0))
+  res2 <- incidence(dat, date_index = dates)
+  expect_equal_to_reference(res2, file = "rds/incidence.res2.rds")
+
+  dat <- data.frame(dates = sample(1:80, 1000, replace = TRUE))
+  res3 <- incidence(dat, date_index = dates)
+  expect_equal_to_reference(res3, file = "rds/incidence.res3.rds")
+
+  dat <- data.frame(dates = as.Date("1984-01-01") + sample(1:100, 200, replace = TRUE))
+  res4 <- incidence(dat, date_index = dates)
+  expect_equal_to_reference(res4, file = "rds/incidence.res4.rds")
+
+  dat <- data.frame(dates = c(3, 2, -1, 1, 1))
+  res5 <- incidence(dat, date_index = dates, interval = 2L)
+  expect_equal_to_reference(res5, file = "rds/incidence.res5.rds")
+
+  dat <- data.frame(dates = c(0,0,0))
+  res6 <- incidence(dat, date_index = dates, interval = 3L)
+  expect_equal_to_reference(res6, file = "rds/incidence.res6.rds")
+
 })
+
+
 test_that("na_as_group", {
   dat <- data.frame(
       date = Sys.Date() + 1:10,
@@ -473,51 +483,70 @@ test_that("na_as_group", {
 })
 
 
-# TODO
-# test_that("Expected values, with groups", {
-#
-#
-#   dat <- list(
-#     as.integer(c(3,2,-1,1,1)),
-#     as.integer(c(0,0,0)),
-#     as.integer(c(0,1,2,2,3,5,7))
-#   )
-#
-#   fac <- list(
-#     factor(c(1,1,2,2,2)),
-#     factor(c('a','b','a')),
-#     factor(c(1, 2, 3, 3, 3, 3, 1))
-#   )
-#
-#   res.g.1 <- incidence(dat[[1]], groups = fac[[1]])
-#   res.g.2 <- incidence(dat[[2]], groups = fac[[2]])
-#   res.g.3 <- incidence(dat[[3]], groups = fac[[3]])
-#
-#   expect_equal_to_reference(res.g.1, file = "rds/res.g.1.rds")
-#   expect_equal_to_reference(res.g.2, file = "rds/res.g.2.rds")
-#   expect_equal_to_reference(res.g.3, file = "rds/res.g.3.rds")
-# })
-#
-# test_that("user-defined group levels are preserved", {
-#   g <- sample(LETTERS[1:5], 100, replace = TRUE)
-#   g <- factor(g, levels = LETTERS[5:1])
-#   i <- incidence(rpois(100, 10), groups = g)
-#   expect_identical(group_names(i), levels(g))
-#   i.df <- as.data.frame(i, long = TRUE)
-#   expect_identical(levels(i.df$groups), levels(g))
-# })
-#
-# test_that("Printing returns the object", {
-#
-#
-#   x <- incidence("2001-01-01")
-#   y <- incidence(1:2, groups = factor(1:2))
-#   z <- incidence(dat_dates, interval = 7)
-#   expect_equal_to_reference(capture.output(print(x)),
-#                             file = "rds/print1.rds")
-#   expect_equal_to_reference(capture.output(print(y)),
-#                             file = "rds/print2.rds")
-#   expect_equal_to_reference(capture.output(print(z)),
-#                             file = "rds/print3.rds")
-# })
-#
+
+test_that("Expected values, with groups", {
+
+  dates <- list(
+    as.integer(c(3,2,-1,1,1)),
+    as.integer(c(0,0,0)),
+    as.integer(c(0,1,2,2,3))
+  )
+
+  factors <- list(
+    factor(c(1,1,2,2,2)),
+    factor(c('a','b','a')),
+    factor(c(1, 2, 3, 3, 3))
+  )
+
+  dat <- data.frame(dates = dates[[1]], groups = factors[[1]])
+  res.g.1 <- incidence(dat, date_index = dates, groups = groups)
+  expect_equal_to_reference(res.g.1, file = "rds/res.g.1.rds")
+
+  dat <- data.frame(dates = dates[[2]], groups = factors[[2]])
+  res.g.2 <- incidence(dat, date_index = dates, groups = groups)
+  expect_equal_to_reference(res.g.2, file = "rds/res.g.2.rds")
+
+  dat <- data.frame(dates = dates[[3]], groups = factors[[3]])
+  res.g.3 <- incidence(dat, date_index = dates, groups = groups)
+  expect_equal_to_reference(res.g.3, file = "rds/res.g.3.rds")
+
+  dates <- as.Date(c("2020-07-30", "2020-07-30", rep("2020-08-06", 3)))
+  group1 <- c("Bob", "Bob", "Bob", "George", "george")
+  group2 <- c("Cat", "Cat", "Dog", "Dog", "Mouse")
+  dat <- data.frame(dates, group1, group2)
+  res.g.4 <- incidence(dat,
+                       date_index = dates,
+                       groups = c(group1, group2),
+                       interval = "week")
+  expect_equal_to_reference(res.g.4, file = "rds/res.g.4.rds")
+})
+
+test_that("user-defined group levels are preserved", {
+  g <- sample(LETTERS[1:5], 100, replace = TRUE)
+  g <- factor(g, levels = LETTERS[5:1])
+  dat <- data.frame(dates = rpois(100, 10), g)
+  i <- incidence(dat, date_index = dates, groups = g)
+  expect_identical(levels(i[[get_group_names(i)]]), levels(g))
+})
+
+test_that("Print and summary returns the object", {
+  dat <- data.frame(dates = "2001-01-01")
+  x <- incidence(dat, date_index = dates)
+
+  expect_equal_to_reference(capture.output(print(x)),
+                            file = "rds/print1.rds")
+
+  expect_equal_to_reference(capture.output(summary(x)),
+                            file = "rds/summary1.rds")
+
+  dat <- data.frame(dates = 1:2, groups = factor(1:2))
+  y <- incidence(dat,date_index = dates, groups = groups)
+
+  expect_equal_to_reference(capture.output(print(y)),
+                            file = "rds/print2.rds")
+
+  expect_equal_to_reference(capture.output(summary(y)),
+                            file = "rds/summary2.rds")
+
+})
+

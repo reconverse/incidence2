@@ -55,7 +55,6 @@ rolling_average <- function(x, before = 2) {
       .complete = TRUE))
   attributes(out) <- attributes(x)
 
-  # TODO - change this hackiness
   colnames(out)[length(out)] <- "rolling_average"
   attr(out, "rolling_average") <- "rolling_average"
   attr(out, "before") <- before
