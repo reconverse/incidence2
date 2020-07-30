@@ -489,23 +489,23 @@ interval.</p>
 #&gt; </span><span style='color: #555555;'># … with 46 more rows</span><span>
 #&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = 7, groups = gender)
-#&gt; </span><span style='color: #555555;'>An incidence object: 112 x 4
+#&gt; </span><span style='color: #555555;'>An incidence object: 112 x 3
 #&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-27]
 #&gt; [interval: 7 days]
 #&gt; [cumulative: FALSE]
 #&gt; 
-#&gt;    bin_date   week_group gender count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07 2014-W15   f          1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-07 2014-W15   m          0
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-14 2014-W16   f          0
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-14 2014-W16   m          1
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-04-21 2014-W17   f          4
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-04-21 2014-W17   m          1
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-04-28 2014-W18   f          4
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-04-28 2014-W18   m          0
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2014-05-05 2014-W19   f          9
-#&gt; </span><span style='color: #555555;'>10</span><span> 2014-05-05 2014-W19   m          3
+#&gt;    bin_date   gender count
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07 f          1
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-07 m          0
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-14 f          0
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-14 m          1
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-04-21 f          4
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-04-21 m          1
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-04-28 f          4
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-04-28 m          0
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2014-05-05 f          9
+#&gt; </span><span style='color: #555555;'>10</span><span> 2014-05-05 m          3
 #&gt; </span><span style='color: #555555;'># … with 102 more rows</span><span>
 #&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "2 weeks", groups = c(gender, 
