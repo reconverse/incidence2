@@ -61,29 +61,35 @@ inci %>%
 ```
 
 ## `rolling_average`
-We can easily add to an `incidence()` object a rolling average, across groupings, 
-of the current and previous observations:
+We can easily add a rolling average, across current and previous intervals, to
+an `incidence()` object:
 
 ```{r rolling_average}
-inci <- 
-  dat %>% 
-  incidence(
-    date_index = date_of_onset,
-    interval = "week",
-    last_date = "2014-10-05",
-    groups = gender)
 
-# adding the rolling average
-ra <- rolling_average(inci, before = 2)
-ra
+# without groups ----------------------------------------------------------
+inci <- incidence(dat,
+                  date_index = date_of_onset,
+                  interval = "week", 
+                  last_date = "2014-10-05")
 
-# remove the rolling average
-remove_rolling(ra)
+inci %>%  
+  rolling_average(before = 2) %>% 
+  plot(color = "white")
 
-# plotting across the groups
-ra %>% facet_plot(color = "white")
 
-# we must remove groups if we want the overall rolling average
+# grouped by gender -------------------------------------------------------
+inci <- incidence(dat,
+                  date_index = date_of_onset,
+                  interval = "week", 
+                  last_date = "2014-10-05",
+                  groups = gender)
+
+# facet_plot
+inci %>%  
+  rolling_average(before = 2) %>% 
+  facet_plot(color = "white")
+
+# individual plot would need regrouping if groups present
 inci %>% 
   regroup %>% 
   rolling_average() %>% 
