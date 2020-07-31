@@ -22,6 +22,8 @@
   group_labels = TRUE,
   centre_labels = FALSE,
   legend = c("right", "left", "bottom", "top", "none"),
+  angle = 0,
+  format = NULL,
   ...
 )
 
@@ -42,6 +44,8 @@ facet_plot(
   group_labels = TRUE,
   centre_labels = FALSE,
   legend = c("bottom", "top", "left", "right", "none"),
+  angle = 0,
+  format = NULL,
   nrow = NULL,
   ...
 )
@@ -104,6 +108,10 @@ only applies to intervals that produce unambiguous labels (i.e \verb{1 day},
 
 \item{legend}{Position of legend in plot.}
 
+\item{angle}{Angle to rotate x-axis labels.}
+
+\item{format}{Character string of desired format.  See \code{?strptime}.}
+
 \item{...}{arguments passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date()}},
 \code{\link[ggplot2:scale_date]{ggplot2::scale_x_datetime()}}, or \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}},
 depending on how the \verb{$date} element is stored in the incidence object.}
@@ -112,10 +120,6 @@ depending on how the \verb{$date} element is stored in the incidence object.}
 group_labels of the incidence object.}
 
 \item{nrow}{Number of rows.}
-
-\item{format}{Character string of desired format.  See \code{?strptime}.}
-
-\item{angle}{Angle to rotate x-axis labels.}
 
 \item{size}{text size in pts.}
 

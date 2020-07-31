@@ -56,10 +56,11 @@
 #'   axis tick marks are in week format YYYY-Www when plotting weekly incidence;
 #'   defaults to TRUE.
 #' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
-#' @param legend Position of legend in plot.
 #' @param centre_labels Should labels on the axis be centred on the bars. This
 #'   only applies to intervals that produce unambiguous labels (i.e `1 day`,
 #'   `1 month`, `1 quarter` or `1 year`).  Defaults to `FALSE`.
+#' @param legend Position of legend in plot.
+#' @param angle Rotation angle for text.
 #' @param nrow Number of rows.
 #' @param ... other arguments to pass to [scale_x_incidence()].
 #'
@@ -109,6 +110,7 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE,
                            na_color = "grey",
                            group_labels = TRUE, centre_labels = FALSE,
                            legend = c("right", "left", "bottom", "top", "none"),
+                           angle = 0, format = NULL,
                            ...) {
 
   ellipsis::check_dots_used()
@@ -121,7 +123,8 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE,
                     group_labels, centre_labels,
                     legend = match.arg(legend))
 
- out + scale_x_incidence(x, n_breaks, group_labels, ...)
+ out + scale_x_incidence(x, n_breaks, group_labels, angle = angle,
+                         format = format,...)
 
 
 }
@@ -137,7 +140,7 @@ facet_plot <- function(x, facets = NULL, stack = TRUE, fill = NULL,
                        na_color = "grey",
                        group_labels = TRUE, centre_labels = FALSE,
                        legend = c("bottom", "top", "left", "right", "none"),
-                       nrow = NULL, ...) {
+                       angle = 0, format = NULL, nrow = NULL, ...) {
 
   ellipsis::check_dots_used()
 
@@ -160,7 +163,8 @@ facet_plot <- function(x, facets = NULL, stack = TRUE, fill = NULL,
     out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), nrow, ...)
   }
 
-  out + scale_x_incidence(x, n_breaks, group_labels, ...)
+  out + scale_x_incidence(x, n_breaks, group_labels, angle = angle,
+                          format = format, ...)
 }
 
 plot_basic <- function(x, fill = NULL, stack = TRUE,
