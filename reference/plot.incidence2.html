@@ -144,6 +144,7 @@
   <span class='no'>x</span>,
   <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>vibrant</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
@@ -156,6 +157,8 @@
   <span class='kw'>group_labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>centre_labels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>, <span class='st'>"bottom"</span>, <span class='st'>"top"</span>, <span class='st'>"none"</span>),
+  <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )
 
@@ -164,6 +167,7 @@
   <span class='kw'>facets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>vibrant</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
@@ -176,6 +180,8 @@
   <span class='kw'>group_labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>centre_labels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bottom"</span>, <span class='st'>"top"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"none"</span>),
+  <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )
@@ -207,6 +213,10 @@ for plot colors.</p></td>
       <th>stack</th>
       <td><p>A logical indicating if bars of multiple groups should be
 stacked, or displayed side-by-side. Only used if fill is not NULL.</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>Optional title for the graph.</p></td>
     </tr>
     <tr>
       <th>col_pal</th>
@@ -271,6 +281,14 @@ only applies to intervals that produce unambiguous labels (i.e <code>1 day</code
       <td><p>Position of legend in plot.</p></td>
     </tr>
     <tr>
+      <th>angle</th>
+      <td><p>Angle to rotate x-axis labels.</p></td>
+    </tr>
+    <tr>
+      <th>format</th>
+      <td><p>Character string of desired format.  See <code><a href='https://rdrr.io/r/base/strptime.html'>?strptime</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>arguments passed to <code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>ggplot2::scale_x_date()</a></code>,
 <code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>ggplot2::scale_x_datetime()</a></code>, or <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>ggplot2::scale_x_continuous()</a></code>,
@@ -284,14 +302,6 @@ group_labels of the incidence object.</p></td>
     <tr>
       <th>nrow</th>
       <td><p>Number of rows.</p></td>
-    </tr>
-    <tr>
-      <th>format</th>
-      <td><p>Character string of desired format.  See <code><a href='https://rdrr.io/r/base/strptime.html'>?strptime</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>angle</th>
-      <td><p>Angle to rotate x-axis labels.</p></td>
     </tr>
     <tr>
       <th>size</th>
