@@ -121,8 +121,8 @@ as_incidence.data.frame <- function(x, date_index, counts_var,
 
   dat <- dat[rep(seq_len(nrow(dat)), x[[count]]), ]
   incidence(dat,
-            date_index = !!rlang::enexpr(dates),
-            groups = !!rlang::enexpr(groups),
+            date_index = !!rlang::enexpr(date_index),
+            groups = !!rlang::enexpr(group_vars),
             interval = interval,
             standard = standard)
 
