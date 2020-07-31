@@ -53,9 +53,9 @@ get_counts.default <- function(x, ...) {
 }
 
 #' @rdname accessors
-#' @aliases get_counts.incidence
+#' @aliases get_counts.incidence2
 #' @export
-get_counts.incidence <- function(x, ...) {
+get_counts.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   x[[attr(x, "count")]]
 }
@@ -81,9 +81,9 @@ get_counts_name.default <- function(x, ...) {
 }
 
 #' @rdname accessors
-#' @aliases get_counts_name.incidence
+#' @aliases get_counts_name.incidence2
 #' @export
-get_counts_name.incidence <- function(x, ...) {
+get_counts_name.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   attr(x, "count")
 }
@@ -109,9 +109,9 @@ get_date_group_names.default <- function(x, ...) {
 }
 
 #' @rdname accessors
-#' @aliases get_dates_name.incidence
+#' @aliases get_dates_name.incidence2
 #' @export
-get_date_group_names.incidence <- function(x, ...) {
+get_date_group_names.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   attr(x, "date_group")
 }
@@ -137,9 +137,9 @@ get_dates.default <- function(x, ...) {
 }
 
 #' @rdname accessors
-#' @aliases get_dates.incidence
+#' @aliases get_dates.incidence2
 #' @export
-get_dates.incidence <- function(x, ...) {
+get_dates.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   x[[attr(x, "date")]]
 }
@@ -165,9 +165,9 @@ get_dates_name.default <- function(x, ...) {
 }
 
 #' @rdname accessors
-#' @aliases get_dates_name.incidence
+#' @aliases get_dates_name.incidence2
 #' @export
-get_dates_name.incidence <- function(x, ...) {
+get_dates_name.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   attr(x, "date")
 }
@@ -194,9 +194,9 @@ get_group_names.default <- function(x, ...) {
 }
 
 #' @rdname accessors
-#' @aliases get_group_names.incidence
+#' @aliases get_group_names.incidence2
 #' @export
-get_group_names.incidence <- function(x, ...) {
+get_group_names.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   attr(x, "groups")
 }

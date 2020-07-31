@@ -38,7 +38,7 @@
 #' @export
 bootstrap <- function(x, randomise_groups = FALSE) {
 
-  if (!inherits(x, "incidence")) stop("x is not an incidence object")
+  if (!inherits(x, "incidence2")) stop("x is not an incidence2 object")
 
   count_var <- get_counts_name(x)
   group_vars <- get_group_names(x)
@@ -69,7 +69,7 @@ bootstrap <- function(x, randomise_groups = FALSE) {
                             interval = get_interval(x),
                             cumulative = attr(x, "cumulative"),
                             nrow = nrow(tbl),
-                            class = "incidence"
+                            class = "incidence2"
   )
   tibble::validate_tibble(tbl)
 }

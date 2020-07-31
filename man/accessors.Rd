@@ -5,86 +5,86 @@
 \alias{accessors}
 \alias{get_counts}
 \alias{get_counts.default}
-\alias{get_counts.incidence}
+\alias{get_counts.incidence2}
 \alias{get_counts_name}
 \alias{get_counts_name.default}
-\alias{get_counts_name.incidence}
+\alias{get_counts_name.incidence2}
 \alias{get_date_group_names}
 \alias{get_dates_name}
 \alias{get_date_group_names.default}
-\alias{get_date_group_names.incidence}
-\alias{get_dates_name.incidence}
+\alias{get_date_group_names.incidence2}
+\alias{get_dates_name.incidence2}
 \alias{get_dates}
 \alias{get_dates.default}
-\alias{get_dates.incidence}
+\alias{get_dates.incidence2}
 \alias{get_dates_name.default}
 \alias{get_group_names}
 \alias{get_group_names.default}
-\alias{get_group_names.incidence}
+\alias{get_group_names.incidence2}
 \alias{get_interval}
 \alias{get_interval.default}
-\alias{get_interval.incidence}
+\alias{get_interval.incidence2}
 \alias{get_n}
 \alias{get_n.default}
-\alias{get_n.incidence}
+\alias{get_n.incidence2}
 \alias{get_timespan}
 \alias{get_timespan.default}
-\alias{get_timespan.incidence}
+\alias{get_timespan.incidence2}
 \title{Access various elements of an incidence object}
 \usage{
 get_counts(x, ...)
 
 \method{get_counts}{default}(x, ...)
 
-\method{get_counts}{incidence}(x, ...)
+\method{get_counts}{incidence2}(x, ...)
 
 get_counts_name(x, ...)
 
 \method{get_counts_name}{default}(x, ...)
 
-\method{get_counts_name}{incidence}(x, ...)
+\method{get_counts_name}{incidence2}(x, ...)
 
 get_date_group_names(x, ...)
 
 \method{get_date_group_names}{default}(x, ...)
 
-\method{get_date_group_names}{incidence}(x, ...)
+\method{get_date_group_names}{incidence2}(x, ...)
 
 get_dates(x, ...)
 
 \method{get_dates}{default}(x, ...)
 
-\method{get_dates}{incidence}(x, ...)
+\method{get_dates}{incidence2}(x, ...)
 
 get_dates_name(x, ...)
 
 \method{get_dates_name}{default}(x, ...)
 
-\method{get_dates_name}{incidence}(x, ...)
+\method{get_dates_name}{incidence2}(x, ...)
 
 get_group_names(x, ...)
 
 \method{get_group_names}{default}(x, ...)
 
-\method{get_group_names}{incidence}(x, ...)
+\method{get_group_names}{incidence2}(x, ...)
 
 get_interval(x, ...)
 
 \method{get_interval}{default}(x, ...)
 
-\method{get_interval}{incidence}(x, integer = FALSE, ...)
+\method{get_interval}{incidence2}(x, integer = FALSE, ...)
 
 get_n(x)
 
 \method{get_n}{default}(x)
 
-\method{get_n}{incidence}(x)
+\method{get_n}{incidence2}(x)
 
 get_timespan(x, ...)
 
 \method{get_timespan}{default}(x, ...)
 
-\method{get_timespan}{incidence}(x, ...)
+\method{get_timespan}{incidence2}(x, ...)
 }
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}

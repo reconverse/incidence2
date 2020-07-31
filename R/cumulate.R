@@ -36,7 +36,7 @@ cumulate.default <- function(x) {
 #' @importFrom dplyr grouped_df across all_of mutate ungroup
 #' @export
 #' @rdname cumulate
-cumulate.incidence <- function(x) {
+cumulate.incidence2 <- function(x) {
   is_cumulate <- attr(x, "cumulative")
   if (is_cumulate) {
     stop("x is already a cumulative incidence")

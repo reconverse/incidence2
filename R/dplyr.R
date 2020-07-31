@@ -100,7 +100,7 @@ incidence_reconstruct <- function(x, to) {
   if (incidence_can_reconstruct(x, to)) {
     df_reconstruct(x, to)
   } else {
-    message("Note: incidence class dropped in returned object\n")
+    message("Note: incidence2 class dropped in returned object\n")
     new_bare_tibble(x)
   }
 }
@@ -145,19 +145,19 @@ new_bare_tibble <- function(x) {
 # Need to define a few base R methods to ensure things work as expected
 
 #' @export
-`[.incidence` <- function(x, i, j, ...) {
+`[.incidence2` <- function(x, i, j, ...) {
   out <- NextMethod()
   incidence_reconstruct(out, x)
 }
 
 #' @export
-`[<-.incidence` <- function(x, i, j, ..., value) {
+`[<-.incidence2` <- function(x, i, j, ..., value) {
   out <- NextMethod()
   incidence_reconstruct(out, x)
 }
 
 #' @export
-`names<-.incidence` <- function(x, value) {
+`names<-.incidence2` <- function(x, value) {
   current_names <- names(x)
 
   date_var <- attr(x, "date")

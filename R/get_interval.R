@@ -20,9 +20,9 @@ get_interval.default <- function(x, ...) {
 #' @param integer When `TRUE`, the interval will be converted to an
 #'   integer vector if it is stored as a character in the incidence object.
 #' @rdname accessors
-#' @aliases get_interval.incidence
+#' @aliases get_interval.incidence2
 #' @export
-get_interval.incidence <- function(x, integer = FALSE, ...) {
+get_interval.incidence2 <- function(x, integer = FALSE, ...) {
   ellipsis::check_dots_empty()
 
   interval <- attr(x, "interval")

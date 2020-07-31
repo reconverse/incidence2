@@ -9,12 +9,12 @@ dat <- data.frame(DATES, groups = groups, stringsAsFactors = FALSE)
 
 
 test_that("Bootstrap needs an incidence object", {
-  expect_error(bootstrap(DATES), "x is not an incidence object")
+  expect_error(bootstrap(DATES), "x is not an incidence2 object")
 })
 
 
 test_that("estimate_peak needs an incidence object", {
-  expect_error(estimate_peak(DATES), "x is not an incidence object")
+  expect_error(estimate_peak(DATES), "x is not an incidence2 object")
 })
 
 

@@ -1,17 +1,17 @@
 #' Print an incidence object.
 #'
-#' @param x An 'incidence' object.
+#' @param x An 'incidence2' object.
 #' @param ... Not used.
 #'
 #' @export
-print.incidence <- function(x, ...) {
+print.incidence2 <- function(x, ...) {
 
   # get the date and count variables
   count_var <- get_counts_name(x)
   date_var <- get_dates_name(x)
 
   # header
-  header <- sprintf("An incidence object: %s x %s\n",
+  header <- sprintf("An incidence2 object: %s x %s\n",
                     formatC(nrow(x), big.mark = ","),
                     formatC(ncol(x), big.mark = ","))
   cat(pillar::style_subtle(header))

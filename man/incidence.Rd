@@ -106,7 +106,7 @@ from the observations. If these dates are provided, the observations will
 be trimmed to the range of [first_date, last_date].}
 }
 \value{
-An incidence object.  This is a subclass of tibble that represents
+An incidence2 object.  This is a subclass of tibble that represents
 and aggregated count of observations grouped according to the specified
 interval and, optionally, the given groups.  By default it will contain the
 following columns:
@@ -161,7 +161,7 @@ sets the interval to begin at the first observed case.
 
 \subsection{Week intervals}{
 
-As of \emph{incidence} version 1.7.0, it is possible to construct standardized
+It is possible to construct standardized
 incidence objects standardized to any day of the week thanks to the
 \code{\link[aweek:date2week]{aweek::date2week()}} function from the \pkg{aweek} package. The default
 state is to use ISO 8601 definition of weeks, which start on Monday. You can

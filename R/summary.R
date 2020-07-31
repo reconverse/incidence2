@@ -3,14 +3,14 @@
 #' @param object An 'incidence' object.
 #' @param ... Not used.
 #' @export
-summary.incidence <- function(object, ...) {
+summary.incidence2 <- function(object, ...) {
 
   # get the date and count variables
   count_var <- get_counts_name(object)
   date_var <- get_dates_name(object)
 
   # header
-  header <- sprintf("An incidence object: %s x %s\n",
+  header <- sprintf("An incidence2 object: %s x %s\n",
                     formatC(nrow(object), big.mark = ","),
                     formatC(ncol(object), big.mark = ","))
   cat(pillar::style_subtle(header))

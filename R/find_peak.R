@@ -30,7 +30,7 @@
 #' @importFrom dplyr grouped_df across all_of
 #' @export
 find_peak <- function(x, regroup = TRUE) {
-  if (!inherits(x, "incidence")) {
+  if (!inherits(x, "incidence2")) {
     stop(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
   }
 

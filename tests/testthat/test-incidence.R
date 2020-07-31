@@ -19,7 +19,7 @@ test_that("construction - default, integer input", {
   x <- incidence(data.frame(dates = dat), date_index = dates)
 
   ## classes
-  expect_is(x, "incidence")
+  expect_is(x, "incidence2")
   expect_is(x$bin_date, class(dat))
   expect_is(x$count, "integer")
 
@@ -39,7 +39,7 @@ test_that("construction - default, integer input", {
   )
 
   ## classes
-  expect_is(x, "incidence")
+  expect_is(x, "incidence2")
   expect_is(x$bin_date, class(dat))
   expect_is(x$count, "integer")
 
@@ -65,8 +65,8 @@ test_that("construction - ISO week", {
     interval = 7)
 
   ## classes
-  expect_is(inc_week, "incidence")
-  expect_is(inc_isoweek, "incidence")
+  expect_is(inc_week, "incidence2")
+  expect_is(inc_isoweek, "incidence2")
 
   ## results
   expect_false(any(is.na(inc_isoweek$count)))
@@ -322,7 +322,7 @@ test_that("construction - character input", {
     "2 missing observations were removed."
   )
 
-  expect_is(i_date, "incidence")
+  expect_is(i_date, "incidence2")
   expect_identical(i_date, i_char)
   expect_identical(i_date, i_chaw)
   expect_identical(i_date, i_cham)
@@ -446,27 +446,27 @@ test_that("Expected values, no group", {
 
   dat <- data.frame(dates = c(3,2,-1,1,1))
   res1 <- incidence(dat, date_index = dates)
-  expect_equal_to_reference(res1, file = "rds/incidence.res1.rds")
+  expect_known_value(res1, file = "rds/incidence.res1.rds")
 
   dat <- data.frame(dates = c(0,0,0))
   res2 <- incidence(dat, date_index = dates)
-  expect_equal_to_reference(res2, file = "rds/incidence.res2.rds")
+  expect_known_value(res2, file = "rds/incidence.res2.rds")
 
   dat <- data.frame(dates = sample(1:80, 1000, replace = TRUE))
   res3 <- incidence(dat, date_index = dates)
-  expect_equal_to_reference(res3, file = "rds/incidence.res3.rds")
+  expect_known_value(res3, file = "rds/incidence.res3.rds")
 
   dat <- data.frame(dates = as.Date("1984-01-01") + sample(1:100, 200, replace = TRUE))
   res4 <- incidence(dat, date_index = dates)
-  expect_equal_to_reference(res4, file = "rds/incidence.res4.rds")
+  expect_known_value(res4, file = "rds/incidence.res4.rds")
 
   dat <- data.frame(dates = c(3, 2, -1, 1, 1))
   res5 <- incidence(dat, date_index = dates, interval = 2L)
-  expect_equal_to_reference(res5, file = "rds/incidence.res5.rds")
+  expect_known_value(res5, file = "rds/incidence.res5.rds")
 
   dat <- data.frame(dates = c(0,0,0))
   res6 <- incidence(dat, date_index = dates, interval = 3L)
-  expect_equal_to_reference(res6, file = "rds/incidence.res6.rds")
+  expect_known_value(res6, file = "rds/incidence.res6.rds")
 
 })
 
@@ -500,15 +500,15 @@ test_that("Expected values, with groups", {
 
   dat <- data.frame(dates = dates[[1]], groups = factors[[1]])
   res.g.1 <- incidence(dat, date_index = dates, groups = groups)
-  expect_equal_to_reference(res.g.1, file = "rds/res.g.1.rds")
+  expect_known_value(res.g.1, file = "rds/res.g.1.rds")
 
   dat <- data.frame(dates = dates[[2]], groups = factors[[2]])
   res.g.2 <- incidence(dat, date_index = dates, groups = groups)
-  expect_equal_to_reference(res.g.2, file = "rds/res.g.2.rds")
+  expect_known_value(res.g.2, file = "rds/res.g.2.rds")
 
   dat <- data.frame(dates = dates[[3]], groups = factors[[3]])
   res.g.3 <- incidence(dat, date_index = dates, groups = groups)
-  expect_equal_to_reference(res.g.3, file = "rds/res.g.3.rds")
+  expect_known_value(res.g.3, file = "rds/res.g.3.rds")
 
   dates <- as.Date(c("2020-07-30", "2020-07-30", rep("2020-08-06", 3)))
   group1 <- c("Bob", "Bob", "Bob", "George", "George")
@@ -518,7 +518,7 @@ test_that("Expected values, with groups", {
                        date_index = dates,
                        groups = c(group1, group2),
                        interval = "week")
-  expect_equal_to_reference(res.g.4, file = "rds/res.g.4.rds")
+  expect_known_value(res.g.4, file = "rds/res.g.4.rds")
 })
 
 test_that("user-defined group levels are preserved", {
@@ -533,20 +533,16 @@ test_that("Print and summary returns the object", {
   dat <- data.frame(dates = "2001-01-01")
   x <- incidence(dat, date_index = dates)
 
-  expect_equal_to_reference(capture.output(print(x)),
-                            file = "rds/print1.rds")
+  expect_known_output(print(x), file = "rds/print1.rds")
 
-  expect_equal_to_reference(capture.output(summary(x)),
-                            file = "rds/summary1.rds")
+  expect_known_output(summary(x), file = "rds/summary1.rds")
 
   dat <- data.frame(dates = 1:2, groups = factor(1:2))
   y <- incidence(dat,date_index = dates, groups = groups)
 
-  expect_equal_to_reference(capture.output(print(y)),
-                            file = "rds/print2.rds")
+  expect_known_output(print(y), file = "rds/print2.rds")
 
-  expect_equal_to_reference(capture.output(summary(y)),
-                            file = "rds/summary2.rds")
+  expect_known_output(summary(y), file = "rds/summary2.rds")
 
 })
 

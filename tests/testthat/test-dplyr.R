@@ -57,51 +57,51 @@ test_that("operations that preserve class", {
     inci %>%
     filter(gender == "f", hospital == "Rokupa Hospital")
 
-  expect_s3_class(x, "incidence")
+  expect_s3_class(x, "incidence2")
 
   x <-
     inci %>%
     slice_sample(prop = 0.1)
 
-  expect_s3_class(x, "incidence")
+  expect_s3_class(x, "incidence2")
 
   x <-
     inci %>%
     slice_sample(n = 10)
 
-  expect_s3_class(x, "incidence")
+  expect_s3_class(x, "incidence2")
 
   x <-
     inci %>%
     slice(1, 5, 10)
 
-  expect_s3_class(x, "incidence")
+  expect_s3_class(x, "incidence2")
 
   x <-
     inci %>%
     slice_max(order_by = count, n = 10)
 
-  expect_s3_class(x, "incidence")
+  expect_s3_class(x, "incidence2")
 
   x <-
     inci %>%
     select(everything())
 
-  expect_s3_class(x, "incidence")
+  expect_s3_class(x, "incidence2")
 
   x <-
     inci %>%
     mutate(future = bin_date + 999)
 
-  expect_s3_class(x, "incidence")
+  expect_s3_class(x, "incidence2")
 
   x <-
     inci %>%
     rename(left_bin = bin_date)
 
-  expect_s3_class(x, "incidence")
+  expect_s3_class(x, "incidence2")
 
-  expect_s3_class(inci[], "incidence")
+  expect_s3_class(inci[], "incidence2")
 
   # Adding rows that are multiple of 2 weeks maintains class
   x <-
@@ -109,7 +109,7 @@ test_that("operations that preserve class", {
     slice_head(n = 2) %>%
     mutate(bin_date = bin_date + 112) %>%
     bind_rows(inci)
-  expect_true(inherits(x, "incidence"))
+  expect_true(inherits(x, "incidence2"))
 
 
   # Adding rows that are first date of a month maintains class
@@ -118,7 +118,7 @@ test_that("operations that preserve class", {
     slice_head(n = 2) %>%
     mutate(bin_date = as.Date("2020-03-01")) %>%
   bind_rows(inci_month)
-  expect_true(inherits(x, "incidence"))
+  expect_true(inherits(x, "incidence2"))
 
 
   # Adding rows that are first date of a quarter maintains class
@@ -127,7 +127,7 @@ test_that("operations that preserve class", {
     slice_head(n = 2) %>%
     mutate(bin_date = as.Date("2020-07-01")) %>%
     bind_rows(inci_quarter)
-  expect_true(inherits(x, "incidence"))
+  expect_true(inherits(x, "incidence2"))
 
 
   # Adding rows that are first date of a year maintains class
@@ -136,37 +136,37 @@ test_that("operations that preserve class", {
     slice_head(n = 2) %>%
     mutate(bin_date = as.Date("2020-01-01")) %>%
     bind_rows(inci_year)
-  expect_true(inherits(x, "incidence"))
+  expect_true(inherits(x, "incidence2"))
 
 
 })
 
 test_that("operations that drop class", {
 
-  expect_false(inherits(inci[1:3], "incidence"))
+  expect_false(inherits(inci[1:3], "incidence2"))
 
 
   x <-
     inci %>%
     select(bin_date, count)
-  expect_false(inherits(x, "incidence"))
+  expect_false(inherits(x, "incidence2"))
 
   x <-
     inci %>%
     select(-1)
-  expect_false(inherits(x, "incidence"))
+  expect_false(inherits(x, "incidence2"))
 
   x <-
     inci %>%
     pull(1)
 
-  expect_false(inherits(x, "incidence"))
+  expect_false(inherits(x, "incidence2"))
 
   x <-
     inci %>%
     transmute(new_count = count + 1)
 
-  expect_false(inherits(x, "incidence"))
+  expect_false(inherits(x, "incidence2"))
 
 
   # Changing rows to have wrong interval (e.g. not 2 weeks) drops class
@@ -180,7 +180,7 @@ test_that("operations that drop class", {
         )
     )
 
-  expect_false(inherits(x, "incidence"))
+  expect_false(inherits(x, "incidence2"))
 
   # Adding rows with dates that are not multiples of 2 weeks drops class
   x <-
@@ -188,7 +188,7 @@ test_that("operations that drop class", {
     slice_head(n = 2) %>%
     mutate(bin_date = bin_date + 30) %>%
     bind_rows(inci)
-  expect_false(inherits(x, "incidence"))
+  expect_false(inherits(x, "incidence2"))
 
   # Adding rows that are not first day of a month drops class
   y <-
@@ -196,7 +196,7 @@ test_that("operations that drop class", {
     slice_head(n = 2) %>%
     mutate(bin_date = as.Date("2020-03-02"))
     y %>% bind_rows(inci_month)
-  expect_false(inherits(x, "incidence"))
+  expect_false(inherits(x, "incidence2"))
 
   # Adding rows that are not the first date of a quarter drops class
   x <-
@@ -204,7 +204,7 @@ test_that("operations that drop class", {
     slice_head(n = 2) %>%
     mutate(bin_date = as.Date("2020-06-01")) %>%
     bind_rows(inci_quarter)
-  expect_false(inherits(x, "incidence"))
+  expect_false(inherits(x, "incidence2"))
 
   # Adding rows that are not the first date of a year drops class
   x <-
@@ -212,14 +212,12 @@ test_that("operations that drop class", {
     slice_head(n = 2) %>%
     mutate(bin_date = as.Date("2020-02-01")) %>%
     bind_rows(inci_year)
-  expect_false(inherits(x, "incidence"))
+  expect_false(inherits(x, "incidence2"))
 
 
   x <- inci
   x[1,1] <- x[1,1] + 3
-  expect_false(inherits(x, "incidence"))
+  expect_false(inherits(x, "incidence2"))
 
 
 })
-
-# TODO - full set of tests for expected behaviour

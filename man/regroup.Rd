@@ -33,10 +33,6 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 }
 
 }
-\seealso{
-The \code{\link[=incidence]{incidence()}} function to generate the 'incidence'
-objects.
-}
 \author{
 Thibaut Jombart \email{thibautjombart@gmail.com}
 }

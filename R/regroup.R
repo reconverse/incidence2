@@ -6,8 +6,6 @@
 #'
 #' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
 #'
-#' @seealso The [incidence()] function to generate the 'incidence'
-#' objects.
 #'
 #' @param x An [incidence()] object.
 #' @param groups The groups to sum over.  If `NULL` (default) then the function
@@ -31,9 +29,9 @@
 #' @export
 regroup <- function(x, groups = NULL){
 
-  if (!inherits(x, "incidence")) {
+  if (!inherits(x, "incidence2")) {
     stop(sprintf(
-      "x should be an 'incidence' object.",
+      "x should be an 'incidence2' object.",
       class(x)))
   }
 
@@ -61,7 +59,7 @@ regroup <- function(x, groups = NULL){
                             interval = interval,
                             cumulative = cumulate,
                             nrow = nrow(tbl),
-                            class = "incidence"
+                            class = "incidence2"
   )
   tbl <- tibble::validate_tibble(tbl)
 

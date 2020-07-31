@@ -13,7 +13,7 @@
 #' as.data.frame(dat)
 #'
 #' @export
-as.data.frame.incidence <- function(x, ...) {
+as.data.frame.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   vctrs::new_data_frame(x)
 }
@@ -21,7 +21,7 @@ as.data.frame.incidence <- function(x, ...) {
 
 
 # -------------------------------------------------------------------------
-#' Convert incident object to a tibble
+#' Convert incident2 object to a tibble
 #'
 #' @param x An [incidence()] object.
 #'
@@ -36,7 +36,7 @@ as.data.frame.incidence <- function(x, ...) {
 #'
 #' @export
 #' @name as_tibble
-as_tibble.incidence <- function(x, ...) {
+as_tibble.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   new_bare_tibble(x)
 }

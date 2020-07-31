@@ -24,7 +24,7 @@
 #'
 #' @author Zhian Kamvar, Tim Taylor
 #' @importFrom dplyr mutate group_by across summarise n left_join filter
-#' @return An incidence object.
+#' @return An incidence2 object.
 #' @noRd
 make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
                            na_as_group = TRUE, first_date = NULL,
@@ -115,7 +115,7 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
                             interval = interval,
                             cumulative = FALSE,
                             nrow = nrow(x),
-                            class = "incidence"
+                            class = "incidence2"
   )
   tibble::validate_tibble(tbl)
 }

@@ -27,7 +27,7 @@
 #'
 #' @param ... Additional arguments used by other methods.
 #'
-#' @return An incidence object.  This is a subclass of tibble that represents
+#' @return An incidence2 object.  This is a subclass of tibble that represents
 #'   and aggregated count of observations grouped according to the specified
 #'   interval and, optionally, the given groups.  By default it will contain the
 #'   following columns:
@@ -77,7 +77,7 @@
 #'
 #' \subsection{Week intervals}{
 #'
-#' As of _incidence_ version 1.7.0, it is possible to construct standardized
+#' It is possible to construct standardized
 #' incidence objects standardized to any day of the week thanks to the
 #' [aweek::date2week()] function from the \pkg{aweek} package. The default
 #' state is to use ISO 8601 definition of weeks, which start on Monday. You can

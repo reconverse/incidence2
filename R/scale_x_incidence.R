@@ -6,7 +6,7 @@
 #' @param size text size in pts.
 #' @param coord_equal Should the x and y axis display with equal ratio.
 #' @export
-#' @rdname plot.incidence
+#' @rdname plot.incidence2
 scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE,
                               format = NULL, angle = 0, size = NULL,
                               coord_equal = FALSE, ...) {
@@ -42,6 +42,7 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE,
       if (grepl("week", interval)) {
         reg <- regexpr("^\\d+", interval)
         if (reg != -1L) {
+
           num_weeks <- regmatches(interval, reg)
           if (num_weeks > 1) {
             labels <- breaks$breaks
@@ -73,7 +74,7 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE,
 }
 
 make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
-  stopifnot(inherits(x, "incidence"), is.logical(group_labels), is.numeric(n_breaks))
+  stopifnot(inherits(x, "incidence2"), is.logical(group_labels), is.numeric(n_breaks))
 
   date_var <- get_dates_name(x)
   ## Defining breaks for the x axis --------------------------------------------

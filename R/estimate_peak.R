@@ -62,8 +62,8 @@
 #'
 #' @export
 estimate_peak <- function(x, n = 100, alpha = 0.05, progress = TRUE) {
-  if (!inherits(x, "incidence")) {
-    stop("x is not an incidence object")
+  if (!inherits(x, "incidence2")) {
+    stop("x is not an incidence2 object")
   }
 
   group_vars <- get_group_names(x)

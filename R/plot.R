@@ -102,7 +102,7 @@
 
 #' @importFrom rlang sym syms
 #' @export
-plot.incidence <- function(x, fill = NULL, stack = TRUE,
+plot.incidence2 <- function(x, fill = NULL, stack = TRUE,
                            col_pal = vibrant, alpha = 0.7, color = NA,
                            xlab = "", ylab = NULL, n_breaks = 6,
                            show_cases = FALSE, border = "white",
@@ -128,7 +128,7 @@ plot.incidence <- function(x, fill = NULL, stack = TRUE,
 
 #' @importFrom rlang sym syms
 #' @export
-#' @rdname plot.incidence
+#' @rdname plot.incidence2
 
 facet_plot <- function(x, facets = NULL, stack = TRUE, fill = NULL,
                        col_pal = vibrant, alpha = 0.7, color = NA,

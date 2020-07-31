@@ -17,8 +17,8 @@ get_n.default <- function(x) {
 
 #' @export
 #' @rdname accessors
-#' @aliases get_n.incidence
-get_n.incidence <- function(x) {
+#' @aliases get_n.incidence2
+get_n.incidence2 <- function(x) {
   count_var <- get_counts_name(x)
   sum(x[[count_var]])
 }
