@@ -113,7 +113,7 @@
 <p>The main features of the package include:</p>
 <ul>
 <li><p><strong><code><a href="../reference/incidence.html">incidence()</a></code></strong>: compute incidence from linelist datasets; any fixed time interval can be used; the returned object is a tibble subclass called <em>incidence</em>.</p></li>
-<li><p>plotting functions <strong><code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code></strong> and <strong><code><a href="../reference/plot.incidence.html">facet_plot()</a></code></strong>: these functions return customised ggplot2 plots of <em>incidence</em> objects (see <code><a href="../reference/plot.incidence.html">?plot.incidence</a></code> for details).</p></li>
+<li><p>plotting functions <strong><code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code></strong> and <strong><code><a href="../reference/plot.incidence2.html">facet_plot()</a></code></strong>: these functions return customised ggplot2 plots of <em>incidence</em> objects (see <code>?plot.incidence</code> for details).</p></li>
 <li><p>Compatible with <a href="https://dplyr.tidyverse.org/">dplyr</a> for data manipulation.</p></li>
 <li><p><strong><code><a href="../reference/regroup.html">regroup()</a></code></strong>: regroup incidence from different groups into one global incidence time series.</p></li>
 <li><p><strong><code><a href="../reference/cumulate.html">cumulate()</a></code></strong>: computes cumulative incidence over time from an <code>incidence</code> object.</p></li>
@@ -165,7 +165,7 @@
 <p>We compute the daily incidence:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">i</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>)
 <span class="no">i</span>
-<span class="co">#&gt; An incidence object: 389 x 2</span>
+<span class="co">#&gt; An incidence2 object: 389 x 2</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-30]</span>
 <span class="co">#&gt; [interval: 1 day]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -184,7 +184,7 @@
 <span class="co">#&gt; 10 2014-04-16     0</span>
 <span class="co">#&gt; # … with 379 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">i</span>)
-<span class="co">#&gt; An incidence object: 389 x 2</span>
+<span class="co">#&gt; An incidence2 object: 389 x 2</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-30</span>
 <span class="co">#&gt; interval: 1 day</span>
 <span class="co">#&gt; cumulative: FALSE</span>
@@ -211,11 +211,11 @@
 <div id="grouping" class="section level2">
 <h2 class="hasAnchor">
 <a href="#grouping" class="anchor"></a>Grouping</h2>
-<p><code><a href="../reference/incidence.html">incidence()</a></code> can also aggregate incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender and plot with both the <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> function for a single plot and the <code><a href="../reference/plot.incidence.html">facet_plot()</a></code> function for a multi-faceted plot across groups:</p>
+<p><code><a href="../reference/incidence.html">incidence()</a></code> can also aggregate incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender and plot with both the <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> function for a single plot and the <code><a href="../reference/plot.incidence2.html">facet_plot()</a></code> function for a multi-faceted plot across groups:</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">i_weekly_sex</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>,
                      <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"1 week"</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
 <span class="no">i_weekly_sex</span>
-<span class="co">#&gt; An incidence object: 112 x 4</span>
+<span class="co">#&gt; An incidence2 object: 112 x 4</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -234,7 +234,7 @@
 <span class="co">#&gt; 10 2014-05-05 2014-W19   m          3</span>
 <span class="co">#&gt; # … with 102 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">i_weekly_sex</span>)
-<span class="co">#&gt; An incidence object: 112 x 4</span>
+<span class="co">#&gt; An incidence2 object: 112 x 4</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 1 week</span>
 <span class="co">#&gt; cumulative: FALSE</span>
@@ -252,13 +252,13 @@
 <p><img src="Introduction_files/figure-html/gender-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r">
 <span class="co"># a multi-facet plot</span>
-<span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="no">i_weekly_sex</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"white"</span>, )</pre></body></html></div>
+<span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(<span class="no">i_weekly_sex</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"white"</span>, )</pre></body></html></div>
 <p><img src="Introduction_files/figure-html/gender-2.png" width="672" style="display: block; margin: auto;"></p>
 <p>There is no limit to the number of groups that we group by and this allows us to both facet and fill by different variables:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">inci</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>,
                      <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"1 week"</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">outcome</span>, <span class="no">hospital</span>, <span class="no">gender</span>))
 <span class="no">inci</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">hospital</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">outcome</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>)
+  <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">hospital</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">outcome</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>)
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></body></html></div>
 <p><img src="Introduction_files/figure-html/outcome_hospital-1.png" width="672" style="display: block; margin: auto;"></p>

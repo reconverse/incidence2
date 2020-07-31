@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find the peak date of an incidence curve — find_peak • incidence2</title>
+<title>Summary of a given incidence object — summary.incidence2 • incidence2</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Find the peak date of an incidence curve — find_peak" />
-<meta property="og:description" content="This function can be used to find the peak of an epidemic curve stored as an
-incidence object." />
+<meta property="og:title" content="Summary of a given incidence object — summary.incidence2" />
+<meta property="og:description" content="Summary of a given incidence object" />
 
 
 
@@ -131,80 +130,32 @@ incidence object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find the peak date of an incidence curve</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconhub/incidence2/blob/master/R/find_peak.R'><code>R/find_peak.R</code></a></small>
-    <div class="hidden name"><code>find_peak.Rd</code></div>
+    <h1>Summary of a given incidence object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconhub/incidence2/blob/master/R/summary.R'><code>R/summary.R</code></a></small>
+    <div class="hidden name"><code>summary.incidence2.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function can be used to find the peak of an epidemic curve stored as an
-<code>incidence</code> object.</p>
+    <p>Summary of a given incidence object</p>
     </div>
 
-    <pre class="usage"><span class='fu'>find_peak</span>(<span class='no'>x</span>, <span class='kw'>regroup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for incidence2</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>An <code>incidence</code> object.</p></td>
+      <th>object</th>
+      <td><p>An 'incidence' object.</p></td>
     </tr>
     <tr>
-      <th>regroup</th>
-      <td><p>If <code>TRUE</code> (default), any groups will be regrouped before
-finding a peak. If <code>FALSE</code>, separate peaks will be found for each group.</p></td>
+      <th>...</th>
+      <td><p>Not used.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The date of the (first) highest incidence in the data.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='estimate_peak.html'>estimate_peak()</a></code> for bootstrap estimates of the peak time</p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span>( {
-    <span class='co'># load data and create incidence</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>fluH7N9_china_2013</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"outbreaks"</span>)
-    <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>fluH7N9_china_2013</span>, <span class='kw'>date_index</span> <span class='kw'>=</span> <span class='no'>date_of_onset</span>)
-    <span class='no'>i</span>
-
-    <span class='fu'>find_peak</span>(<span class='no'>i</span>)
-  })
-}</div><div class='output co'>#&gt; &gt; data(fluH7N9_china_2013, package = "outbreaks")
-#&gt; &gt; i &lt;- incidence(fluH7N9_china_2013, date_index = date_of_onset)</div><div class='output co'>#&gt; <span class='message'>10 missing observations were removed.</span></div><div class='output co'>#&gt; &gt; i
-#&gt; <span style='color: #555555;'>An incidence2 object: 159 x 2
-#&gt; </span><span>[126 cases from days 2013-02-19 to 2013-07-27]
-#&gt; [interval: 1 day]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    bin_date   count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-02-19     1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-02-20     0
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-02-21     0
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-02-22     0
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-02-23     0
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-02-24     0
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-02-25     0
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-02-26     0
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-02-27     1
-#&gt; </span><span style='color: #555555;'>10</span><span> 2013-02-28     0
-#&gt; </span><span style='color: #555555;'># … with 149 more rows</span><span>
-#&gt; 
-#&gt; &gt; find_peak(i)
-#&gt; </span><span style='color: #555555;'>An incidence2 object: 1 x 2
-#&gt; </span><span>[7 cases from days 2013-04-03 to 2013-04-03]
-#&gt; [interval: 1 day]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;   bin_date   count
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2013-04-03     7
-#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

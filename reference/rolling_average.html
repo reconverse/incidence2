@@ -185,10 +185,10 @@ grouping, therefore care is required when plotting.</p>
   <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"white"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (position_stack).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (position_stack).</span></div><div class='img'><img src='rolling_average-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>inci</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>rolling_average</span>(<span class='kw'>before</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='plot.incidence.html'>facet_plot</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"white"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 4 rows containing missing values (position_stack).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 4 rows containing missing values (position_stack).</span></div><div class='img'><img src='rolling_average-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='plot.incidence2.html'>facet_plot</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"white"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 4 rows containing missing values (position_stack).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 4 rows containing missing values (position_stack).</span></div><div class='img'><img src='rolling_average-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>inci</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>rolling_average</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>remove_rolling</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'>An incidence object: 52 x 4
+  <span class='fu'>remove_rolling</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'>An incidence2 object: 52 x 4
 #&gt; </span><span>[2307 cases from days 2014-04-07 to 2014-09-29]
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]

@@ -100,7 +100,7 @@
 
     
     
-<p>This vignette provides some tips for the most common customisations of graphics produced by <code><a href="../reference/plot.incidence.html">plot.incidence()</a></code>. Our graphics use <em>ggplot2</em>, which is a distinct graphical system from base graphics. If you want advanced customisation of your incidence plots, we recommend following an introduction to <em>ggplot2</em> such as <a href="https://r4ds.had.co.nz/">R for Data Science</a>.</p>
+<p>This vignette provides some tips for the most common customisations of graphics produced by <code>plot.incidence()</code>. Our graphics use <em>ggplot2</em>, which is a distinct graphical system from base graphics. If you want advanced customisation of your incidence plots, we recommend following an introduction to <em>ggplot2</em> such as <a href="https://r4ds.had.co.nz/">R for Data Science</a>.</p>
 <p><br></p>
 <div id="example-data-simulated-ebola-outbreak" class="section level1">
 <h1 class="hasAnchor">
@@ -132,7 +132,7 @@
 <h1 class="hasAnchor">
 <a href="#plot-incidence" class="anchor"></a><code>plot.incidence()</code>
 </h1>
-<p>When calling <code>plot</code> on an <code><a href="../reference/incidence.html">incidence()</a></code> object, the function <code><a href="../reference/plot.incidence.html">plot.incidence()</a></code> is implicitly used. To access its documentation, use <code><a href="../reference/plot.incidence.html">?plot.incidence</a></code>. In this section, we illustrate existing customisations.</p>
+<p>When calling <code>plot</code> on an <code><a href="../reference/incidence.html">incidence()</a></code> object, the function <code>plot.incidence()</code> is implicitly used. To access its documentation, use <code>?plot.incidence</code>. In this section, we illustrate existing customisations.</p>
 <div id="default-behaviour" class="section level2">
 <h2 class="hasAnchor">
 <a href="#default-behaviour" class="anchor"></a>Default behaviour</h2>
@@ -150,7 +150,7 @@
 <div id="additional-arguments" class="section level2">
 <h2 class="hasAnchor">
 <a href="#additional-arguments" class="anchor"></a>Additional arguments</h2>
-<p><code><a href="../reference/plot.incidence.html">plot.incidence()</a></code> is designed for a high level of customization without needing knowledge of <em>ggplot2</em>. To this end, there are multiple arguments that can be provided which have been set to sensible defaults. Some common changes you may wish to make are illustrated below (for a full description of arguments check out the accompanying help file <code><a href="../reference/plot.incidence.html">?plot.incidence</a></code>).</p>
+<p><code>plot.incidence()</code> is designed for a high level of customization without needing knowledge of <em>ggplot2</em>. To this end, there are multiple arguments that can be provided which have been set to sensible defaults. Some common changes you may wish to make are illustrated below (for a full description of arguments check out the accompanying help file <code>?plot.incidence</code>).</p>
 <p>We can easily fill the plot according to the groups present or a color of our choosing:</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">gender</span>)
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
@@ -164,7 +164,7 @@
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></body></html></div>
 <p><img src="customizing_incidence_plots_files/figure-html/fill-3.png" width="672" style="display: block; margin: auto;"></p>
-<p>Sometimes we may wish to change the formatting and rotation of the x-axis and this can be done by passing additional arguments for use by <code><a href="../reference/plot.incidence.html">scale_x_incidence()</a></code>:</p>
+<p>Sometimes we may wish to change the formatting and rotation of the x-axis and this can be done by passing additional arguments for use by <code><a href="../reference/plot.incidence2.html">scale_x_incidence()</a></code>:</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="kw">group_labels</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
            <span class="kw">format</span> <span class="kw">=</span> <span class="st">"%a %d %B %Y"</span>,
            <span class="kw">angle</span> <span class="kw">=</span> <span class="fl">45</span>)
@@ -186,16 +186,16 @@
 <h1 class="hasAnchor">
 <a href="#facet_plot" class="anchor"></a><code>facet_plot()</code>
 </h1>
-<p>With stacked plots it can be difficult to ascertain difference between groups. For this reason we provide users the ability to make faceted plots with the <code><a href="../reference/plot.incidence.html">facet_plot()</a></code> function. This function takes similar arguments to <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> but includes an additional facet argument:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>)
+<p>With stacked plots it can be difficult to ascertain difference between groups. For this reason we provide users the ability to make faceted plots with the <code><a href="../reference/plot.incidence2.html">facet_plot()</a></code> function. This function takes similar arguments to <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> but includes an additional facet argument:</p>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>)
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></body></html></div>
 <p><img src="customizing_incidence_plots_files/figure-html/facets-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">hospital</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">4</span>)
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">hospital</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">4</span>)
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></body></html></div>
 <p><img src="customizing_incidence_plots_files/figure-html/facets-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"grey"</span>)
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">i</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"grey"</span>)
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></body></html></div>
 <p><img src="customizing_incidence_plots_files/figure-html/facets-3.png" width="672" style="display: block; margin: auto;"></p>

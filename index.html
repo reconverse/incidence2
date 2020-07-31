@@ -108,7 +108,7 @@
 <p>The main features of the package include:</p>
 <ul>
 <li><p><strong><code><a href="reference/incidence.html">incidence()</a></code></strong>: compute incidence from linelist datasets; any fixed time interval can be used; the returned object is a tibble subclass called <em>incidence</em>.</p></li>
-<li><p>plotting functions <strong><code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code></strong> and <strong><code><a href="reference/plot.incidence.html">facet_plot()</a></code></strong>: these functions return customised ggplot2 plots of <em>incidence</em> objects (see <code><a href="reference/plot.incidence.html">?plot.incidence</a></code> for details).</p></li>
+<li><p>plotting functions <strong><code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code></strong> and <strong><code><a href="reference/plot.incidence2.html">facet_plot()</a></code></strong>: these functions return customised ggplot2 plots of <em>incidence</em> objects (see <code>?plot.incidence</code> for details).</p></li>
 <li><p>Compatible with <a href="https://dplyr.tidyverse.org/">dplyr</a> for data manipulation. (see <code><a href="articles/handling_incidence_objects.html">vignette("handling_incidence_objects")</a></code> for more details).</p></li>
 <li><p><strong><code><a href="reference/regroup.html">regroup()</a></code></strong>: regroup incidence from different groups into one global incidence time series.</p></li>
 <li><p><strong><code><a href="reference/cumulate.html">cumulate()</a></code></strong>: computes cumulative incidence over time from an <code><a href="reference/incidence.html">incidence()</a></code> object.</p></li>
@@ -256,7 +256,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">i_7_sex</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"gender"</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"black"</span>)</pre></div>
 <p><img src="reference/figures/README-genderstack-1.png" style="display: block; margin: auto;"></p>
 <p>we can facet our plot (grouping detected automatically):</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/plot.incidence.html">facet_plot</a></span>(<span class="no">i_7_sex</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></div>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/plot.incidence2.html">facet_plot</a></span>(<span class="no">i_7_sex</span>, <span class="kw">n_breaks</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></div>
 <p><img src="reference/figures/README-genderfacet-1.png" style="display: block; margin: auto;"></p>
 <p>and we can also group by multiple variables specifying different facets and fills:</p>
 <div class="sourceCode" id="cb7"><pre class="r"><span class="co"># incidence is compatible with the magrittr pipe operator</span>
@@ -306,7 +306,7 @@
 <span class="co">#&gt; 4 Princess Christian Maternity Hospital (PCMH)   420</span>
 <span class="co">#&gt; 5 Rokupa Hospital                                451</span>
 <span class="co">#&gt; 6 &lt;NA&gt;                                          1456</span>
-<span class="no">i_7_sh</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="reference/plot.incidence.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">hospital</span>)
+<span class="no">i_7_sh</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="reference/plot.incidence2.html">facet_plot</a></span>(<span class="kw">facets</span> <span class="kw">=</span> <span class="no">gender</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">hospital</span>)
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></div>
 <p><img src="reference/figures/README-genderhospital-1.png" style="display: block; margin: auto;"></p>
