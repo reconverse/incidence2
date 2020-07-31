@@ -278,9 +278,6 @@ test_that("construction - Date input", {
 
   # shifting days gives the desired effect
   expect_equal(x_ds$bin_date[[1]], x_7_ds$bin_date[[1]])
-  # TODO - check if we want interval = 7 to be treated like week or not
-  #expect_equal(x_ds$bin_date[[1]] - 1L, x_7_ds_iso$bin_date[[1]])
-  #expect_identical(x_7_ds_iso$bin_date, x_w_ds_iso$bin_date)
   expect_failure({
     expect_identical(x_w_ds$bin_date, x_w_ds_iso$bin_date)
   })
