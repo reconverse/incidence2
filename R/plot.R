@@ -32,6 +32,7 @@
 #'   for plot colors.
 #' @param facets Which variable to facet plots by.  If NULL will use all
 #'   group_labels of the incidence object.
+#' @param title Optional title for the graph.
 #' @param stack A logical indicating if bars of multiple groups should be
 #'   stacked, or displayed side-by-side. Only used if fill is not NULL.
 #' @param col_pal col_pal The color palette to be used for the groups; defaults
@@ -56,10 +57,11 @@
 #'   axis tick marks are in week format YYYY-Www when plotting weekly incidence;
 #'   defaults to TRUE.
 #' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
-#' @param legend Position of legend in plot.
 #' @param centre_labels Should labels on the axis be centred on the bars. This
 #'   only applies to intervals that produce unambiguous labels (i.e `1 day`,
 #'   `1 month`, `1 quarter` or `1 year`).  Defaults to `FALSE`.
+#' @param legend Position of legend in plot.
+#' @param angle Rotation angle for text.
 #' @param nrow Number of rows.
 #' @param ... other arguments to pass to [scale_x_incidence()].
 #'
@@ -102,13 +104,14 @@
 
 #' @importFrom rlang sym syms
 #' @export
-plot.incidence2 <- function(x, fill = NULL, stack = TRUE,
+plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
                            col_pal = vibrant, alpha = 0.7, color = NA,
                            xlab = "", ylab = NULL, n_breaks = 6,
                            show_cases = FALSE, border = "white",
                            na_color = "grey",
                            group_labels = TRUE, centre_labels = FALSE,
                            legend = c("right", "left", "bottom", "top", "none"),
+                           angle = 0, format = NULL,
                            ...) {
 
   ellipsis::check_dots_used()
@@ -119,9 +122,11 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE,
                     show_cases, border,
                     na_color,
                     group_labels, centre_labels,
-                    legend = match.arg(legend))
+                    legend = match.arg(legend),
+                    title = title)
 
- out + scale_x_incidence(x, n_breaks, group_labels, ...)
+ out + scale_x_incidence(x, n_breaks, group_labels, angle = angle,
+                         format = format,...)
 
 
 }
@@ -130,14 +135,14 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE,
 #' @export
 #' @rdname plot.incidence2
 
-facet_plot <- function(x, facets = NULL, stack = TRUE, fill = NULL,
+facet_plot <- function(x, facets = NULL, stack = TRUE, fill = NULL, title = NULL,
                        col_pal = vibrant, alpha = 0.7, color = NA,
                        xlab = "", ylab = NULL, n_breaks = 3,
                        show_cases = FALSE, border = "white",
                        na_color = "grey",
                        group_labels = TRUE, centre_labels = FALSE,
                        legend = c("bottom", "top", "left", "right", "none"),
-                       nrow = NULL, ...) {
+                       angle = 0, format = NULL, nrow = NULL, ...) {
 
   ellipsis::check_dots_used()
 
@@ -152,7 +157,8 @@ facet_plot <- function(x, facets = NULL, stack = TRUE, fill = NULL,
                     show_cases, border,
                     na_color,
                     group_labels, centre_labels,
-                    legend = match.arg(legend))
+                    legend = match.arg(legend),
+                    title = title)
 
   if (is.null(facets) && !is.null(group_vars)) {
     out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), nrow, ...)
@@ -160,7 +166,8 @@ facet_plot <- function(x, facets = NULL, stack = TRUE, fill = NULL,
     out <- out + ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), nrow, ...)
   }
 
-  out + scale_x_incidence(x, n_breaks, group_labels, ...)
+  out + scale_x_incidence(x, n_breaks, group_labels, angle = angle,
+                          format = format, ...)
 }
 
 plot_basic <- function(x, fill = NULL, stack = TRUE,
@@ -169,8 +176,8 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
                        show_cases = FALSE, border = "white",
                        na_color = "grey",
                        group_labels = TRUE, centre_labels = FALSE,
-                       legend = c("right", "left", "bottom", "top", "none")
-) {
+                       legend = c("right", "left", "bottom", "top", "none"),
+                       title = NULL) {
 
   # convert inputs to character
   fill <- arg_values(!!rlang::enexpr(fill))
@@ -300,7 +307,12 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
                          position = ggplot2::position_stack())
   }
 
-  out
+  if (is.null(title)) {
+    out
+  } else {
+    out + ggplot2::labs(title = title)
+  }
+
 
 }
 

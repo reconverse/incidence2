@@ -10,6 +10,7 @@
   x,
   fill = NULL,
   stack = TRUE,
+  title = NULL,
   col_pal = vibrant,
   alpha = 0.7,
   color = NA,
@@ -22,6 +23,8 @@
   group_labels = TRUE,
   centre_labels = FALSE,
   legend = c("right", "left", "bottom", "top", "none"),
+  angle = 0,
+  format = NULL,
   ...
 )
 
@@ -30,6 +33,7 @@ facet_plot(
   facets = NULL,
   stack = TRUE,
   fill = NULL,
+  title = NULL,
   col_pal = vibrant,
   alpha = 0.7,
   color = NA,
@@ -42,6 +46,8 @@ facet_plot(
   group_labels = TRUE,
   centre_labels = FALSE,
   legend = c("bottom", "top", "left", "right", "none"),
+  angle = 0,
+  format = NULL,
   nrow = NULL,
   ...
 )
@@ -65,6 +71,8 @@ for plot colors.}
 
 \item{stack}{A logical indicating if bars of multiple groups should be
 stacked, or displayed side-by-side. Only used if fill is not NULL.}
+
+\item{title}{Optional title for the graph.}
 
 \item{col_pal}{col_pal The color palette to be used for the groups; defaults
 to \code{vibrant} (see \code{?palettes}).}
@@ -104,6 +112,10 @@ only applies to intervals that produce unambiguous labels (i.e \verb{1 day},
 
 \item{legend}{Position of legend in plot.}
 
+\item{angle}{Angle to rotate x-axis labels.}
+
+\item{format}{Character string of desired format.  See \code{?strptime}.}
+
 \item{...}{arguments passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date()}},
 \code{\link[ggplot2:scale_date]{ggplot2::scale_x_datetime()}}, or \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}},
 depending on how the \verb{$date} element is stored in the incidence object.}
@@ -112,10 +124,6 @@ depending on how the \verb{$date} element is stored in the incidence object.}
 group_labels of the incidence object.}
 
 \item{nrow}{Number of rows.}
-
-\item{format}{Character string of desired format.  See \code{?strptime}.}
-
-\item{angle}{Angle to rotate x-axis labels.}
 
 \item{size}{text size in pts.}
 
