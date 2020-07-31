@@ -10,6 +10,7 @@
   x,
   fill = NULL,
   stack = TRUE,
+  title = NULL,
   col_pal = vibrant,
   alpha = 0.7,
   color = NA,
@@ -32,6 +33,7 @@ facet_plot(
   facets = NULL,
   stack = TRUE,
   fill = NULL,
+  title = NULL,
   col_pal = vibrant,
   alpha = 0.7,
   color = NA,
@@ -69,6 +71,8 @@ for plot colors.}
 
 \item{stack}{A logical indicating if bars of multiple groups should be
 stacked, or displayed side-by-side. Only used if fill is not NULL.}
+
+\item{title}{Optional title for the graph.}
 
 \item{col_pal}{col_pal The color palette to be used for the groups; defaults
 to \code{vibrant} (see \code{?palettes}).}
