@@ -192,7 +192,7 @@
 <p>We compute the weekly incidence:</p>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="no">i_7</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="fl">7</span>)
 <span class="no">i_7</span>
-<span class="co">#&gt; An incidence object: 56 x 2</span>
+<span class="co">#&gt; An incidence2 object: 56 x 2</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 7 days]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -211,7 +211,7 @@
 <span class="co">#&gt; 10 2014-06-09    21</span>
 <span class="co">#&gt; # … with 46 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">i_7</span>)
-<span class="co">#&gt; An incidence object: 56 x 2</span>
+<span class="co">#&gt; An incidence2 object: 56 x 2</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 7 days</span>
 <span class="co">#&gt; cumulative: FALSE</span>
@@ -222,7 +222,7 @@
 <div class="sourceCode" id="cb5"><pre class="r"><span class="no">i_7_sex</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"week"</span>,
                      <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
 <span class="no">i_7_sex</span>
-<span class="co">#&gt; An incidence object: 112 x 4</span>
+<span class="co">#&gt; An incidence2 object: 112 x 4</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -241,7 +241,7 @@
 <span class="co">#&gt; 10 2014-05-05 2014-W19   m          3</span>
 <span class="co">#&gt; # … with 102 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">i_7_sex</span>)
-<span class="co">#&gt; An incidence object: 112 x 4</span>
+<span class="co">#&gt; An incidence2 object: 112 x 4</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 1 week</span>
 <span class="co">#&gt; cumulative: FALSE</span>
@@ -265,7 +265,7 @@
   <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"week"</span>,
             <span class="kw">groups</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">gender</span>, <span class="no">hospital</span>))
 <span class="no">i_7_sh</span>
-<span class="co">#&gt; An incidence object: 672 x 5</span>
+<span class="co">#&gt; An incidence2 object: 672 x 5</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
@@ -284,7 +284,7 @@
 <span class="co">#&gt; 10 2014-04-07 2014-W15   m      Rokupa Hospital                                0</span>
 <span class="co">#&gt; # … with 662 more rows</span>
 <span class="no">i_7_sh</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>()
-<span class="co">#&gt; An incidence object: 672 x 5</span>
+<span class="co">#&gt; An incidence2 object: 672 x 5</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 1 week</span>
 <span class="co">#&gt; cumulative: FALSE</span>
