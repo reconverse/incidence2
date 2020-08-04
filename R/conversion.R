@@ -114,10 +114,11 @@ as_incidence.data.frame <- function(x, date_index, counts_var,
       (is.logical(standard))
   )
 
-  dat <- x[c(dates, groups)]
-  if (anyDuplicated(dat)) {
+  if (anyDuplicated(x)) {
     stop("Cannot convert a dataframe with duplicated rows into an incidence object")
   }
+  dat <- x[c(dates, groups)]
+
   cnt <- x[[count]]
   cnt[is.na(cnt)] <- 0
   dat <- dat[rep(seq_len(nrow(dat)), cnt), ]

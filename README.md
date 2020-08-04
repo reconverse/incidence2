@@ -162,7 +162,7 @@ We compute the weekly incidence:
 ``` r
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
 i_7
-#> An incidence object: 56 x 2
+#> An incidence2 object: 56 x 2
 #> [5829 cases from days 2014-04-07 to 2015-04-27]
 #> [interval: 7 days]
 #> [cumulative: FALSE]
@@ -181,7 +181,7 @@ i_7
 #> 10 2014-06-09    21
 #> # … with 46 more rows
 summary(i_7)
-#> An incidence object: 56 x 2
+#> An incidence2 object: 56 x 2
 #> 5829 cases from days 2014-04-07 to 2015-04-27
 #> interval: 7 days
 #> cumulative: FALSE
@@ -199,7 +199,7 @@ gender and plot in a single, stacked chart:
 i_7_sex <- incidence(dat, interval = "week", 
                      date_index = date_of_onset, groups = gender)
 i_7_sex
-#> An incidence object: 112 x 4
+#> An incidence2 object: 112 x 4
 #> [5829 cases from days 2014-04-07 to 2015-04-27]
 #> [interval: 1 week]
 #> [cumulative: FALSE]
@@ -218,7 +218,7 @@ i_7_sex
 #> 10 2014-05-05 2014-W19   m          3
 #> # … with 102 more rows
 summary(i_7_sex)
-#> An incidence object: 112 x 4
+#> An incidence2 object: 112 x 4
 #> 5829 cases from days 2014-04-07 to 2015-04-27
 #> interval: 1 week
 #> cumulative: FALSE
@@ -253,7 +253,7 @@ i_7_sh <-
   incidence(date_index = date_of_onset, interval = "week", 
             groups = c(gender, hospital))
 i_7_sh
-#> An incidence object: 672 x 5
+#> An incidence2 object: 672 x 5
 #> [5829 cases from days 2014-04-07 to 2015-04-27]
 #> [interval: 1 week]
 #> [cumulative: FALSE]
@@ -272,7 +272,7 @@ i_7_sh
 #> 10 2014-04-07 2014-W15   m      Rokupa Hospital                                0
 #> # … with 662 more rows
 i_7_sh %>% summary()
-#> An incidence object: 672 x 5
+#> An incidence2 object: 672 x 5
 #> 5829 cases from days 2014-04-07 to 2015-04-27
 #> interval: 1 week
 #> cumulative: FALSE
