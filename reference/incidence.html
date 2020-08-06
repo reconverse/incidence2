@@ -533,7 +533,7 @@ interval.</p>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(-<span class='fl'>3</span>:<span class='fl'>10</span>, <span class='fl'>10</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 <span class='no'>dat</span> <span class='kw'>%&gt;%</span> <span class='fu'>incidence</span>(<span class='no'>dates</span>,
                   <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"week"</span>,
-                  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>2 observations outside of [2020-08-06, 2020-08-15] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence2 object: 2 x 3
+                  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>2 observations outside of [2020-08-07, 2020-08-16] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence2 object: 2 x 3
 #&gt; </span><span>[8 cases from days 2020-08-03 to 2020-08-10]
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
