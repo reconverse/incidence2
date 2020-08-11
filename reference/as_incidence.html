@@ -153,15 +153,7 @@
 <span class='fu'>as_incidence</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>as_incidence</span>(
-  <span class='no'>x</span>,
-  <span class='no'>date_index</span>,
-  <span class='no'>counts_var</span>,
-  <span class='kw'>group_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>as_incidence</span>(<span class='no'>x</span>, <span class='no'>date_index</span>, <span class='no'>counts_var</span>, <span class='kw'>group_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,13 +184,6 @@ or without quotation.</p></td>
 time interval used for computing the incidence; defaults to 1 day. This can
 also be a text string that corresponds to a valid date interval: day, week,
 month, quarter, or year.</p></td>
-    </tr>
-    <tr>
-      <th>standard</th>
-      <td><p>(Only applicable where date_index references a Date object)
-When <code>TRUE</code> (default) and the <code>interval</code> one of "week", "month", "quarter",
-or "year", then this will cause the bins for the counts to start at the
-beginning of the interval.</p></td>
     </tr>
     <tr>
       <th>...</th>
