@@ -20,14 +20,14 @@ test_that("construction - default, integer input", {
 
   ## classes
   expect_is(x, "incidence2")
-  expect_is(x$bin_date, class(dat))
+  expect_is(x$date, class(dat))
   expect_is(x$count, "integer")
 
   ## results
   expect_false(any(is.na(x$count)))
   expect_equal(nrow(x), diff(range(dat)) + 1)
   expect_equal(sum(x$count), length(dat))
-  expect_true(all(diff(x$bin_date) == get_interval(x)))
+  expect_true(all(diff(x$date) == get_interval(x)))
 
   ## USING INCIDENCE PER 3 DAYS
   x <- incidence(data.frame(dates = dat), date_index = dates, interval = 3)
@@ -99,8 +99,8 @@ test_that("construction - numeric input", {
 
   ## compare outputs
   expect_equal(x_num, x_int)
-  expect_is(x_num$bin_date, "numeric")
-  expect_is(x_int$bin_date, "integer")
+  expect_is(x_num$date, "numeric")
+  expect_is(x_int$date, "integer")
 })
 
 test_that("construction - Date input", {
@@ -271,13 +271,13 @@ test_that("construction - Date input", {
 
   ## compare outputs
   expect_equal(x$count, x_dates$count)
-  expect_is(x$bin_date, "integer")
-  expect_is(x_dates$bin_date, "Date")
+  expect_is(x$date, "integer")
+  expect_is(x_dates$date, "Date")
   expect_equal(x_7$count, x_7_iso$count)
   expect_equal(x_7_iso$bin_date, x_7_week$bin_date)
 
   # shifting days gives the desired effect
-  expect_equal(x_ds$bin_date[[1]], x_7_ds$bin_date[[1]])
+  expect_equal(x_ds$date[[1]], x_7_ds$bin_date[[1]])
   expect_failure({
     expect_identical(x_w_ds$bin_date, x_w_ds_iso$bin_date)
   })
@@ -296,8 +296,8 @@ test_that("construction - POSIXct input", {
 
   ## compare outputs
   expect_equal(x_dates$count, x_pos$count)
-  expect_is(x_dates$bin_date, "Date")
-  expect_is(x_pos$bin_date, "POSIXct")
+  expect_is(x_dates$date, "Date")
+  expect_is(x_pos$date, "POSIXct")
 })
 
 test_that("construction - character input", {

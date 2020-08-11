@@ -6,8 +6,13 @@
 \alias{as_incidence.data.frame}
 \title{Convert a data frame to incidence object}
 \usage{
-as_incidence(
+as_incidence(x, ...)
+
+\method{as_incidence}{default}(x, ...)
+
+\method{as_incidence}{data.frame}(
   x,
+  asis = FALSE,
   date_index,
   counts_var,
   group_vars = NULL,
@@ -15,13 +20,16 @@ as_incidence(
   standard = TRUE,
   ...
 )
-
-\method{as_incidence}{default}(x, ...)
-
-\method{as_incidence}{data.frame}(x, date_index, counts_var, group_vars = NULL, interval = 1L, ...)
 }
 \arguments{
 \item{x}{An object that can be treated as a data frame.}
+
+\item{...}{Not currently used.}
+
+\item{asis}{If FALSE (default) an incidence object is reconstructed using
+\code{incidence}. If TRUE, minimal checks are made on the input x, and the
+dataframe is changed to an incidence object (with interval 1L) with all
+columns present.}
 
 \item{date_index}{The time index of the given data in x.  This should be the
 name, with or without quotation, corresponding to a date column in x of the
@@ -33,12 +41,15 @@ class:  integer, numeric, Date, POSIXct, POSIXlt, and character.}
 observations for which incidence should be grouped.  This can be given with
 or without quotation.}
 
-\item{interval}{An integer or character indicating the (fixed) size of the
-time interval used for computing the incidence; defaults to 1 day. This can
-also be a text string that corresponds to a valid date interval: day, week,
-month, quarter, or year.}
+\item{interval}{(Only applicable when \code{asis = FALSE}) An integer or character
+indicating the (fixed) size of the time interval used for computing the
+incidence; defaults to 1 day. This can also be a text string that
+corresponds to a valid date interval: day, week, month, quarter, or year.}
 
-\item{...}{Not currently used.}
+\item{standard}{(Only applicable when \code{asis = FALSE} and where date_index
+references a Date object) When \code{TRUE} (default) and the \code{interval} one of
+"week", "month", "quarter", or "year", then this will cause the bins for
+the counts to start at the beginning of the interval.}
 }
 \description{
 Convert a data frame to incidence object

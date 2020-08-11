@@ -3,10 +3,10 @@ An incidence2 object: 4 x 3
 [interval: 1 day]
 [cumulative: FALSE]
 
-  bin_date groups count
-     <int> <fct>  <int>
-1        1 1          1
-2        1 2          0
-3        2 1          0
-4        2 2          1
+   date groups count
+  <int> <fct>  <int>
+1     1 1          1
+2     1 2          0
+3     2 1          0
+4     2 2          1
 

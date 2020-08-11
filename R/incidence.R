@@ -347,7 +347,8 @@ incidence.integer <- function(x, date_index, interval = 1L,
     ...
   )
 
-  out$bin_date <- as.integer(out$bin_date)
+  date_col <- get_dates_name(out)
+  out[[date_col]] <- as.integer(out[[date_col]])
   attr(out, "interval") <- as.integer(attr(out, "interval"))
 
   out
@@ -391,7 +392,8 @@ incidence.numeric <- function(x, date_index, interval = 1L,
     ...
   )
 
-  out$bin_date <- as.numeric(out$bin_date)
+  date_col <- get_dates_name(out)
+  out[[date_col]] <- as.numeric(out[[date_col]])
   out
 }
 # -------------------------------------------------------------------------
@@ -438,9 +440,10 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
   )
 
   attr(out, "type") <- "POSIXt"
-  out$bin_date <- as.POSIXlt(out$bin_date)
+  date_col <- get_dates_name(out)
+  out[[date_col]] <- as.POSIXlt(out[[date_col]])
   if (inherits(dates, "POSIXct")) {
-    out$bin_date <- as.POSIXct(out$bin_date)
+    out[[date_col]] <- as.POSIXct(out[[date_col]])
   }
   out
 }

@@ -3,7 +3,7 @@ An incidence2 object: 1 x 2
 [interval: 1 day]
 [cumulative: FALSE]
 
-  bin_date   count
+  date       count
   <date>     <int>
 1 2001-01-01     1
 

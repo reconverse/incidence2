@@ -56,6 +56,13 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
     dots = dots
   )
 
+  # choose name for date column
+  if (interval == 1 || interval == 1L || interval == "1 day" || interval == "1 days") {
+    date_col = "date"
+  } else {
+    date_col = "bin_date"
+  }
+
   # generate grouped_dates and aggregate across dates then groups
   if (!is.null(groups)) {
     f_groups <- lapply(x[groups], factor, exclude = NULL)
@@ -64,8 +71,8 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
       split_x,
       function(z) {
         grouped_dates <- group_dates(z[[date_index]], breaks)
-        z <- mutate(z, bin_date = grouped_dates)
-        z <- group_by(z, .data$bin_date)
+        z <- mutate(z, {{date_col}} := grouped_dates)
+        z <- group_by(z, .data[[date_col]])
         z <- group_by(z, across( {{groups}}), .add = TRUE)
         summarise(z, count = n(), .groups = "drop")
       }
@@ -73,8 +80,8 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
     x <- dplyr::bind_rows(out)
   } else {
     grouped_dates <- group_dates(x[[date_index]], breaks)
-    x <- mutate(x, bin_date = grouped_dates)
-    x <- group_by(x, .data$bin_date)
+    x <- mutate(x, {{date_col}} := grouped_dates)
+    x <- group_by(x, .data[[date_col]])
     x <- summarise(x, count = n(), .groups = "drop")
   }
 
@@ -84,18 +91,20 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   if (!is.null(groups)) {
     unique_groups <- lapply(groups, function(gr) unique(x[[gr]]))
     names(unique_groups) <- groups
-    unique_groups$bin_date <- grouped_days
+    unique_groups[[date_col]] <- grouped_days
     combinations <- expand.grid(unique_groups)
   } else {
-    combinations <- data.frame(bin_date = grouped_days)
+    combinations <- data.frame(grouped_days)
+    colnames(combinations) <- date_col
+
   }
 
-  x <- left_join(combinations, x, by = c("bin_date", groups))
+  x <- left_join(combinations, x, by = c(date_col, groups))
   x$count[is.na(x$count)] <- 0L
 
   # filter out NA
   if (!na_as_group) {
-    x <- filter(x, !is.na(.data$bin_date))
+    x <- filter(x, !is.na(.data[[date_col]]))
     x <- filter(x, across( {{groups}} , ~!is.na(.)))
   }
 
@@ -105,12 +114,12 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   }
 
   # reorder (dates, groups, counts)
-  x <- x[c("bin_date", groups, "count")]
+  x <- x[c(date_col, groups, "count")]
 
   # create subclass of tibble
   tbl <- tibble::new_tibble(x,
                             groups = groups,
-                            date = "bin_date",
+                            date = date_col,
                             count = "count",
                             interval = interval,
                             cumulative = FALSE,

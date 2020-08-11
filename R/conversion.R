@@ -37,7 +37,6 @@ as.data.frame.incidence2 <- function(x, ...) {
 #' @export
 #' @name as_tibble
 as_tibble.incidence2 <- function(x, ...) {
-  ellipsis::check_dots_empty()
   new_bare_tibble(x)
 }
 # -------------------------------------------------------------------------
@@ -52,10 +51,10 @@ tibble::as_tibble()
 #'
 #' @param x An object that can be treated as a data frame.
 #'
-#' @param asis If TRUE, minimal checks are made on the input x, and the
+#' @param asis If FALSE (default) an incidence object is reconstructed using
+#'   `incidence`. If TRUE, minimal checks are made on the input x, and the
 #'   dataframe is changed to an incidence object (with interval 1L) with all
-#'   columns present.  If FALSE an incidence object is reconstructed using
-#'   `incidence`.
+#'   columns present.
 #'
 #' @param date_index The time index of the given data in x.  This should be the
 #'   name, with or without quotation, corresponding to a date column in x of the
@@ -81,9 +80,7 @@ tibble::as_tibble()
 #'
 #' @rdname as_incidence
 #' @export
-as_incidence <- function(x, date_index, counts_var,
-                         group_vars = NULL, interval = 1L,
-                         standard = TRUE, ...) {
+as_incidence <- function(x, ...) {
 
   UseMethod("as_incidence", x)
 }
@@ -101,7 +98,7 @@ as_incidence.default <- function(x, ...) {
 #' @rdname as_incidence
 #' @aliases as_incidence.default
 #' @export
-as_incidence.data.frame <- function(x, asis = TRUE, date_index, counts_var,
+as_incidence.data.frame <- function(x, asis = FALSE, date_index, counts_var,
                                     group_vars = NULL, interval = 1L,
                                     standard = TRUE, ...) {
 
@@ -128,10 +125,6 @@ as_incidence.data.frame <- function(x, asis = TRUE, date_index, counts_var,
   if (asis) {
     # check dates
     x[[dates]] <- check_dates(x[[dates]])
-
-    cnt <- x[[count]]
-    cnt[is.na(cnt)] <- 0
-    x <- x[rep(seq_len(nrow(x)), cnt), ]
 
     # create subclass of tibble
     tbl <- tibble::new_tibble(x,
