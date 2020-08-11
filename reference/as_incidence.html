@@ -139,21 +139,22 @@
     <p>Convert a data frame to incidence object</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_incidence</span>(
+    <pre class="usage"><span class='fu'>as_incidence</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>as_incidence</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for data.frame</span>
+<span class='fu'>as_incidence</span>(
   <span class='no'>x</span>,
+  <span class='kw'>asis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>date_index</span>,
   <span class='no'>counts_var</span>,
   <span class='kw'>group_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
   <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='no'>...</span>
-)
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>as_incidence</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>as_incidence</span>(<span class='no'>x</span>, <span class='no'>date_index</span>, <span class='no'>counts_var</span>, <span class='kw'>group_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)</pre>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,6 +162,17 @@
     <tr>
       <th>x</th>
       <td><p>An object that can be treated as a data frame.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not currently used.</p></td>
+    </tr>
+    <tr>
+      <th>asis</th>
+      <td><p>If FALSE (default) an incidence object is reconstructed using
+<code>incidence</code>. If TRUE, minimal checks are made on the input x, and the
+dataframe is changed to an incidence object (with interval 1L) with all
+columns present.</p></td>
     </tr>
     <tr>
       <th>date_index</th>
@@ -180,14 +192,17 @@ or without quotation.</p></td>
     </tr>
     <tr>
       <th>interval</th>
-      <td><p>An integer or character indicating the (fixed) size of the
-time interval used for computing the incidence; defaults to 1 day. This can
-also be a text string that corresponds to a valid date interval: day, week,
-month, quarter, or year.</p></td>
+      <td><p>(Only applicable when <code>asis = FALSE</code>) An integer or character
+indicating the (fixed) size of the time interval used for computing the
+incidence; defaults to 1 day. This can also be a text string that
+corresponds to a valid date interval: day, week, month, quarter, or year.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Not currently used.</p></td>
+      <th>standard</th>
+      <td><p>(Only applicable when <code>asis = FALSE</code> and where date_index
+references a Date object) When <code>TRUE</code> (default) and the <code>interval</code> one of
+"week", "month", "quarter", or "year", then this will cause the bins for
+the counts to start at the beginning of the interval.</p></td>
     </tr>
     </table>
 
