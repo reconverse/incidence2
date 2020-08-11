@@ -117,12 +117,22 @@ as_incidence.data.frame <- function(x, date_index, counts_var,
   if (anyDuplicated(x)) {
     stop("Cannot convert a dataframe with duplicated rows into an incidence object")
   }
-  dat <- x[c(dates, groups)]
+  # dat <- x[c(dates, groups)]
+  #
+  # cnt <- x[[count]]
+  # cnt[is.na(cnt)] <- 0
+  # dat <- dat[rep(seq_len(nrow(dat)), cnt), ]
+  # incidence(dat,
+  #           date_index = !!rlang::enexpr(date_index),
+  #           groups = !!rlang::enexpr(group_vars),
+  #           interval = interval,
+  #           standard = standard)
+
 
   cnt <- x[[count]]
   cnt[is.na(cnt)] <- 0
-  dat <- dat[rep(seq_len(nrow(dat)), cnt), ]
-  incidence(dat,
+  x <- x[rep(seq_len(nrow(x)), cnt), ]
+  incidence(x,
             date_index = !!rlang::enexpr(date_index),
             groups = !!rlang::enexpr(group_vars),
             interval = interval,
