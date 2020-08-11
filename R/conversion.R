@@ -52,6 +52,11 @@ tibble::as_tibble()
 #'
 #' @param x An object that can be treated as a data frame.
 #'
+#' @param asis If TRUE, minimal checks are made on the input x, and the
+#'   dataframe is changed to an incidence object (with interval 1L) with all
+#'   columns present.  If FALSE an incidence object is reconstructed using
+#'   `incidence`.
+#'
 #' @param date_index The time index of the given data in x.  This should be the
 #'   name, with or without quotation, corresponding to a date column in x of the
 #'   class:  integer, numeric, Date, POSIXct, POSIXlt, and character.
@@ -62,15 +67,15 @@ tibble::as_tibble()
 #'   observations for which incidence should be grouped.  This can be given with
 #'   or without quotation.
 #'
-#' @param interval An integer or character indicating the (fixed) size of the
-#'   time interval used for computing the incidence; defaults to 1 day. This can
-#'   also be a text string that corresponds to a valid date interval: day, week,
-#'   month, quarter, or year.
+#' @param interval (Only applicable when `asis = FALSE`) An integer or character
+#'   indicating the (fixed) size of the time interval used for computing the
+#'   incidence; defaults to 1 day. This can also be a text string that
+#'   corresponds to a valid date interval: day, week, month, quarter, or year.
 #'
-#' @param standard (Only applicable where date_index references a Date object)
-#'   When `TRUE` (default) and the `interval` one of "week", "month", "quarter",
-#'   or "year", then this will cause the bins for the counts to start at the
-#'   beginning of the interval.
+#' @param standard (Only applicable when `asis = FALSE` and where date_index
+#'   references a Date object) When `TRUE` (default) and the `interval` one of
+#'   "week", "month", "quarter", or "year", then this will cause the bins for
+#'   the counts to start at the beginning of the interval.
 #'
 #' @param ... Not currently used.
 #'
@@ -96,7 +101,7 @@ as_incidence.default <- function(x, ...) {
 #' @rdname as_incidence
 #' @aliases as_incidence.default
 #' @export
-as_incidence.data.frame <- function(x, date_index, counts_var,
+as_incidence.data.frame <- function(x, asis = TRUE, date_index, counts_var,
                                     group_vars = NULL, interval = 1L,
                                     standard = TRUE, ...) {
 
@@ -106,6 +111,8 @@ as_incidence.data.frame <- function(x, date_index, counts_var,
   groups <- arg_values(!!rlang::enexpr(group_vars))
 
   stopifnot(
+    "The argument `asis` must be either `TRUE` or `FALSE`." =
+      (is.logical(asis)),
     "The argument `date_index` should be of length one" =
       (length(dates) == 1),
     "The argument `counts_var` should be of length one" =
@@ -117,25 +124,38 @@ as_incidence.data.frame <- function(x, date_index, counts_var,
   if (anyDuplicated(x)) {
     stop("Cannot convert a dataframe with duplicated rows into an incidence object")
   }
-  # dat <- x[c(dates, groups)]
-  #
-  # cnt <- x[[count]]
-  # cnt[is.na(cnt)] <- 0
-  # dat <- dat[rep(seq_len(nrow(dat)), cnt), ]
-  # incidence(dat,
-  #           date_index = !!rlang::enexpr(date_index),
-  #           groups = !!rlang::enexpr(group_vars),
-  #           interval = interval,
-  #           standard = standard)
 
+  if (asis) {
+    # check dates
+    x[[dates]] <- check_dates(x[[dates]])
 
-  cnt <- x[[count]]
-  cnt[is.na(cnt)] <- 0
-  x <- x[rep(seq_len(nrow(x)), cnt), ]
-  incidence(x,
-            date_index = !!rlang::enexpr(date_index),
-            groups = !!rlang::enexpr(group_vars),
-            interval = interval,
-            standard = standard)
+    cnt <- x[[count]]
+    cnt[is.na(cnt)] <- 0
+    x <- x[rep(seq_len(nrow(x)), cnt), ]
+
+    # create subclass of tibble
+    tbl <- tibble::new_tibble(x,
+                              groups = groups,
+                              date = dates,
+                              count = count,
+                              interval = interval,
+                              cumulative = FALSE,
+                              nrow = nrow(x),
+                              class = "incidence2"
+    )
+    tbl <- tibble::validate_tibble(tbl)
+  } else {
+    dat <- x[c(dates, groups)]
+    cnt <- x[[count]]
+    cnt[is.na(cnt)] <- 0
+    dat <- dat[rep(seq_len(nrow(dat)), cnt), ]
+    tbl <- incidence(dat,
+                     date_index = !!rlang::enexpr(date_index),
+                     groups = !!rlang::enexpr(group_vars),
+                     interval = interval,
+                     standard = standard)
+  }
+  tbl
+
 
 }

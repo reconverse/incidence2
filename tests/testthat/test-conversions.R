@@ -30,7 +30,7 @@ test_that("as_incidence works", {
   dat2 <- as.data.frame(inci)
 
   expect_identical(
-    as_incidence(dat2, bin_date, count, c(hospital, gender),
+    as_incidence(dat2, asis = FALSE, bin_date, count, c(hospital, gender),
                  interval = "2 weeks"),
     inci
     )
@@ -39,7 +39,7 @@ test_that("as_incidence works", {
     dates = c(1,2,3,3),
     count = c(4,2,3,3)
   )
-  expect_error(as_incidence(dat, dates, count),
+  expect_error(as_incidence(dat, asis = FALSE, dates, count),
                "Cannot convert a dataframe with duplicated rows into an incidence object",
                fixed = TRUE)
 })

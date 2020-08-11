@@ -18,15 +18,7 @@ as_incidence(
 
 \method{as_incidence}{default}(x, ...)
 
-\method{as_incidence}{data.frame}(
-  x,
-  date_index,
-  counts_var,
-  group_vars = NULL,
-  interval = 1L,
-  standard = TRUE,
-  ...
-)
+\method{as_incidence}{data.frame}(x, date_index, counts_var, group_vars = NULL, interval = 1L, ...)
 }
 \arguments{
 \item{x}{An object that can be treated as a data frame.}
@@ -45,11 +37,6 @@ or without quotation.}
 time interval used for computing the incidence; defaults to 1 day. This can
 also be a text string that corresponds to a valid date interval: day, week,
 month, quarter, or year.}
-
-\item{standard}{(Only applicable where date_index references a Date object)
-When \code{TRUE} (default) and the \code{interval} one of "week", "month", "quarter",
-or "year", then this will cause the bins for the counts to start at the
-beginning of the interval.}
 
 \item{...}{Not currently used.}
 }
