@@ -5,8 +5,8 @@
 #' @return The quoted arguments.
 #'
 #' @examples
-#' arg_value(x)
-#' arg_value("x")
+#' arg_values(x)
+#' arg_values("x")
 #' arg_values(c(x, y))
 #' arg_values(c("x", "y"))
 #'
