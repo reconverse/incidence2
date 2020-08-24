@@ -24,6 +24,7 @@
 #'
 #' @author Zhian Kamvar, Tim Taylor
 #' @importFrom dplyr mutate group_by across summarise n left_join filter
+#' @importFrom rlang :=
 #' @return An incidence2 object.
 #' @noRd
 make_incidence <- function(x, date_index, interval = 1L, groups = NULL,

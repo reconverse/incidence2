@@ -203,55 +203,5 @@ objects structure:
 * `get_timespan()`returns the number of days the object covers.
 
 
-# Bootstrapping and finding peaks
-
-We provide functions to return the peak of the incidence data (grouped or 
-ungrouped), bootstrap from the incidence data, and estimate confidence intervals
-around a peak.
-
-## `bootstrap()`
-```{r bootstrap}
-dat <- fluH7N9_china_2013
-x <- incidence(dat, date_index = date_of_onset, groups = gender)
-bootstrap(x)
-```
-
-## `find_peak()`
-```{r findpeak}
-dat <- fluH7N9_china_2013
-x <- incidence(dat, date_index = date_of_onset, groups = gender)
-
-# peaks across each group
-x %>% find_peak(regroup = FALSE)
-
-# peak without groupings
-x %>% find_peak()
-```
-
-## `estimate_peak()`
-Note that the bootstrapping approach used for estimating the peak time makes
-the following assumptions:
-
-- the total number of event is known (no uncertainty on total incidence);
-- dates with no events (zero incidence) will never be in bootstrapped datasets; and
-- the reporting is assumed to be constant over time, i.e. every case is
-  equally likely to be reported.
-
-Also note that `estimate_peak()` will always returns a list but is compatible
-with `broom::tidy()` :
-  
-```{r estimatepeak}
-dat <- fluH7N9_china_2013
-x <- incidence(dat, date_index = date_of_onset, groups = province)
-
-# regrouping for overall peak
-x %>% regroup() %>% estimate_peak()
-
-# across provinces (with progress bar suppressed and tidy output)
-x %>% estimate_peak(progress = FALSE) %>% tidy()
-```
-
-
-
 
 
