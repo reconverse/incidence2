@@ -295,25 +295,6 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
     out <- out + squares
   }
 
-  ra <- attr(x, "rolling_average")
-  if (!is.null(ra)) {
-    if (centre_labels) {
-      shift = 0
-    } else {
-      shift <- mean(get_interval(df, integer = TRUE))/2
-    }
-
-    date_var <- get_dates_name(x)
-    out <-
-      out +
-      ggplot2::geom_point(ggplot2::aes(x = !!sym(date_var) + shift ,
-                                       y = !!sym(ra)),
-                          position = ggplot2::position_stack()) +
-      ggplot2::geom_line(ggplot2::aes(x = !!sym(date_var) + shift ,
-                                      y = !!sym(ra)),
-                         position = ggplot2::position_stack())
-  }
-
   if (is.null(title)) {
     out
   } else {
