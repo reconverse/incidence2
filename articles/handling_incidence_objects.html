@@ -191,105 +191,11 @@
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></body></html></div>
 <p><img src="handling_incidence_objects_files/figure-html/cumulate-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
-<div id="rolling_average" class="section level2">
-<h2 class="hasAnchor">
-<a href="#rolling_average" class="anchor"></a><code>rolling_average</code>
-</h2>
-<p>We can easily add a rolling average, across current and previous intervals, to an <code><a href="../reference/incidence.html">incidence()</a></code> object:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r">
-<span class="co"># without groups ----------------------------------------------------------</span>
-<span class="no">inci</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>,
-                  <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>,
-                  <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"week"</span>,
-                  <span class="kw">last_date</span> <span class="kw">=</span> <span class="st">"2014-10-05"</span>)
-<span class="co">#&gt; 3522 observations outside of [2014-04-07, 2014-10-05] were removed.</span>
-
-<span class="co"># to add a rolling average we pass an incidence object to `rolling_average`</span>
-<span class="no">ra</span> <span class="kw">&lt;-</span>
-  <span class="no">inci</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/rolling_average.html">rolling_average</a></span>(<span class="kw">before</span> <span class="kw">=</span> <span class="fl">2</span>)
-
-<span class="no">ra</span>
-<span class="co">#&gt; An incidence2 object: 26 x 4</span>
-<span class="co">#&gt; [2307 cases from days 2014-04-07 to 2014-09-29]</span>
-<span class="co">#&gt; [interval: 1 week]</span>
-<span class="co">#&gt; [cumulative: FALSE]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;    bin_date   week_group count rolling_average</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;int&gt;           &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2014-04-07 2014-W15       1           NA   </span>
-<span class="co">#&gt;  2 2014-04-14 2014-W16       1           NA   </span>
-<span class="co">#&gt;  3 2014-04-21 2014-W17       5            2.33</span>
-<span class="co">#&gt;  4 2014-04-28 2014-W18       4            3.33</span>
-<span class="co">#&gt;  5 2014-05-05 2014-W19      12            7   </span>
-<span class="co">#&gt;  6 2014-05-12 2014-W20      17           11   </span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21      15           14.7 </span>
-<span class="co">#&gt;  8 2014-05-26 2014-W22      19           17   </span>
-<span class="co">#&gt;  9 2014-06-02 2014-W23      23           19   </span>
-<span class="co">#&gt; 10 2014-06-09 2014-W24      21           21   </span>
-<span class="co">#&gt; # … with 16 more rows</span>
-
-<span class="co"># to remove a rolling average we pass the object to remove_rolling</span>
-<span class="no">ra</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/rolling_average.html">remove_rolling</a></span>()
-<span class="co">#&gt; An incidence2 object: 26 x 3</span>
-<span class="co">#&gt; [2307 cases from days 2014-04-07 to 2014-09-29]</span>
-<span class="co">#&gt; [interval: 1 week]</span>
-<span class="co">#&gt; [cumulative: FALSE]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;    bin_date   week_group count</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-04-07 2014-W15       1</span>
-<span class="co">#&gt;  2 2014-04-14 2014-W16       1</span>
-<span class="co">#&gt;  3 2014-04-21 2014-W17       5</span>
-<span class="co">#&gt;  4 2014-04-28 2014-W18       4</span>
-<span class="co">#&gt;  5 2014-05-05 2014-W19      12</span>
-<span class="co">#&gt;  6 2014-05-12 2014-W20      17</span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21      15</span>
-<span class="co">#&gt;  8 2014-05-26 2014-W22      19</span>
-<span class="co">#&gt;  9 2014-06-02 2014-W23      23</span>
-<span class="co">#&gt; 10 2014-06-09 2014-W24      21</span>
-<span class="co">#&gt; # … with 16 more rows</span>
-
-<span class="co"># plotting </span>
-<span class="no">inci</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/rolling_average.html">rolling_average</a></span>(<span class="kw">before</span> <span class="kw">=</span> <span class="fl">2</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="kw">color</span> <span class="kw">=</span> <span class="st">"white"</span>)
-<span class="co">#&gt; Warning: Removed 2 rows containing missing values (position_stack).</span>
-
-<span class="co">#&gt; Warning: Removed 2 rows containing missing values (position_stack).</span></pre></body></html></div>
-<p><img src="handling_incidence_objects_files/figure-html/rolling_average-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r">
-
-<span class="co"># grouped by gender -------------------------------------------------------</span>
-<span class="no">inci</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>,
-                  <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>,
-                  <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"week"</span>,
-                  <span class="kw">last_date</span> <span class="kw">=</span> <span class="st">"2014-10-05"</span>,
-                  <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
-<span class="co">#&gt; 3522 observations outside of [2014-04-07, 2014-10-05] were removed.</span>
-
-<span class="co"># facet_plot</span>
-<span class="no">inci</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/rolling_average.html">rolling_average</a></span>(<span class="kw">before</span> <span class="kw">=</span> <span class="fl">2</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(<span class="kw">color</span> <span class="kw">=</span> <span class="st">"white"</span>)
-<span class="co">#&gt; Warning: Removed 4 rows containing missing values (position_stack).</span>
-<span class="co">#&gt; Warning: Removed 4 rows containing missing values (position_stack).</span></pre></body></html></div>
-<p><img src="handling_incidence_objects_files/figure-html/rolling_average-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r">
-<span class="co"># individual plot would need regrouping if groups present</span>
-<span class="no">inci</span> <span class="kw">%&gt;%</span>
-  <span class="no">regroup</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/rolling_average.html">rolling_average</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="kw">color</span> <span class="kw">=</span> <span class="st">"white"</span>)
-<span class="co">#&gt; Warning: Removed 2 rows containing missing values (position_stack).</span>
-<span class="co">#&gt; Warning: Removed 2 rows containing missing values (position_stack).</span></pre></body></html></div>
-<p><img src="handling_incidence_objects_files/figure-html/rolling_average-3.png" width="672" style="display: block; margin: auto;"></p>
-</div>
 <div id="tidyverse-compatibility" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tidyverse-compatibility" class="anchor"></a>Tidyverse compatibility</h2>
 <p>incidence2 has been written with <em>tidyverse</em> compatibility (in particular <a href="https://dplyr.tidyverse.org/">dplyr</a>) at the forefront of the design choices we have made. By this we mean that if an operation from dplyr is applied to an <code><a href="../reference/incidence.html">incidence()</a></code> object then as long as the invariants of the object are preserved (i.e. groups, interval and uniqueness of rows) then the object returned will be an <code><a href="../reference/incidence.html">incidence()</a></code> object. If the invariants are not preserved then a tibble will be returned instead. Some examples of these behaviours are given below:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
 <span class="co">#&gt; The following objects are masked from 'package:stats':</span>
@@ -334,22 +240,22 @@
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">10</span>)
 <span class="no">x</span>
 <span class="co">#&gt; An incidence2 object: 10 x 5</span>
-<span class="co">#&gt; [28 cases from days 2014-05-19 to 2014-06-02]</span>
+<span class="co">#&gt; [29 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-05-19 2014-W21   other                                      m          3</span>
-<span class="co">#&gt;  2 2014-06-02 2014-W23   other                                      m          2</span>
-<span class="co">#&gt;  3 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… f          3</span>
-<span class="co">#&gt;  4 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
+<span class="co">#&gt;  1 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
+<span class="co">#&gt;  2 2014-06-02 2014-W23   Connaught Hospital                         m          6</span>
+<span class="co">#&gt;  3 2014-05-19 2014-W21   &lt;NA&gt;                                       f          4</span>
+<span class="co">#&gt;  4 2014-06-02 2014-W23   Rokupa Hospital                            m          1</span>
 <span class="co">#&gt;  5 2014-06-02 2014-W23   Military Hospital                          f          1</span>
-<span class="co">#&gt;  6 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
-<span class="co">#&gt;  7 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… f          0</span>
-<span class="co">#&gt;  8 2014-05-19 2014-W21   Connaught Hospital                         m          4</span>
-<span class="co">#&gt;  9 2014-06-02 2014-W23   &lt;NA&gt;                                       m          6</span>
-<span class="co">#&gt; 10 2014-06-02 2014-W23   Military Hospital                          m          3</span>
+<span class="co">#&gt;  6 2014-05-19 2014-W21   Rokupa Hospital                            m          1</span>
+<span class="co">#&gt;  7 2014-06-02 2014-W23   &lt;NA&gt;                                       m          6</span>
+<span class="co">#&gt;  8 2014-05-19 2014-W21   other                                      m          3</span>
+<span class="co">#&gt;  9 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
+<span class="co">#&gt; 10 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">x</span>), <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">inci</span>))
 <span class="co">#&gt; [1] TRUE</span>
 
@@ -494,144 +400,6 @@
 <li><p><code><a href="../reference/accessors.html">get_interval()</a></code> returns the interval of the object.</p></li>
 <li><p><code><a href="../reference/accessors.html">get_timespan()</a></code>returns the number of days the object covers.</p></li>
 </ul>
-</div>
-<div id="bootstrapping-and-finding-peaks" class="section level1">
-<h1 class="hasAnchor">
-<a href="#bootstrapping-and-finding-peaks" class="anchor"></a>Bootstrapping and finding peaks</h1>
-<p>We provide functions to return the peak of the incidence data (grouped or ungrouped), bootstrap from the incidence data, and estimate confidence intervals around a peak.</p>
-<div id="bootstrap" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bootstrap" class="anchor"></a><code>bootstrap()</code>
-</h2>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">fluH7N9_china_2013</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
-<span class="co">#&gt; 10 missing observations were removed.</span>
-<span class="fu"><a href="../reference/bootstrap.html">bootstrap</a></span>(<span class="no">x</span>)
-<span class="co">#&gt; An incidence2 object: 47 x 3</span>
-<span class="co">#&gt; [126 cases from days 2013-02-27 to 2013-07-27]</span>
-<span class="co">#&gt; [interval: 1 day]</span>
-<span class="co">#&gt; [cumulative: FALSE]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;    date       gender count</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-02-27 m          2</span>
-<span class="co">#&gt;  2 2013-03-07 m          1</span>
-<span class="co">#&gt;  3 2013-03-08 m          3</span>
-<span class="co">#&gt;  4 2013-03-09 f          1</span>
-<span class="co">#&gt;  5 2013-03-17 m          2</span>
-<span class="co">#&gt;  6 2013-03-19 f          3</span>
-<span class="co">#&gt;  7 2013-03-20 f          1</span>
-<span class="co">#&gt;  8 2013-03-20 m          1</span>
-<span class="co">#&gt;  9 2013-03-25 m          4</span>
-<span class="co">#&gt; 10 2013-03-28 m          9</span>
-<span class="co">#&gt; # … with 37 more rows</span></pre></body></html></div>
-</div>
-<div id="find_peak" class="section level2">
-<h2 class="hasAnchor">
-<a href="#find_peak" class="anchor"></a><code>find_peak()</code>
-</h2>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">fluH7N9_china_2013</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
-<span class="co">#&gt; 10 missing observations were removed.</span>
-
-<span class="co"># peaks across each group</span>
-<span class="no">x</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span>(<span class="kw">regroup</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   date       gender count</span>
-<span class="co">#&gt;   &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1 2013-04-11 f          3</span>
-<span class="co">#&gt; 2 2013-04-03 m          6</span>
-
-<span class="co"># peak without groupings</span>
-<span class="no">x</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span>()
-<span class="co">#&gt; `.` is stratified by groups</span>
-<span class="co">#&gt; regrouping groups before finding peaks</span>
-<span class="co">#&gt; An incidence2 object: 1 x 2</span>
-<span class="co">#&gt; [7 cases from days 2013-04-03 to 2013-04-03]</span>
-<span class="co">#&gt; [interval: 1 day]</span>
-<span class="co">#&gt; [cumulative: FALSE]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   date       count</span>
-<span class="co">#&gt;   &lt;date&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 2013-04-03     7</span></pre></body></html></div>
-</div>
-<div id="estimate_peak" class="section level2">
-<h2 class="hasAnchor">
-<a href="#estimate_peak" class="anchor"></a><code>estimate_peak()</code>
-</h2>
-<p>Note that the bootstrapping approach used for estimating the peak time makes the following assumptions:</p>
-<ul>
-<li>the total number of event is known (no uncertainty on total incidence);</li>
-<li>dates with no events (zero incidence) will never be in bootstrapped datasets; and</li>
-<li>the reporting is assumed to be constant over time, i.e. every case is equally likely to be reported.</li>
-</ul>
-<p>Also note that <code><a href="../reference/estimate_peak.html">estimate_peak()</a></code> will always returns a list but is compatible with <code>broom::tidy()</code> :</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">fluH7N9_china_2013</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">province</span>)
-<span class="co">#&gt; 10 missing observations were removed.</span>
-
-<span class="co"># regrouping for overall peak</span>
-<span class="no">x</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span>()
-<span class="co">#&gt; Estimating peaks from bootstrap samples:</span>
-<span class="co">#&gt; ================================================================================</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [[1]]$observed</span>
-<span class="co">#&gt; An incidence2 object: 1 x 2</span>
-<span class="co">#&gt; [7 cases from days 2013-04-03 to 2013-04-03]</span>
-<span class="co">#&gt; [interval: 1 day]</span>
-<span class="co">#&gt; [cumulative: FALSE]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   date       count</span>
-<span class="co">#&gt;   &lt;date&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 2013-04-03     7</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[1]]$estimated</span>
-<span class="co">#&gt; [1] "2013-04-05"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[1]]$ci</span>
-<span class="co">#&gt;         2.5%        97.5% </span>
-<span class="co">#&gt; "2013-03-28" "2013-04-13" </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[1]]$peaks</span>
-<span class="co">#&gt; # A tibble: 100 x 2</span>
-<span class="co">#&gt;    date       count</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-04-03    10</span>
-<span class="co">#&gt;  2 2013-04-11    10</span>
-<span class="co">#&gt;  3 2013-04-08    12</span>
-<span class="co">#&gt;  4 2013-04-12     8</span>
-<span class="co">#&gt;  5 2013-04-01     9</span>
-<span class="co">#&gt;  6 2013-04-01    10</span>
-<span class="co">#&gt;  7 2013-04-12    10</span>
-<span class="co">#&gt;  8 2013-04-08     9</span>
-<span class="co">#&gt;  9 2013-04-08     9</span>
-<span class="co">#&gt; 10 2013-04-08    10</span>
-<span class="co">#&gt; # … with 90 more rows</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "estimate_peak"</span>
-
-<span class="co"># across provinces (with progress bar suppressed and tidy output)</span>
-<span class="no">x</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span>(<span class="kw">progress</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span>()
-<span class="co">#&gt; # A tibble: 13 x 5</span>
-<span class="co">#&gt;    grouping  estimate       n conf.low   conf.high </span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;date&gt;     &lt;int&gt; &lt;date&gt;     &lt;date&gt;    </span>
-<span class="co">#&gt;  1 Anhui     2013-03-26   200 2013-03-09 2013-04-14</span>
-<span class="co">#&gt;  2 Beijing   2013-04-21   146 2013-04-11 2013-05-21</span>
-<span class="co">#&gt;  3 Fujian    2013-04-21   228 2013-04-17 2013-04-29</span>
-<span class="co">#&gt;  4 Guangdong 2013-07-27   100 2013-07-27 2013-07-27</span>
-<span class="co">#&gt;  5 Hebei     2013-07-10   100 2013-07-10 2013-07-10</span>
-<span class="co">#&gt;  6 Henan     2013-04-09   178 2013-04-06 2013-04-17</span>
-<span class="co">#&gt;  7 Hunan     2013-04-16   159 2013-04-14 2013-04-23</span>
-<span class="co">#&gt;  8 Jiangsu   2013-03-23   383 2013-03-08 2013-04-17</span>
-<span class="co">#&gt;  9 Jiangxi   2013-04-19   242 2013-04-15 2013-05-03</span>
-<span class="co">#&gt; 10 Shandong  2013-04-19   151 2013-04-16 2013-04-27</span>
-<span class="co">#&gt; 11 Shanghai  2013-03-31   536 2013-03-19 2013-04-04</span>
-<span class="co">#&gt; 12 Taiwan    2013-04-12   100 2013-04-12 2013-04-12</span>
-<span class="co">#&gt; 13 Zhejiang  2013-04-08   742 2013-03-29 2013-04-15</span></pre></body></html></div>
-</div>
 </div>
   </div>
 
