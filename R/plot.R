@@ -131,11 +131,18 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
 
 }
 
-#' @importFrom rlang sym syms
-#' @export
 #' @rdname plot.incidence2
+#' @aliases facet_plot
+#' @export
+facet_plot <- function(x, ...) {
+  UseMethod("facet_plot")
+}
 
-facet_plot <- function(x, facets = NULL, stack = TRUE, fill = NULL, title = NULL,
+#' @importFrom rlang sym syms
+#' @rdname plot.incidence2
+#' @aliases facet_plot.incidence2
+#' @export
+facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, title = NULL,
                        col_pal = vibrant, alpha = 0.7, color = NA,
                        xlab = "", ylab = NULL, n_breaks = 3,
                        show_cases = FALSE, border = "white",

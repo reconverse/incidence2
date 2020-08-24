@@ -3,6 +3,7 @@
 \name{plot.incidence2}
 \alias{plot.incidence2}
 \alias{facet_plot}
+\alias{facet_plot.incidence2}
 \alias{scale_x_incidence}
 \title{Plotting functions}
 \usage{
@@ -28,7 +29,9 @@
   ...
 )
 
-facet_plot(
+facet_plot(x, ...)
+
+\method{facet_plot}{incidence2}(
   x,
   facets = NULL,
   stack = TRUE,
