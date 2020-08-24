@@ -26,11 +26,13 @@ before using.
 to provide a “tidy” interface for users to work with whilst at the same
 time simplifying the underlying implementation. To this end,
 *incidence2* concentrates only on the initial data handling, calculation
-and graphing of incidence objects. The “fitting” functions of
-[incidence](https://github.com/reconhub/incidence)
-(e.g. `incidence::fit`) will likely find there place in a smaller,
-separate, package with a more consistent interface, more choice of
-underlying models, and tidier outputs.
+and graphing of incidence objects. The “fitting” and “peak estimation”
+functions of [incidence](https://github.com/reconhub/incidence)
+(e.g. `incidence::fit` and `incidence::estimate_peak`) will eventually
+find there way in to a smaller, separate, package called
+[`incidence2extra`](https://github.com/reconhub/incidence2extra). Here
+they will have a more consistent interface, better choice of underlying
+models, and tidier outputs.
 
 # What does it do?
 
@@ -38,10 +40,10 @@ The main features of the package include:
 
   - **`incidence()`**: compute incidence from linelist datasets; any
     fixed time interval can be used; the returned object is a tibble
-    subclass called *incidence*.
+    subclass called *incidence2*.
 
   - plotting functions **`plot()`** and **`facet_plot()`**: these
-    functions return customised ggplot2 plots of *incidence* objects
+    functions return customised ggplot2 plots of *incidence2* objects
     (see `?plot.incidence` for details).
 
   - Compatible with [dplyr](https://dplyr.tidyverse.org/) for data
@@ -54,9 +56,6 @@ The main features of the package include:
   - **`cumulate()`**: computes cumulative incidence over time from an
     `incidence()` object.
 
-  - **`rolling_average`** and **`remove_rolling`**: add or remove a
-    rolling average to/from an `incidence()` object.
-
   - **`print()`** and **`summary()`** functions.
 
   - Conversion functions:
@@ -64,7 +63,7 @@ The main features of the package include:
       - **`as.data.frame()`**: converts an `incidence()` object into a
         `data.frame`.
     
-      - **`as_tibble()`**: convertss an `incidence()` object into a
+      - **`as_tibble()`**: converts an `incidence()` object into a
         `tibble`.
 
   - Accessor functions: **`get_counts_name()`**, **`get_dates_name()`**,
