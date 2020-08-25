@@ -154,6 +154,7 @@
   <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cnt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )
 
@@ -167,6 +168,7 @@
   <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cnt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )
 
@@ -179,6 +181,7 @@
   <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cnt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )
 
@@ -191,6 +194,7 @@
   <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cnt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )
 
@@ -204,6 +208,7 @@
   <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cnt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -257,6 +262,11 @@ consideration (<code>FALSE</code>).</p></td>
 these are <code>NULL</code> (default), the dates from the first/last dates are taken
 from the observations. If these dates are provided, the observations will
 be trimmed to the range of [first_date, last_date].</p></td>
+    </tr>
+    <tr>
+      <th>cnt</th>
+      <td><p>The count variable of the given data.  If NULL (default) the
+data is taken to be a linelist of individual observations.</p></td>
     </tr>
     </table>
 
@@ -517,10 +527,10 @@ interval.</p>
 #&gt; 
 #&gt;    bin_date   week_group gender hospital                                   count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>                                      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07 2014-W15   f      Connaught Hospital                             0
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-07 2014-W15   m      Connaught Hospital                             1
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-07 2014-W15   f      Military Hospital                              1
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-07 2014-W15   m      Military Hospital                              0
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07 2014-W15   f      Military Hospital                              1
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-07 2014-W15   m      Military Hospital                              0
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-07 2014-W15   f      Connaught Hospital                             0
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-07 2014-W15   m      Connaught Hospital                             1
 #&gt; </span><span style='color: #555555;'> 5</span><span> 2014-04-07 2014-W15   f      other                                          0
 #&gt; </span><span style='color: #555555;'> 6</span><span> 2014-04-07 2014-W15   m      other                                          0
 #&gt; </span><span style='color: #555555;'> 7</span><span> 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0
@@ -533,7 +543,7 @@ interval.</p>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(-<span class='fl'>3</span>:<span class='fl'>10</span>, <span class='fl'>10</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 <span class='no'>dat</span> <span class='kw'>%&gt;%</span> <span class='fu'>incidence</span>(<span class='no'>dates</span>,
                   <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"week"</span>,
-                  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>1 observations outside of [2020-08-25, 2020-09-02] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence2 object: 2 x 3
+                  <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>1 observations outside of [2020-08-26, 2020-09-03] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence2 object: 2 x 3
 #&gt; </span><span>[9 cases from days 2020-08-24 to 2020-08-31]
 #&gt; [interval: 1 week]
 #&gt; [cumulative: FALSE]
