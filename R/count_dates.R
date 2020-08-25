@@ -4,10 +4,12 @@
 #' @param breaks An ordered vector of dates or integers.
 #'
 #' @author Thibaut Jombart
+#' @importFrom graphics hist
 #' @return An integer vector of the number of incidences per date.
 #' @noRd
 #'
 count_dates <- function(dates, breaks) {
-  counts <- table(cut(as.integer(dates), breaks = c(breaks, Inf), right = FALSE))
+  #counts <- table(cut(as.integer(dates), breaks = c(breaks, Inf), right = FALSE))
+  counts <- hist(as.integer(dates), breaks = c(as.integer(breaks), Inf), right = FALSE, plot = FALSE)$counts
   as.integer(counts)
 }

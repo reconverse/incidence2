@@ -22,6 +22,9 @@
 #' @param ... Additional arguments. Currently used just for the standard
 #'   argument.
 #'
+#' @param cnt The count variable of the given data.  If NULL (default) the
+#'   data is taken to be a linelist of individual observations.
+#'
 #' @author Zhian Kamvar, Tim Taylor
 #' @importFrom dplyr mutate group_by across summarise n left_join filter
 #' @importFrom rlang :=
@@ -29,7 +32,7 @@
 #' @noRd
 make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
                            na_as_group = TRUE, first_date = NULL,
-                           last_date = NULL, type = NULL,
+                           last_date = NULL, type = NULL, cnt = NULL,
                            ...) {
   dots <- list(...)
 
@@ -56,6 +59,9 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
     last_date = last_date,
     dots = dots
   )
+  grouped_dates <- cut(as.integer(x[[date_index]]), breaks = c(breaks, Inf), right = FALSE)
+  grouped_dates <- breaks[as.integer(grouped_dates)]
+  x <- mutate(x, {{date_index}} := grouped_dates)
 
   # choose name for date column
   if (interval == 1 || interval == 1L || interval == "1 day" || interval == "1 days") {
@@ -64,27 +70,15 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
     date_col = "bin_date"
   }
 
-  # generate grouped_dates and aggregate across dates then groups
-  if (!is.null(groups)) {
-    f_groups <- lapply(x[groups], factor, exclude = NULL)
-    split_x <- split(x, f_groups, sep = "-")
-    out <- lapply(
-      split_x,
-      function(z) {
-        grouped_dates <- group_dates(z[[date_index]], breaks)
-        z <- mutate(z, {{date_col}} := grouped_dates)
-        z <- group_by(z, .data[[date_col]])
-        z <- group_by(z, across( {{groups}}), .add = TRUE)
-        summarise(z, count = n(), .groups = "drop")
-      }
-    )
-    x <- dplyr::bind_rows(out)
-  } else {
-    grouped_dates <- group_dates(x[[date_index]], breaks)
-    x <- mutate(x, {{date_col}} := grouped_dates)
-    x <- group_by(x, .data[[date_col]])
+  # generate grouped_dates
+  x <- grouped_df(x, c(date_index, groups))
+  if (is.null(cnt)) {
     x <- summarise(x, count = n(), .groups = "drop")
+  } else {
+    x <- summarise(x, count = sum(.data[[cnt]]), .groups = "drop")
   }
+
+  colnames(x) <- c(date_col, colnames(x)[-1])
 
   # Add in missing group_labels and give them zero count
   days <- seq(first_date, last_date, by = 1)
@@ -97,7 +91,6 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   } else {
     combinations <- data.frame(grouped_days)
     colnames(combinations) <- date_col
-
   }
 
   x <- left_join(combinations, x, by = c(date_col, groups))
