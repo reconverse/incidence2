@@ -2,6 +2,9 @@
 #'
 #' @param object An 'incidence' object.
 #' @param ... Not used.
+#'
+#' @return object (invisibly).
+#'
 #' @export
 summary.incidence2 <- function(object, ...) {
 

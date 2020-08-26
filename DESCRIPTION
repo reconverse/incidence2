@@ -1,7 +1,7 @@
 Package: incidence2
 Type: Package
 Title: Compute, Handle and Plot Incidence of Dated Events
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
   person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
          comment = c(ORCID = "0000-0002-8587-7113")),
@@ -18,9 +18,9 @@ Authors@R: c(
   )
 Description: Provides functions and classes to compute, handle and visualise 
   incidence from dated events for a defined time interval. Dates can be 
-  provided in various standard formats. The class 'incidence' is used to store
+  provided in various standard formats. The class 'incidence2' is used to store
   computed incidence and can be easily manipulated, subsetted, and plotted.
-  This package is part of the RECON (<http://www.repidemicsconsortium.org/>) 
+  This package is part of the RECON (<https://www.repidemicsconsortium.org/>) 
   toolkit for outbreak analysis.
 Encoding: UTF-8
 License: MIT + file LICENSE
@@ -36,8 +36,7 @@ Imports:
     ellipsis,
     vctrs,
     magrittr,
-    pillar,
-    slider
+    pillar
 Suggests: 
     outbreaks,
     testthat,

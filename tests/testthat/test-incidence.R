@@ -543,3 +543,13 @@ test_that("Print and summary returns the object", {
 
 })
 
+test_that("cnt variable working as expected", {
+  dates <- c("2020-08-24", "2020-08-25", "2020-08-25", "2020-09-03")
+  counts <- c(1, 2, 3, 4)
+  dat <- data.frame(dates, counts)
+  x <- incidence(dat, date_index = dates, count = counts, interval = "week")
+
+  expect_equal(x$bin_date, as.Date(c("2020-08-24", "2020-08-31")))
+  expect_equal(x$count, c(6, 4))
+})
+

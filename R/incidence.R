@@ -24,7 +24,7 @@
 #'   these are `NULL` (default), the dates from the first/last dates are taken
 #'   from the observations. If these dates are provided, the observations will
 #'   be trimmed to the range of \[first_date, last_date\].
-#' @param cnt The count variable of the given data.  If NULL (default) the
+#' @param count The count variable of the given data.  If NULL (default) the
 #'   data is taken to be a linelist of individual observations.
 #'
 #' @param ... Additional arguments used by other methods.
@@ -201,7 +201,7 @@ incidence.default <- function(x, date_index, interval = 1L, ...) {
 #' @rdname incidence
 incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
                            groups = NULL, na_as_group = TRUE,
-                           first_date = NULL, last_date = NULL, cnt = NULL,
+                           first_date = NULL, last_date = NULL, count = NULL,
                            ...) {
 
   ellipsis::check_dots_empty()
@@ -209,7 +209,7 @@ incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
   # change date_index and group to character vectors
   date_index <- arg_values(!!rlang::enexpr(date_index))
   groups <- arg_values(!!rlang::enexpr(groups))
-  cnt <- arg_values(!!rlang::enexpr(cnt))
+  count <- arg_values(!!rlang::enexpr(count))
 
   stopifnot(
     "The argument `date_index` should be of length one" =
@@ -226,7 +226,7 @@ incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
 
   # check variables present
   column_names <- names(x)
-  check_presence(c(groups, date_index, cnt), column_names)
+  check_presence(c(groups, date_index, count), column_names)
 
   out <- make_incidence(x,
     date_index = date_index,
@@ -236,7 +236,7 @@ incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
     first_date = first_date,
     last_date = last_date,
     standard = standard,
-    cnt = cnt,
+    count = count,
     ...
   )
 
@@ -257,7 +257,7 @@ incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
 #' @rdname incidence
 incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
                                 groups = NULL, na_as_group = TRUE,
-                                first_date = NULL, last_date = NULL, cnt = NULL,
+                                first_date = NULL, last_date = NULL, count = NULL,
                                 ...) {
 
   ellipsis::check_dots_empty()
@@ -265,7 +265,7 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
   # change date_index and group to character vectors
   date_index <- arg_values(!!rlang::enexpr(date_index))
   groups <- arg_values(!!rlang::enexpr(groups))
-  cnt <- arg_values(!!rlang::enexpr(cnt))
+  count <- arg_values(!!rlang::enexpr(count))
 
   stopifnot(
     "The argument `date_index` should be of length one" =
@@ -282,7 +282,7 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
 
   # check variables present
   column_names <- names(x)
-  check_presence(c(groups, date_index, cnt), column_names)
+  check_presence(c(groups, date_index, count), column_names)
 
 
   dates <- x[[date_index]]
@@ -307,7 +307,7 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
     first_date = first_date,
     last_date = last_date,
     standard = standard,
-    cnt = cnt,
+    count = count,
     ...
   )
 
@@ -328,7 +328,7 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
 #' @rdname incidence
 incidence.integer <- function(x, date_index, interval = 1L,
                               groups = NULL, na_as_group = TRUE,
-                              first_date = NULL, last_date = NULL, cnt = NULL,
+                              first_date = NULL, last_date = NULL, count = NULL,
                               ...) {
 
   ellipsis::check_dots_empty()
@@ -336,7 +336,7 @@ incidence.integer <- function(x, date_index, interval = 1L,
   # change date_index and group to character vectors
   date_index <- arg_values(!!rlang::enexpr(date_index))
   groups <- arg_values(!!rlang::enexpr(groups))
-  cnt <- arg_values(!!rlang::enexpr(cnt))
+  count <- arg_values(!!rlang::enexpr(count))
 
   stopifnot(
     "The argument `date_index` should be of length one" =
@@ -351,7 +351,7 @@ incidence.integer <- function(x, date_index, interval = 1L,
 
   # check variables present
   column_names <- names(x)
-  check_presence(c(groups, date_index, cnt), column_names)
+  check_presence(c(groups, date_index, count), column_names)
 
   interval <- valid_interval_integer(interval)
 
@@ -362,7 +362,7 @@ incidence.integer <- function(x, date_index, interval = 1L,
     na_as_group = na_as_group,
     first_date = first_date,
     last_date = last_date,
-    cnt = cnt,
+    count = count,
     ...
   )
 
@@ -380,7 +380,7 @@ incidence.integer <- function(x, date_index, interval = 1L,
 #' @rdname incidence
 incidence.numeric <- function(x, date_index, interval = 1L,
                               groups = NULL, na_as_group = TRUE,
-                              first_date = NULL, last_date = NULL, cnt = NULL,
+                              first_date = NULL, last_date = NULL, count = NULL,
                               ...) {
 
   ellipsis::check_dots_empty()
@@ -388,7 +388,7 @@ incidence.numeric <- function(x, date_index, interval = 1L,
   # change date_index and group to character vectors
   date_index <- arg_values(!!rlang::enexpr(date_index))
   groups <- arg_values(!!rlang::enexpr(groups))
-  cnt <- arg_values(!!rlang::enexpr(cnt))
+  count <- arg_values(!!rlang::enexpr(count))
 
   stopifnot(
     "The argument `date_index` should be of length one" =
@@ -403,7 +403,7 @@ incidence.numeric <- function(x, date_index, interval = 1L,
 
   # check variables present
   column_names <- names(x)
-  check_presence(c(groups, date_index, cnt), column_names)
+  check_presence(c(groups, date_index, count), column_names)
 
   interval <- valid_interval_integer(interval)
 
@@ -414,7 +414,7 @@ incidence.numeric <- function(x, date_index, interval = 1L,
     na_as_group = na_as_group,
     first_date = first_date,
     last_date = last_date,
-    cnt = cnt,
+    count = count,
     ...
   )
 
@@ -430,7 +430,7 @@ incidence.numeric <- function(x, date_index, interval = 1L,
 #' @rdname incidence
 incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
                              groups = NULL, na_as_group = TRUE,
-                             first_date = NULL, last_date = NULL, cnt = NULL,
+                             first_date = NULL, last_date = NULL, count = NULL,
                              ...) {
 
   ellipsis::check_dots_empty()
@@ -438,7 +438,7 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
   # change date_index and group to character vectors
   date_index <- arg_values(!!rlang::enexpr(date_index))
   groups <- arg_values(!!rlang::enexpr(groups))
-  cnt <- arg_values(!!rlang::enexpr(cnt))
+  count <- arg_values(!!rlang::enexpr(count))
 
   stopifnot(
     "The argument `date_index` should be of length one" =
@@ -455,7 +455,7 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
 
   # check variables present
   column_names <- names(x)
-  check_presence(c(groups, date_index, cnt), column_names)
+  check_presence(c(groups, date_index, count), column_names)
 
   dates <- check_dates(as.POSIXct(x[[date_index]]))
   x[[date_index]] <- as.Date(dates)
@@ -468,7 +468,7 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
     first_date = first_date,
     last_date = last_date,
     standard = standard,
-    cnt = cnt,
+    count = count,
     ...
   )
 

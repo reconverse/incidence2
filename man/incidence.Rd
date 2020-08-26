@@ -23,7 +23,7 @@ incidence(x, date_index, interval = 1L, ...)
   na_as_group = TRUE,
   first_date = NULL,
   last_date = NULL,
-  cnt = NULL,
+  count = NULL,
   ...
 )
 
@@ -36,7 +36,7 @@ incidence(x, date_index, interval = 1L, ...)
   na_as_group = TRUE,
   first_date = NULL,
   last_date = NULL,
-  cnt = NULL,
+  count = NULL,
   ...
 )
 
@@ -48,7 +48,7 @@ incidence(x, date_index, interval = 1L, ...)
   na_as_group = TRUE,
   first_date = NULL,
   last_date = NULL,
-  cnt = NULL,
+  count = NULL,
   ...
 )
 
@@ -60,7 +60,7 @@ incidence(x, date_index, interval = 1L, ...)
   na_as_group = TRUE,
   first_date = NULL,
   last_date = NULL,
-  cnt = NULL,
+  count = NULL,
   ...
 )
 
@@ -73,7 +73,7 @@ incidence(x, date_index, interval = 1L, ...)
   na_as_group = TRUE,
   first_date = NULL,
   last_date = NULL,
-  cnt = NULL,
+  count = NULL,
   ...
 )
 }
@@ -110,7 +110,7 @@ these are \code{NULL} (default), the dates from the first/last dates are taken
 from the observations. If these dates are provided, the observations will
 be trimmed to the range of [first_date, last_date].}
 
-\item{cnt}{The count variable of the given data.  If NULL (default) the
+\item{count}{The count variable of the given data.  If NULL (default) the
 data is taken to be a linelist of individual observations.}
 }
 \value{

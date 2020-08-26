@@ -22,7 +22,7 @@
 #' @param ... Additional arguments. Currently used just for the standard
 #'   argument.
 #'
-#' @param cnt The count variable of the given data.  If NULL (default) the
+#' @param count The count variable of the given data.  If NULL (default) the
 #'   data is taken to be a linelist of individual observations.
 #'
 #' @author Zhian Kamvar, Tim Taylor
@@ -32,7 +32,7 @@
 #' @noRd
 make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
                            na_as_group = TRUE, first_date = NULL,
-                           last_date = NULL, type = NULL, cnt = NULL,
+                           last_date = NULL, type = NULL, count = NULL,
                            ...) {
   dots <- list(...)
 
@@ -65,17 +65,17 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
 
   # choose name for date column
   if (interval == 1 || interval == 1L || interval == "1 day" || interval == "1 days") {
-    date_col = "date"
+    date_col <- "date"
   } else {
-    date_col = "bin_date"
+    date_col <- "bin_date"
   }
 
   # generate grouped_dates
   x <- grouped_df(x, c(date_index, groups))
-  if (is.null(cnt)) {
+  if (is.null(count)) {
     x <- summarise(x, count = n(), .groups = "drop")
   } else {
-    x <- summarise(x, count = sum(.data[[cnt]]), .groups = "drop")
+    x <- summarise(x, count = sum(.data[[count]]), .groups = "drop")
   }
 
   colnames(x) <- c(date_col, colnames(x)[-1])

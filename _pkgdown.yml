@@ -20,54 +20,45 @@ navbar:
     href: https://github.com/reconhub/incidence2
 
 reference:
-- title: Incidence objects
+- title: Incidence2 objects
   desc: >
-    Functions for computing, viewing and converting incidence objects
-  contents:
-  - '`incidence`'
-  - '`print.incidence`'
-  - '`summary.incidence`'
-  - '`as.data.frame.incidence`'
-  - '`as_tibble.incidence`'
+    Functions for computing, viewing and converting incidence2 objects
+- contents:
+  - incidence
+  - print.incidence2
+  - summary.incidence2
+  - as.data.frame.incidence2
+  - as_tibble.incidence2
 
 - title: Incidence curve visualisation
   desc: >
     Functions for plotting incidence curves and models
-  contents:
-  - '`plot.incidence`'
-  - '`facet_plot`'
-  - '`vibrant`'
-  - '`muted`'
+- contents:
+  - plot.incidence2
+  - facet_plot
+  - vibrant
+  - muted
+
 - title: Accessors
-  desc: Accessor functions for the incidence object
-  contents:
-  - '`get_counts`'
-  - '`get_counts_name`'
-  - '`get_dates`'
-  - '`get_dates_name`'
-  - '`get_date_group_names`'
-  - '`get_group_names`'
-  - '`get_interval`'
-  - '`get_n`'
-  - '`get_timespan`'
+  desc: >
+    Accessor functions for the incidence object
+- contents:
+  - get_counts
+  - get_counts_name
+  - get_dates
+  - get_dates_name
+  - get_date_group_names
+  - get_group_names
+  - get_interval
+  - get_n
+  - get_timespan
 
 - title: Data manipulation
   desc: >
     Functions for manipulating incidence objects by date or group
-  contents:
-  - '`cumulate`'
-  - '`regroup`'
-  - '`rolling_average`'
-  - '`remove_rolling`'
-
-- title: Parameter Estimation
-  desc: >
-    Functions for estimating parameters such as peak and doubling time
-  contents:
-  - '`find_peak`'
-  - '`bootstrap`'
-  - '`estimate_peak`'
-  - '`tidy`'
+- contents:
+  - cumulate
+  - regroup
 
 
 

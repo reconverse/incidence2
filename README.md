@@ -16,8 +16,8 @@ coverage](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.sv
 
 <br> **<span style="color: red;">Disclaimer</span>**
 
-This package is a work in progress. Please reach out to the authors
-before using.
+This package is a work in progress. Version 0.1.0 has been released to
+get feedback from users that we can incorporate in future releases.
 
 # Scope
 
@@ -28,9 +28,9 @@ time simplifying the underlying implementation. To this end,
 *incidence2* concentrates only on the initial data handling, calculation
 and graphing of incidence objects. The “fitting” and “peak estimation”
 functions of [incidence](https://github.com/reconhub/incidence)
-(e.g. `incidence::fit` and `incidence::estimate_peak`) will eventually
-find there way in to a smaller, separate, package called
-[`incidence2extra`](https://github.com/reconhub/incidence2extra). Here
+(e.g. `incidence::fit` and `incidence::estimate_peak`) are being
+implemented in an accompanying package called
+[`incidence2plus`](https://github.com/reconhub/incidence2extra). Here
 they will have a more consistent interface, better choice of underlying
 models, and tidier outputs.
 
@@ -38,13 +38,13 @@ models, and tidier outputs.
 
 The main features of the package include:
 
-  - **`incidence()`**: compute incidence from linelist datasets; any
-    fixed time interval can be used; the returned object is a tibble
-    subclass called *incidence2*.
+  - **`incidence()`**: compute incidence from both linelist and
+    pre-aggregated datasets; any fixed time interval can be used; the
+    returned object is a tibble subclass called *incidence2*.
 
   - plotting functions **`plot()`** and **`facet_plot()`**: these
     functions return customised ggplot2 plots of *incidence2* objects
-    (see `?plot.incidence` for details).
+    (see **`plot.incidence2()`** for details).
 
   - Compatible with [dplyr](https://dplyr.tidyverse.org/) for data
     manipulation. (see `vignette("handling_incidence_objects")` for more
@@ -67,38 +67,39 @@ The main features of the package include:
         `tibble`.
 
   - Accessor functions: **`get_counts_name()`**, **`get_dates_name()`**,
-    **`get_group_names()`**, **`get_interval()`**, **`get_timespan()`**
-    and **`get_n()`**.
+    **`get_dates()`**, **`get_group_names()`**, **`get_interval()`**,
+    **`get_timespan()`** and **`get_n()`**.
 
 # Installing the package
 
-The package is not yet on CRAN but to install the development, *github*
-version of the package use:
+Once it is released on [CRAN](https://CRAN.R-project.org), you will be
+able to install the stable version of the package with:
 
 ``` r
-devtools::install_github("reconhub/incidence2")
+install.packages("incidence2")
 ```
 
-By default this will not build local copies of the vignettes. If you
-would like them installed, instead use:
+The development version can be installed from
+[GitHub](https://github.com/) with:
 
 ``` r
-devtools::install_github("reconhub/incidence2", build_vignettes = TRUE)
+if (!require(remotes)) {
+  install.packages("remotes")
+}
+remotes::install_github("reconhub/incidence2", build_vignettes = TRUE)
 ```
-
-Note that this requires the package *devtools* installed.
 
 # Resources
 
 ## Vignettes
 
-An short overview of *incidence* is provided below in the worked example
+A short overview of *incidence2* is provided below in the worked example
 below. More detailed tutorials are distributed as vignettes with the
 package:
 
-  - `vignette("Introduction", package = "incidence2)`
-  - `vignette("handling_incidence_objects", package = "incidence2)`
-  - `vignette("customizing_incidence_plots", package = "incidence2)`
+  - `vignette("Introduction", package = "incidence2")`
+  - `vignette("handling_incidence_objects", package = "incidence2")`
+  - `vignette("customizing_incidence_plots", package = "incidence2")`
 
 ## Websites
 
@@ -111,7 +112,7 @@ The following websites are available:
 ## Getting help online
 
 Bug reports and feature requests should be posted on *github* using the
-[*issue* system](https://github.com/reconhub/incidence/issues). All
+[*issue* system](https://github.com/reconhub/incidence2/issues). All
 other questions should be posted on the **RECON** slack channel see
 <https://www.repidemicsconsortium.org/forum/> for details on how to
 join.
@@ -250,16 +251,16 @@ i_7_sh
 #> 
 #>    bin_date   week_group gender hospital                                   count
 #>    <date>     <aweek>    <fct>  <fct>                                      <int>
-#>  1 2014-04-07 2014-W15   f      Connaught Hospital                             0
-#>  2 2014-04-07 2014-W15   m      Connaught Hospital                             0
-#>  3 2014-04-07 2014-W15   f      Military Hospital                              1
-#>  4 2014-04-07 2014-W15   m      Military Hospital                              0
+#>  1 2014-04-07 2014-W15   f      Military Hospital                              1
+#>  2 2014-04-07 2014-W15   m      Military Hospital                              0
+#>  3 2014-04-07 2014-W15   f      Connaught Hospital                             0
+#>  4 2014-04-07 2014-W15   m      Connaught Hospital                             0
 #>  5 2014-04-07 2014-W15   f      other                                          0
 #>  6 2014-04-07 2014-W15   m      other                                          0
-#>  7 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0
-#>  8 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0
-#>  9 2014-04-07 2014-W15   f      Rokupa Hospital                                0
-#> 10 2014-04-07 2014-W15   m      Rokupa Hospital                                0
+#>  7 2014-04-07 2014-W15   f      <NA>                                           0
+#>  8 2014-04-07 2014-W15   m      <NA>                                           0
+#>  9 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0
+#> 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0
 #> # … with 662 more rows
 i_7_sh %>% summary()
 #> An incidence2 object: 672 x 5

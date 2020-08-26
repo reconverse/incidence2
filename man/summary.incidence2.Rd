@@ -11,6 +11,9 @@
 
 \item{...}{Not used.}
 }
+\value{
+object (invisibly).
+}
 \description{
 Summary of a given incidence object
 }
