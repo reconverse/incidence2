@@ -13,6 +13,8 @@
 #' @param to `incidence()` object we want
 #'
 #' @return TRUE or FALSE
+#'
+#' @importFrom data.table as.data.table
 #' @noRd
 incidence_can_reconstruct <- function(x, to) {
 
@@ -39,7 +41,7 @@ incidence_can_reconstruct <- function(x, to) {
   }
 
   ## ensure no rows are duplicated within x
-  if (anyDuplicated(x)) {
+  if (anyDuplicated(as.data.table(x))) {
     return(FALSE)
   }
 
