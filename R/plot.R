@@ -240,7 +240,7 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2,
                                      y = !!sym(y_axis)),
-                        width = interval_days(df),
+                        width = .data$interval_days,
                         color = color,
                         fill = col_pal(1),
                         alpha = alpha) +
@@ -250,7 +250,7 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2,
                                      y = !!sym(y_axis)),
-                        width = interval_days(df),
+                        width = .data$interval_days,
                         color = color,
                         fill = fill,
                         alpha = alpha) +
@@ -265,7 +265,7 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2,
                                      y = !!sym(y_axis)),
-                        width = interval_days(df),
+                        width = .data$interval_days,
                         color = color,
                         alpha = alpha,
                         position = stack.txt) +
@@ -290,7 +290,7 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
                         fill  = NA,
                         position = "stack",
                         data = squaredf,
-                        width = interval_days(df))
+                        width = .data$interval_days)
 
     out <- out + squares
   }
