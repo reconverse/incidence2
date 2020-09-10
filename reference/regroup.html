@@ -143,7 +143,7 @@ The resulting <code><a href='incidence.html'>incidence()</a></code> object will 
 the groups present in the input.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>regroup</span>(<span class='no'>x</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>regroup</span>(<span class='kw'>x</span>, groups = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,21 +159,25 @@ ignores all groups.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, quietly = <span class='fl'>TRUE</span>)) {
   <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span>({
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ebola_sim_clean</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"outbreaks"</span>)
-    <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim_clean</span>$<span class='no'>linelist</span>
-    <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>,
-                   <span class='kw'>date_index</span> <span class='kw'>=</span> <span class='no'>date_of_onset</span>,
-                   <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>gender</span>, <span class='no'>hospital</span>))
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>ebola_sim_clean</span>, package = <span class='st'>"outbreaks"</span>)
+    <span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='kw'>ebola_sim_clean</span><span class='op'>$</span><span class='kw'>linelist</span>
+    <span class='kw'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='kw'>dat</span>,
+                   date_index = <span class='kw'>date_of_onset</span>,
+                   groups = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>gender</span>, <span class='kw'>hospital</span>))
 
-    <span class='no'>i</span> <span class='kw'>%&gt;%</span> <span class='fu'>regroup</span>()
+    <span class='kw'>i</span> <span class='op'>%&gt;%</span> <span class='fu'>regroup</span>()
 
-    <span class='no'>i</span> <span class='kw'>%&gt;%</span> <span class='fu'>regroup</span>(<span class='no'>hospital</span>)
+    <span class='kw'>i</span> <span class='op'>%&gt;%</span> <span class='fu'>regroup</span>(<span class='kw'>hospital</span>)
   })
-}</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
+}
+</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
 #&gt; &gt; dat &lt;- ebola_sim_clean$linelist
 #&gt; &gt; i &lt;- incidence(dat, date_index = date_of_onset, groups = c(gender, hospital))
 #&gt; &gt; i %&gt;% regroup()
@@ -232,7 +236,7 @@ ignores all groups.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

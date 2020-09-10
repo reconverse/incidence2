@@ -1,9 +1,6 @@
 pandoc: 2.7.3
-pkgdown: 1.5.1
+pkgdown: 1.6.0
 pkgdown_sha: ~
-articles:
-  Introduction: Introduction.html
-  customizing_incidence_plots: customizing_incidence_plots.html
-  handling_incidence_objects: handling_incidence_objects.html
-last_built: 2020-08-27T06:57Z
+articles: []
+last_built: 2020-09-10T14:07Z
 

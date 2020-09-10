@@ -140,64 +140,64 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for incidence2</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(
-  <span class='no'>x</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>vibrant</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n_breaks</span> <span class='kw'>=</span> <span class='fl'>6</span>,
-  <span class='kw'>show_cases</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>border</span> <span class='kw'>=</span> <span class='st'>"white"</span>,
-  <span class='kw'>na_color</span> <span class='kw'>=</span> <span class='st'>"grey"</span>,
-  <span class='kw'>group_labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>centre_labels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>, <span class='st'>"bottom"</span>, <span class='st'>"top"</span>, <span class='st'>"none"</span>),
-  <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(
+  <span class='kw'>x</span>,
+  fill = <span class='kw'>NULL</span>,
+  stack = <span class='fl'>TRUE</span>,
+  title = <span class='kw'>NULL</span>,
+  col_pal = <span class='kw'>vibrant</span>,
+  alpha = <span class='fl'>0.7</span>,
+  color = <span class='fl'>NA</span>,
+  xlab = <span class='st'>""</span>,
+  ylab = <span class='kw'>NULL</span>,
+  n_breaks = <span class='fl'>6</span>,
+  show_cases = <span class='fl'>FALSE</span>,
+  border = <span class='st'>"white"</span>,
+  na_color = <span class='st'>"grey"</span>,
+  group_labels = <span class='fl'>TRUE</span>,
+  centre_labels = <span class='fl'>FALSE</span>,
+  legend = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>, <span class='st'>"bottom"</span>, <span class='st'>"top"</span>, <span class='st'>"none"</span>),
+  angle = <span class='fl'>0</span>,
+  format = <span class='kw'>NULL</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>facet_plot</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>facet_plot</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for incidence2</span>
 <span class='fu'>facet_plot</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>facets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>vibrant</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n_breaks</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>show_cases</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>border</span> <span class='kw'>=</span> <span class='st'>"white"</span>,
-  <span class='kw'>na_color</span> <span class='kw'>=</span> <span class='st'>"grey"</span>,
-  <span class='kw'>group_labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>centre_labels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bottom"</span>, <span class='st'>"top"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"none"</span>),
-  <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
+  <span class='kw'>x</span>,
+  facets = <span class='kw'>NULL</span>,
+  stack = <span class='fl'>TRUE</span>,
+  fill = <span class='kw'>NULL</span>,
+  title = <span class='kw'>NULL</span>,
+  col_pal = <span class='kw'>vibrant</span>,
+  alpha = <span class='fl'>0.7</span>,
+  color = <span class='fl'>NA</span>,
+  xlab = <span class='st'>""</span>,
+  ylab = <span class='kw'>NULL</span>,
+  n_breaks = <span class='fl'>3</span>,
+  show_cases = <span class='fl'>FALSE</span>,
+  border = <span class='st'>"white"</span>,
+  na_color = <span class='st'>"grey"</span>,
+  group_labels = <span class='fl'>TRUE</span>,
+  centre_labels = <span class='fl'>FALSE</span>,
+  legend = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bottom"</span>, <span class='st'>"top"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"none"</span>),
+  angle = <span class='fl'>0</span>,
+  format = <span class='kw'>NULL</span>,
+  nrow = <span class='kw'>NULL</span>,
+  <span class='kw'>...</span>
 )
 
 <span class='fu'>scale_x_incidence</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>n_breaks</span> <span class='kw'>=</span> <span class='fl'>6</span>,
-  <span class='kw'>group_labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>coord_equal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
+  <span class='kw'>x</span>,
+  n_breaks = <span class='fl'>6</span>,
+  group_labels = <span class='fl'>TRUE</span>,
+  format = <span class='kw'>NULL</span>,
+  angle = <span class='fl'>0</span>,
+  size = <span class='kw'>NULL</span>,
+  coord_equal = <span class='fl'>FALSE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -224,7 +224,7 @@ stacked, or displayed side-by-side. Only used if fill is not NULL.</p></td>
     <tr>
       <th>col_pal</th>
       <td><p>col_pal The color palette to be used for the groups; defaults
-to <code>vibrant</code> (see <code><a href='palettes.html'>?palettes</a></code>).</p></td>
+to <code>vibrant</code> (see <code><a href='vibrant.html'>?palettes</a></code>).</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -320,7 +320,7 @@ group_labels of the incidence object.</p></td>
 
     
 <ul>
-<li><p><code>facet_plot()</code> and <code><a href='https://rdrr.io/r/base/plot.html'>plot()</a></code> generate a <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot2::ggplot()</a></code> object.</p></li>
+<li><p><code>facet_plot()</code> and <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot()</a></code> generate a <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot2::ggplot()</a></code> object.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -336,31 +336,32 @@ average will be overlaid on top.</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, quietly = <span class='fl'>TRUE</span>)) {
   <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span>({
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ebola_sim_clean</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"outbreaks"</span>)
-    <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim_clean</span>$<span class='no'>linelist</span>
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>ebola_sim_clean</span>, package = <span class='st'>"outbreaks"</span>)
+    <span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='kw'>ebola_sim_clean</span><span class='op'>$</span><span class='kw'>linelist</span>
 
-    <span class='no'>inci</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>,
-                      <span class='kw'>date_index</span> <span class='kw'>=</span> <span class='no'>date_of_onset</span>,
-                      <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-                      <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>hospital</span>)
+    <span class='kw'>inci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='kw'>dat</span>,
+                      date_index = <span class='kw'>date_of_onset</span>,
+                      interval = <span class='fl'>7</span>,
+                      groups = <span class='kw'>hospital</span>)
 
-    <span class='no'>inci2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>,
-                      <span class='kw'>date_index</span> <span class='kw'>=</span> <span class='no'>date_of_onset</span>,
-                      <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-                      <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>hospital</span>, <span class='no'>gender</span>))
+    <span class='kw'>inci2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='kw'>dat</span>,
+                      date_index = <span class='kw'>date_of_onset</span>,
+                      interval = <span class='fl'>7</span>,
+                      groups = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>hospital</span>, <span class='kw'>gender</span>))
 
-    <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>inci</span>)
-    <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>inci</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>hospital</span>)
-    <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>inci</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>hospital</span>, <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>inci</span>)
+    <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>inci</span>, fill = <span class='kw'>hospital</span>)
+    <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>inci</span>, fill = <span class='kw'>hospital</span>, stack = <span class='fl'>FALSE</span>)
 
-    <span class='fu'>facet_plot</span>(<span class='no'>inci</span>)
-    <span class='fu'>facet_plot</span>(<span class='no'>inci2</span>)
-    <span class='fu'>facet_plot</span>(<span class='no'>inci2</span>, <span class='kw'>facets</span> <span class='kw'>=</span> <span class='no'>gender</span>)
-    <span class='fu'>facet_plot</span>(<span class='no'>inci2</span>, <span class='kw'>facets</span> <span class='kw'>=</span> <span class='no'>hospital</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>gender</span>)
+    <span class='fu'>facet_plot</span>(<span class='kw'>inci</span>)
+    <span class='fu'>facet_plot</span>(<span class='kw'>inci2</span>)
+    <span class='fu'>facet_plot</span>(<span class='kw'>inci2</span>, facets = <span class='kw'>gender</span>)
+    <span class='fu'>facet_plot</span>(<span class='kw'>inci2</span>, facets = <span class='kw'>hospital</span>, fill = <span class='kw'>gender</span>)
   })
-}</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
+}
+</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
 #&gt; &gt; dat &lt;- ebola_sim_clean$linelist
 #&gt; &gt; inci &lt;- incidence(dat, date_index = date_of_onset, interval = 7, groups = hospital)
 #&gt; &gt; inci2 &lt;- incidence(dat, date_index = date_of_onset, interval = 7, groups = c(hospital, 
@@ -384,7 +385,7 @@ average will be overlaid on top.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>
