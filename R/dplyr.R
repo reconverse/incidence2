@@ -13,6 +13,8 @@
 #' @param to `incidence()` object we want
 #'
 #' @return TRUE or FALSE
+#'
+#' @importFrom data.table as.data.table
 #' @noRd
 incidence_can_reconstruct <- function(x, to) {
 
@@ -38,8 +40,16 @@ incidence_can_reconstruct <- function(x, to) {
     return(FALSE)
   }
 
+  ## check date_group is present
+  date_group <- attr(to, "date_group")
+  if (!is.null(date_group)) {
+    if (!(all(date_group %in% x_names))) {
+      return(FALSE)
+    }
+  }
+
   ## ensure no rows are duplicated within x
-  if (anyDuplicated(x)) {
+  if (anyDuplicated(as.data.table(x))) {
     return(FALSE)
   }
 
@@ -172,6 +182,12 @@ new_bare_tibble <- function(x) {
   if (!is.null(group_vars)) {
     group_index <- which(current_names %in% group_vars)
     attr(x, "groups") <- value[group_index]
+  }
+
+  date_group_var <- attr(x, "date_group")
+  if (!is.null(date_group_var)) {
+    date_group_index <- which(current_names %in% date_group_var)
+    attr(x, "date_group") <- value[date_group_index]
   }
 
   out <- NextMethod()

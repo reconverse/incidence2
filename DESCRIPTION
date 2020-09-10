@@ -36,7 +36,8 @@ Imports:
     ellipsis,
     vctrs,
     magrittr,
-    pillar
+    pillar,
+    data.table
 Suggests: 
     outbreaks,
     testthat,

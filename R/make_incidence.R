@@ -75,7 +75,7 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   if (is.null(count)) {
     x <- summarise(x, count = n(), .groups = "drop")
   } else {
-    x <- summarise(x, count = sum(.data[[count]]), .groups = "drop")
+    x <- summarise(x, count = sum(.data[[count]], na.rm = TRUE), .groups = "drop")
   }
 
   colnames(x) <- c(date_col, colnames(x)[-1])
