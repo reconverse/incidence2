@@ -62,9 +62,9 @@ scale_x_incidence <- function(x, n_breaks = 6, group_labels = TRUE,
     if (!is.null(format)) {
       message("Cannot format variable\n")
     }
-
     out <- ggplot2::scale_x_continuous(breaks = breaks$breaks, ...)
   }
+
   if (coord_equal) {
     list(out, rotate_and_scale(angle, size), ggplot2::coord_equal())
   } else {
@@ -156,13 +156,19 @@ make_breaks <- function(x, n_breaks = 6L, group_labels = TRUE) {
 #'
 #' @noRd
 rotate_and_scale <- function(angle = 0, size = NULL) {
+  if (angle != 0) {
+    hjust <- 1
+  } else {
+    hjust <- NULL
+  }
+  
   if (is.null(size)) {
     ggplot2::theme(
-      axis.text.x = ggplot2::element_text(hjust = 1, angle = angle)
+      axis.text.x = ggplot2::element_text(hjust = hjust, angle = angle)
     )
   } else {
     ggplot2::theme(
-      axis.text.x = ggplot2::element_text(angle = angle, hjust = 1, size = size)
+      axis.text.x = ggplot2::element_text(angle = angle, hjust = hjust, size = size)
     )
   }
 }

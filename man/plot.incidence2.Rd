@@ -22,7 +22,7 @@
   border = "white",
   na_color = "grey",
   group_labels = TRUE,
-  centre_labels = FALSE,
+  centre_ticks = FALSE,
   legend = c("right", "left", "bottom", "top", "none"),
   angle = 0,
   format = NULL,
@@ -47,7 +47,7 @@ facet_plot(x, ...)
   border = "white",
   na_color = "grey",
   group_labels = TRUE,
-  centre_labels = FALSE,
+  centre_ticks = FALSE,
   legend = c("bottom", "top", "left", "right", "none"),
   angle = 0,
   format = NULL,
@@ -109,7 +109,7 @@ borders of the individual squares plotted (defaults to \code{"white"}).}
 axis tick marks are in week format YYYY-Www when plotting weekly incidence;
 defaults to TRUE.}
 
-\item{centre_labels}{Should labels on the axis be centred on the bars. This
+\item{centre_ticks}{Should ticks on the x axis be centred on the bars. This
 only applies to intervals that produce unambiguous labels (i.e \verb{1 day},
 \verb{1 month}, \verb{1 quarter} or \verb{1 year}).  Defaults to \code{FALSE}.}
 

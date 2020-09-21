@@ -118,8 +118,8 @@ For this reason we provide users the ability to make faceted plots with the
 includes an additional facet argument:
 
 ```{r, facets}
-i %>% facet_plot(facets = gender, n_breaks = 4)
-i %>% facet_plot(facets = hospital, fill = gender, n_breaks = 4, nrow = 4)
+i %>% facet_plot(facets = gender, n_breaks = 3)
+i %>% facet_plot(facets = hospital, fill = gender, n_breaks = 3, nrow = 4)
 i %>% facet_plot(facets = gender, fill = "grey")
 ```
 
@@ -141,7 +141,7 @@ x <- incidence(dat,
                groups = hospital,
                interval = "week") 
   plot(x, fill = hospital, color = "black", n_breaks = nrow(x), 
-       angle = 45, size = 12, centre_labels = TRUE, legend = "top")
+       angle = 45, size = 12, centre_ticks = TRUE, legend = "top")
 ```
 
 ## Changing colors
@@ -175,6 +175,6 @@ the base R distribution, and many more are provided in additional packages. We
 provide a couple of examples:
 
 ```{r, palettes}
-i %>% regroup(hospital) %>% plot(fill = hospital, col_pal = rainbow) # see ?rainbow
+i %>% regroup(hospital) %>% plot(fill = hospital, col_pal = rainbow, n_breaks = 3) # see ?rainbow
 i %>% regroup(gender) %>% plot(fill = gender, col_pal = cm.colors)   # see ?cm.colors
 ```
