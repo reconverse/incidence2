@@ -180,10 +180,10 @@
 <span class="co">#&gt; 'data.frame':    5829 obs. of  11 variables:</span>
 <span class="co">#&gt;  $ case_id                : chr  "d1fafd" "53371b" "f5c3d8" "6c286a" ...</span>
 <span class="co">#&gt;  $ generation             : int  0 1 1 2 2 0 3 3 2 3 ...</span>
-<span class="co">#&gt;  $ date_of_infection      : Date, format: NA "2014-04-09" "2014-04-18" ...</span>
-<span class="co">#&gt;  $ date_of_onset          : Date, format: "2014-04-07" "2014-04-15" "2014-04-21" ...</span>
-<span class="co">#&gt;  $ date_of_hospitalisation: Date, format: "2014-04-17" "2014-04-20" "2014-04-25" ...</span>
-<span class="co">#&gt;  $ date_of_outcome        : Date, format: "2014-04-19" NA "2014-04-30" ...</span>
+<span class="co">#&gt;  $ date_of_infection      : Date, format: NA "2014-04-09" ...</span>
+<span class="co">#&gt;  $ date_of_onset          : Date, format: "2014-04-07" "2014-04-15" ...</span>
+<span class="co">#&gt;  $ date_of_hospitalisation: Date, format: "2014-04-17" "2014-04-20" ...</span>
+<span class="co">#&gt;  $ date_of_outcome        : Date, format: "2014-04-19" NA ...</span>
 <span class="co">#&gt;  $ outcome                : Factor w/ 2 levels "Death","Recover": NA NA 2 1 2 NA 2 1 2 1 ...</span>
 <span class="co">#&gt;  $ gender                 : Factor w/ 2 levels "f","m": 1 2 1 1 1 1 1 1 2 2 ...</span>
 <span class="co">#&gt;  $ hospital               : Factor w/ 5 levels "Connaught Hospital",..: 2 1 3 NA 3 NA 1 4 3 5 ...</span>
@@ -197,8 +197,8 @@
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="kw">i_7</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, interval = <span class="fl">7</span>)
 <span class="kw">i_7</span>
-<span class="co">#&gt; [38;5;246mAn incidence2 object: 56 x 2</span>
-<span class="co">#&gt; [39m[5829 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; An incidence2 object: 56 x 2</span>
+<span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 7 days]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
@@ -281,18 +281,18 @@
 <span class="co">#&gt; [interval: 1 week]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    bin_date   week_group gender hospital                                     count</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;  &lt;fct&gt;                                        &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-04-07 2014-W15   f      Military Hospital                                1</span>
-<span class="co">#&gt;  2 2014-04-07 2014-W15   m      Military Hospital                                0</span>
-<span class="co">#&gt;  3 2014-04-07 2014-W15   f      Connaught Hospital                               0</span>
-<span class="co">#&gt;  4 2014-04-07 2014-W15   m      Connaught Hospital                               0</span>
-<span class="co">#&gt;  5 2014-04-07 2014-W15   f      other                                            0</span>
-<span class="co">#&gt;  6 2014-04-07 2014-W15   m      other                                            0</span>
-<span class="co">#&gt;  7 2014-04-07 2014-W15   f      &lt;NA&gt;                                             0</span>
-<span class="co">#&gt;  8 2014-04-07 2014-W15   m      &lt;NA&gt;                                             0</span>
-<span class="co">#&gt;  9 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PCMH)     0</span>
-<span class="co">#&gt; 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PCMH)     0</span>
+<span class="co">#&gt;    bin_date   week_group gender hospital                                 count</span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;  &lt;fct&gt;                                    &lt;int&gt;</span>
+<span class="co">#&gt;  1 2014-04-07 2014-W15   f      Military Hospital                            1</span>
+<span class="co">#&gt;  2 2014-04-07 2014-W15   m      Military Hospital                            0</span>
+<span class="co">#&gt;  3 2014-04-07 2014-W15   f      Connaught Hospital                           0</span>
+<span class="co">#&gt;  4 2014-04-07 2014-W15   m      Connaught Hospital                           0</span>
+<span class="co">#&gt;  5 2014-04-07 2014-W15   f      other                                        0</span>
+<span class="co">#&gt;  6 2014-04-07 2014-W15   m      other                                        0</span>
+<span class="co">#&gt;  7 2014-04-07 2014-W15   f      &lt;NA&gt;                                         0</span>
+<span class="co">#&gt;  8 2014-04-07 2014-W15   m      &lt;NA&gt;                                         0</span>
+<span class="co">#&gt;  9 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (…     0</span>
+<span class="co">#&gt; 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (…     0</span>
 <span class="co">#&gt; # … with 662 more rows</span>
 <span class="kw">i_7_sh</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>()
 <span class="co">#&gt; An incidence2 object: 672 x 5</span>
