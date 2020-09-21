@@ -204,13 +204,13 @@
 </h1>
 <p>With stacked plots it can be difficult to ascertain difference between groups. For this reason we provide users the ability to make faceted plots with the <code><a href="../reference/plot.incidence2.html">facet_plot()</a></code> function. This function takes similar arguments to <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> but includes an additional facet argument:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="kw">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(facets = <span class="kw">gender</span>, n_breaks = <span class="fl">4</span>)
+<span class="kw">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(facets = <span class="kw">gender</span>, n_breaks = <span class="fl">3</span>)
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span>
 </pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/facets-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="kw">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(facets = <span class="kw">hospital</span>, fill = <span class="kw">gender</span>, n_breaks = <span class="fl">4</span>, nrow = <span class="fl">4</span>)
+<span class="kw">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(facets = <span class="kw">hospital</span>, fill = <span class="kw">gender</span>, n_breaks = <span class="fl">3</span>, nrow = <span class="fl">4</span>)
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span>
 </pre></div>
@@ -271,7 +271,7 @@
 <a href="#using-different-palettes" class="anchor"></a>Using different palettes</h3>
 <p>Other color palettes can be provided via <code>col_pal</code>. Various palettes are part of the base R distribution, and many more are provided in additional packages. We provide a couple of examples:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="kw">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span>(<span class="kw">hospital</span>) <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(fill = <span class="kw">hospital</span>, col_pal = <span class="kw">rainbow</span>) <span class="co"># see ?rainbow</span>
+<span class="kw">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span>(<span class="kw">hospital</span>) <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(fill = <span class="kw">hospital</span>, col_pal = <span class="kw">rainbow</span>, n_breaks = <span class="fl">3</span>) <span class="co"># see ?rainbow</span>
 </pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/palettes-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit">
@@ -298,7 +298,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
