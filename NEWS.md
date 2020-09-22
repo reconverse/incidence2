@@ -1,3 +1,5 @@
+# incidence2 (development version)
+
 # incidence2 0.2.0
 
 * Fixes issue with monthly incidence objects when `show_cases = TRUE` (see #42).
