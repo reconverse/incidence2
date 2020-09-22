@@ -249,18 +249,18 @@ i_7_sh
 #> [interval: 1 week]
 #> [cumulative: FALSE]
 #> 
-#>    bin_date   week_group gender hospital                                 count
-#>    <date>     <aweek>    <fct>  <fct>                                    <int>
-#>  1 2014-04-07 2014-W15   f      Military Hospital                            1
-#>  2 2014-04-07 2014-W15   m      Military Hospital                            0
-#>  3 2014-04-07 2014-W15   f      Connaught Hospital                           0
-#>  4 2014-04-07 2014-W15   m      Connaught Hospital                           0
-#>  5 2014-04-07 2014-W15   f      other                                        0
-#>  6 2014-04-07 2014-W15   m      other                                        0
-#>  7 2014-04-07 2014-W15   f      <NA>                                         0
-#>  8 2014-04-07 2014-W15   m      <NA>                                         0
-#>  9 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (…     0
-#> 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (…     0
+#>    bin_date   week_group gender hospital                                   count
+#>    <date>     <aweek>    <fct>  <fct>                                      <int>
+#>  1 2014-04-07 2014-W15   f      Military Hospital                              1
+#>  2 2014-04-07 2014-W15   m      Military Hospital                              0
+#>  3 2014-04-07 2014-W15   f      Connaught Hospital                             0
+#>  4 2014-04-07 2014-W15   m      Connaught Hospital                             0
+#>  5 2014-04-07 2014-W15   f      other                                          0
+#>  6 2014-04-07 2014-W15   m      other                                          0
+#>  7 2014-04-07 2014-W15   f      <NA>                                           0
+#>  8 2014-04-07 2014-W15   m      <NA>                                           0
+#>  9 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0
+#> 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0
 #> # … with 662 more rows
 i_7_sh %>% summary()
 #> An incidence2 object: 672 x 5
