@@ -3,8 +3,8 @@
 * Speed improvements
 
 ## Test environments
-* local R installation, Fedora 32, R-devel (r79233)
-* rhub, Windows, R-devel
+* local Fedora 32, R Under development (unstable) (2020-09-21 r79233)
+* winbuilder, R Under development (unstable) (2020-09-17 r79226)
 
 ## R CMD check results
 There were no ERRORS, WARNINGS or NOTES
