@@ -71,7 +71,8 @@
 #' @details
 #'  - `plot` creates a one-pane graph of an incidence object.
 #'  - `facet_plot` creates a multi-facet graph of a grouped incidence object.
-#'    If the object has no groups it returns the same outout as a call to
+#'    If the object has no groups it returns the same output as a call to
+#'    [plot()].
 #'  - If the [incidence()] object has a rolling average column then that
 #'    average will be overlaid on top.
 #'
