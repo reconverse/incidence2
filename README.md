@@ -16,8 +16,8 @@ coverage](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.sv
 
 <br> **<span style="color: red;">Disclaimer</span>**
 
-This package is a work in progress. Version 0.1.0 has been released to
-get feedback from users that we can incorporate in future releases.
+This package is a work in progress. It has been released to get feedback
+from users that we can incorporate in future releases.
 
 # Scope
 
@@ -72,8 +72,8 @@ The main features of the package include:
 
 # Installing the package
 
-Once it is released on [CRAN](https://CRAN.R-project.org), you will be
-able to install the stable version of the package with:
+You can install the current version of the package from
+[CRAN](https://cran.r-project.org/) with:
 
 ``` r
 install.packages("incidence2")

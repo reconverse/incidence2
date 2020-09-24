@@ -25,11 +25,20 @@ features and is more extensive than the overview provided in README.md.
 
 # Installing the package
 
-The package is not yet on CRAN but to install the development, *github* version
-of the package use:
+You can install the current version of the package from 
+[CRAN](https://cran.r-project.org/) with:
 
-```{r install2, eval=FALSE}
-devtools::install_github("reconhub/incidence2")
+```{r, eval=FALSE}
+install.packages("incidence2")
+```
+
+The development version can be installed from [GitHub](https://github.com/) with:
+
+```{r, eval=FALSE}
+if (!require(remotes)) {
+  install.packages("remotes")
+}
+remotes::install_github("reconhub/incidence2", build_vignettes = TRUE)
 ```
 
 
