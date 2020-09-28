@@ -104,10 +104,15 @@
 <div id="installing-the-package" class="section level1">
 <h1 class="hasAnchor">
 <a href="#installing-the-package" class="anchor"></a>Installing the package</h1>
-<p>The package is not yet on CRAN but to install the development, <em>github</em> version of the package use:</p>
+<p>You can install the current version of the package from <a href="https://cran.r-project.org/">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">devtools</span>::<span class="fu">install_github</span>(<span class="st">"reconhub/incidence2"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"incidence2"</span><span class="op">)</span></pre></div>
+<p>The development version can be installed from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org">remotes</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"reconhub/incidence2"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
 </div>
 <div id="what-does-it-do" class="section level1">
 <h1 class="hasAnchor">
@@ -137,14 +142,14 @@
 <div id="loading-the-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#loading-the-data" class="anchor"></a>Loading the data</h2>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/reconhub/incidence2">incidence2</a></span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/incidence2">incidence2</a></span><span class="op">)</span>
 
-<span class="kw">dat</span> <span class="op">&lt;-</span> <span class="kw">ebola_sim_clean</span><span class="op">$</span><span class="kw">linelist</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">dat</span>)
+<span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
 <span class="co">#&gt; [1] "data.frame"</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">dat</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
 <span class="co">#&gt; 'data.frame':    5829 obs. of  11 variables:</span>
 <span class="co">#&gt;  $ case_id                : chr  "d1fafd" "53371b" "f5c3d8" "6c286a" ...</span>
 <span class="co">#&gt;  $ generation             : int  0 1 1 2 2 0 3 3 2 3 ...</span>
@@ -156,17 +161,16 @@
 <span class="co">#&gt;  $ gender                 : Factor w/ 2 levels "f","m": 1 2 1 1 1 1 1 1 2 2 ...</span>
 <span class="co">#&gt;  $ hospital               : Factor w/ 5 levels "Connaught Hospital",..: 2 1 3 NA 3 NA 1 4 3 5 ...</span>
 <span class="co">#&gt;  $ lon                    : num  -13.2 -13.2 -13.2 -13.2 -13.2 ...</span>
-<span class="co">#&gt;  $ lat                    : num  8.47 8.46 8.48 8.46 8.45 ...</span>
-</pre></div>
+<span class="co">#&gt;  $ lat                    : num  8.47 8.46 8.48 8.46 8.45 ...</span></pre></div>
 </div>
 <div id="computing-and-plotting-incidence" class="section level2">
 <h2 class="hasAnchor">
 <a href="#computing-and-plotting-incidence" class="anchor"></a>Computing and plotting incidence</h2>
 <p>To compute daily incidence we must pass observation data in the form of a <em>data.frame</em> or <em>tibble</em> to the <code><a href="../reference/incidence.html">incidence()</a></code>. We must also pass the name of a date variable in the data that we can use to index the input:</p>
 <p>We compute the daily incidence:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>)
-<span class="kw">i</span>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span><span class="op">)</span>
+<span class="va">i</span>
 <span class="co">#&gt; An incidence2 object: 389 x 2</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-30]</span>
 <span class="co">#&gt; [interval: 1 day]</span>
@@ -185,46 +189,42 @@
 <span class="co">#&gt;  9 2014-04-15     1</span>
 <span class="co">#&gt; 10 2014-04-16     0</span>
 <span class="co">#&gt; # … with 379 more rows</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">i</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 389 x 2</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-30</span>
 <span class="co">#&gt; interval: 1 day</span>
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; timespan: 389 days</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span></pre></div>
 <p><img src="Introduction_files/figure-html/incid1-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-
-<span class="co"># weekly, starting on Monday (ISO week, default)</span>
-<span class="kw">i_weekly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, interval = <span class="st">"1 week"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i_weekly</span>)
-</pre></div>
-<p><img src="Introduction_files/figure-html/interv-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 
-<span class="co"># bi-weekly, starting on Saturday</span>
-<span class="kw">i_biweekly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, interval = <span class="st">"2 saturday weeks"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i_biweekly</span>, color = <span class="st">"white"</span>)
-</pre></div>
-<p><img src="Introduction_files/figure-html/interv-2.png" width="672" style="display: block; margin: auto;"></p>
+<span class="co"># weekly, starting on Monday (ISO week, default)</span>
+<span class="va">i_weekly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"1 week"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_weekly</span><span class="op">)</span></pre></div>
+<p><img src="Introduction_files/figure-html/interv-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
 
+<span class="co"># bi-weekly, starting on Saturday</span>
+<span class="va">i_biweekly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"2 saturday weeks"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_biweekly</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></pre></div>
+<p><img src="Introduction_files/figure-html/interv-2.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+
 <span class="co">## monthly</span>
-<span class="kw">i_monthly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>, interval = <span class="st">"1 month"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i_monthly</span>, color = <span class="st">"white"</span>)
-</pre></div>
+<span class="va">i_monthly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"1 month"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_monthly</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></pre></div>
 <p><img src="Introduction_files/figure-html/interv-3.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="grouping" class="section level2">
 <h2 class="hasAnchor">
 <a href="#grouping" class="anchor"></a>Grouping</h2>
 <p><code><a href="../reference/incidence.html">incidence()</a></code> can also aggregate incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender and plot with both the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function for a single plot and the <code><a href="../reference/plot.incidence2.html">facet_plot()</a></code> function for a multi-faceted plot across groups:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">i_weekly_sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>,
-                     interval = <span class="st">"1 week"</span>, groups = <span class="kw">gender</span>)
-<span class="kw">i_weekly_sex</span>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="va">i_weekly_sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
+                     interval <span class="op">=</span> <span class="st">"1 week"</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
+<span class="va">i_weekly_sex</span>
 <span class="co">#&gt; An incidence2 object: 112 x 4</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [interval: 1 week]</span>
@@ -243,7 +243,7 @@
 <span class="co">#&gt;  9 2014-05-05 2014-W19   f          9</span>
 <span class="co">#&gt; 10 2014-05-05 2014-W19   m          3</span>
 <span class="co">#&gt; # … with 102 more rows</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">i_weekly_sex</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">i_weekly_sex</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 112 x 4</span>
 <span class="co">#&gt; 5829 cases from days 2014-04-07 to 2015-04-27</span>
 <span class="co">#&gt; interval: 1 week</span>
@@ -258,24 +258,21 @@
 <span class="co">#&gt; 2 m       2895</span>
 
 <span class="co"># A singular plot</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">i_weekly_sex</span>, fill = <span class="kw">gender</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_weekly_sex</span>, fill <span class="op">=</span> <span class="va">gender</span><span class="op">)</span></pre></div>
 <p><img src="Introduction_files/figure-html/gender-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
+<div class="sourceCode" id="cb9"><pre class="downlit">
 
 <span class="co"># a multi-facet plot</span>
-<span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(<span class="kw">i_weekly_sex</span>, fill = <span class="kw">gender</span>, color = <span class="st">"white"</span>, )
-</pre></div>
+<span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">i_weekly_sex</span>, fill <span class="op">=</span> <span class="va">gender</span>, color <span class="op">=</span> <span class="st">"white"</span>, <span class="op">)</span></pre></div>
 <p><img src="Introduction_files/figure-html/gender-2.png" width="672" style="display: block; margin: auto;"></p>
 <p>There is no limit to the number of groups that we group by and this allows us to both facet and fill by different variables:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="kw">inci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="kw">dat</span>, date_index = <span class="kw">date_of_onset</span>,
-                     interval = <span class="st">"1 week"</span>, groups = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">outcome</span>, <span class="kw">hospital</span>, <span class="kw">gender</span>))
-<span class="kw">inci</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span>(facets = <span class="kw">hospital</span>, fill = <span class="kw">outcome</span>, n_breaks = <span class="fl">4</span>, nrow = <span class="fl">3</span>)
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="va">inci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
+                     interval <span class="op">=</span> <span class="st">"1 week"</span>, groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">outcome</span>, <span class="va">hospital</span>, <span class="va">gender</span><span class="op">)</span><span class="op">)</span>
+<span class="va">inci</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span>facets <span class="op">=</span> <span class="va">hospital</span>, fill <span class="op">=</span> <span class="va">outcome</span>, n_breaks <span class="op">=</span> <span class="fl">4</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
-<span class="co">#&gt; For multi-facet plotting try facet_plot()</span>
-</pre></div>
+<span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></div>
 <p><img src="Introduction_files/figure-html/outcome_hospital-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
