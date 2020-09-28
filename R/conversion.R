@@ -14,7 +14,6 @@
 #'
 #' @export
 as.data.frame.incidence2 <- function(x, ...) {
-  ellipsis::check_dots_empty()
   vctrs::new_data_frame(x)
 }
 # -------------------------------------------------------------------------

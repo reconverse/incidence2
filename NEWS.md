@@ -1,4 +1,5 @@
 # incidence2 (development version)
+* Fix bug in as.data.frame.incidence2
 
 # incidence2 0.2.0
 
