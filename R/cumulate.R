@@ -41,14 +41,28 @@ cumulate.incidence2 <- function(x) {
   if (is_cumulate) {
     stop("x is already a cumulative incidence")
   }
-  out <- x
+  
   groups <- get_group_names(x)
   count_var <- get_counts_name(x)
   if (!is.null(groups)) {
-    out <- grouped_df(out, groups)
+    f_groups <- lapply(suppressMessages(x[groups]), factor, exclude = NULL)
+    split_x <- split(x, f_groups, sep = "_and_")
+    out <- lapply(
+      split_x, 
+      function(z) {
+        z[[count_var]] <- cumsum(z[[count_var]])
+        z
+      }
+    )
+    out <- do.call(rbind, out)
+  } else {
+    out <- x
+    out[[count_var]] <- cumsum(out[[count_var]])
   }
-  out <- mutate(out, count = cumsum(.data[[count_var]]))
-  out <- ungroup(out)
+
+  date_var <- get_date_group_names(x)
+  
+  out <- out[order(out[[date_var]],out[[groups]]),]
   names(out) <- names(x)
   attributes(out) <- attributes(x)
   attr(out, "cumulative") <- TRUE
