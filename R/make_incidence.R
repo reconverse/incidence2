@@ -61,7 +61,8 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   )
   grouped_dates <- cut(as.integer(x[[date_index]]), breaks = c(breaks, Inf), right = FALSE)
   grouped_dates <- breaks[as.integer(grouped_dates)]
-  x <- mutate(x, {{date_index}} := grouped_dates)
+  #x <- mutate(x, {{date_index}} := grouped_dates)
+  x[date_index] = grouped_dates
 
   # choose name for date column
   if (interval == 1 || interval == 1L || interval == "1 day" || interval == "1 days") {
@@ -71,11 +72,49 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   }
 
   # generate grouped_dates
-  x <- grouped_df(x, c(date_index, groups))
+  #x <- grouped_df(x, c(date_index, groups))
   if (is.null(count)) {
-    x <- summarise(x, count = n(), .groups = "drop")
-  } else {
-    x <- summarise(x, count = sum(.data[[count]], na.rm = TRUE), .groups = "drop")
+    #x <- summarise(x, count = n(), .groups = "drop")
+    if (is.null(groups)) {
+      x <- aggregate(
+        data.frame(count = 1:nrow(x)),
+        by = setNames(list(x[[date_index]]), date_index), 
+        length
+      )
+    } else {
+      
+      x <- aggregate(
+        data.frame(count = 1:nrow(x)),
+        by = setNames(
+          c(list(x[[date_index]]), as.list(x[,groups, drop = FALSE])),
+          c(date_index, groups)
+        ), 
+        length
+      )
+    }
+  }
+  else {
+    if (is.null(groups)) {
+      x <- aggregate(
+        x[, count, drop=FALSE],
+        by = setNames(list(x[[date_index]]), date_index), 
+        sum,
+        na.rm = TRUE
+      )
+    } else {
+      
+      x <- aggregate(
+        x[, count, drop=FALSE],
+        by = setNames(
+          c(list(x[[date_index]]), as.list(x[,groups, drop = FALSE])),
+          c(date_index, groups)
+        ), 
+        sum,
+        na.rm = TRUE
+      )
+    }
+    #x <- summarise(x, count = sum(.data[[count]], na.rm = TRUE), .groups = "drop")
+
   }
 
   colnames(x) <- c(date_col, colnames(x)[-1])
@@ -93,13 +132,16 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
     colnames(combinations) <- date_col
   }
 
-  x <- left_join(combinations, x, by = c(date_col, groups))
+  #x <- left_join(combinations, x, by = c(date_col, groups))
+  x <- merge(combinations, x, by = c(date_col, groups), all.x = TRUE)
   x$count[is.na(x$count)] <- 0L
 
   # filter out NA
   if (!na_as_group) {
-    x <- filter(x, !is.na(.data[[date_col]]))
-    x <- filter(x, across( {{groups}} , ~!is.na(.)))
+    #x <- filter(x, !is.na(.data[[date_col]]))
+    x <- x[!is.na(x[[date_col]]), , drop=FALSE]
+    #x <- filter(x, across( {{groups}} , ~!is.na(.)))
+    x <- x[complete.cases(x[,groups,drop=FALSE]), ] 
   }
 
   # deal with "week" intervals
