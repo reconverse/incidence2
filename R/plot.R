@@ -103,7 +103,7 @@
 #'   })
 #' }
 
-#' @importFrom rlang sym syms
+#' @importFrom ggplot2 sym syms
 #' @export
 plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
                            col_pal = vibrant, alpha = 0.7, color = NA,
@@ -137,7 +137,7 @@ facet_plot <- function(x, ...) {
   UseMethod("facet_plot")
 }
 
-#' @importFrom rlang sym syms
+#' @importFrom ggplot2 sym syms
 #' @rdname plot.incidence2
 #' @aliases facet_plot.incidence2
 #' @export

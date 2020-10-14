@@ -33,7 +33,6 @@ cumulate.default <- function(x) {
   cumsum(x)
 }
 
-#' @importFrom dplyr grouped_df across all_of mutate ungroup
 #' @export
 #' @rdname cumulate
 cumulate.incidence2 <- function(x) {
@@ -61,8 +60,8 @@ cumulate.incidence2 <- function(x) {
   }
 
   date_var <- get_date_group_names(x)
-  
-  out <- out[order(out[[date_var]],out[[groups]]),]
+  order_vars <- c(date_var, groups)
+  out <- out[do.call(order,unname(out[order_vars])),] 
   names(out) <- names(x)
   attributes(out) <- attributes(x)
   attr(out, "cumulative") <- TRUE

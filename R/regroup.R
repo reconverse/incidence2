@@ -45,11 +45,10 @@ regroup <- function(x, groups = NULL){
   cumulate <- attr(x, "cumulative")
   interval <- get_interval(x)
 
-  tbl <- grouped_df(x, date_var)
-  if (!is.null(groups)) {
-    tbl <- group_by(tbl, across(all_of(groups)), .add = TRUE)
-  }
-  tbl <- summarise(tbl, count = sum(.data[[count_var]]))
+  fm <- paste(count_var, paste(c(date_var, groups), collapse = "+"), sep = "~")
+  tbl <- aggregate(as.formula(fm), data = x, sum, na.action = na.pass)
+  order_vars <- c(date_var, groups)
+  tbl <- tbl[do.call(order,unname(tbl[order_vars])),] 
 
   # create subclass of tibble
   tbl <- tibble::new_tibble(tbl,

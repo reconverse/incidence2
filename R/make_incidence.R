@@ -26,9 +26,8 @@
 #'   data is taken to be a linelist of individual observations.
 #'
 #' @author Zhian Kamvar, Tim Taylor
-#' @importFrom dplyr mutate group_by across summarise n left_join filter
-#' @importFrom rlang :=
 #' @return An incidence2 object.
+#' @importFrom stats aggregate as.formula complete.cases na.pass
 #' @noRd
 make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
                            na_as_group = TRUE, first_date = NULL,

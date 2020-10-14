@@ -51,9 +51,9 @@ summary.incidence2 <- function(object, ...) {
                 ifelse(length(groups) < 2, "variable", "variables")))
 
     for (gr in groups) {
-      tmp <- grouped_df(object, gr)
-      tmp <- summarise(tmp, count = sum( .data[[count_var]] ))
-      tmp <- format(tmp)
+      fm <- paste(count_var, gr, sep = "~")
+      tmp <- aggregate(as.formula(fm), data = object, sum, na.action = na.pass)
+      tmp <- format(tibble::as_tibble(tmp))
       cat(tmp[-1], sep = "\n")
       cat("\n\n")
     }
