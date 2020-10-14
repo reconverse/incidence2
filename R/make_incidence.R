@@ -51,6 +51,14 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   # filter dates
   x <- trim_observations(x, date_index, first_date, last_date)
 
+  # filter out NA
+  x <- x[!is.na(x[[date_index]]), , drop=FALSE]
+  if (!na_as_group) {
+    x <- x[complete.cases(x[,groups,drop=FALSE]), ] 
+  } else {
+    x[,groups] <- convert_to_NA(x[,groups, drop=FALSE])
+  }
+
   # calculate breaks
   breaks <- make_breaks_easier(
     x[[date_index]],
@@ -61,7 +69,6 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   )
   grouped_dates <- cut(as.integer(x[[date_index]]), breaks = c(breaks, Inf), right = FALSE)
   grouped_dates <- breaks[as.integer(grouped_dates)]
-  #x <- mutate(x, {{date_index}} := grouped_dates)
   x[date_index] = grouped_dates
 
   # choose name for date column
@@ -71,50 +78,15 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
     date_col <- "bin_date"
   }
 
-  # generate grouped_dates
-  #x <- grouped_df(x, c(date_index, groups))
-  if (is.null(count)) {
-    #x <- summarise(x, count = n(), .groups = "drop")
-    if (is.null(groups)) {
-      x <- aggregate(
-        data.frame(count = 1:nrow(x)),
-        by = setNames(list(x[[date_index]]), date_index), 
-        length
-      )
-    } else {
-      
-      x <- aggregate(
-        data.frame(count = 1:nrow(x)),
-        by = setNames(
-          c(list(x[[date_index]]), as.list(x[,groups, drop = FALSE])),
-          c(date_index, groups)
-        ), 
-        length
-      )
-    }
-  }
-  else {
-    if (is.null(groups)) {
-      x <- aggregate(
-        x[, count, drop=FALSE],
-        by = setNames(list(x[[date_index]]), date_index), 
-        sum,
-        na.rm = TRUE
-      )
-    } else {
-      
-      x <- aggregate(
-        x[, count, drop=FALSE],
-        by = setNames(
-          c(list(x[[date_index]]), as.list(x[,groups, drop = FALSE])),
-          c(date_index, groups)
-        ), 
-        sum,
-        na.rm = TRUE
-      )
-    }
-    #x <- summarise(x, count = sum(.data[[count]], na.rm = TRUE), .groups = "drop")
 
+  
+  if (is.null(count)) {
+    x$count = 1
+    fm <- paste("count~", paste(c(date_index, groups), collapse = "+"))
+    x <- aggregate(as.formula(fm), data = x, length, na.action = na.pass)
+  } else {
+    fm <- paste(count, paste(c(date_index, groups), collapse = "+"), sep = "~")
+    x <- aggregate(as.formula(fm), data = x, sum, na.rm = TRUE, na.action = na.pass)
   }
 
   colnames(x) <- c(date_col, colnames(x)[-1])
@@ -136,13 +108,7 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   x <- merge(combinations, x, by = c(date_col, groups), all.x = TRUE)
   x$count[is.na(x$count)] <- 0L
 
-  # filter out NA
-  if (!na_as_group) {
-    #x <- filter(x, !is.na(.data[[date_col]]))
-    x <- x[!is.na(x[[date_col]]), , drop=FALSE]
-    #x <- filter(x, across( {{groups}} , ~!is.na(.)))
-    x <- x[complete.cases(x[,groups,drop=FALSE]), ] 
-  }
+
 
   # deal with "week" intervals
   if (!is.numeric(interval) && grepl("week", interval)) {
@@ -160,7 +126,22 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
                             interval = interval,
                             cumulative = FALSE,
                             nrow = nrow(x),
-                            class = "incidence2"
+                            class = "tmp"
   )
-  tibble::validate_tibble(tbl)
+  tbl
+}
+
+
+convert_to_NA <- function(dat) {
+    out <- lapply(
+        dat,
+        function(x) {
+            if (is.factor(x)) {
+                addNA(x)
+            } else {
+                x[is.na(x)] <- "NA"
+                x
+            }
+        }
+    )
 }

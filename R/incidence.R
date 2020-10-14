@@ -241,8 +241,9 @@ incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
   )
 
   out <- group_labels(out, interval, standard)
+  class(out)[1] <- "incidence2"
+  tibble::validate_tibble(out)
 
-  out
 }
 # -------------------------------------------------------------------------
 
@@ -312,8 +313,9 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
   )
 
   out <- group_labels(out, interval, standard)
+  class(out)[1] <- "incidence2"
+  tibble::validate_tibble(out)
 
-  out
 }
 # -------------------------------------------------------------------------
 
@@ -366,11 +368,12 @@ incidence.integer <- function(x, date_index, interval = 1L,
     ...
   )
 
-  date_col <- get_dates_name(out)
+  date_col <- attr(out, "date")
   out[[date_col]] <- as.integer(out[[date_col]])
   attr(out, "interval") <- as.integer(attr(out, "interval"))
+  class(out)[1] <- "incidence2"
+  tibble::validate_tibble(out)
 
-  out
 }
 # -------------------------------------------------------------------------
 
@@ -418,9 +421,10 @@ incidence.numeric <- function(x, date_index, interval = 1L,
     ...
   )
 
-  date_col <- get_dates_name(out)
+  date_col <- attr(out, "date")
   out[[date_col]] <- as.numeric(out[[date_col]])
-  out
+  class(out)[1] <- "incidence2"
+  tibble::validate_tibble(out)
 }
 # -------------------------------------------------------------------------
 
@@ -473,19 +477,20 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
   )
 
   attr(out, "type") <- "POSIXt"
-  date_col <- get_dates_name(out)
+  date_col <- attr(out, "date")
   out[[date_col]] <- as.POSIXlt(out[[date_col]])
   if (inherits(dates, "POSIXct")) {
     out[[date_col]] <- as.POSIXct(out[[date_col]])
   }
-  out
+  class(out)[1] <- "incidence2"
+  tibble::validate_tibble(out)
 }
 # -------------------------------------------------------------------------
 
 
 # -------------------------------------------------------------------------
 group_labels <- function(x, interval, standard) {
-  date_var <- get_dates_name(x)
+  date_var <- attr(x, "date")
 
   if (check_week(interval) && standard) {
     week_start <- get_week_start(interval)

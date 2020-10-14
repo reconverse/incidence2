@@ -523,7 +523,7 @@ test_that("user-defined group levels are preserved", {
   g <- factor(g, levels = LETTERS[5:1])
   dat <- data.frame(dates = rpois(100, 10), g)
   i <- incidence(dat, date_index = dates, groups = g)
-  expect_identical(levels(i[[get_group_names(i)]]), levels(g))
+  expect_identical(levels(i[[get_group_names(i)]]), c(levels(g), NA))
 })
 
 test_that("Print and summary returns the object", {
