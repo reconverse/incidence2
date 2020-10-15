@@ -491,12 +491,21 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
 # -------------------------------------------------------------------------
 group_labels <- function(x, interval, standard) {
   date_var <- attr(x, "date")
+  out <- x
 
   if (check_week(interval) && standard) {
     week_start <- get_week_start(interval)
-    x$week_group <- aweek::date2week(x[[date_var]], week_start, floor_day = TRUE)
-    attr(x, "date_group") <- "week_group"
-    x <- dplyr::relocate(x, .data$week_group, .after = .data[[date_var]])
+    out <- data.frame(
+      append(
+        x, 
+        list(week_group = aweek::date2week(x[[date_var]], week_start, floor_day = TRUE)), 
+        after = match(date_var, names(x))
+      )
+    )
+    nms <- names(out)
+    attributes(out) <- attributes(x)
+    attr(out, "names") <- nms
+    attr(out, "date_group") <- "week_group"
   } else {
     date_interval <- is.character(interval) && is_date_interval(interval)
     is_month <- interval == "month" || interval == "1 month" || interval == "1 months"
@@ -504,20 +513,44 @@ group_labels <- function(x, interval, standard) {
     is_year <- interval == "year" || interval == "1 year" || interval == "1 years"
 
     if (date_interval && is_month) {
-      x$date_group <- format(x[[date_var]], "%b %y")
-      attr(x, "date_group") <- "date_group"
-      x <- dplyr::relocate(x, .data$date_group, .after = .data[[date_var]])
+      out <- data.frame(
+        append(
+          x, 
+          list(date_group = format(x[[date_var]], "%b %y")),
+          after = match(date_var, names(x))
+        )
+      )
+      nms <- names(out)
+      attributes(out) <- attributes(x)
+      attr(out, "names") <- nms
+      attr(out, "date_group") <- "date_group"
     } else if (date_interval && is_quarter) {
-      x$date_group <- paste(quarters(x[[date_var]]), format(x[[date_var]], "%Y"))
-      attr(x, "date_group") <- "date_group"
-      x <- dplyr::relocate(x, .data$date_group, .after = .data[[date_var]])
+      out <- data.frame(
+        append(
+          x, 
+          list(date_group = paste(quarters(x[[date_var]]), format(x[[date_var]], "%Y"))),
+          after = match(date_var, names(x))
+        )
+      )
+      nms <- names(out)
+      attributes(out) <- attributes(x)
+      attr(out, "names") <- nms
+      attr(out, "date_group") <- "date_group"
     } else if (date_interval && is_year) {
-      x$date_group <- format(x[[date_var]], "%Y")
-      attr(x, "date_group") <- "date_group"
-      x <- dplyr::relocate(x, .data$date_group, .after = .data[[date_var]])
+      out <- data.frame(
+        append(
+          x, 
+          list(date_group = format(x[[date_var]], "%Y")),
+          after = match(date_var, names(x))
+        )
+      )
+      nms <- names(out)
+      attributes(out) <- attributes(x)
+      attr(out, "names") <- nms
+      attr(out, "date_group") <- "date_group"
     }
   }
-  x
+  out
 }
 # -------------------------------------------------------------------------
 

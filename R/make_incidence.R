@@ -86,6 +86,7 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   } else {
     fm <- paste(count, paste(c(date_index, groups), collapse = "+"), sep = "~")
     x <- aggregate(as.formula(fm), data = x, sum, na.rm = TRUE, na.action = na.pass)
+    colnames(x)[ncol(x)] <-"count" 
   }
 
   colnames(x) <- c(date_col, colnames(x)[-1])
