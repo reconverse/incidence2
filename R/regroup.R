@@ -45,9 +45,10 @@ regroup <- function(x, groups = NULL){
   cumulate <- attr(x, "cumulative")
   interval <- get_interval(x)
 
-  tbl <- grouped_df(x, date_var)
   if (!is.null(groups)) {
-    tbl <- group_by(tbl, across(all_of(groups)), .add = TRUE)
+    tbl <- grouped_df(x, c(date_var, groups))
+  } else {
+    tbl <- grouped_df(x, date_var)
   }
   tbl <- summarise(tbl, count = sum(.data[[count_var]]))
 

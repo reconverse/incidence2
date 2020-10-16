@@ -33,7 +33,7 @@ cumulate.default <- function(x) {
   cumsum(x)
 }
 
-#' @importFrom dplyr grouped_df across all_of mutate ungroup
+#' @importFrom dplyr grouped_df mutate ungroup
 #' @export
 #' @rdname cumulate
 cumulate.incidence2 <- function(x) {

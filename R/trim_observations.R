@@ -8,10 +8,10 @@
 #' @return A tibble trimmed to required date and with NA dates removed.
 #' @noRd
 trim_observations <- function(x, date_index, first_date = NULL, last_date = NULL) {
-
+  
   # Remove the missing observations --------------------
   n_orig <- nrow(x)
-  x <- filter(x, !is.na(.data[[date_index]]))
+  x <- x[!is.na(x[[date_index]]), , drop=FALSE]
   n_new <- nrow(x)
 
   if (n_new < n_orig) {
@@ -21,10 +21,10 @@ trim_observations <- function(x, date_index, first_date = NULL, last_date = NULL
   # Trim ends ------------------------------------------
   n_orig <- nrow(x)
   if (!is.null(first_date)) {
-    x <- filter(x, .data[[date_index]] >= first_date)
+    x <- x[x[[date_index]] >= first_date, , drop=FALSE]
   }
   if (!is.null(last_date)) {
-    x <- filter(x, .data[[date_index]] <= last_date)
+    x <- x[x[[date_index]] <= last_date, , drop=FALSE]
   }
   n_new <- nrow(x)
 

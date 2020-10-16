@@ -26,8 +26,8 @@
 #'   data is taken to be a linelist of individual observations.
 #'
 #' @author Zhian Kamvar, Tim Taylor
-#' @importFrom dplyr mutate group_by across summarise n left_join filter
-#' @importFrom rlang :=
+#' @importFrom dplyr mutate summarise n left_join
+#' @importFrom stats complete.cases
 #' @return An incidence2 object.
 #' @noRd
 make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
@@ -61,7 +61,7 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   )
   grouped_dates <- cut(as.integer(x[[date_index]]), breaks = c(breaks, Inf), right = FALSE)
   grouped_dates <- breaks[as.integer(grouped_dates)]
-  x <- mutate(x, {{date_index}} := grouped_dates)
+  x[[date_index]] = grouped_dates
 
   # choose name for date column
   if (interval == 1 || interval == 1L || interval == "1 day" || interval == "1 days") {
@@ -97,9 +97,9 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   x$count[is.na(x$count)] <- 0L
 
   # filter out NA
+  x <- x[!is.na(x[[date_col]]), , drop=FALSE]
   if (!na_as_group) {
-    x <- filter(x, !is.na(.data[[date_col]]))
-    x <- filter(x, across( {{groups}} , ~!is.na(.)))
+    x <- x[complete.cases(x[,groups,drop=FALSE]), , drop = FALSE] 
   }
 
   # deal with "week" intervals
@@ -118,7 +118,7 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
                             interval = interval,
                             cumulative = FALSE,
                             nrow = nrow(x),
-                            class = "incidence2"
+                            class = "tmp"
   )
-  tibble::validate_tibble(tbl)
+  tbl
 }
