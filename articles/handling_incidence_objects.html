@@ -127,16 +127,16 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   week_group gender hospital                           outcome count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;  &lt;fct&gt;                              &lt;fct&gt;   &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-04-07 2014-W15   f      Connaught Hospital                 Death       0</span>
-<span class="co">#&gt;  2 2014-04-07 2014-W15   f      Connaught Hospital                 Recover     0</span>
+<span class="co">#&gt;  1 2014-04-07 2014-W15   f      Military Hospital                  &lt;NA&gt;        1</span>
+<span class="co">#&gt;  2 2014-04-07 2014-W15   m      Military Hospital                  &lt;NA&gt;        0</span>
 <span class="co">#&gt;  3 2014-04-07 2014-W15   f      Connaught Hospital                 &lt;NA&gt;        0</span>
-<span class="co">#&gt;  4 2014-04-07 2014-W15   f      Military Hospital                  Death       0</span>
-<span class="co">#&gt;  5 2014-04-07 2014-W15   f      Military Hospital                  Recover     0</span>
-<span class="co">#&gt;  6 2014-04-07 2014-W15   f      Military Hospital                  &lt;NA&gt;        1</span>
-<span class="co">#&gt;  7 2014-04-07 2014-W15   f      other                              Death       0</span>
-<span class="co">#&gt;  8 2014-04-07 2014-W15   f      other                              Recover     0</span>
-<span class="co">#&gt;  9 2014-04-07 2014-W15   f      other                              &lt;NA&gt;        0</span>
-<span class="co">#&gt; 10 2014-04-07 2014-W15   f      Princess Christian Maternity Hosp… Death       0</span>
+<span class="co">#&gt;  4 2014-04-07 2014-W15   m      Connaught Hospital                 &lt;NA&gt;        0</span>
+<span class="co">#&gt;  5 2014-04-07 2014-W15   f      other                              &lt;NA&gt;        0</span>
+<span class="co">#&gt;  6 2014-04-07 2014-W15   m      other                              &lt;NA&gt;        0</span>
+<span class="co">#&gt;  7 2014-04-07 2014-W15   f      &lt;NA&gt;                               &lt;NA&gt;        0</span>
+<span class="co">#&gt;  8 2014-04-07 2014-W15   m      &lt;NA&gt;                               &lt;NA&gt;        0</span>
+<span class="co">#&gt;  9 2014-04-07 2014-W15   f      Princess Christian Maternity Hosp… &lt;NA&gt;        0</span>
+<span class="co">#&gt; 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hosp… &lt;NA&gt;        0</span>
 <span class="co">#&gt; # … with 2,006 more rows</span>
 
 <span class="co"># regroup to just two groups</span>
@@ -189,7 +189,6 @@
 <span class="va">inci</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/cumulate.html">cumulate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span>facet <span class="op">=</span> <span class="va">hospital</span>, n_breaks <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; Note: incidence2 class dropped in returned object</span>
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></div>
 <p><img src="handling_incidence_objects_files/figure-html/cumulate-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -244,22 +243,22 @@
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="va">x</span>
 <span class="co">#&gt; An incidence2 object: 10 x 5</span>
-<span class="co">#&gt; [26 cases from days 2014-05-19 to 2014-06-02]</span>
+<span class="co">#&gt; [19 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-06-02 2014-W23   Connaught Hospital                         m          6</span>
-<span class="co">#&gt;  2 2014-06-02 2014-W23   Military Hospital                          f          1</span>
-<span class="co">#&gt;  3 2014-05-19 2014-W21   other                                      f          1</span>
-<span class="co">#&gt;  4 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… m          0</span>
-<span class="co">#&gt;  5 2014-05-19 2014-W21   &lt;NA&gt;                                       f          4</span>
-<span class="co">#&gt;  6 2014-06-02 2014-W23   Connaught Hospital                         f          1</span>
-<span class="co">#&gt;  7 2014-06-02 2014-W23   &lt;NA&gt;                                       m          6</span>
-<span class="co">#&gt;  8 2014-05-19 2014-W21   Military Hospital                          m          2</span>
-<span class="co">#&gt;  9 2014-06-02 2014-W23   Rokupa Hospital                            f          1</span>
-<span class="co">#&gt; 10 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
+<span class="co">#&gt;  1 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… f          0</span>
+<span class="co">#&gt;  2 2014-05-19 2014-W21   other                                      f          1</span>
+<span class="co">#&gt;  3 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… m          0</span>
+<span class="co">#&gt;  4 2014-06-02 2014-W23   Military Hospital                          f          1</span>
+<span class="co">#&gt;  5 2014-06-02 2014-W23   Military Hospital                          m          3</span>
+<span class="co">#&gt;  6 2014-05-19 2014-W21   &lt;NA&gt;                                       f          4</span>
+<span class="co">#&gt;  7 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… f          3</span>
+<span class="co">#&gt;  8 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
+<span class="co">#&gt;  9 2014-05-19 2014-W21   Military Hospital                          m          2</span>
+<span class="co">#&gt; 10 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">inci</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
 
@@ -282,15 +281,15 @@
 <span class="co">#&gt;    bin_date   week_group hospital                        gender count future    </span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                           &lt;fct&gt;  &lt;int&gt; &lt;date&gt;    </span>
 <span class="co">#&gt;  1 2014-05-19 2014-W21   Connaught Hospital              f          4 2017-02-11</span>
-<span class="co">#&gt;  2 2014-05-19 2014-W21   Connaught Hospital              m          4 2017-02-11</span>
-<span class="co">#&gt;  3 2014-05-19 2014-W21   Military Hospital               f          2 2017-02-11</span>
-<span class="co">#&gt;  4 2014-05-19 2014-W21   Military Hospital               m          2 2017-02-11</span>
-<span class="co">#&gt;  5 2014-05-19 2014-W21   other                           f          1 2017-02-11</span>
-<span class="co">#&gt;  6 2014-05-19 2014-W21   other                           m          3 2017-02-11</span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21   Princess Christian Maternity H… f          3 2017-02-11</span>
-<span class="co">#&gt;  8 2014-05-19 2014-W21   Princess Christian Maternity H… m          2 2017-02-11</span>
-<span class="co">#&gt;  9 2014-05-19 2014-W21   Rokupa Hospital                 f          1 2017-02-11</span>
-<span class="co">#&gt; 10 2014-05-19 2014-W21   Rokupa Hospital                 m          1 2017-02-11</span>
+<span class="co">#&gt;  2 2014-05-19 2014-W21   Military Hospital               f          2 2017-02-11</span>
+<span class="co">#&gt;  3 2014-05-19 2014-W21   other                           f          1 2017-02-11</span>
+<span class="co">#&gt;  4 2014-05-19 2014-W21   Princess Christian Maternity H… f          3 2017-02-11</span>
+<span class="co">#&gt;  5 2014-05-19 2014-W21   Rokupa Hospital                 f          1 2017-02-11</span>
+<span class="co">#&gt;  6 2014-05-19 2014-W21   &lt;NA&gt;                            f          4 2017-02-11</span>
+<span class="co">#&gt;  7 2014-05-19 2014-W21   Connaught Hospital              m          4 2017-02-11</span>
+<span class="co">#&gt;  8 2014-05-19 2014-W21   Military Hospital               m          2 2017-02-11</span>
+<span class="co">#&gt;  9 2014-05-19 2014-W21   other                           m          3 2017-02-11</span>
+<span class="co">#&gt; 10 2014-05-19 2014-W21   Princess Christian Maternity H… m          2 2017-02-11</span>
 <span class="co">#&gt; # … with 14 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">inci</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
@@ -309,15 +308,15 @@
 <span class="co">#&gt;    week_group hospital                                     gender count</span>
 <span class="co">#&gt;    &lt;aweek&gt;    &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;</span>
 <span class="co">#&gt;  1 2014-W21   Connaught Hospital                           f          4</span>
-<span class="co">#&gt;  2 2014-W21   Connaught Hospital                           m          4</span>
-<span class="co">#&gt;  3 2014-W21   Military Hospital                            f          2</span>
-<span class="co">#&gt;  4 2014-W21   Military Hospital                            m          2</span>
-<span class="co">#&gt;  5 2014-W21   other                                        f          1</span>
-<span class="co">#&gt;  6 2014-W21   other                                        m          3</span>
-<span class="co">#&gt;  7 2014-W21   Princess Christian Maternity Hospital (PCMH) f          3</span>
-<span class="co">#&gt;  8 2014-W21   Princess Christian Maternity Hospital (PCMH) m          2</span>
-<span class="co">#&gt;  9 2014-W21   Rokupa Hospital                              f          1</span>
-<span class="co">#&gt; 10 2014-W21   Rokupa Hospital                              m          1</span>
+<span class="co">#&gt;  2 2014-W21   Military Hospital                            f          2</span>
+<span class="co">#&gt;  3 2014-W21   other                                        f          1</span>
+<span class="co">#&gt;  4 2014-W21   Princess Christian Maternity Hospital (PCMH) f          3</span>
+<span class="co">#&gt;  5 2014-W21   Rokupa Hospital                              f          1</span>
+<span class="co">#&gt;  6 2014-W21   &lt;NA&gt;                                         f          4</span>
+<span class="co">#&gt;  7 2014-W21   Connaught Hospital                           m          4</span>
+<span class="co">#&gt;  8 2014-W21   Military Hospital                            m          2</span>
+<span class="co">#&gt;  9 2014-W21   other                                        m          3</span>
+<span class="co">#&gt; 10 2014-W21   Princess Christian Maternity Hospital (PCMH) m          2</span>
 <span class="co">#&gt; # … with 14 more rows</span>
 
 <span class="va">x</span> <span class="op">&lt;-</span>
@@ -332,15 +331,15 @@
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
 <span class="co">#&gt;  1 2014-05-19 2014-W21   Connaught Hospital                         f          4</span>
-<span class="co">#&gt;  2 2014-05-19 2014-W21   Connaught Hospital                         m          4</span>
-<span class="co">#&gt;  3 2014-05-19 2014-W21   Military Hospital                          f          2</span>
-<span class="co">#&gt;  4 2014-05-19 2014-W21   Military Hospital                          m          2</span>
-<span class="co">#&gt;  5 2014-05-19 2014-W21   other                                      f          1</span>
-<span class="co">#&gt;  6 2014-05-19 2014-W21   other                                      m          3</span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… f          3</span>
-<span class="co">#&gt;  8 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
-<span class="co">#&gt;  9 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
-<span class="co">#&gt; 10 2014-05-19 2014-W21   Rokupa Hospital                            m          1</span>
+<span class="co">#&gt;  2 2014-05-19 2014-W21   Military Hospital                          f          2</span>
+<span class="co">#&gt;  3 2014-05-19 2014-W21   other                                      f          1</span>
+<span class="co">#&gt;  4 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… f          3</span>
+<span class="co">#&gt;  5 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
+<span class="co">#&gt;  6 2014-05-19 2014-W21   &lt;NA&gt;                                       f          4</span>
+<span class="co">#&gt;  7 2014-05-19 2014-W21   Connaught Hospital                         m          4</span>
+<span class="co">#&gt;  8 2014-05-19 2014-W21   Military Hospital                          m          2</span>
+<span class="co">#&gt;  9 2014-05-19 2014-W21   other                                      m          3</span>
+<span class="co">#&gt; 10 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
 <span class="co">#&gt; # … with 14 more rows</span>
 
 <span class="co"># Adding rows that are multiples of 2 weeks will maintain class</span>
@@ -351,22 +350,22 @@
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">inci</span><span class="op">)</span>
 <span class="va">x</span>
 <span class="co">#&gt; An incidence2 object: 26 x 5</span>
-<span class="co">#&gt; [71 cases from days 2014-05-19 to 2014-09-08]</span>
+<span class="co">#&gt; [69 cases from days 2014-05-19 to 2014-09-08]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
 <span class="co">#&gt;  1 2014-09-08 2014-W21-1 Connaught Hospital                         f          4</span>
-<span class="co">#&gt;  2 2014-09-08 2014-W21-1 Connaught Hospital                         m          4</span>
+<span class="co">#&gt;  2 2014-09-08 2014-W21-1 Military Hospital                          f          2</span>
 <span class="co">#&gt;  3 2014-05-19 2014-W21-1 Connaught Hospital                         f          4</span>
-<span class="co">#&gt;  4 2014-05-19 2014-W21-1 Connaught Hospital                         m          4</span>
-<span class="co">#&gt;  5 2014-05-19 2014-W21-1 Military Hospital                          f          2</span>
-<span class="co">#&gt;  6 2014-05-19 2014-W21-1 Military Hospital                          m          2</span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21-1 other                                      f          1</span>
-<span class="co">#&gt;  8 2014-05-19 2014-W21-1 other                                      m          3</span>
-<span class="co">#&gt;  9 2014-05-19 2014-W21-1 Princess Christian Maternity Hospital (PC… f          3</span>
-<span class="co">#&gt; 10 2014-05-19 2014-W21-1 Princess Christian Maternity Hospital (PC… m          2</span>
+<span class="co">#&gt;  4 2014-05-19 2014-W21-1 Military Hospital                          f          2</span>
+<span class="co">#&gt;  5 2014-05-19 2014-W21-1 other                                      f          1</span>
+<span class="co">#&gt;  6 2014-05-19 2014-W21-1 Princess Christian Maternity Hospital (PC… f          3</span>
+<span class="co">#&gt;  7 2014-05-19 2014-W21-1 Rokupa Hospital                            f          1</span>
+<span class="co">#&gt;  8 2014-05-19 2014-W21-1 &lt;NA&gt;                                       f          4</span>
+<span class="co">#&gt;  9 2014-05-19 2014-W21-1 Connaught Hospital                         m          4</span>
+<span class="co">#&gt; 10 2014-05-19 2014-W21-1 Military Hospital                          m          2</span>
 <span class="co">#&gt; # … with 16 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">inci</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
@@ -382,15 +381,15 @@
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
 <span class="co">#&gt;  1 2014-06-18 2014-W21-1 Connaught Hospital                         f          4</span>
-<span class="co">#&gt;  2 2014-06-18 2014-W21-1 Connaught Hospital                         m          4</span>
+<span class="co">#&gt;  2 2014-06-18 2014-W21-1 Military Hospital                          f          2</span>
 <span class="co">#&gt;  3 2014-05-19 2014-W21-1 Connaught Hospital                         f          4</span>
-<span class="co">#&gt;  4 2014-05-19 2014-W21-1 Connaught Hospital                         m          4</span>
-<span class="co">#&gt;  5 2014-05-19 2014-W21-1 Military Hospital                          f          2</span>
-<span class="co">#&gt;  6 2014-05-19 2014-W21-1 Military Hospital                          m          2</span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21-1 other                                      f          1</span>
-<span class="co">#&gt;  8 2014-05-19 2014-W21-1 other                                      m          3</span>
-<span class="co">#&gt;  9 2014-05-19 2014-W21-1 Princess Christian Maternity Hospital (PC… f          3</span>
-<span class="co">#&gt; 10 2014-05-19 2014-W21-1 Princess Christian Maternity Hospital (PC… m          2</span>
+<span class="co">#&gt;  4 2014-05-19 2014-W21-1 Military Hospital                          f          2</span>
+<span class="co">#&gt;  5 2014-05-19 2014-W21-1 other                                      f          1</span>
+<span class="co">#&gt;  6 2014-05-19 2014-W21-1 Princess Christian Maternity Hospital (PC… f          3</span>
+<span class="co">#&gt;  7 2014-05-19 2014-W21-1 Rokupa Hospital                            f          1</span>
+<span class="co">#&gt;  8 2014-05-19 2014-W21-1 &lt;NA&gt;                                       f          4</span>
+<span class="co">#&gt;  9 2014-05-19 2014-W21-1 Connaught Hospital                         m          4</span>
+<span class="co">#&gt; 10 2014-05-19 2014-W21-1 Military Hospital                          m          2</span>
 <span class="co">#&gt; # … with 16 more rows</span></pre></div>
 </div>
 </div>
