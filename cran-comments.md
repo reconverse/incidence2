@@ -1,10 +1,10 @@
 ## Reason for updated release
-* Bug fixes for calculations and plotting functions
-* Speed improvements
+* Fixes bug in as.data.frame.incidence2
+* Limits internal reliance on dplyr.
 
 ## Test environments
-* local Fedora 32, R Under development (unstable) (2020-09-21 r79233)
-* winbuilder, R Under development (unstable) (2020-09-17 r79226)
+* local Fedora 32, R Under development (unstable) (2020-10-16 r79345)
+* winbuilder, R Under development (unstable) (2020-10-15 r79342)
 
 ## R CMD check results
 There were no ERRORS, WARNINGS or NOTES
