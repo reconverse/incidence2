@@ -34,7 +34,7 @@ get_interval.incidence2 <- function(x, integer = FALSE, ...) {
     res <- get_interval_type(interval)
     n   <- get_interval_number(interval)
     date_var <- get_dates_name(x)
-    dates <- unique(x[[date_var]])
+    dates <- x[[date_var]]
     res <- switch(res,
                   day     = 1L * n,
                   week    = 7L * n,
