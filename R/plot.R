@@ -284,9 +284,7 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
   }
 
   if (show_cases && (stack == TRUE || is.null(fill))) {
-    squaredf <- suppressMessages(
-      df[rep(seq.int(nrow(df)), df[[count_var]]), ]
-    )
+    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
     squaredf[[count_var]] <- 1
     squares <-
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis) + .data$interval_days/2,

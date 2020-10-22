@@ -1,5 +1,6 @@
 # development version 0.2.1.9
-* fix bug in get_interval
+* Fixex bug in get_interval.
+* Removes message that was displayed when incidence class dropped.
 
 # incidence2 0.2.1
 * Fixes bug in as.data.frame.incidence2
