@@ -7,6 +7,11 @@
 #'   contain.
 #' @noRd
 group_dates <- function(dates, breaks) {
-  counts <- count_dates(dates, breaks)
+  histogram <- hist(
+    as.integer(dates),
+    breaks = c(as.integer(breaks), Inf), 
+    right = FALSE, 
+    plot = FALSE)
+  counts <- as.integer(histogram$counts)
   rep(breaks, counts)
 }
