@@ -139,77 +139,16 @@
     <p>Compute the incidence of events</p>
     </div>
 
-    <pre class="usage"><span class='fu'>incidence</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>date_index</span>, interval <span class='op'>=</span> <span class='fl'>1L</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>incidence</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>date_index</span>, interval <span class='op'>=</span> <span class='fl'>1L</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for Date</span>
-<span class='fu'>incidence</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>incidence</span><span class='op'>(</span>
   <span class='va'>x</span>,
   <span class='va'>date_index</span>,
+  groups <span class='op'>=</span> <span class='cn'>NULL</span>,
   interval <span class='op'>=</span> <span class='fl'>1L</span>,
+  first_date <span class='op'>=</span> <span class='cn'>NULL</span>,
+  last_date <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na_as_group <span class='op'>=</span> <span class='cn'>TRUE</span>,
   standard <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  groups <span class='op'>=</span> <span class='cn'>NULL</span>,
-  na_as_group <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  first_date <span class='op'>=</span> <span class='cn'>NULL</span>,
-  last_date <span class='op'>=</span> <span class='cn'>NULL</span>,
-  count <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for character</span>
-<span class='fu'>incidence</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>date_index</span>,
-  interval <span class='op'>=</span> <span class='fl'>1L</span>,
-  standard <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  groups <span class='op'>=</span> <span class='cn'>NULL</span>,
-  na_as_group <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  first_date <span class='op'>=</span> <span class='cn'>NULL</span>,
-  last_date <span class='op'>=</span> <span class='cn'>NULL</span>,
-  count <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for integer</span>
-<span class='fu'>incidence</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>date_index</span>,
-  interval <span class='op'>=</span> <span class='fl'>1L</span>,
-  groups <span class='op'>=</span> <span class='cn'>NULL</span>,
-  na_as_group <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  first_date <span class='op'>=</span> <span class='cn'>NULL</span>,
-  last_date <span class='op'>=</span> <span class='cn'>NULL</span>,
-  count <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for numeric</span>
-<span class='fu'>incidence</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>date_index</span>,
-  interval <span class='op'>=</span> <span class='fl'>1L</span>,
-  groups <span class='op'>=</span> <span class='cn'>NULL</span>,
-  na_as_group <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  first_date <span class='op'>=</span> <span class='cn'>NULL</span>,
-  last_date <span class='op'>=</span> <span class='cn'>NULL</span>,
-  count <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for POSIXt</span>
-<span class='fu'>incidence</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>date_index</span>,
-  interval <span class='op'>=</span> <span class='fl'>1L</span>,
-  standard <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  groups <span class='op'>=</span> <span class='cn'>NULL</span>,
-  na_as_group <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  first_date <span class='op'>=</span> <span class='cn'>NULL</span>,
-  last_date <span class='op'>=</span> <span class='cn'>NULL</span>,
-  count <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
+  count <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -227,6 +166,12 @@ class:  integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note
 about <code>numeric</code> and <code>character</code> formats)</p></td>
     </tr>
     <tr>
+      <th>groups</th>
+      <td><p>An optional vector giving the names of the groups of
+observations for which incidence should be grouped.  This can be given with
+or without quotation.`</p></td>
+    </tr>
+    <tr>
       <th>interval</th>
       <td><p>An integer or character indicating the (fixed) size of the
 time interval used for computing the incidence; defaults to 1 day. This can
@@ -234,21 +179,11 @@ also be a text string that corresponds to a valid date interval: day, week,
 month, quarter, or year. (See Note).</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Additional arguments used by other methods.</p></td>
-    </tr>
-    <tr>
-      <th>standard</th>
-      <td><p>(Only applicable where date_index references a Date object)
-When <code>TRUE</code> (default) and the <code>interval</code> one of "week", "month", "quarter",
-or "year", then this will cause the bins for the counts to start at the
-beginning of the interval (See Note).</p></td>
-    </tr>
-    <tr>
-      <th>groups</th>
-      <td><p>An optional vector giving the names of the groups of
-observations for which incidence should be grouped.  This can be given with
-or without quotation.`</p></td>
+      <th>first_date, last_date</th>
+      <td><p>optional first/last dates to be used. When
+these are <code>NULL</code> (default), the dates from the first/last dates are taken
+from the observations. If these dates are provided, the observations will
+be trimmed to the range of [first_date, last_date].</p></td>
     </tr>
     <tr>
       <th>na_as_group</th>
@@ -257,11 +192,11 @@ should treated as a separate category (<code>TRUE</code>) or removed from
 consideration (<code>FALSE</code>).</p></td>
     </tr>
     <tr>
-      <th>first_date, last_date</th>
-      <td><p>optional first/last dates to be used. When
-these are <code>NULL</code> (default), the dates from the first/last dates are taken
-from the observations. If these dates are provided, the observations will
-be trimmed to the range of [first_date, last_date].</p></td>
+      <th>standard</th>
+      <td><p>(Only applicable where date_index references a Date object)
+When <code>TRUE</code> (default) and the <code>interval</code> one of "week", "month", "quarter",
+or "year", then this will cause the bins for the counts to start at the
+beginning of the interval (See Note).</p></td>
     </tr>
     <tr>
       <th>count</th>
@@ -358,9 +293,6 @@ can be prefixed (or posfixed) by a day of the week: "1 epiweek: Saturday".</p>
 number of days they encompass and warnings will be generated when the first
 date falls outside of a calendar date that is easily represented across the
 interval.</p>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Thibaut Jombart, Rich Fitzjohn, Zhian Kamvar, Tim Taylor</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
@@ -403,161 +335,19 @@ interval.</p>
 </div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
 #&gt; &gt; dat &lt;- ebola_sim_clean$linelist
 #&gt; &gt; dat %&gt;% incidence(date_of_onset)
-#&gt; <span style='color: #555555;'>An incidence2 object: 389 x 2
-#&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-30]
-#&gt; [interval: 1 day]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    date       count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07     1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-08     0
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-09     0
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-10     0
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-04-11     0
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-04-12     0
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-04-13     0
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-04-14     0
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2014-04-15     1
-#&gt; </span><span style='color: #555555;'>10</span><span> 2014-04-16     0
-#&gt; </span><span style='color: #555555;'># … with 379 more rows</span><span>
-#&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "week", standard = FALSE)
-#&gt; </span><span style='color: #555555;'>An incidence2 object: 56 x 2
-#&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-27]
-#&gt; [interval: 1 week]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    bin_date   count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07     1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-14     1
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-21     5
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-28     4
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-05-05    12
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-05-12    17
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-05-19    15
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-05-26    19
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2014-06-02    23
-#&gt; </span><span style='color: #555555;'>10</span><span> 2014-06-09    21
-#&gt; </span><span style='color: #555555;'># … with 46 more rows</span><span>
-#&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "isoweek")
-#&gt; </span><span style='color: #555555;'>An incidence2 object: 56 x 3
-#&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-27]
-#&gt; [interval: 1 week]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    bin_date   week_group count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07 2014-W15       1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-14 2014-W16       1
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-21 2014-W17       5
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-28 2014-W18       4
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-05-05 2014-W19      12
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-05-12 2014-W20      17
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-05-19 2014-W21      15
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-05-26 2014-W22      19
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2014-06-02 2014-W23      23
-#&gt; </span><span style='color: #555555;'>10</span><span> 2014-06-09 2014-W24      21
-#&gt; </span><span style='color: #555555;'># … with 46 more rows</span><span>
-#&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "epiweek")
-#&gt; </span><span style='color: #555555;'>An incidence2 object: 56 x 3
-#&gt; </span><span>[5829 cases from days 2014-04-06 to 2015-04-26]
-#&gt; [interval: 1 week]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    bin_date   week_group count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-06 2014-W15       1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-13 2014-W16       1
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-20 2014-W17       4
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-27 2014-W18       4
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-05-04 2014-W19      12
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-05-11 2014-W20      15
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-05-18 2014-W21      15
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-05-25 2014-W22      22
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2014-06-01 2014-W23      22
-#&gt; </span><span style='color: #555555;'>10</span><span> 2014-06-08 2014-W24      17
-#&gt; </span><span style='color: #555555;'># … with 46 more rows</span><span>
-#&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "saturday epiweek")
-#&gt; </span><span style='color: #555555;'>An incidence2 object: 56 x 3
-#&gt; </span><span>[5829 cases from days 2014-04-05 to 2015-04-25]
-#&gt; [interval: 1 week]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    bin_date   week_group count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-05 2014-W14       1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-12 2014-W15       1
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-19 2014-W16       3
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-26 2014-W17       4
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-05-03 2014-W18      12
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-05-10 2014-W19      13
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-05-17 2014-W20      16
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-05-24 2014-W21      22
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2014-05-31 2014-W22      19
-#&gt; </span><span style='color: #555555;'>10</span><span> 2014-06-07 2014-W23      20
-#&gt; </span><span style='color: #555555;'># … with 46 more rows</span><span>
-#&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = 7, groups = gender)
-#&gt; </span><span style='color: #555555;'>An incidence2 object: 112 x 3
-#&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-27]
-#&gt; [interval: 7 days]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    bin_date   gender count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07 f          1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-07 m          0
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-14 f          0
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-14 m          1
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-04-21 f          4
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-04-21 m          1
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-04-28 f          4
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-04-28 m          0
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2014-05-05 f          9
-#&gt; </span><span style='color: #555555;'>10</span><span> 2014-05-05 m          3
-#&gt; </span><span style='color: #555555;'># … with 102 more rows</span><span>
-#&gt; 
 #&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "2 weeks", groups = c(gender, 
-#&gt; +     hospital))
-#&gt; </span><span style='color: #555555;'>An incidence2 object: 336 x 5
-#&gt; </span><span>[5829 cases from days 2014-04-07 to 2015-04-20]
-#&gt; [interval: 2 weeks]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    bin_date   week_group gender hospital                                   count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>                                      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-04-07 2014-W15   f      Military Hospital                              1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-04-07 2014-W15   m      Military Hospital                              0
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-04-07 2014-W15   f      Connaught Hospital                             0
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-07 2014-W15   m      Connaught Hospital                             1
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-04-07 2014-W15   f      other                                          0
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-04-07 2014-W15   m      other                                          0
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2014-04-07 2014-W15   f      Rokupa Hospital                                0
-#&gt; </span><span style='color: #555555;'>10</span><span> 2014-04-07 2014-W15   m      Rokupa Hospital                                0
-#&gt; </span><span style='color: #555555;'># … with 326 more rows</span><span>
-#&gt; </div><div class='input'>
+#&gt; +     hospital))</div><div class='input'>
 <span class='co'># use of first_date</span>
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>10</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dates</span>,
                   interval <span class='op'>=</span> <span class='st'>"week"</span>,
                   first_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>1 observations outside of [2020-10-23, 2020-10-31] were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence2 object: 2 x 3
-#&gt; </span><span>[9 cases from days 2020-10-19 to 2020-10-26]
-#&gt; [interval: 1 week]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;   bin_date   week_group count
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2020-10-19 2020-W43       6
-#&gt; </span><span style='color: #555555;'>2</span><span> 2020-10-26 2020-W44       3
-#&gt; </div></span></pre>
+</div><div class='output co'>#&gt; <span class='message'>1 observations outside of [2020-11-12, 2020-11-20] were removed.</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

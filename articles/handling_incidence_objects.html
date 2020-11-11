@@ -109,8 +109,8 @@
 <h2 class="hasAnchor">
 <a href="#regroup" class="anchor"></a>regroup</h2>
 <p>Sometimes you may find you’ve created a grouped <code><a href="../reference/incidence.html">incidence()</a></code> but now want to change the internal grouping. Assuming you are after a subset of the grouping already generated, then you can use to <code><a href="../reference/regroup.html">regroup()</a></code> function to get the desired aggregation:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/incidence2">incidence2</a></span><span class="op">)</span>
 
 <span class="co"># load data</span>
@@ -180,26 +180,26 @@
 <span class="co">#&gt;  8 2014-05-26 2014-W22      19</span>
 <span class="co">#&gt;  9 2014-06-02 2014-W23      23</span>
 <span class="co">#&gt; 10 2014-06-09 2014-W24      21</span>
-<span class="co">#&gt; # … with 46 more rows</span></pre></div>
+<span class="co">#&gt; # … with 46 more rows</span></code></pre></div>
 </div>
 <div id="cumulate" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cumulate" class="anchor"></a>cumulate</h2>
 <p>We also provide a helper function, <code>cumulate</code>() to easily generate cumulative incidences:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">inci</span> <span class="op">%&gt;%</span> 
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">inci</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/cumulate.html">cumulate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span>facet <span class="op">=</span> <span class="va">hospital</span>, n_breaks <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
-<span class="co">#&gt; For multi-facet plotting try facet_plot()</span></pre></div>
+<span class="co">#&gt; For multi-facet plotting try facet_plot()</span></code></pre></div>
 <p><img src="handling_incidence_objects_files/figure-html/cumulate-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="tidyverse-compatibility" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tidyverse-compatibility" class="anchor"></a>Tidyverse compatibility</h2>
 <p>incidence2 has been written with <em>tidyverse</em> compatibility (in particular <a href="https://dplyr.tidyverse.org/">dplyr</a>) at the forefront of the design choices we have made. By this we mean that if an operation from dplyr is applied to an <code><a href="../reference/incidence.html">incidence()</a></code> object then as long as the invariants of the object are preserved (i.e. groups, interval and uniqueness of rows) then the object returned will be an <code><a href="../reference/incidence.html">incidence()</a></code> object. If the invariants are not preserved then a tibble will be returned instead. Some examples of these behaviours are given below:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
 <span class="co">#&gt; The following objects are masked from 'package:stats':</span>
@@ -244,22 +244,22 @@
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="va">x</span>
 <span class="co">#&gt; An incidence2 object: 10 x 5</span>
-<span class="co">#&gt; [27 cases from days 2014-05-19 to 2014-06-02]</span>
+<span class="co">#&gt; [23 cases from days 2014-05-19 to 2014-06-02]</span>
 <span class="co">#&gt; [interval: 2 weeks]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    bin_date   week_group hospital                                   gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;aweek&gt;    &lt;fct&gt;                                      &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-06-02 2014-W23   Connaught Hospital                         f          1</span>
-<span class="co">#&gt;  2 2014-05-19 2014-W21   other                                      f          1</span>
-<span class="co">#&gt;  3 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
-<span class="co">#&gt;  4 2014-06-02 2014-W23   other                                      f          3</span>
-<span class="co">#&gt;  5 2014-05-19 2014-W21   other                                      m          3</span>
-<span class="co">#&gt;  6 2014-06-02 2014-W23   &lt;NA&gt;                                       m          6</span>
-<span class="co">#&gt;  7 2014-05-19 2014-W21   Rokupa Hospital                            f          1</span>
-<span class="co">#&gt;  8 2014-06-02 2014-W23   other                                      m          2</span>
-<span class="co">#&gt;  9 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
-<span class="co">#&gt; 10 2014-05-19 2014-W21   Connaught Hospital                         m          4</span>
+<span class="co">#&gt;  1 2014-06-02 2014-W23   Military Hospital                          m          3</span>
+<span class="co">#&gt;  2 2014-05-19 2014-W21   Connaught Hospital                         m          4</span>
+<span class="co">#&gt;  3 2014-05-19 2014-W21   Military Hospital                          f          2</span>
+<span class="co">#&gt;  4 2014-06-02 2014-W23   Rokupa Hospital                            m          1</span>
+<span class="co">#&gt;  5 2014-05-19 2014-W21   &lt;NA&gt;                                       m          4</span>
+<span class="co">#&gt;  6 2014-06-02 2014-W23   Princess Christian Maternity Hospital (PC… f          0</span>
+<span class="co">#&gt;  7 2014-05-19 2014-W21   Princess Christian Maternity Hospital (PC… m          2</span>
+<span class="co">#&gt;  8 2014-06-02 2014-W23   Military Hospital                          f          1</span>
+<span class="co">#&gt;  9 2014-06-02 2014-W23   other                                      m          2</span>
+<span class="co">#&gt; 10 2014-05-19 2014-W21   &lt;NA&gt;                                       f          4</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">inci</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
 
@@ -389,7 +389,7 @@
 <span class="co">#&gt;  8 2014-05-19 2014-W21-1 &lt;NA&gt;                                       f          4</span>
 <span class="co">#&gt;  9 2014-05-19 2014-W21-1 Connaught Hospital                         m          4</span>
 <span class="co">#&gt; 10 2014-05-19 2014-W21-1 Military Hospital                          m          2</span>
-<span class="co">#&gt; # … with 16 more rows</span></pre></div>
+<span class="co">#&gt; # … with 16 more rows</span></code></pre></div>
 </div>
 </div>
 <div id="accessing-variable-information" class="section level1">
