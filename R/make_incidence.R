@@ -28,18 +28,6 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
                            ...) {
   dots <- list(...)
 
-  # pull out dates and groups
-  dates <- x[[date_index]]
-
-  # make sure input can be used
-  dates <- check_dates(dates)
-  x[[date_index]] <- dates
-  interval <- check_interval(interval, if (is.null(dots$standard)) TRUE else dots$standard)
-
-  # Check the interval and arrange the breaks
-  first_date <- check_boundaries(dates, first_date, "first")
-  last_date <- check_boundaries(dates, last_date, "last")
-
   # filter dates
   x <- trim_observations(x, date_index, first_date, last_date)
 

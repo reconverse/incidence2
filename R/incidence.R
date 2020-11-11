@@ -233,6 +233,14 @@ incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
   column_names <- names(x)
   check_presence(c(groups, date_index, count), column_names)
 
+  # make sure input can be used
+  x[[date_index]] <- check_dates(x[[date_index]])
+  interval <- check_interval(interval, standard)
+
+  # Check the interval and arrange the breaks
+  first_date <- check_boundaries(x[[date_index]], first_date, "first")
+  last_date <- check_boundaries(x[[date_index]], last_date, "last")
+
   out <- make_incidence(x,
     date_index = date_index,
     interval = interval,
@@ -292,7 +300,7 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
   column_names <- names(x)
   check_presence(c(groups, date_index, count), column_names)
 
-
+  # check and convert dates
   dates <- x[[date_index]]
   iso_std <- grepl("^[0-9]{4}-[01][0-9]-[0-3][0-9]$", trimws(dates))
   iso_std[is.na(dates)] <- TRUE # prevent false alarms
@@ -304,8 +312,12 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
     stop(sprintf(msg, dates[!iso_std][1]))
   }
   dates <- check_dates(dates)
-
   x[[date_index]] <- as.Date(trimws(dates))
+
+  # Check the interval and bounding dates
+  interval <- check_interval(interval, standard)
+  first_date <- check_boundaries(x[[date_index]], first_date, "first")
+  last_date <- check_boundaries(x[[date_index]], last_date, "last")
 
   out <- make_incidence(x,
     date_index = date_index,
@@ -364,7 +376,16 @@ incidence.integer <- function(x, date_index, interval = 1L,
   column_names <- names(x)
   check_presence(c(groups, date_index, count), column_names)
 
+  # check date input
+  x[[date_index]] <- check_dates(x[[date_index]])
+  
+  # Check / fix bounding dates
+  first_date <- check_boundaries(x[[date_index]], first_date, "first")
+  last_date <- check_boundaries(x[[date_index]], last_date, "last")
+  
+  # check and correct interval
   interval <- valid_interval_integer(interval)
+  interval <- check_interval(interval, TRUE)
 
   out <- make_incidence(x,
     date_index = date_index,
@@ -419,7 +440,16 @@ incidence.numeric <- function(x, date_index, interval = 1L,
   column_names <- names(x)
   check_presence(c(groups, date_index, count), column_names)
 
+  # check date input
+  x[[date_index]] <- check_dates(x[[date_index]])
+  
+  # Check / fix bounding dates
+  first_date <- check_boundaries(x[[date_index]], first_date, "first")
+  last_date <- check_boundaries(x[[date_index]], last_date, "last")
+  
+  # check and correct interval
   interval <- valid_interval_integer(interval)
+  interval <- check_interval(interval, TRUE)
 
   out <- make_incidence(x,
     date_index = date_index,
@@ -475,8 +505,15 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
   column_names <- names(x)
   check_presence(c(groups, date_index, count), column_names)
 
+  # check interval
+  interval <- check_interval(interval, standard)
+
+  # Check the interval and arrange the breaks
   dates <- check_dates(as.POSIXct(x[[date_index]]))
   x[[date_index]] <- as.Date(dates)
+
+  first_date <- check_boundaries(x[[date_index]], first_date, "first")
+  last_date <- check_boundaries(x[[date_index]], last_date, "last")
 
   out <- make_incidence(x,
     date_index = date_index,
@@ -490,6 +527,7 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
     ...
   )
 
+  out <- group_labels(out, interval, standard)
   attr(out, "type") <- "POSIXt"
   date_col <- attr(out, "date")
   out[[date_col]] <- as.POSIXlt(out[[date_col]])
