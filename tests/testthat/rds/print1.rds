@@ -1,9 +1,0 @@
-An incidence2 object: 1 x 2
-[1 cases from days 2001-01-01 to 2001-01-01]
-[interval: 1 day]
-[cumulative: FALSE]
-
-  date       count
-  <date>     <int>
-1 2001-01-01     1
-

@@ -1,5 +1,3 @@
-context("Non-exported functions")
-
 test_that("check_dates works", {
   msg <- "NA detected in the dates"
   expect_error(check_dates(c(1, 2, NA), TRUE), msg)

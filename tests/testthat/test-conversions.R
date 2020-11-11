@@ -1,5 +1,3 @@
-context("Checking conversions")
-
 dates <- as.integer(Sys.Date() + 1:10)
 x <- incidence(data.frame(dates = dates), date_index = dates)
 

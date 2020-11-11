@@ -38,13 +38,14 @@ Imports:
     pillar,
     data.table,
     stats,
-    graphics
+    graphics    
 Suggests: 
     outbreaks,
-    testthat,
     knitr,
     rmarkdown,
-    covr
+    covr,
+    testthat
 VignetteBuilder: 
     knitr
 Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3

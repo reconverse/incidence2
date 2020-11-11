@@ -1,4 +1,3 @@
-context("Extending dplyr")
 library(dplyr)
 
 data(ebola_sim_clean, package = "outbreaks")

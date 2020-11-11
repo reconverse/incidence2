@@ -1,5 +1,3 @@
-context("Color palettes")
-
 test_that("vibrant", {
   skip_on_cran()
 

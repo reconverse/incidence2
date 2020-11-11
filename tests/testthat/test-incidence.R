@@ -1,5 +1,3 @@
-context("Incidence main function")
-
 # setting up the data --------------------------------------------------
 the_seed <- eval(parse(text = as.character(Sys.Date())))
 
@@ -19,9 +17,9 @@ test_that("construction - default, integer input", {
   x <- incidence(data.frame(dates = dat), date_index = dates)
 
   ## classes
-  expect_is(x, "incidence2")
-  expect_is(x$date, class(dat))
-  expect_is(x$count, "integer")
+  expect_s3_class(x, "incidence2")
+  expect_type(x$date, typeof(dat))
+  expect_type(x$count, "integer")
 
   ## results
   expect_false(any(is.na(x$count)))
@@ -39,9 +37,9 @@ test_that("construction - default, integer input", {
   )
 
   ## classes
-  expect_is(x, "incidence2")
-  expect_is(x$bin_date, class(dat))
-  expect_is(x$count, "integer")
+  expect_s3_class(x, "incidence2")
+  expect_type(x$bin_date, typeof(dat))
+  expect_type(x$count, "integer")
 
   ## results
   expect_false(any(is.na(x$count)))
@@ -65,8 +63,8 @@ test_that("construction - ISO week", {
     interval = 7)
 
   ## classes
-  expect_is(inc_week, "incidence2")
-  expect_is(inc_isoweek, "incidence2")
+  expect_s3_class(inc_week, "incidence2")
+  expect_s3_class(inc_isoweek, "incidence2")
 
   ## results
   expect_false(any(is.na(inc_isoweek$count)))
@@ -99,8 +97,8 @@ test_that("construction - numeric input", {
 
   ## compare outputs
   expect_equal(x_num, x_int)
-  expect_is(x_num$date, "numeric")
-  expect_is(x_int$date, "integer")
+  expect_type(x_num$date, "double")
+  expect_type(x_int$date, "integer")
 })
 
 test_that("construction - Date input", {
@@ -271,8 +269,8 @@ test_that("construction - Date input", {
 
   ## compare outputs
   expect_equal(x$count, x_dates$count)
-  expect_is(x$date, "integer")
-  expect_is(x_dates$date, "Date")
+  expect_type(x$date, "integer")
+  expect_s3_class(x_dates$date, "Date")
   expect_equal(x_7$count, x_7_iso$count)
   expect_equal(x_7_iso$bin_date, x_7_week$bin_date)
 
@@ -296,8 +294,8 @@ test_that("construction - POSIXct input", {
 
   ## compare outputs
   expect_equal(x_dates$count, x_pos$count)
-  expect_is(x_dates$date, "Date")
-  expect_is(x_pos$date, "POSIXct")
+  expect_s3_class(x_dates$date, "Date")
+  expect_s3_class(x_pos$date, "POSIXct")
 })
 
 test_that("construction - character input", {
@@ -319,7 +317,7 @@ test_that("construction - character input", {
     "2 missing observations were removed."
   )
 
-  expect_is(i_date, "incidence2")
+  expect_s3_class(i_date, "incidence2")
   expect_identical(i_date, i_char)
   expect_identical(i_date, i_chaw)
   expect_identical(i_date, i_cham)
@@ -441,27 +439,27 @@ test_that("Expected values, no group", {
 
   dat <- data.frame(dates = c(3,2,-1,1,1))
   res1 <- incidence(dat, date_index = dates)
-  expect_known_value(res1, file = "rds/incidence.res1.rds")
+  expect_snapshot_value(res1, style = "serialize")
 
   dat <- data.frame(dates = c(0,0,0))
   res2 <- incidence(dat, date_index = dates)
-  expect_known_value(res2, file = "rds/incidence.res2.rds")
+  expect_snapshot_value(res2, style = "serialize")
 
   dat <- data.frame(dates = sample(1:80, 1000, replace = TRUE))
   res3 <- incidence(dat, date_index = dates)
-  expect_known_value(res3, file = "rds/incidence.res3.rds")
+  expect_snapshot_value(res3, style = "serialize")
 
   dat <- data.frame(dates = as.Date("1984-01-01") + sample(1:100, 200, replace = TRUE))
   res4 <- incidence(dat, date_index = dates)
-  expect_known_value(res4, file = "rds/incidence.res4.rds")
+  expect_snapshot_value(res4, style = "serialize")
 
   dat <- data.frame(dates = c(3, 2, -1, 1, 1))
   res5 <- incidence(dat, date_index = dates, interval = 2L)
-  expect_known_value(res5, file = "rds/incidence.res5.rds")
+  expect_snapshot_value(res5, style = "serialize")
 
   dat <- data.frame(dates = c(0,0,0))
   res6 <- incidence(dat, date_index = dates, interval = 3L)
-  expect_known_value(res6, file = "rds/incidence.res6.rds")
+  expect_snapshot_value(res6, style = "serialize")
 
 })
 
@@ -495,15 +493,15 @@ test_that("Expected values, with groups", {
 
   dat <- data.frame(dates = dates[[1]], groups = factors[[1]])
   res.g.1 <- incidence(dat, date_index = dates, groups = groups)
-  expect_known_value(res.g.1, file = "rds/res.g.1.rds")
+  expect_snapshot_value(res.g.1, style = "serialize")
 
   dat <- data.frame(dates = dates[[2]], groups = factors[[2]])
   res.g.2 <- incidence(dat, date_index = dates, groups = groups)
-  expect_known_value(res.g.2, file = "rds/res.g.2.rds")
+  expect_snapshot_value(res.g.2, style = "serialize")
 
   dat <- data.frame(dates = dates[[3]], groups = factors[[3]])
   res.g.3 <- incidence(dat, date_index = dates, groups = groups)
-  expect_known_value(res.g.3, file = "rds/res.g.3.rds")
+  expect_snapshot_value(res.g.3, style = "serialize")
 
   dates <- as.Date(c("2020-07-30", "2020-07-30", rep("2020-08-06", 3)))
   group1 <- c("Bob", "Bob", "Bob", "George", "George")
@@ -513,7 +511,7 @@ test_that("Expected values, with groups", {
                        date_index = dates,
                        groups = c(group1, group2),
                        interval = "week")
-  expect_known_value(res.g.4, file = "rds/res.g.4.rds")
+  expect_snapshot_value(res.g.4, style = "serialize")
 })
 
 test_that("user-defined group levels are preserved", {
@@ -528,16 +526,16 @@ test_that("Print and summary returns the object", {
   dat <- data.frame(dates = "2001-01-01")
   x <- incidence(dat, date_index = dates)
 
-  expect_known_output(print(x), file = "rds/print1.rds")
+  expect_snapshot_output(print(x))
 
-  expect_known_output(summary(x), file = "rds/summary1.rds")
+  expect_snapshot_output(summary(x))
 
   dat <- data.frame(dates = 1:2, groups = factor(1:2))
   y <- incidence(dat,date_index = dates, groups = groups)
 
-  expect_known_output(print(y), file = "rds/print2.rds")
+  expect_snapshot_output(print(y))
 
-  expect_known_output(summary(y), file = "rds/summary2.rds")
+  expect_snapshot_output(summary(y))
 
 })
 

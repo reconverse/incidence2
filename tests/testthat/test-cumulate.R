@@ -1,6 +1,3 @@
-context("cumulate")
-
-
 int <- sample(-3L:50L, 100, replace = TRUE)
 dates <- as.Date("2018-01-31") + int
 group_1 <- sample(letters[1:3], length(dates), replace = TRUE)
