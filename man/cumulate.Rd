@@ -35,6 +35,3 @@ i
 cumulative_i <- cumulate(i)
 cumulative_i
 }
-\author{
-Thibaut Jombart
-}

@@ -33,6 +33,3 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 }
 
 }
-\author{
-Thibaut Jombart \email{thibautjombart@gmail.com}
-}

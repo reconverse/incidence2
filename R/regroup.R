@@ -4,9 +4,6 @@
 #' The resulting [incidence()] object will contains counts summed over
 #' the groups present in the input.
 #'
-#' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
-#'
-#'
 #' @param x An [incidence()] object.
 #' @param groups The groups to sum over.  If `NULL` (default) then the function
 #'   ignores all groups.

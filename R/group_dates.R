@@ -5,6 +5,7 @@
 #'
 #' @return A vector of breaks with frequency equal to the count of dates they
 #'   contain.
+#' @importFrom graphics hist
 #' @noRd
 group_dates <- function(dates, breaks) {
   histogram <- hist(

@@ -10,7 +10,6 @@
 #' @param first_date An integer, numeric, or Date.
 #' @param dots A named list of options.
 #'
-#' @author Zhian Kamvar
 #' @return a vector of integers or Dates
 #' @noRd
 #'

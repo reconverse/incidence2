@@ -60,8 +60,6 @@ muted_colors <- c(
 #' https://personal.sron.nl/~pault/#sec:qualitative and exclude `grey`, which
 #' is reserved for missing data.
 #'
-#' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
-#'
 #' @param n a number of colors
 #'
 #' @aliases palettes vibrant muted

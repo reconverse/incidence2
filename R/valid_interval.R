@@ -20,7 +20,6 @@ is_date_interval <- function(the_interval) {
 #'
 #' @param the_interval A character string of length one.
 #'
-#' @author Zhian Kamvar
 #' @return The character string OR a numeric value.
 #' @noRd
 valid_interval_character <- function(the_interval, standard = TRUE) {

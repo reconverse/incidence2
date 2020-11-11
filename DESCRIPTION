@@ -36,7 +36,9 @@ Imports:
     vctrs,
     magrittr,
     pillar,
-    data.table
+    data.table,
+    stats,
+    graphics
 Suggests: 
     outbreaks,
     testthat,

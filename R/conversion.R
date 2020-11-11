@@ -2,7 +2,6 @@
 #' Convert incident object to dataframe
 #'
 #' @param x An [incidence()] object.
-#'
 #' @param ... Not used.
 #'
 #' @examples
@@ -23,7 +22,6 @@ as.data.frame.incidence2 <- function(x, ...) {
 #' Convert incident2 object to a tibble
 #'
 #' @param x An [incidence()] object.
-#'
 #' @param ... Not used.
 #'
 #' @examples
