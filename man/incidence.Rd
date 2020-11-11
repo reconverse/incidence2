@@ -2,79 +2,18 @@
 % Please edit documentation in R/incidence.R
 \name{incidence}
 \alias{incidence}
-\alias{incidence.default}
-\alias{incidence.Date}
-\alias{incidence.character}
-\alias{incidence.integer}
-\alias{incidence.numeric}
-\alias{incidence.POSIXt}
 \title{Compute the incidence of events}
 \usage{
-incidence(x, date_index, interval = 1L, ...)
-
-\method{incidence}{default}(x, date_index, interval = 1L, ...)
-
-\method{incidence}{Date}(
+incidence(
   x,
   date_index,
+  groups = NULL,
   interval = 1L,
+  first_date = NULL,
+  last_date = NULL,
+  na_as_group = TRUE,
   standard = TRUE,
-  groups = NULL,
-  na_as_group = TRUE,
-  first_date = NULL,
-  last_date = NULL,
-  count = NULL,
-  ...
-)
-
-\method{incidence}{character}(
-  x,
-  date_index,
-  interval = 1L,
-  standard = TRUE,
-  groups = NULL,
-  na_as_group = TRUE,
-  first_date = NULL,
-  last_date = NULL,
-  count = NULL,
-  ...
-)
-
-\method{incidence}{integer}(
-  x,
-  date_index,
-  interval = 1L,
-  groups = NULL,
-  na_as_group = TRUE,
-  first_date = NULL,
-  last_date = NULL,
-  count = NULL,
-  ...
-)
-
-\method{incidence}{numeric}(
-  x,
-  date_index,
-  interval = 1L,
-  groups = NULL,
-  na_as_group = TRUE,
-  first_date = NULL,
-  last_date = NULL,
-  count = NULL,
-  ...
-)
-
-\method{incidence}{POSIXt}(
-  x,
-  date_index,
-  interval = 1L,
-  standard = TRUE,
-  groups = NULL,
-  na_as_group = TRUE,
-  first_date = NULL,
-  last_date = NULL,
-  count = NULL,
-  ...
+  count = NULL
 )
 }
 \arguments{
@@ -85,30 +24,28 @@ with or without quotation, corresponding to a date column in x of the
 class:  integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note
 about \code{numeric} and \code{character} formats)}
 
+\item{groups}{An optional vector giving the names of the groups of
+observations for which incidence should be grouped.  This can be given with
+or without quotation.`}
+
 \item{interval}{An integer or character indicating the (fixed) size of the
 time interval used for computing the incidence; defaults to 1 day. This can
 also be a text string that corresponds to a valid date interval: day, week,
 month, quarter, or year. (See Note).}
 
-\item{...}{Additional arguments used by other methods.}
-
-\item{standard}{(Only applicable where date_index references a Date object)
-When \code{TRUE} (default) and the \code{interval} one of "week", "month", "quarter",
-or "year", then this will cause the bins for the counts to start at the
-beginning of the interval (See Note).}
-
-\item{groups}{An optional vector giving the names of the groups of
-observations for which incidence should be grouped.  This can be given with
-or without quotation.`}
+\item{first_date, last_date}{optional first/last dates to be used. When
+these are \code{NULL} (default), the dates from the first/last dates are taken
+from the observations. If these dates are provided, the observations will
+be trimmed to the range of [first_date, last_date].}
 
 \item{na_as_group}{A logical value indicating if missing group values (NA)
 should treated as a separate category (\code{TRUE}) or removed from
 consideration (\code{FALSE}).}
 
-\item{first_date, last_date}{optional first/last dates to be used. When
-these are \code{NULL} (default), the dates from the first/last dates are taken
-from the observations. If these dates are provided, the observations will
-be trimmed to the range of [first_date, last_date].}
+\item{standard}{(Only applicable where date_index references a Date object)
+When \code{TRUE} (default) and the \code{interval} one of "week", "month", "quarter",
+or "year", then this will cause the bins for the counts to start at the
+beginning of the interval (See Note).}
 
 \item{count}{The count variable of the given data.  If NULL (default) the
 data is taken to be a linelist of individual observations.}
@@ -252,7 +189,4 @@ dat <- data.frame(dates = Sys.Date() + sample(-3:10, 10, replace = TRUE))
 dat \%>\% incidence(dates,
                   interval = "week",
                   first_date = Sys.Date() + 1)
-}
-\author{
-Thibaut Jombart, Rich Fitzjohn, Zhian Kamvar, Tim Taylor
 }

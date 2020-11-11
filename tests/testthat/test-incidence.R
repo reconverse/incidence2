@@ -339,7 +339,7 @@ test_that("corner cases", {
                "At least one \\(non-NA\\) date must be provided")
 
   expect_error(incidence(data.frame(dates = NULL), date_index = dates),
-               "dates is NULL")
+               "variable dates not present in dataframe")
 
   expect_error(incidence(data.frame(dates = Inf), date_index = dates),
                "At least one \\(non-NA\\) date must be provided")
@@ -364,13 +364,11 @@ test_that("corner cases", {
 
   expect_error(incidence(data.frame(dates = sample(10)),
                          date_index = dates,
-                         intrval = 2),
-               class = "rlib_error_dots_nonempty")
+                         intrval = 2))
 
   expect_error(incidence(data.frame(dates = 1),
                          date_index = dates,
-                         were = "wolf"),
-               class = "rlib_error_dots_nonempty")
+                         were = "wolf"))
 
 
   expect_warning(
