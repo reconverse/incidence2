@@ -1,15 +1,5 @@
 context("Non-exported functions")
 
-test_that("arg_values works", {
-  expect_equal(arg_values("bob"), "bob")
-  expect_equal(arg_values(bob), "bob")
-  expect_equal(arg_values(c(bob, george)), c("bob", "george"))
-  expect_equal(arg_values(c("bob", "george")), c("bob", "george"))
-  expect_equal(arg_values(NULL), NULL)
-
-})
-
-
 test_that("check_dates works", {
   msg <- "NA detected in the dates"
   expect_error(check_dates(c(1, 2, NA), TRUE), msg)

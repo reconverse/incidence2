@@ -1,33 +1,25 @@
 #' Default internal constructor for incidence objects.
 #'
 #' @param x A tibble.
-#'
 #' @param date_index The time index of the given data.  This should be the name
 #'   corresponding to a date column in x.
-#'
 #' @param interval An integer or character indicating the (fixed) size of the
 #'   time interval used for computing the incidence; defaults to 1 day.
-#'
 #' @param groups An optional character vector defining groups of observations
 #'   for which incidence should be computed separately.
-#'
 #' @param na_as_group A logical value indicating if missing group (NA) should be
 #'   treated as a separate group.
-#'
 #' @param first_date,last_date optional first/last dates to be used. When
 #'   these are `NULL` (default), the dates from the first/last dates are taken
 #'   from the observations. If these dates are provided, the observations will
 #'   be trimmed to the range of \[first_date, last_date\].
-#'
+#' @param count The count variable of the given data.  If NULL (default) the
+#'   data is taken to be a linelist of individual observations.
 #' @param ... Additional arguments. Currently used just for the standard
 #'   argument.
 #'
-#' @param count The count variable of the given data.  If NULL (default) the
-#'   data is taken to be a linelist of individual observations.
-#'
-#' @author Zhian Kamvar, Tim Taylor
-#' @importFrom dplyr mutate summarise n left_join
-#' @importFrom stats complete.cases
+#' @importFrom dplyr mutate summarise n left_join .data
+#' @importFrom stats complete.cases na.omit
 #' @return An incidence2 object.
 #' @noRd
 make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
@@ -77,8 +69,7 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
   } else {
     x <- summarise(x, count = sum(.data[[count]], na.rm = TRUE), .groups = "drop")
   }
-
-  colnames(x) <- c(date_col, colnames(x)[-1])
+  colnames(x)[1] <- date_col
 
   # Add in missing group_labels and give them zero count
   days <- seq(first_date, last_date, by = 1)
@@ -92,7 +83,6 @@ make_incidence <- function(x, date_index, interval = 1L, groups = NULL,
     combinations <- data.frame(grouped_days)
     colnames(combinations) <- date_col
   }
-
   x <- left_join(combinations, x, by = c(date_col, groups))
   x$count[is.na(x$count)] <- 0L
 

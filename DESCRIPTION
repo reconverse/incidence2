@@ -30,7 +30,6 @@ RoxygenNote: 7.1.1
 Imports: 
     ggplot2,
     aweek (>= 0.2.0),
-    rlang,
     dplyr (>= 1.0.0),
     tibble,
     ellipsis,

@@ -20,6 +20,7 @@
 #'
 #' cumulative_i <- cumulate(i)
 #' cumulative_i
+#' @importFrom dplyr .data
 #' @export
 #' @rdname cumulate
 cumulate <- function(x) {

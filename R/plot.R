@@ -103,7 +103,7 @@
 #'   })
 #' }
 
-#' @importFrom ggplot2 sym syms
+#' @importFrom ggplot2 sym syms .data
 #' @export
 plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
                            col_pal = vibrant, alpha = 0.7, color = NA,
@@ -116,8 +116,10 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
                            ...) {
 
   ellipsis::check_dots_used()
+  fill <- eval(substitute(alist(fill)))[[1]]
+  fill <- arg_to_values(fill)
 
-  out <- plot_basic(x, !!rlang::enexpr(fill), stack,
+  out <- plot_basic(x, fill, stack,
                     col_pal, alpha, color,
                     xlab, ylab, n_breaks,
                     show_cases, border,
@@ -153,11 +155,13 @@ facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, t
   ellipsis::check_dots_used()
 
   # convert inputs to character
-  facets <- arg_values(!!rlang::enexpr(facets))
-  fill <- arg_values(!!rlang::enexpr(fill))
+  facets <- eval(substitute(alist(facets)))[[1]]
+  facets <- arg_to_values(facets)
+  fill <- eval(substitute(alist(fill)))[[1]]
+  fill <- arg_to_values(fill)
   group_vars <- get_group_names(x)
 
-  out <- plot_basic(x, !!rlang::enexpr(fill), stack,
+  out <- plot_basic(x, fill, stack,
                     col_pal, alpha, color,
                     xlab, ylab, n_breaks,
                     show_cases, border,
@@ -191,9 +195,7 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
                        legend = c("right", "left", "bottom", "top", "none"),
                        title = NULL) {
 
-  # convert inputs to character
-  fill <- arg_values(!!rlang::enexpr(fill))
-
+  
   # get relevant variables
   date_var <- get_dates_name(x)
   count_var <- get_counts_name(x)

@@ -36,7 +36,8 @@ regroup <- function(x, groups = NULL){
   }
 
   # check groups present
-  groups <- arg_values(!!rlang::enexpr(groups))
+  groups <- eval(substitute(alist(groups)))[[1]]
+  groups <- arg_to_values(groups)
   column_names <- names(x)
   check_presence(groups, column_names)
 

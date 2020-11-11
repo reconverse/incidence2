@@ -167,7 +167,8 @@
 incidence <- function(x, date_index, interval = 1L, ...) {
 
   # change date_index to character vector
-  date_index <- arg_values(!!rlang::enexpr(date_index))
+  date_index <- eval(substitute(alist(date_index)))[[1]]
+  date_index <- arg_to_values(date_index)
   UseMethod("incidence", x[[date_index]])
 }
 # -------------------------------------------------------------------------
@@ -180,7 +181,8 @@ incidence <- function(x, date_index, interval = 1L, ...) {
 incidence.default <- function(x, date_index, interval = 1L, ...) {
 
   # change date_index to character vector
-  date_index <- arg_values(!!rlang::enexpr(date_index))
+  date_index <- eval(substitute(alist(date_index)))[[1]]
+  date_index <- arg_to_values(date_index)
 
   x[[date_index]] <- check_dates(x[[date_index]])
 
@@ -206,10 +208,13 @@ incidence.Date <- function(x, date_index, interval = 1L, standard = TRUE,
 
   ellipsis::check_dots_empty()
 
-  # change date_index and group to character vectors
-  date_index <- arg_values(!!rlang::enexpr(date_index))
-  groups <- arg_values(!!rlang::enexpr(groups))
-  count <- arg_values(!!rlang::enexpr(count))
+  # change date_index, groups and count to character vectors
+  groups <- eval(substitute(alist(groups)))[[1]]
+  groups <- arg_to_values(groups)
+  date_index <- eval(substitute(alist(date_index)))[[1]]
+  date_index <- arg_to_values(date_index)
+  count <- eval(substitute(alist(count)))[[1]]
+  count <- arg_to_values(count)
 
   stopifnot(
     "The argument `date_index` should be of length one" =
@@ -262,10 +267,13 @@ incidence.character <- function(x, date_index, interval = 1L, standard = TRUE,
 
   ellipsis::check_dots_empty()
 
-  # change date_index and group to character vectors
-  date_index <- arg_values(!!rlang::enexpr(date_index))
-  groups <- arg_values(!!rlang::enexpr(groups))
-  count <- arg_values(!!rlang::enexpr(count))
+  # change date_index, groups and count to character vectors
+  groups <- eval(substitute(alist(groups)))[[1]]
+  groups <- arg_to_values(groups)
+  date_index <- eval(substitute(alist(date_index)))[[1]]
+  date_index <- arg_to_values(date_index)
+  count <- eval(substitute(alist(count)))[[1]]
+  count <- arg_to_values(count)
 
   stopifnot(
     "The argument `date_index` should be of length one" =
@@ -333,10 +341,13 @@ incidence.integer <- function(x, date_index, interval = 1L,
 
   ellipsis::check_dots_empty()
 
-  # change date_index and group to character vectors
-  date_index <- arg_values(!!rlang::enexpr(date_index))
-  groups <- arg_values(!!rlang::enexpr(groups))
-  count <- arg_values(!!rlang::enexpr(count))
+  # change date_index, groups and count to character vectors
+  groups <- eval(substitute(alist(groups)))[[1]]
+  groups <- arg_to_values(groups)
+  date_index <- eval(substitute(alist(date_index)))[[1]]
+  date_index <- arg_to_values(date_index)
+  count <- eval(substitute(alist(count)))[[1]]
+  count <- arg_to_values(count)
 
   stopifnot(
     "The argument `date_index` should be of length one" =
@@ -385,10 +396,13 @@ incidence.numeric <- function(x, date_index, interval = 1L,
 
   ellipsis::check_dots_empty()
 
-  # change date_index and group to character vectors
-  date_index <- arg_values(!!rlang::enexpr(date_index))
-  groups <- arg_values(!!rlang::enexpr(groups))
-  count <- arg_values(!!rlang::enexpr(count))
+  # change date_index, groups and count to character vectors
+  groups <- eval(substitute(alist(groups)))[[1]]
+  groups <- arg_to_values(groups)
+  date_index <- eval(substitute(alist(date_index)))[[1]]
+  date_index <- arg_to_values(date_index)
+  count <- eval(substitute(alist(count)))[[1]]
+  count <- arg_to_values(count)
 
   stopifnot(
     "The argument `date_index` should be of length one" =
@@ -436,10 +450,13 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
 
   ellipsis::check_dots_empty()
 
-  # change date_index and group to character vectors
-  date_index <- arg_values(!!rlang::enexpr(date_index))
-  groups <- arg_values(!!rlang::enexpr(groups))
-  count <- arg_values(!!rlang::enexpr(count))
+  # change date_index, groups and count to character vectors
+  groups <- eval(substitute(alist(groups)))[[1]]
+  groups <- arg_to_values(groups)
+  date_index <- eval(substitute(alist(date_index)))[[1]]
+  date_index <- arg_to_values(date_index)
+  count <- eval(substitute(alist(count)))[[1]]
+  count <- arg_to_values(count)
 
   stopifnot(
     "The argument `date_index` should be of length one" =
@@ -485,7 +502,11 @@ incidence.POSIXt <- function(x, date_index, interval = 1L, standard = TRUE,
 # -------------------------------------------------------------------------
 
 
+
+
+
 # -------------------------------------------------------------------------
+#' @importFrom dplyr .data
 group_labels <- function(x, interval, standard) {
   date_var <- attr(x, "date")
 
