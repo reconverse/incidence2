@@ -14,11 +14,6 @@ status](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)]
 coverage](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2?branch=master)
 <!-- badges: end -->
 
-<br> **<span style="color: red;">Disclaimer</span>**
-
-This package is a work in progress. It has been released to get feedback
-from users that we can incorporate in future releases.
-
 # Scope
 
 *incidence2* refocusses the scope of the original
