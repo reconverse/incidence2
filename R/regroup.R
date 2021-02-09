@@ -33,8 +33,9 @@ regroup <- function(x, groups = NULL){
   }
 
   # check groups present
-  groups <- eval(substitute(alist(groups)))[[1]]
-  groups <- arg_to_values(groups)
+  groups <- rlang::enquo(groups)
+  idx <- tidyselect::eval_select(groups, dat)
+  groups <- names(x)[idx]
   column_names <- names(x)
   check_presence(groups, column_names)
 
@@ -60,18 +61,9 @@ regroup <- function(x, groups = NULL){
                             nrow = nrow(tbl),
                             class = "incidence2"
   )
-  tbl <- tibble::validate_tibble(tbl)
+  tibble::validate_tibble(tbl)
 
-  if (has_weeks(x)) {
-    week_start <- get_week_start(interval)
-    week_var <- get_date_group_names(x)
-    date_var <- get_dates_name(x)
-    tbl[[week_var]] <- aweek::date2week(tbl[[date_var]], week_start, floor_day = TRUE)
-    tbl <- dplyr::relocate(tbl, .data[[week_var]], .after = .data[[date_var]])
-    attr(tbl, "date_group") <- week_var
-  }
 
-  tbl
 }
 # -------------------------------------------------------------------------
 

@@ -9,15 +9,12 @@
 \alias{get_counts_name}
 \alias{get_counts_name.default}
 \alias{get_counts_name.incidence2}
-\alias{get_date_group_names}
-\alias{get_dates_name}
-\alias{get_date_group_names.default}
-\alias{get_date_group_names.incidence2}
-\alias{get_dates_name.incidence2}
 \alias{get_dates}
+\alias{get_dates_name}
 \alias{get_dates.default}
 \alias{get_dates.incidence2}
 \alias{get_dates_name.default}
+\alias{get_dates_name.incidence2}
 \alias{get_group_names}
 \alias{get_group_names.default}
 \alias{get_group_names.incidence2}
@@ -43,12 +40,6 @@ get_counts_name(x, ...)
 \method{get_counts_name}{default}(x, ...)
 
 \method{get_counts_name}{incidence2}(x, ...)
-
-get_date_group_names(x, ...)
-
-\method{get_date_group_names}{default}(x, ...)
-
-\method{get_date_group_names}{incidence2}(x, ...)
 
 get_dates(x, ...)
 
@@ -101,10 +92,6 @@ integer vector if it is stored as a character in the incidence object.}
 
 \itemize{
 \item \code{get_counts_name()}: The name of the count variable of x.
-}
-
-\itemize{
-\item \code{get_date_group_names()}: The names of the date group variables of x.
 }
 
 \itemize{

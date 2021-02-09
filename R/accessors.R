@@ -92,34 +92,6 @@ get_counts_name.incidence2 <- function(x, ...) {
 
 # -------------------------------------------------------------------------
 #' @return
-#'   - `get_date_group_names()`: The names of the date group variables of x.
-#' @rdname accessors
-#' @aliases get_dates_name
-#' @export
-get_date_group_names <- function(x, ...) {
-  UseMethod("get_date_group_names")
-}
-
-#' @rdname accessors
-#' @aliases get_date_group_names.default
-#' @export
-get_date_group_names.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
-}
-
-#' @rdname accessors
-#' @aliases get_dates_name.incidence2
-#' @export
-get_date_group_names.incidence2 <- function(x, ...) {
-  ellipsis::check_dots_empty()
-  attr(x, "date_group")
-}
-# -------------------------------------------------------------------------
-
-
-# -------------------------------------------------------------------------
-#' @return
 #'   - `get_dates()`: The date vector from x.
 #' @rdname accessors
 #' @aliases get_dates_name
