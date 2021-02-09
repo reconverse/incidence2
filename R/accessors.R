@@ -200,8 +200,11 @@ get_timespan.default <- function(x, ...) {
 get_timespan.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   date_var <- get_dates_name(x)
-  dat <- as.Date(x[[date_var]])
-  as.integer(diff(range(dat, na.rm = TRUE)) + 1)
+  dat <- x[[date_var]]
+  r <- range(dat, na.rm = TRUE)
+  r <- c(r[1], r[2] + 1)
+  r <- as.Date(r)
+  as.integer(diff(r))
 }
 # -------------------------------------------------------------------------
 

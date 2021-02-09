@@ -100,6 +100,15 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
 
   ellipsis::check_dots_used()
 
+  # warnings
+  group_vars <- get_group_names(x)
+  if (length(group_vars) > 1) {
+    msg <- paste("plot() can only stack/dodge by one variable.",
+                 "For multi-facet plotting try facet_plot()",
+                 sep = "\n")
+    message(msg)
+  }
+
   # Convert fill to character
   fill <- rlang::enquo(fill)
   idx <- tidyselect::eval_select(fill, x)
@@ -127,7 +136,7 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
   } else if (cl == "yr") {
     out + scale_x_yr(n = n_breaks, ...)
   } else if (cl == "period") {
-    out + scale_x_period(n = n_breaks, firstdate = get_firstdate(dat), ...)
+    out + scale_x_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
   } else if (cl == "Date") {
     out + scale_x_date(breaks = scales::pretty_breaks(n = n_breaks), ...)
   } else {
@@ -227,14 +236,6 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
 
   # Handle stacking
   stack.txt <- if (stack) "stack" else "dodge"
-
-  # warnings
-  if (length(group_vars) > 1) {
-    msg <- paste("plot() can only stack/dodge by one variable.",
-                 "For multi-facet plotting try facet_plot()",
-                 sep = "\n")
-    message(msg)
-  }
 
   # set axis variables
   x_axis <- date_var

@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/incidence2)](https://CRAN.R-project.org/package=incidence2)
 [![R build status](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/incidence2/actions)
 [![Codecov test coverage](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2?branch=master)
+[![R-CMD-check](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/incidence2/actions)
 <!-- badges: end -->
 
 
@@ -138,10 +139,10 @@ str(dat)
 We compute the weekly incidence:
 
 ```{r incid7}
-i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
-i_7
-summary(i_7)
-plot(i_7, color = "black")
+i_yrwk <- incidence(dat, date_index = date_of_onset, interval = "yrwk")
+i_yrwk
+summary(i_yrwk)
+plot(i_yrwk)
 ```
 
 `incidence()` can also compute incidence by specified groups using the `groups`
@@ -149,17 +150,17 @@ argument. For instance, we can compute the weekly incidence by gender and plot
 in a single, stacked chart:
 
 ```{r genderstack}
-i_7_sex <- incidence(dat, interval = "week", 
-                     date_index = date_of_onset, groups = gender)
-i_7_sex
-summary(i_7_sex)
-plot(i_7_sex, fill = "gender", color = "black")
+i_yrwk_sex <- incidence(dat, interval = "yrwk", date_index = date_of_onset,
+                        groups = gender)
+i_yrwk_sex
+summary(i_yrwk_sex)
+plot(i_yrwk_sex, fill = "gender")
 ```
 
 we can facet our plot (grouping detected automatically):
 
 ```{r genderfacet}
-facet_plot(i_7_sex, n_breaks = 4)
+facet_plot(i_yrwk_sex, n_breaks = 6)
 ```
 
 and we can also group by multiple variables specifying different facets and 
@@ -167,13 +168,11 @@ fills:
 
 ```{r genderhospital}
 # incidence is compatible with the magrittr pipe operator
-i_7_sh <- 
-  dat %>% 
-  incidence(date_index = date_of_onset, interval = "week", 
-            groups = c(gender, hospital))
-i_7_sh
-i_7_sh %>% summary()
-i_7_sh %>% facet_plot(facets = gender, fill = hospital)
+i_yrwk_sh <- incidence(dat, date_index = date_of_onset, interval = "yrwk",
+                       groups = c(gender, hospital))
+i_yrwk_sh
+summary(i_yrwk_sh)
+facet_plot(i_yrwk_sh, facets = gender, fill = hospital, n_breaks = 6)
 ```
 
 

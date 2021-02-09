@@ -12,6 +12,7 @@ status](https://www.r-pkg.org/badges/version/incidence2)](https://CRAN.R-project
 status](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/incidence2/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2?branch=master)
+[![R-CMD-check](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/incidence2/actions)
 <!-- badges: end -->
 
 # Scope
@@ -146,33 +147,33 @@ str(dat)
 We compute the weekly incidence:
 
 ``` r
-i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
-i_7
+i_yrwk <- incidence(dat, date_index = date_of_onset, interval = "yrwk")
+i_yrwk
 #> An incidence2 object: 56 x 2
-#> [5829 cases from days 2014-04-07 to 2015-04-27]
-#> [interval: 7 days]
+#> [5829 cases from days 2014-W15 to 2015-W18]
+#> [interval: 1 yrwk]
 #> [cumulative: FALSE]
 #> 
-#>    bin_date   count
-#>    <date>     <int>
-#>  1 2014-04-07     1
-#>  2 2014-04-14     1
-#>  3 2014-04-21     5
-#>  4 2014-04-28     4
-#>  5 2014-05-05    12
-#>  6 2014-05-12    17
-#>  7 2014-05-19    15
-#>  8 2014-05-26    19
-#>  9 2014-06-02    23
-#> 10 2014-06-09    21
+#>    date_index count
+#>    <yrwk>     <int>
+#>  1 2014-W15       1
+#>  2 2014-W16       1
+#>  3 2014-W17       5
+#>  4 2014-W18       4
+#>  5 2014-W19      12
+#>  6 2014-W20      17
+#>  7 2014-W21      15
+#>  8 2014-W22      19
+#>  9 2014-W23      23
+#> 10 2014-W24      21
 #> # … with 46 more rows
-summary(i_7)
+summary(i_yrwk)
 #> An incidence2 object: 56 x 2
-#> 5829 cases from days 2014-04-07 to 2015-04-27
-#> interval: 7 days
+#> 5829 cases from 2014-W15 to 2015-W18
+#> interval: 1 yrwk
 #> cumulative: FALSE
-#> timespan: 386 days
-plot(i_7, color = "black")
+#> timespan: 392 days
+plot(i_yrwk)
 ```
 
 <img src="man/figures/README-incid7-1.png" style="display: block; margin: auto;" />
@@ -182,41 +183,41 @@ plot(i_7, color = "black")
 gender and plot in a single, stacked chart:
 
 ``` r
-i_7_sex <- incidence(dat, interval = "week", 
-                     date_index = date_of_onset, groups = gender)
-i_7_sex
-#> An incidence2 object: 112 x 4
-#> [5829 cases from days 2014-04-07 to 2015-04-27]
-#> [interval: 1 week]
+i_yrwk_sex <- incidence(dat, interval = "yrwk", date_index = date_of_onset,
+                        groups = gender)
+i_yrwk_sex
+#> An incidence2 object: 109 x 3
+#> [5829 cases from days 2014-W15 to 2015-W18]
+#> [interval: 1 yrwk]
 #> [cumulative: FALSE]
 #> 
-#>    bin_date   week_group gender count
-#>    <date>     <aweek>    <fct>  <int>
-#>  1 2014-04-07 2014-W15   f          1
-#>  2 2014-04-07 2014-W15   m          0
-#>  3 2014-04-14 2014-W16   f          0
-#>  4 2014-04-14 2014-W16   m          1
-#>  5 2014-04-21 2014-W17   f          4
-#>  6 2014-04-21 2014-W17   m          1
-#>  7 2014-04-28 2014-W18   f          4
-#>  8 2014-04-28 2014-W18   m          0
-#>  9 2014-05-05 2014-W19   f          9
-#> 10 2014-05-05 2014-W19   m          3
-#> # … with 102 more rows
-summary(i_7_sex)
-#> An incidence2 object: 112 x 4
-#> 5829 cases from days 2014-04-07 to 2015-04-27
-#> interval: 1 week
+#>    date_index gender count
+#>    <yrwk>     <fct>  <int>
+#>  1 2014-W15   f          1
+#>  2 2014-W16   m          1
+#>  3 2014-W17   f          4
+#>  4 2014-W17   m          1
+#>  5 2014-W18   f          4
+#>  6 2014-W19   f          9
+#>  7 2014-W19   m          3
+#>  8 2014-W20   f          7
+#>  9 2014-W20   m         10
+#> 10 2014-W21   f          8
+#> # … with 99 more rows
+summary(i_yrwk_sex)
+#> An incidence2 object: 109 x 3
+#> 5829 cases from 2014-W15 to 2015-W18
+#> interval: 1 yrwk
 #> cumulative: FALSE
-#> timespan: 386 days
+#> timespan: 392 days
 #> 
 #> 1 grouped variable
 #> 
 #>   gender count
-#>   <fct>  <int>
+#> * <fct>  <int>
 #> 1 f       2934
 #> 2 m       2895
-plot(i_7_sex, fill = "gender", color = "black")
+plot(i_yrwk_sex, fill = "gender")
 ```
 
 <img src="man/figures/README-genderstack-1.png" style="display: block; margin: auto;" />
@@ -224,7 +225,7 @@ plot(i_7_sex, fill = "gender", color = "black")
 we can facet our plot (grouping detected automatically):
 
 ``` r
-facet_plot(i_7_sex, n_breaks = 4)
+facet_plot(i_yrwk_sex, n_breaks = 6)
 ```
 
 <img src="man/figures/README-genderfacet-1.png" style="display: block; margin: auto;" />
@@ -234,55 +235,51 @@ and fills:
 
 ``` r
 # incidence is compatible with the magrittr pipe operator
-i_7_sh <- 
-  dat %>% 
-  incidence(date_index = date_of_onset, interval = "week", 
-            groups = c(gender, hospital))
-i_7_sh
-#> An incidence2 object: 672 x 5
-#> [5829 cases from days 2014-04-07 to 2015-04-27]
-#> [interval: 1 week]
+i_yrwk_sh <- incidence(dat, date_index = date_of_onset, interval = "yrwk",
+                       groups = c(gender, hospital))
+i_yrwk_sh
+#> An incidence2 object: 601 x 4
+#> [5829 cases from days 2014-W15 to 2015-W18]
+#> [interval: 1 yrwk]
 #> [cumulative: FALSE]
 #> 
-#>    bin_date   week_group gender hospital                                   count
-#>    <date>     <aweek>    <fct>  <fct>                                      <int>
-#>  1 2014-04-07 2014-W15   f      Military Hospital                              1
-#>  2 2014-04-07 2014-W15   m      Military Hospital                              0
-#>  3 2014-04-07 2014-W15   f      Connaught Hospital                             0
-#>  4 2014-04-07 2014-W15   m      Connaught Hospital                             0
-#>  5 2014-04-07 2014-W15   f      other                                          0
-#>  6 2014-04-07 2014-W15   m      other                                          0
-#>  7 2014-04-07 2014-W15   f      <NA>                                           0
-#>  8 2014-04-07 2014-W15   m      <NA>                                           0
-#>  9 2014-04-07 2014-W15   f      Princess Christian Maternity Hospital (PC…     0
-#> 10 2014-04-07 2014-W15   m      Princess Christian Maternity Hospital (PC…     0
-#> # … with 662 more rows
-i_7_sh %>% summary()
-#> An incidence2 object: 672 x 5
-#> 5829 cases from days 2014-04-07 to 2015-04-27
-#> interval: 1 week
+#>    date_index gender hospital                                     count
+#>    <yrwk>     <fct>  <fct>                                        <int>
+#>  1 2014-W15   f      Military Hospital                                1
+#>  2 2014-W16   m      Connaught Hospital                               1
+#>  3 2014-W17   f      other                                            2
+#>  4 2014-W17   f      <NA>                                             2
+#>  5 2014-W17   m      other                                            1
+#>  6 2014-W18   f      Connaught Hospital                               1
+#>  7 2014-W18   f      Princess Christian Maternity Hospital (PCMH)     1
+#>  8 2014-W18   f      Rokupa Hospital                                  1
+#>  9 2014-W18   f      <NA>                                             1
+#> 10 2014-W19   f      Connaught Hospital                               2
+#> # … with 591 more rows
+summary(i_yrwk_sh)
+#> An incidence2 object: 601 x 4
+#> 5829 cases from 2014-W15 to 2015-W18
+#> interval: 1 yrwk
 #> cumulative: FALSE
-#> timespan: 386 days
+#> timespan: 392 days
 #> 
 #> 2 grouped variables
 #> 
 #>   gender count
-#>   <fct>  <int>
+#> * <fct>  <int>
 #> 1 f       2934
 #> 2 m       2895
 #> 
 #> 
 #>   hospital                                     count
-#>   <fct>                                        <int>
+#> * <fct>                                        <int>
 #> 1 Connaught Hospital                            1737
 #> 2 Military Hospital                              889
 #> 3 other                                          876
 #> 4 Princess Christian Maternity Hospital (PCMH)   420
 #> 5 Rokupa Hospital                                451
 #> 6 <NA>                                          1456
-i_7_sh %>% facet_plot(facets = gender, fill = hospital)
-#> plot() can only stack/dodge by one variable.
-#> For multi-facet plotting try facet_plot()
+facet_plot(i_yrwk_sh, facets = gender, fill = hospital, n_breaks = 6)
 ```
 
 <img src="man/figures/README-genderhospital-1.png" style="display: block; margin: auto;" />

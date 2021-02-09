@@ -20,7 +20,7 @@ summary.incidence2 <- function(object, ...) {
 
   # cases over date range
   cat(sprintf(
-    "%d cases from days %s to %s\n",
+    "%d cases from %s to %s\n",
     sum(object[[count_var]]), min(object[[date_var]]), max(object[[date_var]])
   ))
 

@@ -84,15 +84,16 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
 
   # Convert groups, date and count variables
   groups <- rlang::enquo(groups)
-  idx <- tidyselect::eval_select(groups, dat)
+  idx <- tidyselect::eval_select(groups, x)
   groups <- names(x)[idx]
+  if (length(groups) == 0) groups <- NULL
 
   date_index <- rlang::enquo(date_index)
-  idx <- tidyselect::eval_select(date_index, dat)
+  idx <- tidyselect::eval_select(date_index, x)
   date_index <- names(x)[idx]
 
   count <- rlang::enquo(count)
-  idx <- tidyselect::eval_select(count, dat)
+  idx <- tidyselect::eval_select(count, x)
   count <- names(x)[idx]
   if (length(count) == 0) count <- NULL
 
