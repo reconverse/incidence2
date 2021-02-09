@@ -47,6 +47,7 @@ cumulate.incidence2 <- function(x) {
   if (!is.null(groups)) {
     out <- grouped_df(out, groups)
   }
+
   out <- mutate(out, count = cumsum(.data[[count_var]]))
   out <- ungroup(out)
   names(out) <- names(x)

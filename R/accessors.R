@@ -271,6 +271,8 @@ get_interval.incidence2 <- function(x, integer = FALSE, ...) {
     return(interval)
   }
   dat <- get_dates(x)
-  get_interval(dat, days = integer)
+  out <- get_interval(dat, days = integer)
+  attributes(out) <- NULL
+  as.integer(out)
 }
 # -------------------------------------------------------------------------

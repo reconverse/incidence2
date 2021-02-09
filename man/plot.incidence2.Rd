@@ -22,6 +22,7 @@
   na_color = "grey",
   legend = c("right", "left", "bottom", "top", "none"),
   angle = 0,
+  size = NULL,
   ...
 )
 
@@ -44,6 +45,7 @@ facet_plot(x, ...)
   na_color = "grey",
   legend = c("bottom", "top", "left", "right", "none"),
   angle = 0,
+  size = NULL,
   nrow = NULL,
   ...
 )

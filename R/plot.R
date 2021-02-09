@@ -95,8 +95,7 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
                            show_cases = FALSE, border = "white",
                            na_color = "grey",
                            legend = c("right", "left", "bottom", "top", "none"),
-                           angle = 0,
-                           ...) {
+                           angle = 0, size = NULL, ...) {
 
   ellipsis::check_dots_used()
 
@@ -110,10 +109,12 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
   }
 
   # Convert fill to character
-  fill <- rlang::enquo(fill)
-  idx <- tidyselect::eval_select(fill, x)
-  fill <- names(x)[idx]
-  if (length(fill) == 0) fill <- NULL
+  tmp <- rlang::enquo(fill)
+  idx <- try(tidyselect::eval_select(tmp, x), silent = TRUE)
+  if (!inherits(idx, "try-error")) {
+    fill <- names(x)[idx]
+    if (length(fill) == 0) fill <- NULL
+  }
 
   out <- plot_basic(x = x, fill = fill, stack = stack, col_pal = col_pal,
                     alpha = alpha, color = color, xlab = xlab, ylab = ylab,
@@ -121,23 +122,20 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
                     na_color = na_color, legend = match.arg(legend),
                     title = title)
 
-  out <- out + rotate_and_scale(angle = angle)
+  out <- out + rotate_and_scale(angle = angle, size = size)
 
   dat <- get_dates(x)
-  cl <- class(dat)[1]
-  if (cl == "yrwk") {
+  if (inherits(dat, "yrwk")) {
     out + scale_x_yrwk(n = n_breaks, firstday = get_firstday(dat), ...)
-  } else if (cl == "yrmon") {
+  } else if (inherits(dat, "yrmon")) {
     out + scale_x_yrmon(n = n_breaks, ...)
-  } else if (cl == "yrqtr") {
+  } else if (inherits(dat, "yrqtr")) {
     out + scale_x_yrqtr(n = n_breaks, ...)
-  } else if (cl == "yr") {
+  } else if (inherits(dat, "yr")) {
     out + scale_x_yr(n = n_breaks, ...)
-  } else if (cl == "yr") {
-    out + scale_x_yr(n = n_breaks, ...)
-  } else if (cl == "period") {
+  } else if (inherits(dat, "period")) {
     out + scale_x_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
-  } else if (cl == "Date") {
+  } else if (inherits(dat, "Date")) {
     out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n_breaks), ...)
   } else {
     stop("Something has gone wrong! Please let the incidence2 devs know.")
@@ -162,7 +160,7 @@ facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, t
                        show_cases = FALSE, border = "white",
                        na_color = "grey",
                        legend = c("bottom", "top", "left", "right", "none"),
-                       angle = 0, nrow = NULL, ...) {
+                       angle = 0, size = NULL, nrow = NULL, ...) {
 
   ellipsis::check_dots_used()
 
@@ -172,10 +170,13 @@ facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, t
   facets <- names(x)[idx]
   if (length(facets) == 0) facets <- NULL
 
-  fill <- rlang::enquo(fill)
-  idx <- tidyselect::eval_select(fill, x)
-  fill <- names(x)[idx]
-  if (length(fill) == 0) fill <- NULL
+  tmp <- rlang::enquo(fill)
+  idx <- try(tidyselect::eval_select(tmp, x), silent = TRUE)
+  if (!inherits(idx, "try-error")) {
+    fill <- names(x)[idx]
+    if (length(fill) == 0) fill <- NULL
+  }
+
   group_vars <- get_group_names(x)
 
   out <- plot_basic(x = x, fill = fill, stack = stack, col_pal = col_pal,
@@ -184,7 +185,26 @@ facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, t
                     na_color = na_color, legend = match.arg(legend),
                     title = title)
 
-    if (is.null(facets) && !is.null(group_vars)) {
+  dat <- get_dates(x)
+  if (inherits(dat, "yrwk")) {
+    out <- out + scale_x_yrwk(n = n_breaks, firstday = get_firstday(dat), ...)
+  } else if (inherits(dat, "yrmon")) {
+    out <- out + scale_x_yrmon(n = n_breaks, ...)
+  } else if (inherits(dat, "yrqtr")) {
+    out <- out + scale_x_yrqtr(n = n_breaks, ...)
+  } else if (inherits(dat, "yr")) {
+    out <- out + scale_x_yr(n = n_breaks, ...)
+  } else if (inherits(dat, "period")) {
+    out <- out + scale_x_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
+  } else if (inherits(dat, "Date")) {
+    out <- out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n_breaks), ...)
+  } else {
+    stop("Something has gone wrong! Please let the incidence2 devs know.")
+  }
+
+  out + rotate_and_scale(angle = angle, size = size)
+
+  if (is.null(facets) && !is.null(group_vars)) {
     out <-
       out +
       ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), nrow, ...) +
@@ -196,26 +216,7 @@ facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, t
       ggplot2::theme(panel.spacing.x = ggplot2::unit(8, "mm"))
   }
 
-  dat <- get_dates(x)
-  cl <- class(dat)[1]
-  if (cl == "yrwk") {
-    out <- out + scale_x_yrwk(n = n_breaks, firstday = get_firstday(dat), ...)
-  } else if (cl == "yrmon") {
-    out <- out + scale_x_yrmon(n = n_breaks, ...)
-  } else if (cl == "yrqtr") {
-    out <- out + scale_x_yrqtr(n = n_breaks, ...)
-  } else if (cl == "yr") {
-    out <- out + scale_x_yr(n = n_breaks, ...)
-  } else if (cl == "period") {
-    out <- out + scale_x_period(n = n_breaks, firstdate = get_firstdate(dat), ...)
-  } else if (cl == "Date") {
-    out <- out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n_breaks), ...)
-  } else {
-    stop("Something has gone wrong! Please let the incidence2 devs know.")
-  }
-  out + rotate_and_scale(angle = angle)
-
-
+  out
 }
 
 plot_basic <- function(x, fill = NULL, stack = TRUE,
@@ -301,7 +302,7 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
                         position = "stack",
                         data = squaredf)
 
-    out <- out + squares
+    out <- out + squares + ggplot2::coord_equal()
   }
 
   if (is.null(title)) {

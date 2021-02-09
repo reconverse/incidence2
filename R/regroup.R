@@ -34,7 +34,7 @@ regroup <- function(x, groups = NULL){
 
   # check groups present
   groups <- rlang::enquo(groups)
-  idx <- tidyselect::eval_select(groups, dat)
+  idx <- tidyselect::eval_select(groups, x)
   groups <- names(x)[idx]
   column_names <- names(x)
   check_presence(groups, column_names)
