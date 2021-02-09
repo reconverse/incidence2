@@ -78,28 +78,27 @@ format. Any other format will trigger an error.
 \subsection{Interval specification (\code{interval})}{
 \code{\link{incidence2}} includes generators for 5 different grouped date s3 classes.
 Which one the \code{incidence()} function uses depends on the value of
-\code{interval}.
+\code{interval}. This can be specified as either an integer value or a more
+standard specification such as "day", "week", "month", "quarter" or "year".
+The format in this situation is similar to that used by \code{\link[=seq.Date]{seq.Date()}}
+where these values can optionally be preceded by a (positive or negative)
+integer and a space, or followed by "s".  When no prefix is given:
 \itemize{
-\item "yrwk" : uses the "yrwk" class (see \code{\link[=as_yrwk]{as_yrwk()}}).
-\item "yrmon" : uses the "yrmon" class (see \code{\link[=as_yrmon]{as_yrmon()}}).
-\item "yrqtr" : uses the "yrqtr" class (see \code{\link[=as_yrqtr]{as_yrqtr()}}).
-\item "yr" : uses the "yr" class (see \code{\link[=as_yr]{as_yr()}}).
+\item "week"    : uses the "yrwk" class (see \code{\link[=as_yrwk]{as_yrwk()}}).
+\item "month"   : uses the "yrmon" class (see \code{\link[=as_yrmon]{as_yrmon()}}).
+\item "quarter" : uses the "yrqtr" class (see \code{\link[=as_yrqtr]{as_yrqtr()}}).
+\item "year"    : uses the "yr" class (see \code{\link[=as_yr]{as_yr()}}).
 }
 
-It is also possible to use more standard specifications for interval such
-as "day", "week", "month", "quarter" or "year". The format in this
-situation is the same as that used by \code{\link[=seq.Date]{seq.Date()}} where these values can
-optionally be preceded by a (positive or negative) integer and a space,
-or followed by "s".  When one of these inputs is used the output is a
-object of class "period" (see \code{\link[=as_period]{as_period()}}).  Similarly, if the input is
-an integer value the resultant grouped date class is also "period".  Note
-that for the values "month", "quarter" and "year" intervals are always
-chosen to start at the beginning of the calendar equivalent. The difference
-with "yearweek", "yearmonth" and "yearquarter" is that we allow periods
-span across multiple intervals (i.e. the allowance of a prefix).
+When a prefix is provided (e.g. 2 weeks) the output is an object of class
+"period" (see \code{\link[=as_period]{as_period()}}).  Note that for the values "month",
+"quarter" and "year" intervals are always chosen to start at the beginning
+of the calendar equivalent.  If the input is an integer value the input is
+treated as if it was specified in days (i.e. 2 and 2 days) produce the
+same output.
 
-The only exception is when the values 1, 1L, "day" or "days" (both without
-prefix) are used.  In this situation the returned object is of the standard
-"Date" class.
+The only interval values that do not produce these grouped classes are 1,
+1L, "day" or "days" (both without prefix) are used.  In this situation the
+returned object is of the standard "Date" class.
 }
 }

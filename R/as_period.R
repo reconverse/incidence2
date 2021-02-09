@@ -110,6 +110,9 @@ as_period.Date <- function(x, interval = 1L, firstdate = NULL, ...) {
       } else if (type == "quarter") {
         period <- break_dates(x, interval, as.Date(as_yrqtr(firstdate)))
         period <- as.Date(as_yrqtr(period))
+      } else if (type == "year") {
+        period <- break_dates(x, interval, as.Date(as_yr(firstdate)))
+        period <- as.Date(as_yr(period))
       }
     }
   } else {
@@ -532,7 +535,7 @@ Summary.period <- function (..., na.rm)
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-new_period <- function(x = numeric(), firstdate = numeric(), interval = integer()) {
+new_period <- function(x = numeric(), firstdate = new_date(), interval = integer()) {
   structure(x, firstdate = firstdate, interval = interval, class = c("period", "grate"))
 }
 

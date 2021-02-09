@@ -103,7 +103,7 @@ forces each case to be a square.
 
 ```{r, epiet}
 i_epiet <- incidence(dat[160:180, ], date_index = date_of_onset)
-i_epiet %>% plot(color = "white", show_cases = TRUE, angle = 45, size = 12)
+i_epiet %>% plot(color = "white", show_cases = TRUE, angle = 45, size = 10, n_breaks = 20)
 ```
 
 

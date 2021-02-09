@@ -202,7 +202,7 @@ facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, t
     stop("Something has gone wrong! Please let the incidence2 devs know.")
   }
 
-  out + rotate_and_scale(angle = angle, size = size)
+  out <- out + rotate_and_scale(angle = angle, size = size)
 
   if (is.null(facets) && !is.null(group_vars)) {
     out <-

@@ -147,11 +147,11 @@ str(dat)
 We compute the weekly incidence:
 
 ``` r
-i_yrwk <- incidence(dat, date_index = date_of_onset, interval = "yrwk")
-i_yrwk
+i_year <- incidence(dat, date_index = date_of_onset, interval = "year")
+i_year
 #> An incidence2 object: 56 x 2
 #> [5829 cases from days 2014-W15 to 2015-W18]
-#> [interval: 1 yrwk]
+#> [interval: 1 year]
 #> [cumulative: FALSE]
 #> 
 #>    date_index count
@@ -167,13 +167,13 @@ i_yrwk
 #>  9 2014-W23      23
 #> 10 2014-W24      21
 #> # … with 46 more rows
-summary(i_yrwk)
+summary(i_year)
 #> An incidence2 object: 56 x 2
 #> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 yrwk
+#> interval: 1 year
 #> cumulative: FALSE
 #> timespan: 392 days
-plot(i_yrwk)
+plot(i_year)
 ```
 
 <img src="man/figures/README-incid7-1.png" style="display: block; margin: auto;" />
@@ -183,12 +183,12 @@ plot(i_yrwk)
 gender and plot in a single, stacked chart:
 
 ``` r
-i_yrwk_sex <- incidence(dat, interval = "yrwk", date_index = date_of_onset,
+i_year_sex <- incidence(dat, interval = "year", date_index = date_of_onset,
                         groups = gender)
-i_yrwk_sex
+i_year_sex
 #> An incidence2 object: 109 x 3
 #> [5829 cases from days 2014-W15 to 2015-W18]
-#> [interval: 1 yrwk]
+#> [interval: 1 year]
 #> [cumulative: FALSE]
 #> 
 #>    date_index gender count
@@ -204,10 +204,10 @@ i_yrwk_sex
 #>  9 2014-W20   m         10
 #> 10 2014-W21   f          8
 #> # … with 99 more rows
-summary(i_yrwk_sex)
+summary(i_year_sex)
 #> An incidence2 object: 109 x 3
 #> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 yrwk
+#> interval: 1 year
 #> cumulative: FALSE
 #> timespan: 392 days
 #> 
@@ -217,7 +217,7 @@ summary(i_yrwk_sex)
 #> * <fct>  <int>
 #> 1 f       2934
 #> 2 m       2895
-plot(i_yrwk_sex, fill = "gender")
+plot(i_year_sex, fill = "gender")
 ```
 
 <img src="man/figures/README-genderstack-1.png" style="display: block; margin: auto;" />
@@ -225,7 +225,7 @@ plot(i_yrwk_sex, fill = "gender")
 we can facet our plot (grouping detected automatically):
 
 ``` r
-facet_plot(i_yrwk_sex, n_breaks = 6)
+facet_plot(i_year_sex, n_breaks = 6)
 ```
 
 <img src="man/figures/README-genderfacet-1.png" style="display: block; margin: auto;" />
@@ -235,12 +235,12 @@ and fills:
 
 ``` r
 # incidence is compatible with the magrittr pipe operator
-i_yrwk_sh <- incidence(dat, date_index = date_of_onset, interval = "yrwk",
+i_year_sh <- incidence(dat, date_index = date_of_onset, interval = "year",
                        groups = c(gender, hospital))
-i_yrwk_sh
+i_year_sh
 #> An incidence2 object: 601 x 4
 #> [5829 cases from days 2014-W15 to 2015-W18]
-#> [interval: 1 yrwk]
+#> [interval: 1 year]
 #> [cumulative: FALSE]
 #> 
 #>    date_index gender hospital                                     count
@@ -256,10 +256,10 @@ i_yrwk_sh
 #>  9 2014-W18   f      <NA>                                             1
 #> 10 2014-W19   f      Connaught Hospital                               2
 #> # … with 591 more rows
-summary(i_yrwk_sh)
+summary(i_year_sh)
 #> An incidence2 object: 601 x 4
 #> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 yrwk
+#> interval: 1 year
 #> cumulative: FALSE
 #> timespan: 392 days
 #> 
@@ -279,7 +279,7 @@ summary(i_yrwk_sh)
 #> 4 Princess Christian Maternity Hospital (PCMH)   420
 #> 5 Rokupa Hospital                                451
 #> 6 <NA>                                          1456
-facet_plot(i_yrwk_sh, facets = gender, fill = hospital, n_breaks = 6)
+facet_plot(i_year_sh, facets = gender, fill = hospital, n_breaks = 6)
 ```
 
 <img src="man/figures/README-genderhospital-1.png" style="display: block; margin: auto;" />

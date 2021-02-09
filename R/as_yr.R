@@ -284,7 +284,7 @@ c.yr <- function(..., recursive = FALSE, use.names = TRUE) {
   is_yr <- vapply(dots, inherits, logical(1), what = "yr")
   is_na <- is.na(dots)
 
-  if (!all(is_mon | is_qtr | is_na)) {
+  if (!all(is_mon | is_qtr | is_na | is_yr)) {
     stop(
       "To combine <yr> objects with different objects first convert to a common class",
       call. = FALSE

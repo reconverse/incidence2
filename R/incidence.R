@@ -53,28 +53,27 @@
 #' \subsection{Interval specification (`interval`)}{
 #' [`incidence2`] includes generators for 5 different grouped date s3 classes.
 #'   Which one the `incidence()` function uses depends on the value of
-#'   `interval`.
+#'   `interval`. This can be specified as either an integer value or a more
+#'   standard specification such as "day", "week", "month", "quarter" or "year".
+#'   The format in this situation is similar to that used by [`seq.Date()`]
+#'   where these values can optionally be preceded by a (positive or negative)
+#'   integer and a space, or followed by "s".  When no prefix is given:
 #'
-#'   - "yrwk" : uses the "yrwk" class (see [`as_yrwk()`]).
-#'   - "yrmon" : uses the "yrmon" class (see [`as_yrmon()`]).
-#'   - "yrqtr" : uses the "yrqtr" class (see [`as_yrqtr()`]).
-#'   - "yr" : uses the "yr" class (see [`as_yr()`]).
+#'   - "week"    : uses the "yrwk" class (see [`as_yrwk()`]).
+#'   - "month"   : uses the "yrmon" class (see [`as_yrmon()`]).
+#'   - "quarter" : uses the "yrqtr" class (see [`as_yrqtr()`]).
+#'   - "year"    : uses the "yr" class (see [`as_yr()`]).
 #'
-#'   It is also possible to use more standard specifications for interval such
-#'   as "day", "week", "month", "quarter" or "year". The format in this
-#'   situation is the same as that used by [`seq.Date()`] where these values can
-#'   optionally be preceded by a (positive or negative) integer and a space,
-#'   or followed by "s".  When one of these inputs is used the output is a
-#'   object of class "period" (see [`as_period()`]).  Similarly, if the input is
-#'   an integer value the resultant grouped date class is also "period".  Note
-#'   that for the values "month", "quarter" and "year" intervals are always
-#'   chosen to start at the beginning of the calendar equivalent. The difference
-#'   with "yearweek", "yearmonth" and "yearquarter" is that we allow periods
-#'   span across multiple intervals (i.e. the allowance of a prefix).
+#'   When a prefix is provided (e.g. 2 weeks) the output is an object of class
+#'   "period" (see [`as_period()`]).  Note that for the values "month",
+#'   "quarter" and "year" intervals are always chosen to start at the beginning
+#'   of the calendar equivalent.  If the input is an integer value the input is
+#'   treated as if it was specified in days (i.e. 2 and 2 days) produce the
+#'   same output.
 #'
-#'   The only exception is when the values 1, 1L, "day" or "days" (both without
-#'   prefix) are used.  In this situation the returned object is of the standard
-#'   "Date" class.
+#'   The only interval values that do not produce these grouped classes are 1,
+#'   1L, "day" or "days" (both without prefix) are used.  In this situation the
+#'   returned object is of the standard "Date" class.
 #' }
 #'
 #'
@@ -101,6 +100,7 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   stopifnot(
     "The argument `date_index` should be of length one." = (length(date_index) == 1),
     "The argument `interval` should be of length one." = (length(interval) == 1),
+    "The argument `interval` is not valid." = is_valid_interval(interval),
     "The argument `na_as_group` must be either `TRUE` or `FALSE`." =
       (is.logical(na_as_group))
   )
@@ -159,17 +159,22 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
 make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
                            ...) {
 
-  if (interval == "yrwk") {
-    x[[date_index]] <- as_yrwk(x[[date_index]], ...)
-  } else if (interval == "yrmon") {
-    x[[date_index]] <- as_yrmon(x[[date_index]])
-  } else if (interval == "yrqtr") {
-    x[[date_index]] <- as_yrqtr(x[[date_index]])
-  } else if (interval == "yr") {
-    x[[date_index]] <- as_yr(x[[date_index]])
+  if (is.character(interval) && (get_interval_number(interval) == 1L)) {
+    if (interval == "year") {
+      x[[date_index]] <- as_yrwk(x[[date_index]], ...)
+    } else if (interval == "month") {
+      x[[date_index]] <- as_yrmon(x[[date_index]])
+    } else if (interval == "quarter") {
+      x[[date_index]] <- as_yrqtr(x[[date_index]])
+    } else if (interval == "year") {
+      x[[date_index]] <- as_yr(x[[date_index]])
+    } else {
+      x[[date_index]] <- as_period(x[[date_index]], interval = interval, ...)
+    }
   } else {
     x[[date_index]] <- as_period(x[[date_index]], interval = interval, ...)
   }
+
 
   # Remove the missing observations
   n_orig <- nrow(x)

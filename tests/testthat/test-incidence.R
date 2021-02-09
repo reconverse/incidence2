@@ -38,13 +38,13 @@ test_that("construction - default, integer input", {
 
   ## classes
   expect_s3_class(x, "incidence2")
-  expect_type(x$bin_date, typeof(dat))
+  expect_type(x$date_index, typeof(dat))
   expect_type(x$count, "integer")
 
   ## results
   expect_false(any(is.na(x$count)))
   expect_equal(sum(x$count), length(dat))
-  expect_true(all(diff(x$bin_date) == get_interval(x)))
+  expect_true(all(diff(x$date_index) == get_interval(x)))
 })
 
 test_that("construction - ISO week", {
@@ -69,7 +69,7 @@ test_that("construction - ISO week", {
   ## results
   expect_false(any(is.na(inc_isoweek$count)))
   expect_equal(sum(inc_isoweek$count), length(dat))
-  expect_true(all(diff(inc_isoweek$bin_date) == get_interval(inc_isoweek)))
+  expect_true(all(diff(inc_isoweek$date_index) == get_interval(inc_isoweek)))
 })
 
 
@@ -180,14 +180,14 @@ test_that("construction - Date input", {
                                    interval = "month")
 
   expect_equal(
-    format(x_mo_iso$bin_date, "%m"),
+    format(x_mo_iso$date_index, "%m"),
     unique(format(sort(dat_dates), "%m")))
 
   expect_equal(
-    format(x_mo_iso$bin_date, "%d"),
+    format(x_mo_iso$date_index, "%d"),
     rep("01", 5)) # all starts on first
 
-  expect_equal(x_mo_iso$bin_date[[1]], as.Date("2015-12-01"))
+  expect_equal(x_mo_iso$date_index[[1]], as.Date("2015-12-01"))
 
   expect_equal(sum(x_mo_iso$count), 51L)
 
@@ -197,12 +197,12 @@ test_that("construction - Date input", {
                     standard = FALSE)
 
   expect_equal(
-    format(x_mo$bin_date, "%m"),
+    format(x_mo$date_index, "%m"),
     unique(format(sort(dat_dates), "%m"))[-5])
 
-  expect_equal(format(x_mo$bin_date, "%d"), rep("28", 4)) # all starts on the 28th
+  expect_equal(format(x_mo$date_index, "%d"), rep("28", 4)) # all starts on the 28th
 
-  expect_equal(x_mo$bin_date[[1]], as.Date("2015-12-28"))
+  expect_equal(x_mo$date_index[[1]], as.Date("2015-12-28"))
 
   expect_equal(sum(x_mo$count), 51L)
 
@@ -220,7 +220,7 @@ test_that("construction - Date input", {
                         date_index = dates,
                         interval = "quarter")
 
-  expect_equal(x_qu_iso$bin_date,
+  expect_equal(x_qu_iso$date_index,
                as.Date(c("2015-10-01", "2016-01-01", "2016-04-01")))
 
   expect_equal(sum(x_qu_iso$count), 51L)
@@ -230,7 +230,7 @@ test_that("construction - Date input", {
                     interval = "quarter",
                     standard = FALSE)
 
-  expect_equal(x_qu$bin_date, as.Date(c("2015-12-28", "2016-03-28")))
+  expect_equal(x_qu$date_index, as.Date(c("2015-12-28", "2016-03-28")))
 
   expect_equal(sum(x_qu$count), 51L)
 
@@ -259,10 +259,10 @@ test_that("construction - Date input", {
     w)
 
   expect_equal(
-    x_yr_iso$bin_date,
+    x_yr_iso$date_index,
     as.Date(c("2015-01-01", "2016-01-01", "2017-01-01", "2018-01-01")))
 
-  expect_equal(x_yr$bin_date,
+  expect_equal(x_yr$date_index,
                as.Date(c("2015-12-28", "2016-12-28", "2017-12-28")))
 
   expect_equal(sum(x_yr$count), sum(x_yr_iso$count))
@@ -272,12 +272,12 @@ test_that("construction - Date input", {
   expect_type(x$date, "integer")
   expect_s3_class(x_dates$date, "Date")
   expect_equal(x_7$count, x_7_iso$count)
-  expect_equal(x_7_iso$bin_date, x_7_week$bin_date)
+  expect_equal(x_7_iso$date_index, x_7_week$date_index)
 
   # shifting days gives the desired effect
-  expect_equal(x_ds$date[[1]], x_7_ds$bin_date[[1]])
+  expect_equal(x_ds$date[[1]], x_7_ds$date_index[[1]])
   expect_failure({
-    expect_identical(x_w_ds$bin_date, x_w_ds_iso$bin_date)
+    expect_identical(x_w_ds$date_index, x_w_ds_iso$date_index)
   })
 
   ## Printing will be different with text-based interval
@@ -471,7 +471,7 @@ test_that("na_as_group", {
   )
 
   x <- incidence(dat, date_index = date, groups = names, na_as_group = FALSE)
-  expect_true(all(dat$bin_date %in% (Sys.Date() + 2:9)))
+  expect_true(all(dat$date_index %in% (Sys.Date() + 2:9)))
   expect_equal(get_n(x), 8)
 })
 
@@ -545,7 +545,7 @@ test_that("cnt variable working as expected", {
   dat <- data.frame(dates, counts)
   x <- incidence(dat, date_index = dates, count = counts, interval = "week")
 
-  expect_equal(x$bin_date, as.Date(c("2020-08-24", "2020-08-31")))
+  expect_equal(x$date_index, as.Date(c("2020-08-24", "2020-08-31")))
   expect_equal(x$count, c(6, 4))
 
   # NA's  should be ignored in sums
@@ -554,7 +554,7 @@ test_that("cnt variable working as expected", {
   dat <- data.frame(dates, counts)
   x <- incidence(dat, date_index = dates, count = counts, interval = "week")
 
-  expect_equal(x$bin_date, as.Date(c("2020-08-24", "2020-08-31")))
+  expect_equal(x$date_index, as.Date(c("2020-08-24", "2020-08-31")))
   expect_equal(x$count, c(3, 4))
 })
 

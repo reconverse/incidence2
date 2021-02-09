@@ -66,6 +66,26 @@ int_cast <- function(x) {
   as.integer(x)
 }
 
+# check if interval valid
+is_valid_interval <- function(x) {
+  if (is.character(x)) {
+    pattern <- "^\\d?\\s?(day|week|month|quarter|year)s?$"
+    return(grepl(pattern, x, ignore.case = TRUE))
+  } else if (is.numeric(x)) {
+    if (!all(is.wholenumber(x) | is.na(x))) {
+      return(FALSE)
+    } else {
+      return(TRUE)
+    }
+  }
+  FALSE
+}
+
+# get interval prefix
+get_interval_number <- function(x) {
+  if (!grepl("^\\d", x)) return(1L)
+  as.integer(gsub("^(\\d*).+$", "\\1", x))
+}
 
 # check if vector is Date
 is.Date <- function(x) inherits(x, "Date")
