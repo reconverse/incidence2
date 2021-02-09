@@ -65,22 +65,8 @@ regroup <- function(x, groups = NULL){
 
 
 }
-# -------------------------------------------------------------------------
 
 
-# -------------------------------------------------------------------------
-#' Pool 'incidence' objects
-#'
-#' Pool was a function from the original incidence package that has now been
-#'   deprecated in favour of [regroup()]
-#'
-#' @param ... Not used.
-#'
-#' @keywords internal
-#' @export
-pool <- function(...) {
-  stop("The pool function has been deprecated.  Please use regroup() instead.")
-}
-# -------------------------------------------------------------------------
+
 
 

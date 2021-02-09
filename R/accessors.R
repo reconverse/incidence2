@@ -173,3 +173,101 @@ get_group_names.incidence2 <- function(x, ...) {
   attr(x, "groups")
 }
 # -------------------------------------------------------------------------
+
+
+# -------------------------------------------------------------------------
+#' @return
+#'   - `get_timespan()`: an `integer` denoting the timespan in days represented
+#'   by the incidence object.
+#' @rdname accessors
+#' @aliases get_timespan
+#' @export
+get_timespan <- function(x, ...) {
+  UseMethod("get_timespan")
+}
+
+#' @rdname accessors
+#' @aliases get_timespan.default
+#' @export
+get_timespan.default <- function(x, ...) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
+#' @rdname accessors
+#' @aliases get_timespan.incidence2
+#' @export
+get_timespan.incidence2 <- function(x, ...) {
+  ellipsis::check_dots_empty()
+  date_var <- get_dates_name(x)
+  dat <- as.Date(x[[date_var]])
+  as.integer(diff(range(dat, na.rm = TRUE)) + 1)
+}
+# -------------------------------------------------------------------------
+
+
+# -------------------------------------------------------------------------
+#' @return
+#'   - `get_n()` The total number of cases stored in the object
+#' @export
+#' @rdname accessors
+#' @aliases get_n
+get_n <- function(x) {
+  UseMethod("get_n")
+}
+
+#' @export
+#' @rdname accessors
+#' @aliases get_n.default
+get_n.default <- function(x) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
+#' @export
+#' @rdname accessors
+#' @aliases get_n.incidence2
+get_n.incidence2 <- function(x) {
+  count_var <- get_counts_name(x)
+  sum(x[[count_var]])
+}
+# -------------------------------------------------------------------------
+
+
+# -------------------------------------------------------------------------
+#' @return
+#'   - `get_interval()`: if `integer = TRUE`, an integer vector, otherwise the
+#'     character value of the `interval`
+
+#' @rdname accessors
+#' @aliases get_interval
+#' @export
+get_interval <- function(x, ...) {
+  UseMethod("get_interval")
+}
+
+#' @rdname accessors
+#' @aliases get_interval.default
+#' @export
+get_interval.default <- function(x, ...) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
+#' @param integer When `TRUE`, the interval will be converted to an
+#'   integer vector if it is stored as a character in the incidence object.
+#' @rdname accessors
+#' @aliases get_interval.incidence2
+#' @export
+get_interval.incidence2 <- function(x, integer = FALSE, ...) {
+  ellipsis::check_dots_empty()
+
+  interval <- attr(x, "interval")
+
+  if (!integer || is.numeric(interval)) {
+    return(interval)
+  }
+  dat <- get_dates(x)
+  get_interval(dat, days = integer)
+}
+# -------------------------------------------------------------------------

@@ -10,7 +10,7 @@
 #' @param ... Not used.
 #' @param days Should periods be converted in to a number of days.
 #'
-#' @name date_accessors
+#' @name grate_accessors
 #'
 #' @examples
 #' x <- as_yrwk(Sys.Date())
@@ -19,60 +19,63 @@
 #' get_firstday(x)
 NULL
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_week <- function(x, ...) {
   UseMethod("get_week")
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_week.default <- function(x, ...) {
-  stop(sprintf("get_week has no method for <%s>", class(x)[1]), call. = FALSE)
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_week.yrwk <- function(x, ...) {
   yrwk_to_week(x)
 }
 
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_month <- function(x, ...) {
   UseMethod("get_month")
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_month.default <- function(x, ...) {
-  stop(sprintf("get_month has no method for <%s>", class(x)[1]), call. = FALSE)
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
 #' @param style Either "numeric" (default) for the integer month value or
 #'   "named" to return the abbreviated month name in the current locale.
 #'
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_month.yrmon <- function(x, style = c("numeric", "named"), ...) {
   yrmon_to_month(x, style = style)
 }
 
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_quarter <- function(x, ...) {
   UseMethod("get_quarter")
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_quarter.default <- function(x, ...) {
-  stop(sprintf("get_quarter has no method for <%s>", class(x)[1]), call. = FALSE)
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_quarter.yrqtr <- function(x, ...) {
   yrqtr_to_quarter(x)
@@ -80,63 +83,65 @@ get_quarter.yrqtr <- function(x, ...) {
 
 
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_year <- function(x, ...) {
   UseMethod("get_year")
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_year.default <- function(x, ...) {
-  stop(sprintf("get_year has no method for <%s>", class(x)[1]), call. = FALSE)
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_year.yrwk <- function(x, ...) {
   yrwk_to_year(x)
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_year.yrmon <- function(x, ...) {
   yrmon_to_year(x)
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_year.yrqtr <- function(x, ...) {
   yrqtr_to_year(x)
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_year.yr <- function(x, ...) {
   unclass(x)
 }
 
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_firstday <- function(x, ...) {
   UseMethod("get_firstday")
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_firstday.default <- function(x, ...) {
-  stop(sprintf("get_firstday has no method for <%s>", class(x)[1]), call. = FALSE)
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_firstday.yrwk <- function(x, ...) {
   yrwk_to_firstday(x)
 }
 
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_interval.period <- function(x, days = FALSE, ...) {
   res <- attr(x, "interval")
@@ -146,7 +151,7 @@ get_interval.period <- function(x, days = FALSE, ...) {
   res
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_interval.yrwk <- function(x, days = FALSE, ...) {
   res <- sprintf("yearweek (firstday = %d)", get_firstday(x))
@@ -157,7 +162,7 @@ get_interval.yrwk <- function(x, days = FALSE, ...) {
 }
 
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_interval.yrmon <- function(x, days = FALSE, ...) {
   res <- "1 month"
@@ -170,7 +175,7 @@ get_interval.yrmon <- function(x, days = FALSE, ...) {
 }
 
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_interval.yrqtr <- function(x, days = FALSE, ...) {
   res <- "1 quarter"
@@ -182,7 +187,7 @@ get_interval.yrqtr <- function(x, days = FALSE, ...) {
   res
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_interval.yr <- function(x, days = FALSE, ...) {
   res <- "1 year"
@@ -194,19 +199,20 @@ get_interval.yr <- function(x, days = FALSE, ...) {
 }
 
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_firstdate <- function(x, ...) {
   UseMethod("get_firstdate")
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_firstdate.default <- function(x, ...) {
-  stop(sprintf("get_firstdate has no method for <%s>", class(x)[1]), call. = FALSE)
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
-#' @rdname date_accessors
+#' @rdname grate_accessors
 #' @export
 get_firstdate.period <- function(x, ...) {
   new_date(attr(x, "firstdate"))

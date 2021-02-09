@@ -98,11 +98,19 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
 
   # Basic checks
   stopifnot(
-    "The argument `date_index` should be of length one " = (length(date_index) == 1),
-    "The argument `interval` should be of length one" = (length(interval) == 1),
+    "The argument `date_index` should be of length one." = (length(date_index) == 1),
+    "The argument `interval` should be of length one." = (length(interval) == 1),
     "The argument `na_as_group` must be either `TRUE` or `FALSE`." =
       (is.logical(na_as_group))
   )
+  if (!is.null(count)) {
+    if (length(count) != 0) {
+      stop(
+        "The argument `count` should be either NULL or of length one.",
+        call. = FALSE
+      )
+    }
+  }
 
   # check that variables are present in x
   check_presence(c(groups, date_index, count), column_names = names(x))
@@ -166,7 +174,6 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
   n_orig <- nrow(x)
   x <- x[!is.na(x[[date_index]]), , drop=FALSE]
   n_new <- nrow(x)
-
   if (n_new < n_orig) {
     message(sprintf("%d missing observations were removed.", n_orig - n_new))
   }
@@ -189,7 +196,7 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
 
   # filter out NA groups if desired
   if (!na_as_group) {
-    x <- x[complete.cases(x[, groups, drop=FALSE]), , drop = FALSE]
+    x <- x[complete.cases(x[, groups, drop = FALSE]), , drop = FALSE]
   }
 
   # reorder (dates, groups, counts)

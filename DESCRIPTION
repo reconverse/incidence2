@@ -32,7 +32,6 @@ Imports:
     tibble,
     ellipsis,
     vctrs,
-    magrittr,
     pillar,
     data.table,
     stats,
