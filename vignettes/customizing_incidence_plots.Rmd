@@ -38,6 +38,7 @@ gender and hospital:
 ```{r, data}
 library(outbreaks)
 library(incidence2)
+library(magrittr)
 
 dat <- ebola_sim_clean$linelist
 str(dat)
@@ -86,14 +87,11 @@ i %>% plot(fill = hospital, legend = "bottom")
 i %>% plot(fill = "red")
 ```
 
-Sometimes we may wish to change the formatting and rotation of the x-axis and
-this can be done by passing additional arguments for use by
-`scale_x_incidence()`:
+Sometimes we may wish to change rotation of the x-axis and this can be done by
+passing an additional angle argument:
 
 ```{r, rotateandformat}
-i %>% plot(group_labels = FALSE, 
-           format = "%a %d %B %Y",
-           angle = 45)
+i %>% plot(angle = 45)
 ```
 
 ## Applying the style of European Programme for Intervention Epidemiology Training (EPIET)
@@ -105,8 +103,7 @@ forces each case to be a square.
 
 ```{r, epiet}
 i_epiet <- incidence(dat[160:180, ], date_index = date_of_onset)
-i_epiet %>% plot(color = "white", show_cases = TRUE,
-                 coord_equal = TRUE, angle = 45, size = 12)
+i_epiet %>% plot(color = "white", show_cases = TRUE, angle = 45, size = 12)
 ```
 
 
@@ -125,24 +122,6 @@ i %>% facet_plot(facets = gender, fill = "grey")
 
 
 # Miscellaneous
-
-## Centreing labels
-
-By default plots made with the *incidence2* package position the date labels
-to the left side of any grouping.  Sometimes it can be desirable to centre the
-labels within the bin and we make this possible providing that the interval is
-one of one week, one month, one quarter or one year:
-
-```{r, centreing}
-x <- incidence(dat, 
-               date_index = date_of_onset,
-               first_date = as.Date("2014-10-01") - 25,
-               last_date = as.Date("2014-10-01") + 25,
-               groups = hospital,
-               interval = "week") 
-  plot(x, fill = hospital, color = "black", n_breaks = nrow(x), 
-       angle = 45, size = 12, centre_ticks = TRUE, legend = "top")
-```
 
 ## Changing colors
 
