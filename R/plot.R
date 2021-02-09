@@ -138,7 +138,7 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
   } else if (cl == "period") {
     out + scale_x_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
   } else if (cl == "Date") {
-    out + scale_x_date(breaks = scales::pretty_breaks(n = n_breaks), ...)
+    out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n_breaks), ...)
   } else {
     stop("Something has gone wrong! Please let the incidence2 devs know.")
   }

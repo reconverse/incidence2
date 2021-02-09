@@ -46,7 +46,8 @@ Suggests:
     covr,
     testthat,
     scales,
-    roxygen2
+    roxygen2,
+    magrittr
 VignetteBuilder: 
     knitr
 Roxygen: list(markdown = TRUE)
