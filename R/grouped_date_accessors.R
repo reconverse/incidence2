@@ -153,6 +153,16 @@ get_interval.period <- function(x, days = FALSE, ...) {
 
 #' @rdname grate_accessors
 #' @export
+get_interval.int_period <- function(x, days = FALSE, ...) {
+  res <- attr(x, "interval")
+  if (days) {
+    res <- get_interval_days(x, attr(x, "interval"))
+  }
+  res
+}
+
+#' @rdname grate_accessors
+#' @export
 get_interval.yrwk <- function(x, days = FALSE, ...) {
   res <- sprintf("yearweek (firstday = %d)", get_firstday(x))
   if (days) {
@@ -218,6 +228,12 @@ get_firstdate.period <- function(x, ...) {
   new_date(attr(x, "firstdate"))
 }
 
+#' @rdname grate_accessors
+#' @export
+get_firstdate.int_period <- function(x, ...) {
+  attr(x, "firstdate")
+}
+
 
 #'  Is object a grouped date
 #'
@@ -263,6 +279,12 @@ is_yr <- function(x) {
 #' @export
 is_period <- function(x) {
   inherits(x, "period")
+}
+
+#' @rdname is_grate
+#' @export
+is_int_period <- function(x) {
+  inherits(x, "int_period")
 }
 
 

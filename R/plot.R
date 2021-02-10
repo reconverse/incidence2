@@ -135,6 +135,8 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
     out + scale_x_yr(n = n_breaks, ...)
   } else if (inherits(dat, "period")) {
     out + scale_x_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
+  } else if (inherits(dat, "int_period")) {
+    out + scale_x_int_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
   } else if (inherits(dat, "Date")) {
     out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n_breaks), ...)
   } else {
@@ -196,6 +198,8 @@ facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, t
     out <- out + scale_x_yr(n = n_breaks, ...)
   } else if (inherits(dat, "period")) {
     out <- out + scale_x_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
+  } else if (inherits(dat, "int_period")) {
+    out <- out + scale_x_int_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
   } else if (inherits(dat, "Date")) {
     out <- out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n_breaks), ...)
   } else {
@@ -325,7 +329,12 @@ ylabel <- function(x, ylab) {
       if (interval == 1) {
         ylab <- "daily incidence"
       } else {
-        ylab <- sprintf("incidence by period of %d days", interval)
+        if (is_int_period(get_dates(x))) {
+          ylab <- sprintf("incidence by period of %d", interval)
+        } else {
+          ylab <- sprintf("incidence by period of %d days", interval)
+        }
+
       }
     } else if (is.character(interval)) {
       # capturing the number and type

@@ -7,6 +7,7 @@
 \alias{is_yrqtr}
 \alias{is_yr}
 \alias{is_period}
+\alias{is_int_period}
 \title{Is object a grouped date}
 \usage{
 is_grate(x)
@@ -20,6 +21,8 @@ is_yrqtr(x)
 is_yr(x)
 
 is_period(x)
+
+is_int_period(x)
 }
 \arguments{
 \item{x}{Grouped date object.}
