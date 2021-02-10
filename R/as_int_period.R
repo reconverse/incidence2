@@ -402,14 +402,14 @@ new_int_period <- function(x = integer(), firstdate = integer(), interval = inte
 
 break_ints <- function(x, interval, firstdate) {
   breaks <- seq(from = firstdate, to = max(x, na.rm = TRUE), by = interval)
-  period <- cut(x, breaks = c(breaks, Inf), labels = FALSE)
+  period <- cut(x, breaks = c(-Inf, breaks, Inf), labels = FALSE)
   period <- breaks[period]
 }
 
 
 add_int_periods <- function(x, n) {
   d <- attr(x, "interval")
-  x <- as.integer(x) + (n * d)
-  start <- min(attr(x, "firstdate"), min(x))
-  new_int_period(x, interval = d, firstdate = start)
+  out <- as.integer(x) + (n * d)
+  start <- min(attr(x, "firstdate"), min(out))
+  new_int_period(out, interval = d, firstdate = start)
 }

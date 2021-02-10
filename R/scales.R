@@ -485,7 +485,7 @@ int_period_trans <- function(n = 5, interval, firstdate) {
 
   # format function
   fmt <- function(x) {
-    format(as_int_period(x, interval, firstdate) + 1)
+    format(as_int_period(x, interval, firstdate))
   }
 
   # set environment variables to NULL so they don't mess other plots up

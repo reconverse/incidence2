@@ -564,7 +564,7 @@ add_periods <- function(x, n) {
 break_dates <- function(x, interval, firstdate) {
   breaks <- seq(from = firstdate, to = max(x, na.rm = TRUE), by = interval)
   period <- cut(x, breaks = c(breaks, Inf), labels = FALSE)
-  period <- breaks[period]
+  breaks[period]
 }
 
 #' Is the interval a valid date character

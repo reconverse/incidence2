@@ -45,8 +45,11 @@ an integer value \code{firstday} representing the day the week should start on;
 1 (Monday) to 7 (Sunday).  If no value is specified then the default value
 of 1 (Monday) is used which corresponds to the ISO 8601 definition of
 weeks. For the other values you can optionally specify a value \code{firstdate}
-which will be passed to the underlying function \code{\link[=as_period]{as_period()}}.  This
-will cause the intervals created to begin on that date.}
+which will be passed to the underlying function \code{\link[=as_period]{as_period()}} or, for
+integer dates, \code{\link[=as_int_period]{as_int_period()}}.  This will cause the intervals created
+to begin on that date.}
+
+\item{firstday}{()}
 }
 \value{
 An incidence2 object.  This is a subclass of tibble that represents

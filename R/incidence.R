@@ -17,6 +17,7 @@
 #'   consideration (`FALSE`).
 #' @param count The count variable of the given data.  If NULL (default) the
 #'   data is taken to be a linelist of individual observations.
+#' @param firstday ()
 #' @param ... Additional arguments passed to the underlying date grouping
 #'   functions when the interval is "yearweek" or one of "day", "week", "month",
 #'   "quarter" or "year". In the case of "yearweek" you can optionally specify
@@ -24,8 +25,9 @@
 #'   1 (Monday) to 7 (Sunday).  If no value is specified then the default value
 #'   of 1 (Monday) is used which corresponds to the ISO 8601 definition of
 #'   weeks. For the other values you can optionally specify a value `firstdate`
-#'   which will be passed to the underlying function [`as_period()`].  This
-#'   will cause the intervals created to begin on that date.
+#'   which will be passed to the underlying function [`as_period()`] or, for
+#'   integer dates, [`as_int_period()`].  This will cause the intervals created
+#'   to begin on that date.
 #'
 #' @return An incidence2 object.  This is a subclass of tibble that represents
 #'   and aggregated count of observations grouped according to the specified
@@ -213,13 +215,14 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
     x[[date_index]] <- as_int_period(x[[date_index]], interval = interval, ...)
   } else {
     if (is.character(interval) && (get_interval_number(interval) == 1L)) {
-      if (interval == "year") {
+      type <- get_interval_type(interval)
+      if (type == "week") {
         x[[date_index]] <- as_yrwk(x[[date_index]], ...)
-      } else if (interval == "month") {
+      } else if (type == "month") {
         x[[date_index]] <- as_yrmon(x[[date_index]])
-      } else if (interval == "quarter") {
+      } else if (type == "quarter") {
         x[[date_index]] <- as_yrqtr(x[[date_index]])
-      } else if (interval == "year") {
+      } else if (type == "year") {
         x[[date_index]] <- as_yr(x[[date_index]])
       } else {
         x[[date_index]] <- as_period(x[[date_index]], interval = interval, ...)
