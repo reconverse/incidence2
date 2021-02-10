@@ -46,8 +46,9 @@
 #' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
 #' @param legend Position of legend in plot.
 #' @param angle Rotation angle for text.
+#' @param size text size in pts.
 #' @param nrow Number of rows.
-#' @param ... other arguments to pass to [scale_x_incidence()].
+#' @param ... other arguments to pass to [`scale_x_continuous()`].
 #'
 #' @return
 #'  - `facet_plot()` and `plot()` generate a [ggplot2::ggplot()] object.

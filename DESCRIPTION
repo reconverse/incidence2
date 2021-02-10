@@ -37,9 +37,9 @@ Imports:
     stats,
     graphics,
     rlang (>= 0.1.2),
-    tidyselect
-Suggests:
+    tidyselect,
     ggplot2,
+Suggests:
     outbreaks,
     knitr,
     rmarkdown,

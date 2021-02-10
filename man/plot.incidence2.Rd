@@ -93,7 +93,9 @@ borders of the individual squares plotted (defaults to \code{"white"}).}
 
 \item{angle}{Rotation angle for text.}
 
-\item{...}{other arguments to pass to \code{\link[=scale_x_incidence]{scale_x_incidence()}}.}
+\item{size}{text size in pts.}
+
+\item{...}{other arguments to pass to \code{\link[=scale_x_continuous]{scale_x_continuous()}}.}
 
 \item{facets}{Which variable to facet plots by.  If NULL will use all
 group_labels of the incidence object.}

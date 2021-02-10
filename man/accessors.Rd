@@ -140,8 +140,6 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
     get_dates(i)
     get_dates_name(i)
 
-    get_date_group_names(i)
-
     get_interval(i)
 
     get_n(i)

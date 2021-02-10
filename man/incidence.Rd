@@ -11,7 +11,7 @@ incidence(
   interval = 1L,
   na_as_group = TRUE,
   count = NULL,
-  ...
+  firstdate = NULL
 )
 }
 \arguments{
@@ -27,9 +27,16 @@ observations for which incidence should be grouped.}
 
 \item{interval}{An integer or character indicating the (fixed) size of the
 time interval used for computing the incidence; defaults to 1 day. This can
-also be a text string that corresponds to a valid date interval:
-"yearweek", "yearmonth", "yearquarter" and also "day", "week", "month",
-"quarter", or "year". (See Note).}
+also be a text string that corresponds to a valid date interval, e.g.
+* (x) day(s)
+* (x) weeks(s)
+* (x) epiweeks(s)
+* (x) isoweeks(s)
+* (x) months(s)
+* (x) quarter(s)
+* (x) years(s)
+More details can be found in the "Interval specification" and "Week
+intervals" sections below.}
 
 \item{na_as_group}{A logical value indicating if missing group values (NA)
 should treated as a separate category (\code{TRUE}) or removed from
@@ -38,18 +45,11 @@ consideration (\code{FALSE}).}
 \item{count}{The count variable of the given data.  If NULL (default) the
 data is taken to be a linelist of individual observations.}
 
-\item{...}{Additional arguments passed to the underlying date grouping
-functions when the interval is "yearweek" or one of "day", "week", "month",
-"quarter" or "year". In the case of "yearweek" you can optionally specify
-an integer value \code{firstday} representing the day the week should start on;
-1 (Monday) to 7 (Sunday).  If no value is specified then the default value
-of 1 (Monday) is used which corresponds to the ISO 8601 definition of
-weeks. For the other values you can optionally specify a value \code{firstdate}
-which will be passed to the underlying function \code{\link[=as_period]{as_period()}} or, for
-integer dates, \code{\link[=as_int_period]{as_int_period()}}.  This will cause the intervals created
-to begin on that date.}
-
-\item{firstday}{()}
+\item{firstdate}{When the interval is in days, or numeric, and also has a
+numeric prefix greater than 1, then you can optionally specify the date
+that you wish your intervals to begin from.  If NULL (default) then the
+intervals will start at the minimum value contained in the date_index
+column.}
 }
 \value{
 An incidence2 object.  This is a subclass of tibble that represents
@@ -70,7 +70,7 @@ given groups.
 Compute the incidence of events
 }
 \note{
-\subsection{Input data (\code{dates})}{
+\subsection{Input data (\code{date_index})}{
 \itemize{
 \item \strong{Decimal (numeric) dates}: will be truncated.
 \item \strong{Character dates} should be in the unambiguous \code{yyyy-mm-dd} (ISO 8601)
@@ -79,7 +79,7 @@ format. Any other format will trigger an error.
 }
 
 \subsection{Interval specification (\code{interval})}{
-\code{\link{incidence2}} includes generators for 5 different grouped date s3 classes.
+\code{incidence2} includes generators for different grouped date s3 classes.
 Which one the \code{incidence()} function uses depends on the value of
 \code{interval}. This can be specified as either an integer value or a more
 standard specification such as "day", "week", "month", "quarter" or "year".
@@ -103,5 +103,36 @@ same output.
 The only interval values that do not produce these grouped classes are 1,
 1L, "day" or "days" (both without prefix) are used.  In this situation the
 returned object is of the standard "Date" class.
+}
+
+\subsection{Week intervals}{
+
+It is possible to construct incidence objects standardized to any day of the
+week. The default state is to use ISO 8601 definition of weeks, which start
+on Monday. You can specify the day of the week an incidence object should
+be standardised to by using the pattern "{n} {W} weeks" where "{W}"
+represents the weekday in an English or current locale and "{n}" represents
+the duration, but this can be ommitted.  Below are examples of specifying
+weeks starting on different days assuming we had data that started on
+2016-09-05, which is ISO week 36 of 2016:
+\itemize{
+\item interval = "2 monday weeks" (Monday 2016-09-05)
+\item interval = "1 tue week" (Tuesday 2016-08-30)
+\item interval = "1 Wed week" (Wednesday 2016-08-31)
+\item interval = "1 Thursday week" (Thursday 2016-09-01)
+\item interval = "1 F week" (Friday 2016-09-02)
+\item interval = "1 Saturday week" (Saturday 2016-09-03)
+\item interval = "Sunday week" (Sunday 2016-09-04)
+}
+
+It's also possible to use something like "3 weeks: Saturday"; In addition,
+there are keywords reserved for specific days of the week:
+\itemize{
+\item interval = "week", standard = TRUE (Default, Monday)
+\item interval = "ISOweek"  (Monday)
+\item interval = "EPIweek"  (Sunday)
+\item interval = "MMWRweek" (Sunday)
+}
+
 }
 }

@@ -578,6 +578,6 @@ break_dates <- function(x, interval, firstdate) {
 #' @return a logical value
 #' @noRd
 is_valid_date_interval <- function(interval) {
-  valid_intervals <- "day|week|month|quarter|year$"
+  valid_intervals <- "week|month|quarter|year|day"
   grepl(valid_intervals, interval, ignore.case = TRUE)
 }

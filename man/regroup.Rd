@@ -26,9 +26,9 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
                    date_index = date_of_onset,
                    groups = c(gender, hospital))
 
-    i \%>\% regroup()
+    regroup(i)
 
-    i \%>\% regroup(hospital)
+    regroup(i, hospital)
   })
 }
 

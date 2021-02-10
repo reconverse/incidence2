@@ -364,7 +364,9 @@ get_interval_number <- function(x) {
 
 
 get_interval_type <- function(x) {
-  if (grepl("week", x, ignore.case = TRUE)) {
+  if (grepl("^\\s*day\\s*$", x, ignore.case = TRUE)) {
+    return("day")
+  } else if (grepl("week", x, ignore.case = TRUE)) {
     return("week")
   }  else if (grepl("month", x, ignore.case = TRUE)) {
     return("month")
@@ -373,7 +375,7 @@ get_interval_type <- function(x) {
   } else if (grepl("year", x, ignore.case = TRUE)) {
     return("year")
   }  else {
-    return("day")
+
   }
 }
 

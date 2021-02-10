@@ -178,11 +178,6 @@ as.data.frame.int_period <- function(x, row.names = NULL, optional = FALSE, ...)
 #' @export
 is.numeric.int_period <- function(x) TRUE
 
-
-#' @export
-is.integer.int_period <- function(x) TRUE
-
-
 #' @export
 `[.int_period` <- function (x, ..., drop = TRUE) {
   cl <- oldClass(x)
