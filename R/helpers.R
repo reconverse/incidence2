@@ -203,4 +203,114 @@ days_before_year <- function(year = integer()) {
 
 
 
+# week helpers ------------------------------------------------------------
 
+#' Translate user input to the start date of the week
+#'
+#' @param a Weekday specification: ISOweek, MMWRweek, EPIweek, Mon-week,
+#'   Tue-week, etc.
+#'
+#' @return the corresponding weekday
+#'
+#' @examples
+#' get_week_start("ISOweek")
+#' get_week_start("MMWRweek")
+#' get_week_start("EPIweek")
+#'
+#' # weeks that start on saturday
+#' get_week_start("Sat-week")
+#' get_week_start("week: Saturday")
+#' get_week_start("2 weeks: Saturday")
+#' get_week_start("epiweek: Saturday")
+#'
+#' @noRd
+get_week_start <- function(weekday) {
+  wkdy <- gsub("weeks?", "", tolower(weekday))
+  wkdy <- gsub("[[:punct:][:blank:][:digit:]]*", "", wkdy)
+  wkdy <- if (wkdy == "") "monday" else wkdy # the input was "weeks"
+  res <- switch(
+    wkdy,
+    "mmwr" = "sunday", # MMWR == CDC epiweek
+    "epi"  = "sunday", # CDC epiweek
+    "iso"  = "monday", # ISOweek == WHO epiweek
+    wkdy # all others
+  )
+  weekday_from_char(res)
+}
+
+# ---------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
+# -------- The following function is modified from the aweek package --------- #
+# -------------------------- copyright Zhian Kamvar -------------------------- #
+# ---------------------------------------------------------------------------- #
+
+# Copy of the aweek licence
+# MIT License
+# Copyright (c) 2019
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+#   The above copyright notice and this permission notice shall be included in
+#   all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+#' Helper function to find the weekday from a character string
+#'
+#' @param x a character string specifying the weekday in the current locale or
+#'   English.
+#'
+#' @return an integer from 1 to 7 indicating the day of the ISO 8601 week.
+#' @keywords internal
+#' @noRd
+#' @examples
+#'
+#' # Will always work
+#' weekday_from_char("Monday")
+#' weekday_from_char("Tue")
+#' weekday_from_char("W")
+#'
+#' # Change to a German locale
+#' lct <- Sys.getlocale("LC_TIME")
+#' Sys.setlocale("LC_TIME", "de_DE.utf8")
+#'
+#' weekday_from_char("Sonntag")
+#'
+#' # Reset locale
+#' Sys.setlocale("LC_TIME", lct)
+weekday_from_char <- function(x) {
+
+  # First try with an English locale
+  w <- c("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
+  weekdate <- grep(x, w, ignore.case = TRUE)
+
+  if (length(weekdate) == 0) {
+    # find the definitions of the weekdays in the current locale
+    w <- weekdays(as.Date(as_yrwk(as.Date("2020-01-01"), firstday = 1L)))
+    weekdate <- grep(x, w, ignore.case = TRUE)
+  }
+
+  if (length(weekdate) != 1) {
+    msg <- paste(
+      "The weekday '%s' did not unambiguously match (via grep) any of the",
+      "valid weekdays in the current locale ('%s') or an English locale:\n  %s"
+    )
+    stop(
+      sprintf(msg, x, Sys.getlocale('LC_TIME'), paste(w, collapse = ", ")),
+      call. = FALSE
+    )
+  }
+
+  return(as.integer(weekdate))
+
+}

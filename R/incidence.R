@@ -102,7 +102,7 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   stopifnot(
     "The argument `date_index` should be of length one." = (length(date_index) == 1),
     "The argument `interval` should be of length one." = (length(interval) == 1),
-    "The argument `interval` is not valid." = is_valid_interval(interval),
+    #"The argument `interval` is not valid." = is_valid_interval(interval),
     "The argument `na_as_group` must be either `TRUE` or `FALSE`." =
       (is.logical(na_as_group))
   )
@@ -214,10 +214,12 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
   if (inherits(x[[date_index]], "integer") || inherits(x[[date_index]], "numeric")) {
     x[[date_index]] <- as_int_period(x[[date_index]], interval = interval, ...)
   } else {
-    if (is.character(interval) && (get_interval_number(interval) == 1L)) {
+    num <- get_interval_number(interval)
+    if (is.character(interval) && (num == 1L)) {
       type <- get_interval_type(interval)
       if (type == "week") {
-        x[[date_index]] <- as_yrwk(x[[date_index]], ...)
+        fd <- get_week_start(interval)
+        x[[date_index]] <- as_yrwk(x[[date_index]], firstday = fd)
       } else if (type == "month") {
         x[[date_index]] <- as_yrmon(x[[date_index]])
       } else if (type == "quarter") {

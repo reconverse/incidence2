@@ -104,7 +104,11 @@ as_period.Date <- function(x, interval = 1L, firstdate = NULL, ...) {
     } else {
       type <- get_interval_type(interval)
       period <- break_dates(x, interval, firstdate)
-      if (type == "month") {
+      if (type == "week") {
+        fd <- get_week_start(interval)
+        period <- break_dates(x, interval, as.Date(firstdate))
+        period <- as.Date(as_yrwk(period, firstday = fd))
+      } else if (type == "month") {
         period <- break_dates(x, interval, as.Date(as_yrmon(firstdate)))
         period <- as.Date(as_yrmon(period))
       } else if (type == "quarter") {
@@ -574,6 +578,6 @@ break_dates <- function(x, interval, firstdate) {
 #' @return a logical value
 #' @noRd
 is_valid_date_interval <- function(interval) {
-  valid_intervals <- "^(\\d* )?(day|week|month|quarter|year)s?$"
+  valid_intervals <- "day|week|month|quarter|year$"
   grepl(valid_intervals, interval, ignore.case = TRUE)
 }
