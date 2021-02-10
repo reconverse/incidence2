@@ -1,4 +1,4 @@
-dates <- Sys.Date() + 1:10
+dates <- as.integer(Sys.Date() + 1:10)
 x <- incidence(data.frame(dates = dates), date_index = dates)
 
 test_that("as.data.frame works", {

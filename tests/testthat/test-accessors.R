@@ -7,14 +7,24 @@ x  <- incidence(dat, date_index = "dates", interval = "week", groups = group_1)
 x2  <- incidence(dat, date_index = "dates", interval = "2 weeks", groups = group_1)
 
 
+test_that("get_group_names works", {
+  expect_equal(get_group_names(x2), "group_1")
+  expect_error(get_group_names("test"), "Not implemented for class character")
+})
+
 test_that("get_dates works", {
-  expect_equal(get_dates(x2), x2$date_index)
+  expect_equal(get_dates(x2), x2$bin_date)
   expect_error(get_dates("test"), "Not implemented for class character")
 })
 
 test_that("get_dates_name works", {
-  expect_equal(get_dates_name(x2), c("date_index"))
+  expect_equal(get_dates_name(x2), c("bin_date"))
   expect_error(get_dates_name("test"), "Not implemented for class character")
+})
+
+test_that("get_date_group_names works", {
+  expect_equal(get_date_group_names(x), c("week_group"))
+  expect_error(get_date_group_names("test"), "Not implemented for class character")
 })
 
 test_that("get_counts works", {
@@ -28,7 +38,7 @@ test_that("get_counts_name works", {
 })
 
 test_that("get_timespan works", {
-  span <- as.integer(as.Date(max(x2$date_index) + 1) - as.Date(min(x2$date_index)))
+  span <- as.integer(max(x2$bin_date) - min(x2$bin_date) + 1)
   expect_equal(get_timespan(x2), span)
   expect_error(get_timespan("test"), "Not implemented for class character")
 })
