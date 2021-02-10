@@ -317,7 +317,7 @@ period_trans_integer <- function(n = 5, interval, firstdate) {
   scale_env$interval <- NULL
 
   scales::trans_new(
-    "yrwk",
+    "period",
     transform = trans,
     inverse = inv,
     breaks = brks,
@@ -347,7 +347,7 @@ period_trans_week <- function(n = 5, firstday, scale) {
   fmt <- function(x) format(round(new_date(x + scale * 7 / 2)))
 
   scales::trans_new(
-    "yrwk",
+    "period",
     transform = trans,
     inverse = inv,
     breaks = brks,
@@ -385,7 +385,7 @@ period_trans_general <- function(n = 5, interval, firstdate) {
   scale_env$interval <- NULL
 
   scales::trans_new(
-    "yrwk",
+    "period",
     transform = trans,
     inverse = inv,
     breaks = brks,
@@ -456,4 +456,78 @@ scale_x_period <- function(..., n = 5, interval, firstdate) {
     )
   }
 }
+
+
+
+scale_type.int_period <- function(x) {
+  scale_env$int_firstdate <- attr(x, "firstdate")
+  scale_env$int_interval <- attr(x, "interval")
+  "int_period"
+}
+
+int_period_trans <- function(n = 5, interval, firstdate) {
+
+  # transform function
+  trans <- as.integer
+
+  # inverse function
+  inv <- as.integer
+
+  # breaks function
+  brks <- function(x) {
+    dat <- trunc(scales::pretty_breaks(n)(as.integer(x)))
+    m <- min(dat, na.rm = TRUE)
+    if (m < firstdate) {
+      firstdate <- m - (interval - ((firstdate - m)) %% interval)
+    }
+    as_int_period(dat, interval = interval, firstdate = firstdate)
+  }
+
+  # format function
+  fmt <- function(x) {
+    format(as_int_period(x, interval, firstdate) + 1)
+  }
+
+  # set environment variables to NULL so they don't mess other plots up
+  scale_env$int_firstdate <- NULL
+  scale_env$int_interval <- NULL
+
+  scales::trans_new(
+    "int_period",
+    transform = trans,
+    inverse = inv,
+    breaks = brks,
+    format = fmt
+  )
+}
+
+
+#' @param interval interval ga
+#' @param firstdate date the period is anchored / started from
+#' @rdname grate-scales
+#' @export
+scale_x_int_period <- function(..., n = 5, interval, firstdate) {
+
+  # probably a little pointless but you never know
+  check_suggests("ggplot2")
+
+  if (missing(interval)) {
+    interval <- scale_env$int_interval
+    if (is.null(interval)) {
+      stop("Please specify the `interval` of the period data", call. = FALSE)
+    }
+  }
+
+  if (missing(firstdate)) {
+    firstdate <- scale_env$int_firstdate
+    if (is.null(firstdate)) {
+      stop("Please specify the `firstdate` used for the period data", call. = FALSE)
+    }
+  }
+
+  ggplot2::scale_x_continuous(..., trans = int_period_trans(n, interval, firstdate))
+
+
+}
+
 

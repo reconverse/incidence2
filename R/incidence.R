@@ -116,15 +116,63 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   # check that variables are present in x
   check_presence(c(groups, date_index, count), column_names = names(x))
 
+  incidence_(
+    x = x,
+    date_index = date_index,
+    groups = groups,
+    interval = interval,
+    na_as_group = na_as_group,
+    count = count,
+    ...
+  )
+
+  # make_incidence(
+  #   x = x,
+  #   date_index = date_index,
+  #   groups = groups,
+  #   interval = interval,
+  #   na_as_group = na_as_group,
+  #   count = count,
+  #   ...
+  # )
+}
+
+
+incidence_ <- function(x, date_index, ...) {
+  UseMethod("incidence_", x[[date_index]])
+}
+
+
+incidence_.default <- function(x, date_index, ...) {
+  formats <- c("Date", "POSIXt", "integer", "numeric", "character")
+  stop(
+    "Unable to convert date_index variable to a grouped date.\n",
+    "    Accepted formats are: ",
+    paste(formats, collapse = ", "),
+    call. = FALSE
+  )
+}
+
+incidence_.Date <- function(x, date_index, groups, interval, na_as_group, count,
+                            ...) {
   make_incidence(
     x = x,
     date_index = date_index,
     groups = groups,
     interval = interval,
     na_as_group = na_as_group,
-    count = count
+    count = count,
+    ...
   )
 }
+
+incidence_.POSIXt <- incidence_.Date
+
+incidence_.integer <- incidence_.Date
+
+incidence_.numeric <- incidence_.Date
+
+incidence_.character <- incidence_.Date
 
 
 
@@ -159,22 +207,27 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
 make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
                            ...) {
 
-  if (is.character(interval) && (get_interval_number(interval) == 1L)) {
-    if (interval == "year") {
-      x[[date_index]] <- as_yrwk(x[[date_index]], ...)
-    } else if (interval == "month") {
-      x[[date_index]] <- as_yrmon(x[[date_index]])
-    } else if (interval == "quarter") {
-      x[[date_index]] <- as_yrqtr(x[[date_index]])
-    } else if (interval == "year") {
-      x[[date_index]] <- as_yr(x[[date_index]])
+
+
+  if (inherits(x[[date_index]], "integer") || inherits(x[[date_index]], "numeric")) {
+    x[[date_index]] <- as_int_period(x[[date_index]], interval = interval, ...)
+  } else {
+    if (is.character(interval) && (get_interval_number(interval) == 1L)) {
+      if (interval == "year") {
+        x[[date_index]] <- as_yrwk(x[[date_index]], ...)
+      } else if (interval == "month") {
+        x[[date_index]] <- as_yrmon(x[[date_index]])
+      } else if (interval == "quarter") {
+        x[[date_index]] <- as_yrqtr(x[[date_index]])
+      } else if (interval == "year") {
+        x[[date_index]] <- as_yr(x[[date_index]])
+      } else {
+        x[[date_index]] <- as_period(x[[date_index]], interval = interval, ...)
+      }
     } else {
       x[[date_index]] <- as_period(x[[date_index]], interval = interval, ...)
     }
-  } else {
-    x[[date_index]] <- as_period(x[[date_index]], interval = interval, ...)
   }
-
 
   # Remove the missing observations
   n_orig <- nrow(x)
@@ -209,14 +262,15 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
   x <- x[c(date_col, groups, "count")]
 
   # create subclass of tibble
-  tbl <- tibble::new_tibble(x,
-                            groups = groups,
-                            date = date_col,
-                            count = "count",
-                            interval = interval,
-                            cumulative = FALSE,
-                            nrow = nrow(x),
-                            class = "incidence2"
+  tbl <- tibble::new_tibble(
+    x,
+    groups = groups,
+    date = date_col,
+    count = "count",
+    interval = interval,
+    cumulative = FALSE,
+    nrow = nrow(x),
+    class = "incidence2"
   )
 
   tibble::validate_tibble(tbl)

@@ -556,7 +556,7 @@ add_periods <- function(x, n) {
     )
   }
 
-  start <- min(attr(x, "firstdate"), min(x))
+  start <- min(attr(x, "firstdate"), min(out))
   new_period(out, interval = d, firstdate = start)
 }
 

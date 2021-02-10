@@ -5,6 +5,7 @@
   vctrs::s3_register("ggplot2::scale_type", "yrqtr")
   vctrs::s3_register("ggplot2::scale_type", "yr")
   vctrs::s3_register("ggplot2::scale_type", "period")
+  vctrs::s3_register("ggplot2::scale_type", "int_period")
   vctrs::s3_register(
    "dplyr::dplyr_reconstruct",
    "incidence2",
