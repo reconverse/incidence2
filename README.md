@@ -147,48 +147,58 @@ str(dat)
 We compute the weekly incidence:
 
 ``` r
-i_year <- incidence(dat, date_index = date_of_onset, interval = "year")
-i_year
+i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
+i_7
 #> An incidence2 object: 56 x 2
-#> [5829 cases from days 2014-W15 to 2015-W18]
-#> [interval: 1 year]
+#> [5829 cases from days [2014-04-07 to [2015-04-27]
+#> [interval: 7]
 #> [cumulative: FALSE]
 #> 
-#>    date_index count
-#>    <yrwk>     <int>
-#>  1 2014-W15       1
-#>  2 2014-W16       1
-#>  3 2014-W17       5
-#>  4 2014-W18       4
-#>  5 2014-W19      12
-#>  6 2014-W20      17
-#>  7 2014-W21      15
-#>  8 2014-W22      19
-#>  9 2014-W23      23
-#> 10 2014-W24      21
+#>    date_index  count
+#>    <period>    <int>
+#>  1 [2014-04-07     1
+#>  2 [2014-04-14     1
+#>  3 [2014-04-21     5
+#>  4 [2014-04-28     4
+#>  5 [2014-05-05    12
+#>  6 [2014-05-12    17
+#>  7 [2014-05-19    15
+#>  8 [2014-05-26    19
+#>  9 [2014-06-02    23
+#> 10 [2014-06-09    21
 #> # … with 46 more rows
-summary(i_year)
+summary(i_7)
 #> An incidence2 object: 56 x 2
-#> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 year
+#> 5829 cases from [2014-04-07 to [2015-04-27
+#> interval: 7
 #> cumulative: FALSE
 #> timespan: 392 days
-plot(i_year)
+plot(i_7)
 ```
 
 <img src="man/figures/README-incid7-1.png" style="display: block; margin: auto;" />
 
-`incidence()` can also compute incidence by specified groups using the
-`groups` argument. For instance, we can compute the weekly incidence by
-gender and plot in a single, stacked chart:
+Notice how specifying the interval as 7 creates weekly intervals with
+the coverage displayed by date. We use the convention that a grouped
+date is displayed as `[yyyy-mm-dd`, with the left bracket indicative of
+it being binned left-inclusive. The right side of the bin is not
+diplayed for brevity but an incidence object will always print it’s
+interval at the top of it’s output.
+
+Below we illustrate how `incidence()` also allows us to create
+year-weekly groupings with the default being weeks starting on a Monday
+(following the ISO 8601 date and time standard). `incidence()` can also
+compute incidence by specified groups using the `groups` argument. For
+instance, we can compute the weekly incidence by gender and plot in a
+single, stacked chart:
 
 ``` r
-i_year_sex <- incidence(dat, interval = "year", date_index = date_of_onset,
+i_week_sex <- incidence(dat, interval = "week", date_index = date_of_onset,
                         groups = gender)
-i_year_sex
+i_week_sex
 #> An incidence2 object: 109 x 3
 #> [5829 cases from days 2014-W15 to 2015-W18]
-#> [interval: 1 year]
+#> [interval: 1 week]
 #> [cumulative: FALSE]
 #> 
 #>    date_index gender count
@@ -204,10 +214,10 @@ i_year_sex
 #>  9 2014-W20   m         10
 #> 10 2014-W21   f          8
 #> # … with 99 more rows
-summary(i_year_sex)
+summary(i_week_sex)
 #> An incidence2 object: 109 x 3
 #> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 year
+#> interval: 1 week
 #> cumulative: FALSE
 #> timespan: 392 days
 #> 
@@ -217,15 +227,15 @@ summary(i_year_sex)
 #> * <fct>  <int>
 #> 1 f       2934
 #> 2 m       2895
-plot(i_year_sex, fill = "gender")
+plot(i_week_sex, fill = "gender")
 ```
 
 <img src="man/figures/README-genderstack-1.png" style="display: block; margin: auto;" />
 
-we can facet our plot (grouping detected automatically):
+we can also facet our plot (grouping detected automatically):
 
 ``` r
-facet_plot(i_year_sex, n_breaks = 6)
+facet_plot(i_week_sex, n_breaks = 6)
 ```
 
 <img src="man/figures/README-genderfacet-1.png" style="display: block; margin: auto;" />
@@ -235,12 +245,12 @@ and fills:
 
 ``` r
 # incidence is compatible with the magrittr pipe operator
-i_year_sh <- incidence(dat, date_index = date_of_onset, interval = "year",
+i_week_sh <- incidence(dat, date_index = date_of_onset, interval = "week",
                        groups = c(gender, hospital))
-i_year_sh
+i_week_sh
 #> An incidence2 object: 601 x 4
 #> [5829 cases from days 2014-W15 to 2015-W18]
-#> [interval: 1 year]
+#> [interval: 1 week]
 #> [cumulative: FALSE]
 #> 
 #>    date_index gender hospital                                     count
@@ -256,10 +266,10 @@ i_year_sh
 #>  9 2014-W18   f      <NA>                                             1
 #> 10 2014-W19   f      Connaught Hospital                               2
 #> # … with 591 more rows
-summary(i_year_sh)
+summary(i_week_sh)
 #> An incidence2 object: 601 x 4
 #> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 year
+#> interval: 1 week
 #> cumulative: FALSE
 #> timespan: 392 days
 #> 
@@ -279,7 +289,7 @@ summary(i_year_sh)
 #> 4 Princess Christian Maternity Hospital (PCMH)   420
 #> 5 Rokupa Hospital                                451
 #> 6 <NA>                                          1456
-facet_plot(i_year_sh, facets = gender, fill = hospital, n_breaks = 6)
+facet_plot(i_week_sh, facets = gender, fill = hospital, n_breaks = 6)
 ```
 
 <img src="man/figures/README-genderhospital-1.png" style="display: block; margin: auto;" />

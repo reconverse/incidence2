@@ -139,28 +139,36 @@ str(dat)
 We compute the weekly incidence:
 
 ```{r incid7}
-i_year <- incidence(dat, date_index = date_of_onset, interval = "year")
-i_year
-summary(i_year)
-plot(i_year)
+i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
+i_7
+summary(i_7)
+plot(i_7)
 ```
 
-`incidence()` can also compute incidence by specified groups using the `groups`
-argument. For instance, we can compute the weekly incidence by gender and plot
-in a single, stacked chart:
+Notice how specifying the interval as 7 creates weekly intervals with the
+coverage displayed by date. We use the convention that a grouped date is
+displayed as `[yyyy-mm-dd`, with the left bracket indicative of it being binned
+left-inclusive.  The right side of the bin is not diplayed for brevity but
+an incidence object will always print it's interval at the top of it's output.
+
+Below we illustrate how `incidence()` also allows us to create year-weekly
+groupings with the default being weeks starting on a Monday (following the ISO
+8601 date and time standard). `incidence()` can also compute incidence by
+specified groups using the `groups` argument. For instance, we can compute the
+weekly incidence by gender and plot in a single, stacked chart:
 
 ```{r genderstack}
-i_year_sex <- incidence(dat, interval = "year", date_index = date_of_onset,
+i_week_sex <- incidence(dat, interval = "week", date_index = date_of_onset,
                         groups = gender)
-i_year_sex
-summary(i_year_sex)
-plot(i_year_sex, fill = "gender")
+i_week_sex
+summary(i_week_sex)
+plot(i_week_sex, fill = "gender")
 ```
 
-we can facet our plot (grouping detected automatically):
+we can also facet our plot (grouping detected automatically):
 
 ```{r genderfacet}
-facet_plot(i_year_sex, n_breaks = 6)
+facet_plot(i_week_sex, n_breaks = 6)
 ```
 
 and we can also group by multiple variables specifying different facets and 
@@ -168,11 +176,9 @@ fills:
 
 ```{r genderhospital}
 # incidence is compatible with the magrittr pipe operator
-i_year_sh <- incidence(dat, date_index = date_of_onset, interval = "year",
+i_week_sh <- incidence(dat, date_index = date_of_onset, interval = "week",
                        groups = c(gender, hospital))
-i_year_sh
-summary(i_year_sh)
-facet_plot(i_year_sh, facets = gender, fill = hospital, n_breaks = 6)
+i_week_sh
+summary(i_week_sh)
+facet_plot(i_week_sh, facets = gender, fill = hospital, n_breaks = 6)
 ```
-
-
