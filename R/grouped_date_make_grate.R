@@ -89,9 +89,9 @@ valid_date_period_character <- function(x) {
   day <- paste0(
     "^\\s*days?\\s*$|",
     "\\sdays?\\s+|",
-    "\\sdays?\\s*$"
+    "\\sdays?\\s*$|"
   )
-  pattern <- paste0(day,"|week|epiweek|isoweek|month|quarter|year")
+  pattern <- paste0(day,"week|epiweek|isoweek|month|quarter|year")
   grepl(pattern, x, ignore.case = TRUE)
 }
 
