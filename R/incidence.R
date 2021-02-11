@@ -219,7 +219,7 @@ incidence_.character <- incidence_.Date
 #'
 #' @return An incidence2 object.
 #'
-#' @importFrom dplyr grouped_df summarise n .data
+#' @import data.table
 #' @importFrom stats complete.cases na.omit
 #' @noRd
 make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
@@ -240,6 +240,15 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
     message(sprintf("%d missing observations were removed.", n_orig - n_new))
   }
 
+  # generate grouped_dates
+  setDT(x)
+  if (is.null(count)) {
+    x <- x[,.(count = .N), by = c(date_index, groups)]
+  } else {
+    x <- x[,.(count = sum(get(..count))), by = c(date_index, groups)]
+  }
+  setDF(x)
+
   # set name for date column
   if (interval == 1 || interval == 1L || interval == "1 day" || interval == "1 days") {
     date_col <- "date"
@@ -247,13 +256,7 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
     date_col <- "date_index"
   }
 
-  # generate grouped_dates
-  x <- grouped_df(x, c(date_index, groups))
-  if (is.null(count)) {
-    x <- summarise(x, count = n(), .groups = "drop")
-  } else {
-    x <- summarise(x, count = sum(.data[[count]], na.rm = TRUE), .groups = "drop")
-  }
+  # give date column correct name
   colnames(x)[1] <- date_col
 
   # filter out NA groups if desired
