@@ -45,6 +45,7 @@ str(dat)
 
 i <- incidence(dat, date_index = date_of_onset, interval = 7,
                groups = c(gender, hospital))
+i
 ```
 
 

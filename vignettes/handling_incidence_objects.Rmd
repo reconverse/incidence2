@@ -81,7 +81,7 @@ inci <-
   dat %>%
   incidence(
     date_index = date_of_onset,
-    interval = "2 weeks",
+    interval = "week",
     groups = c(hospital, gender)
   )
 
@@ -119,7 +119,7 @@ objects structure:
 
 * `get_interval()` returns the interval of the object.
 
-* `get_timespan()`returns the number of days the object covers.
+* `get_timespan()` returns the number of days the object covers.
 
 
 
