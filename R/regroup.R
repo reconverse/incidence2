@@ -23,8 +23,12 @@
 #'   })
 #' }
 #'
+#' @import data.table
 #' @export
 regroup <- function(x, groups = NULL){
+
+  # due to NSE notes in R CMD check
+  ..count_var <- . <- NULL
 
   if (!inherits(x, "incidence2")) {
     stop(sprintf(

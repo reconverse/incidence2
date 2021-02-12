@@ -95,7 +95,7 @@ borders of the individual squares plotted (defaults to \code{"white"}).}
 
 \item{size}{text size in pts.}
 
-\item{...}{other arguments to pass to \code{\link[=scale_x_continuous]{scale_x_continuous()}}.}
+\item{...}{other arguments to pass to \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}.}
 
 \item{facets}{Which variable to facet plots by.  If NULL will use all
 group_labels of the incidence object.}
@@ -121,7 +121,7 @@ average will be overlaid on top.
 }
 }
 \examples{
-if (requireNamespace("outbreaks", quietly = TRUE)) {
+if (requireNamespace("outbreaks", quietly = TRUE) && requireNamespace("ggplot2", quietly = TRUE)) {
   withAutoprint({
     data(ebola_sim_clean, package = "outbreaks")
     dat <- ebola_sim_clean$linelist

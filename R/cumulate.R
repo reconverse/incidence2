@@ -18,8 +18,10 @@
 #'
 #' cumulative_i <- cumulate(i)
 #' cumulative_i
-#' @importFrom dplyr .data
+#'
+#' @import data.table
 #' @export
+#'
 #' @rdname cumulate
 cumulate <- function(x) {
   UseMethod("cumulate", x)
@@ -36,6 +38,10 @@ cumulate.default <- function(x) {
 #' @export
 #' @rdname cumulate
 cumulate.incidence2 <- function(x) {
+
+  # due to NSE notes in R CMD check
+  ..count_var <- NULL
+
   is_cumulate <- attr(x, "cumulative")
   if (is_cumulate) {
     stop("x is already a cumulative incidence")

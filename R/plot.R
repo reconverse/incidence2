@@ -48,7 +48,7 @@
 #' @param angle Rotation angle for text.
 #' @param size text size in pts.
 #' @param nrow Number of rows.
-#' @param ... other arguments to pass to [`scale_x_continuous()`].
+#' @param ... other arguments to pass to [`ggplot2::scale_x_continuous()`].
 #'
 #' @return
 #'  - `facet_plot()` and `plot()` generate a [ggplot2::ggplot()] object.
@@ -62,7 +62,7 @@
 #'    average will be overlaid on top.
 #'
 #' @examples
-#' if (requireNamespace("outbreaks", quietly = TRUE)) {
+#' if (requireNamespace("outbreaks", quietly = TRUE) && requireNamespace("ggplot2", quietly = TRUE)) {
 #'   withAutoprint({
 #'     data(ebola_sim_clean, package = "outbreaks")
 #'     dat <- ebola_sim_clean$linelist
@@ -88,7 +88,7 @@
 #'   })
 #' }
 
-#' @importFrom ggplot2 sym syms .data
+#' @importFrom rlang sym syms .data
 #' @export
 plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
                            col_pal = vibrant, alpha = 0.7, color = NA,
@@ -97,6 +97,8 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
                            na_color = "grey",
                            legend = c("right", "left", "bottom", "top", "none"),
                            angle = 0, size = NULL, ...) {
+
+  check_suggests("ggplot2")
 
   ellipsis::check_dots_used()
 
@@ -153,7 +155,7 @@ facet_plot <- function(x, ...) {
   UseMethod("facet_plot")
 }
 
-#' @importFrom ggplot2 sym syms
+#' @importFrom rlang sym syms
 #' @rdname plot.incidence2
 #' @aliases facet_plot.incidence2
 #' @export
@@ -164,6 +166,8 @@ facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, t
                        na_color = "grey",
                        legend = c("bottom", "top", "left", "right", "none"),
                        angle = 0, size = NULL, nrow = NULL, ...) {
+
+  check_suggests("ggplot2")
 
   ellipsis::check_dots_used()
 

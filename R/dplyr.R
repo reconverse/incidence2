@@ -14,7 +14,7 @@
 #'
 #' @return TRUE or FALSE
 #'
-#' @importFrom data.table as.data.table
+#' @import data.table
 #' @noRd
 incidence_can_reconstruct <- function(x, to) {
 
@@ -52,7 +52,13 @@ incidence_can_reconstruct <- function(x, to) {
   to_interval <- get_interval(to)
 
   if (is.numeric(to_interval)) {
-    x_intervals <- unique(diff(as.Date(x[[date_var]])))
+    tmp <- x[[date_var]]
+    if (is.numeric(tmp) || is.integer(tmp)) {
+      x_intervals <- unique(diff((x[[date_var]])))
+    } else {
+      x_intervals <- unique(diff(as.Date(x[[date_var]])))
+    }
+
     if (!(all((x_intervals %% to_interval) == 0))) {
       return(FALSE)
     }

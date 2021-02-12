@@ -225,6 +225,9 @@ incidence_.character <- incidence_.Date
 make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
                            firstdate) {
 
+  # due to NSE notes in R CMD check
+  ..count_var <- . <- ..count <- NULL
+
   # Group the dates
   x[[date_index]] <- make_grate(
     x[[date_index]],
