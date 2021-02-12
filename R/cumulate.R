@@ -33,7 +33,6 @@ cumulate.default <- function(x) {
 }
 
 
-#' @importFrom dplyr grouped_df mutate ungroup
 #' @export
 #' @rdname cumulate
 cumulate.incidence2 <- function(x) {
@@ -41,17 +40,19 @@ cumulate.incidence2 <- function(x) {
   if (is_cumulate) {
     stop("x is already a cumulative incidence")
   }
-  out <- x
+
   groups <- get_group_names(x)
   count_var <- get_counts_name(x)
-  if (!is.null(groups)) {
-    out <- grouped_df(out, groups)
-  }
 
-  out <- mutate(out, count = cumsum(.data[[count_var]]))
-  out <- ungroup(out)
-  names(out) <- names(x)
+  out <- as.data.table(x)
+  if (!is.null(groups)) {
+    out[, (count_var) := cumsum(get(..count_var)), by = groups]
+  } else out[, (count_var) := cumsum(get(..count_var))]
+  setDF(out)
+
+  nms <- names(out)
   attributes(out) <- attributes(x)
+  names(out) <- nms
   attr(out, "cumulative") <- TRUE
   out
 }
