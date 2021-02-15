@@ -5,11 +5,6 @@ make_grate <- function(x, interval, firstdate, ...) {
 
 make_grate.default <- function(x, interval, firstdate, ...) {
 
-  # No need to change anything if the interval is 1
-  if (interval == 1L || interval == 1 || interval == "1 day" || interval == "1 days") {
-    return(x)
-  }
-
   if (is.numeric(interval)) {
     return(as_period(x, interval = interval, firstdate = firstdate))
   }
