@@ -567,7 +567,7 @@ add_periods <- function(x, n) {
 
 break_dates <- function(x, interval, firstdate) {
   breaks <- seq(from = firstdate, to = max(x, na.rm = TRUE), by = interval)
-  period <- cut(x, breaks = c(breaks, Inf), labels = FALSE)
+  period <- cut(x, breaks = c(breaks, Inf), labels = FALSE, right = FALSE)
   breaks[period]
 }
 

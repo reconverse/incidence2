@@ -397,7 +397,7 @@ new_int_period <- function(x = integer(), firstdate = integer(), interval = inte
 
 break_ints <- function(x, interval, firstdate) {
   breaks <- seq(from = firstdate, to = max(x, na.rm = TRUE), by = interval)
-  period <- cut(x, breaks = c(-Inf, breaks, Inf), labels = FALSE)
+  period <- cut(x, breaks = c(breaks, Inf), labels = FALSE, right = FALSE)
   period <- breaks[period]
 }
 
