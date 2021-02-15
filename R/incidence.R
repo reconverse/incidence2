@@ -136,7 +136,7 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
       (is.logical(na_as_group))
   )
   if (!is.null(count)) {
-    if (length(count) != 0) {
+    if (length(count) != 1) {
       stop(
         "The argument `count` should be either NULL or of length one.",
         call. = FALSE
@@ -246,9 +246,9 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
   # generate grouped_dates
   setDT(x)
   if (is.null(count)) {
-    x <- x[,.(count = .N), by = c(date_index, groups)]
+    x <- x[,.(count = .N), keyby = c(date_index, groups)]
   } else {
-    x <- x[,.(count = sum(get(..count))), by = c(date_index, groups)]
+    x <- x[,.(count = sum(get(..count))), keyby = c(date_index, groups)]
   }
   setDF(x)
 

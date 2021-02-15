@@ -52,7 +52,7 @@ cumulate.incidence2 <- function(x) {
 
   out <- as.data.table(x)
   if (!is.null(groups)) {
-    out[, (count_var) := cumsum(get(..count_var)), by = groups]
+    out[, (count_var) := cumsum(get(..count_var)), keyby = groups]
   } else out[, (count_var) := cumsum(get(..count_var))]
   setDF(out)
 
