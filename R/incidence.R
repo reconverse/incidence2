@@ -192,7 +192,22 @@ incidence_.POSIXt <- incidence_.Date
 
 incidence_.integer <- incidence_.Date
 
-incidence_.numeric <- incidence_.Date
+incidence_.numeric <- function(x, date_index, groups, interval, na_as_group, count,
+                               firstdate = firstdate, ...) {
+
+  # Attempt to cast to integer and give useful error message if not possible
+  tmp <- try(int_cast(x[[date_index]]), silent = TRUE)
+  if (inherits(tmp, "try-error")) {
+    stop(
+      "Where numeric, x[[date_index]] must be a vector of whole numbers",
+      call. = FALSE
+    )
+  }
+  x[[date_index]] <- tmp
+
+  incidence_.integer(x, date_index, groups, interval, na_as_group, count,
+                     firstdate = firstdate, ...)
+}
 
 incidence_.character <- incidence_.Date
 

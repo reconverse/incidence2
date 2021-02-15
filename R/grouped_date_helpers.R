@@ -60,7 +60,7 @@ is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
 # cast a vector to an integer
 int_cast <- function(x) {
   if (!all(is.wholenumber(x) | is.na(x))) {
-    msg <- paste(deparse1(substitute(x)), "must be a whole number")
+    msg <- paste(deparse1(substitute(x)), "must be a vector of whole numbers")
     stop(msg, call. = FALSE)
   }
   as.integer(x)
