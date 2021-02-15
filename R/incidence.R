@@ -277,7 +277,7 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
   if (is.null(count)) {
     x <- x[,.(count = .N), keyby = c(date_index, groups)]
   } else {
-    x <- x[,.(count = sum(get(..count))), keyby = c(date_index, groups)]
+    x <- x[,.(count = sum(get(..count), na.rm = TRUE)), keyby = c(date_index, groups)]
   }
   setDF(x)
 

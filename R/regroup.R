@@ -53,7 +53,7 @@ regroup <- function(x, groups = NULL){
   interval <- get_interval(x)
 
   tbl <- as.data.table(x)
-  tbl <- tbl[,.(count = sum(get(..count_var))), keyby = c(date_var, groups)]
+  tbl <- tbl[,.(count = sum(get(..count_var), na.rm = TRUE)), keyby = c(date_var, groups)]
   setDF(tbl)
 
 
