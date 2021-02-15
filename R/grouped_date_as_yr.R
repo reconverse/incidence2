@@ -368,9 +368,9 @@ Ops.yr <- function(e1, e2) {
       } else if (inherits(e1, "yr") && inherits(e2, "yr")) {
         stop("Cannot add <yr> objects to each other", call. = FALSE)
       } else if (inherits(e1, "yr") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
-        new_yr(e1 + e2)
+        new_yr(unclass(e1) + e2)
       } else if (inherits(e2, "yr") && (all(is.wholenumber(unclass(e1)),  na.rm = TRUE))) {
-        new_yr(e1 + e2)
+        new_yr(e1 + unclass(e2))
       } else {
         stop("Can only add whole numbers to <yr> objects", call. = FALSE)
       }

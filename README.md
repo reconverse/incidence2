@@ -206,12 +206,12 @@ i_week_sex
 #>  1 2014-W15   f          1
 #>  2 2014-W16   m          1
 #>  3 2014-W17   f          4
-#>  4 2014-W17   m          1
-#>  5 2014-W18   f          4
-#>  6 2014-W19   f          9
-#>  7 2014-W19   m          3
-#>  8 2014-W20   f          7
-#>  9 2014-W20   m         10
+#>  4 2014-W18   f          4
+#>  5 2014-W17   m          1
+#>  6 2014-W19   m          3
+#>  7 2014-W19   f          9
+#>  8 2014-W20   m         10
+#>  9 2014-W20   f          7
 #> 10 2014-W21   f          8
 #> # … with 99 more rows
 summary(i_week_sex)
@@ -224,7 +224,7 @@ summary(i_week_sex)
 #> 1 grouped variable
 #> 
 #>   gender count
-#> * <fct>  <int>
+#>   <fct>  <int>
 #> 1 f       2934
 #> 2 m       2895
 plot(i_week_sex, fill = "gender")
@@ -259,12 +259,12 @@ i_week_sh
 #>  2 2014-W16   m      Connaught Hospital                               1
 #>  3 2014-W17   f      other                                            2
 #>  4 2014-W17   f      <NA>                                             2
-#>  5 2014-W17   m      other                                            1
-#>  6 2014-W18   f      Connaught Hospital                               1
-#>  7 2014-W18   f      Princess Christian Maternity Hospital (PCMH)     1
-#>  8 2014-W18   f      Rokupa Hospital                                  1
-#>  9 2014-W18   f      <NA>                                             1
-#> 10 2014-W19   f      Connaught Hospital                               2
+#>  5 2014-W18   f      Connaught Hospital                               1
+#>  6 2014-W18   f      Princess Christian Maternity Hospital (PCMH)     1
+#>  7 2014-W17   m      other                                            1
+#>  8 2014-W19   m      Rokupa Hospital                                  1
+#>  9 2014-W19   f      Connaught Hospital                               2
+#> 10 2014-W18   f      <NA>                                             1
 #> # … with 591 more rows
 summary(i_week_sh)
 #> An incidence2 object: 601 x 4
@@ -276,19 +276,19 @@ summary(i_week_sh)
 #> 2 grouped variables
 #> 
 #>   gender count
-#> * <fct>  <int>
+#>   <fct>  <int>
 #> 1 f       2934
 #> 2 m       2895
 #> 
 #> 
 #>   hospital                                     count
-#> * <fct>                                        <int>
-#> 1 Connaught Hospital                            1737
-#> 2 Military Hospital                              889
+#>   <fct>                                        <int>
+#> 1 Military Hospital                              889
+#> 2 Connaught Hospital                            1737
 #> 3 other                                          876
-#> 4 Princess Christian Maternity Hospital (PCMH)   420
-#> 5 Rokupa Hospital                                451
-#> 6 <NA>                                          1456
+#> 4 <NA>                                          1456
+#> 5 Princess Christian Maternity Hospital (PCMH)   420
+#> 6 Rokupa Hospital                                451
 facet_plot(i_week_sh, facets = gender, fill = hospital, n_breaks = 6)
 ```
 

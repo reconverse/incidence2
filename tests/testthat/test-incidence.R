@@ -20,14 +20,8 @@ test_that("construction - default, integer input", {
   expect_equal(sum(x$count), length(dat))
   expect_true(all(diff(x$date) == get_interval(x)))
 
-  ## USING INCIDENCE PER 3 DAYS
+  # using incidence per 3 days
   x <- incidence(data.frame(dates = dat), date_index = dates, interval = 3)
-
-  ## String numbers can be interpreted as intervals
-  #TODO expect_identical(
-  #   x,
-  #   incidence(data.frame(dates = dat), date_index = dates, interval = "3")
-  # )
 
   # classes
   expect_s3_class(x, "incidence2")
@@ -112,8 +106,51 @@ test_that("construction - Date input", {
   dat_dates <- as.Date("2015-12-28") + dat
 
   x <- incidence(data.frame(dates = dat), date_index = dates)
+
   x_dates <- incidence(data.frame(dates = dat_dates), date_index = dates)
 
+  x_ds <- incidence(
+    data.frame(dates = dat_dates + 1L),
+    date_index = dates
+  )
+
+  x_7 <- incidence(
+    data.frame(dates = dat_dates),
+    date_index = dates,
+    interval = 7L
+  )
+
+  x_7_ds <- incidence(
+    data.frame(dates = dat_dates + 1L),
+    date_index = dates,
+    interval = 7L
+  )
+
+  x_week  <- incidence(
+    data.frame(dates = dat_dates),
+    date_index = dates,
+    interval = "week"
+  )
+
+  x_w_ds <- incidence(
+    data.frame(dates = dat_dates + 1L),
+    date_index = dates,
+    interval = "week",
+  )
+
+  x_mo <- incidence(
+    data.frame(dates = dat_dates),
+    date_index = dates,
+    interval = "month"
+  )
+
+  x_qu <- incidence(
+    data.frame(dates = dat_dates),
+    date_index = dates,
+    interval = "quarter"
+  )
+
+  # check firstdate filter gives message
   expect_message(
     incidence(
       data.frame(dates = dat),
@@ -134,60 +171,17 @@ test_that("construction - Date input", {
     fixed = TRUE
   )
 
-  x_7 <- incidence(
-    data.frame(dates = dat_dates),
-    date_index = dates,
-    interval = 7L
-  )
-
-  x_7_week  <- incidence(
-    data.frame(dates = dat_dates),
-    date_index = dates,
-    interval = "week"
-  )
-
-  # test if starting on a different day gives us expected results
-  x_ds <- incidence(
-    data.frame(dates = dat_dates + 1L),
-    date_index = dates
-  )
-
-  x_7_ds <- incidence(
-    data.frame(dates = dat_dates + 1L),
-    date_index = dates,
-    interval = 7L
-  )
-
-  x_w_ds <- incidence(
-    data.frame(dates = dat_dates + 1L),
-    date_index = dates,
-    interval = "week",
-  )
-
   # Testing monthly input
-  x_mo <- incidence(
-    data.frame(dates = dat_dates),
-    date_index = dates,
-    interval = "month"
-  )
-
   expect_equal(
     get_month(x_mo$date_index),
     as.integer(unique(format(sort(dat_dates), "%m")))
   )
-
 
   expect_equal(as.Date(x_mo$date_index[[1]]), as.Date("2015-12-01"))
 
   expect_equal(sum(x_mo$count), 105L)
 
   # Testing quarterly input
-  x_qu <- incidence(
-    data.frame(dates = dat_dates),
-    date_index = dates,
-    interval = "quarter"
-  )
-
   expect_equal(
     as.Date(x_qu$date_index),
     as.Date(c("2015-10-01", "2016-01-01", "2016-04-01"))
@@ -215,66 +209,21 @@ test_that("construction - Date input", {
     as.Date(c("2015-01-01", "2016-01-01", "2017-01-01", "2018-01-01"))
   )
 
-  expect_equal(sum(x_mo$count), 105L)
+  expect_equal(sum(x_yr$count), 315L)
 
+  # compare outputs
+  expect_equal(x$count, x_dates$count)
+  expect_equal(x_7$count, x_week$count)
+  expect_equal(as.Date(x_7$date_index), as.Date(x_week$date_index))
 
-  # ## compare outputs
-  # expect_equal(x$count, x_dates$count)
-  # expect_type(x$date, "integer")
-  # expect_s3_class(x_dates$date, "Date")
-  # expect_equal(x_7$count, x_7_iso$count)
-  # expect_equal(x_7_iso$date_index, x_7_week$date_index)
-  #
-  # # shifting days gives the desired effect
-  # expect_equal(x_ds$date[[1]], x_7_ds$date_index[[1]])
-  # expect_failure({
-  #   expect_identical(x_w_ds$date_index, x_w_ds_iso$date_index)
-  # })
-  #
-  # ## Printing will be different with text-based interval
-  # expect_output(print(x_7), "\\interval: 7 days")
-  # expect_output(print(x_7_iso), "\\interval: 1 week")
+  # shifting days gives the desired effect
+  expect_equal(as.Date(x_ds$date[[1]]), as.Date(x_7_ds$date_index[[1]]))
+
+  # Printing will be different with text-based interval
+  expect_output(print(x_7), "interval: 7")
+  expect_output(print(x_week), "interval: 1 week")
 })
-#
-# test_that("construction - POSIXct input", {
-#
-#   ## USING DAILY INCIDENCE
-#   dat_pos <- as.POSIXct(dat_dates)
-#   x_dates <- incidence(data.frame(dates = dat_dates), date_index = dates)
-#   x_pos <- incidence(data.frame(dates = dat_pos), date_index = dates)
-#
-#   ## compare outputs
-#   expect_equal(x_dates$count, x_pos$count)
-#   expect_s3_class(x_dates$date, "Date")
-#   expect_s3_class(x_pos$date, "POSIXct")
-# })
-#
-# test_that("construction - character input", {
-#   dats <- Sys.Date() + sample(-100:100, 5)
-#   datc <- as.character(dats)
-#
-#   i_date <- incidence(data.frame(dates = dats), date_index = dates)
-#   i_char <- incidence(data.frame(dates = datc, stringsAsFactors = FALSE),
-#                       date_index = dates)
-#   i_chaw <- incidence(
-#     data.frame(dates = paste(datc, "   "), stringsAsFactors = FALSE),
-#     date_index = dates
-#   )
-#
-#   expect_message(
-#     i_cham <- incidence(
-#       data.frame(dates = c(datc, NA, NA), stringsAsFactors = FALSE),
-#       date_index = dates),
-#     "2 missing observations were removed."
-#   )
-#
-#   expect_s3_class(i_date, "incidence2")
-#   expect_identical(i_date, i_char)
-#   expect_identical(i_date, i_chaw)
-#   expect_identical(i_date, i_cham)
-# })
-#
-#
+
 # test_that("corner cases", {
 #
 #

@@ -201,6 +201,9 @@ get_timespan.incidence2 <- function(x, ...) {
   dat <- x[[date_var]]
   r <- range(dat, na.rm = TRUE)
   r <- c(r[1], r[2] + 1)
+  if (inherits(r, "yr")) { # needed as years are simply integers
+    r <- as.Date(r)
+  }
   if (is.integer(dat)) {
     as.integer(unclass(r[2]) - unclass(r[1]))
   } else {
