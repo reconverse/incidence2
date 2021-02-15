@@ -165,7 +165,7 @@ test_that("construction - Date input", {
     incidence(
       data.frame(dates = dat_dates),
       date_index = dates,
-      firstdate = "2016-01-01"
+      firstdate = as.Date("2016-01-01")
     ),
     "4 observations were removed",
     fixed = TRUE
@@ -224,237 +224,161 @@ test_that("construction - Date input", {
   expect_output(print(x_week), "interval: 1 week")
 })
 
-# test_that("corner cases", {
-#
-#
-#   expect_error(incidence(data.frame(dates = integer(0)), date_index = dates),
-#                "At least one \\(non-NA\\) date must be provided")
-#
-#   expect_error(incidence(data.frame(dates = numeric(0)), date_index = dates),
-#                "At least one \\(non-NA\\) date must be provided")
-#
-#   expect_error(incidence(data.frame(dates = NA), date_index = dates),
-#                "At least one \\(non-NA\\) date must be provided")
-#
-#   expect_error(incidence(data.frame(dates = NULL), date_index = dates),
-#                "variable dates not present in dataframe")
-#
-#   expect_error(incidence(data.frame(dates = Inf), date_index = dates),
-#                "At least one \\(non-NA\\) date must be provided")
-#
-#   expect_error(incidence(data.frame(dates = 1), date_index = dates, interval = "grind"),
-#                "The interval 'grind' is not valid. Please supply an integer.")
-#
-#   expect_error(incidence(data.frame(dates = as.Date(Sys.Date())),
-#                          date_index = dates,
-#                          last_date = "core"),
-#                "last_date \\(core\\) could not be converted to Date. Dates must be in ISO 8601 standard format \\(yyyy-mm-dd\\)")
-#
-#   expect_error(incidence(data.frame(dates = 1),
-#                          date_index = dates,
-#                          interval = "week"),
-#                "The interval 'week' can only be used for Dates")
-#
-#   expect_error(incidence(data.frame(dates = as.Date(Sys.Date())),
-#                          date_index = dates,
-#                          standard = "TRUE"),
-#                "The argument `standard` must be either `TRUE` or `FALSE`")
-#
-#   expect_error(incidence(data.frame(dates = sample(10)),
-#                          date_index = dates,
-#                          intrval = 2))
-#
-#   expect_error(incidence(data.frame(dates = 1),
-#                          date_index = dates,
-#                          were = "wolf"))
-#
-#
-#   expect_warning(
-#     incidence(data.frame(dates = c(dat_dates, as.Date("1900-01-01"))),
-#               date_index = dates),
-#     "greater than 18262 days \\[1900-01-01 to")
-#
-#   msg <- 'Not all dates are in ISO 8601 standard format \\(yyyy-mm-dd\\). The first incorrect date is'
-#   expect_error(
-#     incidence(data.frame(dates = 'daldkadl', stringsAsFactors = FALSE),
-#               date_index = dates),
-#     paste(msg, "daldkadl"))
-#
-#   dats <- as.character(Sys.Date() + sample(-10:10, 5))
-#   dats[3] <- "1Q84-04-15"
-#   expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE),
-#                          date_index = dates),
-#                paste(msg, "1Q84-04-15"))
-#
-#   dats[3] <- "2018-69-11"
-#   expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE),
-#                          date_index = dates),
-#                paste(msg, "2018-69-11"))
-#
-#   dats[3] <- "01-01-11"
-#   expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE),
-#                          date_index = dates),
-#                paste(msg, "01-01-11"))
-#
-#   dats[3] <- "01-Apr-11"
-#   expect_error(incidence(data.frame(dates = dats, stringsAsFactors = FALSE),
-#                          date_index = dates),
-#                paste(msg, "01-Apr-11"))
-#
-#   msg <- paste0("Input could not be converted to date. Accepted formats are:\n",
-#                 "Date, POSIXct, integer, numeric, character")
-#   expect_error(incidence(data.frame(dates = factor("2001-01-01")),
-#                          date_index = dates),
-#                 msg)
-# })
-#
-# test_that("incidence constructor can handle missing data", {
-#   miss_dat <- dat
-#   miss_dat[5] <- NA
-#   expect_message(incidence(data.frame(dates = miss_dat), date_index = dates),
-#                            "1 missing observations were removed.")
-# })
-#
-# test_that("incidence constructor can handle data out of range with groups", {
-#  set.seed(the_seed)
-#  g <- sample(letters[1:2], length(dat), replace = TRUE)
-#  expect_message(incidence(data.frame(dates = dat, groups = g),
-#                           date_index = dates,
-#                           first_date = 0,
-#                           groups = groups),
-#                 "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
-#  )
-# })
-#
-# test_that("Expected values, no group", {
-#
-#
-#   expect_true(
-#     all(incidence(data.frame(dates = 1:10), date_index = dates)$count == 1L))
-#
-#   expect_true(
-#     all(incidence(data.frame(dates = sample(1:10)), date_index = dates)$count == 1L))
-#
-#   set.seed(1)
-#
-#   dat <- data.frame(dates = c(3,2,-1,1,1))
-#   res1 <- incidence(dat, date_index = dates)
-#   expect_snapshot_value(res1, style = "serialize")
-#
-#   dat <- data.frame(dates = c(0,0,0))
-#   res2 <- incidence(dat, date_index = dates)
-#   expect_snapshot_value(res2, style = "serialize")
-#
-#   dat <- data.frame(dates = sample(1:80, 1000, replace = TRUE))
-#   res3 <- incidence(dat, date_index = dates)
-#   expect_snapshot_value(res3, style = "serialize")
-#
-#   dat <- data.frame(dates = as.Date("1984-01-01") + sample(1:100, 200, replace = TRUE))
-#   res4 <- incidence(dat, date_index = dates)
-#   expect_snapshot_value(res4, style = "serialize")
-#
-#   dat <- data.frame(dates = c(3, 2, -1, 1, 1))
-#   res5 <- incidence(dat, date_index = dates, interval = 2L)
-#   expect_snapshot_value(res5, style = "serialize")
-#
-#   dat <- data.frame(dates = c(0,0,0))
-#   res6 <- incidence(dat, date_index = dates, interval = 3L)
-#   expect_snapshot_value(res6, style = "serialize")
-#
-# })
-#
-#
-# test_that("na_as_group", {
-#   dat <- data.frame(
-#       date = Sys.Date() + 1:10,
-#       names = c(NA, paste("group", 2:9, sep = "_"), NA)
-#   )
-#
-#   x <- incidence(dat, date_index = date, groups = names, na_as_group = FALSE)
-#   expect_true(all(dat$date_index %in% (Sys.Date() + 2:9)))
-#   expect_equal(get_n(x), 8)
-# })
-#
-#
-#
-# test_that("Expected values, with groups", {
-#
-#   dates <- list(
-#     as.integer(c(3,2,-1,1,1)),
-#     as.integer(c(0,0,0)),
-#     as.integer(c(0,1,2,2,3))
-#   )
-#
-#   factors <- list(
-#     factor(c(1,1,2,2,2)),
-#     factor(c('a','b','a')),
-#     factor(c(1, 2, 3, 3, 3))
-#   )
-#
-#   dat <- data.frame(dates = dates[[1]], groups = factors[[1]])
-#   res.g.1 <- incidence(dat, date_index = dates, groups = groups)
-#   expect_snapshot_value(res.g.1, style = "serialize")
-#
-#   dat <- data.frame(dates = dates[[2]], groups = factors[[2]])
-#   res.g.2 <- incidence(dat, date_index = dates, groups = groups)
-#   expect_snapshot_value(res.g.2, style = "serialize")
-#
-#   dat <- data.frame(dates = dates[[3]], groups = factors[[3]])
-#   res.g.3 <- incidence(dat, date_index = dates, groups = groups)
-#   expect_snapshot_value(res.g.3, style = "serialize")
-#
-#   dates <- as.Date(c("2020-07-30", "2020-07-30", rep("2020-08-06", 3)))
-#   group1 <- c("Bob", "Bob", "Bob", "George", "George")
-#   group2 <- c("Cat", "Cat", "Dog", "Dog", "Mouse")
-#   dat <- data.frame(dates, group1, group2)
-#   res.g.4 <- incidence(dat,
-#                        date_index = dates,
-#                        groups = c(group1, group2),
-#                        interval = "week")
-#   expect_snapshot_value(res.g.4, style = "serialize")
-# })
-#
-# test_that("user-defined group levels are preserved", {
-#   g <- sample(LETTERS[1:5], 100, replace = TRUE)
-#   g <- factor(g, levels = LETTERS[5:1])
-#   dat <- data.frame(dates = rpois(100, 10), g)
-#   i <- incidence(dat, date_index = dates, groups = g)
-#   expect_identical(levels(i[[get_group_names(i)]]), levels(g))
-# })
-#
-# test_that("Print and summary returns the object", {
-#   dat <- data.frame(dates = "2001-01-01")
-#   x <- incidence(dat, date_index = dates)
-#
-#   expect_snapshot_output(print(x))
-#
-#   expect_snapshot_output(summary(x))
-#
-#   dat <- data.frame(dates = 1:2, groups = factor(1:2))
-#   y <- incidence(dat,date_index = dates, groups = groups)
-#
-#   expect_snapshot_output(print(y))
-#
-#   expect_snapshot_output(summary(y))
-#
-# })
-#
-# test_that("cnt variable working as expected", {
-#   dates <- c("2020-08-24", "2020-08-25", "2020-08-25", "2020-09-03")
-#   counts <- c(1, 2, 3, 4)
-#   dat <- data.frame(dates, counts)
-#   x <- incidence(dat, date_index = dates, count = counts, interval = "week")
-#
-#   expect_equal(x$date_index, as.Date(c("2020-08-24", "2020-08-31")))
-#   expect_equal(x$count, c(6, 4))
-#
-#   # NA's  should be ignored in sums
-#   dates <- c("2020-08-24", "2020-08-25", "2020-08-25", "2020-09-03")
-#   counts <- c(1, 2, NA, 4)
-#   dat <- data.frame(dates, counts)
-#   x <- incidence(dat, date_index = dates, count = counts, interval = "week")
-#
-#   expect_equal(x$date_index, as.Date(c("2020-08-24", "2020-08-31")))
-#   expect_equal(x$count, c(3, 4))
-# })
-#
+
+test_that("incidence constructor can handle missing data", {
+  dat <- 0:10
+  miss_dat <- dat
+  miss_dat[5] <- NA
+  expect_message(
+    incidence(data.frame(dates = miss_dat), date_index = dates),
+    "1 missing observations were removed.",
+    fixed = TRUE
+  )
+})
+
+test_that("incidence constructor can handle data out of range with groups", {
+  dat <- 0:10
+  set.seed(1)
+  g <- sample(letters[1:2], length(dat), replace = TRUE)
+  expect_message(
+    incidence(
+      data.frame(dates = dat, groups = g),
+      date_index = dates,
+      firstdate = 2,
+      groups = groups
+    ),
+    "2 observations were removed",
+    fixed = TRUE
+  )
+})
+
+test_that("Expected values, no group", {
+  set.seed(1)
+
+  expect_true(
+    all(incidence(data.frame(dates = 1:10), date_index = dates)$count == 1L))
+
+  dat <- data.frame(dates = c(3,2,-1,1,1))
+  res1 <- incidence(dat, date_index = dates)
+  expect_snapshot_output(res1)
+
+  dat <- data.frame(dates = c(0,0,0))
+  res2 <- incidence(dat, date_index = dates)
+  expect_snapshot_output(res2)
+
+  dat <- data.frame(dates = sample(1:80, 1000, replace = TRUE))
+  res3 <- incidence(dat, date_index = dates)
+  expect_snapshot_value(res3, style = "serialize")
+
+  dat <- data.frame(dates = as.Date("1984-01-01") + sample(1:100, 200, replace = TRUE))
+  res4 <- incidence(dat, date_index = dates)
+  expect_snapshot_value(res4, style = "serialize")
+
+  dat <- data.frame(dates = c(3, 2, -1, 1, 1))
+  res5 <- incidence(dat, date_index = dates, interval = 2L)
+  expect_snapshot_output(res5)
+
+  dat <- data.frame(dates = c(0,0,0))
+  res6 <- incidence(dat, date_index = dates, interval = 3L)
+  expect_snapshot_output(res6)
+})
+
+
+test_that("na_as_group", {
+  dat <- data.frame(
+      date = Sys.Date() + 1:10,
+      names = c(NA, paste("group", 2:9, sep = "_"), NA)
+  )
+
+  x <- incidence(dat, date_index = date, groups = names, na_as_group = FALSE)
+  expect_true(all(dat$date_index %in% (Sys.Date() + 2:9)))
+  expect_equal(get_n(x), 8)
+})
+
+
+
+test_that("Expected values, with groups", {
+
+  dates <- list(
+    as.integer(c(3,2,-1,1,1)),
+    as.integer(c(0,0,0)),
+    as.integer(c(0,1,2,2,3))
+  )
+
+  factors <- list(
+    factor(c(1,1,2,2,2)),
+    factor(c('a','b','a')),
+    factor(c(1, 2, 3, 3, 3))
+  )
+
+  dat <- data.frame(dates = dates[[1]], groups = factors[[1]])
+  res.g.1 <- incidence(dat, date_index = dates, groups = groups)
+  expect_snapshot_output(res.g.1)
+
+  dat <- data.frame(dates = dates[[2]], groups = factors[[2]])
+  res.g.2 <- incidence(dat, date_index = dates, groups = groups)
+  expect_snapshot_output(res.g.2)
+
+  dat <- data.frame(dates = dates[[3]], groups = factors[[3]])
+  res.g.3 <- incidence(dat, date_index = dates, groups = groups)
+  expect_snapshot_output(res.g.3)
+
+  dates <- as.Date(c("2020-07-30", "2020-07-30", rep("2020-08-06", 3)))
+  group1 <- c("Bob", "Bob", "Bob", "George", "George")
+  group2 <- c("Cat", "Cat", "Dog", "Dog", "Mouse")
+  dat <- data.frame(dates, group1, group2)
+  res.g.4 <- incidence(dat,
+                       date_index = dates,
+                       groups = c(group1, group2),
+                       interval = "week")
+  expect_snapshot_output(res.g.4)
+})
+
+test_that("user-defined group levels are preserved", {
+  g <- sample(LETTERS[1:5], 100, replace = TRUE)
+  g <- factor(g, levels = LETTERS[5:1])
+  dat <- data.frame(dates = rpois(100, 10), g)
+  i <- incidence(dat, date_index = dates, groups = g)
+  expect_identical(levels(i[[get_group_names(i)]]), levels(g))
+})
+
+
+test_that("Print and summary returns the object", {
+  dat <- data.frame(dates = "2001-01-01")
+  x <- incidence(dat, date_index = dates)
+
+  expect_snapshot_output(print(x))
+
+  expect_snapshot_output(summary(x))
+
+  dat <- data.frame(dates = 1:2, groups = factor(1:2))
+  y <- incidence(dat,date_index = dates, groups = groups)
+
+  expect_snapshot_output(print(y))
+
+  expect_snapshot_output(summary(y))
+
+})
+
+
+test_that("cnt variable working as expected", {
+  dates <- c("2020-08-24", "2020-08-25", "2020-08-25", "2020-09-03")
+  counts <- c(1, 2, 3, 4)
+  dat <- data.frame(dates, counts)
+  x <- incidence(dat, date_index = dates, count = counts, interval = "week")
+
+  expect_snapshot_output(x)
+  expect_equal(as.Date(x$date_index), as.Date(c("2020-08-24", "2020-08-31")))
+  expect_equal(x$count, c(6, 4))
+
+  # NA's  should be ignored in sums
+  dates <- c("2020-08-24", "2020-08-25", "2020-08-25", "2020-09-03")
+  counts <- c(1, 2, NA, 4)
+  dat <- data.frame(dates, counts)
+  x <- incidence(dat, date_index = dates, count = counts, interval = "week")
+
+  expect_snapshot_output(x)
+  expect_equal(as.Date(x$date_index), as.Date(c("2020-08-24", "2020-08-31")))
+  expect_equal(x$count, c(3, 4))
+})
+
