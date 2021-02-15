@@ -243,6 +243,20 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
   # due to NSE notes in R CMD check
   ..count_var <- . <- ..count <- NULL
 
+  # ensure we have a firstdate value
+  if (is.null(firstdate)) {
+    firstdate <- min(x[[date_index]], na.rm = TRUE)
+  }
+
+  # trim observations
+  n_orig <- nrow(x)
+  x <- x[x[[date_index]] >= firstdate, , drop = FALSE]
+  n_new <- nrow(x)
+  if (n_new < n_orig) {
+    message(sprintf("%d observations were removed.", n_orig - n_new))
+  }
+
+
   # Group the dates
   x[[date_index]] <- make_grate(
     x[[date_index]],
@@ -284,6 +298,9 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
 
   # reorder (dates, groups, counts)
   x <- x[c(date_col, groups, "count")]
+
+  # strip out mentions of special week
+  interval <- sub("mmwr|epi|iso", "", interval, ignore.case = TRUE)
 
   # create subclass of tibble
   tbl <- tibble::new_tibble(
