@@ -65,6 +65,7 @@ as_int_period.integer <- function(x, interval = 1L, firstdate = NULL, ...) {
 
   # No need to change anything if the interval is 1
   if (interval == 1L || interval == 1) {
+    x <- x[x >= firstdate]
     return(x)
   }
 

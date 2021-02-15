@@ -75,6 +75,7 @@ as_period.Date <- function(x, interval = 1L, firstdate = NULL, ...) {
 
   # No need to change anything if the interval is 1
   if (interval == 1L || interval == 1 || interval == "1 day" || interval == "1 days") {
+    x <- x[x >= firstdate]
     return(x)
   }
 
