@@ -1,289 +1,240 @@
-# # setting up the data --------------------------------------------------
-# the_seed <- eval(parse(text = as.character(Sys.Date())))
-#
-# # Date incidence      --------------------------------------------------
-# # note: the choice of dates here makes sure first date is 28 Dec 2015, which
-# # starts an iso week, so that counts will be comparable with/without iso.
-# # This also ensures that the last date is 2016-04-04 so that there are 15 weeks
-# # represented here.
-# set.seed(the_seed)
-# dat       <- as.integer(c(-3, sample(-3:100, 49, replace = TRUE), 100))
-# dat_dates <- as.Date("2015-12-31") + dat
-#
-# test_that("construction - default, integer input", {
-#
-#
-#   ## USING DAILY INCIDENCE
-#   x <- incidence(data.frame(dates = dat), date_index = dates)
-#
-#   ## classes
-#   expect_s3_class(x, "incidence2")
-#   expect_type(x$date, typeof(dat))
-#   expect_type(x$count, "integer")
-#
-#   ## results
-#   expect_false(any(is.na(x$count)))
-#   expect_equal(nrow(x), diff(range(dat)) + 1)
-#   expect_equal(sum(x$count), length(dat))
-#   expect_true(all(diff(x$date) == get_interval(x)))
-#
-#   ## USING INCIDENCE PER 3 DAYS
-#   x <- incidence(data.frame(dates = dat), date_index = dates, interval = 3)
-#
-#   ## String numbers can be interpreted as intervals
-#   expect_identical(
-#     x,
-#     incidence(data.frame(dates = dat), date_index = dates, interval = "3")
-#   )
-#
-#   ## classes
-#   expect_s3_class(x, "incidence2")
-#   expect_type(x$bin_date, typeof(dat))
-#   expect_type(x$count, "integer")
-#
-#   ## results
-#   expect_false(any(is.na(x$count)))
-#   expect_equal(sum(x$count), length(dat))
-#   expect_true(all(diff(x$bin_date) == get_interval(x)))
-# })
-#
-# test_that("construction - ISO week", {
-#
-#
-#   ## USING WEEKLY INCIDENCE
-#   inc_week <- incidence(
-#     data.frame(dates = dat_dates),
-#     date_index = dates,
-#     interval = 7,
-#     standard = FALSE)
-#
-#   inc_isoweek <- incidence(
-#     data.frame(dates = dat_dates),
-#     date_index = dates,
-#     interval = 7)
-#
-#   ## classes
-#   expect_s3_class(inc_week, "incidence2")
-#   expect_s3_class(inc_isoweek, "incidence2")
-#
-#   ## results
-#   expect_false(any(is.na(inc_isoweek$count)))
-#   expect_equal(sum(inc_isoweek$count), length(dat))
-#   expect_true(all(diff(inc_isoweek$bin_date) == get_interval(inc_isoweek)))
-# })
-#
-#
-# test_that("construction - numeric input", {
-#
-#   ## USING DAILY INCIDENCE
-#   dat_int <- c(0L, 2L, 5L, 9L, -1L, 9L, 10L, 6L, 5L, -3L, -1L, -1L, 6L, 2L, 7L,
-#                3L, 7L, 10L, 2L, 7L, 10L, -1L, 6L, -2L, 0L, 2L, -3L, 2L, 9L, 1L,
-#                3L, 5L, 3L, -1L, 8L, 6L, 8L, -2L, 7L, 2L, 8L, 6L, 7L, 4L, 4L,
-#                8L, -3L, 3L, 7L, 6L, 3L, 9L, 3L, 0L, -3L, -2L, 1L, 4L, 6L, 2L,
-#                9L, 1L, 3L, 1L, 6L, 0L, 3L, 7L, -2L, 9L, 1L, 8L, 1L, 1L, 3L, 9L,
-#                9L, 2L, 7L, 10L, 3L, 6L, 2L, 1L, 7L, -1L, 6L, -2L, 0L, -1L, 0L,
-#                -3L, 5L, 9L, 7L, 8L, 3L, 2L, 8L, 5L)
-#
-#   dat_num <- dat_int + 0.1
-#
-#   msg <- paste0("Flooring from non-integer date caused approximations:\n",
-#                 #"Mean relative difference: 0.0228833")
-#                 "Mean relative difference: 0.02288")
-#   expect_warning(incidence(data.frame(dates = dat_num), date_index = dates),
-#                  msg)
-#
-#   x_num <- suppressWarnings(incidence(data.frame(dates = dat_num), date_index = dates))
-#   x_int <- incidence(data.frame(dates = dat_int), date_index = dates)
-#
-#   ## compare outputs
-#   expect_equal(x_num, x_int)
-#   expect_type(x_num$date, "double")
-#   expect_type(x_int$date, "integer")
-# })
-#
-# test_that("construction - Date input", {
-#
-#   x         <- incidence(data.frame(dates = dat), date_index = dates)
-#   x_dates   <- incidence(data.frame(dates = dat_dates), date_index = dates)
-#
-#   expect_message(x_i_trim  <- incidence(data.frame(dates = dat),
-#                                         date_index = dates,
-#                                         first_date = 0),
-#                  "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
-#   )
-#
-#   expect_message(
-#     x_d_trim  <- incidence(data.frame(dates = dat_dates),
-#                            date_index = dates,
-#                            first_date = "2016-01-01"),
-#     "[0-9]+ observations outside of \\[2016-01-01, [-0-9]{10}\\] were removed.")
-#
-#
-#   expect_message({
-#     expect_failure(expect_warning({
-#       x_d_trim  <- incidence(data.frame(dates = dat_dates),
-#                              date_index = dates,
-#                              first_date = "2016-01-01")
-#     },
-#     "options\\(incidence.warn.first_date = FALSE\\)"))
-#   },
-#   "[0-9]+ observations outside of \\[2016-01-01, [-0-9]{10}\\] were removed.")
-#
-#
-#   x_7 <- incidence(data.frame(dates = dat_dates),
-#                    date_index = dates,
-#                    interval = 7L,
-#                    standard = FALSE)
-#
-#   x_7_iso   <- incidence(data.frame(dates = dat_dates),
-#                          date_index = dates,
-#                          interval = "week")
-#
-#   x_7_week  <- incidence(data.frame(dates = dat_dates),
-#                             date_index = dates,
-#                             interval = "week",
-#                             standard = FALSE)
-#
-#
-#
-#   ## Here, we can test if starting on a different day gives us expected results
-#   x_ds <- incidence(data.frame(dates = dat_dates + 1L), date_index = dates)
-#
-#   x_7_ds <- incidence(data.frame(dates = dat_dates + 1L),
-#                       date_index = dates,
-#                       interval = 7L,
-#                       standard = FALSE)
-#
-#   x_w_ds <- incidence(data.frame(dates = dat_dates + 1L),
-#                       date_index = dates,
-#                       interval = "week",
-#                       standard = FALSE)
-#
-#   x_7_ds_iso <- incidence(data.frame(dates = dat_dates + 1L),
-#                           date_index = dates,
-#                           interval = 7L)
-#
-#   x_w_ds_iso <- incidence(data.frame(dates = dat_dates + 1L),
-#                           date_index = dates,
-#                           interval = "week")
-#
-#   ## Testing monthly input
-#   w <- "The first_date \\(2015-11-30\\) represents a day that does not occur in all months."
-#   w <- gsub(" ", "\\\\s", w)
-#   expect_warning(x_mo_no <- incidence(data.frame(dates = dat_dates - 28),
-#                                       date_index = dates,
-#                                       interval = "month",
-#                                       standard = FALSE), w)
-#
-#   x_mo_iso <- incidence(data.frame(dates = dat_dates),
-#                                    date_index = dates,
-#                                    interval = "month")
-#
-#   expect_equal(
-#     format(x_mo_iso$bin_date, "%m"),
-#     unique(format(sort(dat_dates), "%m")))
-#
-#   expect_equal(
-#     format(x_mo_iso$bin_date, "%d"),
-#     rep("01", 5)) # all starts on first
-#
-#   expect_equal(x_mo_iso$bin_date[[1]], as.Date("2015-12-01"))
-#
-#   expect_equal(sum(x_mo_iso$count), 51L)
-#
-#   x_mo <- incidence(data.frame(dates = dat_dates),
-#                     date_index = dates,
-#                     interval = "month",
-#                     standard = FALSE)
-#
-#   expect_equal(
-#     format(x_mo$bin_date, "%m"),
-#     unique(format(sort(dat_dates), "%m"))[-5])
-#
-#   expect_equal(format(x_mo$bin_date, "%d"), rep("28", 4)) # all starts on the 28th
-#
-#   expect_equal(x_mo$bin_date[[1]], as.Date("2015-12-28"))
-#
-#   expect_equal(sum(x_mo$count), 51L)
-#
-#   ## Testing quarterly input
-#   w <- "The first_date \\(2015-11-30\\) represents a day that does not occur in all months."
-#   w <- gsub(" ", "\\\\s", w)
-#   expect_warning(
-#     x_qu_no <- incidence(data.frame(dates = dat_dates - 28),
-#                          date_index = dates,
-#                          interval = "quarter",
-#                          standard = FALSE),
-#     w)
-#
-#   x_qu_iso <- incidence(data.frame(dates = dat_dates),
-#                         date_index = dates,
-#                         interval = "quarter")
-#
-#   expect_equal(x_qu_iso$bin_date,
-#                as.Date(c("2015-10-01", "2016-01-01", "2016-04-01")))
-#
-#   expect_equal(sum(x_qu_iso$count), 51L)
-#
-#   x_qu <- incidence(data.frame(dates = dat_dates),
-#                     date_index = dates,
-#                     interval = "quarter",
-#                     standard = FALSE)
-#
-#   expect_equal(x_qu$bin_date, as.Date(c("2015-12-28", "2016-03-28")))
-#
-#   expect_equal(sum(x_qu$count), 51L)
-#
-#   ## Testing yearly input
-#   dat_yr <- c(dat_dates,
-#               sample(dat_dates + 366, replace = TRUE),
-#               sample(dat_dates + 366 + 365, replace = TRUE)
-#   )
-#   x_yr_iso <- incidence(data.frame(dates = dat_yr),
-#                         date_index = dates,
-#                         interval = "year")
-#
-#   x_yr     <- incidence(data.frame(dates = dat_yr),
-#                         date_index = dates,
-#                         interval = "year",
-#                         standard = FALSE)
-#
-#   w <- "The first_date \\(2016-02-29\\) represents a day that does not occur in all years."
-#   w <- gsub(" ", "\\\\s", w)
-#   expect_warning(
-#     x_yr_no  <- incidence(data.frame(dates = dat_yr),
-#                           date_index = dates,
-#                           interval = "year",
-#                           first_date = as.Date("2016-02-29"),
-#                           standard = FALSE),
-#     w)
-#
-#   expect_equal(
-#     x_yr_iso$bin_date,
-#     as.Date(c("2015-01-01", "2016-01-01", "2017-01-01", "2018-01-01")))
-#
-#   expect_equal(x_yr$bin_date,
-#                as.Date(c("2015-12-28", "2016-12-28", "2017-12-28")))
-#
-#   expect_equal(sum(x_yr$count), sum(x_yr_iso$count))
-#
-#   ## compare outputs
-#   expect_equal(x$count, x_dates$count)
-#   expect_type(x$date, "integer")
-#   expect_s3_class(x_dates$date, "Date")
-#   expect_equal(x_7$count, x_7_iso$count)
-#   expect_equal(x_7_iso$bin_date, x_7_week$bin_date)
-#
-#   # shifting days gives the desired effect
-#   expect_equal(x_ds$date[[1]], x_7_ds$bin_date[[1]])
-#   expect_failure({
-#     expect_identical(x_w_ds$bin_date, x_w_ds_iso$bin_date)
-#   })
-#
-#   ## Printing will be different with text-based interval
-#   expect_output(print(x_7), "\\interval: 7 days")
-#   expect_output(print(x_7_iso), "\\interval: 1 week")
-# })
+# setting up the data --------------------------------------------------
+set.seed(999)
+
+test_that("construction - default, integer input", {
+
+  dat <- 0:104
+
+  # daily incidence
+  x <- incidence(data.frame(dates = dat), date_index = dates)
+
+  # classes
+  expect_s3_class(x, "incidence2")
+  expect_type(x$date, "integer")
+  expect_type(x$count, "integer")
+
+  # results
+  expect_false(any(is.na(x$count)))
+  expect_equal(nrow(x), length(unique(dat)))
+  expect_equal(get_timespan(x), diff(range(dat)) + 1)
+  expect_equal(sum(x$count), length(dat))
+  expect_true(all(diff(x$date) == get_interval(x)))
+
+  ## USING INCIDENCE PER 3 DAYS
+  x <- incidence(data.frame(dates = dat), date_index = dates, interval = 3)
+
+  ## String numbers can be interpreted as intervals
+  #TODO expect_identical(
+  #   x,
+  #   incidence(data.frame(dates = dat), date_index = dates, interval = "3")
+  # )
+
+  # classes
+  expect_s3_class(x, "incidence2")
+  expect_type(x$date_index, "integer")
+  expect_type(x$count, "integer")
+
+  # results
+  expect_false(any(is.na(x$count)))
+  expect_equal(nrow(x), length(unique(dat)) / 3)
+  expect_equal(get_timespan(x), diff(range(dat)) + 1)
+  expect_equal(sum(x$count), length(dat))
+  expect_true(all(diff(as.integer(x$date_index)) == get_interval(x)))
+
+})
+
+test_that("construction - ISO week", {
+
+  # note: the choice of dates here makes sure first date is 28 Dec 2015, which
+  # starts an iso week, so that counts will be comparable with/without iso.
+  # This also ensures that the last date is 2016-04-10 so that there are 15 weeks
+  # represented here.
+  dat <- 0:104
+  dat_dates <- as.Date("2015-12-28") + dat
+
+  # weekly incidence
+  inc_week <- incidence(
+    data.frame(dates = dat_dates),
+    date_index = dates,
+    interval = "week"
+  )
+
+  # iso incidence
+  inc_isoweek <- incidence(
+    data.frame(dates = dat_dates),
+    date_index = dates,
+    interval = "isoweek")
+
+  # should be identical results
+  expect_identical(inc_week, inc_isoweek)
+
+  # classes
+  expect_s3_class(inc_week, "incidence2")
+  expect_s3_class(inc_week$date_index, "yrwk")
+  expect_type(inc_week$count, "integer")
+
+  # results
+  expect_false(any(is.na(inc_week$count)))
+  expect_equal(nrow(inc_week), length(unique(dat_dates)) / 7)
+  expect_equal(get_timespan(inc_week), as.integer(diff(range(dat_dates)) + 1))
+  expect_equal(sum(inc_week$count), length(dat_dates))
+  expect_true(all(diff(as.integer(inc_week$date_index)) == 7L))
+})
+
+
+test_that("construction - numeric input", {
+
+  ## USING DAILY INCIDENCE
+  dat_int <- c(0L, 2L, 5L, 9L, -1L, 9L, 10L, 6L, 5L, -3L, -1L, -1L, 6L, 2L, 7L,
+               3L, 7L, 10L, 2L, 7L, 10L, -1L, 6L, -2L, 0L, 2L, -3L, 2L, 9L, 1L,
+               3L, 5L, 3L, -1L, 8L, 6L, 8L, -2L, 7L, 2L, 8L, 6L, 7L, 4L, 4L,
+               8L, -3L, 3L, 7L, 6L, 3L, 9L, 3L, 0L, -3L, -2L, 1L, 4L, 6L, 2L,
+               9L, 1L, 3L, 1L, 6L, 0L, 3L, 7L, -2L, 9L, 1L, 8L, 1L, 1L, 3L, 9L,
+               9L, 2L, 7L, 10L, 3L, 6L, 2L, 1L, 7L, -1L, 6L, -2L, 0L, -1L, 0L,
+               -3L, 5L, 9L, 7L, 8L, 3L, 2L, 8L, 5L)
+
+  dat_num <- dat_int + 0.1
+
+  expect_error(
+    incidence(data.frame(dates = dat_num), date_index = dates),
+    "Where numeric, x[[date_index]] must be a vector of whole numbers",
+    fixed = TRUE
+  )
+})
+
+test_that("construction - Date input", {
+
+  # note: the choice of dates here makes sure first date is 28 Dec 2015, which
+  # starts an iso week, so that counts will be comparable with/without iso.
+  # This also ensures that the last date is 2016-04-10 so that there are 15 weeks
+  # represented here.
+  dat <- 0:104
+  dat_dates <- as.Date("2015-12-28") + dat
+
+  x <- incidence(data.frame(dates = dat), date_index = dates)
+  x_dates <- incidence(data.frame(dates = dat_dates), date_index = dates)
+
+  expect_message(
+    incidence(
+      data.frame(dates = dat),
+      date_index = dates,
+      firstdate = 10
+    ),
+    "10 observations were removed",
+    fixed = TRUE
+  )
+
+  expect_message(
+    incidence(
+      data.frame(dates = dat_dates),
+      date_index = dates,
+      firstdate = "2016-01-01"
+    ),
+    "4 observations were removed",
+    fixed = TRUE
+  )
+
+  x_7 <- incidence(
+    data.frame(dates = dat_dates),
+    date_index = dates,
+    interval = 7L
+  )
+
+  x_7_week  <- incidence(
+    data.frame(dates = dat_dates),
+    date_index = dates,
+    interval = "week"
+  )
+
+  # test if starting on a different day gives us expected results
+  x_ds <- incidence(
+    data.frame(dates = dat_dates + 1L),
+    date_index = dates
+  )
+
+  x_7_ds <- incidence(
+    data.frame(dates = dat_dates + 1L),
+    date_index = dates,
+    interval = 7L
+  )
+
+  x_w_ds <- incidence(
+    data.frame(dates = dat_dates + 1L),
+    date_index = dates,
+    interval = "week",
+  )
+
+  # Testing monthly input
+  x_mo <- incidence(
+    data.frame(dates = dat_dates),
+    date_index = dates,
+    interval = "month"
+  )
+
+  expect_equal(
+    get_month(x_mo$date_index),
+    as.integer(unique(format(sort(dat_dates), "%m")))
+  )
+
+
+  expect_equal(as.Date(x_mo$date_index[[1]]), as.Date("2015-12-01"))
+
+  expect_equal(sum(x_mo$count), 105L)
+
+  # Testing quarterly input
+  x_qu <- incidence(
+    data.frame(dates = dat_dates),
+    date_index = dates,
+    interval = "quarter"
+  )
+
+  expect_equal(
+    as.Date(x_qu$date_index),
+    as.Date(c("2015-10-01", "2016-01-01", "2016-04-01"))
+  )
+
+  expect_equal(sum(x_qu$count), 105L)
+
+  # Testing yearly input
+  dat_yr <- c(
+    dat_dates,
+    sample(dat_dates + 366, replace = TRUE),
+    sample(dat_dates + 366 + 365, replace = TRUE)
+  )
+
+  x_yr <- incidence(
+    data.frame(dates = dat_yr),
+    date_index = dates,
+    interval = "year"
+  )
+
+  expect_equal(unclass(x_yr$date_index), c(2015, 2016, 2017, 2018))
+
+  expect_equal(
+    as.Date(x_yr$date_index),
+    as.Date(c("2015-01-01", "2016-01-01", "2017-01-01", "2018-01-01"))
+  )
+
+  expect_equal(sum(x_mo$count), 105L)
+
+
+  # ## compare outputs
+  # expect_equal(x$count, x_dates$count)
+  # expect_type(x$date, "integer")
+  # expect_s3_class(x_dates$date, "Date")
+  # expect_equal(x_7$count, x_7_iso$count)
+  # expect_equal(x_7_iso$date_index, x_7_week$date_index)
+  #
+  # # shifting days gives the desired effect
+  # expect_equal(x_ds$date[[1]], x_7_ds$date_index[[1]])
+  # expect_failure({
+  #   expect_identical(x_w_ds$date_index, x_w_ds_iso$date_index)
+  # })
+  #
+  # ## Printing will be different with text-based interval
+  # expect_output(print(x_7), "\\interval: 7 days")
+  # expect_output(print(x_7_iso), "\\interval: 1 week")
+})
 #
 # test_that("construction - POSIXct input", {
 #
@@ -471,7 +422,7 @@
 #   )
 #
 #   x <- incidence(dat, date_index = date, groups = names, na_as_group = FALSE)
-#   expect_true(all(dat$bin_date %in% (Sys.Date() + 2:9)))
+#   expect_true(all(dat$date_index %in% (Sys.Date() + 2:9)))
 #   expect_equal(get_n(x), 8)
 # })
 #
@@ -545,7 +496,7 @@
 #   dat <- data.frame(dates, counts)
 #   x <- incidence(dat, date_index = dates, count = counts, interval = "week")
 #
-#   expect_equal(x$bin_date, as.Date(c("2020-08-24", "2020-08-31")))
+#   expect_equal(x$date_index, as.Date(c("2020-08-24", "2020-08-31")))
 #   expect_equal(x$count, c(6, 4))
 #
 #   # NA's  should be ignored in sums
@@ -554,7 +505,7 @@
 #   dat <- data.frame(dates, counts)
 #   x <- incidence(dat, date_index = dates, count = counts, interval = "week")
 #
-#   expect_equal(x$bin_date, as.Date(c("2020-08-24", "2020-08-31")))
+#   expect_equal(x$date_index, as.Date(c("2020-08-24", "2020-08-31")))
 #   expect_equal(x$count, c(3, 4))
 # })
 #
