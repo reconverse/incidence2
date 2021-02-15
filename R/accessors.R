@@ -202,7 +202,7 @@ get_timespan.incidence2 <- function(x, ...) {
   r <- range(dat, na.rm = TRUE)
   r <- c(r[1], r[2] + 1)
   if (is.integer(dat)) {
-    unclass(r[2]) - unclass(r[1])
+    as.integer(unclass(r[2]) - unclass(r[1]))
   } else {
     r <- as.Date(r)
     as.integer(diff(r))
