@@ -2,6 +2,7 @@
 * Introduces s3 classes `yrwk`, `yrmon`, `yrqtr`, `yr`, `period` and
   `int_period` as well as associated constructors which `incidence` now builds
   upon.
+* Add's `keep_first` and `keep_last` functions.
 * Construction of `incidence` objects now faster due to underlying use of
   data.table.
 
