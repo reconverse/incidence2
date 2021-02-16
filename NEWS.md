@@ -1,3 +1,10 @@
+# incidence2 (development version)
+* Introduces s3 classes `yrwk`, `yrmon`, `yrqtr`, `yr`, `period` and
+  `int_period` as well as associated constructors which `incidence` now builds
+  upon.
+* Construction of `incidence` objects now faster due to underlying use of
+  data.table.
+
 # incidence2 0.2.2
 * Fixes bug in get_interval.
 * Removes message that was displayed when incidence class dropped.
