@@ -1,15 +1,8 @@
 
 <!-- badges: start -->
 
-[![Project Status: WIP – Initial development is in progress, but there
-has not yet been a stable, usable release suitable for the
-public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/incidence2)](https://CRAN.R-project.org/package=incidence2)
-[![R build
-status](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/incidence2/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2?branch=master)
 [![R-CMD-check](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/incidence2/actions)
@@ -68,21 +61,22 @@ The main features of the package include:
 
 # Installing the package
 
-You can install the current version of the package from
-[CRAN](https://cran.r-project.org/) with:
-
-``` r
-install.packages("incidence2")
-```
-
-The development version can be installed from
-[GitHub](https://github.com/) with:
+The development version, which this documentation refers to, can be
+installed from [GitHub](https://github.com/) with:
 
 ``` r
 if (!require(remotes)) {
   install.packages("remotes")
 }
 remotes::install_github("reconhub/incidence2", build_vignettes = TRUE)
+```
+
+You can install the current version of the package from the releases
+[page](https://github.com/reconhub/incidence2/releases) or directly from
+[CRAN](https://cran.r-project.org/) with:
+
+``` r
+install.packages("incidence2")
 ```
 
 # Resources
@@ -206,12 +200,12 @@ i_week_sex
 #>  1 2014-W15   f          1
 #>  2 2014-W16   m          1
 #>  3 2014-W17   f          4
-#>  4 2014-W18   f          4
-#>  5 2014-W17   m          1
-#>  6 2014-W19   m          3
-#>  7 2014-W19   f          9
-#>  8 2014-W20   m         10
-#>  9 2014-W20   f          7
+#>  4 2014-W17   m          1
+#>  5 2014-W18   f          4
+#>  6 2014-W19   f          9
+#>  7 2014-W19   m          3
+#>  8 2014-W20   f          7
+#>  9 2014-W20   m         10
 #> 10 2014-W21   f          8
 #> # … with 99 more rows
 summary(i_week_sex)
@@ -257,14 +251,14 @@ i_week_sh
 #>    <yrwk>     <fct>  <fct>                                        <int>
 #>  1 2014-W15   f      Military Hospital                                1
 #>  2 2014-W16   m      Connaught Hospital                               1
-#>  3 2014-W17   f      other                                            2
-#>  4 2014-W17   f      <NA>                                             2
-#>  5 2014-W18   f      Connaught Hospital                               1
-#>  6 2014-W18   f      Princess Christian Maternity Hospital (PCMH)     1
-#>  7 2014-W17   m      other                                            1
-#>  8 2014-W19   m      Rokupa Hospital                                  1
-#>  9 2014-W19   f      Connaught Hospital                               2
-#> 10 2014-W18   f      <NA>                                             1
+#>  3 2014-W17   f      <NA>                                             2
+#>  4 2014-W17   f      other                                            2
+#>  5 2014-W17   m      other                                            1
+#>  6 2014-W18   f      <NA>                                             1
+#>  7 2014-W18   f      Connaught Hospital                               1
+#>  8 2014-W18   f      Princess Christian Maternity Hospital (PCMH)     1
+#>  9 2014-W18   f      Rokupa Hospital                                  1
+#> 10 2014-W19   f      <NA>                                             1
 #> # … with 591 more rows
 summary(i_week_sh)
 #> An incidence2 object: 601 x 4
@@ -285,8 +279,8 @@ summary(i_week_sh)
 #>   <fct>                                        <int>
 #> 1 Military Hospital                              889
 #> 2 Connaught Hospital                            1737
-#> 3 other                                          876
-#> 4 <NA>                                          1456
+#> 3 <NA>                                          1456
+#> 4 other                                          876
 #> 5 Princess Christian Maternity Hospital (PCMH)   420
 #> 6 Rokupa Hospital                                451
 facet_plot(i_week_sh, facets = gender, fill = hospital, n_breaks = 6)

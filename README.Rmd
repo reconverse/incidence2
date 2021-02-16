@@ -16,10 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 <!-- badges: start -->
-[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/incidence2)](https://CRAN.R-project.org/package=incidence2)
-[![R build status](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/incidence2/actions)
 [![Codecov test coverage](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2?branch=master)
 [![R-CMD-check](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/incidence2/actions)
 <!-- badges: end -->
@@ -76,14 +73,8 @@ The main features of the package include:
 
 # Installing the package
 
-You can install the current version of the package from 
-[CRAN](https://cran.r-project.org/) with:
-
-```{r, eval=FALSE}
-install.packages("incidence2")
-```
-
-The development version can be installed from [GitHub](https://github.com/) with:
+The development version, which this documentation refers to, can be installed
+from [GitHub](https://github.com/) with:
 
 ```{r, eval=FALSE}
 if (!require(remotes)) {
@@ -91,6 +82,15 @@ if (!require(remotes)) {
 }
 remotes::install_github("reconhub/incidence2", build_vignettes = TRUE)
 ```
+
+You can install the current version of the package from the releases
+[page](https://github.com/reconhub/incidence2/releases) or directly from
+[CRAN](https://cran.r-project.org/) with:
+
+```{r, eval=FALSE}
+install.packages("incidence2")
+```
+
 
 # Resources
 
