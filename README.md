@@ -19,45 +19,9 @@ and graphing of incidence objects. The “fitting” and “peak estimation”
 functions of [incidence](https://github.com/reconhub/incidence)
 (e.g. `incidence::fit` and `incidence::estimate_peak`) are being
 implemented in an accompanying package called
-[`incidence2plus`](https://github.com/reconhub/incidence2extra). Here
-they will have a more consistent interface, better choice of underlying
-models, and tidier outputs.
-
-# What does it do?
-
-The main features of the package include:
-
-  - **`incidence()`**: compute incidence from both linelist and
-    pre-aggregated datasets; any fixed time interval can be used; the
-    returned object is a tibble subclass called *incidence2*.
-
-  - plotting functions **`plot()`** and **`facet_plot()`**: these
-    functions return customised ggplot2 plots of *incidence2* objects
-    (see **`plot.incidence2()`** for details).
-
-  - Compatible with [dplyr](https://dplyr.tidyverse.org/) for data
-    manipulation. (see `vignette("handling_incidence_objects")` for more
-    details).
-
-  - **`regroup()`**: regroup incidence from different groups into one
-    global incidence time series.
-
-  - **`cumulate()`**: computes cumulative incidence over time from an
-    `incidence()` object.
-
-  - **`print()`** and **`summary()`** functions.
-
-  - Conversion functions:
-    
-      - **`as.data.frame()`**: converts an `incidence()` object into a
-        `data.frame`.
-    
-      - **`as_tibble()`**: converts an `incidence()` object into a
-        `tibble`.
-
-  - Accessor functions: **`get_counts_name()`**, **`get_dates_name()`**,
-    **`get_dates()`**, **`get_group_names()`**, **`get_interval()`**,
-    **`get_timespan()`** and **`get_n()`**.
+[`i2extras`](https://github.com/reconhub/i2extras). Here they will have
+a more consistent interface, better choice of underlying models, and
+tidier outputs.
 
 # Installing the package
 
