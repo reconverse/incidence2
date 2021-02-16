@@ -10,6 +10,7 @@ for (gr in group_1) {
   xc[idx, "count"] <- cumsum(x[idx, "count"])
 }
 attr(xc, "cumulative") <- TRUE
+xc <- xc[order(xc$group_1, xc$date_index),]
 
 test_that("cumulate works", {
   expect_equal(cumulate(x), xc)

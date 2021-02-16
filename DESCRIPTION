@@ -28,23 +28,26 @@ URL: https://github.com/reconhub/incidence2
 BugReports: https://github.com/reconhub/incidence2/issues
 RoxygenNote: 7.1.1
 Imports: 
-    ggplot2,
-    aweek (>= 0.2.0),
-    dplyr (>= 1.0.0),
     tibble,
     ellipsis,
     vctrs,
-    magrittr,
     pillar,
     data.table,
     stats,
-    graphics    
-Suggests: 
+    graphics,
+    rlang (>= 0.1.2),
+    tidyselect,
+Suggests:
     outbreaks,
     knitr,
     rmarkdown,
     covr,
-    testthat
+    testthat,
+    dplyr (>= 1.0.0),
+    scales,
+    roxygen2,
+    ggplot2,
+    magrittr
 VignetteBuilder: 
     knitr
 Roxygen: list(markdown = TRUE)

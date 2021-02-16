@@ -14,7 +14,7 @@
 #'
 #' @return TRUE or FALSE
 #'
-#' @importFrom data.table as.data.table
+#' @import data.table
 #' @noRd
 incidence_can_reconstruct <- function(x, to) {
 
@@ -40,13 +40,6 @@ incidence_can_reconstruct <- function(x, to) {
     return(FALSE)
   }
 
-  ## check date_group is present
-  date_group <- attr(to, "date_group")
-  if (!is.null(date_group)) {
-    if (!(all(date_group %in% x_names))) {
-      return(FALSE)
-    }
-  }
 
   ## ensure no rows are duplicated within x
   if (anyDuplicated(as.data.table(x))) {
@@ -54,40 +47,20 @@ incidence_can_reconstruct <- function(x, to) {
   }
 
   ## check interval is the same or a multiple off the invariant interval
+  ## only need to check numeric ones as grate objects have the compatibility
+  ## checks built in to them so will error if something not possible
   to_interval <- get_interval(to)
 
   if (is.numeric(to_interval)) {
-    x_intervals <- unique(diff(x[[date_var]]))
+    tmp <- x[[date_var]]
+    if (is.numeric(tmp) || is.integer(tmp)) {
+      x_intervals <- unique(diff((x[[date_var]])))
+    } else {
+      x_intervals <- unique(diff(as.Date(x[[date_var]])))
+    }
+
     if (!(all((x_intervals %% to_interval) == 0))) {
       return(FALSE)
-    }
-  } else if (is.character(to_interval)) {
-    if (grepl("week", to_interval, ignore.case = TRUE)) {
-      to_interval <- get_interval(to, integer = TRUE)
-      x_intervals <- unique(diff(x[[date_var]]))
-      if (!all((x_intervals %% to_interval) == 0)) {
-        return(FALSE)
-      }
-    } else if (grepl("month", to_interval, ignore.case = TRUE)) {
-      dates <- x[[date_var]]
-      days <- as.integer(format(dates, "%d"))
-      if (!all(days == 1L)) {
-        return(FALSE)
-      }
-    } else if (grepl("quarter", to_interval, ignore.case = TRUE)) {
-      dates <- x[[date_var]]
-      days <- as.integer(format(dates, "%d"))
-      months <- as.integer(format(dates, "%m"))
-      if (!all(days == 1L) || !all(months %in% c(1L, 4L, 7L, 10L))) {
-        return(FALSE)
-      }
-    } else if (grepl("year", to_interval, ignore.case = TRUE)) {
-      dates <- x[[date_var]]
-      days <- as.integer(format(dates, "%d"))
-      months <- as.integer(format(dates, "%m"))
-      if (!all(days == 1L) || !all(months == 1L)) {
-        return(FALSE)
-      }
     }
   }
   TRUE
@@ -181,12 +154,6 @@ new_bare_tibble <- function(x) {
   if (!is.null(group_vars)) {
     group_index <- which(current_names %in% group_vars)
     attr(x, "groups") <- value[group_index]
-  }
-
-  date_group_var <- attr(x, "date_group")
-  if (!is.null(date_group_var)) {
-    date_group_index <- which(current_names %in% date_group_var)
-    attr(x, "date_group") <- value[date_group_index]
   }
 
   out <- NextMethod()

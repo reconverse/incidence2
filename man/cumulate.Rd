@@ -34,4 +34,5 @@ i
 
 cumulative_i <- cumulate(i)
 cumulative_i
+
 }

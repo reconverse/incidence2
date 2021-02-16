@@ -1,3 +1,4 @@
+set.seed(1)
 int <- sample(-3L:50L, 100, replace = TRUE)
 dates <- as.Date("2018-01-31") + int
 group_1 <- sample(letters[1:3], length(dates), replace = TRUE)
@@ -19,15 +20,6 @@ test_that("regroup works", {
 
   # regroup none-incidence object
   expect_error(regroup("test"), "x should be an 'incidence2' object.")
-})
-
-
-test_that("pool errors with message on use", {
-  expect_error(
-    pool(x),
-    "The pool function has been deprecated.  Please use regroup() instead.",
-    fixed = TRUE
-  )
 })
 
 

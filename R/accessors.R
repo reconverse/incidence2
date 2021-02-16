@@ -20,8 +20,6 @@
 #'     get_dates(i)
 #'     get_dates_name(i)
 #'
-#'     get_date_group_names(i)
-#'
 #'     get_interval(i)
 #'
 #'     get_n(i)
@@ -86,34 +84,6 @@ get_counts_name.default <- function(x, ...) {
 get_counts_name.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   attr(x, "count")
-}
-# -------------------------------------------------------------------------
-
-
-# -------------------------------------------------------------------------
-#' @return
-#'   - `get_date_group_names()`: The names of the date group variables of x.
-#' @rdname accessors
-#' @aliases get_dates_name
-#' @export
-get_date_group_names <- function(x, ...) {
-  UseMethod("get_date_group_names")
-}
-
-#' @rdname accessors
-#' @aliases get_date_group_names.default
-#' @export
-get_date_group_names.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
-}
-
-#' @rdname accessors
-#' @aliases get_dates_name.incidence2
-#' @export
-get_date_group_names.incidence2 <- function(x, ...) {
-  ellipsis::check_dots_empty()
-  attr(x, "date_group")
 }
 # -------------------------------------------------------------------------
 
@@ -199,5 +169,116 @@ get_group_names.default <- function(x, ...) {
 get_group_names.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   attr(x, "groups")
+}
+# -------------------------------------------------------------------------
+
+
+# -------------------------------------------------------------------------
+#' @return
+#'   - `get_timespan()`: an `integer` denoting the timespan in days represented
+#'   by the incidence object.
+#' @rdname accessors
+#' @aliases get_timespan
+#' @export
+get_timespan <- function(x, ...) {
+  UseMethod("get_timespan")
+}
+
+#' @rdname accessors
+#' @aliases get_timespan.default
+#' @export
+get_timespan.default <- function(x, ...) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
+#' @rdname accessors
+#' @aliases get_timespan.incidence2
+#' @export
+get_timespan.incidence2 <- function(x, ...) {
+  ellipsis::check_dots_empty()
+  date_var <- get_dates_name(x)
+  dat <- x[[date_var]]
+  r <- range(dat, na.rm = TRUE)
+  r <- c(r[1], r[2] + 1)
+  if (inherits(r, "yr")) { # needed as years are simply integers
+    r <- as.Date(r)
+  }
+  if (is.integer(dat)) {
+    as.integer(unclass(r[2]) - unclass(r[1]))
+  } else {
+    r <- as.Date(r)
+    as.integer(diff(r))
+  }
+
+}
+# -------------------------------------------------------------------------
+
+
+# -------------------------------------------------------------------------
+#' @return
+#'   - `get_n()` The total number of cases stored in the object
+#' @export
+#' @rdname accessors
+#' @aliases get_n
+get_n <- function(x) {
+  UseMethod("get_n")
+}
+
+#' @export
+#' @rdname accessors
+#' @aliases get_n.default
+get_n.default <- function(x) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
+#' @export
+#' @rdname accessors
+#' @aliases get_n.incidence2
+get_n.incidence2 <- function(x) {
+  count_var <- get_counts_name(x)
+  sum(x[[count_var]])
+}
+# -------------------------------------------------------------------------
+
+
+# -------------------------------------------------------------------------
+#' @return
+#'   - `get_interval()`: if `integer = TRUE`, an integer vector, otherwise the
+#'     character value of the `interval`
+
+#' @rdname accessors
+#' @aliases get_interval
+#' @export
+get_interval <- function(x, ...) {
+  UseMethod("get_interval")
+}
+
+#' @rdname accessors
+#' @aliases get_interval.default
+#' @export
+get_interval.default <- function(x, ...) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
+#' @param integer When `TRUE`, the interval will be converted to an
+#'   integer vector if it is stored as a character in the incidence object.
+#' @rdname accessors
+#' @aliases get_interval.incidence2
+#' @export
+get_interval.incidence2 <- function(x, integer = FALSE, ...) {
+  ellipsis::check_dots_empty()
+
+  interval <- attr(x, "interval")
+
+  if (!integer || is.numeric(interval)) {
+    return(interval)
+  }
+  dat <- get_dates(x)
+  out <- get_interval(dat, days = integer)
+  attributes(out) <- NULL
+  as.integer(out)
 }
 # -------------------------------------------------------------------------

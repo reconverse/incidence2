@@ -17,14 +17,18 @@
 #'                    date_index = date_of_onset,
 #'                    groups = c(gender, hospital))
 #'
-#'     i %>% regroup()
+#'     regroup(i)
 #'
-#'     i %>% regroup(hospital)
+#'     regroup(i, hospital)
 #'   })
 #' }
 #'
+#' @import data.table
 #' @export
 regroup <- function(x, groups = NULL){
+
+  # due to NSE notes in R CMD check
+  ..count_var <- . <- NULL
 
   if (!inherits(x, "incidence2")) {
     stop(sprintf(
@@ -33,22 +37,25 @@ regroup <- function(x, groups = NULL){
   }
 
   # check groups present
-  groups <- eval(substitute(alist(groups)))[[1]]
-  groups <- arg_to_values(groups)
-  column_names <- names(x)
-  check_presence(groups, column_names)
+  groups <- rlang::enquo(groups)
+  idx <- tidyselect::eval_select(groups, x)
+  groups <- names(x)[idx]
+  if (length(groups) == 0) {
+    groups <- NULL
+  } else {
+    column_names <- names(x)
+    check_presence(groups, column_names)
+  }
 
   date_var <- get_dates_name(x)
   count_var <- get_counts_name(x)
   cumulate <- attr(x, "cumulative")
   interval <- get_interval(x)
 
-  if (!is.null(groups)) {
-    tbl <- grouped_df(x, c(date_var, groups))
-  } else {
-    tbl <- grouped_df(x, date_var)
-  }
-  tbl <- summarise(tbl, count = sum(.data[[count_var]]))
+  tbl <- as.data.table(x)
+  tbl <- tbl[,.(count = sum(get(..count_var), na.rm = TRUE)), keyby = c(date_var, groups)]
+  setDF(tbl)
+
 
   # create subclass of tibble
   tbl <- tibble::new_tibble(tbl,
@@ -60,35 +67,12 @@ regroup <- function(x, groups = NULL){
                             nrow = nrow(tbl),
                             class = "incidence2"
   )
-  tbl <- tibble::validate_tibble(tbl)
+  tibble::validate_tibble(tbl)
 
-  if (has_weeks(x)) {
-    week_start <- get_week_start(interval)
-    week_var <- get_date_group_names(x)
-    date_var <- get_dates_name(x)
-    tbl[[week_var]] <- aweek::date2week(tbl[[date_var]], week_start, floor_day = TRUE)
-    tbl <- dplyr::relocate(tbl, .data[[week_var]], .after = .data[[date_var]])
-    attr(tbl, "date_group") <- week_var
-  }
 
-  tbl
 }
-# -------------------------------------------------------------------------
 
 
-# -------------------------------------------------------------------------
-#' Pool 'incidence' objects
-#'
-#' Pool was a function from the original incidence package that has now been
-#'   deprecated in favour of [regroup()]
-#'
-#' @param ... Not used.
-#'
-#' @keywords internal
-#' @export
-pool <- function(...) {
-  stop("The pool function has been deprecated.  Please use regroup() instead.")
-}
-# -------------------------------------------------------------------------
+
 
 

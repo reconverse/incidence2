@@ -9,46 +9,47 @@ incidence(
   date_index,
   groups = NULL,
   interval = 1L,
-  first_date = NULL,
-  last_date = NULL,
   na_as_group = TRUE,
-  standard = TRUE,
-  count = NULL
+  count = NULL,
+  firstdate = NULL
 )
 }
 \arguments{
 \item{x}{A tibble or a data frame (see Note) representing a linelist.}
 
-\item{date_index}{The time index of the given data.  This should be the name,
-with or without quotation, corresponding to a date column in x of the
-class:  integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note
-about \code{numeric} and \code{character} formats)}
+\item{date_index}{The time index of the given data.  This should be a name
+corresponding to a date column in x of class:  integer, numeric, Date,
+POSIXct, POSIXlt, and character. (See Note  about \code{numeric} and \code{character}
+formats).}
 
 \item{groups}{An optional vector giving the names of the groups of
-observations for which incidence should be grouped.  This can be given with
-or without quotation.`}
+observations for which incidence should be grouped.}
 
 \item{interval}{An integer or character indicating the (fixed) size of the
 time interval used for computing the incidence; defaults to 1 day. This can
-also be a text string that corresponds to a valid date interval: day, week,
-month, quarter, or year. (See Note).}
-
-\item{first_date, last_date}{optional first/last dates to be used. When
-these are \code{NULL} (default), the dates from the first/last dates are taken
-from the observations. If these dates are provided, the observations will
-be trimmed to the range of [first_date, last_date].}
+also be a text string that corresponds to a valid date interval, e.g.
+* (x) day(s)
+* (x) weeks(s)
+* (x) epiweeks(s)
+* (x) isoweeks(s)
+* (x) months(s)
+* (x) quarter(s)
+* (x) years(s)
+More details can be found in the "Interval specification" and "Week
+intervals" sections below.}
 
 \item{na_as_group}{A logical value indicating if missing group values (NA)
 should treated as a separate category (\code{TRUE}) or removed from
 consideration (\code{FALSE}).}
 
-\item{standard}{(Only applicable where date_index references a Date object)
-When \code{TRUE} (default) and the \code{interval} one of "week", "month", "quarter",
-or "year", then this will cause the bins for the counts to start at the
-beginning of the interval (See Note).}
-
 \item{count}{The count variable of the given data.  If NULL (default) the
 data is taken to be a linelist of individual observations.}
+
+\item{firstdate}{When the interval is in days, or numeric, and also has a
+numeric prefix greater than 1, then you can optionally specify the date
+that you wish your intervals to begin from.  If NULL (default) then the
+intervals will start at the minimum value contained in the date_index
+column.}
 }
 \value{
 An incidence2 object.  This is a subclass of tibble that represents
@@ -56,66 +57,64 @@ and aggregated count of observations grouped according to the specified
 interval and, optionally, the given groups.  By default it will contain the
 following columns:
 \itemize{
-\item \strong{bin_date}:  The dates marking the left side of the bins used for
-counting events. When \code{standard = TRUE} and the interval represents weeks,
-months, quarters, or years, the first date will represent the first
-standard date (See Interval specification, below).
+\item \strong{date} / \strong{date_index}:  If the default interval of 1 day is used then
+this will be the dates of the given observations and given the name
+"date", otherwise, this will be values obtained from the specified date
+grouping with column name "date_index" (See Interval specification below).
 \item \strong{-groups-}: If specified, column(s) containing the categories of the
 given groups.
 \item \strong{count}: The aggregated observation count.
-}
-
-If a "week" interval is specified then the object may also contain
-additional columns:
-\itemize{
-\item \strong{weeks}: Dates in week format (YYYY-Www), where YYYY corresponds to the
-year of the given week and ww represents the numeric week of the year.
-This will be a produced from the function \code{\link[aweek:date2week]{aweek::date2week()}}. Note that
-these will have a special \code{"week_start"} attribute indicating which day of
-the ISO week the week starts on (see Weeks, below).
 }
 }
 \description{
 Compute the incidence of events
 }
 \note{
-\subsection{Input data (\code{dates})}{
+\subsection{Input data (\code{date_index})}{
 \itemize{
-\item \strong{Decimal (numeric) dates}: will be truncated with a warning
+\item \strong{Decimal (numeric) dates}: will be truncated.
 \item \strong{Character dates} should be in the unambiguous \code{yyyy-mm-dd} (ISO 8601)
 format. Any other format will trigger an error.
 }
 }
 
 \subsection{Interval specification (\code{interval})}{
-If \code{interval} is a valid character (e.g. "week" or "1 month"), then
-the bin will start at the beginning of the interval just before the first
-observation by default. For example, if the first case was recorded on
-Wednesday, 2018-05-09:
+\code{incidence2} includes generators for different grouped date s3 classes.
+Which one the \code{incidence()} function uses depends on the value of
+\code{interval}. This can be specified as either an integer value or a more
+standard specification such as "day", "week", "month", "quarter" or "year".
+The format in this situation is similar to that used by \code{\link[=seq.Date]{seq.Date()}}
+where these values can optionally be preceded by a (positive or negative)
+integer and a space, or followed by "s".  When no prefix is given:
 \itemize{
-\item "week"    : first day of the week (i.e. Monday, 2018-05-07) (defaults to
-ISO weeks, see "Week intervals", below)
-\item "month"   : first day of the month (i.e. 2018-05-01)
-\item "quarter" : first day of the quarter (i.e. 2018-04-01)
-\item "year"    : first day of the calendar year (i.e. 2018-01-01)
+\item "week"    : uses the "yrwk" class (see \code{\link[=as_yrwk]{as_yrwk()}}).
+\item "month"   : uses the "yrmon" class (see \code{\link[=as_yrmon]{as_yrmon()}}).
+\item "quarter" : uses the "yrqtr" class (see \code{\link[=as_yrqtr]{as_yrqtr()}}).
+\item "year"    : uses the "yr" class (see \code{\link[=as_yr]{as_yr()}}).
 }
 
-These default intervals can be overridden with \code{standard = FALSE}, which
-sets the interval to begin at the first observed case.
+When a prefix is provided (e.g. 2 weeks) the output is an object of class
+"period" (see \code{\link[=as_period]{as_period()}}).  Note that for the values "month",
+"quarter" and "year" intervals are always chosen to start at the beginning
+of the calendar equivalent.  If the input is an integer value the input is
+treated as if it was specified in days (i.e. 2 and 2 days) produce the
+same output.
+
+The only interval values that do not produce these grouped classes are 1,
+1L, "day" or "days" (both without prefix) are used.  In this situation the
+returned object is of the standard "Date" class.
 }
 
 \subsection{Week intervals}{
 
-It is possible to construct standardized
-incidence objects standardized to any day of the week thanks to the
-\code{\link[aweek:date2week]{aweek::date2week()}} function from the \pkg{aweek} package. The default
-state is to use ISO 8601 definition of weeks, which start on Monday. You can
-specify the day of the week an incidence object should be standardised to by
-using the pattern "{n} {W} weeks" where "{W}" represents the weekday in an
-English or current locale and "{n}" represents the duration, but this can be
-ommitted.  Below are examples of specifying weeks starting on different days
-assuming we had data that started on 2016-09-05, which is ISO week 36 of
-2016:
+It is possible to construct incidence objects standardized to any day of the
+week. The default state is to use ISO 8601 definition of weeks, which start
+on Monday. You can specify the day of the week an incidence object should
+be standardised to by using the pattern "{n} {W} weeks" where "{W}"
+represents the weekday in an English or current locale and "{n}" represents
+the duration, but this can be ommitted.  Below are examples of specifying
+weeks starting on different days assuming we had data that started on
+2016-09-05, which is ISO week 36 of 2016:
 \itemize{
 \item interval = "2 monday weeks" (Monday 2016-09-05)
 \item interval = "1 tue week" (Tuesday 2016-08-30)
@@ -135,58 +134,5 @@ there are keywords reserved for specific days of the week:
 \item interval = "MMWRweek" (Sunday)
 }
 
-The "EPIweek" specification is not strictly reserved for CDC epiweeks, but
-can be prefixed (or posfixed) by a day of the week: "1 epiweek: Saturday".
-
 }
-
-The intervals for "month", "quarter", and "year" will necessarily vary in the
-number of days they encompass and warnings will be generated when the first
-date falls outside of a calendar date that is easily represented across the
-interval.
-}
-\examples{
-if (requireNamespace("outbreaks", quietly = TRUE)) {
-  withAutoprint({
-    data(ebola_sim_clean, package = "outbreaks")
-    dat <- ebola_sim_clean$linelist
-
-
-    # daily incidence
-    dat \%>\%
-      incidence(date_of_onset)
-
-    # weekly incidence
-    dat \%>\%
-      incidence(date_of_onset, interval = "week", standard = FALSE)
-
-    # starting on a Monday
-    dat \%>\%
-      incidence(date_of_onset, interval = "isoweek")
-
-    # starting on a Sunday
-    dat \%>\%
-      incidence(date_of_onset, interval = "epiweek")
-
-    # starting on a Saturday
-    dat \%>\%
-      incidence(date_of_onset, interval = "saturday epiweek")
-
-    # group by gender
-    dat \%>\%
-      incidence(date_of_onset, interval = 7, groups = gender)
-
-    # group by gender and hospital
-    dat \%>\%
-      incidence(date_of_onset,
-                interval = "2 weeks",
-                groups = c(gender, hospital))
-  })
-}
-
-# use of first_date
-dat <- data.frame(dates = Sys.Date() + sample(-3:10, 10, replace = TRUE))
-dat \%>\% incidence(dates,
-                  interval = "week",
-                  first_date = Sys.Date() + 1)
 }
