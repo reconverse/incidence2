@@ -131,7 +131,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plotting functions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconhub/incidence2/blob/master/R/plot.R'><code>R/plot.R</code></a>, <a href='https://github.com/reconhub/incidence2/blob/master/R/scale_x_incidence.R'><code>R/scale_x_incidence.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/reconhub/incidence2/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
     <div class="hidden name"><code>plot.incidence2.Rd</code></div>
     </div>
 
@@ -150,15 +150,13 @@
   color <span class='op'>=</span> <span class='cn'>NA</span>,
   xlab <span class='op'>=</span> <span class='st'>""</span>,
   ylab <span class='op'>=</span> <span class='cn'>NULL</span>,
-  n_breaks <span class='op'>=</span> <span class='fl'>6</span>,
+  n_breaks <span class='op'>=</span> <span class='fl'>5</span>,
   show_cases <span class='op'>=</span> <span class='cn'>FALSE</span>,
   border <span class='op'>=</span> <span class='st'>"white"</span>,
   na_color <span class='op'>=</span> <span class='st'>"grey"</span>,
-  group_labels <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  centre_ticks <span class='op'>=</span> <span class='cn'>FALSE</span>,
   legend <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"right"</span>, <span class='st'>"left"</span>, <span class='st'>"bottom"</span>, <span class='st'>"top"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
   angle <span class='op'>=</span> <span class='fl'>0</span>,
-  format <span class='op'>=</span> <span class='cn'>NULL</span>,
+  size <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
@@ -180,23 +178,10 @@
   show_cases <span class='op'>=</span> <span class='cn'>FALSE</span>,
   border <span class='op'>=</span> <span class='st'>"white"</span>,
   na_color <span class='op'>=</span> <span class='st'>"grey"</span>,
-  group_labels <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  centre_ticks <span class='op'>=</span> <span class='cn'>FALSE</span>,
   legend <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bottom"</span>, <span class='st'>"top"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
   angle <span class='op'>=</span> <span class='fl'>0</span>,
-  format <span class='op'>=</span> <span class='cn'>NULL</span>,
-  nrow <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='fu'>scale_x_incidence</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  n_breaks <span class='op'>=</span> <span class='fl'>6</span>,
-  group_labels <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  format <span class='op'>=</span> <span class='cn'>NULL</span>,
-  angle <span class='op'>=</span> <span class='fl'>0</span>,
   size <span class='op'>=</span> <span class='cn'>NULL</span>,
-  coord_equal <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  nrow <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -268,34 +253,20 @@ borders of the individual squares plotted (defaults to <code>"white"</code>).</p
       <td><p>The colour to plot <code>NA</code> values in graphs (default: <code>grey</code>).</p></td>
     </tr>
     <tr>
-      <th>group_labels</th>
-      <td><p>group_labels a logical value indicating whether labels x
-axis tick marks are in week format YYYY-Www when plotting weekly incidence;
-defaults to TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>centre_ticks</th>
-      <td><p>Should ticks on the x axis be centred on the bars. This
-only applies to intervals that produce unambiguous labels (i.e <code>1 day</code>,
-<code>1 month</code>, <code>1 quarter</code> or <code>1 year</code>).  Defaults to <code>FALSE</code>.</p></td>
-    </tr>
-    <tr>
       <th>legend</th>
       <td><p>Position of legend in plot.</p></td>
     </tr>
     <tr>
       <th>angle</th>
-      <td><p>Angle to rotate x-axis labels.</p></td>
+      <td><p>Rotation angle for text.</p></td>
     </tr>
     <tr>
-      <th>format</th>
-      <td><p>Character string of desired format.  See <code><a href='https://rdrr.io/r/base/strptime.html'>?strptime</a></code>.</p></td>
+      <th>size</th>
+      <td><p>text size in pts.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>ggplot2::scale_x_date()</a></code>,
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>ggplot2::scale_x_datetime()</a></code>, or <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>ggplot2::scale_x_continuous()</a></code>,
-depending on how the <code>$date</code> element is stored in the incidence object.</p></td>
+      <td><p>other arguments to pass to <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>ggplot2::scale_x_continuous()</a></code>.</p></td>
     </tr>
     <tr>
       <th>facets</th>
@@ -305,14 +276,6 @@ group_labels of the incidence object.</p></td>
     <tr>
       <th>nrow</th>
       <td><p>Number of rows.</p></td>
-    </tr>
-    <tr>
-      <th>size</th>
-      <td><p>text size in pts.</p></td>
-    </tr>
-    <tr>
-      <th>coord_equal</th>
-      <td><p>Should the x and y axis display with equal ratio.</p></td>
     </tr>
     </table>
 
@@ -337,7 +300,7 @@ average will be overlaid on top.</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"ggplot2"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span><span class='op'>(</span><span class='op'>{</span>
     <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ebola_sim_clean</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
     <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ebola_sim_clean</span><span class='op'>$</span><span class='va'>linelist</span>
@@ -367,10 +330,7 @@ average will be overlaid on top.</p></li>
 #&gt; &gt; inci &lt;- incidence(dat, date_index = date_of_onset, interval = 7, groups = hospital)
 #&gt; &gt; inci2 &lt;- incidence(dat, date_index = date_of_onset, interval = 7, groups = c(hospital, 
 #&gt; +     gender))
-#&gt; &gt; plot(inci)</div><div class='img'><img src='plot.incidence2-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inci, fill = hospital)</div><div class='img'><img src='plot.incidence2-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inci, fill = hospital, stack = FALSE)</div><div class='img'><img src='plot.incidence2-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci)</div><div class='output co'>#&gt; &gt; facet_plot(inci2)</div><div class='output co'>#&gt; <span class='message'>plot() can only stack/dodge by one variable.</span>
-#&gt; <span class='message'>For multi-facet plotting try facet_plot()</span></div><div class='img'><img src='plot.incidence2-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci2, facets = gender)</div><div class='output co'>#&gt; <span class='message'>plot() can only stack/dodge by one variable.</span>
-#&gt; <span class='message'>For multi-facet plotting try facet_plot()</span></div><div class='img'><img src='plot.incidence2-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci2, facets = hospital, fill = gender)</div><div class='output co'>#&gt; <span class='message'>plot() can only stack/dodge by one variable.</span>
-#&gt; <span class='message'>For multi-facet plotting try facet_plot()</span></div><div class='img'><img src='plot.incidence2-6.png' alt='' width='700' height='433' /></div><div class='img'><img src='plot.incidence2-7.png' alt='' width='700' height='433' /></div></pre>
+#&gt; &gt; plot(inci)</div><div class='img'><img src='plot.incidence2-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inci, fill = hospital)</div><div class='img'><img src='plot.incidence2-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inci, fill = hospital, stack = FALSE)</div><div class='img'><img src='plot.incidence2-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci)</div><div class='img'><img src='plot.incidence2-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci2)</div><div class='img'><img src='plot.incidence2-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci2, facets = gender)</div><div class='img'><img src='plot.incidence2-6.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; facet_plot(inci2, facets = hospital, fill = gender)</div><div class='img'><img src='plot.incidence2-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

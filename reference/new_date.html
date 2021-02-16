@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute cumulative 'incidence' — cumulate • incidence2</title>
+<title>Date generator — new_date • incidence2</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,9 @@
 
 
 
-<meta property="og:title" content="Compute cumulative 'incidence' — cumulate" />
-<meta property="og:description" content="cumulate is an S3 generic to compute cumulative numbers, with methods
-for different types of objects:
-default method is a wrapper for cumsum
-incidence objects: computes cumulative incidence over time
-
-" />
+<meta property="og:title" content="Date generator — new_date" />
+<meta property="og:description" content="This function allows the quick creation of Date. It is based on the internal
+.Date() function." />
 
 
 
@@ -135,77 +131,39 @@ incidence objects: computes cumulative incidence over time
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute cumulative 'incidence'</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconhub/incidence2/blob/master/R/cumulate.R'><code>R/cumulate.R</code></a></small>
-    <div class="hidden name"><code>cumulate.Rd</code></div>
+    <h1>Date generator</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconhub/incidence2/blob/master/R/grouped_date_helpers.R'><code>R/grouped_date_helpers.R</code></a></small>
+    <div class="hidden name"><code>new_date.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>cumulate</code> is an S3 generic to compute cumulative numbers, with methods
-for different types of objects:</p><ul>
-<li><p>default method is a wrapper for <code>cumsum</code></p></li>
-<li><p><code>incidence</code> objects: computes cumulative incidence over time</p></li>
-</ul>
-
+    <p>This function allows the quick creation of Date. It is based on the internal
+<code><a href='https://rdrr.io/r/base/base-internal.html'>.Date()</a></code> function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='co'># S3 method for incidence2</span>
-<span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>new_date</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An incidence object.</p></td>
+      <td><p>A double vector representing the number of days since the UNIX
+"epoch", 1970-01-01.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a (<a href='https://rdrr.io/r/base/Dates.html'>Date</a>) object.</p><ul>
+<li><p><code>new_posixct</code>: a (<a href='https://rdrr.io/r/base/DateTimeClasses.html'>POSIXct</a>) object.</p></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>,
-  groups <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>dat</span>, date_index <span class='op'>=</span> <span class='va'>dates</span>, groups <span class='op'>=</span> <span class='va'>groups</span><span class='op'>)</span>
-<span class='va'>i</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'>An incidence2 object: 6 x 3
-#&gt; </span><span>[7 cases from days 0 to 7]
-#&gt; [interval: 1]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    date groups count
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     0 1          1
-#&gt; </span><span style='color: #555555;'>2</span><span>     1 2          1
-#&gt; </span><span style='color: #555555;'>3</span><span>     2 3          2
-#&gt; </span><span style='color: #555555;'>4</span><span>     3 3          1
-#&gt; </span><span style='color: #555555;'>5</span><span>     5 3          1
-#&gt; </span><span style='color: #555555;'>6</span><span>     7 1          1
-#&gt; </div><div class='input'>
-<span class='va'>cumulative_i</span> <span class='op'>&lt;-</span> <span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
-<span class='va'>cumulative_i</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'>An incidence2 object: 6 x 3
-#&gt; </span><span>[13 cases from days 0 to 7]
-#&gt; [interval: 1]
-#&gt; [cumulative: TRUE]
-#&gt; 
-#&gt;    date groups count
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     0 1          1
-#&gt; </span><span style='color: #555555;'>2</span><span>     7 1          2
-#&gt; </span><span style='color: #555555;'>3</span><span>     1 2          1
-#&gt; </span><span style='color: #555555;'>4</span><span>     2 3          2
-#&gt; </span><span style='color: #555555;'>5</span><span>     3 3          3
-#&gt; </span><span style='color: #555555;'>6</span><span>     5 3          4
-#&gt; </div><div class='input'>
-</div></span></pre>
+    <pre class="examples"><div class='input'><span class='fu'>new_date</span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "1970-01-01"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

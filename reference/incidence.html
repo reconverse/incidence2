@@ -144,11 +144,9 @@
   <span class='va'>date_index</span>,
   groups <span class='op'>=</span> <span class='cn'>NULL</span>,
   interval <span class='op'>=</span> <span class='fl'>1L</span>,
-  first_date <span class='op'>=</span> <span class='cn'>NULL</span>,
-  last_date <span class='op'>=</span> <span class='cn'>NULL</span>,
   na_as_group <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  standard <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  count <span class='op'>=</span> <span class='cn'>NULL</span>
+  count <span class='op'>=</span> <span class='cn'>NULL</span>,
+  firstdate <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -160,30 +158,30 @@
     </tr>
     <tr>
       <th>date_index</th>
-      <td><p>The time index of the given data.  This should be the name,
-with or without quotation, corresponding to a date column in x of the
-class:  integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note
-about <code>numeric</code> and <code>character</code> formats)</p></td>
+      <td><p>The time index of the given data.  This should be a name
+corresponding to a date column in x of class:  integer, numeric, Date,
+POSIXct, POSIXlt, and character. (See Note  about <code>numeric</code> and <code>character</code>
+formats).</p></td>
     </tr>
     <tr>
       <th>groups</th>
       <td><p>An optional vector giving the names of the groups of
-observations for which incidence should be grouped.  This can be given with
-or without quotation.`</p></td>
+observations for which incidence should be grouped.</p></td>
     </tr>
     <tr>
       <th>interval</th>
       <td><p>An integer or character indicating the (fixed) size of the
 time interval used for computing the incidence; defaults to 1 day. This can
-also be a text string that corresponds to a valid date interval: day, week,
-month, quarter, or year. (See Note).</p></td>
-    </tr>
-    <tr>
-      <th>first_date, last_date</th>
-      <td><p>optional first/last dates to be used. When
-these are <code>NULL</code> (default), the dates from the first/last dates are taken
-from the observations. If these dates are provided, the observations will
-be trimmed to the range of [first_date, last_date].</p></td>
+also be a text string that corresponds to a valid date interval, e.g.
+* (x) day(s)
+* (x) weeks(s)
+* (x) epiweeks(s)
+* (x) isoweeks(s)
+* (x) months(s)
+* (x) quarter(s)
+* (x) years(s)
+More details can be found in the "Interval specification" and "Week
+intervals" sections below.</p></td>
     </tr>
     <tr>
       <th>na_as_group</th>
@@ -192,16 +190,17 @@ should treated as a separate category (<code>TRUE</code>) or removed from
 consideration (<code>FALSE</code>).</p></td>
     </tr>
     <tr>
-      <th>standard</th>
-      <td><p>(Only applicable where date_index references a Date object)
-When <code>TRUE</code> (default) and the <code>interval</code> one of "week", "month", "quarter",
-or "year", then this will cause the bins for the counts to start at the
-beginning of the interval (See Note).</p></td>
-    </tr>
-    <tr>
       <th>count</th>
       <td><p>The count variable of the given data.  If NULL (default) the
 data is taken to be a linelist of individual observations.</p></td>
+    </tr>
+    <tr>
+      <th>firstdate</th>
+      <td><p>When the interval is in days, or numeric, and also has a
+numeric prefix greater than 1, then you can optionally specify the date
+that you wish your intervals to begin from.  If NULL (default) then the
+intervals will start at the minimum value contained in the date_index
+column.</p></td>
     </tr>
     </table>
 
@@ -211,64 +210,62 @@ data is taken to be a linelist of individual observations.</p></td>
 and aggregated count of observations grouped according to the specified
 interval and, optionally, the given groups.  By default it will contain the
 following columns:</p><ul>
-<li><p><strong>bin_date</strong>:  The dates marking the left side of the bins used for
-counting events. When <code>standard = TRUE</code> and the interval represents weeks,
-months, quarters, or years, the first date will represent the first
-standard date (See Interval specification, below).</p></li>
+<li><p><strong>date</strong> / <strong>date_index</strong>:  If the default interval of 1 day is used then
+this will be the dates of the given observations and given the name
+"date", otherwise, this will be values obtained from the specified date
+grouping with column name "date_index" (See Interval specification below).</p></li>
 <li><p><strong>-groups-</strong>: If specified, column(s) containing the categories of the
 given groups.</p></li>
 <li><p><strong>count</strong>: The aggregated observation count.</p></li>
 </ul>
 
-<p>If a "week" interval is specified then the object may also contain
-additional columns:</p><ul>
-<li><p><strong>weeks</strong>: Dates in week format (YYYY-Www), where YYYY corresponds to the
-year of the given week and ww represents the numeric week of the year.
-This will be a produced from the function <code><a href='https://www.repidemicsconsortium.org/aweek/reference/date2week.html'>aweek::date2week()</a></code>. Note that
-these will have a special <code>"week_start"</code> attribute indicating which day of
-the ISO week the week starts on (see Weeks, below).</p></li>
-</ul>
-
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Input data (<code>dates</code>)</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Input data (<code>date_index</code>)</h3>
 
 <ul>
-<li><p><strong>Decimal (numeric) dates</strong>: will be truncated with a warning</p></li>
+<li><p><strong>Decimal (numeric) dates</strong>: will be truncated.</p></li>
 <li><p><strong>Character dates</strong> should be in the unambiguous <code>yyyy-mm-dd</code> (ISO 8601)
 format. Any other format will trigger an error.</p></li>
 </ul>
 
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Interval specification (<code>interval</code>)</h3>
-<p>If <code>interval</code> is a valid character (e.g. "week" or "1 month"), then
-the bin will start at the beginning of the interval just before the first
-observation by default. For example, if the first case was recorded on
-Wednesday, 2018-05-09:</p><ul>
-<li><p>"week"    : first day of the week (i.e. Monday, 2018-05-07) (defaults to
-ISO weeks, see "Week intervals", below)</p></li>
-<li><p>"month"   : first day of the month (i.e. 2018-05-01)</p></li>
-<li><p>"quarter" : first day of the quarter (i.e. 2018-04-01)</p></li>
-<li><p>"year"    : first day of the calendar year (i.e. 2018-01-01)</p></li>
+<p><code>incidence2</code> includes generators for different grouped date s3 classes.
+Which one the <code>incidence()</code> function uses depends on the value of
+<code>interval</code>. This can be specified as either an integer value or a more
+standard specification such as "day", "week", "month", "quarter" or "year".
+The format in this situation is similar to that used by <code><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date()</a></code>
+where these values can optionally be preceded by a (positive or negative)
+integer and a space, or followed by "s".  When no prefix is given:</p><ul>
+<li><p>"week"    : uses the "yrwk" class (see <code><a href='as_yrwk.html'>as_yrwk()</a></code>).</p></li>
+<li><p>"month"   : uses the "yrmon" class (see <code><a href='as_yrmon.html'>as_yrmon()</a></code>).</p></li>
+<li><p>"quarter" : uses the "yrqtr" class (see <code><a href='as_yrqtr.html'>as_yrqtr()</a></code>).</p></li>
+<li><p>"year"    : uses the "yr" class (see <code><a href='as_yr.html'>as_yr()</a></code>).</p></li>
 </ul>
 
-<p>These default intervals can be overridden with <code>standard = FALSE</code>, which
-sets the interval to begin at the first observed case.</p>
+<p>When a prefix is provided (e.g. 2 weeks) the output is an object of class
+"period" (see <code><a href='as_period.html'>as_period()</a></code>).  Note that for the values "month",
+"quarter" and "year" intervals are always chosen to start at the beginning
+of the calendar equivalent.  If the input is an integer value the input is
+treated as if it was specified in days (i.e. 2 and 2 days) produce the
+same output.</p>
+<p>The only interval values that do not produce these grouped classes are 1,
+1L, "day" or "days" (both without prefix) are used.  In this situation the
+returned object is of the standard "Date" class.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Week intervals</h3>
 
 
-<p>It is possible to construct standardized
-incidence objects standardized to any day of the week thanks to the
-<code><a href='https://www.repidemicsconsortium.org/aweek/reference/date2week.html'>aweek::date2week()</a></code> function from the <span class="pkg">aweek</span> package. The default
-state is to use ISO 8601 definition of weeks, which start on Monday. You can
-specify the day of the week an incidence object should be standardised to by
-using the pattern "n W weeks" where "W" represents the weekday in an
-English or current locale and "n" represents the duration, but this can be
-ommitted.  Below are examples of specifying weeks starting on different days
-assuming we had data that started on 2016-09-05, which is ISO week 36 of
-2016:</p><ul>
+<p>It is possible to construct incidence objects standardized to any day of the
+week. The default state is to use ISO 8601 definition of weeks, which start
+on Monday. You can specify the day of the week an incidence object should
+be standardised to by using the pattern "n W weeks" where "W"
+represents the weekday in an English or current locale and "n" represents
+the duration, but this can be ommitted.  Below are examples of specifying
+weeks starting on different days assuming we had data that started on
+2016-09-05, which is ISO week 36 of 2016:</p><ul>
 <li><p>interval = "2 monday weeks" (Monday 2016-09-05)</p></li>
 <li><p>interval = "1 tue week" (Tuesday 2016-08-30)</p></li>
 <li><p>interval = "1 Wed week" (Wednesday 2016-08-31)</p></li>
@@ -286,68 +283,9 @@ there are keywords reserved for specific days of the week:</p><ul>
 <li><p>interval = "MMWRweek" (Sunday)</p></li>
 </ul>
 
-<p>The "EPIweek" specification is not strictly reserved for CDC epiweeks, but
-can be prefixed (or posfixed) by a day of the week: "1 epiweek: Saturday".</p>
-
-<p>The intervals for "month", "quarter", and "year" will necessarily vary in the
-number of days they encompass and warnings will be generated when the first
-date falls outside of a calendar date that is easily represented across the
-interval.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span><span class='op'>(</span><span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ebola_sim_clean</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
-    <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ebola_sim_clean</span><span class='op'>$</span><span class='va'>linelist</span>
 
 
-    <span class='co'># daily incidence</span>
-    <span class='va'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>date_of_onset</span><span class='op'>)</span>
 
-    <span class='co'># weekly incidence</span>
-    <span class='va'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>date_of_onset</span>, interval <span class='op'>=</span> <span class='st'>"week"</span>, standard <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-    <span class='co'># starting on a Monday</span>
-    <span class='va'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>date_of_onset</span>, interval <span class='op'>=</span> <span class='st'>"isoweek"</span><span class='op'>)</span>
-
-    <span class='co'># starting on a Sunday</span>
-    <span class='va'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>date_of_onset</span>, interval <span class='op'>=</span> <span class='st'>"epiweek"</span><span class='op'>)</span>
-
-    <span class='co'># starting on a Saturday</span>
-    <span class='va'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>date_of_onset</span>, interval <span class='op'>=</span> <span class='st'>"saturday epiweek"</span><span class='op'>)</span>
-
-    <span class='co'># group by gender</span>
-    <span class='va'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>date_of_onset</span>, interval <span class='op'>=</span> <span class='fl'>7</span>, groups <span class='op'>=</span> <span class='va'>gender</span><span class='op'>)</span>
-
-    <span class='co'># group by gender and hospital</span>
-    <span class='va'>dat</span> <span class='op'>%&gt;%</span>
-      <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>date_of_onset</span>,
-                interval <span class='op'>=</span> <span class='st'>"2 weeks"</span>,
-                groups <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>gender</span>, <span class='va'>hospital</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='op'>}</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
-#&gt; &gt; dat &lt;- ebola_sim_clean$linelist
-#&gt; &gt; dat %&gt;% incidence(date_of_onset)
-#&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "week", standard = FALSE)
-#&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "isoweek")
-#&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "epiweek")
-#&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "saturday epiweek")
-#&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = 7, groups = gender)
-#&gt; &gt; dat %&gt;% incidence(date_of_onset, interval = "2 weeks", groups = c(gender, 
-#&gt; +     hospital))</div><div class='input'>
-<span class='co'># use of first_date</span>
-<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>10</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dates</span>,
-                  interval <span class='op'>=</span> <span class='st'>"week"</span>,
-                  first_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>1 observations outside of [2021-02-10, 2021-02-18] were removed.</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
