@@ -6,15 +6,10 @@ dates <- seq.Date(from = firstday, to = lastday, by = "day")
 count <- c(rep(1L, 366), rep(2L, 365))
 
 dat_dates <- data.frame(date = dates, count = count)
-
 dat_posixct <- data.frame(date = as.POSIXct(dates), count = count)
-
 dat_posixlt <- data.frame(date = as.POSIXlt(dates), count = count)
-
 dat_char <- data.frame(date = as.character(dates), count = count)
-
 dat_int <- data.frame(date = 1:731, count = count)
-
 dat_numeric <- data.frame(date = as.numeric(1:731), count = count)
 
 
@@ -36,6 +31,8 @@ test_that("single day, no groupings and without count work as expected", {
   expect_true(all(x$count == 1L))
   expect_identical(x$date_index, x2$date_index)
   expect_identical(x$count, x2$count)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -53,6 +50,8 @@ test_that("single day, no groupings and with count work as expected", {
   expect_equal(x$count, count)
   expect_identical(x$date_index, x2$date_index)
   expect_identical(x$count, x2$count)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -72,6 +71,8 @@ test_that("multi-day, no groupings and without count work as expected", {
   expect_equal(x$count, expected_counts)
   expect_identical(as.Date(x$date_index), as.Date(x2$date_index))
   expect_identical(x$count, x2$count)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -91,6 +92,8 @@ test_that("multi-day, no groupings and with count work as expected", {
   expect_equal(x$count, expected_counts)
   expect_identical(as.Date(x$date_index), as.Date(x2$date_index))
   expect_identical(x$count, x2$count)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -113,7 +116,8 @@ test_that("single week, no groupings and without count work as expected", {
   expect_equal(x$count, expected_counts)
   expect_identical(as.Date(x$date_index), as.Date(x2$date_index))
   expect_identical(x$count, x2$count)
-
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -150,11 +154,12 @@ test_that("single week, with groups and without count work as expected", {
   expect_equal(x$count, expected_counts)
   expect_equal(x$height, expected_heights)
   expect_equal(x$size, expected_sizes)
-
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
-test_that("single week, without groups and without count work as expected", {
+test_that("single week, with groups and with count work as expected", {
 
   firstday <- as.Date("2021-02-01") # monday
   lastday <- as.Date("2021-02-28")  # sunday
@@ -186,7 +191,8 @@ test_that("single week, without groups and without count work as expected", {
   expect_equal(x$count, expected_counts)
   expect_equal(x$height, expected_heights)
   expect_equal(x$size, expected_sizes)
-
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 test_that("single week, no groupings and with count work as expected", {
@@ -206,6 +212,8 @@ test_that("single week, no groupings and with count work as expected", {
   expect_equal(x$count, expected_counts)
   expect_identical(as.Date(x$date_index), as.Date(x2$date_index))
   expect_identical(x$count, x2$count)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -226,6 +234,8 @@ test_that("multi-week, no groupings and without count work as expected", {
   expect_equal(x$count, expected_counts)
   expect_identical(as.Date(x$date_index), as.Date(x2$date_index))
   expect_identical(x$count, x2$count)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -246,7 +256,8 @@ test_that("multi-week, no groupings and with count work as expected", {
   expect_equal(x$count, expected_counts)
   expect_identical(as.Date(x$date_index), as.Date(x2$date_index))
   expect_identical(x$count, x2$count)
-
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -264,6 +275,8 @@ test_that("week defaults to a monday", {
   expect_equal(nrow(x), 105L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -285,7 +298,8 @@ test_that("single month, no groupings and without count work as expected", {
   expect_equal(nrow(x), 24L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
-
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -305,7 +319,8 @@ test_that("single month, no groupings and with count work as expected", {
   expect_equal(nrow(x), 24L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
-
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -325,6 +340,8 @@ test_that("multi-month, no groupings and without count work as expected", {
   expect_equal(nrow(x), 12L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -344,6 +361,8 @@ test_that("multi-month, no groupings and with count work as expected", {
   expect_equal(nrow(x), 12L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -364,7 +383,8 @@ test_that("single quarter, no groupings and without count work as expected", {
   expect_equal(nrow(x), 8L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
-
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -384,7 +404,8 @@ test_that("single quarter, no groupings and with count work as expected", {
   expect_equal(nrow(x), 8L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
-
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -404,6 +425,8 @@ test_that("multi-quarter, no groupings and without count work as expected", {
   expect_equal(nrow(x), 4L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -423,6 +446,8 @@ test_that("multi-quarter, no groupings and with count work as expected", {
   expect_equal(nrow(x), 4L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -444,7 +469,8 @@ test_that("single year, no groupings and without count work as expected", {
   expect_equal(nrow(x), 2L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
-
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -464,7 +490,8 @@ test_that("single year, no groupings and with count work as expected", {
   expect_equal(nrow(x), 2L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
-
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -481,6 +508,8 @@ test_that("multi-year, no groupings and without count work as expected", {
   expect_equal(nrow(x), 1L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
@@ -497,27 +526,17 @@ test_that("multi-year, no groupings and with count work as expected", {
   expect_equal(nrow(x), 1L)
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$count, expected_counts)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
 
 
 # POSIXct groupings work as expected -------------------------------------
 test_that("posixct single week, no groupings and with count work as expected", {
 
-  # we use a wednesday week here as that's when the dates start
   x <- incidence(dat_posixct, date_index = date, interval = "wednesday week", count = count)
-  x2 <- incidence(dat_posixct, date_index = date, interval = 7, count = count)
-  expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
-  expected_counts <- c(rep(7L, 52), 12L, rep(14L, 51), 6L)
-
-  # class
-  expect_s3_class(x$date_index, "yrwk")
-
-  # results
-  expect_equal(nrow(x), 105L)
-  expect_equal(as.Date(x$date_index), expected_dates)
-  expect_equal(x$count, expected_counts)
-  expect_identical(as.Date(x$date_index), as.Date(x2$date_index))
-  expect_identical(x$count, x2$count)
+  x2 <- incidence(dat_dates, date_index = date, interval = "wednesday week", count = count)
+  expect_identical(x, x2)
 })
 
 
@@ -525,42 +544,18 @@ test_that("posixct single week, no groupings and with count work as expected", {
 # POSIXlt groupings work as expected -------------------------------------
 test_that("posixlt single week, no groupings and with count work as expected", {
 
-  # we use a wednesday week here as that's when the dates start
   x <- incidence(dat_posixlt, date_index = date, interval = "wednesday week", count = count)
-  x2 <- incidence(dat_posixlt, date_index = date, interval = 7, count = count)
-  expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
-  expected_counts <- c(rep(7L, 52), 12L, rep(14L, 51), 6L)
-
-  # class
-  expect_s3_class(x$date_index, "yrwk")
-
-  # results
-  expect_equal(nrow(x), 105L)
-  expect_equal(as.Date(x$date_index), expected_dates)
-  expect_equal(x$count, expected_counts)
-  expect_identical(as.Date(x$date_index), as.Date(x2$date_index))
-  expect_identical(x$count, x2$count)
+  x2 <- incidence(dat_dates, date_index = date, interval = "wednesday week", count = count)
+  expect_identical(x, x2)
 })
 
 
 # character groupings work as expected ----------------------------------
 test_that("character single week, no groupings and with count work as expected", {
 
-  # we use a wednesday week here as that's when the dates start
   x <- incidence(dat_char, date_index = date, interval = "wednesday week", count = count)
-  x2 <- incidence(dat_char, date_index = date, interval = 7, count = count)
-  expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
-  expected_counts <- c(rep(7L, 52), 12L, rep(14L, 51), 6L)
-
-  # class
-  expect_s3_class(x$date_index, "yrwk")
-
-  # results
-  expect_equal(nrow(x), 105L)
-  expect_equal(as.Date(x$date_index), expected_dates)
-  expect_equal(x$count, expected_counts)
-  expect_identical(as.Date(x$date_index), as.Date(x2$date_index))
-  expect_identical(x$count, x2$count)
+  x2 <- incidence(dat_dates, date_index = date, interval = "wednesday week", count = count)
+  expect_identical(x, x2)
 })
 
 
