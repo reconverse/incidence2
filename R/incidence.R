@@ -295,7 +295,9 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
   x <- x[c(date_col, groups, "count")]
 
   # standardise interval
-  interval <- standardise_interval(interval)
+  if (!is.integer(x[[date_col]])) {
+    interval <- standardise_interval(interval)
+  }
 
   # create subclass of tibble
   tbl <- tibble::new_tibble(

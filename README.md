@@ -108,9 +108,9 @@ We compute the weekly incidence:
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
 i_7
 #> An incidence2 object: 56 x 2
-#> [5829 cases from days [2014-04-07 to [2015-04-27]
-#> [interval: 7]
-#> [cumulative: FALSE]
+#> 5829 cases from days [2014-04-07 to [2015-04-27
+#> interval: 7 days
+#> cumulative: FALSE
 #> 
 #>    date_index  count
 #>    <period>    <int>
@@ -128,7 +128,7 @@ i_7
 summary(i_7)
 #> An incidence2 object: 56 x 2
 #> 5829 cases from [2014-04-07 to [2015-04-27
-#> interval: 7
+#> interval: 7 days
 #> cumulative: FALSE
 #> timespan: 392 days
 plot(i_7)
@@ -155,9 +155,9 @@ i_week_sex <- incidence(dat, interval = "week", date_index = date_of_onset,
                         groups = gender)
 i_week_sex
 #> An incidence2 object: 109 x 3
-#> [5829 cases from days 2014-W15 to 2015-W18]
-#> [interval: 1 week]
-#> [cumulative: FALSE]
+#> 5829 cases from days 2014-W15 to 2015-W18
+#> interval: 1 monday week
+#> cumulative: FALSE
 #> 
 #>    date_index gender count
 #>    <yrwk>     <fct>  <int>
@@ -175,7 +175,7 @@ i_week_sex
 summary(i_week_sex)
 #> An incidence2 object: 109 x 3
 #> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 week
+#> interval: 1 monday week
 #> cumulative: FALSE
 #> timespan: 392 days
 #> 
@@ -207,9 +207,9 @@ i_week_sh <- incidence(dat, date_index = date_of_onset, interval = "week",
                        groups = c(gender, hospital))
 i_week_sh
 #> An incidence2 object: 601 x 4
-#> [5829 cases from days 2014-W15 to 2015-W18]
-#> [interval: 1 week]
-#> [cumulative: FALSE]
+#> 5829 cases from days 2014-W15 to 2015-W18
+#> interval: 1 monday week
+#> cumulative: FALSE
 #> 
 #>    date_index gender hospital                                     count
 #>    <yrwk>     <fct>  <fct>                                        <int>
@@ -227,7 +227,7 @@ i_week_sh
 summary(i_week_sh)
 #> An incidence2 object: 601 x 4
 #> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 week
+#> interval: 1 monday week
 #> cumulative: FALSE
 #> timespan: 392 days
 #> 

@@ -328,37 +328,21 @@ ylabel <- function(x, ylab) {
   if (is.null(ylab)) {
 
     interval <- get_interval(x)
+    type <- get_interval_type(interval)
+    n <- get_interval_number(interval)
     date_vars <- get_dates_name(x)
 
-    if (is.numeric(interval)) {
-      if (interval == 1) {
-        ylab <- "daily incidence"
-      } else {
-        if (is_int_period(get_dates(x))) {
-          ylab <- sprintf("incidence by period of %d", interval)
-        } else {
-          ylab <- sprintf("incidence by period of %d days", interval)
-        }
-
-      }
+    if (is_int_period(get_dates(x))) {
+      ylab <- sprintf("incidence by period of %d", interval)
     } else if (is.character(interval)) {
-      # capturing the number and type
-      p     <- "(\\d*)\\s?([a-z]+?)s?$"
-      num   <- gsub(p, "\\1", tolower(interval))
-      itype <- gsub(p, "\\2", tolower(interval))
-
-      if (itype == "yrwk") {
-        ylab <- "Year-week incidence"
-      } else if (itype == "yrmon") {
-        ylab <- "Year-month incidence"
-      } else if (itype == "yrqtr") {
-        ylab <- "Year-quarter incidence"
-      } else if (itype == "yr") {
-        ylab <- "Yearly incidence"
-      } else if (num == "" || num == "1") {
-        ylab <- sprintf("%sly incidence", itype)
+      if (interval == "1 day") {
+        ylab <- "daily incidence"
+      } else if (type == "day") {
+        ylab <- sprintf("incidence by period of %s", interval)
+      } else if (n == 1) {
+        ylab <- sprintf("%sly incidence", type)
       } else {
-        ylab <- sprintf("incidence by a period of %s %ss", num, itype)
+        ylab <- sprintf("incidence by a period of %d %ss", n, type)
       }
     }
 
