@@ -28,3 +28,4 @@ bug_reports/*
 ^pkgdown$
 ^codemeta\.json$
 ^LICENSE\.md$
+^misc$
