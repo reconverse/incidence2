@@ -25,3 +25,8 @@ test_that("day plotting works", {
   expect_snapshot_plot("day", plot(x))
 })
 
+test_that("multi-day plotting works", {
+  x <- incidence(dat, date_index = date, interval = 17, count = count)
+  expect_snapshot_plot("multiday", plot(x))
+})
+

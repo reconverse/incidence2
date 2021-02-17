@@ -2,7 +2,7 @@
 
     An incidence2 object: 731 x 2
     731 cases from days 2020-01-01 to 2021-12-31
-    interval: 1
+    interval: 1 day
     cumulative: FALSE
     
        date_index count
@@ -24,7 +24,7 @@
 
     An incidence2 object: 731 x 2
     731 cases from 2020-01-01 to 2021-12-31
-    interval: 1
+    interval: 1 day
     cumulative: FALSE
     timespan: 731 days
     
@@ -34,7 +34,7 @@
 
     An incidence2 object: 731 x 2
     1096 cases from days 2020-01-01 to 2021-12-31
-    interval: 1
+    interval: 1 day
     cumulative: FALSE
     
        date_index count
@@ -56,7 +56,7 @@
 
     An incidence2 object: 731 x 2
     1096 cases from 2020-01-01 to 2021-12-31
-    interval: 1
+    interval: 1 day
     cumulative: FALSE
     timespan: 731 days
     
@@ -66,7 +66,7 @@
 
     An incidence2 object: 43 x 2
     731 cases from days [2020-01-01 to [2021-12-15
-    interval: 17
+    interval: 17 days
     cumulative: FALSE
     
        date_index  count
@@ -88,7 +88,7 @@
 
     An incidence2 object: 43 x 2
     731 cases from [2020-01-01 to [2021-12-15
-    interval: 17
+    interval: 17 days
     cumulative: FALSE
     timespan: 731 days
     
@@ -98,7 +98,7 @@
 
     An incidence2 object: 43 x 2
     1096 cases from days [2020-01-01 to [2021-12-15
-    interval: 17
+    interval: 17 days
     cumulative: FALSE
     
        date_index  count
@@ -120,7 +120,7 @@
 
     An incidence2 object: 43 x 2
     1096 cases from [2020-01-01 to [2021-12-15
-    interval: 17
+    interval: 17 days
     cumulative: FALSE
     timespan: 731 days
     
@@ -162,7 +162,7 @@
 
     An incidence2 object: 8 x 4
     56 cases from days 2021-W05 to 2021-W08
-    interval: 1 week
+    interval: 1 monday week
     cumulative: FALSE
     
       date_index height size  count
@@ -181,7 +181,7 @@
 
     An incidence2 object: 8 x 4
     56 cases from 2021-W05 to 2021-W08
-    interval: 1 week
+    interval: 1 monday week
     cumulative: FALSE
     timespan: 28 days
     
@@ -205,7 +205,7 @@
 
     An incidence2 object: 8 x 4
     84 cases from days 2021-W05 to 2021-W08
-    interval: 1 week
+    interval: 1 monday week
     cumulative: FALSE
     
       date_index height size  count
@@ -224,7 +224,7 @@
 
     An incidence2 object: 8 x 4
     84 cases from 2021-W05 to 2021-W08
-    interval: 1 week
+    interval: 1 monday week
     cumulative: FALSE
     timespan: 28 days
     
@@ -344,7 +344,7 @@
 
     An incidence2 object: 105 x 2
     731 cases from days 2020-W01 to 2021-W52
-    interval: 1 week
+    interval: 1 monday week
     cumulative: FALSE
     
        date_index count
@@ -366,7 +366,7 @@
 
     An incidence2 object: 105 x 2
     731 cases from 2020-W01 to 2021-W52
-    interval: 1 week
+    interval: 1 monday week
     cumulative: FALSE
     timespan: 735 days
     
@@ -440,7 +440,7 @@
 
     An incidence2 object: 12 x 2
     731 cases from days [2020-01-01 to [2021-11-01
-    interval: 2 month
+    interval: 2 months
     cumulative: FALSE
     
        date_index  count
@@ -463,7 +463,7 @@
 
     An incidence2 object: 12 x 2
     731 cases from [2020-01-01 to [2021-11-01
-    interval: 2 month
+    interval: 2 months
     cumulative: FALSE
     timespan: 731 days
     
@@ -473,7 +473,7 @@
 
     An incidence2 object: 12 x 2
     1096 cases from days [2020-01-01 to [2021-11-01
-    interval: 2 month
+    interval: 2 months
     cumulative: FALSE
     
        date_index  count
@@ -496,7 +496,7 @@
 
     An incidence2 object: 12 x 2
     1096 cases from [2020-01-01 to [2021-11-01
-    interval: 2 month
+    interval: 2 months
     cumulative: FALSE
     timespan: 731 days
     
@@ -564,7 +564,7 @@
 
     An incidence2 object: 4 x 2
     731 cases from days [2020-01-01 to [2021-07-01
-    interval: 2 quarter
+    interval: 2 quarters
     cumulative: FALSE
     
       date_index  count
@@ -579,7 +579,7 @@
 
     An incidence2 object: 4 x 2
     731 cases from [2020-01-01 to [2021-07-01
-    interval: 2 quarter
+    interval: 2 quarters
     cumulative: FALSE
     timespan: 731 days
     
@@ -589,7 +589,7 @@
 
     An incidence2 object: 4 x 2
     1096 cases from days [2020-01-01 to [2021-07-01
-    interval: 2 quarter
+    interval: 2 quarters
     cumulative: FALSE
     
       date_index  count
@@ -604,7 +604,7 @@
 
     An incidence2 object: 4 x 2
     1096 cases from [2020-01-01 to [2021-07-01
-    interval: 2 quarter
+    interval: 2 quarters
     cumulative: FALSE
     timespan: 731 days
     
@@ -660,7 +660,7 @@
 
     An incidence2 object: 1 x 2
     731 cases from days [2020-01-01 to [2020-01-01
-    interval: 2 year
+    interval: 2 years
     cumulative: FALSE
     
       date_index  count
@@ -672,7 +672,7 @@
 
     An incidence2 object: 1 x 2
     731 cases from [2020-01-01 to [2020-01-01
-    interval: 2 year
+    interval: 2 years
     cumulative: FALSE
     timespan: 731 days
     
@@ -682,7 +682,7 @@
 
     An incidence2 object: 1 x 2
     1096 cases from days [2020-01-01 to [2020-01-01
-    interval: 2 year
+    interval: 2 years
     cumulative: FALSE
     
       date_index  count
@@ -694,7 +694,7 @@
 
     An incidence2 object: 1 x 2
     1096 cases from [2020-01-01 to [2020-01-01
-    interval: 2 year
+    interval: 2 years
     cumulative: FALSE
     timespan: 731 days
     

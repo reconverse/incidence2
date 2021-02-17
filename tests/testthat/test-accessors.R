@@ -42,7 +42,7 @@ test_that("get_n works", {
 
 test_that("get_interval works", {
   expect_equal(get_interval(x2, integer = TRUE), 14L)
-  expect_equal(get_interval(x2), "2 weeks")
+  expect_equal(get_interval(x2), "2 monday weeks")
   expect_error(get_interval("test"), "Not implemented for class character")
 
   month_dates <- as.Date("2019-01-1") + 0:30
