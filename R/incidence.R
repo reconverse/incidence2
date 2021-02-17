@@ -282,11 +282,7 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
   setDF(x)
 
   # set name for date column
-  if (interval == 1 || interval == 1L || interval == "1 day" || interval == "1 days") {
-    date_col <- "date"
-  } else {
-    date_col <- "date_index"
-  }
+  date_col <- "date_index"
 
   # give date column correct name
   colnames(x)[1] <- date_col

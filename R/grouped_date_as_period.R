@@ -74,7 +74,7 @@ as_period.Date <- function(x, interval = 1L, firstdate = NULL, ...) {
   }
 
   # No need to change anything if the interval is 1
-  if (interval == 1L || interval == 1 || interval == "1 day" || interval == "1 days") {
+  if (interval == 1L || (get_interval_type(interval) == "day" && get_interval_number(interval) == 1L)) {
     x <- x[x >= firstdate]
     return(x)
   }
@@ -106,7 +106,8 @@ as_period.Date <- function(x, interval = 1L, firstdate = NULL, ...) {
       type <- get_interval_type(interval)
       period <- break_dates(x, interval, firstdate)
       if (type == "week") {
-        fd <- get_week_start(interval)
+        fd <- as_utc_posixlt_from_int(as.Date(firstdate))$wday
+        fd <- 1L + (fd - 1) %% 7L
         period <- break_dates(x, interval, as.Date(firstdate))
         period <- as.Date(as_yrwk(period, firstday = fd))
       } else if (type == "month") {
