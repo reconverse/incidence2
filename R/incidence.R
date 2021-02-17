@@ -256,7 +256,6 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
     message(sprintf("%d observations were removed.", n_orig - n_new))
   }
 
-
   # Group the dates
   x[[date_index]] <- make_grate(
     x[[date_index]],
@@ -295,8 +294,8 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
   # reorder (dates, groups, counts)
   x <- x[c(date_col, groups, "count")]
 
-  # strip out mentions of special week
-  interval <- sub("mmwr|epi|iso", "", interval, ignore.case = TRUE)
+  # standardise interval
+  interval <- standardise_interval(interval)
 
   # create subclass of tibble
   tbl <- tibble::new_tibble(
@@ -314,4 +313,27 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
 
 }
 
+standardise_interval <- function(interval) {
+
+  cond1 <- interval == 1L
+  cond2 <- get_interval_type(interval) == "day"
+  cond3 <- as.character(get_interval_number(interval)) == "1"
+
+  if (cond1 || (cond2 && cond3)) {
+    interval = "1 day"
+  } else if (is.integer(interval) || is.numeric(interval)) {
+    interval <- sprintf("%d days", interval)
+  } else if (is.character(interval)) {
+    type <- get_interval_type(interval)
+    n <- get_interval_number(interval)
+    if (type == "week") {
+      wd <- get_week_start(interval, numeric = FALSE)
+      interval <- sprintf("%d %s %s", n, wd, type)
+    } else {
+      interval <- sprintf("%d %s", n, type)
+    }
+    if (n > 1) interval <- paste0(interval, "s")
+  }
+  interval
+}
 

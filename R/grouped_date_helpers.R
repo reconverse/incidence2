@@ -224,7 +224,7 @@ days_before_year <- function(year = integer()) {
 #' get_week_start("epiweek: Saturday")
 #'
 #' @noRd
-get_week_start <- function(weekday) {
+get_week_start <- function(weekday, numeric = TRUE) {
   wkdy <- gsub("weeks?", "", tolower(weekday))
   wkdy <- gsub("[[:punct:][:blank:][:digit:]]*", "", wkdy)
   wkdy <- if (wkdy == "") "monday" else wkdy # the input was "weeks"
@@ -235,7 +235,7 @@ get_week_start <- function(weekday) {
     "iso"  = "monday", # ISOweek == WHO epiweek
     wkdy # all others
   )
-  weekday_from_char(res)
+  weekday_from_char(res, numeric)
 }
 
 # ---------------------------------------------------------------------------- #
@@ -288,19 +288,19 @@ get_week_start <- function(weekday) {
 #'
 #' # Reset locale
 #' Sys.setlocale("LC_TIME", lct)
-weekday_from_char <- function(x) {
+weekday_from_char <- function(x, numeric = TRUE) {
 
   # First try with an English locale
   w <- c("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
-  weekdate <- grep(x, w, ignore.case = TRUE)
+  weekday <- grep(x, w, ignore.case = TRUE, value = !numeric)
 
-  if (length(weekdate) == 0) {
+  if (length(weekday) == 0) {
     # find the definitions of the weekdays in the current locale
-    w <- weekdays(as.Date(as_yrwk(as.Date("2020-01-01"), firstday = 1L)))
-    weekdate <- grep(x, w, ignore.case = TRUE)
+    w <- weekdays(as.Date(as_yrwk(as.Date("2020-01-01"), firstday = 1L)) + 0:6)
+    weekday <- grep(x, w, ignore.case = TRUE, value = !numeric)
   }
 
-  if (length(weekdate) != 1) {
+  if (length(weekday) != 1) {
     msg <- paste(
       "The weekday '%s' did not unambiguously match (via grep) any of the",
       "valid weekdays in the current locale ('%s') or an English locale:\n  %s"
@@ -311,6 +311,9 @@ weekday_from_char <- function(x) {
     )
   }
 
-  return(as.integer(weekdate))
-
+  if (numeric) {
+    return(as.integer(weekday))
+  } else {
+    return(weekday)
+  }
 }
