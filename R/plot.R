@@ -338,7 +338,11 @@ ylabel <- function(x, ylab) {
       if (interval == "1 day") {
         ylab <- "daily incidence"
       } else if (type == "day") {
-        ylab <- sprintf("incidence by period of %s", interval)
+        if (n == 7) {
+          ylab <- "weekly incidence"
+        } else {
+          ylab <- sprintf("incidence by period of %s", interval)
+        }
       } else if (n == 1) {
         ylab <- sprintf("%sly incidence", type)
       } else {
