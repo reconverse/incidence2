@@ -3,21 +3,19 @@
 firstday <- as.Date("2020-01-01") # Wednesday
 lastday <- as.Date("2021-12-31")  # Friday
 dates <- seq.Date(from = firstday, to = lastday, by = "day")
-ht <- c(rep("short", 366), rep("tall", 365))
-sz <- c(rep("small", 31), rep("big", 700))
-cnt <- c(rep(1L, 366), rep(2L, 365))
+count <- c(rep(1L, 366), rep(2L, 365))
 
-dat_dates <- data.frame(date = dates, height = ht, size = sz, count = cnt)
+dat_dates <- data.frame(date = dates, count = count)
 
-dat_posixct <- data.frame(date = as.POSIXct(dates), height = ht, size = sz, count = cnt)
+dat_posixct <- data.frame(date = as.POSIXct(dates), count = count)
 
-dat_posixlt <- data.frame(date = as.POSIXlt(dates), height = ht, size = sz, count = cnt)
+dat_posixlt <- data.frame(date = as.POSIXlt(dates), count = count)
 
-dat_char <- data.frame(date = as.character(dates), height = ht, size = sz, count = cnt)
+dat_char <- data.frame(date = as.character(dates), count = count)
 
-dat_int <- data.frame(date = 1:731, height = ht, size = sz, count = cnt)
+dat_int <- data.frame(date = 1:731, count = count)
 
-dat_numeric <- data.frame(date = as.numeric(1:731), height = ht, size = sz, count = cnt)
+dat_numeric <- data.frame(date = as.numeric(1:731), count = count)
 
 
 
@@ -46,14 +44,13 @@ test_that("single day, no groupings and with count work as expected", {
   x <- incidence(dat_dates, date_index = date, count = count)
   x2 <- incidence(dat_dates, date_index = date, count = count, interval = "day")
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "Date")
 
   # results
   expect_equal(nrow(x), 731L)
   expect_true(all(x$date_index == dates))
-  expect_equal(x$count, cnt)
+  expect_equal(x$count, count)
   expect_identical(x$date_index, x2$date_index)
   expect_identical(x$count, x2$count)
 })
@@ -66,10 +63,8 @@ test_that("multi-day, no groupings and without count work as expected", {
   expected_dates <- seq.Date(from = firstday, to = lastday, by = "17 days")
   expected_counts <- rep(17L, 43)
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "period")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 43L)
@@ -87,10 +82,8 @@ test_that("multi-day, no groupings and with count work as expected", {
   expected_dates <- seq.Date(from = firstday, to = lastday, by = "17 days")
   expected_counts <- c(rep(17L, 21), 25L, rep(34L, 21))
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "period")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 43L)
@@ -111,10 +104,8 @@ test_that("single week, no groupings and without count work as expected", {
   expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
   expected_counts <- c(rep(7L, 104), 3L)
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yrwk")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 105L)
@@ -126,6 +117,78 @@ test_that("single week, no groupings and without count work as expected", {
 })
 
 
+# week groupings work as expected -----------------------------------------
+test_that("single week, with groups and without count work as expected", {
+
+  firstday <- as.Date("2021-02-01") # monday
+  lastday <- as.Date("2021-02-28")  # sunday
+  dates <- seq.Date(from = firstday, to = lastday, by = "day")
+  count <- c(rep(1L, 14), rep(2L, 14))
+  height <- c(rep("short", 14), rep("tall", 14))
+  size <- c(rep("small", 7), rep("large", 21))
+  dat <- data.frame(
+    dates = rep(dates, 2),
+    height = c(height, rev(height)),
+    size = rep(size, 2),
+    count = rep(count, 2)
+  )
+
+  x <- incidence(dat, date_index = dates, groups = c(height, size), interval = "week")
+
+  expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
+  expected_dates <- rep(expected_dates, each = 2)
+  expected_counts <- rep(7L, 8)
+  expected_heights <- rep(c("short", "tall"), 4)
+  expected_sizes <- c(rep("small", 2), rep("large", 6))
+
+  # class
+  expect_s3_class(x$date_index, "yrwk")
+
+  # results
+  expect_equal(nrow(x), 8L)
+  expect_equal(as.Date(x$date_index), expected_dates)
+  expect_equal(x$count, expected_counts)
+  expect_equal(x$height, expected_heights)
+  expect_equal(x$size, expected_sizes)
+
+})
+
+
+test_that("single week, without groups and without count work as expected", {
+
+  firstday <- as.Date("2021-02-01") # monday
+  lastday <- as.Date("2021-02-28")  # sunday
+  dates <- seq.Date(from = firstday, to = lastday, by = "day")
+  count <- c(rep(1L, 14), rep(2L, 14))
+  height <- c(rep("short", 14), rep("tall", 14))
+  size <- c(rep("small", 7), rep("large", 21))
+  dat <- data.frame(
+    dates = rep(dates, 2),
+    height = c(height, rev(height)),
+    size = rep(size, 2),
+    count = rep(count, 2)
+  )
+
+  x <- incidence(dat, date_index = dates, groups = c(height, size), interval = "week", count = count)
+
+  expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
+  expected_dates <- rep(expected_dates, each = 2)
+  expected_counts <- c(rep(7L, 4), rep(14L, 4))
+  expected_heights <- rep(c("short", "tall"), 4)
+  expected_sizes <- c(rep("small", 2), rep("large", 6))
+
+  # class
+  expect_s3_class(x$date_index, "yrwk")
+
+  # results
+  expect_equal(nrow(x), 8L)
+  expect_equal(as.Date(x$date_index), expected_dates)
+  expect_equal(x$count, expected_counts)
+  expect_equal(x$height, expected_heights)
+  expect_equal(x$size, expected_sizes)
+
+})
+
 test_that("single week, no groupings and with count work as expected", {
 
   # we use a wednesday week here as that's when the dates start
@@ -134,10 +197,8 @@ test_that("single week, no groupings and with count work as expected", {
   expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
   expected_counts <- c(rep(7L, 52), 12L, rep(14L, 51), 6L)
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yrwk")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 105L)
@@ -156,10 +217,8 @@ test_that("multi-week, no groupings and without count work as expected", {
   expected_dates <- seq.Date(from = firstday, to = lastday, by = "14 days")
   expected_counts <- c(rep(14L, 52), 3L)
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "period")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 53L)
@@ -178,10 +237,8 @@ test_that("multi-week, no groupings and with count work as expected", {
   expected_dates <- seq.Date(from = firstday, to = lastday, by = "14 days")
   expected_counts <- c(rep(14L, 26), 26L, rep(28L, 25), 6L)
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "period")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 53L)
@@ -200,10 +257,8 @@ test_that("week defaults to a monday", {
   expected_dates <- seq.Date(from = firstday - 2, to = lastday, by = "7 days")
   expected_counts <- c(5L, rep(7L, 103), 5L)
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yrwk")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 105L)
@@ -223,10 +278,8 @@ test_that("single month, no groupings and without count work as expected", {
     31L, 28L, 31L, 30L, 31L, 30L, 31L, 31L, 30L, 31L, 30L, 31L
   )
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yrmon")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 24L)
@@ -245,10 +298,8 @@ test_that("single month, no groupings and with count work as expected", {
     62L, 56L, 62L, 60L, 62L, 60L, 62L, 62L, 60L, 62L, 60L, 62L
   )
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yrmon")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 24L)
@@ -267,10 +318,8 @@ test_that("multi-month, no groupings and without count work as expected", {
     59L, 61L, 61L, 62L, 61L, 61L
   )
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "period")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 12L)
@@ -288,10 +337,8 @@ test_that("multi-month, no groupings and with count work as expected", {
     118L, 122L, 122L, 124L, 122L, 122L
   )
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "period")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 12L)
@@ -310,10 +357,8 @@ test_that("single quarter, no groupings and without count work as expected", {
     90L, 91L, 92L, 92L
   )
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yrqtr")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 8L)
@@ -332,10 +377,8 @@ test_that("single quarter, no groupings and with count work as expected", {
     180L, 182L, 184L, 184L
   )
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yrqtr")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 8L)
@@ -354,10 +397,8 @@ test_that("multi-quarter, no groupings and without count work as expected", {
     181L, 184L
   )
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "period")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 4L)
@@ -375,10 +416,8 @@ test_that("multi-quarter, no groupings and with count work as expected", {
     362L, 368L
   )
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "period")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 4L)
@@ -398,10 +437,8 @@ test_that("single year, no groupings and without count work as expected", {
     365L
   )
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yr")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 2L)
@@ -420,10 +457,8 @@ test_that("single year, no groupings and with count work as expected", {
     730L
   )
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yr")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 2L)
@@ -439,10 +474,8 @@ test_that("multi-year, no groupings and without count work as expected", {
   expected_dates <- seq.Date(from = firstday, to = lastday, by = "2 years")
   expected_counts <- 731L
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "period")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 1L)
@@ -457,10 +490,8 @@ test_that("multi-year, no groupings and with count work as expected", {
   expected_dates <- seq.Date(from = firstday, to = lastday, by = "2 years", count = count)
   expected_counts <- 1096L
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "period")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 1L)
@@ -478,10 +509,8 @@ test_that("posixct single week, no groupings and with count work as expected", {
   expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
   expected_counts <- c(rep(7L, 52), 12L, rep(14L, 51), 6L)
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yrwk")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 105L)
@@ -502,10 +531,8 @@ test_that("posixlt single week, no groupings and with count work as expected", {
   expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
   expected_counts <- c(rep(7L, 52), 12L, rep(14L, 51), 6L)
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yrwk")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 105L)
@@ -525,10 +552,8 @@ test_that("character single week, no groupings and with count work as expected",
   expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
   expected_counts <- c(rep(7L, 52), 12L, rep(14L, 51), 6L)
 
-  # classes
-  expect_s3_class(x, "incidence2")
+  # class
   expect_s3_class(x$date_index, "yrwk")
-  expect_type(x$count, "integer")
 
   # results
   expect_equal(nrow(x), 105L)
