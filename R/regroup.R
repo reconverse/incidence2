@@ -48,12 +48,12 @@ regroup <- function(x, groups = NULL){
   }
 
   date_var <- get_dates_name(x)
-  count_var <- get_counts_name(x)
+  count_var <- get_count_names(x)
   cumulate <- attr(x, "cumulative")
   interval <- get_interval(x)
 
   tbl <- as.data.table(x)
-  tbl <- tbl[,.(count = sum(get(..count_var), na.rm = TRUE)), keyby = c(date_var, groups)]
+  tbl <- tbl[, lapply(.SD, sum, na.rm = TRUE), keyby = c(date_var, groups), .SDcols = count_var]
   setDF(tbl)
 
 
@@ -61,7 +61,7 @@ regroup <- function(x, groups = NULL){
   tbl <- tibble::new_tibble(tbl,
                             groups = groups,
                             date = date_var,
-                            count = count_var,
+                            counts = count_var,
                             interval = interval,
                             cumulative = cumulate,
                             nrow = nrow(tbl),

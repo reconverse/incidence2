@@ -67,7 +67,7 @@ The following websites are available:
 
 Bug reports and feature requests should be posted on *github* using the
 [*issue* system](https://github.com/reconhub/incidence2/issues). All
-other questions should be posted on the **RECON** slack channel see
+other questions should be posted on the **RECON** slack channel; see
 <https://www.repidemicsconsortium.org/forum/> for details on how to
 join.
 

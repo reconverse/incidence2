@@ -13,7 +13,7 @@
 #'                    groups = c(gender, hospital))
 #'
 #'     get_counts(i)
-#'     get_counts_name(i)
+#'     get_count_names(i)
 #'
 #'     get_group_names(i)
 #'
@@ -62,26 +62,26 @@ get_counts.incidence2 <- function(x, ...) {
 
 # -------------------------------------------------------------------------
 #' @return
-#'   - `get_counts_name()`: The name of the count variable of x.
-#' @aliases get_counts_name
+#'   - `get_count_names()`: The name of the count variable of x.
+#' @aliases get_count_names
 #' @export
 #' @rdname accessors
-get_counts_name <- function(x, ...) {
-  UseMethod("get_counts_name")
+get_count_names <- function(x, ...) {
+  UseMethod("get_count_names")
 }
 
 #' @rdname accessors
-#' @aliases get_counts_name.default
+#' @aliases get_count_names.default
 #' @export
-get_counts_name.default <- function(x, ...) {
+get_count_names.default <- function(x, ...) {
   stop(sprintf("Not implemented for class %s",
                paste(class(x), collapse = ", ")))
 }
 
 #' @rdname accessors
-#' @aliases get_counts_name.incidence2
+#' @aliases get_count_names.incidence2
 #' @export
-get_counts_name.incidence2 <- function(x, ...) {
+get_count_names.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   attr(x, "count")
 }
@@ -237,8 +237,8 @@ get_n.default <- function(x) {
 #' @rdname accessors
 #' @aliases get_n.incidence2
 get_n.incidence2 <- function(x) {
-  count_var <- get_counts_name(x)
-  sum(x[[count_var]])
+  count_var <- get_count_names(x)
+  colSums(x[count_var])
 }
 # -------------------------------------------------------------------------
 

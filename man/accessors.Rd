@@ -5,9 +5,9 @@
 \alias{get_counts}
 \alias{get_counts.default}
 \alias{get_counts.incidence2}
-\alias{get_counts_name}
-\alias{get_counts_name.default}
-\alias{get_counts_name.incidence2}
+\alias{get_count_names}
+\alias{get_count_names.default}
+\alias{get_count_names.incidence2}
 \alias{get_dates}
 \alias{get_dates_name}
 \alias{get_dates.default}
@@ -34,11 +34,11 @@ get_counts(x, ...)
 
 \method{get_counts}{incidence2}(x, ...)
 
-get_counts_name(x, ...)
+get_count_names(x, ...)
 
-\method{get_counts_name}{default}(x, ...)
+\method{get_count_names}{default}(x, ...)
 
-\method{get_counts_name}{incidence2}(x, ...)
+\method{get_count_names}{incidence2}(x, ...)
 
 get_dates(x, ...)
 
@@ -90,7 +90,7 @@ integer vector if it is stored as a character in the incidence object.}
 }
 
 \itemize{
-\item \code{get_counts_name()}: The name of the count variable of x.
+\item \code{get_count_names()}: The name of the count variable of x.
 }
 
 \itemize{
@@ -133,7 +133,7 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
                    groups = c(gender, hospital))
 
     get_counts(i)
-    get_counts_name(i)
+    get_count_names(i)
 
     get_group_names(i)
 

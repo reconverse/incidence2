@@ -48,12 +48,14 @@ cumulate.incidence2 <- function(x) {
   }
 
   groups <- get_group_names(x)
-  count_var <- get_counts_name(x)
+  count_var <- get_count_names(x)
 
   out <- as.data.table(x)
   if (!is.null(groups)) {
-    out[, (count_var) := cumsum(get(..count_var)), keyby = groups]
-  } else out[, (count_var) := cumsum(get(..count_var))]
+    out[, (count_var) := lapply(.SD, cumsum), keyby = groups, .SDcols = count_var]
+  } else {
+    out[, (count_var) := lapply(.SD, cumsum), .SDcols = count_var]
+  }
   setDF(out)
 
   nms <- names(out)

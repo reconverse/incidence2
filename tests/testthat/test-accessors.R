@@ -28,14 +28,14 @@ test_that("get_counts works", {
   expect_error(get_counts("test"), "Not implemented for class character")
 })
 
-test_that("get_counts_name works", {
-  expect_equal(get_counts_name(x2), "count")
-  expect_error(get_counts_name("test"), "Not implemented for class character")
+test_that("get_count_names works", {
+  expect_equal(get_count_names(x2), "count")
+  expect_error(get_count_names("test"), "Not implemented for class character")
 })
 
 
 test_that("get_n works", {
-  expect_equal(get_n(x2), 100L)
+  expect_equal(get_n(x2), c(count=100L))
   expect_error(get_n("test"), "Not implemented for class character")
 })
 

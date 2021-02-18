@@ -8,6 +8,7 @@
 \usage{
 \method{plot}{incidence2}(
   x,
+  count = NULL,
   fill = NULL,
   stack = TRUE,
   title = NULL,
@@ -30,6 +31,7 @@ facet_plot(x, ...)
 
 \method{facet_plot}{incidence2}(
   x,
+  count = NULL,
   facets = NULL,
   stack = TRUE,
   fill = NULL,
@@ -52,6 +54,9 @@ facet_plot(x, ...)
 }
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
+
+\item{count}{Which count variable to have on the y-axis. If NULL (default)
+the first entry returned from \code{get_count_names(x)} is used.}
 
 \item{fill}{Which variable to color plots by. If NULL no distinction if made
 for plot colors.}

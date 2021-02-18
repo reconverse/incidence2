@@ -10,7 +10,7 @@ incidence(
   groups = NULL,
   interval = 1L,
   na_as_group = TRUE,
-  count = NULL,
+  counts = NULL,
   firstdate = NULL
 )
 }
@@ -42,7 +42,7 @@ intervals" sections below.}
 should treated as a separate category (\code{TRUE}) or removed from
 consideration (\code{FALSE}).}
 
-\item{count}{The count variable of the given data.  If NULL (default) the
+\item{counts}{The count variables of the given data.  If NULL (default) the
 data is taken to be a linelist of individual observations.}
 
 \item{firstdate}{When the interval is in days, or numeric, and also has a
@@ -63,7 +63,7 @@ this will be the dates of the given observations and given the name
 grouping with column name "date_index" (See Interval specification below).
 \item \strong{-groups-}: If specified, column(s) containing the categories of the
 given groups.
-\item \strong{count}: The aggregated observation count.
+\item \strong{count} (or name of count variables): The aggregated observation counts.
 }
 }
 \description{

@@ -22,7 +22,7 @@
 #' @param na_as_group A logical value indicating if missing group values (NA)
 #'   should treated as a separate category (`TRUE`) or removed from
 #'   consideration (`FALSE`).
-#' @param count The count variable of the given data.  If NULL (default) the
+#' @param counts The count variables of the given data.  If NULL (default) the
 #'   data is taken to be a linelist of individual observations.
 #' @param firstdate When the interval is in days, or numeric, and also has a
 #'   numeric prefix greater than 1, then you can optionally specify the date
@@ -43,7 +43,7 @@
 #'   - **-groups-**: If specified, column(s) containing the categories of the
 #'   given groups.
 #'
-#'   - **count**: The aggregated observation count.
+#'   - **count** (or name of count variables): The aggregated observation counts.
 #'
 #' @note
 #'
@@ -111,7 +111,7 @@
 #'
 #' @export
 incidence <- function(x, date_index, groups = NULL, interval = 1L,
-                      na_as_group = TRUE, count = NULL, firstdate = NULL) {
+                      na_as_group = TRUE, counts = NULL, firstdate = NULL) {
 
   # Convert groups, date and count variables
   groups <- rlang::enquo(groups)
@@ -123,10 +123,10 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   idx <- tidyselect::eval_select(date_index, x)
   date_index <- names(x)[idx]
 
-  count <- rlang::enquo(count)
-  idx <- tidyselect::eval_select(count, x)
-  count <- names(x)[idx]
-  if (length(count) == 0) count <- NULL
+  counts <- rlang::enquo(counts)
+  idx <- tidyselect::eval_select(counts, x)
+  counts <- names(x)[idx]
+  if (length(counts) == 0) counts <- NULL
 
   # Basic checks
   stopifnot(
@@ -135,17 +135,9 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
     "The argument `na_as_group` must be either `TRUE` or `FALSE`." =
       (is.logical(na_as_group))
   )
-  if (!is.null(count)) {
-    if (length(count) != 1) {
-      stop(
-        "The argument `count` should be either NULL or of length one.",
-        call. = FALSE
-      )
-    }
-  }
 
   # check that variables are present in x
-  check_presence(c(groups, date_index, count), column_names = names(x))
+  check_presence(c(groups, date_index, counts), column_names = names(x))
 
   incidence_(
     x = x,
@@ -153,7 +145,7 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
     groups = groups,
     interval = interval,
     na_as_group = na_as_group,
-    count = count,
+    counts = counts,
     firstdate = firstdate
   )
 
@@ -175,7 +167,7 @@ incidence_.default <- function(x, date_index, ...) {
   )
 }
 
-incidence_.Date <- function(x, date_index, groups, interval, na_as_group, count,
+incidence_.Date <- function(x, date_index, groups, interval, na_as_group, counts,
                             firstdate = firstdate, ...) {
   make_incidence(
     x = x,
@@ -183,7 +175,7 @@ incidence_.Date <- function(x, date_index, groups, interval, na_as_group, count,
     groups = groups,
     interval = interval,
     na_as_group = na_as_group,
-    count = count,
+    counts = counts,
     firstdate = firstdate
   )
 }
@@ -192,7 +184,7 @@ incidence_.POSIXt <- incidence_.Date
 
 incidence_.integer <- incidence_.Date
 
-incidence_.numeric <- function(x, date_index, groups, interval, na_as_group, count,
+incidence_.numeric <- function(x, date_index, groups, interval, na_as_group, counts,
                                firstdate = firstdate, ...) {
 
   # Attempt to cast to integer and give useful error message if not possible
@@ -205,7 +197,7 @@ incidence_.numeric <- function(x, date_index, groups, interval, na_as_group, cou
   }
   x[[date_index]] <- tmp
 
-  incidence_.integer(x, date_index, groups, interval, na_as_group, count,
+  incidence_.integer(x, date_index, groups, interval, na_as_group, counts,
                      firstdate = firstdate, ...)
 }
 
@@ -224,7 +216,7 @@ incidence_.character <- incidence_.Date
 #'   for which incidence should be computed separately.
 #' @param na_as_group A logical value indicating if missing group (NA) should be
 #'   treated as a separate group.
-#' @param count The count variable of the given data.  If NULL (default) the
+#' @param counts The count variables of the given data.  If NULL (default) the
 #'   data is taken to be a linelist of individual observations.
 #' @param firstdate When the interval is in days, or numeric, and also has a
 #'   numeric prefix greater than 1, then you can optionally specify the date
@@ -237,11 +229,11 @@ incidence_.character <- incidence_.Date
 #' @import data.table
 #' @importFrom stats complete.cases na.omit
 #' @noRd
-make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
+make_incidence <- function(x, date_index, groups, interval, na_as_group, counts,
                            firstdate) {
 
   # due to NSE notes in R CMD check
-  ..count_var <- . <- ..count <- NULL
+  . <- ..counts <- NULL
 
   # ensure we have a firstdate value
   if (is.null(firstdate)) {
@@ -273,10 +265,11 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
 
   # generate grouped_dates
   setDT(x)
-  if (is.null(count)) {
+  if (is.null(counts)) {
     x <- x[,.(count = .N), keyby = c(date_index, groups)]
   } else {
-    x <- x[,.(count = sum(get(..count), na.rm = TRUE)), keyby = c(date_index, groups)]
+    #x <- x[,.(count = sum(get(..count), na.rm = TRUE)), keyby = c(date_index, groups)]
+    x <- x[, lapply(.SD, sum, na.rm = TRUE), keyby = c(date_index, groups), .SDcols = counts]
   }
   setDF(x)
 
@@ -292,7 +285,10 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
   }
 
   # reorder (dates, groups, counts)
-  x <- x[c(date_col, groups, "count")]
+  if (is.null(counts)) {
+    counts <- "count"
+  }
+  x <- x[c(date_col, groups, counts)]
 
   # standardise interval
   if (!is.integer(x[[date_col]])) {
@@ -304,7 +300,7 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, count,
     x,
     groups = groups,
     date = date_col,
-    count = "count",
+    counts = counts,
     interval = interval,
     cumulative = FALSE,
     nrow = nrow(x),

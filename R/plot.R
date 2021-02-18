@@ -18,6 +18,8 @@
 #' incidence2 includes two plotting functions to simplify graph creation.
 #'
 #' @param x An [incidence()] object.
+#' @param count Which count variable to have on the y-axis. If NULL (default)
+#'   the first entry returned from `get_count_names(x)` is used.
 #' @param fill Which variable to color plots by. If NULL no distinction if made
 #'   for plot colors.
 #' @param facets Which variable to facet plots by.  If NULL will use all
@@ -90,13 +92,13 @@
 
 #' @importFrom rlang sym syms .data
 #' @export
-plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
-                           col_pal = vibrant, alpha = 0.7, color = NA,
-                           xlab = "", ylab = NULL, n_breaks = 5,
-                           show_cases = FALSE, border = "white",
-                           na_color = "grey",
-                           legend = c("right", "left", "bottom", "top", "none"),
-                           angle = 0, size = NULL, ...) {
+plot.incidence2 <- function(x, count = NULL, fill = NULL, stack = TRUE,
+                            title = NULL, col_pal = vibrant, alpha = 0.7,
+                            color = NA, xlab = "", ylab = NULL, n_breaks = 5,
+                            show_cases = FALSE, border = "white",
+                            na_color = "grey",
+                            legend = c("right", "left", "bottom", "top", "none"),
+                            angle = 0, size = NULL, ...) {
 
   check_suggests("ggplot2")
 
@@ -111,6 +113,22 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
     message(msg)
   }
 
+  if (is.null(count)) {
+    count <- get_count_names(x)[1]
+  } else if (length(count) > 1) {
+    stop(
+      "plot() can only work with one count variable at a time.\n",
+      call. = FALSE
+    )
+  } else if (!(count %in% get_count_names(x))) {
+    stop(
+      "Value given for 'count' is not a variable in x.\n",
+      "       Permitted values can be obtained with get_count_names(x).",
+      call. = FALSE
+    )
+  }
+
+
   # Convert fill to character
   tmp <- rlang::enquo(fill)
   idx <- try(tidyselect::eval_select(tmp, x), silent = TRUE)
@@ -119,11 +137,11 @@ plot.incidence2 <- function(x, fill = NULL, stack = TRUE, title = NULL,
     if (length(fill) == 0) fill <- NULL
   }
 
-  out <- plot_basic(x = x, fill = fill, stack = stack, col_pal = col_pal,
-                    alpha = alpha, color = color, xlab = xlab, ylab = ylab,
-                    show_cases = show_cases, border = border,
-                    na_color = na_color, legend = match.arg(legend),
-                    title = title)
+  out <- plot_basic(x = x, count = count, fill = fill, stack = stack,
+                    col_pal = col_pal, alpha = alpha, color = color,
+                    xlab = xlab, ylab = ylab, show_cases = show_cases,
+                    border = border, na_color = na_color,
+                    legend = match.arg(legend), title = title)
 
   out <- out + rotate_and_scale(angle = angle, size = size)
 
@@ -159,17 +177,32 @@ facet_plot <- function(x, ...) {
 #' @rdname plot.incidence2
 #' @aliases facet_plot.incidence2
 #' @export
-facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, title = NULL,
-                       col_pal = vibrant, alpha = 0.7, color = NA,
-                       xlab = "", ylab = NULL, n_breaks = 3,
-                       show_cases = FALSE, border = "white",
-                       na_color = "grey",
-                       legend = c("bottom", "top", "left", "right", "none"),
-                       angle = 0, size = NULL, nrow = NULL, ...) {
+facet_plot.incidence2 <- function(x, count = NULL, facets = NULL, stack = TRUE,
+                            fill = NULL, title = NULL, col_pal = vibrant,
+                            alpha = 0.7, color = NA, xlab = "",
+                            ylab = NULL, n_breaks = 3, show_cases = FALSE,
+                            border = "white", na_color = "grey",
+                            legend = c("bottom", "top", "left", "right", "none"),
+                            angle = 0, size = NULL, nrow = NULL, ...) {
 
   check_suggests("ggplot2")
 
   ellipsis::check_dots_used()
+
+  if (is.null(count)) {
+    count <- get_count_names(x)[1]
+  } else if (length(count) > 1) {
+    stop(
+      "plot() can only work with one count variable at a time.\n",
+      call. = FALSE
+    )
+  } else if (!(count %in% get_count_names(x))) {
+    stop(
+      "Value given for 'count' is not a variable in x.\n",
+      "       Permitted values can be obtained with get_count_names(x).",
+      call. = FALSE
+    )
+  }
 
   # convert inputs to character
   facets <- rlang::enquo(facets)
@@ -186,9 +219,9 @@ facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, t
 
   group_vars <- get_group_names(x)
 
-  out <- plot_basic(x = x, fill = fill, stack = stack, col_pal = col_pal,
-                    alpha = alpha, color = color, xlab = xlab, ylab = ylab,
-                    show_cases = show_cases, border = border,
+  out <- plot_basic(x = x, count = count, fill = fill, stack = stack,
+                    col_pal = col_pal,alpha = alpha, color = color, xlab = xlab,
+                    ylab = ylab, show_cases = show_cases, border = border,
                     na_color = na_color, legend = match.arg(legend),
                     title = title)
 
@@ -228,7 +261,7 @@ facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, t
   out
 }
 
-plot_basic <- function(x, fill = NULL, stack = TRUE,
+plot_basic <- function(x, count, fill = NULL, stack = TRUE,
                        col_pal = vibrant, alpha = 0.7, color = NA,
                        xlab = "", ylab = NULL,
                        show_cases = FALSE, border = "white",
@@ -239,7 +272,8 @@ plot_basic <- function(x, fill = NULL, stack = TRUE,
 
   # get relevant variables
   date_var <- get_dates_name(x)
-  count_var <- get_counts_name(x)
+  #count_var <- get_count_names(x)
+  count_var <- count
   group_vars <- get_group_names(x)
   interval <- get_interval(x)
   legend <- match.arg(legend)

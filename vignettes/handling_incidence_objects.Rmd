@@ -111,9 +111,8 @@ inci %>% select(everything())
 We provide multiple accessors to easily access information about an `incidence()`
 objects structure:
 
-* `get_counts_name()`, `get_dates_name()`, `get_date_group_names()` and 
-  `get_group_names()` all return character vectors of the column names corresponding
-  to the requested variables.
+* `get_count_names()`, `get_dates_name()`, and `get_group_names()` all return
+  character vectors of the column names corresponding to the requested variables.
 
 * `get_n()` returns the number of observations.
 

@@ -7,7 +7,7 @@
 print.incidence2 <- function(x, ...) {
 
   # get the date and count variables
-  count_var <- get_counts_name(x)
+  count_var <- get_count_names(x)
   date_var <- get_dates_name(x)
 
   # header
@@ -17,10 +17,21 @@ print.incidence2 <- function(x, ...) {
   cat(pillar::style_subtle(header))
 
   # cases over date range
-  cat(sprintf(
-    "%d cases from days %s to %s\n",
-    sum(x[[count_var]]), min(x[[date_var]]), max(x[[date_var]])
-  ))
+  for (i in count_var) {
+    if(i == "count") {
+      msg <- sprintf(
+        "%d cases from days %s to %s\n",
+        sum(x[[i]]), min(x[[date_var]]), max(x[[date_var]])
+      )
+    } else {
+      msg <- sprintf(
+        "%d %s from days %s to %s\n",
+        sum(x[[i]]), i, min(x[[date_var]]), max(x[[date_var]])
+      )
+    }
+    cat(msg)
+  }
+
 
   # interval
   interval <- get_interval(x)

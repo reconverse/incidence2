@@ -29,8 +29,8 @@ incidence_can_reconstruct <- function(x, to) {
   }
 
   ## check count is present
-  count <- attr(to, "count")
-  if (!(count %in% x_names)) {
+  counts <- attr(to, "counts")
+  if (!any(counts %in% x_names)) {
     return(FALSE)
   }
 
@@ -104,6 +104,12 @@ df_reconstruct <- function(x, to) {
 
   # Otherwise copy over attributes of `to`
   attributes(x) <- attrs
+
+  # fix names in case a count removed
+  x_names <- names(x)
+  counts <- attr(x, "counts")
+  attr(x, "counts") <- counts[counts %in% x_names]
+
   x
 }
 # -------------------------------------------------------------------------
@@ -146,9 +152,9 @@ new_bare_tibble <- function(x) {
   date_index <- which(current_names %in% date_var)
   attr(x, "date") <- value[date_index]
 
-  count_var <- attr(x, "count")
+  count_var <- attr(x, "counts")
   count_index <- which(current_names %in% count_var)
-  attr(x, "count") <- value[count_index]
+  attr(x, "counts") <- value[count_index]
 
   group_vars <- attr(x, "groups")
   if (!is.null(group_vars)) {

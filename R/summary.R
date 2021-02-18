@@ -12,7 +12,7 @@ summary.incidence2 <- function(object, ...) {
   ..count_var <- . <- NULL
 
   # get the date and count variables
-  count_var <- get_counts_name(object)
+  count_var <- get_count_names(object)
   date_var <- get_dates_name(object)
 
   # header
@@ -22,10 +22,21 @@ summary.incidence2 <- function(object, ...) {
   cat(pillar::style_subtle(header))
 
   # cases over date range
-  cat(sprintf(
-    "%d cases from %s to %s\n",
-    sum(object[[count_var]]), min(object[[date_var]]), max(object[[date_var]])
-  ))
+  for (i in count_var) {
+    if(i == "count") {
+      msg <- sprintf(
+        "%d cases from %s to %s\n",
+        sum(object[[i]]), min(object[[date_var]]), max(object[[date_var]])
+      )
+    } else {
+      msg <- sprintf(
+        "%d %s from %s to %s\n",
+        sum(object[[i]]), i, min(object[[date_var]]), max(object[[date_var]])
+      )
+    }
+    cat(msg)
+  }
+
 
   # interval
   interval <- get_interval(object)
@@ -55,7 +66,7 @@ summary.incidence2 <- function(object, ...) {
 
     for (gr in groups) {
       tmp <- as.data.table(object)
-      tmp <- tmp[, .(count = sum(get(..count_var))), by = c(gr)]
+      tmp <- tmp[, lapply(.SD, sum, na.rm = TRUE), by = c(gr), .SDcols = count_var]
       tmp <- tibble::as_tibble(tmp)
       tmp <- format(tmp)
       cat(tmp[-1], sep = "\n")
