@@ -10,6 +10,7 @@ save_png <- function(code, width = 400, height = 400) {
 expect_snapshot_plot <- function(name, code) {
   skip_if_not_installed("ggplot2", "2.0.0")
   skip_on_os(c("windows", "mac"))
+  skip_on_ci()
   path <- save_png(code)
   expect_snapshot_file(path, paste0(name, ".png"))
 }
