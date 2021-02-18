@@ -74,6 +74,10 @@ The main features of the package include:
 - Accessor functions: **`get_counts_name()`**, **`get_dates_name()`**,
   **`get_dates()`**, **`get_group_names()`**, **`get_interval()`**, 
   **`get_timespan()`** and  **`get_n()`**.
+  
+- Grouped date classes: **yrwk** (`as_yrwk()`), **yrmon** (`as_yrmon()`),
+  **yrqtr** (`as_yrqtr()`), **yr** (`as_yr()`), **period** (`as_period()`)
+  and **int_period** (`as_int_period()`).
 
 
 # Worked example: simulated Ebola outbreak
