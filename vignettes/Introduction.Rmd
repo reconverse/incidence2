@@ -108,21 +108,47 @@ plot(i)
 ```
 
 The daily incidence is quite noisy, but we can easily compute other incidence
-using larger time intervals:
+using other time intervals
 
-```{r interv}
+```{r i_7}
+
+# 7 day incidence
+i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
+plot(i_7)
+```
+Notice how specifying the interval as 7 creates weekly intervals with the
+coverage displayed by date. We use the convention that a grouped date is
+displayed as [yyyy-mm-dd, with the left bracket indicative of it being binned
+left-inclusive. The right side of the bin is not diplayed for brevity but an
+incidence object will always print it’s interval at the top of it’s output.
+
+Below we illustrate how `incidence()` also allows us to create year-weekly
+groupings with the default being weeks starting on a Monday (following the ISO
+8601 date and time standard).
+
+```{r iweekly}
 
 # year-weekly, starting on Monday (ISO week, default)
 i_weekly <- incidence(dat, date_index = date_of_onset, interval = "week")
 plot(i_weekly)
 
+```
+
+`incidence()` will also work with larger intervals
+
+```{r ilarger}
 # bi-weekly, based on first day in data
 i_biweekly <- incidence(dat, date_index = date_of_onset, interval = "2 weeks")
 plot(i_biweekly)
-
-## year-monthly
+# year-monthly
 i_monthly <- incidence(dat, date_index = date_of_onset, interval = "month")
 plot(i_monthly)
+# year-quarterly
+i_quarterly <- incidence(dat, date_index = date_of_onset, interval = "quarter")
+plot(i_quarterly)
+# year-quarterly
+i_year <- incidence(dat, date_index = date_of_onset, interval = "year")
+plot(i_year)
 ```
 
 ## Grouping
