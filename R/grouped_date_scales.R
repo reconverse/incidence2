@@ -356,6 +356,109 @@ period_trans_week <- function(n = 5, firstday, scale) {
 }
 
 
+period_trans_week <- function(n = 5, firstday, scale) {
+
+  # transform function
+  trans <- function(x) (as.numeric(x) + 4 - firstday) %/% 7
+
+  # inverse function
+  inv <- function(x) x * 7 + firstday - 4
+
+  # breaks function
+  brks <- function(x) scales::pretty_breaks(n)(new_date(x)) - scale * 7 / 2
+
+  # format function
+  fmt <- function(x) format(round(new_date(x + scale * 7 / 2)))
+
+  scales::trans_new(
+    "period",
+    transform = trans,
+    inverse = inv,
+    breaks = brks,
+    format = fmt
+  )
+}
+
+
+period_trans_month <- function(n = 5, interval, firstdate) {
+
+  # transform function
+  trans <- new_date
+
+  # inverse function
+  inv <- as.numeric
+
+  # breaks function
+  brks <- function(x) {
+    dat <- scales::pretty_breaks(n)(new_date(x))
+    m <- min(dat, na.rm = TRUE)
+    while (m < unclass(firstdate)) {
+      firstdate <- as_period(new_date(firstdate), interval, new_date(firstdate)) - 1
+    }
+    tmp <- as_period(new_date(dat), interval = interval, firstdate = new_date(firstdate))
+    as.Date(tmp) - get_interval_days(tmp - 1, interval) / 2
+  }
+
+  # format function
+  fmt <- function(x) {
+    tmp <- new_date(x + get_interval_days(x, interval) / 2 + 1) # +1 slightly hacky
+    format(new_date(as_yrmon(tmp)))
+  }
+
+  # set environment variables to NULL so they don't mess other plots up
+  scale_env$firstdate <- NULL
+  scale_env$interval <- NULL
+
+  scales::trans_new(
+    "period",
+    transform = trans,
+    inverse = inv,
+    breaks = brks,
+    format = fmt
+  )
+}
+
+
+period_trans_quarter <- function(n = 5, interval, firstdate) {
+
+  # transform function
+  trans <- new_date
+
+  # inverse function
+  inv <- as.numeric
+
+  # breaks function
+  brks <- function(x) {
+    dat <- scales::pretty_breaks(n)(new_date(x))
+    m <- min(dat, na.rm = TRUE)
+    while (m < unclass(firstdate)) {
+      firstdate <- as_period(new_date(firstdate), interval, new_date(firstdate)) - 1
+    }
+    tmp <- as_period(new_date(dat), interval = interval, firstdate = new_date(firstdate))
+    as.Date(tmp) - get_interval_days(tmp - 1, interval) / 2
+  }
+
+  # format function
+  fmt <- function(x) {
+    tmp <- new_date(x + get_interval_days(x, interval) / 2 + 1) # +1 slightly hacky
+    format(new_date(as_yrqtr(tmp)))
+  }
+
+  # set environment variables to NULL so they don't mess other plots up
+  scale_env$firstdate <- NULL
+  scale_env$interval <- NULL
+
+  scales::trans_new(
+    "period",
+    transform = trans,
+    inverse = inv,
+    breaks = brks,
+    format = fmt
+  )
+}
+
+
+
 period_trans_general <- function(n = 5, interval, firstdate) {
 
   # transform function
@@ -378,6 +481,7 @@ period_trans_general <- function(n = 5, interval, firstdate) {
   # format function
   fmt <- function(x) {
     format(new_date(x + get_interval_days(x, interval) / 2))
+
   }
 
   # set environment variables to NULL so they don't mess other plots up
@@ -444,13 +548,13 @@ scale_x_period <- function(..., n = 5, interval, firstdate) {
       month = {
         ggplot2::scale_x_continuous(
           ...,
-          trans = period_trans_general(n, interval, firstdate)
+          trans = period_trans_month(n, interval, firstdate)
         )
       },
       quarter = {
         ggplot2::scale_x_continuous(
           ...,
-          trans = period_trans_general(n, interval, firstdate)
+          trans = period_trans_quarter(n, interval, firstdate)
         )
       }
     )

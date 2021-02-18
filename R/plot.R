@@ -216,12 +216,12 @@ facet_plot.incidence2 <- function(x, facets = NULL, stack = TRUE, fill = NULL, t
   if (is.null(facets) && !is.null(group_vars)) {
     out <-
       out +
-      ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), nrow, ...) +
+      ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), nrow) +
       ggplot2::theme(panel.spacing.x = ggplot2::unit(8, "mm"))
   } else if (!is.null(facets)) {
     out <-
       out +
-      ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), nrow, ...) +
+      ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), nrow) +
       ggplot2::theme(panel.spacing.x = ggplot2::unit(8, "mm"))
   }
 
