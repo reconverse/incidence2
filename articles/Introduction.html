@@ -133,6 +133,7 @@
 </ul>
 </li>
 <li><p>Accessor functions: <strong><code><a href="../reference/accessors.html">get_counts_name()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_dates_name()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_dates()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_group_names()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_interval()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_timespan()</a></code></strong> and <strong><code><a href="../reference/accessors.html">get_n()</a></code></strong>.</p></li>
+<li><p>Grouped date classes: <strong>yrwk</strong> (<code><a href="../reference/as_yrwk.html">as_yrwk()</a></code>), <strong>yrmon</strong> (<code><a href="../reference/as_yrmon.html">as_yrmon()</a></code>), <strong>yrqtr</strong> (<code><a href="../reference/as_yrqtr.html">as_yrqtr()</a></code>), <strong>yr</strong> (<code><a href="../reference/as_yr.html">as_yr()</a></code>), <strong>period</strong> (<code><a href="../reference/as_period.html">as_period()</a></code>) and <strong>int_period</strong> (<code><a href="../reference/as_int_period.html">as_int_period()</a></code>).</p></li>
 </ul>
 </div>
 <div id="worked-example-simulated-ebola-outbreak" class="section level1">
@@ -198,31 +199,47 @@
 <span class="co">#&gt; timespan: 389 days</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span></code></pre></div>
 <p><img src="Introduction_files/figure-html/incid1-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:</p>
+<p>The daily incidence is quite noisy, but we can easily compute other incidence using other time intervals</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="co"># 7 day incidence</span>
+<span class="va">i_7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_7</span><span class="op">)</span></code></pre></div>
+<p><img src="Introduction_files/figure-html/i_7-1.png" width="672" style="display: block; margin: auto;"> Notice how specifying the interval as 7 creates weekly intervals with the coverage displayed by date. We use the convention that a grouped date is displayed as [yyyy-mm-dd, with the left bracket indicative of it being binned left-inclusive. The right side of the bin is not diplayed for brevity but an incidence object will always print it’s interval at the top of it’s output.</p>
+<p>Below we illustrate how <code><a href="../reference/incidence.html">incidence()</a></code> also allows us to create year-weekly groupings with the default being weeks starting on a Monday (following the ISO 8601 date and time standard).</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># year-weekly, starting on Monday (ISO week, default)</span>
 <span class="va">i_weekly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"week"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_weekly</span><span class="op">)</span></code></pre></div>
-<p><img src="Introduction_files/figure-html/interv-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># bi-weekly, based on first day in data</span>
+<p><img src="Introduction_files/figure-html/iweekly-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><code><a href="../reference/incidence.html">incidence()</a></code> will also work with larger intervals</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># bi-weekly, based on first day in data</span>
 <span class="va">i_biweekly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"2 weeks"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_biweekly</span><span class="op">)</span></code></pre></div>
-<p><img src="Introduction_files/figure-html/interv-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co">## year-monthly</span>
+<p><img src="Introduction_files/figure-html/ilarger-1.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># year-monthly</span>
 <span class="va">i_monthly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_monthly</span><span class="op">)</span></code></pre></div>
-<p><img src="Introduction_files/figure-html/interv-3.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="Introduction_files/figure-html/ilarger-2.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># year-quarterly</span>
+<span class="va">i_quarterly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"quarter"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_quarterly</span><span class="op">)</span></code></pre></div>
+<p><img src="Introduction_files/figure-html/ilarger-3.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># year-quarterly</span>
+<span class="va">i_year</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_year</span><span class="op">)</span></code></pre></div>
+<p><img src="Introduction_files/figure-html/ilarger-4.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="grouping" class="section level2">
 <h2 class="hasAnchor">
 <a href="#grouping" class="anchor"></a>Grouping</h2>
 <p><code><a href="../reference/incidence.html">incidence()</a></code> can also aggregate incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender and plot with both the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function for a single plot and the <code><a href="../reference/plot.incidence2.html">facet_plot()</a></code> function for a multi-faceted plot across groups:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">i_weekly_sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
                      interval <span class="op">=</span> <span class="st">"week"</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
 <span class="va">i_weekly_sex</span>
@@ -261,13 +278,13 @@
 <span class="co"># A singular plot</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_weekly_sex</span>, fill <span class="op">=</span> <span class="va">gender</span><span class="op">)</span></code></pre></div>
 <p><img src="Introduction_files/figure-html/gender-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># a multi-facet plot</span>
 <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">i_weekly_sex</span>, fill <span class="op">=</span> <span class="va">gender</span>, n_breaks <span class="op">=</span> <span class="fl">5</span>, angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></code></pre></div>
 <p><img src="Introduction_files/figure-html/gender-2.png" width="672" style="display: block; margin: auto;"></p>
 <p>There is no limit to the number of groups that we group by and this allows us to both facet and fill by different variables:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">inci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
                      interval <span class="op">=</span> <span class="st">"week"</span>, groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">outcome</span>, <span class="va">hospital</span>, <span class="va">gender</span><span class="op">)</span><span class="op">)</span>
 <span class="va">inci</span> <span class="op">%&gt;%</span> 
