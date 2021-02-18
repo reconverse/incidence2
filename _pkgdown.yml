@@ -59,6 +59,17 @@ reference:
 - contents:
   - cumulate
   - regroup
+  - keep
 
+- title: Grouped date classes
+  desc: >
+    Functions to create grouped date objects
+- contents:
+  - as_yrwk
+  - as_yrmon
+  - as_yrqtr
+  - as_yr
+  - as_period
+  - as_int_period
 
 
