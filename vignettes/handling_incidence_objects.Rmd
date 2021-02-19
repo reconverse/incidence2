@@ -62,6 +62,16 @@ inci %>%
   facet_plot(n_breaks = 4)
 ```
 
+## keep_first and keep_last
+Once your data is grouped by date, you may want to select the first or last few
+entries based on a particular date grouping using `keep_first()` and
+`keep_last()`:
+
+```{r keep}
+inci %>% keep_first(3)
+
+inci %>% keep_last(3)
+```
 
 ## Tidyverse compatibility
 incidence2 has been written with *tidyverse* compatibility (in particular 

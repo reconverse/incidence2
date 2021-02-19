@@ -59,7 +59,8 @@ reference:
 - contents:
   - cumulate
   - regroup
-  - keep
+  - keep_first
+  - keep_last
 
 - title: Grouped date classes
   desc: >

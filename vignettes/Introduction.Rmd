@@ -62,6 +62,10 @@ The main features of the package include:
 
 - **`cumulate()`**: computes cumulative incidence over time from an `incidence()`
   object.
+  
+- **`keep_first()`** and **`keep_last()`** : will keep the rows corresponding to
+  the first (or last) set of grouped dates (ordered by time) from an
+  `incidence()` object.
 
 - **`print()`** and **`summary()`** functions.
 
