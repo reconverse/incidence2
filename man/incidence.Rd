@@ -136,3 +136,34 @@ there are keywords reserved for specific days of the week:
 
 }
 }
+\examples{
+if (requireNamespace("outbreaks", quietly = TRUE)) {
+  withAutoprint({
+    data(ebola_sim_clean, package = "outbreaks")
+    dat <- ebola_sim_clean$linelist
+
+    # daily incidence
+    incidence(dat, date_of_onset)
+
+    # weekly incidence
+    incidence(dat, date_of_onset, interval = "week")
+
+    # starting on a Monday
+    incidence(dat, date_of_onset, interval = "isoweek")
+
+    # starting on a Sunday
+    incidence(dat, date_of_onset, interval = "epiweek")
+
+    # group by gender
+    incidence(dat, date_of_onset, interval = 7, groups = gender)
+
+    # group by gender and hospital
+    incidence(dat, date_of_onset, interval = "2 weeks", groups = c(gender, hospital))
+  })
+}
+
+# use of first_date
+dat <- data.frame(dates = Sys.Date() + sample(-3:10, 10, replace = TRUE))
+incidence(dat, dates, interval = "week", firstdate = Sys.Date() + 1)
+
+}
