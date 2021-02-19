@@ -145,7 +145,7 @@
   groups <span class='op'>=</span> <span class='cn'>NULL</span>,
   interval <span class='op'>=</span> <span class='fl'>1L</span>,
   na_as_group <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  count <span class='op'>=</span> <span class='cn'>NULL</span>,
+  counts <span class='op'>=</span> <span class='cn'>NULL</span>,
   firstdate <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
@@ -190,8 +190,8 @@ should treated as a separate category (<code>TRUE</code>) or removed from
 consideration (<code>FALSE</code>).</p></td>
     </tr>
     <tr>
-      <th>count</th>
-      <td><p>The count variable of the given data.  If NULL (default) the
+      <th>counts</th>
+      <td><p>The count variables of the given data.  If NULL (default) the
 data is taken to be a linelist of individual observations.</p></td>
     </tr>
     <tr>
@@ -216,7 +216,7 @@ this will be the dates of the given observations and given the name
 grouping with column name "date_index" (See Interval specification below).</p></li>
 <li><p><strong>-groups-</strong>: If specified, column(s) containing the categories of the
 given groups.</p></li>
-<li><p><strong>count</strong>: The aggregated observation count.</p></li>
+<li><p><strong>count</strong> (or name of count variables): The aggregated observation counts.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>

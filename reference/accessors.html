@@ -147,13 +147,13 @@
 <span class='co'># S3 method for incidence2</span>
 <span class='fu'>get_counts</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>get_counts_name</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>get_count_names</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>get_counts_name</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>get_count_names</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for incidence2</span>
-<span class='fu'>get_counts_name</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>get_count_names</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>get_dates</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
@@ -229,7 +229,7 @@ integer vector if it is stored as a character in the incidence object.</p></td>
 </ul>
 
 <ul>
-<li><p><code>get_counts_name()</code>: The name of the count variable of x.</p></li>
+<li><p><code>get_count_names()</code>: The name of the count variable of x.</p></li>
 </ul>
 
 <ul>
@@ -270,7 +270,7 @@ character value of the <code>interval</code></p></li>
                    groups <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>gender</span>, <span class='va'>hospital</span><span class='op'>)</span><span class='op'>)</span>
 
     <span class='fu'>get_counts</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
-    <span class='fu'>get_counts_name</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
+    <span class='fu'>get_count_names</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
 
     <span class='fu'>get_group_names</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
 
@@ -394,7 +394,7 @@ character value of the <code>interval</code></p></li>
 #&gt; [2473]  1  1  2  1  1  2  1  1  1  1  1  1  2  1  1  2  1  1  1  1  1  1  1  1
 #&gt; [2497]  1  1  2  1  2  2  1  1  2  1  1  1  1  1  1  1  1  1  1  2  1  1  1  3
 #&gt; [2521]  1  3  1  1  2  1  2  1  2  1  1  1  1  1  1
-#&gt; &gt; get_counts_name(i)
+#&gt; &gt; get_count_names(i)
 #&gt; [1] "count"
 #&gt; &gt; get_group_names(i)
 #&gt; [1] "gender"   "hospital"
@@ -911,7 +911,8 @@ character value of the <code>interval</code></p></li>
 #&gt; &gt; get_interval(i)
 #&gt; [1] "1 day"
 #&gt; &gt; get_n(i)
-#&gt; [1] 5829
+#&gt; count 
+#&gt;  5829 
 #&gt; &gt; get_timespan(i)
 #&gt; [1] 389</div><div class='input'>
 </div></pre>

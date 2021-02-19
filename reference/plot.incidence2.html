@@ -142,6 +142,7 @@
     <pre class="usage"><span class='co'># S3 method for incidence2</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
   <span class='va'>x</span>,
+  count <span class='op'>=</span> <span class='cn'>NULL</span>,
   fill <span class='op'>=</span> <span class='cn'>NULL</span>,
   stack <span class='op'>=</span> <span class='cn'>TRUE</span>,
   title <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -165,6 +166,7 @@
 <span class='co'># S3 method for incidence2</span>
 <span class='fu'>facet_plot</span><span class='op'>(</span>
   <span class='va'>x</span>,
+  count <span class='op'>=</span> <span class='cn'>NULL</span>,
   facets <span class='op'>=</span> <span class='cn'>NULL</span>,
   stack <span class='op'>=</span> <span class='cn'>TRUE</span>,
   fill <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -191,6 +193,11 @@
     <tr>
       <th>x</th>
       <td><p>An <code><a href='incidence.html'>incidence()</a></code> object.</p></td>
+    </tr>
+    <tr>
+      <th>count</th>
+      <td><p>Which count variable to have on the y-axis. If NULL (default)
+the first entry returned from <code><a href='accessors.html'>get_count_names(x)</a></code> is used.</p></td>
     </tr>
     <tr>
       <th>fill</th>
