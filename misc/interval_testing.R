@@ -1,5 +1,6 @@
 library(outbreaks)
 library(incidence2)
+library(data.table)
 
 dat <- ebola_sim_clean$linelist
 
@@ -64,3 +65,19 @@ i_int <-
 i_int
 summary(i_int)
 plot(i_int)
+
+
+# -------------------------------------------------------------------------
+res <- incidence(
+  dat,
+  date_index = c(
+    count_infection_date = date_of_infection,
+    count_onset_date = date_of_onset
+  ),
+  groups = c(gender, hospital),
+  interval = "1 week"
+)
+
+res
+summary(res)
+plot(res)

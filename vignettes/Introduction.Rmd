@@ -1,6 +1,5 @@
 ---
-title: "Introduction to the incidence package"
-author: "Tim Taylor, Thibaut Jombart and Zhina N. Kamvar"
+title: "Introduction to the incidence2 package"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to the incidence package}
@@ -18,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-*incidence* implements functions and classes to compute, handle and visualise 
+*incidence2* implements functions and classes to compute, handle and visualise 
 incidences from linelist data. This vignette provides an introduction to current
 features and is more extensive than the overview provided in README.md.
 

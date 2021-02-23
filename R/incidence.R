@@ -1,10 +1,13 @@
 #' Compute the incidence of events
 #'
 #' @param x A tibble or a data frame (see Note) representing a linelist.
-#' @param date_index The time index of the given data.  This should be a name
-#'   corresponding to a date column in x of class:  integer, numeric, Date,
-#'   POSIXct, POSIXlt, and character. (See Note  about `numeric` and `character`
-#'   formats).
+#' @param date_index The time index(es) of the given data.  This should be the
+#'   name(s) corresponding to the desired date column(s) in x of class:
+#'   integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note  about
+#'   `numeric` and `character` formats). Where the input is a linelist, if a
+#'   named vector is given then the names will be used for the resultant count
+#'   columns.  Named vectors must be used when the number of time indexes is
+#'   2 or more.
 #' @param interval An integer or character indicating the (fixed) size of the
 #'   time interval used for computing the incidence; defaults to 1 day. This can
 #'   also be a text string that corresponds to a valid date interval, e.g.
@@ -149,6 +152,8 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   if (length(groups) == 0) groups <- NULL
 
   date_index <- rlang::enquo(date_index)
+  date_expr <- rlang::quo_get_expr(date_index)
+  date_arg_names <- return_args_names(!!date_expr)
   idx <- tidyselect::eval_select(date_index, x)
   date_index <- names(x)[idx]
 
@@ -157,81 +162,80 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   counts <- names(x)[idx]
   if (length(counts) == 0) counts <- NULL
 
-  # Basic checks
+  # work out the names for count variables
+  count_names <- date_arg_names
+  if (is.null(counts)) {
+    if (length(date_index) == 1) {
+      if (is.null(count_names)) count_names <- "count"
+    } else {
+      if (is.null(count_names) || length(count_names) != length(date_index)) {
+        stop( "'date_index' must be a named vector", call. = FALSE)
+      }
+    }
+  }
+
+  # minimal checks
   stopifnot(
-    "The argument `date_index` should be of length one." = (length(date_index) == 1),
     "The argument `interval` should be of length one." = (length(interval) == 1),
     "The argument `na_as_group` must be either `TRUE` or `FALSE`." =
       (is.logical(na_as_group))
   )
 
-  # check that variables are present in x
-  check_presence(c(groups, date_index, counts), column_names = names(x))
-
-  incidence_(
-    x = x,
-    date_index = date_index,
-    groups = groups,
-    interval = interval,
-    na_as_group = na_as_group,
-    counts = counts,
-    firstdate = firstdate
-  )
-
-}
-
-
-incidence_ <- function(x, date_index, ...) {
-  UseMethod("incidence_", x[[date_index]])
-}
-
-
-incidence_.default <- function(x, date_index, ...) {
-  formats <- c("Date", "POSIXt", "integer", "numeric", "character")
-  stop(
-    "Unable to convert date_index variable to a grouped date.\n",
-    "    Accepted formats are: ",
-    paste(formats, collapse = ", "),
-    call. = FALSE
-  )
-}
-
-incidence_.Date <- function(x, date_index, groups, interval, na_as_group, counts,
-                            firstdate = firstdate, ...) {
-  make_incidence(
-    x = x,
-    date_index = date_index,
-    groups = groups,
-    interval = interval,
-    na_as_group = na_as_group,
-    counts = counts,
-    firstdate = firstdate
-  )
-}
-
-incidence_.POSIXt <- incidence_.Date
-
-incidence_.integer <- incidence_.Date
-
-incidence_.numeric <- function(x, date_index, groups, interval, na_as_group, counts,
-                               firstdate = firstdate, ...) {
-
-  # Attempt to cast to integer and give useful error message if not possible
-  tmp <- try(int_cast(x[[date_index]]), silent = TRUE)
-  if (inherits(tmp, "try-error")) {
-    stop(
-      "Where numeric, x[[date_index]] must be a vector of whole numbers",
-      call. = FALSE
-    )
+  # ensure all date_index are of same class
+  date_classes <- vapply(x[date_index], function(x) class(x)[1], character(1))
+  if (length(unique(date_classes)) != 1L) {
+    stop("date_index columns must be of the same class", call. = FALSE)
   }
-  x[[date_index]] <- tmp
 
-  incidence_.integer(x, date_index, groups, interval, na_as_group, counts,
-                     firstdate = firstdate, ...)
+  # ensure we have a firstdate value
+  if (is.null(firstdate)) {
+    firstdate <- do.call(min, args = c(x[date_index], na.rm = TRUE))
+  }
+
+  # ensure we can work with dates (mainly done for error message)
+  x <- standardise_dates(x, date_index)
+
+  # Calculate an incidence object for each value of date_index
+  res <-
+    lapply(
+      seq_along(date_index),
+      function(i) {
+        make_incidence(
+          x = x,
+          date_index = date_index[i],
+          groups = groups,
+          interval = interval,
+          na_as_group = na_as_group,
+          counts = counts,
+          count_name = count_names[i],
+          firstdate = firstdate
+        )
+      }
+    )
+
+  # if there is only 1 value for date_index we can just return the entry.
+  # Otherwise we need to set the relevant names and count_names attributes (but
+  # can take other attributes from any entry of the returned list)
+  if (length(date_index) == 1) {
+    res <- res[[1]]
+  } else {
+    res_attributes <- attributes(res[[1]])
+    res_attributes$counts <- count_names
+    nms <- lapply(res, names)
+    nms <- Reduce(union, nms)
+    res_attributes$names <- nms
+    res <- lapply(res, setDT)
+    by_var <- c("date_index", groups)
+    res <- do.call(merge, args = c(res, all = TRUE, by = by_var))
+    setDF(res)
+    res[, count_names][is.na(res[,count_names])] <- 0
+    res_row_names <- attr(res,"row.names")
+    attributes(res) <- res_attributes
+    attr(res, "row.names") <- res_row_names
+  }
+
+  res
 }
-
-incidence_.character <- incidence_.Date
-
 
 
 #' Default internal constructor for incidence objects.
@@ -247,6 +251,8 @@ incidence_.character <- incidence_.Date
 #'   treated as a separate group.
 #' @param counts The count variables of the given data.  If NULL (default) the
 #'   data is taken to be a linelist of individual observations.
+#' @param count_name The names to give the resultant count variable.  Only
+#'   used when counts = NULL.
 #' @param firstdate When the interval is in days, or numeric, and also has a
 #'   numeric prefix greater than 1, then you can optionally specify the date
 #'   that you wish your intervals to begin from.  If NULL (default) then the
@@ -259,15 +265,10 @@ incidence_.character <- incidence_.Date
 #' @importFrom stats complete.cases na.omit
 #' @noRd
 make_incidence <- function(x, date_index, groups, interval, na_as_group, counts,
-                           firstdate) {
+                           count_name, firstdate) {
 
   # due to NSE notes in R CMD check
   . <- ..counts <- NULL
-
-  # ensure we have a firstdate value
-  if (is.null(firstdate)) {
-    firstdate <- min(x[[date_index]], na.rm = TRUE)
-  }
 
   # trim observations
   n_orig <- nrow(x)
@@ -295,9 +296,9 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, counts,
   # generate grouped_dates
   setDT(x)
   if (is.null(counts)) {
-    x <- x[,.(count = .N), keyby = c(date_index, groups)]
+    x <- x[,.(count__ = .N), keyby = c(date_index, groups)]
+    setnames(x, length(x), count_name)
   } else {
-    #x <- x[,.(count = sum(get(..count), na.rm = TRUE)), keyby = c(date_index, groups)]
     x <- x[, lapply(.SD, sum, na.rm = TRUE), keyby = c(date_index, groups), .SDcols = counts]
   }
   setDF(x)
@@ -315,7 +316,7 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, counts,
 
   # reorder (dates, groups, counts)
   if (is.null(counts)) {
-    counts <- "count"
+    counts <- count_name
   }
   x <- x[c(date_col, groups, counts)]
 
@@ -362,5 +363,33 @@ standardise_interval <- function(interval) {
     if (n > 1) interval <- paste0(interval, "s")
   }
   interval
+}
+
+
+standardise_dates <- function(x, date_index, ...) {
+  for (i in date_index) {
+    if (inherits(x[[i]], "numeric")) {
+      # Attempt to cast to integer and give useful error message if not possible
+      tmp <- try(int_cast(x[[i]]), silent = TRUE)
+      if (inherits(tmp, "try-error")) {
+        stop(
+          "Where numeric, x[[date_index]] must be a vector of whole numbers",
+          call. = FALSE
+        )
+      }
+      x[[i]] <- tmp
+    } else {
+      formats <- c("Date", "POSIXt", "integer", "numeric", "character")
+      if (!rlang::inherits_any(x[[i]], formats)) {
+        stop(
+          "Unable to convert date_index variable to a grouped date.\n",
+          "    Accepted formats are: ",
+          paste(formats, collapse = ", "),
+          call. = FALSE
+        )
+      }
+    }
+  }
+  x
 }
 

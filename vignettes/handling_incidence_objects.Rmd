@@ -1,6 +1,5 @@
 ---
 title: "Handling incidence objects"
-author: "Tim Taylor"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Handling incidence objects}
