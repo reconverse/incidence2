@@ -700,3 +700,49 @@
     
     
 
+# integer date periods without counts work as expected
+
+    An incidence2 object: 2 x 2
+    10 cases from days [1, 6) to [6, 11)
+    interval: 5
+    cumulative: FALSE
+    
+      date_index count
+      <int_perd> <int>
+    1 [1, 6)         5
+    2 [6, 11)        5
+    
+
+---
+
+    An incidence2 object: 2 x 2
+    10 cases from [1, 6) to [6, 11)
+    interval: 5
+    cumulative: FALSE
+    timespan: 10 days
+    
+    
+
+# integer date periods with counts work as expected
+
+    An incidence2 object: 2 x 2
+    15 cases from days [1, 6) to [6, 11)
+    interval: 5
+    cumulative: FALSE
+    
+      date_index count
+      <int_perd> <dbl>
+    1 [1, 6)         5
+    2 [6, 11)       10
+    
+
+---
+
+    An incidence2 object: 2 x 2
+    15 cases from [1, 6) to [6, 11)
+    interval: 5
+    cumulative: FALSE
+    timespan: 10 days
+    
+    
+

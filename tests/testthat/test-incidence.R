@@ -9,8 +9,8 @@ dat_dates <- data.frame(date = dates, count = count)
 dat_posixct <- data.frame(date = as.POSIXct(dates), count = count)
 dat_posixlt <- data.frame(date = as.POSIXlt(dates), count = count)
 dat_char <- data.frame(date = as.character(dates), count = count)
-dat_int <- data.frame(date = 1:731, count = count)
-dat_numeric <- data.frame(date = as.numeric(1:731), count = count)
+dat_int <- data.frame(date = 1:10, count = c(rep(1, 5), rep(2, 5)))
+dat_numeric <- data.frame(date = as.numeric(1:10), count = c(rep(1, 5), rep(2, 5)))
 
 
 
@@ -561,5 +561,38 @@ test_that("character single week, no groupings and with count work as expected",
 
 
 # integer dates -----------------------------------------------------------
+test_that("integer date periods without counts work as expected", {
+  x <- incidence(dat_int, date_index = date, interval = 5)
+
+  # class
+  expect_s3_class(x$date_index, "int_period")
+
+  # results
+  expect_equal(nrow(x), 2L)
+  expect_equal(as.integer(x$date_index), c(1L, 6L))
+  expect_equal(x$count, c(5L, 5L))
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
+})
 
 
+test_that("integer date periods with counts work as expected", {
+  x <- incidence(dat_int, date_index = date, interval = 5, count = count)
+
+  # class
+  expect_s3_class(x$date_index, "int_period")
+
+  # results
+  expect_equal(nrow(x), 2L)
+  expect_equal(as.integer(x$date_index), c(1L, 6L))
+  expect_equal(x$count, c(5L, 10L))
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
+})
+
+
+test_that("numeric date periods work as expected", {
+  x <- incidence(dat_int, date_index = date, interval = 5, count = count)
+  xx <- incidence(dat_numeric, date_index = date, interval = 5, count = count)
+  expect_identical(x, xx)
+})
