@@ -42,9 +42,6 @@ regroup <- function(x, groups = NULL){
   groups <- names(x)[idx]
   if (length(groups) == 0) {
     groups <- NULL
-  } else {
-    column_names <- names(x)
-    check_presence(groups, column_names)
   }
 
   date_var <- get_dates_name(x)
