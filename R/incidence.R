@@ -145,7 +145,15 @@
 incidence <- function(x, date_index, groups = NULL, interval = 1L,
                       na_as_group = TRUE, counts = NULL, firstdate = NULL) {
 
-  # Convert groups, date and count variables
+  # tidyselect is used so we can rely on that for dealing with a lot of the
+  # non-standard evaluation issues that arrise.  We could just use
+  # `rlang::enquo()` in combination with the `return_args()` function to achieve
+  # the same thing but there are then more things that can catch us out. I've
+  # been forced to adopt this approach for date_index below as we are allowing
+  # the names of the date_index vector to be used later on.  This may be
+  # overly complex so may eventually change
+
+  # Convert groups to character variables - us
   groups <- rlang::enquo(groups)
   idx <- tidyselect::eval_select(groups, x)
   groups <- names(x)[idx]
@@ -153,7 +161,16 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
 
   date_index <- rlang::enquo(date_index)
   date_expr <- rlang::quo_get_expr(date_index)
-  date_arg_names <- return_args_names(!!date_expr)
+  if (rlang::quo_is_call(date_index)) {
+    # here we deal with interactive input of the form
+    # date_index = c(nm1 = date_of_onset, nm2 = date_of_indection)
+    date_arg_names <- return_args_names(!!date_expr)
+  } else {
+    # here we deal with input passed non interactively with !!, e.g.
+    # var = c(nm1 = "date_of_onset", nm2 = "date_of_indection")
+    # f <- function(date_index = !!var)
+    date_arg_names <- names(date_expr)
+  }
   idx <- tidyselect::eval_select(date_index, x)
   date_index <- names(x)[idx]
 
@@ -215,7 +232,8 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
 
   # if there is only 1 value for date_index we can just return the entry.
   # Otherwise we need to set the relevant names and count_names attributes (but
-  # can take other attributes from any entry of the returned list)
+  # can take other attributes from any entry of the returned list).
+  # TODO - can we streamline this
   if (length(date_index) == 1) {
     res <- res[[1]]
   } else {
