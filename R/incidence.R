@@ -209,8 +209,8 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
     firstdate <- do.call(min, args = c(x[date_index], na.rm = TRUE))
   }
 
-  # ensure we can work with dates (mainly done for error message)
-  x <- standardise_dates(x, date_index)
+  # ensure we can work with dates (done here mainly for error message)
+  x[date_index] <- lapply(x[date_index], standardise_dates)
 
   # Calculate an incidence object for each value of date_index
   res <-
@@ -245,8 +245,8 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
     res <- lapply(res, setDT)
     by_var <- c("date_index", groups)
     res <- do.call(merge, args = c(res, all = TRUE, by = by_var))
+    setnafill(res, fill = 0, cols = count_names)
     setDF(res)
-    res[, count_names][is.na(res[,count_names])] <- 0
     res_row_names <- attr(res,"row.names")
     attributes(res) <- res_attributes
     attr(res, "row.names") <- res_row_names
@@ -359,6 +359,7 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, counts,
 
 }
 
+
 standardise_interval <- function(interval) {
 
   cond1 <- interval == 1L
@@ -384,30 +385,27 @@ standardise_interval <- function(interval) {
 }
 
 
-standardise_dates <- function(x, date_index, ...) {
-  for (i in date_index) {
-    if (inherits(x[[i]], "numeric")) {
-      # Attempt to cast to integer and give useful error message if not possible
-      tmp <- try(int_cast(x[[i]]), silent = TRUE)
-      if (inherits(tmp, "try-error")) {
-        stop(
-          "Where numeric, x[[date_index]] must be a vector of whole numbers",
-          call. = FALSE
-        )
-      }
-      x[[i]] <- tmp
-    } else {
-      formats <- c("Date", "POSIXt", "integer", "numeric", "character")
-      if (!rlang::inherits_any(x[[i]], formats)) {
-        stop(
-          "Unable to convert date_index variable to a grouped date.\n",
-          "    Accepted formats are: ",
-          paste(formats, collapse = ", "),
-          call. = FALSE
-        )
-      }
+standardise_dates <- function(x) {
+  if (inherits(x, "numeric")) {
+    # Attempt to cast to integer and give useful error message if not possible
+    tmp <- try(int_cast(x), silent = TRUE)
+    if (inherits(tmp, "try-error")) {
+      stop(
+        "Where numeric, x[[date_index]] must be a vector of whole numbers",
+        call. = FALSE
+      )
+    }
+    x <- tmp
+  }  else {
+    formats <- c("Date", "POSIXt", "integer", "numeric", "character")
+    if (!rlang::inherits_any(x, formats)) {
+      stop(
+        "Unable to convert date_index variable to a grouped date.\n",
+        "    Accepted formats are: ",
+        paste(formats, collapse = ", "),
+        call. = FALSE
+      )
     }
   }
   x
 }
-
