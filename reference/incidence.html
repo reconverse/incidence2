@@ -158,10 +158,13 @@
     </tr>
     <tr>
       <th>date_index</th>
-      <td><p>The time index of the given data.  This should be a name
-corresponding to a date column in x of class:  integer, numeric, Date,
-POSIXct, POSIXlt, and character. (See Note  about <code>numeric</code> and <code>character</code>
-formats).</p></td>
+      <td><p>The time index(es) of the given data.  This should be the
+name(s) corresponding to the desired date column(s) in x of class:
+integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note  about
+<code>numeric</code> and <code>character</code> formats). Where the input is a linelist, if a
+named vector is given then the names will be used for the resultant count
+columns.  Named vectors must be used when the number of time indexes is
+2 or more.</p></td>
     </tr>
     <tr>
       <th>groups</th>
@@ -286,6 +289,168 @@ there are keywords reserved for specific days of the week:</p><ul>
 
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span><span class='op'>(</span><span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ebola_sim_clean</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
+    <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ebola_sim_clean</span><span class='op'>$</span><span class='va'>linelist</span>
+
+    <span class='co'># daily incidence</span>
+    <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>date_of_onset</span><span class='op'>)</span>
+
+    <span class='co'># weekly incidence</span>
+    <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>date_of_onset</span>, interval <span class='op'>=</span> <span class='st'>"week"</span><span class='op'>)</span>
+
+    <span class='co'># starting on a Monday</span>
+    <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>date_of_onset</span>, interval <span class='op'>=</span> <span class='st'>"isoweek"</span><span class='op'>)</span>
+
+    <span class='co'># starting on a Sunday</span>
+    <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>date_of_onset</span>, interval <span class='op'>=</span> <span class='st'>"epiweek"</span><span class='op'>)</span>
+
+    <span class='co'># group by gender</span>
+    <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>date_of_onset</span>, interval <span class='op'>=</span> <span class='fl'>7</span>, groups <span class='op'>=</span> <span class='va'>gender</span><span class='op'>)</span>
+
+    <span class='co'># group by gender and hospital</span>
+    <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>date_of_onset</span>, interval <span class='op'>=</span> <span class='st'>"2 weeks"</span>, groups <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>gender</span>, <span class='va'>hospital</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>}</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
+#&gt; &gt; dat &lt;- ebola_sim_clean$linelist
+#&gt; &gt; incidence(dat, date_of_onset)
+#&gt; <span style='color: #949494;'>An incidence2 object: 367 x 2
+#&gt; </span><span>5829 cases from days 2014-04-07 to 2015-04-30
+#&gt; interval: 1 day
+#&gt; cumulative: FALSE
+#&gt; 
+#&gt;    date_index count
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2014-04-07     1
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2014-04-15     1
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2014-04-21     2
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2014-04-25     1
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2014-04-26     1
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2014-04-27     1
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2014-05-01     2
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2014-05-03     1
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2014-05-04     1
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2014-05-05     1
+#&gt; </span><span style='color: #949494;'># … with 357 more rows</span><span>
+#&gt; 
+#&gt; &gt; incidence(dat, date_of_onset, interval = "week")
+#&gt; </span><span style='color: #949494;'>An incidence2 object: 56 x 2
+#&gt; </span><span>5829 cases from days 2014-W15 to 2015-W18
+#&gt; interval: 1 monday week
+#&gt; cumulative: FALSE
+#&gt; 
+#&gt;    date_index count
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;yrwk&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2014-W15       1
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2014-W16       1
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2014-W17       5
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2014-W18       4
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2014-W19      12
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2014-W20      17
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2014-W21      15
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2014-W22      19
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2014-W23      23
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2014-W24      21
+#&gt; </span><span style='color: #949494;'># … with 46 more rows</span><span>
+#&gt; 
+#&gt; &gt; incidence(dat, date_of_onset, interval = "isoweek")
+#&gt; </span><span style='color: #949494;'>An incidence2 object: 56 x 2
+#&gt; </span><span>5829 cases from days 2014-W15 to 2015-W18
+#&gt; interval: 1 monday week
+#&gt; cumulative: FALSE
+#&gt; 
+#&gt;    date_index count
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;yrwk&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2014-W15       1
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2014-W16       1
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2014-W17       5
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2014-W18       4
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2014-W19      12
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2014-W20      17
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2014-W21      15
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2014-W22      19
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2014-W23      23
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2014-W24      21
+#&gt; </span><span style='color: #949494;'># … with 46 more rows</span><span>
+#&gt; 
+#&gt; &gt; incidence(dat, date_of_onset, interval = "epiweek")
+#&gt; </span><span style='color: #949494;'>An incidence2 object: 56 x 2
+#&gt; </span><span>5829 cases from days 2014-W15 to 2015-W17
+#&gt; interval: 1 sunday week
+#&gt; cumulative: FALSE
+#&gt; 
+#&gt;    date_index count
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;yrwk&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2014-W15       1
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2014-W16       1
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2014-W17       4
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2014-W18       4
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2014-W19      12
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2014-W20      15
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2014-W21      15
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2014-W22      22
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2014-W23      22
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2014-W24      17
+#&gt; </span><span style='color: #949494;'># … with 46 more rows</span><span>
+#&gt; 
+#&gt; &gt; incidence(dat, date_of_onset, interval = 7, groups = gender)
+#&gt; </span><span style='color: #949494;'>An incidence2 object: 109 x 3
+#&gt; </span><span>5829 cases from days [2014-04-07 to [2015-04-27
+#&gt; interval: 7 days
+#&gt; cumulative: FALSE
+#&gt; 
+#&gt;    date_index  gender count
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;period&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> [2014-04-07 f          1
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> [2014-04-14 m          1
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> [2014-04-21 f          4
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> [2014-04-21 m          1
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> [2014-04-28 f          4
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> [2014-05-05 f          9
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> [2014-05-05 m          3
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> [2014-05-12 f          7
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> [2014-05-12 m         10
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> [2014-05-19 f          8
+#&gt; </span><span style='color: #949494;'># … with 99 more rows</span><span>
+#&gt; 
+#&gt; &gt; incidence(dat, date_of_onset, interval = "2 weeks", groups = c(gender, 
+#&gt; +     hospital))
+#&gt; </span><span style='color: #949494;'>An incidence2 object: 316 x 4
+#&gt; </span><span>5829 cases from days [2014-04-07 to [2015-04-20
+#&gt; interval: 2 monday weeks
+#&gt; cumulative: FALSE
+#&gt; 
+#&gt;    date_index  gender hospital                                     count
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;period&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>                                        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> [2014-04-07 f      Military Hospital                                1
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> [2014-04-07 m      Connaught Hospital                               1
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> [2014-04-21 f      </span><span style='color: #BB0000;'>NA</span><span>                                               3
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> [2014-04-21 f      Connaught Hospital                               1
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> [2014-04-21 f      other                                            2
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> [2014-04-21 f      Princess Christian Maternity Hospital (PCMH)     1
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> [2014-04-21 f      Rokupa Hospital                                  1
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> [2014-04-21 m      other                                            1
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> [2014-05-05 f      </span><span style='color: #BB0000;'>NA</span><span>                                               4
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> [2014-05-05 f      Connaught Hospital                               3
+#&gt; </span><span style='color: #949494;'># … with 306 more rows</span><span>
+#&gt; </div><div class='input'>
+<span class='co'># use of first_date</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>10</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>dates</span>, interval <span class='op'>=</span> <span class='st'>"week"</span>, firstdate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>1 observations were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'>An incidence2 object: 2 x 2
+#&gt; </span><span>9 cases from days 2021-W08 to 2021-W09
+#&gt; interval: 1 monday week
+#&gt; cumulative: FALSE
+#&gt; 
+#&gt;   date_index count
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;yrwk&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2021-W08       6
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2021-W09       3
+#&gt; </div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
