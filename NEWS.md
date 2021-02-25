@@ -1,7 +1,11 @@
 # incidence2 (development version)
-* Introduces s3 classes `yrwk`, `yrmon`, `yrqtr`, `yr`, `period` and
-  `int_period` as well as associated constructors which `incidence` now builds
-  upon.
+* Due to multiple changes in the underlying representation of incidence2 objects
+  this release may possibly break old workflows particularly those relying on
+  the old implementations of date grouping.
+* Introduces s3 classes `yrwk`, `yrmon`, `yrqtr`, `yr`,
+  `period` and `int_period` as well as associated constructors which `incidence`
+  now builds upon. As a result of this the
+  [aweek](https://cran.r-project.org/package=aweek) dependency has been dropped.
 * Add's `keep_first` and `keep_last` functions.
 * Construction of `incidence` objects now faster due to underlying use of
   data.table.
