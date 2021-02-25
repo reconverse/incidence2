@@ -78,9 +78,8 @@ The main features of the package include:
   **`get_dates()`**, **`get_group_names()`**, **`get_interval()`**, 
   **`get_timespan()`** and  **`get_n()`**.
   
-- Grouped date classes: **yrwk** (`as_yrwk()`), **yrmon** (`as_yrmon()`),
-  **yrqtr** (`as_yrqtr()`), **yr** (`as_yr()`), **period** (`as_period()`)
-  and **int_period** (`as_int_period()`).
+- Grouped date classes: **`as_yrwk()`**, **`as_yrmon()`**, **`as_yrqtr()`**,
+  **`as_yr()`**, **`as_period()`** and **`as_int_period()`**.
 
 
 # Worked example: simulated Ebola outbreak
@@ -121,6 +120,7 @@ using other time intervals
 
 # 7 day incidence
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
+i_7
 plot(i_7)
 ```
 Notice how specifying the interval as 7 creates weekly intervals with the
