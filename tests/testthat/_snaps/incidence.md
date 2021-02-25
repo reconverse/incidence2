@@ -746,3 +746,39 @@
     
     
 
+# date_index works for multiple values
+
+    An incidence2 object: 13 x 3
+    365 deaths from days 2020-Dec to 2021-Dec
+    365 onset from days 2020-Dec to 2021-Dec
+    interval: 1 month
+    cumulative: FALSE
+    
+       date_index deaths onset
+       <yrmon>     <int> <int>
+     1 2020-Dec        0    31
+     2 2021-Jan       31    31
+     3 2021-Feb       28    28
+     4 2021-Mar       31    31
+     5 2021-Apr       30    30
+     6 2021-May       31    31
+     7 2021-Jun       30    30
+     8 2021-Jul       31    31
+     9 2021-Aug       31    31
+    10 2021-Sep       30    30
+    11 2021-Oct       31    31
+    12 2021-Nov       30    30
+    13 2021-Dec       31     0
+    
+
+---
+
+    An incidence2 object: 13 x 3
+    365 deaths from 2020-Dec to 2021-Dec
+    365 onset from 2020-Dec to 2021-Dec
+    interval: 1 month
+    cumulative: FALSE
+    timespan: 396 days
+    
+    
+

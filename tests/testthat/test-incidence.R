@@ -619,4 +619,6 @@ test_that("date_index works for multiple values", {
   expect_equal(as.Date(x$date_index), expected_dates)
   expect_equal(x$deaths, expected_deaths)
   expect_equal(x$onset, expected_onsets)
+  expect_snapshot_output(print(x))
+  expect_snapshot_output(summary(x))
 })
