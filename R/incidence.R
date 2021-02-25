@@ -1,13 +1,13 @@
 #' Compute the incidence of events
 #'
-#' @param x A tibble or a data frame (see Note) representing a linelist.
+#' @param x A tibble or a data frame (see Note) representing a linelist (or
+#'   potentially a pre-aggregated dataset).
 #' @param date_index The time index(es) of the given data.  This should be the
 #'   name(s) corresponding to the desired date column(s) in x of class:
 #'   integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note  about
-#'   `numeric` and `character` formats). Where the input is a linelist, if a
-#'   named vector is given then the names will be used for the resultant count
-#'   columns.  Named vectors must be used when the number of time indexes is
-#'   2 or more.
+#'   `numeric` and `character` formats). Multiple inputs only make sense when
+#'   x is a linelist, and in this situation, to avoid ambiguity, the vector must
+#'   be named.  These names will be used for the resultant count columns.
 #' @param interval An integer or character indicating the (fixed) size of the
 #'   time interval used for computing the incidence; defaults to 1 day. This can
 #'   also be a text string that corresponds to a valid date interval, e.g.

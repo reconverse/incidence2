@@ -15,15 +15,15 @@ incidence(
 )
 }
 \arguments{
-\item{x}{A tibble or a data frame (see Note) representing a linelist.}
+\item{x}{A tibble or a data frame (see Note) representing a linelist (or
+potentially a pre-aggregated dataset).}
 
 \item{date_index}{The time index(es) of the given data.  This should be the
 name(s) corresponding to the desired date column(s) in x of class:
 integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note  about
-\code{numeric} and \code{character} formats). Where the input is a linelist, if a
-named vector is given then the names will be used for the resultant count
-columns.  Named vectors must be used when the number of time indexes is
-2 or more.}
+\code{numeric} and \code{character} formats). Multiple inputs only make sense when
+x is a linelist, and in this situation, to avoid ambiguity, the vector must
+be named.  These names will be used for the resultant count columns.}
 
 \item{groups}{An optional vector giving the names of the groups of
 observations for which incidence should be grouped.}
