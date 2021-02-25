@@ -138,7 +138,8 @@
 <a href="#incidence2-development-version" class="anchor"></a>incidence2 (development version)<small> Unreleased </small>
 </h1>
 <ul>
-<li>Introduces s3 classes <code>yrwk</code>, <code>yrmon</code>, <code>yrqtr</code>, <code>yr</code>, <code>period</code> and <code>int_period</code> as well as associated constructors which <code>incidence</code> now builds upon.</li>
+<li>Due to multiple changes in the underlying representation of incidence2 objects this release may possibly break old workflows particularly those relying on the old implementations of date grouping.</li>
+<li>Introduces s3 classes <code>yrwk</code>, <code>yrmon</code>, <code>yrqtr</code>, <code>yr</code>, <code>period</code> and <code>int_period</code> as well as associated constructors which <code>incidence</code> now builds upon. As a result of this the <a href="https://cran.r-project.org/package=aweek">aweek</a> dependency has been dropped.</li>
 <li>Add’s <code>keep_first</code> and <code>keep_last</code> functions.</li>
 <li>Construction of <code>incidence</code> objects now faster due to underlying use of data.table.</li>
 </ul>
