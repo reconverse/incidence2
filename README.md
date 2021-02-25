@@ -108,7 +108,7 @@ We compute the weekly incidence:
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
 i_7
 #> An incidence2 object: 56 x 2
-#> 5829 cases from days [2014-04-07 to [2015-04-27
+#> 5829 cases from [2014-04-07 to [2015-04-27
 #> interval: 7 days
 #> cumulative: FALSE
 #> 
@@ -155,7 +155,7 @@ i_week_sex <- incidence(dat, interval = "week", date_index = date_of_onset,
                         groups = gender)
 i_week_sex
 #> An incidence2 object: 109 x 3
-#> 5829 cases from days 2014-W15 to 2015-W18
+#> 5829 cases from 2014-W15 to 2015-W18
 #> interval: 1 monday week
 #> cumulative: FALSE
 #> 
@@ -207,7 +207,7 @@ i_week_sh <- incidence(dat, date_index = date_of_onset, interval = "week",
                        groups = c(gender, hospital))
 i_week_sh
 #> An incidence2 object: 601 x 4
-#> 5829 cases from days 2014-W15 to 2015-W18
+#> 5829 cases from 2014-W15 to 2015-W18
 #> interval: 1 monday week
 #> cumulative: FALSE
 #> 
