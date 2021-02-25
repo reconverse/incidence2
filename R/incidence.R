@@ -145,58 +145,55 @@
 incidence <- function(x, date_index, groups = NULL, interval = 1L,
                       na_as_group = TRUE, counts = NULL, firstdate = NULL) {
 
-  # tidyselect is used so we can rely on that for dealing with a lot of the
-  # non-standard evaluation issues that arrise.  We could just use
-  # `rlang::enquo()` in combination with the `return_args()` function to achieve
-  # the same thing but there are then more things that can catch us out. I've
-  # been forced to adopt this approach for date_index below as we are allowing
-  # the names of the date_index vector to be used later on.  This may be
-  # overly complex so may eventually change
-
-  # Convert groups to character variables - us
-  groups <- rlang::enquo(groups)
-  idx <- tidyselect::eval_select(groups, x)
-  groups <- names(x)[idx]
-  if (length(groups) == 0) groups <- NULL
-
-  date_index <- rlang::enquo(date_index)
-  date_expr <- rlang::quo_get_expr(date_index)
-  if (rlang::quo_is_call(date_index)) {
-    # here we deal with interactive input of the form
-    # date_index = c(nm1 = date_of_onset, nm2 = date_of_indection)
-    date_arg_names <- return_args_names(!!date_expr)
-  } else {
-    # here we deal with input passed non interactively with !!, e.g.
-    # var = c(nm1 = "date_of_onset", nm2 = "date_of_indection")
-    # f <- function(date_index = !!var)
-    date_arg_names <- names(date_expr)
-  }
-  idx <- tidyselect::eval_select(date_index, x)
-  date_index <- names(x)[idx]
-
-  counts <- rlang::enquo(counts)
-  idx <- tidyselect::eval_select(counts, x)
-  counts <- names(x)[idx]
-  if (length(counts) == 0) counts <- NULL
-
-  # work out the names for count variables
-  count_names <- date_arg_names
-  if (is.null(counts)) {
-    if (length(date_index) == 1) {
-      if (is.null(count_names)) count_names <- "count"
-    } else {
-      if (is.null(count_names) || length(count_names) != length(date_index)) {
-        stop( "'date_index' must be a named vector", call. = FALSE)
-      }
-    }
-  }
-
-  # minimal checks
+  # minimal checks (others come later or in nested functions)
   stopifnot(
     "The argument `interval` should be of length one." = (length(interval) == 1),
     "The argument `na_as_group` must be either `TRUE` or `FALSE`." =
       (is.logical(na_as_group))
   )
+
+  # tidyselect is used so we can rely on that for dealing with a lot of the
+  # non-standard evaluation issues that arise and also issue nice error messages
+
+  # Convert groups to character variables
+  groups <- rlang::enquo(groups)
+  if (!rlang::quo_is_null(groups)) {
+    idx <- tidyselect::eval_select(groups, x, allow_rename = FALSE)
+    groups <- names(x)[idx]
+  } else {
+    groups <- NULL
+  }
+
+  # Convert date_index to character variables and facilitate renaming
+  date_index <- rlang::enquo(date_index)
+  idx <- tidyselect::eval_select(date_index, x)
+  if (length(idx) > 1) {
+    idx <- tidyselect::eval_rename(date_index, x)
+    names(x)[idx] <- date_index <- names(idx)
+  } else {
+    idx <- tidyselect::eval_select(date_index, x, allow_rename = FALSE)
+    date_index <- names(x)[idx]
+  }
+
+  # Convert groups to character variables
+  counts <- rlang::enquo(counts)
+  if (!rlang::quo_is_null(counts)) {
+    idx <- tidyselect::eval_select(counts, x, allow_rename = FALSE)
+    counts <- names(x)[idx]
+  } else {
+    counts <- NULL
+  }
+
+  # generate names for resultajnt count columns if needed
+  if (is.null(counts)) {
+    if (length(date_index) == 1) {
+      count_names <- "count"
+    } else {
+      count_names <- date_index
+    }
+  }
+
+
 
   # ensure all date_index are of same class
   date_classes <- vapply(x[date_index], function(x) class(x)[1], character(1))
@@ -314,7 +311,7 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, counts,
   # generate grouped_dates
   setDT(x)
   if (is.null(counts)) {
-    x <- x[,.(count__ = .N), keyby = c(date_index, groups)]
+    x <- x[, .N, keyby = c(date_index, groups)]
     setnames(x, length(x), count_name)
   } else {
     x <- x[, lapply(.SD, sum, na.rm = TRUE), keyby = c(date_index, groups), .SDcols = counts]

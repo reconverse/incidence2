@@ -596,3 +596,27 @@ test_that("numeric date periods work as expected", {
   xx <- incidence(dat_numeric, date_index = date, interval = 5, count = count)
   expect_identical(x, xx)
 })
+
+
+test_that("date_index works for multiple values", {
+  firstday <- as.Date("2021-01-01")
+  lastday <- as.Date("2021-12-31")
+  dates_1 <- seq.Date(from = firstday, to = lastday, by = "day")
+  dates_2 <- dates_1 - 31
+  dat <- data.frame(dates_1, dates_2)
+  x <- incidence(
+    dat,
+    date_index = c(deaths = dates_1, onset = dates_2),
+    interval = "month"
+  )
+
+  # not using named date_index when of length > 1 is an error
+  expect_error(incidence(dat, date_index = c(dates_1, dates_2)))
+
+  expected_dates <- seq(as.Date("2020-12-01"), as.Date("2021-12-01"), "month")
+  expected_deaths <- c(0, 31L, 28L, 31L, 30L, 31L, 30L, 31L, 31L, 30L, 31L, 30L, 31L)
+  expected_onsets <- c(31L, 31L, 28L, 31L, 30L, 31L, 30L, 31L, 31L, 30L, 31L, 30L, 0L)
+  expect_equal(as.Date(x$date_index), expected_dates)
+  expect_equal(x$deaths, expected_deaths)
+  expect_equal(x$onset, expected_onsets)
+})
