@@ -1,6 +1,6 @@
 library(outbreaks)
 library(incidence2)
-library(data.table)
+library(dplyr)
 
 dat <- ebola_sim_clean$linelist
 
@@ -55,6 +55,14 @@ inci <- incidence(dat, date_index = date_of_onset,
 inci %>%
   facet_plot(facets = hospital, fill = outcome, n_breaks = 8, nrow = 3)
 
+
+# -------------------------------------------------------------------------
+i_period <-
+  dat %>%
+  incidence(date_index = date_of_onset, interval = 7)
+i_period
+summary(i_period)
+plot(i_period)
 
 
 # -------------------------------------------------------------------------

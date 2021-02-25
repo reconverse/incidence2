@@ -20,12 +20,12 @@ print.incidence2 <- function(x, ...) {
   for (i in count_var) {
     if(i == "count") {
       msg <- sprintf(
-        "%d cases from days %s to %s\n",
+        "%d cases from %s to %s\n",
         sum(x[[i]]), min(x[[date_var]]), max(x[[date_var]])
       )
     } else {
       msg <- sprintf(
-        "%d %s from days %s to %s\n",
+        "%d %s from %s to %s\n",
         sum(x[[i]]), i, min(x[[date_var]]), max(x[[date_var]])
       )
     }
