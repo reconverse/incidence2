@@ -280,22 +280,22 @@
 <span class="co"># slice operations preserve class</span>
 <span class="va">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 10 x 4</span>
-<span class="co">#&gt; 110 cases from 2014-W20 to 2015-W13</span>
+<span class="co">#&gt; 80 cases from 2014-W24 to 2015-W18</span>
 <span class="co">#&gt; interval: 1 monday week</span>
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index hospital                                     gender count</span>
 <span class="co">#&gt;    &lt;yrwk&gt;     &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-W44   Military Hospital                            m         27</span>
-<span class="co">#&gt;  2 2014-W28   Rokupa Hospital                              m          1</span>
-<span class="co">#&gt;  3 2014-W21   Military Hospital                            f          1</span>
-<span class="co">#&gt;  4 2014-W20   Military Hospital                            m          4</span>
-<span class="co">#&gt;  5 2014-W33   Connaught Hospital                           m         16</span>
-<span class="co">#&gt;  6 2014-W45   Rokupa Hospital                              f         13</span>
-<span class="co">#&gt;  7 2015-W13   &lt;NA&gt;                                         f         10</span>
-<span class="co">#&gt;  8 2015-W06   Princess Christian Maternity Hospital (PCMH) f          2</span>
-<span class="co">#&gt;  9 2015-W05   &lt;NA&gt;                                         m         12</span>
-<span class="co">#&gt; 10 2014-W37   other                                        f         24</span>
+<span class="co">#&gt;  1 2014-W52   &lt;NA&gt;                                         m         12</span>
+<span class="co">#&gt;  2 2014-W52   Military Hospital                            m          5</span>
+<span class="co">#&gt;  3 2014-W38   other                                        m         26</span>
+<span class="co">#&gt;  4 2015-W18   Military Hospital                            f          1</span>
+<span class="co">#&gt;  5 2015-W07   &lt;NA&gt;                                         f          8</span>
+<span class="co">#&gt;  6 2014-W24   other                                        f          1</span>
+<span class="co">#&gt;  7 2014-W28   Princess Christian Maternity Hospital (PCMH) f          1</span>
+<span class="co">#&gt;  8 2014-W30   &lt;NA&gt;                                         f          7</span>
+<span class="co">#&gt;  9 2014-W33   other                                        f          6</span>
+<span class="co">#&gt; 10 2015-W08   Military Hospital                            m         13</span>
 
 <span class="va">inci</span> <span class="op">%&gt;%</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 3 x 4</span>
