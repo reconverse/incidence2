@@ -75,6 +75,7 @@ as_yr.POSIXt <- function(x, ...) {
 
   x <- as.POSIXlt(x)
   yr <- x$year + 1900L
+  yr <- new_yr(yr)
 
   # finishing touches
   yr[is.na(x)] <- NA_integer_
@@ -150,7 +151,7 @@ print.yr <- function(x, ...) {
 
 #' @export
 as.POSIXct.yr <- function(x, tz = "UTC", ...) {
-  x <-  days_before_year(x) - 719162L
+  x <-  days_before_year(unclass(x)) - 719162L
   if (tz == "UTC") {
     as_utc_posixct_from_int(x)
   } else {
@@ -161,7 +162,7 @@ as.POSIXct.yr <- function(x, tz = "UTC", ...) {
 
 #' @export
 as.POSIXlt.yr <- function(x, tz = "UTC", ...) {
-  x <-  days_before_year(x) - 719162L
+  x <-  days_before_year(unclass(x)) - 719162L
   if (tz == "UTC") {
     as_utc_posixlt_from_int(x)
   } else {
@@ -173,7 +174,7 @@ as.POSIXlt.yr <- function(x, tz = "UTC", ...) {
 
 #' @export
 as.Date.yr <- function(x, ...) {
-  x <-  days_before_year(x) - 719162L
+  x <-  days_before_year(unclass(x)) - 719162L
   new_date(x)
 }
 
@@ -385,7 +386,7 @@ Ops.yr <- function(e1, e2) {
           stop("Can only subtract from a <yr> object not vice-versa", call. = FALSE)
         }
       } else if (inherits(e1, "yr") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
-        unclass(e1) - e2
+        new_yr(unclass(e1) - e2)
       } else {
         stop("Can only subtract whole numbers and other <yr> objects from <yr> objects", call. = FALSE)
       }
