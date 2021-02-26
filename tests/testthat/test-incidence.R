@@ -622,3 +622,17 @@ test_that("date_index works for multiple values", {
   expect_snapshot_output(print(x))
   expect_snapshot_output(summary(x))
 })
+
+
+test_that("incidence cannot work with !wholenumbers or logicals", {
+  dat1 <- data.frame(dates = c(1.5,2.5))
+  dat2 <- data.frame(dates = c(TRUE, FALSE))
+  expect_error(incidence(dat1, date_index = dates))
+  expect_error(incidence(dat2, date_index = dates))
+})
+
+test_that("incidence cannot work with different date_index types", {
+  dat <- data.frame(dates1 = c(1, 2), dates2 = Sys.Date() + 1:2)
+  expect_error(incidence(dat, date_index = c(d1 = dates1, d2 = dates2)))
+})
+

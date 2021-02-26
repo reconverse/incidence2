@@ -71,5 +71,18 @@ test_that("get_interval works", {
 })
 
 
+test_that("get_timespan works as expected", {
+  dates <- seq(as.Date("2021-01-04"), as.Date("2021-02-07"), "days")
+  x <- incidence(data.frame(dates), date_index = dates)
+  xx <- incidence(data.frame(dates), date_index = dates, interval = "weeks")
+  xxx <- incidence(data.frame(dates), date_index = dates, interval = "months")
+
+  expect_equal(get_timespan(x), 35)
+  expect_equal(get_timespan(xx), 35)
+  expect_equal(get_timespan(xxx), 59)
+  expect_error(get_timespan("bob"))
+
+})
+
 
 
