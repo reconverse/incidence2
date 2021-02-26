@@ -704,7 +704,7 @@
 
     An incidence2 object: 2 x 2
     10 cases from [1, 6) to [6, 11)
-    interval: 5
+    interval: 5 days
     cumulative: FALSE
     
       date_index count
@@ -717,7 +717,7 @@
 
     An incidence2 object: 2 x 2
     10 cases from [1, 6) to [6, 11)
-    interval: 5
+    interval: 5 days
     cumulative: FALSE
     timespan: 10 days
     
@@ -727,7 +727,7 @@
 
     An incidence2 object: 2 x 2
     15 cases from [1, 6) to [6, 11)
-    interval: 5
+    interval: 5 days
     cumulative: FALSE
     
       date_index count
@@ -740,7 +740,7 @@
 
     An incidence2 object: 2 x 2
     15 cases from [1, 6) to [6, 11)
-    interval: 5
+    interval: 5 days
     cumulative: FALSE
     timespan: 10 days
     

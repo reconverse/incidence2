@@ -40,7 +40,7 @@ summary.incidence2 <- function(object, ...) {
 
   # interval
   interval <- get_interval(object)
-  if (is.integer(interval)) {
+  if (is.numeric(interval)) {
     cat(sprintf("interval: %d %s\n", interval, ifelse(interval < 2, "day", "days")))
   } else if (grepl("\\d", interval)) {
     cat(sprintf("interval: %s\n", interval))
