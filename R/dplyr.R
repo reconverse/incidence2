@@ -46,23 +46,6 @@ incidence_can_reconstruct <- function(x, to) {
     return(FALSE)
   }
 
-  ## check interval is the same or a multiple off the invariant interval
-  ## only need to check numeric ones as grate objects have the compatibility
-  ## checks built in to them so will error if something not possible
-  to_interval <- get_interval(to)
-
-  if (is.numeric(to_interval)) {
-    tmp <- x[[date_var]]
-    if (is.numeric(tmp) || is.integer(tmp)) {
-      x_intervals <- unique(diff((x[[date_var]])))
-    } else {
-      x_intervals <- unique(diff(as.Date(x[[date_var]])))
-    }
-
-    if (!(all((x_intervals %% to_interval) == 0))) {
-      return(FALSE)
-    }
-  }
   TRUE
 }
 # -------------------------------------------------------------------------
