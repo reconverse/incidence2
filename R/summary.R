@@ -23,16 +23,21 @@ summary.incidence2 <- function(object, ...) {
 
   # cases over date range
   for (i in count_var) {
-    if(i == "count") {
-      msg <- sprintf(
-        "%d cases from %s to %s\n",
-        sum(object[[i]]), min(object[[date_var]]), max(object[[date_var]])
-      )
+    if (inherits(object[[date_var]], "period")) {
+      d1 <- as.Date(min(object[[date_var]]))
+      d2 <- as.Date(max(object[[date_var]]) + 1) - 1
+    } else if (inherits(object[[date_var]], "int_period")) {
+      d1 <- as.integer(min(object[[date_var]]))
+      d2 <- as.integer(max(object[[date_var]]) + 1) - 1
     } else {
-      msg <- sprintf(
-        "%d %s from %s to %s\n",
-        sum(object[[i]]), i, min(object[[date_var]]), max(object[[date_var]])
-      )
+      d1 <- min(object[[date_var]])
+      d2 <- max(object[[date_var]])
+    }
+
+    if(i == "count") {
+      msg <- sprintf("%d cases from %s to %s\n", sum(object[[i]]), d1, d2)
+    } else {
+      msg <- sprintf("%d %s from %s to %s\n", sum(object[[i]]), i, d1, d2)
     }
     cat(msg)
   }

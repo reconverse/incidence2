@@ -18,16 +18,21 @@ print.incidence2 <- function(x, ...) {
 
   # cases over date range
   for (i in count_var) {
-    if(i == "count") {
-      msg <- sprintf(
-        "%d cases from %s to %s\n",
-        sum(x[[i]]), min(x[[date_var]]), max(x[[date_var]])
-      )
+    if (inherits(x[[date_var]], "period")) {
+      d1 <- as.Date(min(x[[date_var]]))
+      d2 <- as.Date(max(x[[date_var]]) + 1) - 1
+    } else if (inherits(x[[date_var]], "int_period")) {
+      d1 <- as.integer(min(x[[date_var]]))
+      d2 <- as.integer(max(x[[date_var]]) + 1) - 1
     } else {
-      msg <- sprintf(
-        "%d %s from %s to %s\n",
-        sum(x[[i]]), i, min(x[[date_var]]), max(x[[date_var]])
-      )
+      d1 <- min(x[[date_var]])
+      d2 <- max(x[[date_var]])
+    }
+
+    if(i == "count") {
+      msg <- sprintf("%d cases from %s to %s\n", sum(x[[i]]), d1, d2)
+    } else {
+      msg <- sprintf("%d %s from %s to %s\n", sum(x[[i]]), i, d1, d2)
     }
     cat(msg)
   }

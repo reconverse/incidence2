@@ -108,26 +108,26 @@ We compute the weekly incidence:
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
 i_7
 #> An incidence2 object: 56 x 2
-#> 5829 cases from [2014-04-07 to [2015-04-27
+#> 5829 cases from 2014-04-07 to 2015-05-03
 #> interval: 7 days
 #> cumulative: FALSE
 #> 
-#>    date_index  count
-#>    <period>    <int>
-#>  1 [2014-04-07     1
-#>  2 [2014-04-14     1
-#>  3 [2014-04-21     5
-#>  4 [2014-04-28     4
-#>  5 [2014-05-05    12
-#>  6 [2014-05-12    17
-#>  7 [2014-05-19    15
-#>  8 [2014-05-26    19
-#>  9 [2014-06-02    23
-#> 10 [2014-06-09    21
+#>    date_index               count
+#>    <period>                 <int>
+#>  1 2014-04-07 to 2014-04-13     1
+#>  2 2014-04-14 to 2014-04-20     1
+#>  3 2014-04-21 to 2014-04-27     5
+#>  4 2014-04-28 to 2014-05-04     4
+#>  5 2014-05-05 to 2014-05-11    12
+#>  6 2014-05-12 to 2014-05-18    17
+#>  7 2014-05-19 to 2014-05-25    15
+#>  8 2014-05-26 to 2014-06-01    19
+#>  9 2014-06-02 to 2014-06-08    23
+#> 10 2014-06-09 to 2014-06-15    21
 #> # … with 46 more rows
 summary(i_7)
 #> An incidence2 object: 56 x 2
-#> 5829 cases from [2014-04-07 to [2015-04-27
+#> 5829 cases from 2014-04-07 to 2015-05-03
 #> interval: 7 days
 #> cumulative: FALSE
 #> timespan: 392 days
@@ -137,18 +137,12 @@ plot(i_7)
 <img src="man/figures/README-incid7-1.png" style="display: block; margin: auto;" />
 
 Notice how specifying the interval as 7 creates weekly intervals with
-the coverage displayed by date. We use the convention that a grouped
-date is displayed as `[yyyy-mm-dd`, with the left bracket indicative of
-it being binned left-inclusive. The right side of the bin is not
-diplayed for brevity but an incidence object will always print it’s
-interval at the top of it’s output.
-
-Below we illustrate how `incidence()` also allows us to create
-year-weekly groupings with the default being weeks starting on a Monday
-(following the ISO 8601 date and time standard). `incidence()` can also
-compute incidence by specified groups using the `groups` argument. For
-instance, we can compute the weekly incidence by gender and plot in a
-single, stacked chart:
+the coverage displayed by date. Below we illustrate how `incidence()`
+also allows us to create year-weekly groupings with the default being
+weeks starting on a Monday (following the ISO 8601 date and time
+standard). `incidence()` can also compute incidence by specified groups
+using the `groups` argument. For instance, we can compute the weekly
+incidence by gender and plot in a single, stacked chart:
 
 ``` r
 i_week_sex <- incidence(dat, interval = "week", date_index = date_of_onset,

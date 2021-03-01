@@ -231,7 +231,7 @@ as_period.factor <- function(x, interval = 1L, firstdate = NULL, ...) {
 #' @export
 format.period <- function(x, ...) {
   if (length(x) == 0) return(character(0))
-  sprintf("[%s", format.Date(new_date(x)))
+  sprintf("%s to %s", format.Date(new_date(x)), format.Date(new_date(x + 1) - 1))
 }
 
 #' @export

@@ -78,7 +78,7 @@ test_that("as.POSIXlt.period works as expected", {
 test_that("as.character.period works as expected", {
   dat <- "2020-12-28"
   res <- as.character(as_period(dat, interval = 3))
-  expect_equal(res, "[2020-12-28")
+  expect_equal(res, "2020-12-28 to 2020-12-30")
 })
 
 test_that("as.list.period works as expected", {

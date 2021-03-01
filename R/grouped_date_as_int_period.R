@@ -103,7 +103,7 @@ as_int_period.numeric <- function(x, interval = 1L, firstdate = NULL, ...) {
 #' @export
 format.int_period <- function(x, ...) {
   if (length(x) == 0) return(character(0))
-  sprintf("[%d, %d)", x, x + 1)
+  sprintf("%d - %d", as.integer(x), as.integer(x + 1) - 1)
 }
 
 #' @export

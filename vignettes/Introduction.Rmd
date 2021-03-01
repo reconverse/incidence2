@@ -124,14 +124,9 @@ i_7
 plot(i_7)
 ```
 Notice how specifying the interval as 7 creates weekly intervals with the
-coverage displayed by date. We use the convention that a grouped date is
-displayed as [yyyy-mm-dd, with the left bracket indicative of it being binned
-left-inclusive. The right side of the bin is not diplayed for brevity but an
-incidence object will always print it’s interval at the top of it’s output.
-
-Below we illustrate how `incidence()` also allows us to create year-weekly
-groupings with the default being weeks starting on a Monday (following the ISO
-8601 date and time standard).
+coverage displayed by date. Below we illustrate how `incidence()` also allows
+us to create year-weekly groupings with the default being weeks starting on a
+Monday (following the ISO 8601 date and time standard).
 
 ```{r iweekly}
 
