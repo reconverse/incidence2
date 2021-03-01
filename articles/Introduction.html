@@ -206,22 +206,22 @@
 <span class="va">i_7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>
 <span class="va">i_7</span>
 <span class="co">#&gt; An incidence2 object: 56 x 2</span>
-<span class="co">#&gt; 5829 cases from [2014-04-07 to [2015-04-27</span>
+<span class="co">#&gt; 5829 cases from 2014-04-07 to 2015-05-03</span>
 <span class="co">#&gt; interval: 7 days</span>
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    date_index  count</span>
-<span class="co">#&gt;    &lt;period&gt;    &lt;int&gt;</span>
-<span class="co">#&gt;  1 [2014-04-07     1</span>
-<span class="co">#&gt;  2 [2014-04-14     1</span>
-<span class="co">#&gt;  3 [2014-04-21     5</span>
-<span class="co">#&gt;  4 [2014-04-28     4</span>
-<span class="co">#&gt;  5 [2014-05-05    12</span>
-<span class="co">#&gt;  6 [2014-05-12    17</span>
-<span class="co">#&gt;  7 [2014-05-19    15</span>
-<span class="co">#&gt;  8 [2014-05-26    19</span>
-<span class="co">#&gt;  9 [2014-06-02    23</span>
-<span class="co">#&gt; 10 [2014-06-09    21</span>
+<span class="co">#&gt;    date_index               count</span>
+<span class="co">#&gt;    &lt;period&gt;                 &lt;int&gt;</span>
+<span class="co">#&gt;  1 2014-04-07 to 2014-04-13     1</span>
+<span class="co">#&gt;  2 2014-04-14 to 2014-04-20     1</span>
+<span class="co">#&gt;  3 2014-04-21 to 2014-04-27     5</span>
+<span class="co">#&gt;  4 2014-04-28 to 2014-05-04     4</span>
+<span class="co">#&gt;  5 2014-05-05 to 2014-05-11    12</span>
+<span class="co">#&gt;  6 2014-05-12 to 2014-05-18    17</span>
+<span class="co">#&gt;  7 2014-05-19 to 2014-05-25    15</span>
+<span class="co">#&gt;  8 2014-05-26 to 2014-06-01    19</span>
+<span class="co">#&gt;  9 2014-06-02 to 2014-06-08    23</span>
+<span class="co">#&gt; 10 2014-06-09 to 2014-06-15    21</span>
 <span class="co">#&gt; # … with 46 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_7</span><span class="op">)</span></code></pre></div>
 <p><img src="Introduction_files/figure-html/i_7-1.png" width="672" style="display: block; margin: auto;"> Notice how specifying the interval as 7 creates weekly intervals with the coverage displayed by date. We use the convention that a grouped date is displayed as [yyyy-mm-dd, with the left bracket indicative of it being binned left-inclusive. The right side of the bin is not diplayed for brevity but an incidence object will always print it’s interval at the top of it’s output.</p>
