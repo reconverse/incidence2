@@ -29,16 +29,19 @@ scale_type.yrwk <- function(x) {
 yrwk_trans <- function(n = 5, firstday) {
 
   # transform function
-  trans <- function(x) (as.numeric(x) + 4 - firstday) %/% 7
+  trans <- function(x) as.numeric(x)
 
   # inverse function
-  inv <- function(x) x * 7
+  inv <- function(x) x
 
   # breaks function
-  brks <- function(x) scales::pretty_breaks(n)(new_date(x))
+  brks <- function(x) scales::pretty_breaks(n)(x)
 
   # format function
-  fmt <- function(x) format.yrwk(x)
+  fmt <- function(x) {
+    attr(x, "firstday") <- firstday
+    format.yrwk(x)
+  }
 
   scales::trans_new(
     "yrwk",

@@ -65,23 +65,14 @@ as_yrwk.Date <- function(x, firstday = 1L, ...) {
   }
 
   # Ensure no fractional days
-  x <- trunc(x)
+  x <- as.numeric(trunc(x))
 
-  # convert to posixlt and calculate the wday, 0 (Sunday) to 6 (Monday)
-  date <- as_utc_posixlt_from_int(x)
-  weekday <- date$wday
-
-  # calculate the weekday relative to the first day
-  weekday <- 1L + (weekday + (7L - firstday)) %% 7L # shift relative to firstday
-
-  # calculate the date of the first day of the week
-  weekstart <- x + (1L - weekday)
-
-  # strip any additional attributes
-  attributes(weekstart) <- NULL
+  # calculate the week number (relative to firstday nearest unix epoch)
+  weeknumber <- (x + 4 - firstday) %/% 7
+  attributes(weeknumber) <- NULL
 
   # create class
-  yrwk <- new_yrwk(weekstart = weekstart, firstday = firstday)
+  yrwk <- new_yrwk(weeknumber = weeknumber, firstday = firstday)
 
   # finishing touches
   yrwk[is.na(x)] <- NA_real_
@@ -109,28 +100,17 @@ as_yrwk.POSIXt <- function(x, firstday = 1L, ...) {
   # calculate date value
   out <- as.Date(x, tz = tzone(x))
 
-  # convert to POSIXlt
-  x <- as.POSIXlt(x)
-
-  # calculate the wday, 0 (Sunday) to 6 (Monday)
-  weekday <- x$wday
-
-  # calculate the weekday relative to the first day
-  weekday <- 1L + (weekday + (7L - firstday)) %% 7L # shift relative to firstday
-
-  # calculate the date of the first day of the week
-  out <- out + (1L - weekday)
-
-  # strip any additional attributes
-  attributes(out) <- NULL
+  # calculate the week number (relative to firstday nearest unix epoch)
+  weeknumber <- (as.numeric(out) + 4 - firstday) %/% 7
+  attributes(weeknumber) <- NULL
 
   # create class
-  out <- new_yrwk(weekstart = out, firstday = firstday)
+  yrwk <- new_yrwk(weeknumber = weeknumber, firstday = firstday)
 
   # finishing touches
-  out[is.na(x)] <- NA_real_
-  names(out) <- names(x)
-  out
+  yrwk[is.na(out)] <- NA_integer_
+  names(yrwk) <- names(x)
+  yrwk
 }
 
 
@@ -235,6 +215,7 @@ print.yrwk <- function(x, ...) {
 
 #' @export
 as.POSIXct.yrwk <- function(x, tz = "UTC", ...) {
+  x <- as.Date.yrwk(x)
   if (tz == "UTC") {
     as_utc_posixct_from_int(x)
   } else {
@@ -245,6 +226,7 @@ as.POSIXct.yrwk <- function(x, tz = "UTC", ...) {
 
 #' @export
 as.POSIXlt.yrwk <- function(x, tz = "UTC", ...) {
+  x <- as.Date.yrwk(x)
   if (tz == "UTC") {
     as_utc_posixlt_from_int(x)
   } else {
@@ -256,6 +238,9 @@ as.POSIXlt.yrwk <- function(x, tz = "UTC", ...) {
 
 #' @export
 as.Date.yrwk <- function(x, ...) {
+  firstday <- attr(x, "firstday")
+  weeknumber <- as.numeric(x)
+  x <- new_date((7 * weeknumber) + (firstday - 4))
   attributes(x) <- NULL
   new_date(x)
 }
@@ -419,9 +404,10 @@ seq.yrwk <- function(from, to, by = 1L, ...) {
     stop("Can only create a sequence between two `yrwk` objects", call. = FALSE)
   }
 
-  end <- to - from
-  idx <- seq.int(from = 0, to = end, by = by)
-  from + idx
+  from <- as.numeric(from)
+  to = as.numeric(to)
+  out <- seq(from = from, to = to, by = by)
+  new_yrwk(weeknumber = out, firstday = attr(x, "firstday"))
 }
 
 
@@ -484,9 +470,9 @@ Ops.yrwk <- function(e1, e2) {
       } else if (inherits(e1, "yrwk") && inherits(e2, "yrwk")) {
         stop("Cannot add <yrwk> objects to each other", call. = FALSE)
       } else if (inherits(e1, "yrwk") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
-        new_yrwk(unclass(e1) + 7 * e2, firstday = attr(e1, "firstday"))
+        new_yrwk(unclass(e1) + e2, firstday = attr(e1, "firstday"))
       } else if (inherits(e2, "yrwk") && (all(is.wholenumber(unclass(e1)),  na.rm = TRUE))) {
-        new_yrwk(unclass(e2) + 7 * e1, firstday = attr(e2, "firstday"))
+        new_yrwk(unclass(e2) + e1, firstday = attr(e2, "firstday"))
       } else {
         stop("Can only add whole numbers to <yrwk> objects", call. = FALSE)
       }
@@ -499,7 +485,7 @@ Ops.yrwk <- function(e1, e2) {
           fd1 <- attr(e1, "firstday")
           fd2 <- attr(e2, "firstday")
           if (isTRUE(all.equal(fd1, fd2))) {
-            as.integer(difftime(e1, e2, units = "weeks"))
+            as.integer(e1) - as.integer(e2)
           } else {
             stop("<yrwk> objects must have the same `firstday` attribute to perform subtraction")
           }
@@ -507,7 +493,7 @@ Ops.yrwk <- function(e1, e2) {
           stop("Can only subtract from a <yrwk> object not vice-versa", call. = FALSE)
         }
       } else if (inherits(e1, "yrwk") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
-        new_yrwk(unclass(e1) - 7 * e2, firstday = attr(e1, "firstday"))
+        new_yrwk(unclass(e1) - as.numeric(e2), firstday = attr(e1, "firstday"))
       } else {
         stop("Can only subtract whole numbers and other <yrwk> objects from <yrwk> objects", call. = FALSE)
       }
@@ -543,8 +529,8 @@ Summary.yrwk <- function (..., na.rm)
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-new_yrwk <- function(weekstart = numeric(), firstday = integer()) {
-  structure(weekstart, firstday = firstday, class = c("yrwk", "grate"))
+new_yrwk <- function(weeknumber = numeric(), firstday = integer()) {
+  structure(weeknumber, firstday = firstday, class = c("yrwk", "grate"))
 }
 
 

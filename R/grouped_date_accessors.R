@@ -296,17 +296,19 @@ is_int_period <- function(x) {
 
 yrwk_to_firstday <- function(x) attr(x, "firstday")
 
-
 yrwk_to_week <- function(x) {
-  x <- new_date(unclass(x))
+  firstday <- attr(x, "firstday")
+  weeknumber <- as.numeric(x)
+  x <- new_date((7 * weeknumber) + (firstday - 4))
   midweek <- x + 3
   seven_day_week_in_year(date = midweek)
 }
 
-
 yrwk_to_year <- function(x) {
   wk <- yrwk_to_week(x)
-  x <- new_date(unclass(x))
+  firstday <- attr(x, "firstday")
+  weeknumber <- as.numeric(x)
+  x <- new_date((7 * weeknumber) + (firstday - 4))
   dat <- as_utc_posixlt_from_int(x)
   december <- dat$mon == 11L
   january <- dat$mon == 0L
