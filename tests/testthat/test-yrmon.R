@@ -220,9 +220,9 @@ test_that("yrmon output looks correct", {
   yrs <- rep(2021:2022, each = 12)
   months <- rep.int(1:12, times = 2)
   dates <- as.Date(ISOdate(yrs, months, 5L))
-  expected <- structure(as.Date(ISOdate(yrs, months, 1L)), class = c("yrmon", "grate"))
+  expected <- seq(from = as.Date("2021-01-01"), to = as.Date("2022-12-01"), by = "month")
 
-  expect_equal(as_yrmon(dates), expected)
+  expect_equal(as.Date(as_yrmon(dates)), expected)
 
   expect_snapshot_output(print(as_yrmon(dates), format = "%Y-%m"))
   # This should look like:

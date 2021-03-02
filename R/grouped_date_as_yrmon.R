@@ -46,20 +46,19 @@ as_yrmon.yrmon <- function(x, ...) {
 #' @export
 as_yrmon.Date <- function(x, ...) {
 
-  # Ensure no fractional days
-  x <- trunc(x)
-
   # convert to posixlt
-  tmp <- as_utc_posixlt_from_int(x)
+  x <- as_utc_posixlt_from_int(x)
 
-  # floor to the start of the month
-  x <- x - (tmp$mday - 1)
+  # Now calculate the month
+  yr <- x$year + 1900L
+  mon <- x$mon
+  mon <- (yr - 1970L) * 12L + mon
 
   # create class
-  yrmon <- new_yrmon(unclass(x))
+  yrmon <- new_yrmon(mon)
 
   # finishing touches
-  yrmon[is.na(x)] <- NA_real_
+  yrmon[is.na(mon)] <- NA_real_
   names(yrmon) <- names(x)
   yrmon
 }
@@ -67,24 +66,44 @@ as_yrmon.Date <- function(x, ...) {
 
 #' @rdname as_yrmon
 #' @export
-as_yrmon.POSIXt <- function(x, ...) {
+as_yrmon.POSIXlt <- function(x, ...) {
 
-  # Ensure no fractional days
-  x <- trunc(x)
-  x <- as.POSIXlt(x)
-
-  # convert to date and floor to the start of the month
-  out <- as.Date(x, tz = tzone(x))
-  out <- out - (x$mday - 1)
+  # Now calculate the month
+  mon <- (x$year - 70L) * 12L + x$mon
 
   # create class
-  out <- new_yrmon(unclass(out))
+  yrmon <- new_yrmon(mon)
 
   # finishing touches
-  out[is.na(x)] <- NA_real_
-  names(out) <- names(x)
-  out
+  yrmon[is.na(mon)] <- NA_real_
+  names(yrmon) <- names(x)
+  yrmon
+
 }
+
+
+#' @rdname as_yrmon
+#' @export
+as_yrmon.POSIXct <- function(x, ...) {
+
+  out <- unclass(x) / 86400
+
+  # First convert to posixlt to deal with timezones and then date
+  out <- as_zoned_posixlt_from_int(out, tz = tzone(x))
+
+  # Now calculate the month
+  mon <- (out$year - 70L) * 12L + out$mon
+
+  # create class
+  yrmon <- new_yrmon(mon)
+
+  # finishing touches
+  yrmon[is.na(mon)] <- NA_real_
+  names(yrmon) <- names(x)
+  yrmon
+
+}
+
 
 
 #' @rdname as_yrmon
@@ -135,7 +154,7 @@ as_yrmon.factor <- function(x, ...) {
 #' @export
 format.yrmon <- function(x, format = "%Y-%b", ...) {
   if (length(x) == 0) return(character(0))
-  format.Date(new_date(x), format = format)
+  format.Date(as.Date(x), format = format)
 }
 
 #' @export
@@ -153,20 +172,24 @@ print.yrmon <- function(x, format = "%Y-%b", ...) {
 
 #' @export
 as.POSIXct.yrmon <- function(x, tz = "UTC", ...) {
+  attributes(x) <- NULL
+  days <- month_to_days(x)
   if (tz == "UTC") {
-    as_utc_posixct_from_int(x)
+    as_utc_posixct_from_int(days)
   } else {
-    as_zoned_posixct_from_int(x, tz = tz)
+    as_zoned_posixct_from_int(days, tz = tz)
   }
 }
 
 
 #' @export
 as.POSIXlt.yrmon <- function(x, tz = "UTC", ...) {
+  attributes(x) <- NULL
+  days <- month_to_days(x)
   if (tz == "UTC") {
-    as_utc_posixlt_from_int(x)
+    as_utc_posixlt_from_int(days)
   } else {
-    as_zoned_posixlt_from_int(x, tz = tz)
+    as_zoned_posixlt_from_int(days, tz = tz)
   }
 
 }
@@ -175,7 +198,8 @@ as.POSIXlt.yrmon <- function(x, tz = "UTC", ...) {
 #' @export
 as.Date.yrmon <- function(x, ...) {
   attributes(x) <- NULL
-  new_date(x)
+  days <- month_to_days(x)
+  new_date(days)
 }
 
 
@@ -312,9 +336,10 @@ seq.yrmon <- function(from, to, by = 1L, ...) {
     stop("Can only create a sequence between two `yrmon` objects", call. = FALSE)
   }
 
-  end <- to - from
-  idx <- seq.int(from = 0, to = end, by = by)
-  from + idx
+  from <- as.numeric(from)
+  to = as.numeric(to)
+  out <- seq(from = from, to = to, by = by)
+  new_yrmon(out)
 }
 
 
@@ -369,9 +394,9 @@ Ops.yrmon <- function(e1, e2) {
       } else if (inherits(e1, "yrmon") && inherits(e2, "yrmon")) {
         stop("Cannot add <yrmon> objects to each other", call. = FALSE)
       } else if (inherits(e1, "yrmon") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
-        add_months(e1, unclass(e2))
+        new_yrmon(unclass(e1) + e2)
       } else if (inherits(e2, "yrmon") && (all(is.wholenumber(unclass(e1)),  na.rm = TRUE))) {
-        add_months(e2, unclass(e1))
+        new_yrmon(unclass(e2) + e1)
       } else {
         stop("Can only add whole numbers to <yrmon> objects", call. = FALSE)
       }
@@ -381,12 +406,12 @@ Ops.yrmon <- function(e1, e2) {
         stop("Cannot negate a <yrmon> object", call. = FALSE)
       } else if (inherits(e2, "yrmon")) {
         if (inherits(e1, "yrmon")) {
-          yrmon_difftime(e1, e2)
+          as.integer(e1) - as.integer(e2)
         } else if (all(is.wholenumber(unclass(e1)),  na.rm = TRUE)) {
           stop("Can only subtract from a <yrmon> object not vice-versa", call. = FALSE)
         }
       } else if (inherits(e1, "yrmon") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
-        add_months(e1, -unclass(e2))
+        new_yrmon(unclass(e1) - as.numeric(e2))
       } else {
         stop("Can only subtract whole numbers and other <yrmon> objects from <yrmon> objects", call. = FALSE)
       }
@@ -432,11 +457,3 @@ add_months <- function(x, n) {
   x <- as.Date(x)
   new_yrmon(unclass(x))
 }
-
-
-yrmon_difftime <- function(x, y) {
-  x <- as_utc_posixlt_from_int(x)
-  y <- as_utc_posixlt_from_int(y)
-  12L * (x$year - y$year) + (x$mon - y$mon)
-}
-

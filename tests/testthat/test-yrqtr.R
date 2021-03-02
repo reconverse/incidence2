@@ -219,10 +219,9 @@ test_that("yrqtr output looks correct", {
   yrs <- rep(2021:2022, each = 12)
   months <- rep.int(1:12, times = 2)
   dates <- as.Date(ISOdate(yrs, months, 5L, tz = "UTC"), tz = "UTC")
-  qtrs <- rep(c(1, 4, 7, 10), each = 3, times = 2)
-  expected <- structure(as.Date(ISOdate(yrs, qtrs, 1L, tz = "UTC"), tz = "UTC"), class = c("yrqtr", "grate"))
-
-  expect_equal(as_yrqtr(dates), expected)
+  expected <- seq(from = as.Date("2021-01-01"), to = as.Date("2022-12-01"), by = "quarter")
+  expected <- rep(expected, each = 3)
+  expect_equal(as.Date(as_yrqtr(dates)), expected)
 
   expect_snapshot_output(print(as_yrqtr(dates), format = "%Y-%m"))
   # This should look like:

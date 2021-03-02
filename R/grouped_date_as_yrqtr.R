@@ -44,49 +44,8 @@ as_yrqtr.yrqtr <- function(x, ...) {
 #' @rdname as_yrqtr
 #' @export
 as_yrqtr.yrmon <- function(x, ...) {
-  as_yrqtr(as.Date(x))
-}
-
-
-#' @rdname as_yrqtr
-#' @export
-as_yrqtr.Date <- function(x, ...) {
-
-  # Ensure no fractional days
-  x <- trunc(x)
-
-  # convert to posixlt and floor date to start of quarter
-  tmp <- as_utc_posixlt_from_int(x)
-  x <- x - tmp$mday - quarter_days_before_month(tmp$year, tmp$mon + 1L) + 1L
-  yrqtr <- new_yrqtr(unclass(x))
-
-  # finishing touches
-  yrqtr[is.na(x)] <- NA_real_
-  names(yrqtr) <- names(x)
-  yrqtr
-}
-
-
-#' @rdname as_yrqtr
-#' @export
-as_yrqtr.POSIXt <- function(x, ...) {
-
-  # Ensure no fractional days
-  x <- trunc(x)
-  x <- as.POSIXlt(x)
-
-
-  x$mon <- (x$mon %/% 3L) * 3L
-  x$mday <- 1L
-
-  # convert to date
-  out <- as.Date(x, tz = tzone(x))
-
-  # create class
-  out <- new_yrqtr(unclass(trunc(out)))
-
-  # finishing touches
-  out[is.na(x)] <- NA_real_
+  out <- as.numeric(x) %/% 3
+  out <- new_yrqtr(out)
   names(out) <- names(x)
   out
 }
@@ -94,41 +53,28 @@ as_yrqtr.POSIXt <- function(x, ...) {
 
 #' @rdname as_yrqtr
 #' @export
-as_yrqtr.character <- function(x, ...) {
-
-  # ISO 8601 standard (YYYY-MM-DD)
-  iso_pattern <- "(^\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$)"
-
-
-  # iso_pattern is allowed, as are NA's
-  allowed <- grepl(iso_pattern, trimws(x))
-  allowed[is.na(x)] <- TRUE
-  if (!all(allowed)) {
-    stop(
-      "Not all dates are in a valid formate:",
-      sprintf("The first incorrect date is: %s", x[!allowed][1]),
-      call. = FALSE
-    )
-  }
-
-  # remove extraneous whitespace
-  dat <- trimws(x)
-
-  # convert to dates
-  dat <- as.Date(dat)
-
-  # convert to yrqtr
-  dat <- as_yrqtr.Date(dat)
-  names(dat) <- names(x)
-  dat
+as_yrqtr.Date <- function(x, ...) {
+  out <- as_yrmon(x)
+  out <- as.numeric(out) %/% 3
+  out <- new_yrqtr(out)
+  names(out) <- names(x)
+  out
 }
 
 
 #' @rdname as_yrqtr
 #' @export
-as_yrqtr.factor <- function(x, ...) {
-  as_yrqtr.character(as.character(x))
-}
+as_yrqtr.POSIXt <- as_yrqtr.Date
+
+
+#' @rdname as_yrqtr
+#' @export
+as_yrqtr.character <- as_yrqtr.Date
+
+
+#' @rdname as_yrqtr
+#' @export
+as_yrqtr.factor <- as_yrqtr.Date
 
 
 # ------------------------------------------------------------------------- #
@@ -140,7 +86,8 @@ as_yrqtr.factor <- function(x, ...) {
 #' @export
 format.yrqtr <- function(x, ...) {
   if (length(x) == 0) return(character(0))
-  x <- as_utc_posixlt_from_int(x)
+  days <- month_to_days(as.numeric(x) * 3)
+  x <- as_utc_posixlt_from_int(days)
   out <- sprintf("%04d-Q%d", x$year + 1900L, x$mon %/% 3L +1)
   out[is.na(x)] <- NA_character_
   names(out) <- names(x)
@@ -162,20 +109,24 @@ print.yrqtr <- function(x, ...) {
 
 #' @export
 as.POSIXct.yrqtr <- function(x, tz = "UTC", ...) {
+  attributes(x) <- NULL
+  days <- month_to_days(as.numeric(x) * 3)
   if (tz == "UTC") {
-    as_utc_posixct_from_int(x)
+    as_utc_posixct_from_int(days)
   } else {
-    as_zoned_posixct_from_int(x, tz = tz)
+    as_zoned_posixct_from_int(days, tz = tz)
   }
 }
 
 
 #' @export
 as.POSIXlt.yrqtr <- function(x, tz = "UTC", ...) {
+  attributes(x) <- NULL
+  days <- month_to_days(as.numeric(x) * 3)
   if (tz == "UTC") {
-    as_utc_posixlt_from_int(x)
+    as_utc_posixlt_from_int(days)
   } else {
-    as_zoned_posixlt_from_int(x, tz = tz)
+    as_zoned_posixlt_from_int(days, tz = tz)
   }
 
 }
@@ -184,7 +135,8 @@ as.POSIXlt.yrqtr <- function(x, tz = "UTC", ...) {
 #' @export
 as.Date.yrqtr <- function(x, ...) {
   attributes(x) <- NULL
-  new_date(x)
+  days <- month_to_days(as.numeric(x) * 3)
+  new_date(days)
 }
 
 
@@ -315,9 +267,10 @@ seq.yrqtr <- function(from, to, by = 1L, ...) {
     stop("Can only create a sequence between two `yrqtr` objects", call. = FALSE)
   }
 
-  end <- to - from
-  idx <- seq.int(from = 0, to = end, by = by)
-  from + idx
+  from <- as.numeric(from)
+  to = as.numeric(to)
+  out <- seq(from = from, to = to, by = by)
+  new_yrqtr(out)
 }
 
 
@@ -371,9 +324,9 @@ Ops.yrqtr <- function(e1, e2) {
       } else if (inherits(e1, "yrqtr") && inherits(e2, "yrqtr")) {
         stop("Cannot add <yrqtr> objects to each other", call. = FALSE)
       } else if (inherits(e1, "yrqtr") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
-        add_quarters(e1, unclass(e2))
+        new_yrqtr(unclass(e1) + e2)
       } else if (inherits(e2, "yrqtr") && (all(is.wholenumber(unclass(e1)),  na.rm = TRUE))) {
-        add_quarters(e2, unclass(e1))
+        new_yrqtr(unclass(e2) + e1)
       } else {
         stop("Can only add whole numbers to <yrqtr> objects", call. = FALSE)
       }
@@ -383,12 +336,12 @@ Ops.yrqtr <- function(e1, e2) {
         stop("Cannot negate a <yrqtr> object", call. = FALSE)
       } else if (inherits(e2, "yrqtr")) {
         if (inherits(e1, "yrqtr")) {
-          (yrmon_difftime(e1, e2) / 3L)
+          as.integer(e1) - as.integer(e2)
         } else if (all(is.wholenumber(unclass(e1)),  na.rm = TRUE)) {
           stop("Can only subtract from a <yrqtr> object not vice-versa", call. = FALSE)
         }
       } else if (inherits(e1, "yrqtr") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
-        add_quarters(e1, -unclass(e2))
+        new_yrqtr(unclass(e1) - as.numeric(e2))
       } else {
         stop("Can only subtract whole numbers and other <yrqtr> objects from <yrqtr> objects", call. = FALSE)
       }
@@ -425,14 +378,6 @@ Summary.yrqtr <- function (..., na.rm)
 
 new_yrqtr <- function(x = numeric()) {
   structure(x, class = c("yrqtr", "grate"))
-}
-
-
-add_quarters <- function(x, n) {
-  x <- as_utc_posixlt_from_int(x)
-  x$mon <- x$mon + (3 * n)
-  x <- as.Date(x)
-  new_yrqtr(unclass(x))
 }
 
 

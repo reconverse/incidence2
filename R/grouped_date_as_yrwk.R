@@ -407,7 +407,7 @@ seq.yrwk <- function(from, to, by = 1L, ...) {
   from <- as.numeric(from)
   to = as.numeric(to)
   out <- seq(from = from, to = to, by = by)
-  new_yrwk(weeknumber = out, firstday = attr(x, "firstday"))
+  new_yrwk(weeknumber = out, firstday = attr(from, "firstday"))
 }
 
 

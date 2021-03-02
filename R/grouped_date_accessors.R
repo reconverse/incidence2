@@ -191,7 +191,7 @@ get_interval.yrqtr <- function(x, days = FALSE, ...) {
   res <- "1 quarter"
   if (days) {
     year <- get_year(x)
-    quarter <- (yrmon_to_month(x) - 1L) %/% 3L + 1L
+    quarter <- get_quarter(x)
     res <- days_in_quarter(year, quarter)
   }
   res
@@ -332,7 +332,9 @@ seven_day_week_in_year <- function(date) {
 
 
 yrmon_to_month <- function(x, style = c("numeric", "named"), ...) {
-  x <- as_utc_posixlt_from_int(x)
+  attributes(x) <- NULL
+  days <- month_to_days(x)
+  x <- as_utc_posixlt_from_int(days)
   style <- match.arg(style)
   mon <- x$mon + 1L
   if (style == "named") {
@@ -345,16 +347,25 @@ yrmon_to_month <- function(x, style = c("numeric", "named"), ...) {
 
 
 yrmon_to_year <- function(x) {
-  x <- as_utc_posixlt_from_int(x)
+  attributes(x) <- NULL
+  days <- month_to_days(x)
+  x <- as_utc_posixlt_from_int(days)
   x$year + 1900L
 }
 
 
-yrqtr_to_year <- yrmon_to_year
+yrqtr_to_year <- function(x) {
+  attributes(x) <- NULL
+  days <- month_to_days(x * 3)
+  x <- as_utc_posixlt_from_int(days)
+  x$year + 1900L
+}
 
 
 yrqtr_to_quarter <- function(x) {
-  x <- as_utc_posixlt_from_int(x)
+  attributes(x) <- NULL
+  days <- month_to_days(x * 3)
+  x <- as_utc_posixlt_from_int(days)
   x$mon %/% 3L +1L
 }
 

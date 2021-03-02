@@ -5,7 +5,8 @@
 \alias{as_yrmon.default}
 \alias{as_yrmon.yrmon}
 \alias{as_yrmon.Date}
-\alias{as_yrmon.POSIXt}
+\alias{as_yrmon.POSIXlt}
+\alias{as_yrmon.POSIXct}
 \alias{as_yrmon.character}
 \alias{as_yrmon.factor}
 \title{Convert an object to a yrmon}
@@ -18,7 +19,9 @@ as_yrmon(x, ...)
 
 \method{as_yrmon}{Date}(x, ...)
 
-\method{as_yrmon}{POSIXt}(x, ...)
+\method{as_yrmon}{POSIXlt}(x, ...)
+
+\method{as_yrmon}{POSIXct}(x, ...)
 
 \method{as_yrmon}{character}(x, ...)
 

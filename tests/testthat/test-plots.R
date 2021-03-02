@@ -40,7 +40,7 @@ test_that("multi-day plotting works", {
 test_that("grouped week plotting works", {
   dat <- load_dat()
   x <- incidence(dat, date_index = date_of_infection, interval = "week", groups = "gender")
-  expect_snapshot_plot("week_grouped", plot(x, fill = gender))
+  expect_snapshot_plot("week_grouped", plot(x, fill = gender, n_breaks = 5))
 })
 
 

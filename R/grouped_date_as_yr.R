@@ -60,10 +60,10 @@ as_yr.Date <- function(x, ...) {
 
   # convert to posixlt and floor date to start of quarter
   yr <- as_utc_posixlt_from_int(x)$year + 1900L
-  yr <- new_yr(yr)
+  yr <- new_yr(as.numeric(yr))
 
   # finishing touches
-  yr[is.na(x)] <- NA_integer_
+  yr[is.na(x)] <- NA_real_
   names(yr) <- names(x)
   yr
 }
@@ -75,10 +75,10 @@ as_yr.POSIXt <- function(x, ...) {
 
   x <- as.POSIXlt(x)
   yr <- x$year + 1900L
-  yr <- new_yr(yr)
+  yr <- new_yr(as.numeric(yr))
 
   # finishing touches
-  yr[is.na(x)] <- NA_integer_
+  yr[is.na(x)] <- NA_real_
   names(yr) <- names(x)
   yr
 }
@@ -420,6 +420,6 @@ Summary.yr <- function (..., na.rm)
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-new_yr <- function(x = integer()) {
+new_yr <- function(x = numeric()) {
   structure(x, class = c("yr", "grate"))
 }
