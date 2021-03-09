@@ -19,4 +19,9 @@ test_that("keep_first and keep_last works as expected", {
 
   expect_error(keep_first("bob"))
   expect_error(keep_last("bob"))
+
+  expect_message(keep_first(x, 13))
+  expect_equal(keep_first(x, 13), x)
+  expect_error(keep_first(x, -1))
+
 })

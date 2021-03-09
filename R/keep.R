@@ -136,11 +136,19 @@ keep_last.int_period <- keep_last.yrwk
 
 
 keep_idx <- function(x, n, from_last = FALSE) {
+  uniq <- unique(x)
+  if (n > length(uniq)) {
+    message("n greater than number of unique date groupings. Returning all rows.")
+    n <- length(uniq)
+  } else if (n < 0) {
+    stop("'n' must be non-negative", call. = FALSE)
+  }
+
   if (from_last) {
-    id <- rev(unique(x))[n]
+    id <- rev(uniq)[n]
     return(x >= id)
   } else {
-    id <- unique(x)[n]
+    id <- uniq[n]
     return(x <= id)
   }
 }
