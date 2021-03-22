@@ -241,7 +241,7 @@ summary(i_week_sh)
 #> 4 other                                          876
 #> 5 Princess Christian Maternity Hospital (PCMH)   420
 #> 6 Rokupa Hospital                                451
-facet_plot(i_week_sh, facets = gender, fill = hospital, n_breaks = 3)
+facet_plot(i_week_sh, facets = gender, fill = hospital, n_breaks = 3, color = NA)
 ```
 
 <img src="man/figures/README-genderhospital-1.png" style="display: block; margin: auto;" />
