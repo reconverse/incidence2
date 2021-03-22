@@ -32,7 +32,7 @@
 #' @param alpha The alpha level for color transparency, with 1 being fully
 #'   opaque and 0 fully transparent; defaults to 0.7.
 #' @param color The color to be used for the borders of the bars; NA for
-#'   invisible borders; defaults to `NA`.
+#'   invisible borders; defaults to `white`.
 #' @param xlab The label to be used for the x-axis; empty by default.
 #' @param ylab The label to be used for the y-axis; by default, a label will be
 #'   generated automatically according to the time interval used in incidence
@@ -94,7 +94,7 @@
 #' @export
 plot.incidence2 <- function(x, count = NULL, fill = NULL, stack = TRUE,
                             title = NULL, col_pal = vibrant, alpha = 0.7,
-                            color = NA, xlab = "", ylab = NULL, n_breaks = 5,
+                            color = "white", xlab = "", ylab = NULL, n_breaks = 5,
                             show_cases = FALSE, border = "white",
                             na_color = "grey",
                             legend = c("right", "left", "bottom", "top", "none"),
@@ -179,7 +179,7 @@ facet_plot <- function(x, ...) {
 #' @export
 facet_plot.incidence2 <- function(x, count = NULL, facets = NULL, stack = TRUE,
                             fill = NULL, title = NULL, col_pal = vibrant,
-                            alpha = 0.7, color = NA, xlab = "",
+                            alpha = 0.7, color = "white", xlab = "",
                             ylab = NULL, n_breaks = 3, show_cases = FALSE,
                             border = "white", na_color = "grey",
                             legend = c("bottom", "top", "left", "right", "none"),
@@ -299,12 +299,28 @@ plot_basic <- function(x, count, fill = NULL, stack = TRUE,
     }
   }
 
+  width <- NULL
+  d <- get_dates(x)
+  if (inherits(d, "yrwk") | inherits(d, "yrmon") | inherits(d, "yrqtr") | inherits(d, "yr")) {
+    width <- 1
+  } else if (inherits(d, "int_period")) {
+    width <- get_interval(d, days = TRUE)
+  } else if (inherits(d, "period")) {
+    d_interval <- get_interval(d)
+    if (get_interval_type(d_interval) %in% c("double", "integer", "numeric")) {
+      width <- get_interval(d, days = TRUE)
+    } else if (get_interval_type(d_interval) == "week") {
+      width <- get_interval(d, days = TRUE) / 7
+    }
+  }
+
   if (is.null(fill)) {
     out <- ggplot2::ggplot(df) +
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis), y = !!sym(y_axis)),
                         color = color,
                         fill = col_pal(1),
-                        alpha = alpha) +
+                        alpha = alpha,
+                        width = width) +
       ggplot2::theme_bw() +
       ggplot2::labs(x = xlab, y = ylab)
   } else if (!all(fill %in% group_vars)) {
@@ -312,7 +328,8 @@ plot_basic <- function(x, count, fill = NULL, stack = TRUE,
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis), y = !!sym(y_axis)),
                         color = color,
                         fill = fill,
-                        alpha = alpha) +
+                        alpha = alpha,
+                        width = width) +
       ggplot2::theme_bw() +
       ggplot2::labs(x = xlab, y = ylab)
   } else if (group_vars == fill) {
@@ -325,7 +342,8 @@ plot_basic <- function(x, count, fill = NULL, stack = TRUE,
       ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis), y = !!sym(y_axis)),
                         color = color,
                         alpha = alpha,
-                        position = stack.txt) +
+                        position = stack.txt,
+                        width = width) +
       ggplot2::theme_bw() +
       ggplot2::theme(legend.position = legend) +
       ggplot2::labs(x = xlab, y = ylab) +

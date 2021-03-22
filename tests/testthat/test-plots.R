@@ -26,7 +26,7 @@ load_dat <- function() {
 test_that("day plotting works", {
   dat <- load_dat()
   x <- incidence(dat, date_index = date_of_infection)
-  expect_snapshot_plot("day", plot(x))
+  expect_snapshot_plot("day", plot(x, color = NA))
 })
 
 

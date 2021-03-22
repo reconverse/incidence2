@@ -28,7 +28,7 @@ int_cast <- function(x) {
 
 get_interval_number <- function(x) {
   if (!grepl("^\\d", x)) return(1L)
-  as.integer(gsub("^(\\d*).+$", "\\1", x))
+  as.integer(gsub("^(\\d*).*$", "\\1", x))
 }
 
 

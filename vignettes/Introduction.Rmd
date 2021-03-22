@@ -102,11 +102,11 @@ To compute daily incidence we must pass observation data in the form of a
 a date variable in the data that we can use to index the input:
 
 We compute the daily incidence:
-```{r incid1}
+```{r incid1, fig.height = 5, dpi = 90}
 i <- incidence(dat, date_index = date_of_onset)
 i
 summary(i)
-plot(i)
+plot(i, color = NA)
 ```
 
 The daily incidence is quite noisy, but we can easily compute other incidence
@@ -173,5 +173,5 @@ us to both facet and fill by different variables:
 ```{r outcome_hospital}
 inci <- incidence(dat, date_index = date_of_onset,
                      interval = "week", groups = c(outcome, hospital, gender))
-facet_plot(inci, facets = hospital, fill = outcome, nrow = 3, n_breaks = 5, angle = 45)
+facet_plot(inci, facets = hospital, fill = outcome, nrow = 3, n_breaks = 5, angle = 45, color = NA)
 ```

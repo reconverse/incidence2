@@ -14,7 +14,7 @@
   title = NULL,
   col_pal = vibrant,
   alpha = 0.7,
-  color = NA,
+  color = "white",
   xlab = "",
   ylab = NULL,
   n_breaks = 5,
@@ -38,7 +38,7 @@ facet_plot(x, ...)
   title = NULL,
   col_pal = vibrant,
   alpha = 0.7,
-  color = NA,
+  color = "white",
   xlab = "",
   ylab = NULL,
   n_breaks = 3,
@@ -73,7 +73,7 @@ to \code{vibrant} (see \code{?palettes}).}
 opaque and 0 fully transparent; defaults to 0.7.}
 
 \item{color}{The color to be used for the borders of the bars; NA for
-invisible borders; defaults to \code{NA}.}
+invisible borders; defaults to \code{white}.}
 
 \item{xlab}{The label to be used for the x-axis; empty by default.}
 
