@@ -155,6 +155,8 @@
 <span class='co'># S3 method for incidence2</span>
 <span class='fu'>get_count_names</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
+<span class='fu'>get_counts_name</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
 <span class='fu'>get_dates</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
@@ -170,6 +172,8 @@
 
 <span class='co'># S3 method for incidence2</span>
 <span class='fu'>get_dates_name</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>get_date_group_names</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>get_group_names</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
@@ -195,13 +199,8 @@
 <span class='co'># S3 method for incidence2</span>
 <span class='fu'>get_n</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>get_interval</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>get_interval</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
 <span class='co'># S3 method for incidence2</span>
-<span class='fu'>get_interval</span><span class='op'>(</span><span class='va'>x</span>, integer <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='http://www.reconverse.org/grates/reference/grate_accessors.html'>get_interval</a></span><span class='op'>(</span><span class='va'>x</span>, integer <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -233,11 +232,19 @@ integer vector if it is stored as a character in the incidence object.</p></td>
 </ul>
 
 <ul>
+<li><p><code>get_counts_name()</code>: Same as <code>get_count_names()</code>.</p></li>
+</ul>
+
+<ul>
 <li><p><code>get_dates()</code>: The date vector from x.</p></li>
 </ul>
 
 <ul>
 <li><p><code>get_dates_name()</code>: The name of the date variable of x.</p></li>
+</ul>
+
+<ul>
+<li><p><code>get_date_group_names()</code>: Same as <code>get_dates_name()</code></p></li>
 </ul>
 
 <ul>
@@ -255,7 +262,7 @@ by the incidence object.</p></li>
 </ul>
 
 <ul>
-<li><p><code>get_interval()</code>: if <code>integer = TRUE</code>, an integer vector, otherwise the
+<li><p><code><a href='http://www.reconverse.org/grates/reference/grate_accessors.html'>get_interval()</a></code>: if <code>integer = TRUE</code>, an integer vector, otherwise the
 character value of the <code>interval</code></p></li>
 </ul>
 
@@ -277,7 +284,7 @@ character value of the <code>interval</code></p></li>
     <span class='fu'>get_dates</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
     <span class='fu'>get_dates_name</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
 
-    <span class='fu'>get_interval</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
+    <span class='fu'><a href='http://www.reconverse.org/grates/reference/grate_accessors.html'>get_interval</a></span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
 
     <span class='fu'>get_n</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
 

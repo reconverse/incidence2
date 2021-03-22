@@ -132,8 +132,7 @@
 <li><p><strong><code><a href="../reference/as_tibble.html">as_tibble()</a></code></strong>: converts an <code><a href="../reference/incidence.html">incidence()</a></code> object into a <code>tibble</code>.</p></li>
 </ul>
 </li>
-<li><p>Accessor functions: <strong><code><a href="../reference/accessors.html">get_count_names()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_dates_name()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_dates()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_group_names()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_interval()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_timespan()</a></code></strong> and <strong><code><a href="../reference/accessors.html">get_n()</a></code></strong>.</p></li>
-<li><p>Grouped date classes: <strong><code><a href="../reference/as_yrwk.html">as_yrwk()</a></code></strong>, <strong><code><a href="../reference/as_yrmon.html">as_yrmon()</a></code></strong>, <strong><code><a href="../reference/as_yrqtr.html">as_yrqtr()</a></code></strong>, <strong><code><a href="../reference/as_yr.html">as_yr()</a></code></strong>, <strong><code><a href="../reference/as_period.html">as_period()</a></code></strong> and <strong><code><a href="../reference/as_int_period.html">as_int_period()</a></code></strong>.</p></li>
+<li><p>Accessor functions: <strong><code><a href="../reference/accessors.html">get_count_names()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_dates_name()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_dates()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_group_names()</a></code></strong>, <strong><code><a href="http://www.reconverse.org/grates/reference/grate_accessors.html">get_interval()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_timespan()</a></code></strong> and <strong><code><a href="../reference/accessors.html">get_n()</a></code></strong>.</p></li>
 </ul>
 </div>
 <div id="worked-example-simulated-ebola-outbreak" class="section level1">
@@ -146,7 +145,6 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/incidence2">incidence2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span>
 
 <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
@@ -305,8 +303,7 @@
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">inci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
                      interval <span class="op">=</span> <span class="st">"week"</span>, groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">outcome</span>, <span class="va">hospital</span>, <span class="va">gender</span><span class="op">)</span><span class="op">)</span>
-<span class="va">inci</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span>facets <span class="op">=</span> <span class="va">hospital</span>, fill <span class="op">=</span> <span class="va">outcome</span>, nrow <span class="op">=</span> <span class="fl">3</span>, n_breaks <span class="op">=</span> <span class="fl">5</span>, angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">inci</span>, facets <span class="op">=</span> <span class="va">hospital</span>, fill <span class="op">=</span> <span class="va">outcome</span>, nrow <span class="op">=</span> <span class="fl">3</span>, n_breaks <span class="op">=</span> <span class="fl">5</span>, angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></code></pre></div>
 <p><img src="Introduction_files/figure-html/outcome_hospital-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>

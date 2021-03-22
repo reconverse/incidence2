@@ -235,21 +235,22 @@ format. Any other format will trigger an error.</p></li>
 
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Interval specification (<code>interval</code>)</h3>
-<p><code>incidence2</code> includes generators for different grouped date s3 classes.
-Which one the <code>incidence()</code> function uses depends on the value of
-<code>interval</code>. This can be specified as either an integer value or a more
-standard specification such as "day", "week", "month", "quarter" or "year".
-The format in this situation is similar to that used by <code><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date()</a></code>
-where these values can optionally be preceded by a (positive or negative)
-integer and a space, or followed by "s".  When no prefix is given:</p><ul>
-<li><p>"week"    : uses the "yrwk" class (see <code><a href='as_yrwk.html'>as_yrwk()</a></code>).</p></li>
-<li><p>"month"   : uses the "yrmon" class (see <code><a href='as_yrmon.html'>as_yrmon()</a></code>).</p></li>
-<li><p>"quarter" : uses the "yrqtr" class (see <code><a href='as_yrqtr.html'>as_yrqtr()</a></code>).</p></li>
-<li><p>"year"    : uses the "yr" class (see <code><a href='as_yr.html'>as_yr()</a></code>).</p></li>
+<p><code>incidence2</code> uses the <a href='https://cran.r-project.org/package=grates'><code>grates</code></a>
+to generate different date groupings. The grouping used depends on the
+value of <code>interval</code>. This can be specified as either an integer value or a
+more standard specification such as "day", "week", "month", "quarter" or
+"year".  The format in this situation is similar to that used by
+<code><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date()</a></code> where these values can optionally be preceded by a (positive
+or negative) integer and a space, or followed by "s".  When no prefix is
+given:</p><ul>
+<li><p>"week"    : uses the "yrwk" class (see <code>as_yrwk()</code>).</p></li>
+<li><p>"month"   : uses the "yrmon" class (see <code>as_yrmon()</code>).</p></li>
+<li><p>"quarter" : uses the "yrqtr" class (see <code>as_yrqtr()</code>).</p></li>
+<li><p>"year"    : uses the "yr" class (see <code>as_yr()</code>).</p></li>
 </ul>
 
 <p>When a prefix is provided (e.g. 2 weeks) the output is an object of class
-"period" (see <code><a href='as_period.html'>as_period()</a></code>).  Note that for the values "month",
+"period" (see <code>as_period()</code>).  Note that for the values "month",
 "quarter" and "year" intervals are always chosen to start at the beginning
 of the calendar equivalent.  If the input is an integer value the input is
 treated as if it was specified in days (i.e. 2 and 2 days) produce the
@@ -441,14 +442,14 @@ there are keywords reserved for specific days of the week:</p><ul>
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>10</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>dates</span>, interval <span class='op'>=</span> <span class='st'>"week"</span>, firstdate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>1 observations were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'>An incidence2 object: 2 x 2
-#&gt; </span><span>9 cases from 2021-W10 to 2021-W11
+#&gt; </span><span>9 cases from 2021-W12 to 2021-W13
 #&gt; interval: 1 monday week
 #&gt; cumulative: FALSE
 #&gt; 
 #&gt;   date_index count
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;yrwk&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2021-W10       7
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2021-W11       2
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2021-W12       7
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2021-W13       2
 #&gt; </div><div class='input'>
 </div></span></pre>
   </div>
