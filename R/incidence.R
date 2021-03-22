@@ -57,13 +57,14 @@
 #' }
 #'
 #' \subsection{Interval specification (`interval`)}{
-#' `incidence2` includes generators for different grouped date s3 classes.
-#'   Which one the `incidence()` function uses depends on the value of
-#'   `interval`. This can be specified as either an integer value or a more
-#'   standard specification such as "day", "week", "month", "quarter" or "year".
-#'   The format in this situation is similar to that used by [`seq.Date()`]
-#'   where these values can optionally be preceded by a (positive or negative)
-#'   integer and a space, or followed by "s".  When no prefix is given:
+#' `incidence2` uses the [`grates`](https://cran.r-project.org/package=grates)
+#'   to generate different date groupings. The grouping used depends on the
+#'   value of `interval`. This can be specified as either an integer value or a
+#'   more standard specification such as "day", "week", "month", "quarter" or
+#'   "year".  The format in this situation is similar to that used by
+#'   [`seq.Date()`] where these values can optionally be preceded by a (positive
+#'   or negative) integer and a space, or followed by "s".  When no prefix is
+#'   given:
 #'
 #'   - "week"    : uses the "yrwk" class (see [`as_yrwk()`]).
 #'   - "month"   : uses the "yrmon" class (see [`as_yrmon()`]).

@@ -1,3 +1,6 @@
+#' @import grates
+NULL
+
 make_grate <- function(x, interval, firstdate, ...) {
   stopifnot("Interval is not valid" = valid_interval(interval))
   UseMethod("make_grate")
@@ -25,14 +28,6 @@ make_grate.default <- function(x, interval, firstdate, ...) {
       res <- as_period(x, interval = interval, firstdate = firstdate)
     }
   } else {
-    if (type == "week") {
-      fd <- get_week_start(interval)
-      interval <- paste(n, "weeks")
-      tmp <- as_utc_posixlt_from_int(as.Date(firstdate))$wday
-      tmp <- 1L + (tmp - 1) %% 7L
-      firstdate <- firstdate - (tmp - fd) %% 7
-    }
-
     res <- as_period(x, interval = interval, firstdate = firstdate)
   }
 

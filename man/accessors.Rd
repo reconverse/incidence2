@@ -8,12 +8,14 @@
 \alias{get_count_names}
 \alias{get_count_names.default}
 \alias{get_count_names.incidence2}
+\alias{get_counts_name}
 \alias{get_dates}
 \alias{get_dates_name}
 \alias{get_dates.default}
 \alias{get_dates.incidence2}
 \alias{get_dates_name.default}
 \alias{get_dates_name.incidence2}
+\alias{get_date_group_names}
 \alias{get_group_names}
 \alias{get_group_names.default}
 \alias{get_group_names.incidence2}
@@ -23,8 +25,6 @@
 \alias{get_n}
 \alias{get_n.default}
 \alias{get_n.incidence2}
-\alias{get_interval}
-\alias{get_interval.default}
 \alias{get_interval.incidence2}
 \title{Access various elements of an incidence object}
 \usage{
@@ -40,6 +40,8 @@ get_count_names(x, ...)
 
 \method{get_count_names}{incidence2}(x, ...)
 
+get_counts_name(x, ...)
+
 get_dates(x, ...)
 
 \method{get_dates}{default}(x, ...)
@@ -51,6 +53,8 @@ get_dates_name(x, ...)
 \method{get_dates_name}{default}(x, ...)
 
 \method{get_dates_name}{incidence2}(x, ...)
+
+get_date_group_names(x, ...)
 
 get_group_names(x, ...)
 
@@ -69,10 +73,6 @@ get_n(x)
 \method{get_n}{default}(x)
 
 \method{get_n}{incidence2}(x)
-
-get_interval(x, ...)
-
-\method{get_interval}{default}(x, ...)
 
 \method{get_interval}{incidence2}(x, integer = FALSE, ...)
 }
@@ -94,11 +94,19 @@ integer vector if it is stored as a character in the incidence object.}
 }
 
 \itemize{
+\item \code{get_counts_name()}: Same as \code{get_count_names()}.
+}
+
+\itemize{
 \item \code{get_dates()}: The date vector from x.
 }
 
 \itemize{
 \item \code{get_dates_name()}: The name of the date variable of x.
+}
+
+\itemize{
+\item \code{get_date_group_names()}: Same as \code{get_dates_name()}
 }
 
 \itemize{

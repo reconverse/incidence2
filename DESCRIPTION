@@ -30,6 +30,7 @@ Imports:
     graphics,
     rlang (>= 0.1.2),
     tidyselect,
+    grates
 Suggests:
     outbreaks,
     knitr,
@@ -45,3 +46,5 @@ VignetteBuilder:
     knitr
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
+Remotes:
+  reconverse/grates

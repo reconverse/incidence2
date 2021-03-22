@@ -82,13 +82,14 @@ format. Any other format will trigger an error.
 }
 
 \subsection{Interval specification (\code{interval})}{
-\code{incidence2} includes generators for different grouped date s3 classes.
-Which one the \code{incidence()} function uses depends on the value of
-\code{interval}. This can be specified as either an integer value or a more
-standard specification such as "day", "week", "month", "quarter" or "year".
-The format in this situation is similar to that used by \code{\link[=seq.Date]{seq.Date()}}
-where these values can optionally be preceded by a (positive or negative)
-integer and a space, or followed by "s".  When no prefix is given:
+\code{incidence2} uses the \href{https://cran.r-project.org/package=grates}{\code{grates}}
+to generate different date groupings. The grouping used depends on the
+value of \code{interval}. This can be specified as either an integer value or a
+more standard specification such as "day", "week", "month", "quarter" or
+"year".  The format in this situation is similar to that used by
+\code{\link[=seq.Date]{seq.Date()}} where these values can optionally be preceded by a (positive
+or negative) integer and a space, or followed by "s".  When no prefix is
+given:
 \itemize{
 \item "week"    : uses the "yrwk" class (see \code{\link[=as_yrwk]{as_yrwk()}}).
 \item "month"   : uses the "yrmon" class (see \code{\link[=as_yrmon]{as_yrmon()}}).

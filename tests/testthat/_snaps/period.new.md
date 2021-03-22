@@ -1,6 +1,6 @@
 # period output looks correct
 
-    <period> firstdate = 2020-01-01, interval = 2 days
+    <period> interval = 2 days
      [1] "2020-01-01 to 2020-01-02" "2020-01-01 to 2020-01-02"
      [3] "2020-01-03 to 2020-01-04" "2020-01-03 to 2020-01-04"
      [5] "2020-01-05 to 2020-01-06" "2020-01-05 to 2020-01-06"

@@ -86,6 +86,12 @@ get_count_names.incidence2 <- function(x, ...) {
   attr(x, "count")
 }
 # -------------------------------------------------------------------------
+#' @return
+#'   - `get_counts_name()`: Same as `get_count_names()`.
+#' @aliases get_count_names
+#' @export
+#' @rdname accessors
+get_counts_name <- get_count_names # for backwards compatibility
 
 
 # -------------------------------------------------------------------------
@@ -142,9 +148,17 @@ get_dates_name.incidence2 <- function(x, ...) {
   attr(x, "date")
 }
 # -------------------------------------------------------------------------
+#' @return
+#'   - `get_date_group_names()`: Same as `get_dates_name()`
+#' @rdname accessors
+#' @aliases get_dates_name.incidence2
+#' @export
+get_date_group_names <- get_dates_name # for backwards compatibility
+
 
 
 # -------------------------------------------------------------------------
+
 #' @return
 #'   - `get_group_names()`: a character vector of the group variables of x or
 #'   NULL if none are present.
@@ -244,25 +258,13 @@ get_n.incidence2 <- function(x) {
 
 
 # -------------------------------------------------------------------------
+#' @importFrom grates get_interval
+#' @export
+grates::get_interval
+
 #' @return
 #'   - `get_interval()`: if `integer = TRUE`, an integer vector, otherwise the
 #'     character value of the `interval`
-
-#' @rdname accessors
-#' @aliases get_interval
-#' @export
-get_interval <- function(x, ...) {
-  UseMethod("get_interval")
-}
-
-#' @rdname accessors
-#' @aliases get_interval.default
-#' @export
-get_interval.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
-}
-
 #' @param integer When `TRUE`, the interval will be converted to an
 #'   integer vector if it is stored as a character in the incidence object.
 #' @rdname accessors

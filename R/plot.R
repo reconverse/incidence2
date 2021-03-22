@@ -155,9 +155,9 @@ plot.incidence2 <- function(x, count = NULL, fill = NULL, stack = TRUE,
   } else if (inherits(dat, "yr")) {
     out + scale_x_yr(n = n_breaks, ...)
   } else if (inherits(dat, "period")) {
-    out + scale_x_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
+    out + scale_x_period(n = n_breaks, firstdate = min(dat), interval = get_interval(dat), ...)
   } else if (inherits(dat, "int_period")) {
-    out + scale_x_int_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
+    out + scale_x_int_period(n = n_breaks, firstdate = min(dat), interval = get_interval(dat), ...)
   } else if (inherits(dat, "Date")) {
     out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n_breaks), ...)
   } else {
@@ -235,9 +235,9 @@ facet_plot.incidence2 <- function(x, count = NULL, facets = NULL, stack = TRUE,
   } else if (inherits(dat, "yr")) {
     out <- out + scale_x_yr(n = n_breaks, ...)
   } else if (inherits(dat, "period")) {
-    out <- out + scale_x_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
+    out <- out + scale_x_period(n = n_breaks, firstdate = min(dat), interval = get_interval(dat), ...)
   } else if (inherits(dat, "int_period")) {
-    out <- out + scale_x_int_period(n = n_breaks, firstdate = get_firstdate(dat), interval = get_interval(dat), ...)
+    out <- out + scale_x_int_period(n = n_breaks, firstdate = min(dat), interval = get_interval(dat), ...)
   } else if (inherits(dat, "Date")) {
     out <- out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n_breaks), ...)
   } else {
