@@ -168,13 +168,22 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   # Convert date_index to character variables and facilitate renaming
   date_index <- rlang::enquo(date_index)
   idx <- tidyselect::eval_select(date_index, x)
+
   if (length(idx) > 1) {
-    idx <- tidyselect::eval_rename(date_index, x)
+    call_nms <- rlang::call_args_names(rlang::get_expr(date_index))
+    if (any(call_nms %in% "")) {
+      stop(
+        "If multiple date indices are specified they must be named",
+        .call = FALSE
+      )
+    }
     names(x)[idx] <- date_index <- names(idx)
   } else {
     idx <- tidyselect::eval_select(date_index, x, allow_rename = FALSE)
     date_index <- names(x)[idx]
   }
+
+
 
   # Convert groups to character variables
   counts <- rlang::enquo(counts)
