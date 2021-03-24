@@ -131,7 +131,7 @@ summary(i_7)
 #> interval: 7 days
 #> cumulative: FALSE
 #> timespan: 392 days
-plot(i_7)
+plot(i_7, color = "white")
 ```
 
 <img src="man/figures/README-incid7-1.png" style="display: block; margin: auto;" />
@@ -179,7 +179,7 @@ summary(i_week_sex)
 #>   <fct>  <int>
 #> 1 f       2934
 #> 2 m       2895
-plot(i_week_sex, fill = "gender")
+plot(i_week_sex, fill = "gender", color = "white")
 ```
 
 <img src="man/figures/README-genderstack-1.png" style="display: block; margin: auto;" />
@@ -187,7 +187,7 @@ plot(i_week_sex, fill = "gender")
 we can also facet our plot (grouping detected automatically):
 
 ``` r
-facet_plot(i_week_sex, n_breaks = 3)
+facet_plot(i_week_sex, n_breaks = 3, color = "white")
 ```
 
 <img src="man/figures/README-genderfacet-1.png" style="display: block; margin: auto;" />
@@ -241,7 +241,7 @@ summary(i_week_sh)
 #> 4 other                                          876
 #> 5 Princess Christian Maternity Hospital (PCMH)   420
 #> 6 Rokupa Hospital                                451
-facet_plot(i_week_sh, facets = gender, fill = hospital, n_breaks = 3, color = NA)
+facet_plot(i_week_sh, facets = gender, fill = hospital, n_breaks = 3)
 ```
 
 <img src="man/figures/README-genderhospital-1.png" style="display: block; margin: auto;" />

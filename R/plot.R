@@ -32,7 +32,7 @@
 #' @param alpha The alpha level for color transparency, with 1 being fully
 #'   opaque and 0 fully transparent; defaults to 0.7.
 #' @param color The color to be used for the borders of the bars; NA for
-#'   invisible borders; defaults to `white`.
+#'   invisible borders; defaults to NA.
 #' @param xlab The label to be used for the x-axis; empty by default.
 #' @param ylab The label to be used for the y-axis; by default, a label will be
 #'   generated automatically according to the time interval used in incidence
@@ -94,7 +94,7 @@
 #' @export
 plot.incidence2 <- function(x, count = NULL, fill = NULL, stack = TRUE,
                             title = NULL, col_pal = vibrant, alpha = 0.7,
-                            color = "white", xlab = "", ylab = NULL, n_breaks = 5,
+                            color = NA, xlab = "", ylab = NULL, n_breaks = 5,
                             show_cases = FALSE, border = "white",
                             na_color = "grey",
                             legend = c("right", "left", "bottom", "top", "none"),
@@ -179,7 +179,7 @@ facet_plot <- function(x, ...) {
 #' @export
 facet_plot.incidence2 <- function(x, count = NULL, facets = NULL, stack = TRUE,
                             fill = NULL, title = NULL, col_pal = vibrant,
-                            alpha = 0.7, color = "white", xlab = "",
+                            alpha = 0.7, color = NA, xlab = "",
                             ylab = NULL, n_breaks = 3, show_cases = FALSE,
                             border = "white", na_color = "grey",
                             legend = c("bottom", "top", "left", "right", "none"),

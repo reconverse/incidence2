@@ -106,7 +106,7 @@ We compute the daily incidence:
 i <- incidence(dat, date_index = date_of_onset)
 i
 summary(i)
-plot(i, color = NA)
+plot(i)
 ```
 
 The daily incidence is quite noisy, but we can easily compute other incidence
@@ -117,7 +117,7 @@ using other time intervals
 # 7 day incidence
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
 i_7
-plot(i_7)
+plot(i_7, color = "white")
 ```
 Notice how specifying the interval as 7 creates weekly intervals with the
 coverage displayed by date. Below we illustrate how `incidence()` also allows
@@ -128,7 +128,7 @@ Monday (following the ISO 8601 date and time standard).
 
 # year-weekly, starting on Monday (ISO week, default)
 i_weekly <- incidence(dat, date_index = date_of_onset, interval = "week")
-plot(i_weekly)
+plot(i_weekly, color = "white")
 
 ```
 
@@ -137,16 +137,16 @@ plot(i_weekly)
 ```{r ilarger}
 # bi-weekly, based on first day in data
 i_biweekly <- incidence(dat, date_index = date_of_onset, interval = "2 weeks")
-plot(i_biweekly)
+plot(i_biweekly, color = "white")
 # year-monthly
 i_monthly <- incidence(dat, date_index = date_of_onset, interval = "month")
-plot(i_monthly)
+plot(i_monthly, color = "white")
 # year-quarterly
 i_quarterly <- incidence(dat, date_index = date_of_onset, interval = "quarter")
-plot(i_quarterly)
+plot(i_quarterly, color = "white")
 # year-quarterly
 i_year <- incidence(dat, date_index = date_of_onset, interval = "year")
-plot(i_year)
+plot(i_year, color = "white")
 ```
 
 ## Grouping
@@ -162,10 +162,10 @@ i_weekly_sex
 summary(i_weekly_sex)
 
 # A singular plot
-plot(i_weekly_sex, fill = gender)
+plot(i_weekly_sex, fill = gender, color = "white")
 
 # a multi-facet plot
-facet_plot(i_weekly_sex, fill = gender, n_breaks = 5, angle = 45)
+facet_plot(i_weekly_sex, fill = gender, n_breaks = 5, angle = 45, color = "white")
 ```
 
 There is no limit to the number of groups that we group by and this allows
@@ -173,5 +173,5 @@ us to both facet and fill by different variables:
 ```{r outcome_hospital}
 inci <- incidence(dat, date_index = date_of_onset,
                      interval = "week", groups = c(outcome, hospital, gender))
-facet_plot(inci, facets = hospital, fill = outcome, nrow = 3, n_breaks = 5, angle = 45, color = NA)
+facet_plot(inci, facets = hospital, fill = outcome, nrow = 3, n_breaks = 5, angle = 45)
 ```

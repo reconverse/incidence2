@@ -109,7 +109,7 @@ We compute the weekly incidence:
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
 i_7
 summary(i_7)
-plot(i_7)
+plot(i_7, color = "white")
 ```
 
 Notice how specifying the interval as 7 creates weekly intervals with the
@@ -125,13 +125,13 @@ i_week_sex <- incidence(dat, interval = "week", date_index = date_of_onset,
                         groups = gender)
 i_week_sex
 summary(i_week_sex)
-plot(i_week_sex, fill = "gender")
+plot(i_week_sex, fill = "gender", color = "white")
 ```
 
 we can also facet our plot (grouping detected automatically):
 
 ```{r genderfacet}
-facet_plot(i_week_sex, n_breaks = 3)
+facet_plot(i_week_sex, n_breaks = 3, color = "white")
 ```
 
 and we can also group by multiple variables specifying different facets and 
@@ -143,5 +143,5 @@ i_week_sh <- incidence(dat, date_index = date_of_onset, interval = "week",
                        groups = c(gender, hospital))
 i_week_sh
 summary(i_week_sh)
-facet_plot(i_week_sh, facets = gender, fill = hospital, n_breaks = 3, color = NA)
+facet_plot(i_week_sh, facets = gender, fill = hospital, n_breaks = 3)
 ```
