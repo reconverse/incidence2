@@ -84,7 +84,7 @@ choosing:
 ```{r, fill}
 i %>% plot(fill = gender)
 i %>% plot(fill = hospital, legend = "bottom")
-i %>% plot(fill = "red")
+i %>% regroup() %>% plot(fill = "red", color = "white")
 ```
 
 Sometimes we may wish to change rotation of the x-axis and this can be done by
@@ -117,7 +117,7 @@ includes an additional facet argument:
 ```{r, facets}
 i %>% facet_plot(facets = gender, n_breaks = 3)
 i %>% facet_plot(facets = hospital, fill = gender, n_breaks = 3, nrow = 4)
-i %>% facet_plot(facets = gender, fill = "grey")
+i %>% regroup(gender) %>% facet_plot(facets = gender, fill = "grey", color = "white")
 ```
 
 
