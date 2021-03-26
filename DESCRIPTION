@@ -5,9 +5,7 @@ Version: 0.2.2.9000
 Authors@R: c(
   person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
          comment = c(ORCID = "0000-0002-8587-7113")),
-  person("Thibaut", "Jombart", role = c("aut"), email = "thibautjombart@gmail.com"), 
-  person("Zhian N.", "Kamvar", role = "ctb", email = "zkamvar@gmail.com",
-         comment = c(ORCID = "0000-0003-1458-7108"))
+  person("Thibaut", "Jombart", role = c("aut"), email = "thibautjombart@gmail.com")
   )
 Description: Provides functions and classes to compute, handle and visualise 
   incidence from dated events for a defined time interval. Dates can be 
