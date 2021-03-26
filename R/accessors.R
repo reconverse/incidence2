@@ -243,7 +243,8 @@ get_n.incidence2 <- function(x) {
 
 
 # -------------------------------------------------------------------------
-#' @importFrom grates get_interval
+#' @name get_interval
+#' @keywords internal
 #' @export
 grates::get_interval
 
@@ -300,11 +301,9 @@ get_interval.incidence2 <- function(x, integer = FALSE, ...) {
 NULL
 
 
-
-
-
 #' @return
 #'   - `get_counts_name()`: Same as `get_count_names()`.
+#' @keywords internal
 #' @export
 #' @rdname deprecated-accessors
 get_counts_name <- get_count_names # for backwards compatibility
