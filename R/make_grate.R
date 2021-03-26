@@ -16,7 +16,7 @@ make_grate.default <- function(x, interval, firstdate, ...) {
   type <- get_interval_type(interval)
   if (n == 1L) {
     if (type == "week") {
-      fd <- get_week_start(interval)
+      fd <- grates::get_week_start(interval)
       res <- as_yrwk(x, firstday = fd)
     } else if (type == "month") {
       res <- as_yrmon(x)

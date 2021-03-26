@@ -381,7 +381,7 @@ standardise_interval <- function(interval) {
     type <- get_interval_type(interval)
     n <- get_interval_number(interval)
     if (type == "week") {
-      wd <- get_week_start(interval, numeric = FALSE)
+      wd <- grates::get_week_start(interval, numeric = FALSE)
       interval <- sprintf("%d %s %s", n, wd, type)
     } else {
       interval <- sprintf("%d %s", n, type)

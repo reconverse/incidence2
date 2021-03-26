@@ -17,7 +17,7 @@
 #'
 #'     get_group_names(i)
 #'
-#'     get_dates(i)
+#'     get_date_index(i)
 #'     get_dates_name(i)
 #'
 #'     get_interval(i)
@@ -86,36 +86,30 @@ get_count_names.incidence2 <- function(x, ...) {
   attr(x, "count")
 }
 # -------------------------------------------------------------------------
-#' @return
-#'   - `get_counts_name()`: Same as `get_count_names()`.
-#' @aliases get_count_names
-#' @export
-#' @rdname accessors
-get_counts_name <- get_count_names # for backwards compatibility
 
 
 # -------------------------------------------------------------------------
 #' @return
-#'   - `get_dates()`: The date vector from x.
+#'   - `get_date_index()`: The date_index vector from x.
 #' @rdname accessors
-#' @aliases get_dates_name
+#' @aliases get_date_index
 #' @export
-get_dates <- function(x, ...) {
-  UseMethod("get_dates")
+get_date_index <- function(x, ...) {
+  UseMethod("get_date_index")
 }
 
 #' @rdname accessors
-#' @aliases get_dates.default
+#' @aliases get_date_index.default
 #' @export
-get_dates.default <- function(x, ...) {
+get_date_index.default <- function(x, ...) {
   stop(sprintf("Not implemented for class %s",
                paste(class(x), collapse = ", ")))
 }
 
 #' @rdname accessors
-#' @aliases get_dates.incidence2
+#' @aliases get_date_index.incidence2
 #' @export
-get_dates.incidence2 <- function(x, ...) {
+get_date_index.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   x[[attr(x, "date")]]
 }
@@ -124,7 +118,7 @@ get_dates.incidence2 <- function(x, ...) {
 
 # -------------------------------------------------------------------------
 #' @return
-#'   - `get_dates_name()`: The name of the date variable of x.
+#'   - `get_dates_name()`: The name of the date_index variable of x.
 #' @rdname accessors
 #' @aliases get_dates_name
 #' @export
@@ -148,16 +142,7 @@ get_dates_name.incidence2 <- function(x, ...) {
   attr(x, "date")
 }
 # -------------------------------------------------------------------------
-#' @return
-#'   - `get_date_group_names()`: Same as `get_dates_name()`
-#' @rdname accessors
-#' @aliases get_dates_name.incidence2
-#' @export
-get_date_group_names <- get_dates_name # for backwards compatibility
 
-
-
-# -------------------------------------------------------------------------
 
 #' @return
 #'   - `get_group_names()`: a character vector of the group variables of x or
@@ -284,3 +269,60 @@ get_interval.incidence2 <- function(x, integer = FALSE, ...) {
   as.integer(out)
 }
 # -------------------------------------------------------------------------
+
+#' Deprecated accessor functions
+#'
+#' These accessor functions have now been deprecated in favour of better
+#'   named alternatives but are left available for backwards compatibility.
+#'
+#' @param x An [incidence()] object.
+#' @param ... Not used.
+#'
+#' @examples
+#' if (requireNamespace("outbreaks", quietly = TRUE)) {
+#'   withAutoprint({
+#'     data(ebola_sim_clean, package = "outbreaks")
+#'     dat <- ebola_sim_clean$linelist
+#'     i <- incidence(dat,
+#'                    date_index = date_of_onset,
+#'                    groups = c(gender, hospital))
+#'
+#'     get_counts_name(i)
+#'
+#'     get_date_group_names(i)
+#'
+#'     get_dates(i)
+#'   })
+#' }
+#'
+#' @name deprecated-accessors
+#' @keywords internal
+NULL
+
+
+
+
+
+#' @return
+#'   - `get_counts_name()`: Same as `get_count_names()`.
+#' @export
+#' @rdname deprecated-accessors
+get_counts_name <- get_count_names # for backwards compatibility
+
+
+#' @return
+#'   - `get_date_group_names()`: Same as `get_dates_name()`
+#' @rdname deprecated-accessors
+#' @keywords internal
+#' @export
+get_date_group_names <- get_dates_name # for backwards compatibility
+
+
+#' @return
+#'   - `get_dates()`: Same as `get_date_index()`.
+#' @rdname deprecated-accessors
+#' @keywords internal
+#' @export
+get_dates <- get_date_index
+
+

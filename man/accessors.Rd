@@ -8,14 +8,12 @@
 \alias{get_count_names}
 \alias{get_count_names.default}
 \alias{get_count_names.incidence2}
-\alias{get_counts_name}
-\alias{get_dates}
+\alias{get_date_index}
+\alias{get_date_index.default}
+\alias{get_date_index.incidence2}
 \alias{get_dates_name}
-\alias{get_dates.default}
-\alias{get_dates.incidence2}
 \alias{get_dates_name.default}
 \alias{get_dates_name.incidence2}
-\alias{get_date_group_names}
 \alias{get_group_names}
 \alias{get_group_names.default}
 \alias{get_group_names.incidence2}
@@ -40,21 +38,17 @@ get_count_names(x, ...)
 
 \method{get_count_names}{incidence2}(x, ...)
 
-get_counts_name(x, ...)
+get_date_index(x, ...)
 
-get_dates(x, ...)
+\method{get_date_index}{default}(x, ...)
 
-\method{get_dates}{default}(x, ...)
-
-\method{get_dates}{incidence2}(x, ...)
+\method{get_date_index}{incidence2}(x, ...)
 
 get_dates_name(x, ...)
 
 \method{get_dates_name}{default}(x, ...)
 
 \method{get_dates_name}{incidence2}(x, ...)
-
-get_date_group_names(x, ...)
 
 get_group_names(x, ...)
 
@@ -94,19 +88,11 @@ integer vector if it is stored as a character in the incidence object.}
 }
 
 \itemize{
-\item \code{get_counts_name()}: Same as \code{get_count_names()}.
+\item \code{get_date_index()}: The date_index vector from x.
 }
 
 \itemize{
-\item \code{get_dates()}: The date vector from x.
-}
-
-\itemize{
-\item \code{get_dates_name()}: The name of the date variable of x.
-}
-
-\itemize{
-\item \code{get_date_group_names()}: Same as \code{get_dates_name()}
+\item \code{get_dates_name()}: The name of the date_index variable of x.
 }
 
 \itemize{
@@ -145,7 +131,7 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 
     get_group_names(i)
 
-    get_dates(i)
+    get_date_index(i)
     get_dates_name(i)
 
     get_interval(i)
