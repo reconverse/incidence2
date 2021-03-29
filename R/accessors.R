@@ -113,6 +113,13 @@ get_date_index.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   x[[attr(x, "date")]]
 }
+
+#' @return
+#'   - `get_dates()`: Same as `get_date_index()`.
+#' @rdname accessors
+#' @aliases get_dates
+#' @export
+get_dates <- get_date_index
 # -------------------------------------------------------------------------
 
 
@@ -291,8 +298,6 @@ get_interval.incidence2 <- function(x, integer = FALSE, ...) {
 #'     get_counts_name(i)
 #'
 #'     get_date_group_names(i)
-#'
-#'     get_dates(i)
 #'   })
 #' }
 #'
@@ -315,13 +320,4 @@ get_counts_name <- get_count_names # for backwards compatibility
 #' @keywords internal
 #' @export
 get_date_group_names <- get_dates_name # for backwards compatibility
-
-
-#' @return
-#'   - `get_dates()`: Same as `get_date_index()`.
-#' @rdname deprecated-accessors
-#' @keywords internal
-#' @export
-get_dates <- get_date_index
-
 

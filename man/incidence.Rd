@@ -15,8 +15,8 @@ incidence(
 )
 }
 \arguments{
-\item{x}{A tibble or a data frame (see Note) representing a linelist (or
-potentially a pre-aggregated dataset).}
+\item{x}{A data frame representing a linelist (or potentially a
+pre-aggregated dataset).}
 
 \item{date_index}{The time index(es) of the given data.  This should be the
 name(s) corresponding to the desired date column(s) in x of class:
@@ -30,20 +30,21 @@ observations for which incidence should be grouped.}
 
 \item{interval}{An integer or character indicating the (fixed) size of the
 time interval used for computing the incidence; defaults to 1 day. This can
-also be a text string that corresponds to a valid date interval, e.g.
-* (x) day(s)
+also be a text string that corresponds to a valid date interval, e.g.\preformatted{* (x) day(s)
 * (x) weeks(s)
 * (x) epiweeks(s)
 * (x) isoweeks(s)
 * (x) months(s)
 * (x) quarter(s)
 * (x) years(s)
+}
+
 More details can be found in the "Interval specification" and "Week
 intervals" sections below.}
 
 \item{na_as_group}{A logical value indicating if missing group values (NA)
 should treated as a separate category (\code{TRUE}) or removed from
-consideration (\code{FALSE}).}
+consideration (\code{FALSE}). Defaults to \code{TRUE}.}
 
 \item{counts}{The count variables of the given data.  If NULL (default) the
 data is taken to be a linelist of individual observations.}
@@ -64,7 +65,7 @@ following columns:
 this will be the dates of the given observations and given the name
 "date", otherwise, this will be values obtained from the specified date
 grouping with column name "date_index" (See Interval specification below).
-\item \strong{-groups-}: If specified, column(s) containing the categories of the
+\item \strong{groups}: If specified, column(s) containing the categories of the
 given groups.
 \item \strong{count} (or name of count variables): The aggregated observation counts.
 }
@@ -83,13 +84,12 @@ format. Any other format will trigger an error.
 
 \subsection{Interval specification (\code{interval})}{
 \code{incidence2} uses the \href{https://cran.r-project.org/package=grates}{\code{grates}}
-to generate different date groupings. The grouping used depends on the
-value of \code{interval}. This can be specified as either an integer value or a
-more standard specification such as "day", "week", "month", "quarter" or
-"year".  The format in this situation is similar to that used by
-\code{\link[=seq.Date]{seq.Date()}} where these values can optionally be preceded by a (positive
-or negative) integer and a space, or followed by "s".  When no prefix is
-given:
+package to generate date groupings. The grouping used depends on the value
+of \code{interval}. This can be specified as either an integer value or a more
+standard specification such as "day", "week", "month", "quarter" or "year".
+The format in this situation is similar to that used by \code{\link[=seq.Date]{seq.Date()}}
+where these values can optionally be preceded by a (positive or negative)
+integer and a space, or followed by "s".  When no prefix is given:
 \itemize{
 \item "week"    : uses the "yrwk" class (see \code{\link[=as_yrwk]{as_yrwk()}}).
 \item "month"   : uses the "yrmon" class (see \code{\link[=as_yrmon]{as_yrmon()}}).

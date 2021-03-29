@@ -4,14 +4,11 @@
 \alias{deprecated-accessors}
 \alias{get_counts_name}
 \alias{get_date_group_names}
-\alias{get_dates}
 \title{Deprecated accessor functions}
 \usage{
 get_counts_name(x, ...)
 
 get_date_group_names(x, ...)
-
-get_dates(x, ...)
 }
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
@@ -25,10 +22,6 @@ get_dates(x, ...)
 
 \itemize{
 \item \code{get_date_group_names()}: Same as \code{get_dates_name()}
-}
-
-\itemize{
-\item \code{get_dates()}: Same as \code{get_date_index()}.
 }
 }
 \description{
@@ -47,8 +40,6 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
     get_counts_name(i)
 
     get_date_group_names(i)
-
-    get_dates(i)
   })
 }
 

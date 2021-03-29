@@ -1,7 +1,7 @@
 #' Compute the incidence of events
 #'
-#' @param x A tibble or a data frame (see Note) representing a linelist (or
-#'   potentially a pre-aggregated dataset).
+#' @param x A data frame representing a linelist (or potentially a
+#'   pre-aggregated dataset).
 #' @param date_index The time index(es) of the given data.  This should be the
 #'   name(s) corresponding to the desired date column(s) in x of class:
 #'   integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note  about
@@ -11,6 +11,7 @@
 #' @param interval An integer or character indicating the (fixed) size of the
 #'   time interval used for computing the incidence; defaults to 1 day. This can
 #'   also be a text string that corresponds to a valid date interval, e.g.
+#'
 #'     * (x) day(s)
 #'     * (x) weeks(s)
 #'     * (x) epiweeks(s)
@@ -18,13 +19,14 @@
 #'     * (x) months(s)
 #'     * (x) quarter(s)
 #'     * (x) years(s)
+#'
 #'   More details can be found in the "Interval specification" and "Week
 #'   intervals" sections below.
 #' @param groups An optional vector giving the names of the groups of
 #'   observations for which incidence should be grouped.
 #' @param na_as_group A logical value indicating if missing group values (NA)
 #'   should treated as a separate category (`TRUE`) or removed from
-#'   consideration (`FALSE`).
+#'   consideration (`FALSE`). Defaults to `TRUE`.
 #' @param counts The count variables of the given data.  If NULL (default) the
 #'   data is taken to be a linelist of individual observations.
 #' @param firstdate When the interval is in days, or numeric, and also has a
@@ -43,7 +45,7 @@
 #'     "date", otherwise, this will be values obtained from the specified date
 #'     grouping with column name "date_index" (See Interval specification below).
 #'
-#'   - **-groups-**: If specified, column(s) containing the categories of the
+#'   - **groups**: If specified, column(s) containing the categories of the
 #'   given groups.
 #'
 #'   - **count** (or name of count variables): The aggregated observation counts.
@@ -58,13 +60,12 @@
 #'
 #' \subsection{Interval specification (`interval`)}{
 #' `incidence2` uses the [`grates`](https://cran.r-project.org/package=grates)
-#'   to generate different date groupings. The grouping used depends on the
-#'   value of `interval`. This can be specified as either an integer value or a
-#'   more standard specification such as "day", "week", "month", "quarter" or
-#'   "year".  The format in this situation is similar to that used by
-#'   [`seq.Date()`] where these values can optionally be preceded by a (positive
-#'   or negative) integer and a space, or followed by "s".  When no prefix is
-#'   given:
+#'   package to generate date groupings. The grouping used depends on the value
+#'   of `interval`. This can be specified as either an integer value or a more
+#'   standard specification such as "day", "week", "month", "quarter" or "year".
+#'   The format in this situation is similar to that used by [`seq.Date()`]
+#'   where these values can optionally be preceded by a (positive or negative)
+#'   integer and a space, or followed by "s".  When no prefix is given:
 #'
 #'   - "week"    : uses the "yrwk" class (see [`as_yrwk()`]).
 #'   - "month"   : uses the "yrmon" class (see [`as_yrmon()`]).

@@ -11,6 +11,7 @@
 \alias{get_date_index}
 \alias{get_date_index.default}
 \alias{get_date_index.incidence2}
+\alias{get_dates}
 \alias{get_dates_name}
 \alias{get_dates_name.default}
 \alias{get_dates_name.incidence2}
@@ -43,6 +44,8 @@ get_date_index(x, ...)
 \method{get_date_index}{default}(x, ...)
 
 \method{get_date_index}{incidence2}(x, ...)
+
+get_dates(x, ...)
 
 get_dates_name(x, ...)
 
@@ -89,6 +92,10 @@ integer vector if it is stored as a character in the incidence object.}
 
 \itemize{
 \item \code{get_date_index()}: The date_index vector from x.
+}
+
+\itemize{
+\item \code{get_dates()}: Same as \code{get_date_index()}.
 }
 
 \itemize{
