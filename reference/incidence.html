@@ -154,8 +154,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A tibble or a data frame (see Note) representing a linelist (or
-potentially a pre-aggregated dataset).</p></td>
+      <td><p>A data frame representing a linelist (or potentially a
+pre-aggregated dataset).</p></td>
     </tr>
     <tr>
       <th>date_index</th>
@@ -175,22 +175,23 @@ observations for which incidence should be grouped.</p></td>
       <th>interval</th>
       <td><p>An integer or character indicating the (fixed) size of the
 time interval used for computing the incidence; defaults to 1 day. This can
-also be a text string that corresponds to a valid date interval, e.g.
-* (x) day(s)
+also be a text string that corresponds to a valid date interval, e.g.</p><pre>* (x) day(s)
 * (x) weeks(s)
 * (x) epiweeks(s)
 * (x) isoweeks(s)
 * (x) months(s)
 * (x) quarter(s)
 * (x) years(s)
-More details can be found in the "Interval specification" and "Week
+</pre>
+
+<p>More details can be found in the "Interval specification" and "Week
 intervals" sections below.</p></td>
     </tr>
     <tr>
       <th>na_as_group</th>
       <td><p>A logical value indicating if missing group values (NA)
 should treated as a separate category (<code>TRUE</code>) or removed from
-consideration (<code>FALSE</code>).</p></td>
+consideration (<code>FALSE</code>). Defaults to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>counts</th>
@@ -217,7 +218,7 @@ following columns:</p><ul>
 this will be the dates of the given observations and given the name
 "date", otherwise, this will be values obtained from the specified date
 grouping with column name "date_index" (See Interval specification below).</p></li>
-<li><p><strong>-groups-</strong>: If specified, column(s) containing the categories of the
+<li><p><strong>groups</strong>: If specified, column(s) containing the categories of the
 given groups.</p></li>
 <li><p><strong>count</strong> (or name of count variables): The aggregated observation counts.</p></li>
 </ul>
@@ -236,13 +237,12 @@ format. Any other format will trigger an error.</p></li>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Interval specification (<code>interval</code>)</h3>
 <p><code>incidence2</code> uses the <a href='https://cran.r-project.org/package=grates'><code>grates</code></a>
-to generate different date groupings. The grouping used depends on the
-value of <code>interval</code>. This can be specified as either an integer value or a
-more standard specification such as "day", "week", "month", "quarter" or
-"year".  The format in this situation is similar to that used by
-<code><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date()</a></code> where these values can optionally be preceded by a (positive
-or negative) integer and a space, or followed by "s".  When no prefix is
-given:</p><ul>
+package to generate date groupings. The grouping used depends on the value
+of <code>interval</code>. This can be specified as either an integer value or a more
+standard specification such as "day", "week", "month", "quarter" or "year".
+The format in this situation is similar to that used by <code><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date()</a></code>
+where these values can optionally be preceded by a (positive or negative)
+integer and a space, or followed by "s".  When no prefix is given:</p><ul>
 <li><p>"week"    : uses the "yrwk" class (see <code>as_yrwk()</code>).</p></li>
 <li><p>"month"   : uses the "yrmon" class (see <code>as_yrmon()</code>).</p></li>
 <li><p>"quarter" : uses the "yrqtr" class (see <code>as_yrqtr()</code>).</p></li>
@@ -442,14 +442,14 @@ there are keywords reserved for specific days of the week:</p><ul>
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>10</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>dates</span>, interval <span class='op'>=</span> <span class='st'>"week"</span>, firstdate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>1 observations were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'>An incidence2 object: 2 x 2
-#&gt; </span><span>9 cases from 2021-W12 to 2021-W13
+#&gt; </span><span>9 cases from 2021-W13 to 2021-W14
 #&gt; interval: 1 monday week
 #&gt; cumulative: FALSE
 #&gt; 
 #&gt;   date_index count
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;yrwk&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2021-W12       5
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2021-W13       4
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2021-W13       7
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2021-W14       2
 #&gt; </div><div class='input'>
 </div></span></pre>
   </div>
