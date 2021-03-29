@@ -160,6 +160,8 @@ plot.incidence2 <- function(x, count = NULL, fill = NULL, stack = TRUE,
     out + scale_x_int_period(n = n_breaks, firstdate = min(dat), interval = get_interval(dat), ...)
   } else if (inherits(dat, "Date")) {
     out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n_breaks), ...)
+  } else if (inherits(dat, "integer")) {
+    out + ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = n_breaks), ...)
   } else {
     stop("Something has gone wrong! Please let the incidence2 devs know.")
   }
@@ -400,6 +402,13 @@ ylabel <- function(x, ylab) {
       } else {
         ylab <- sprintf("incidence by a period of %d %ss", n, type)
       }
+    } else {
+      if (n == 1) {
+        ylab <- "incidence by day"
+      } else {
+        ylab <- sprintf("incidence by period of %d days", n)
+      }
+
     }
 
     if (isTRUE(attr(x, "cumulative"))) {

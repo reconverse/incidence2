@@ -56,3 +56,17 @@ test_that("grouped quarter plot works", {
   x <- incidence(dat, date_index = date_of_infection, interval = "quarter", groups = c(gender, hospital), na_as_group = FALSE)
   expect_snapshot_plot("quarterly_grouped", facet_plot(x, breaks = unique(x$date_index), angle = 45, facets = gender, fill = hospital))
 })
+
+
+test_that("integer plotting works", {
+  dat <- data.frame(dates = rep(1:10, times = 1:10))
+  x <- incidence(dat, date_index = dates)
+  expect_snapshot_plot("integer", plot(x, color = NA, n_breaks = 10))
+})
+
+
+test_that("double plotting works", {
+  dat <- data.frame(dates = as.double(rep(1:10, times = 1:10)))
+  x <- incidence(dat, date_index = dates)
+  expect_snapshot_plot("double", plot(x, color = NA, n_breaks = 10))
+})
