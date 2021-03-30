@@ -1,7 +1,7 @@
 Package: incidence2
 Type: Package
 Title: Compute, Handle and Plot Incidence of Dated Events
-Version: 0.2.2.9000
+Version: 1.0.0
 Authors@R: c(
   person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
          comment = c(ORCID = "0000-0002-8587-7113")),
@@ -12,11 +12,11 @@ Description: Provides functions and classes to compute, handle and visualise
   provided in various standard formats. The class 'incidence2' is used to store
   computed incidence and can be easily manipulated, subsetted, and plotted.
   This package is part of the RECON (<https://www.repidemicsconsortium.org/>) 
-  toolkit for outbreak analysis.
+  toolkit for outbreak analysis (<https://www.reconverse.org>).
 Encoding: UTF-8
 License: MIT + file LICENSE
-URL: https://github.com/reconhub/incidence2
-BugReports: https://github.com/reconhub/incidence2/issues
+URL: https://github.com/reconverse/incidence2
+BugReports: https://github.com/reconverse/incidence2/issues
 RoxygenNote: 7.1.1
 Imports: 
     tibble,
@@ -44,5 +44,3 @@ VignetteBuilder:
     knitr
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
-Remotes:
-  reconverse/grates

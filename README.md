@@ -4,8 +4,9 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/incidence2)](https://CRAN.R-project.org/package=incidence2)
 [![Codecov test
-coverage](https://codecov.io/gh/reconhub/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/incidence2?branch=master)
-[![R-CMD-check](https://github.com/reconhub/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/incidence2/actions)
+coverage](https://codecov.io/gh/reconverse/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconverse/incidence2?branch=master)
+[![R-CMD-check](https://github.com/reconverse/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/incidence2/actions)
+[![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-stable.svg)](https://www.reconverse.org/lifecycle.html#stable)
 <!-- badges: end -->
 
 # Scope
@@ -19,9 +20,9 @@ and graphing of incidence objects. The “fitting” and “peak estimation”
 functions of [incidence](https://github.com/reconhub/incidence)
 (e.g. `incidence::fit` and `incidence::estimate_peak`) are being
 implemented in an accompanying package called
-[`i2extras`](https://github.com/reconhub/i2extras). Here they will have
-a more consistent interface, better choice of underlying models, and
-tidier outputs.
+[`i2extras`](https://github.com/reconverse/i2extras). Here they will
+have a more consistent interface, better choice of underlying models,
+and tidier outputs.
 
 # Installing the package
 
@@ -32,12 +33,12 @@ installed from [GitHub](https://github.com/) with:
 if (!require(remotes)) {
   install.packages("remotes")
 }
-remotes::install_github("reconhub/incidence2", build_vignettes = TRUE)
+remotes::install_github("reconverse/incidence2", build_vignettes = TRUE)
 ```
 
 You can install the current version of the package from the releases
-[page](https://github.com/reconhub/incidence2/releases) or directly from
-[CRAN](https://cran.r-project.org/) with:
+[page](https://github.com/reconverse/incidence2/releases) or directly
+from [CRAN](https://cran.r-project.org/) with:
 
 ``` r
 install.packages("incidence2")
@@ -61,12 +62,12 @@ The following websites are available:
 
   - The *incidence2* project on *github*, useful for developers,
     contributors, and users wanting to post issues, bug reports and
-    feature requests: <br> <https://github.com/reconhub/incidence2>
+    feature requests: <br> <https://github.com/reconverse/incidence2>
 
 ## Getting help online
 
 Bug reports and feature requests should be posted on *github* using the
-[*issue* system](https://github.com/reconhub/incidence2/issues). All
+[*issue* system](https://github.com/reconverse/incidence2/issues). All
 other questions should be posted on the **RECON** slack channel; see
 <https://www.repidemicsconsortium.org/forum/> for details on how to
 join.

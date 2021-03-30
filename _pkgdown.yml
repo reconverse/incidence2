@@ -17,7 +17,7 @@ navbar:
     href: news/index.html
   right:
   - icon: fa-github fa-lg
-    href: https://github.com/reconhub/incidence2
+    href: https://github.com/reconverse/incidence2
 
 reference:
 - title: Incidence2 objects

@@ -352,7 +352,7 @@ plot_basic <- function(x, count, fill = NULL, stack = TRUE,
       ggplot2::aes(fill = !!sym(fill)) +
       ggplot2::scale_fill_manual(values = group_colors, na.value = na_color)
   } else {
-    stop("Hhhhmmm, this shouldn't happen! Please raise an issue at https://github.com/reconhub/incidence2/issues")
+    stop("Hhhhmmm, this shouldn't happen! Please raise an issue at https://github.com/reconverse/incidence2/issues")
   }
 
   if (show_cases && (stack == TRUE || is.null(fill))) {

@@ -1,16 +1,17 @@
 ## Reason for updated release
+* Refactoring of internal code.
 * Bug fixes.
-* Refactoring of internal code to improve maintainability.
-* Tests now use the 3rd edition of testthat. 
+
+## Downstream dependencies
+This release breaks the downstream dependency i2extras. I am the maintainer
+of that package and have an updated version ready to submit once this package
+is accepted on to CRAN.
 
 ## Test environments
-* local Fedora 33, R 4.0.3 (2020-10-10)
-* local Fedora 33, R Under development (unstable) (2020-11-12 r79414)
-* winbuilder, R Under development (unstable) (2020-11-09 r79411)
+* local Fedora 34, R 4.0.4 (2021-02-15)
+* winbuilder,R Under development (unstable) (2021-03-29 r80130)
 
 ## R CMD check results
 There were no ERRORS, WARNINGS or NOTES
 
-## Downstream dependencies
-I have also run R CMD check on downstream dependency i2extras. There was
-one note that was not related to incidence2.
+
