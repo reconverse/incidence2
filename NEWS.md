@@ -1,4 +1,8 @@
 # incidence2 (development version)
+
+* New function `complete_counts`.
+
+# incidence2 1.0.0
 Due to multiple changes in the underlying representation of incidence2 objects
 this release may possibly break old workflows particularly those relying on
 the old implementations of date grouping:

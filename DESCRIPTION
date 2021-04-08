@@ -28,7 +28,8 @@ Imports:
     graphics,
     rlang (>= 0.1.2),
     tidyselect,
-    grates
+    grates,
+    tidyr
 Suggests:
     outbreaks,
     knitr,
