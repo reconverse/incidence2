@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • incidence2</title>
+<title>Complete counts for all date and group combinations — complete_counts • incidence2</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,10 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Complete counts for all date and group combinations — complete_counts" />
+<meta property="og:description" content="This function ensures that an incidence object has the same range of dates
+for each grouping. By default missing counts will be filled with NA but
+you can optionally specify a value to replace these by." />
 
 
 
@@ -58,7 +61,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -129,77 +132,65 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/reconverse/incidence2/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Complete counts for all date and group combinations</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/incidence2/blob/master/R/complete_counts.R'><code>R/complete_counts.R</code></a></small>
+    <div class="hidden name"><code>complete_counts.Rd</code></div>
     </div>
 
-    <div id="incidence2-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#incidence2-development-version" class="anchor"></a>incidence2 (development version)<small> Unreleased </small>
-</h1>
-<ul>
-<li>New function <code>complete_counts</code>.</li>
-</ul>
-</div>
-    <div id="incidence2-100" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.0">
-<a href="#incidence2-100" class="anchor"></a>incidence2 1.0.0<small> 2021-03-30 </small>
-</h1>
-<p>Due to multiple changes in the underlying representation of incidence2 objects this release may possibly break old workflows particularly those relying on the old implementations of date grouping:</p>
-<ul>
-<li>Now uses the package <a href="https://github.com/reconverse/grates"><code>grates</code></a> for date grouping. This introduces the s3 classes <code>yrwk</code>, <code>yrmon</code>, <code>yrqtr</code>, <code>yr</code>, <code>period</code> and <code>int_period</code> as well as associated constructors which <code>incidence</code> now builds upon. As a result of this the <a href="https://cran.r-project.org/package=aweek">aweek</a> dependency has been dropped.</li>
-<li>Add’s <code>keep_first</code> and <code>keep_last</code> functions.</li>
-<li>Construction of <code>incidence</code> objects now faster due to underlying use of data.table.</li>
-</ul>
-</div>
-    <div id="incidence2-022" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.2">
-<a href="#incidence2-022" class="anchor"></a>incidence2 0.2.2<small> 2020-11-12 </small>
-</h1>
-<ul>
-<li>Fixes bug in get_interval.</li>
-<li>Removes message that was displayed when incidence class dropped.</li>
-<li>Refactoring of internal code to improve maintainability.</li>
-<li>Tests now use the 3rd edition of testthat.</li>
-</ul>
-</div>
-    <div id="incidence2-021" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.1">
-<a href="#incidence2-021" class="anchor"></a>incidence2 0.2.1<small> 2020-10-16 </small>
-</h1>
-<ul>
-<li>Fixes bug in as.data.frame.incidence2</li>
-<li>Limits internal reliance on dplyr.</li>
-</ul>
-</div>
-    <div id="incidence2-020" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.0">
-<a href="#incidence2-020" class="anchor"></a>incidence2 0.2.0<small> 2020-09-22 </small>
-</h1>
-<ul>
-<li>Fixes issue with monthly incidence objects when <code>show_cases = TRUE</code> (see <a href='https://github.com/reconverse/incidence2/issues/42'>#42</a>).</li>
-<li>Additional checks added for assessing whether a manipulated incidence object maintains its class.</li>
-<li>Improved implementation speed.</li>
-<li>NA’s now ignored in the <code>count</code> variable of a pre-aggregated input to <code>incidence</code> function.</li>
-<li>Fixes axis labelling and spacing.</li>
-</ul>
-</div>
-    <div id="incidence2-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#incidence2-010" class="anchor"></a>incidence2 0.1.0<small> 2020-09-07 </small>
-</h1>
-<ul>
-<li>Initial release.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>This function ensures that an incidence object has the same range of dates
+for each grouping. By default missing counts will be filled with <code>NA</code> but
+you can optionally specify a value to replace these by.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>complete_counts</span><span class='op'>(</span><span class='va'>x</span>, fill <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>An <code><a href='incidence.html'>incidence()</a></code> object.</p></td>
+    </tr>
+    <tr>
+      <th>fill</th>
+      <td><p>The value to replace missing counts by. Defaults to <code>NA</code>.</p></td>
+    </tr>
+    </table>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,
+  groups <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"grp1"</span>,<span class='st'>"grp2"</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span>,
+  counts <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>
+<span class='op'>)</span>
+
+<span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>dat</span>, date_index <span class='op'>=</span> <span class='va'>dates</span>, groups <span class='op'>=</span> <span class='va'>groups</span>, counts <span class='op'>=</span> <span class='va'>counts</span><span class='op'>)</span>
+<span class='fu'>complete_counts</span><span class='op'>(</span><span class='va'>i</span>, fill <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'>An incidence2 object: 8 x 3
+#&gt; </span><span>10 counts from 2021-04-09 to 2021-04-12
+#&gt; interval: 1 day
+#&gt; cumulative: FALSE
+#&gt; 
+#&gt;   date_index groups counts
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2021-04-09 grp1        1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2021-04-09 grp2        0
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 2021-04-10 grp1        0
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 2021-04-10 grp2        2
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 2021-04-11 grp1        3
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span> 2021-04-11 grp2        0
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span> 2021-04-12 grp1        0
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span> 2021-04-12 grp2        4
+#&gt; </div><div class='input'>
+</div></span></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
