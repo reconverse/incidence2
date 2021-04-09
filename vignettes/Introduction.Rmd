@@ -66,6 +66,9 @@ The main features of the package include:
   the first (or last) set of grouped dates (ordered by time) from an
   `incidence()` object.
 
+- **`complete_counts`**: Ensure every possible combination of date and groupings
+  is given an explicit count.
+
 - **`print()`** and **`summary()`** functions.
 
 - Conversion functions:
