@@ -58,7 +58,7 @@ incidences:
 inci %>% 
   regroup(hospital) %>% 
   cumulate() %>% 
-  facet_plot(n_breaks = 4)
+  facet_plot(n.breaks = 4)
 ```
 
 ## keep_first and keep_last

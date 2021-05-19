@@ -23,26 +23,19 @@
 #'   })
 #' }
 #'
-#' @import data.table
 #' @export
 regroup <- function(x, groups = NULL){
 
   # due to NSE notes in R CMD check
   ..count_var <- . <- NULL
 
-  if (!inherits(x, "incidence2")) {
-    stop(sprintf(
-      "x should be an 'incidence2' object.",
-      class(x)))
-  }
+  if (!inherits(x, "incidence2")) abort("x should be an 'incidence2' object.")
 
   # check groups present
   groups <- rlang::enquo(groups)
   idx <- tidyselect::eval_select(groups, x)
   groups <- names(x)[idx]
-  if (length(groups) == 0) {
-    groups <- NULL
-  }
+  if (length(groups) == 0) groups <- NULL
 
   date_var <- get_dates_name(x)
   count_var <- get_count_names(x)
@@ -52,7 +45,6 @@ regroup <- function(x, groups = NULL){
   tbl <- as.data.table(x)
   tbl <- tbl[, lapply(.SD, sum, na.rm = TRUE), keyby = c(date_var, groups), .SDcols = count_var]
   setDF(tbl)
-
 
   # create subclass of tibble
   tbl <- tibble::new_tibble(tbl,
@@ -65,11 +57,4 @@ regroup <- function(x, groups = NULL){
                             class = "incidence2"
   )
   tibble::validate_tibble(tbl)
-
-
 }
-
-
-
-
-

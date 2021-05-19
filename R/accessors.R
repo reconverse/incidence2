@@ -46,8 +46,9 @@ get_counts <- function(x, ...) {
 #' @aliases get_counts.default
 #' @export
 get_counts.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @rdname accessors
@@ -55,7 +56,7 @@ get_counts.default <- function(x, ...) {
 #' @export
 get_counts.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
-  x[[attr(x, "count")]]
+  x[[attr(x, "counts")]]
 }
 # -------------------------------------------------------------------------
 
@@ -74,8 +75,9 @@ get_count_names <- function(x, ...) {
 #' @aliases get_count_names.default
 #' @export
 get_count_names.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @rdname accessors
@@ -83,7 +85,7 @@ get_count_names.default <- function(x, ...) {
 #' @export
 get_count_names.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
-  attr(x, "count")
+  attr(x, "counts")
 }
 # -------------------------------------------------------------------------
 
@@ -102,8 +104,9 @@ get_date_index <- function(x, ...) {
 #' @aliases get_date_index.default
 #' @export
 get_date_index.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @rdname accessors
@@ -137,8 +140,9 @@ get_dates_name <- function(x, ...) {
 #' @aliases get_dates_name.default
 #' @export
 get_dates_name.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @rdname accessors
@@ -165,8 +169,9 @@ get_group_names <- function(x, ...) {
 #' @aliases get_group_names.default
 #' @export
 get_group_names.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @rdname accessors
@@ -194,8 +199,9 @@ get_timespan <- function(x, ...) {
 #' @aliases get_timespan.default
 #' @export
 get_timespan.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @rdname accessors
@@ -205,18 +211,13 @@ get_timespan.incidence2 <- function(x, ...) {
   ellipsis::check_dots_empty()
   date_var <- get_dates_name(x)
   dat <- x[[date_var]]
-  r <- range(dat, na.rm = TRUE)
-  r <- c(r[1], r[2] + 1)
-  if (inherits(r, "yr")) { # needed as years are simply integers
-    r <- as.Date(r)
-  }
-  if (is.integer(dat)) {
-    as.integer(unclass(r[2]) - unclass(r[1]))
+  if(inherits(dat, "Date") || inherits(dat, "numeric")) {
+    out <- max(dat) - min(dat)
   } else {
-    r <- as.Date(r)
-    as.integer(diff(r))
+    bounds <- get_date_bounds(dat)
+    out <- max(bounds$upper_bound) - min(bounds$lower_bound)
   }
-
+  out + 1
 }
 # -------------------------------------------------------------------------
 
@@ -235,8 +236,9 @@ get_n <- function(x) {
 #' @rdname accessors
 #' @aliases get_n.default
 get_n.default <- function(x) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @export
@@ -265,17 +267,64 @@ grates::get_interval
 #' @export
 get_interval.incidence2 <- function(x, integer = FALSE, ...) {
   ellipsis::check_dots_empty()
-
   interval <- attr(x, "interval")
-
-  if (!integer || is.numeric(interval)) {
-    return(interval)
-  }
-  dat <- get_dates(x)
-  out <- get_interval(dat, days = integer)
-  attributes(out) <- NULL
-  as.integer(out)
+  if (!integer || is.numeric(interval)) return(interval)
+  get_interval_number(interval)
 }
+
+get_interval_string <- function(x) {
+  UseMethod("get_interval_string")
+}
+
+get_interval_string.default <- function(x) {
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
+}
+
+get_interval_string.grate_month <- function(x) {
+  n <- get_interval(x)
+  if (n > 1) {
+    sprintf("%d months", n)
+  } else {
+    "1 month"
+  }
+}
+
+get_interval_string.grate_yearweek <- function(x) {
+  firstday <- get_firstday(x)
+  weekday <- get_weekday_name(firstday)
+  sprintf("1 (%s) week ", weekday)
+}
+
+get_interval_string.grate_quarter <- function(x) {
+  "1 quarter"
+}
+
+get_interval_string.grate_year <- function(x) {
+  "1 year"
+}
+
+get_interval_string.grate_period <- function(x) {
+  n <- get_interval(x)
+  sprintf("%d days", n)
+}
+
+get_interval_string.grate_int_period <- function(x) {
+  get_interval(x)
+}
+
+get_interval_string.numeric <- function(x) {
+  1
+}
+
+get_interval_string.Date <- function(x) {
+  "1 day"
+}
+
+
+
+
 # -------------------------------------------------------------------------
 
 #' Deprecated accessor functions

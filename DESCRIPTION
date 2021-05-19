@@ -44,4 +44,6 @@ Suggests:
 VignetteBuilder: 
     knitr
 Roxygen: list(markdown = TRUE)
+Remotes:
+  reconverse/grates
 Config/testthat/edition: 3

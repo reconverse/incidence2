@@ -7,6 +7,4 @@
   )
   invisible()
 }
-
-
 # nocov end

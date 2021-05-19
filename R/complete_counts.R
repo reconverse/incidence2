@@ -17,12 +17,11 @@
 #' i <- incidence(dat, date_index = dates, groups = groups, counts = counts)
 #' complete_counts(i, fill = 0)
 #'
-#' @importFrom stats setNames
 #' @export
 complete_counts <- function(x, fill = NA) {
 
   if (!inherits(x, "incidence2")) {
-    stop(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
+    abort(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
   }
 
   if (!is.na(fill)) {

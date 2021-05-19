@@ -27,7 +27,6 @@ cumulate <- function(x) {
   UseMethod("cumulate", x)
 }
 
-
 #' @export
 #' @rdname cumulate
 cumulate.default <- function(x) {
@@ -43,9 +42,7 @@ cumulate.incidence2 <- function(x) {
   ..count_var <- NULL
 
   is_cumulate <- attr(x, "cumulative")
-  if (is_cumulate) {
-    stop("x is already a cumulative incidence")
-  }
+  if (is_cumulate) abort("x is already a cumulative incidence")
 
   groups <- get_group_names(x)
   count_var <- get_count_names(x)

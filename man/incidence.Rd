@@ -49,11 +49,12 @@ consideration (\code{FALSE}). Defaults to \code{TRUE}.}
 \item{counts}{The count variables of the given data.  If NULL (default) the
 data is taken to be a linelist of individual observations.}
 
-\item{firstdate}{When the interval is in days, or numeric, and also has a
+\item{firstdate}{When the interval is numeric or in days/months and has a
 numeric prefix greater than 1, then you can optionally specify the date
-that you wish your intervals to begin from.  If NULL (default) then the
-intervals will start at the minimum value contained in the date_index
-column.}
+that you wish to anchor your intervals to begin from.  If NULL (default)
+then the intervals will start at the minimum value contained in the
+\code{date_index} column. Note that the class of \code{firstdate} should match that of
+\code{date_index}.}
 }
 \value{
 An incidence2 object.  This is a subclass of tibble that represents
@@ -91,10 +92,10 @@ The format in this situation is similar to that used by \code{\link[=seq.Date]{s
 where these values can optionally be preceded by a (positive or negative)
 integer and a space, or followed by "s".  When no prefix is given:
 \itemize{
-\item "week"    : uses the "yrwk" class (see \code{\link[=as_yrwk]{as_yrwk()}}).
-\item "month"   : uses the "yrmon" class (see \code{\link[=as_yrmon]{as_yrmon()}}).
-\item "quarter" : uses the "yrqtr" class (see \code{\link[=as_yrqtr]{as_yrqtr()}}).
-\item "year"    : uses the "yr" class (see \code{\link[=as_yr]{as_yr()}}).
+\item "week"    : uses the "grate_yearweek" class (see \code{\link[grates:as_yearweek]{grates::as_yearweek()}}).
+\item "month"   : uses the "yrmon" class (see \code{\link[grates:as_month]{grates::as_month()}}).
+\item "quarter" : uses the "yrqtr" class (see \code{\link[grates:as_quarter]{grates::as_quarter()}}).
+\item "year"    : uses the "yr" class (see \code{\link[grates:as_year]{grates::as_year()}}).
 }
 
 When a prefix is provided (e.g. 2 weeks) the output is an object of class
@@ -132,7 +133,7 @@ weeks starting on different days assuming we had data that started on
 It's also possible to use something like "3 weeks: Saturday"; In addition,
 there are keywords reserved for specific days of the week:
 \itemize{
-\item interval = "week", standard = TRUE (Default, Monday)
+\item interval = "week", (Default, Monday)
 \item interval = "ISOweek"  (Monday)
 \item interval = "EPIweek"  (Sunday)
 \item interval = "MMWRweek" (Sunday)

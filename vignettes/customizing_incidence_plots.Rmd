@@ -103,7 +103,7 @@ forces each case to be a square.
 
 ```{r, epiet}
 i_epiet <- incidence(dat[160:180, ], date_index = date_of_onset)
-i_epiet %>% plot(color = "white", show_cases = TRUE, angle = 45, size = 10, n_breaks = 20)
+i_epiet %>% plot(color = "white", show_cases = TRUE, angle = 45, size = 10, n.breaks = 20)
 ```
 
 
@@ -115,8 +115,8 @@ For this reason we provide users the ability to make faceted plots with the
 includes an additional facet argument:
 
 ```{r, facets}
-i %>% facet_plot(facets = gender, n_breaks = 3)
-i %>% facet_plot(facets = hospital, fill = gender, n_breaks = 3, nrow = 4)
+i %>% facet_plot(facets = gender, n.breaks = 3)
+i %>% facet_plot(facets = hospital, fill = gender, n.breaks = 3, nrow = 4)
 i %>% regroup(gender) %>% facet_plot(facets = gender, fill = "grey", color = "white")
 ```
 
@@ -154,6 +154,6 @@ the base R distribution, and many more are provided in additional packages. We
 provide a couple of examples:
 
 ```{r, palettes}
-i %>% regroup(hospital) %>% plot(fill = hospital, col_pal = rainbow, n_breaks = 3) # see ?rainbow
+i %>% regroup(hospital) %>% plot(fill = hospital, col_pal = rainbow, n.breaks = 3) # see ?rainbow
 i %>% regroup(gender) %>% plot(fill = gender, col_pal = cm.colors)   # see ?cm.colors
 ```

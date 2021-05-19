@@ -14,6 +14,7 @@ summary.incidence2 <- function(object, ...) {
   # get the date and count variables
   count_var <- get_count_names(object)
   date_var <- get_dates_name(object)
+  dat <- object[[date_var]]
 
   # header
   header <- sprintf("An incidence2 object: %s x %s\n",
@@ -23,15 +24,20 @@ summary.incidence2 <- function(object, ...) {
 
   # cases over date range
   for (i in count_var) {
-    if (inherits(object[[date_var]], "period")) {
-      d1 <- as.Date(min(object[[date_var]]))
-      d2 <- as.Date(max(object[[date_var]]) + 1) - 1
-    } else if (inherits(object[[date_var]], "int_period")) {
-      d1 <- as.integer(min(object[[date_var]]))
-      d2 <- as.integer(max(object[[date_var]]) + 1) - 1
+    if (inherits(dat, "Date") ||
+        inherits(dat, "numeric") ||
+        inherits(dat, "grate_yearweek") ||
+        inherits(dat, "grate_quarter") ||
+        inherits(dat, "grate_year") ||
+        (inherits(dat, "grate_month") && attr(dat, "interval") == 1)) {
+      d1 <- min(dat)
+      d2 <- max(dat)
+    } else if (inherits(dat, "grate_int_period")) {
+      d1 <- as.integer(min(dat))
+      d2 <- as.integer(max(dat + 1)) - 1
     } else {
-      d1 <- min(object[[date_var]])
-      d2 <- max(object[[date_var]])
+      d1 <- as.Date(min(dat))
+      d2 <- as.Date(max(dat + 1)) - 1
     }
 
     if(i == "count") {
