@@ -40,33 +40,33 @@ test_that("multi-day plotting works", {
 test_that("grouped week plotting works", {
   dat <- load_dat()
   x <- incidence(dat, date_index = date_of_infection, interval = "week", groups = "gender")
-  expect_snapshot_plot("week_grouped", plot(x, fill = gender, n_breaks = 5))
+  expect_snapshot_plot("week_grouped", plot(x, fill = gender, n.breaks = 5))
 })
 
 
 test_that("grouped month plot works", {
   dat <- load_dat()
   x <- incidence(dat, date_index = date_of_infection, interval = "month", groups = "gender")
-  expect_snapshot_plot("month_grouped", facet_plot(x, breaks = unique(x$date_index)[c(FALSE,TRUE)], angle = 45))
+  expect_snapshot_plot("month_grouped", facet_plot(x, n.breaks = 7, angle = 45))
 })
 
 
 test_that("grouped quarter plot works", {
   dat <- load_dat()
   x <- incidence(dat, date_index = date_of_infection, interval = "quarter", groups = c(gender, hospital), na_as_group = FALSE)
-  expect_snapshot_plot("quarterly_grouped", facet_plot(x, breaks = unique(x$date_index), angle = 45, facets = gender, fill = hospital))
+  expect_snapshot_plot("quarterly_grouped", facet_plot(x, n.breaks = 6, angle = 45, facets = gender, fill = hospital))
 })
 
 
 test_that("integer plotting works", {
   dat <- data.frame(dates = rep(1:10, times = 1:10))
   x <- incidence(dat, date_index = dates)
-  expect_snapshot_plot("integer", plot(x, color = NA, n_breaks = 10))
+  expect_snapshot_plot("integer", plot(x, color = NA, n.breaks = 10))
 })
 
 
 test_that("double plotting works", {
   dat <- data.frame(dates = as.double(rep(1:10, times = 1:10)))
   x <- incidence(dat, date_index = dates)
-  expect_snapshot_plot("double", plot(x, color = NA, n_breaks = 10))
+  expect_snapshot_plot("double", plot(x, color = NA, n.breaks = 10))
 })

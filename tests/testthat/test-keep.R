@@ -13,7 +13,7 @@ test_that("keep_first and keep_last works as expected", {
   expect_equal(as.Date(lx$date_index), seq(as.Date("2021-10-01"), lastday, by = "month"))
   expect_equal(lx$count, c(31L, 30L, 31L))
 
-  wk <- as_yrmon(dates)
+  wk <- grates::as_month(dates)
   expect_equal(keep_first(wk, 1), wk[1:31])
   expect_equal(keep_last(wk, 1), rev(wk)[1:31])
 

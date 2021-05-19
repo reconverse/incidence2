@@ -14,7 +14,6 @@
 #'
 #' @return TRUE or FALSE
 #'
-#' @import data.table
 #' @noRd
 incidence_can_reconstruct <- function(x, to) {
 
@@ -96,21 +95,6 @@ df_reconstruct <- function(x, to) {
   x
 }
 # -------------------------------------------------------------------------
-
-
-# -------------------------------------------------------------------------
-# new_bare_tibble() is a small wrapper around tibble::new_tibble() that also
-# forces extra attributes to be dropped through the use of
-# vctrs::new_data_frame(). In the future, new_tibble() might have an option
-# to do this directly. See:
-# https://github.com/DavisVaughan/2020-06-01_dplyr-vctrs-compat
-new_bare_tibble <- function(x) {
-  # Strips all attributes off `x` since `new_tibble()` currently doesn't
-  x <- vctrs::new_data_frame(x)
-  tibble::new_tibble(x, nrow = nrow(x))
-}
-# -------------------------------------------------------------------------
-
 
 # -------------------------------------------------------------------------
 # Need to define a few base R methods to ensure things work as expected

@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------
 make_palette <- function(x, quiet = FALSE, suggest = NULL) {
   function(n) {
-    if (!is.numeric(n)) stop("n is not a number")
+    if (!is.numeric(n)) abort("n is not a number")
 
     if (n <= length(x)) {
       x[seq_len(n)]
@@ -63,8 +63,6 @@ muted_colors <- c(
 #' @param n a number of colors
 #'
 #' @aliases palettes vibrant muted
-#'
-#' @importFrom grDevices colorRampPalette
 #'
 #' @examples
 #' vibrant(5)

@@ -151,7 +151,7 @@ i_week_sex <- incidence(dat, interval = "week", date_index = date_of_onset,
 i_week_sex
 #> An incidence2 object: 109 x 3
 #> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 monday week
+#> interval: 1 (Monday) week 
 #> cumulative: FALSE
 #> 
 #>    date_index gender count
@@ -170,7 +170,7 @@ i_week_sex
 summary(i_week_sex)
 #> An incidence2 object: 109 x 3
 #> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 monday week
+#> interval: 1 (Monday) week 
 #> cumulative: FALSE
 #> timespan: 392 days
 #> 
@@ -188,7 +188,7 @@ plot(i_week_sex, fill = "gender", color = "white")
 we can also facet our plot (grouping detected automatically):
 
 ``` r
-facet_plot(i_week_sex, n_breaks = 3, color = "white")
+facet_plot(i_week_sex, n.breaks = 3, color = "white")
 ```
 
 <img src="man/figures/README-genderfacet-1.png" style="display: block; margin: auto;" />
@@ -203,7 +203,7 @@ i_week_sh <- incidence(dat, date_index = date_of_onset, interval = "week",
 i_week_sh
 #> An incidence2 object: 601 x 4
 #> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 monday week
+#> interval: 1 (Monday) week 
 #> cumulative: FALSE
 #> 
 #>    date_index gender hospital                                     count
@@ -222,7 +222,7 @@ i_week_sh
 summary(i_week_sh)
 #> An incidence2 object: 601 x 4
 #> 5829 cases from 2014-W15 to 2015-W18
-#> interval: 1 monday week
+#> interval: 1 (Monday) week 
 #> cumulative: FALSE
 #> timespan: 392 days
 #> 
@@ -242,7 +242,7 @@ summary(i_week_sh)
 #> 4 other                                          876
 #> 5 Princess Christian Maternity Hospital (PCMH)   420
 #> 6 Rokupa Hospital                                451
-facet_plot(i_week_sh, facets = gender, fill = hospital, n_breaks = 3)
+facet_plot(i_week_sh, facets = gender, fill = hospital, n.breaks = 3)
 ```
 
 <img src="man/figures/README-genderhospital-1.png" style="display: block; margin: auto;" />

@@ -10,6 +10,8 @@
   x,
   count = NULL,
   fill = NULL,
+  centre_dates = TRUE,
+  date_format = "\%Y-\%m-\%d",
   stack = TRUE,
   title = NULL,
   col_pal = vibrant,
@@ -17,7 +19,7 @@
   color = NA,
   xlab = "",
   ylab = NULL,
-  n_breaks = 5,
+  n.breaks = 6,
   show_cases = FALSE,
   border = "white",
   na_color = "grey",
@@ -33,6 +35,8 @@ facet_plot(x, ...)
   x,
   count = NULL,
   facets = NULL,
+  centre_dates = TRUE,
+  date_format = "\%Y-\%m-\%d",
   stack = TRUE,
   fill = NULL,
   title = NULL,
@@ -41,7 +45,7 @@ facet_plot(x, ...)
   color = NA,
   xlab = "",
   ylab = NULL,
-  n_breaks = 3,
+  n.breaks = 3,
   show_cases = FALSE,
   border = "white",
   na_color = "grey",
@@ -60,6 +64,14 @@ the first entry returned from \code{get_count_names(x)} is used.}
 
 \item{fill}{Which variable to color plots by. If NULL no distinction if made
 for plot colors.}
+
+\item{centre_dates}{If the interval is one of a single week, month, quarter
+or year the x_axis labels are centred with custom category labels. Set this
+option to FALSE to use date labels at the breaks.}
+
+\item{date_format}{Format to use if "Date" scales are required. The value is
+used by \code{format.Date()} and can be any input acceptable by that function
+(defaults to "\%Y-\%m-\%d).}
 
 \item{stack}{A logical indicating if bars of multiple groups should be
 stacked, or displayed side-by-side. Only used if fill is not NULL.}
@@ -81,8 +93,8 @@ invisible borders; defaults to NA.}
 generated automatically according to the time interval used in incidence
 computation.}
 
-\item{n_breaks}{n_breaks the ideal number of breaks to be used for the x-axis
-labeling}
+\item{n.breaks}{Approximate number of breaks calculated using
+\code{scales::breaks_pretty} (default 6).}
 
 \item{show_cases}{if \code{TRUE} (default: \code{FALSE}), then each observation will be
 colored by a border. The border defaults to a white border unless specified

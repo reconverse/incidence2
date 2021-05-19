@@ -22,8 +22,9 @@ keep_first <- function(x, n, ...) {
 #' @rdname keep
 #' @export
 keep_first.default <- function(x, n, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 
@@ -38,7 +39,7 @@ keep_first.incidence2 <- function(x, n, ...) {
 
 #' @rdname keep
 #' @export
-keep_first.yrwk <- function(x, n, ...) {
+keep_first.grate_yearweek <- function(x, n, ...) {
   idx <- keep_idx(x, n = n)
   x[idx]
 }
@@ -46,27 +47,24 @@ keep_first.yrwk <- function(x, n, ...) {
 
 #' @rdname keep
 #' @export
-keep_first.yrmon <- keep_first.yrwk
+keep_first.grate_month <- keep_first.grate_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_first.yrqtr <- keep_first.yrwk
+keep_first.grate_quarter <- keep_first.grate_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_first.yr <- keep_first.yrwk
+keep_first.grate_year <- keep_first.grate_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_first.period <- keep_first.yrwk
+keep_first.grate_period <- keep_first.grate_yearweek
 
 
-#' @rdname keep
-#' @export
-keep_first.int_period <- keep_first.yrwk
 # -------------------------------------------------------------------------
 
 
@@ -80,8 +78,9 @@ keep_last <- function(x, n, ...) {
 #' @rdname keep
 #' @export
 keep_last.default <- function(x, n, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 
@@ -96,7 +95,7 @@ keep_last.incidence2 <- function(x, n, ...) {
 
 #' @rdname keep
 #' @export
-keep_last.yrwk <- function(x, n, ...) {
+keep_last.grate_yearweek <- function(x, n, ...) {
   idx <- keep_idx(x, n = n, from_last = TRUE)
   x[idx]
 }
@@ -104,28 +103,22 @@ keep_last.yrwk <- function(x, n, ...) {
 
 #' @rdname keep
 #' @export
-keep_last.yrmon <- keep_last.yrwk
+keep_last.grate_month <- keep_last.grate_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_last.yrqtr <- keep_last.yrwk
+keep_last.grate_quarter <- keep_last.grate_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_last.yr <- keep_last.yrwk
+keep_last.grate_year <- keep_last.grate_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_last.period <- keep_last.yrwk
-
-
-#' @rdname keep
-#' @export
-keep_last.int_period <- keep_last.yrwk
-
+keep_last.grate_period <- keep_last.grate_yearweek
 
 
 # ------------------------------------------------------------------------- #
@@ -141,7 +134,7 @@ keep_idx <- function(x, n, from_last = FALSE) {
     message("n greater than number of unique date groupings. Returning all rows.")
     n <- length(uniq)
   } else if (n < 0) {
-    stop("'n' must be non-negative", call. = FALSE)
+    abort("'n' must be non-negative")
   }
 
   if (from_last) {

@@ -43,14 +43,14 @@ test_that("get_n works", {
 
 test_that("get_interval works", {
   expect_equal(get_interval(x2, integer = TRUE), 14L)
-  expect_equal(get_interval(x2), "2 monday weeks")
+  expect_equal(get_interval(x2), "14 days")
   expect_error(get_interval("test"), "Not implemented for class character")
 
   month_dates <- as.Date("2019-01-1") + 0:30
   month_x  <- incidence(data.frame(month_dates),
                         date_index = "month_dates",
                         interval = "month")
-  expect_equal(get_interval(month_x, integer = TRUE), 31L)
+  expect_equal(get_interval(month_x, integer = TRUE), 1L)
 
   quarter_dates <- seq(from = as.Date("2019-01-01"),
                        to = as.Date("2019-03-31"),
@@ -58,7 +58,7 @@ test_that("get_interval works", {
   quarter_x  <- incidence(data.frame(quarter_dates),
                         date_index = "quarter_dates",
                         interval = "quarter")
-  expect_equal(get_interval(quarter_x, integer = TRUE), 90L)
+  expect_equal(get_interval(quarter_x, integer = FALSE), "1 quarter")
 
   year_dates <- seq(from = as.Date("2019-01-01"),
                        to = as.Date("2019-12-31"),
@@ -66,7 +66,7 @@ test_that("get_interval works", {
   year_x  <- incidence(data.frame(year_dates),
                           date_index = "year_dates",
                           interval = "year")
-  expect_equal(get_interval(year_x, integer = TRUE), 365L)
+  expect_equal(get_interval(year_x, integer = FALSE), "1 year")
 
 })
 
@@ -77,9 +77,9 @@ test_that("get_timespan works as expected", {
   xx <- incidence(data.frame(dates), date_index = dates, interval = "weeks")
   xxx <- incidence(data.frame(dates), date_index = dates, interval = "months")
 
-  expect_equal(get_timespan(x), 35)
-  expect_equal(get_timespan(xx), 35)
-  expect_equal(get_timespan(xxx), 59)
+  expect_equal(as.integer(get_timespan(x)), 35)
+  expect_equal(as.integer(get_timespan(xx)), 35)
+  expect_equal(as.integer(get_timespan(xxx)), 59)
   expect_error(get_timespan("bob"))
 
 })

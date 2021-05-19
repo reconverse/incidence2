@@ -5,21 +5,19 @@
 \alias{keep_first}
 \alias{keep_first.default}
 \alias{keep_first.incidence2}
-\alias{keep_first.yrwk}
-\alias{keep_first.yrmon}
-\alias{keep_first.yrqtr}
-\alias{keep_first.yr}
-\alias{keep_first.period}
-\alias{keep_first.int_period}
+\alias{keep_first.grate_yearweek}
+\alias{keep_first.grate_month}
+\alias{keep_first.grate_quarter}
+\alias{keep_first.grate_year}
+\alias{keep_first.grate_period}
 \alias{keep_last}
 \alias{keep_last.default}
 \alias{keep_last.incidence2}
-\alias{keep_last.yrwk}
-\alias{keep_last.yrmon}
-\alias{keep_last.yrqtr}
-\alias{keep_last.yr}
-\alias{keep_last.period}
-\alias{keep_last.int_period}
+\alias{keep_last.grate_yearweek}
+\alias{keep_last.grate_month}
+\alias{keep_last.grate_quarter}
+\alias{keep_last.grate_year}
+\alias{keep_last.grate_period}
 \title{Keep first and last occurences}
 \usage{
 keep_first(x, n, ...)
@@ -28,17 +26,15 @@ keep_first(x, n, ...)
 
 \method{keep_first}{incidence2}(x, n, ...)
 
-\method{keep_first}{yrwk}(x, n, ...)
+\method{keep_first}{grate_yearweek}(x, n, ...)
 
-\method{keep_first}{yrmon}(x, n, ...)
+\method{keep_first}{grate_month}(x, n, ...)
 
-\method{keep_first}{yrqtr}(x, n, ...)
+\method{keep_first}{grate_quarter}(x, n, ...)
 
-\method{keep_first}{yr}(x, n, ...)
+\method{keep_first}{grate_year}(x, n, ...)
 
-\method{keep_first}{period}(x, n, ...)
-
-\method{keep_first}{int_period}(x, n, ...)
+\method{keep_first}{grate_period}(x, n, ...)
 
 keep_last(x, n, ...)
 
@@ -46,17 +42,15 @@ keep_last(x, n, ...)
 
 \method{keep_last}{incidence2}(x, n, ...)
 
-\method{keep_last}{yrwk}(x, n, ...)
+\method{keep_last}{grate_yearweek}(x, n, ...)
 
-\method{keep_last}{yrmon}(x, n, ...)
+\method{keep_last}{grate_month}(x, n, ...)
 
-\method{keep_last}{yrqtr}(x, n, ...)
+\method{keep_last}{grate_quarter}(x, n, ...)
 
-\method{keep_last}{yr}(x, n, ...)
+\method{keep_last}{grate_year}(x, n, ...)
 
-\method{keep_last}{period}(x, n, ...)
-
-\method{keep_last}{int_period}(x, n, ...)
+\method{keep_last}{grate_period}(x, n, ...)
 }
 \arguments{
 \item{x}{Object to filter.}
