@@ -144,6 +144,8 @@
   <span class='va'>x</span>,
   count <span class='op'>=</span> <span class='cn'>NULL</span>,
   fill <span class='op'>=</span> <span class='cn'>NULL</span>,
+  centre_dates <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  date_format <span class='op'>=</span> <span class='st'>"%Y-%m-%d"</span>,
   stack <span class='op'>=</span> <span class='cn'>TRUE</span>,
   title <span class='op'>=</span> <span class='cn'>NULL</span>,
   col_pal <span class='op'>=</span> <span class='va'>vibrant</span>,
@@ -151,7 +153,7 @@
   color <span class='op'>=</span> <span class='cn'>NA</span>,
   xlab <span class='op'>=</span> <span class='st'>""</span>,
   ylab <span class='op'>=</span> <span class='cn'>NULL</span>,
-  n_breaks <span class='op'>=</span> <span class='fl'>5</span>,
+  n.breaks <span class='op'>=</span> <span class='fl'>6</span>,
   show_cases <span class='op'>=</span> <span class='cn'>FALSE</span>,
   border <span class='op'>=</span> <span class='st'>"white"</span>,
   na_color <span class='op'>=</span> <span class='st'>"grey"</span>,
@@ -168,6 +170,8 @@
   <span class='va'>x</span>,
   count <span class='op'>=</span> <span class='cn'>NULL</span>,
   facets <span class='op'>=</span> <span class='cn'>NULL</span>,
+  centre_dates <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  date_format <span class='op'>=</span> <span class='st'>"%Y-%m-%d"</span>,
   stack <span class='op'>=</span> <span class='cn'>TRUE</span>,
   fill <span class='op'>=</span> <span class='cn'>NULL</span>,
   title <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -176,7 +180,7 @@
   color <span class='op'>=</span> <span class='cn'>NA</span>,
   xlab <span class='op'>=</span> <span class='st'>""</span>,
   ylab <span class='op'>=</span> <span class='cn'>NULL</span>,
-  n_breaks <span class='op'>=</span> <span class='fl'>3</span>,
+  n.breaks <span class='op'>=</span> <span class='fl'>3</span>,
   show_cases <span class='op'>=</span> <span class='cn'>FALSE</span>,
   border <span class='op'>=</span> <span class='st'>"white"</span>,
   na_color <span class='op'>=</span> <span class='st'>"grey"</span>,
@@ -203,6 +207,18 @@ the first entry returned from <code><a href='accessors.html'>get_count_names(x)<
       <th>fill</th>
       <td><p>Which variable to color plots by. If NULL no distinction if made
 for plot colors.</p></td>
+    </tr>
+    <tr>
+      <th>centre_dates</th>
+      <td><p>If the interval is one of a single week, month, quarter
+or year the x_axis labels are centred with custom category labels. Set this
+option to FALSE to use date labels at the breaks.</p></td>
+    </tr>
+    <tr>
+      <th>date_format</th>
+      <td><p>Format to use if "Date" scales are required. The value is
+used by <code><a href='https://rdrr.io/r/base/as.Date.html'>format.Date()</a></code> and can be any input acceptable by that function
+(defaults to "%Y-%m-%d).</p></td>
     </tr>
     <tr>
       <th>stack</th>
@@ -239,9 +255,9 @@ generated automatically according to the time interval used in incidence
 computation.</p></td>
     </tr>
     <tr>
-      <th>n_breaks</th>
-      <td><p>n_breaks the ideal number of breaks to be used for the x-axis
-labeling</p></td>
+      <th>n.breaks</th>
+      <td><p>Approximate number of breaks calculated using
+<code><a href='https://scales.r-lib.org/reference/breaks_pretty.html'>scales::breaks_pretty</a></code> (default 6).</p></td>
     </tr>
     <tr>
       <th>show_cases</th>
