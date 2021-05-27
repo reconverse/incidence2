@@ -197,8 +197,13 @@
 <span class='co'># S3 method for incidence2</span>
 <span class='fu'>get_n</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
+<span class='fu'>get_interval</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>get_interval</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
 <span class='co'># S3 method for incidence2</span>
-<span class='fu'><a href='get_interval.html'>get_interval</a></span><span class='op'>(</span><span class='va'>x</span>, integer <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>get_interval</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,11 +215,6 @@
     <tr>
       <th>...</th>
       <td><p>Not used.</p></td>
-    </tr>
-    <tr>
-      <th>integer</th>
-      <td><p>When <code>TRUE</code>, the interval will be converted to an
-integer vector if it is stored as a character in the incidence object.</p></td>
     </tr>
     </table>
 
@@ -256,7 +256,7 @@ by the incidence object.</p></li>
 </ul>
 
 <ul>
-<li><p><code><a href='get_interval.html'>get_interval()</a></code>: if <code>integer = TRUE</code>, an integer vector, otherwise the
+<li><p><code>get_interval()</code>: if <code>integer = TRUE</code>, an integer vector, otherwise the
 character value of the <code>interval</code></p></li>
 </ul>
 
@@ -278,7 +278,7 @@ character value of the <code>interval</code></p></li>
     <span class='fu'>get_date_index</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
     <span class='fu'>get_dates_name</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
 
-    <span class='fu'><a href='get_interval.html'>get_interval</a></span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
+    <span class='fu'>get_interval</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
 
     <span class='fu'>get_n</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
 
@@ -910,7 +910,6 @@ character value of the <code>interval</code></p></li>
 #&gt; &gt; get_dates_name(i)
 #&gt; [1] "date_index"
 #&gt; &gt; get_interval(i)
-#&gt; [1] "1 day"
 #&gt; &gt; get_n(i)
 #&gt; count 
 #&gt;  5829 

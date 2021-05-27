@@ -134,17 +134,17 @@
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index gender hospital                                     outcome count</span>
-<span class="co">#&gt;    &lt;yrwk&gt;     &lt;fct&gt;  &lt;fct&gt;                                        &lt;fct&gt;   &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-W15   f      Military Hospital                            &lt;NA&gt;        1</span>
-<span class="co">#&gt;  2 2014-W16   m      Connaught Hospital                           &lt;NA&gt;        1</span>
-<span class="co">#&gt;  3 2014-W17   f      &lt;NA&gt;                                         &lt;NA&gt;        1</span>
-<span class="co">#&gt;  4 2014-W17   f      &lt;NA&gt;                                         Death       1</span>
-<span class="co">#&gt;  5 2014-W17   f      other                                        Recover     2</span>
-<span class="co">#&gt;  6 2014-W17   m      other                                        Recover     1</span>
-<span class="co">#&gt;  7 2014-W18   f      &lt;NA&gt;                                         Recover     1</span>
-<span class="co">#&gt;  8 2014-W18   f      Connaught Hospital                           Recover     1</span>
-<span class="co">#&gt;  9 2014-W18   f      Princess Christian Maternity Hospital (PCMH) Death       1</span>
-<span class="co">#&gt; 10 2014-W18   f      Rokupa Hospital                              Recover     1</span>
+<span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;  &lt;fct&gt;                                        &lt;fct&gt;   &lt;int&gt;</span>
+<span class="co">#&gt;  1   2014-W15 f      Military Hospital                            &lt;NA&gt;        1</span>
+<span class="co">#&gt;  2   2014-W16 m      Connaught Hospital                           &lt;NA&gt;        1</span>
+<span class="co">#&gt;  3   2014-W17 f      &lt;NA&gt;                                         &lt;NA&gt;        1</span>
+<span class="co">#&gt;  4   2014-W17 f      &lt;NA&gt;                                         Death       1</span>
+<span class="co">#&gt;  5   2014-W17 f      other                                        Recover     2</span>
+<span class="co">#&gt;  6   2014-W17 m      other                                        Recover     1</span>
+<span class="co">#&gt;  7   2014-W18 f      &lt;NA&gt;                                         Recover     1</span>
+<span class="co">#&gt;  8   2014-W18 f      Connaught Hospital                           Recover     1</span>
+<span class="co">#&gt;  9   2014-W18 f      Princess Christian Maternity Hospital (PCMH) Death       1</span>
+<span class="co">#&gt; 10   2014-W18 f      Rokupa Hospital                              Recover     1</span>
 <span class="co">#&gt; # … with 1,438 more rows</span>
 
 <span class="co"># regroup to just two groups</span>
@@ -155,17 +155,17 @@
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index gender outcome count</span>
-<span class="co">#&gt;    &lt;yrwk&gt;     &lt;fct&gt;  &lt;fct&gt;   &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-W15   f      &lt;NA&gt;        1</span>
-<span class="co">#&gt;  2 2014-W16   m      &lt;NA&gt;        1</span>
-<span class="co">#&gt;  3 2014-W17   f      &lt;NA&gt;        1</span>
-<span class="co">#&gt;  4 2014-W17   f      Death       1</span>
-<span class="co">#&gt;  5 2014-W17   f      Recover     2</span>
-<span class="co">#&gt;  6 2014-W17   m      Recover     1</span>
-<span class="co">#&gt;  7 2014-W18   f      Death       1</span>
-<span class="co">#&gt;  8 2014-W18   f      Recover     3</span>
-<span class="co">#&gt;  9 2014-W19   f      &lt;NA&gt;        4</span>
-<span class="co">#&gt; 10 2014-W19   f      Death       2</span>
+<span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;  &lt;fct&gt;   &lt;int&gt;</span>
+<span class="co">#&gt;  1   2014-W15 f      &lt;NA&gt;        1</span>
+<span class="co">#&gt;  2   2014-W16 m      &lt;NA&gt;        1</span>
+<span class="co">#&gt;  3   2014-W17 f      &lt;NA&gt;        1</span>
+<span class="co">#&gt;  4   2014-W17 f      Death       1</span>
+<span class="co">#&gt;  5   2014-W17 f      Recover     2</span>
+<span class="co">#&gt;  6   2014-W17 m      Recover     1</span>
+<span class="co">#&gt;  7   2014-W18 f      Death       1</span>
+<span class="co">#&gt;  8   2014-W18 f      Recover     3</span>
+<span class="co">#&gt;  9   2014-W19 f      &lt;NA&gt;        4</span>
+<span class="co">#&gt; 10   2014-W19 f      Death       2</span>
 <span class="co">#&gt; # … with 310 more rows</span>
 
 <span class="co"># drop all groups</span>
@@ -176,17 +176,17 @@
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index count</span>
-<span class="co">#&gt;    &lt;yrwk&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-W15       1</span>
-<span class="co">#&gt;  2 2014-W16       1</span>
-<span class="co">#&gt;  3 2014-W17       5</span>
-<span class="co">#&gt;  4 2014-W18       4</span>
-<span class="co">#&gt;  5 2014-W19      12</span>
-<span class="co">#&gt;  6 2014-W20      17</span>
-<span class="co">#&gt;  7 2014-W21      15</span>
-<span class="co">#&gt;  8 2014-W22      19</span>
-<span class="co">#&gt;  9 2014-W23      23</span>
-<span class="co">#&gt; 10 2014-W24      21</span>
+<span class="co">#&gt;        &lt;yrwk&gt; &lt;int&gt;</span>
+<span class="co">#&gt;  1   2014-W15     1</span>
+<span class="co">#&gt;  2   2014-W16     1</span>
+<span class="co">#&gt;  3   2014-W17     5</span>
+<span class="co">#&gt;  4   2014-W18     4</span>
+<span class="co">#&gt;  5   2014-W19    12</span>
+<span class="co">#&gt;  6   2014-W20    17</span>
+<span class="co">#&gt;  7   2014-W21    15</span>
+<span class="co">#&gt;  8   2014-W22    19</span>
+<span class="co">#&gt;  9   2014-W23    23</span>
+<span class="co">#&gt; 10   2014-W24    21</span>
 <span class="co">#&gt; # … with 46 more rows</span></code></pre></div>
 </div>
 <div id="cumulate" class="section level2">
@@ -212,13 +212,13 @@
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   date_index gender hospital           outcome count</span>
-<span class="co">#&gt;   &lt;yrwk&gt;     &lt;fct&gt;  &lt;fct&gt;              &lt;fct&gt;   &lt;int&gt;</span>
-<span class="co">#&gt; 1 2014-W15   f      Military Hospital  &lt;NA&gt;        1</span>
-<span class="co">#&gt; 2 2014-W16   m      Connaught Hospital &lt;NA&gt;        1</span>
-<span class="co">#&gt; 3 2014-W17   f      &lt;NA&gt;               &lt;NA&gt;        1</span>
-<span class="co">#&gt; 4 2014-W17   f      &lt;NA&gt;               Death       1</span>
-<span class="co">#&gt; 5 2014-W17   f      other              Recover     2</span>
-<span class="co">#&gt; 6 2014-W17   m      other              Recover     1</span>
+<span class="co">#&gt;       &lt;yrwk&gt; &lt;fct&gt;  &lt;fct&gt;              &lt;fct&gt;   &lt;int&gt;</span>
+<span class="co">#&gt; 1   2014-W15 f      Military Hospital  &lt;NA&gt;        1</span>
+<span class="co">#&gt; 2   2014-W16 m      Connaught Hospital &lt;NA&gt;        1</span>
+<span class="co">#&gt; 3   2014-W17 f      &lt;NA&gt;               &lt;NA&gt;        1</span>
+<span class="co">#&gt; 4   2014-W17 f      &lt;NA&gt;               Death       1</span>
+<span class="co">#&gt; 5   2014-W17 f      other              Recover     2</span>
+<span class="co">#&gt; 6   2014-W17 m      other              Recover     1</span>
 
 <span class="va">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/keep.html">keep_last</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 63 x 5</span>
@@ -227,17 +227,17 @@
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index gender hospital           outcome count</span>
-<span class="co">#&gt;    &lt;yrwk&gt;     &lt;fct&gt;  &lt;fct&gt;              &lt;fct&gt;   &lt;int&gt;</span>
-<span class="co">#&gt;  1 2015-W16   f      &lt;NA&gt;               &lt;NA&gt;        1</span>
-<span class="co">#&gt;  2 2015-W16   f      &lt;NA&gt;               Death       7</span>
-<span class="co">#&gt;  3 2015-W16   f      &lt;NA&gt;               Recover     1</span>
-<span class="co">#&gt;  4 2015-W16   f      Connaught Hospital &lt;NA&gt;        1</span>
-<span class="co">#&gt;  5 2015-W16   f      Connaught Hospital Death       5</span>
-<span class="co">#&gt;  6 2015-W16   f      Connaught Hospital Recover     3</span>
-<span class="co">#&gt;  7 2015-W16   f      Military Hospital  Recover     1</span>
-<span class="co">#&gt;  8 2015-W16   f      other              &lt;NA&gt;        1</span>
-<span class="co">#&gt;  9 2015-W16   f      other              Death       2</span>
-<span class="co">#&gt; 10 2015-W16   f      other              Recover     1</span>
+<span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;  &lt;fct&gt;              &lt;fct&gt;   &lt;int&gt;</span>
+<span class="co">#&gt;  1   2015-W16 f      &lt;NA&gt;               &lt;NA&gt;        1</span>
+<span class="co">#&gt;  2   2015-W16 f      &lt;NA&gt;               Death       7</span>
+<span class="co">#&gt;  3   2015-W16 f      &lt;NA&gt;               Recover     1</span>
+<span class="co">#&gt;  4   2015-W16 f      Connaught Hospital &lt;NA&gt;        1</span>
+<span class="co">#&gt;  5   2015-W16 f      Connaught Hospital Death       5</span>
+<span class="co">#&gt;  6   2015-W16 f      Connaught Hospital Recover     3</span>
+<span class="co">#&gt;  7   2015-W16 f      Military Hospital  Recover     1</span>
+<span class="co">#&gt;  8   2015-W16 f      other              &lt;NA&gt;        1</span>
+<span class="co">#&gt;  9   2015-W16 f      other              Death       2</span>
+<span class="co">#&gt; 10   2015-W16 f      other              Recover     1</span>
 <span class="co">#&gt; # … with 53 more rows</span></code></pre></div>
 </div>
 <div id="tidyverse-compatibility" class="section level2">
@@ -264,38 +264,38 @@
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index hospital        gender count</span>
-<span class="co">#&gt;    &lt;yrwk&gt;     &lt;fct&gt;           &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-W18   Rokupa Hospital f          1</span>
-<span class="co">#&gt;  2 2014-W20   Rokupa Hospital f          1</span>
-<span class="co">#&gt;  3 2014-W22   Rokupa Hospital f          1</span>
-<span class="co">#&gt;  4 2014-W23   Rokupa Hospital f          1</span>
-<span class="co">#&gt;  5 2014-W25   Rokupa Hospital f          1</span>
-<span class="co">#&gt;  6 2014-W27   Rokupa Hospital f          1</span>
-<span class="co">#&gt;  7 2014-W28   Rokupa Hospital f          4</span>
-<span class="co">#&gt;  8 2014-W29   Rokupa Hospital f          2</span>
-<span class="co">#&gt;  9 2014-W30   Rokupa Hospital f          1</span>
-<span class="co">#&gt; 10 2014-W31   Rokupa Hospital f          1</span>
+<span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;           &lt;fct&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;  1   2014-W18 Rokupa Hospital f          1</span>
+<span class="co">#&gt;  2   2014-W20 Rokupa Hospital f          1</span>
+<span class="co">#&gt;  3   2014-W22 Rokupa Hospital f          1</span>
+<span class="co">#&gt;  4   2014-W23 Rokupa Hospital f          1</span>
+<span class="co">#&gt;  5   2014-W25 Rokupa Hospital f          1</span>
+<span class="co">#&gt;  6   2014-W27 Rokupa Hospital f          1</span>
+<span class="co">#&gt;  7   2014-W28 Rokupa Hospital f          4</span>
+<span class="co">#&gt;  8   2014-W29 Rokupa Hospital f          2</span>
+<span class="co">#&gt;  9   2014-W30 Rokupa Hospital f          1</span>
+<span class="co">#&gt; 10   2014-W31 Rokupa Hospital f          1</span>
 <span class="co">#&gt; # … with 38 more rows</span>
 
 <span class="co"># slice operations preserve class</span>
 <span class="va">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 10 x 4</span>
-<span class="co">#&gt; 124 cases from 2014-W20 to 2015-W10</span>
+<span class="co">#&gt; 66 cases from 2014-W20 to 2015-W13</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index hospital                                     gender count</span>
-<span class="co">#&gt;    &lt;yrwk&gt;     &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-W49   Princess Christian Maternity Hospital (PCMH) m          5</span>
-<span class="co">#&gt;  2 2014-W21   other                                        m          1</span>
-<span class="co">#&gt;  3 2014-W33   &lt;NA&gt;                                         m         15</span>
-<span class="co">#&gt;  4 2014-W35   Connaught Hospital                           f         24</span>
-<span class="co">#&gt;  5 2014-W45   other                                        f         15</span>
-<span class="co">#&gt;  6 2014-W38   other                                        m         26</span>
-<span class="co">#&gt;  7 2014-W20   &lt;NA&gt;                                         f          3</span>
-<span class="co">#&gt;  8 2014-W32   other                                        f          7</span>
-<span class="co">#&gt;  9 2015-W10   Connaught Hospital                           f         12</span>
-<span class="co">#&gt; 10 2014-W33   Connaught Hospital                           m         16</span>
+<span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;  1   2014-W23 other                                        f          2</span>
+<span class="co">#&gt;  2   2014-W44 Princess Christian Maternity Hospital (PCMH) f         12</span>
+<span class="co">#&gt;  3   2015-W09 other                                        m          5</span>
+<span class="co">#&gt;  4   2014-W37 Military Hospital                            m         10</span>
+<span class="co">#&gt;  5   2014-W28 other                                        m          3</span>
+<span class="co">#&gt;  6   2014-W20 Rokupa Hospital                              f          1</span>
+<span class="co">#&gt;  7   2015-W02 &lt;NA&gt;                                         f         12</span>
+<span class="co">#&gt;  8   2015-W06 Rokupa Hospital                              f          3</span>
+<span class="co">#&gt;  9   2015-W13 Connaught Hospital                           f          9</span>
+<span class="co">#&gt; 10   2014-W50 &lt;NA&gt;                                         f          9</span>
 
 <span class="va">inci</span> <span class="op">%&gt;%</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 3 x 4</span>
@@ -304,10 +304,10 @@
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   date_index hospital          gender count</span>
-<span class="co">#&gt;   &lt;yrwk&gt;     &lt;fct&gt;             &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1 2014-W15   Military Hospital f          1</span>
-<span class="co">#&gt; 2 2014-W17   other             m          1</span>
-<span class="co">#&gt; 3 2014-W19   &lt;NA&gt;              f          1</span>
+<span class="co">#&gt;       &lt;yrwk&gt; &lt;fct&gt;             &lt;fct&gt;  &lt;int&gt;</span>
+<span class="co">#&gt; 1   2014-W15 Military Hospital f          1</span>
+<span class="co">#&gt; 2   2014-W17 other             m          1</span>
+<span class="co">#&gt; 3   2014-W19 &lt;NA&gt;              f          1</span>
 
 <span class="co"># mutate preserve class</span>
 <span class="va">inci</span> <span class="op">%&gt;%</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>future <span class="op">=</span> <span class="va">date_index</span> <span class="op">+</span> <span class="fl">999</span><span class="op">)</span>
@@ -316,18 +316,18 @@
 <span class="co">#&gt; interval: 1 (Monday) week </span>
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    date_index hospital                                     gender count future  </span>
-<span class="co">#&gt;    &lt;yrwk&gt;     &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt; &lt;yrwk&gt;  </span>
-<span class="co">#&gt;  1 2014-W15   Military Hospital                            f          1 2033-W22</span>
-<span class="co">#&gt;  2 2014-W16   Connaught Hospital                           m          1 2033-W23</span>
-<span class="co">#&gt;  3 2014-W17   &lt;NA&gt;                                         f          2 2033-W24</span>
-<span class="co">#&gt;  4 2014-W17   other                                        f          2 2033-W24</span>
-<span class="co">#&gt;  5 2014-W17   other                                        m          1 2033-W24</span>
-<span class="co">#&gt;  6 2014-W18   &lt;NA&gt;                                         f          1 2033-W25</span>
-<span class="co">#&gt;  7 2014-W18   Connaught Hospital                           f          1 2033-W25</span>
-<span class="co">#&gt;  8 2014-W18   Princess Christian Maternity Hospital (PCMH) f          1 2033-W25</span>
-<span class="co">#&gt;  9 2014-W18   Rokupa Hospital                              f          1 2033-W25</span>
-<span class="co">#&gt; 10 2014-W19   &lt;NA&gt;                                         f          1 2033-W26</span>
+<span class="co">#&gt;    date_index hospital                                     gender count   future</span>
+<span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;   &lt;yrwk&gt;</span>
+<span class="co">#&gt;  1   2014-W15 Military Hospital                            f          1 2033-W22</span>
+<span class="co">#&gt;  2   2014-W16 Connaught Hospital                           m          1 2033-W23</span>
+<span class="co">#&gt;  3   2014-W17 &lt;NA&gt;                                         f          2 2033-W24</span>
+<span class="co">#&gt;  4   2014-W17 other                                        f          2 2033-W24</span>
+<span class="co">#&gt;  5   2014-W17 other                                        m          1 2033-W24</span>
+<span class="co">#&gt;  6   2014-W18 &lt;NA&gt;                                         f          1 2033-W25</span>
+<span class="co">#&gt;  7   2014-W18 Connaught Hospital                           f          1 2033-W25</span>
+<span class="co">#&gt;  8   2014-W18 Princess Christian Maternity Hospital (PCMH) f          1 2033-W25</span>
+<span class="co">#&gt;  9   2014-W18 Rokupa Hospital                              f          1 2033-W25</span>
+<span class="co">#&gt; 10   2014-W19 &lt;NA&gt;                                         f          1 2033-W26</span>
 <span class="co">#&gt; # … with 591 more rows</span>
 
 <span class="co"># rename preserve class</span>
@@ -338,7 +338,7 @@
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    left_bin hospital                                     gender count</span>
-<span class="co">#&gt;    &lt;yrwk&gt;   &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;      &lt;yrwk&gt; &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;</span>
 <span class="co">#&gt;  1 2014-W15 Military Hospital                            f          1</span>
 <span class="co">#&gt;  2 2014-W16 Connaught Hospital                           m          1</span>
 <span class="co">#&gt;  3 2014-W17 &lt;NA&gt;                                         f          2</span>
@@ -376,17 +376,17 @@
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index hospital                                     gender count</span>
-<span class="co">#&gt;    &lt;yrwk&gt;     &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-W15   Military Hospital                            f          1</span>
-<span class="co">#&gt;  2 2014-W16   Connaught Hospital                           m          1</span>
-<span class="co">#&gt;  3 2014-W17   &lt;NA&gt;                                         f          2</span>
-<span class="co">#&gt;  4 2014-W17   other                                        f          2</span>
-<span class="co">#&gt;  5 2014-W17   other                                        m          1</span>
-<span class="co">#&gt;  6 2014-W18   &lt;NA&gt;                                         f          1</span>
-<span class="co">#&gt;  7 2014-W18   Connaught Hospital                           f          1</span>
-<span class="co">#&gt;  8 2014-W18   Princess Christian Maternity Hospital (PCMH) f          1</span>
-<span class="co">#&gt;  9 2014-W18   Rokupa Hospital                              f          1</span>
-<span class="co">#&gt; 10 2014-W19   &lt;NA&gt;                                         f          1</span>
+<span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;  1   2014-W15 Military Hospital                            f          1</span>
+<span class="co">#&gt;  2   2014-W16 Connaught Hospital                           m          1</span>
+<span class="co">#&gt;  3   2014-W17 &lt;NA&gt;                                         f          2</span>
+<span class="co">#&gt;  4   2014-W17 other                                        f          2</span>
+<span class="co">#&gt;  5   2014-W17 other                                        m          1</span>
+<span class="co">#&gt;  6   2014-W18 &lt;NA&gt;                                         f          1</span>
+<span class="co">#&gt;  7   2014-W18 Connaught Hospital                           f          1</span>
+<span class="co">#&gt;  8   2014-W18 Princess Christian Maternity Hospital (PCMH) f          1</span>
+<span class="co">#&gt;  9   2014-W18 Rokupa Hospital                              f          1</span>
+<span class="co">#&gt; 10   2014-W19 &lt;NA&gt;                                         f          1</span>
 <span class="co">#&gt; # … with 591 more rows</span></code></pre></div>
 </div>
 </div>
@@ -397,7 +397,7 @@
 <ul>
 <li><p><code><a href="../reference/accessors.html">get_count_names()</a></code>, <code><a href="../reference/accessors.html">get_dates_name()</a></code>, and <code><a href="../reference/accessors.html">get_group_names()</a></code> all return character vectors of the column names corresponding to the requested variables.</p></li>
 <li><p><code><a href="../reference/accessors.html">get_n()</a></code> returns the number of observations.</p></li>
-<li><p><code><a href="../reference/get_interval.html">get_interval()</a></code> returns the interval of the object.</p></li>
+<li><p><code><a href="../reference/accessors.html">get_interval()</a></code> returns the interval of the object.</p></li>
 <li><p><code><a href="../reference/accessors.html">get_timespan()</a></code> returns the number of days the object covers.</p></li>
 </ul>
 </div>

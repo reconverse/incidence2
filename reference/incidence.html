@@ -204,8 +204,9 @@ data is taken to be a linelist of individual observations.</p></td>
 numeric prefix greater than 1, then you can optionally specify the date
 that you wish to anchor your intervals to begin from.  If NULL (default)
 then the intervals will start at the minimum value contained in the
-<code>date_index</code> column. Note that the class of <code>firstdate</code> should match that of
-<code>date_index</code>.</p></td>
+<code>date_index</code> column. Note that the class of <code>firstdate</code> must be <code>Date</code> if
+the <code>date_index</code> column is Date, POSIXct, POSIXlt, or character and integer
+otherwise.</p></td>
     </tr>
     </table>
 
@@ -244,10 +245,10 @@ standard specification such as "day", "week", "month", "quarter" or "year".
 The format in this situation is similar to that used by <code><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date()</a></code>
 where these values can optionally be preceded by a (positive or negative)
 integer and a space, or followed by "s".  When no prefix is given:</p><ul>
-<li><p>"week"    : uses the "grate_yearweek" class (see <code><a href='http://www.reconverse.org/grates/reference/as_yearweek.html'>grates::as_yearweek()</a></code>).</p></li>
-<li><p>"month"   : uses the "yrmon" class (see <code><a href='http://www.reconverse.org/grates/reference/as_month.html'>grates::as_month()</a></code>).</p></li>
-<li><p>"quarter" : uses the "yrqtr" class (see <code><a href='http://www.reconverse.org/grates/reference/as_quarter.html'>grates::as_quarter()</a></code>).</p></li>
-<li><p>"year"    : uses the "yr" class (see <code><a href='http://www.reconverse.org/grates/reference/as_year.html'>grates::as_year()</a></code>).</p></li>
+<li><p>"week"    : uses the "grates_yearweek" class (see <code><a href='http://www.reconverse.org/grates/reference/as_yearweek.html'>grates::as_yearweek()</a></code>).</p></li>
+<li><p>"month"   : uses the "grates_month" class (see <code><a href='http://www.reconverse.org/grates/reference/as_month.html'>grates::as_month()</a></code>).</p></li>
+<li><p>"quarter" : uses the "grates_quarter" class (see <code><a href='http://www.reconverse.org/grates/reference/as_quarter.html'>grates::as_quarter()</a></code>).</p></li>
+<li><p>"year"    : uses the "grates_year" class (see <code><a href='http://www.reconverse.org/grates/reference/as_year.html'>grates::as_year()</a></code>).</p></li>
 </ul>
 
 <p>When a prefix is provided (e.g. 2 weeks) the output is an object of class
@@ -320,139 +321,139 @@ there are keywords reserved for specific days of the week:</p><ul>
 #&gt; &gt; dat &lt;- ebola_sim_clean$linelist
 #&gt; &gt; incidence(dat, date_of_onset)
 #&gt; <span style='color: #949494;'>An incidence2 object: 367 x 2
-#&gt; </span><span>5829 cases from 2014-04-07 to 2015-04-30
+#&gt; </span>5829 cases from 2014-04-07 to 2015-04-30
 #&gt; interval: 1 day
 #&gt; cumulative: FALSE
 #&gt; 
 #&gt;    date_index count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2014-04-07     1
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2014-04-15     1
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2014-04-21     2
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2014-04-25     1
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2014-04-26     1
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2014-04-27     1
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2014-05-01     2
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2014-05-03     1
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2014-05-04     1
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2014-05-05     1
-#&gt; </span><span style='color: #949494;'># … with 357 more rows</span><span>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 2014-04-07     1
+#&gt; <span style='color: #BCBCBC;'> 2</span> 2014-04-15     1
+#&gt; <span style='color: #BCBCBC;'> 3</span> 2014-04-21     2
+#&gt; <span style='color: #BCBCBC;'> 4</span> 2014-04-25     1
+#&gt; <span style='color: #BCBCBC;'> 5</span> 2014-04-26     1
+#&gt; <span style='color: #BCBCBC;'> 6</span> 2014-04-27     1
+#&gt; <span style='color: #BCBCBC;'> 7</span> 2014-05-01     2
+#&gt; <span style='color: #BCBCBC;'> 8</span> 2014-05-03     1
+#&gt; <span style='color: #BCBCBC;'> 9</span> 2014-05-04     1
+#&gt; <span style='color: #BCBCBC;'>10</span> 2014-05-05     1
+#&gt; <span style='color: #949494;'># … with 357 more rows</span>
 #&gt; 
 #&gt; &gt; incidence(dat, date_of_onset, interval = "week")
-#&gt; </span><span style='color: #949494;'>An incidence2 object: 56 x 2
-#&gt; </span><span>5829 cases from 2014-W15 to 2015-W18
+#&gt; <span style='color: #949494;'>An incidence2 object: 56 x 2
+#&gt; </span>5829 cases from 2014-W15 to 2015-W18
 #&gt; interval: 1 (Monday) week 
 #&gt; cumulative: FALSE
 #&gt; 
 #&gt;    date_index count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;yrwk&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2014-W15       1
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2014-W16       1
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2014-W17       5
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2014-W18       4
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2014-W19      12
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2014-W20      17
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2014-W21      15
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2014-W22      19
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2014-W23      23
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2014-W24      21
-#&gt; </span><span style='color: #949494;'># … with 46 more rows</span><span>
+#&gt;        <span style='color: #949494; font-style: italic;'>&lt;yrwk&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>   2014-W15     1
+#&gt; <span style='color: #BCBCBC;'> 2</span>   2014-W16     1
+#&gt; <span style='color: #BCBCBC;'> 3</span>   2014-W17     5
+#&gt; <span style='color: #BCBCBC;'> 4</span>   2014-W18     4
+#&gt; <span style='color: #BCBCBC;'> 5</span>   2014-W19    12
+#&gt; <span style='color: #BCBCBC;'> 6</span>   2014-W20    17
+#&gt; <span style='color: #BCBCBC;'> 7</span>   2014-W21    15
+#&gt; <span style='color: #BCBCBC;'> 8</span>   2014-W22    19
+#&gt; <span style='color: #BCBCBC;'> 9</span>   2014-W23    23
+#&gt; <span style='color: #BCBCBC;'>10</span>   2014-W24    21
+#&gt; <span style='color: #949494;'># … with 46 more rows</span>
 #&gt; 
 #&gt; &gt; incidence(dat, date_of_onset, interval = "isoweek")
-#&gt; </span><span style='color: #949494;'>An incidence2 object: 56 x 2
-#&gt; </span><span>5829 cases from 2014-W15 to 2015-W18
+#&gt; <span style='color: #949494;'>An incidence2 object: 56 x 2
+#&gt; </span>5829 cases from 2014-W15 to 2015-W18
 #&gt; interval: 1 (Monday) week 
 #&gt; cumulative: FALSE
 #&gt; 
 #&gt;    date_index count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;yrwk&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2014-W15       1
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2014-W16       1
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2014-W17       5
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2014-W18       4
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2014-W19      12
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2014-W20      17
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2014-W21      15
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2014-W22      19
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2014-W23      23
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2014-W24      21
-#&gt; </span><span style='color: #949494;'># … with 46 more rows</span><span>
+#&gt;        <span style='color: #949494; font-style: italic;'>&lt;yrwk&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>   2014-W15     1
+#&gt; <span style='color: #BCBCBC;'> 2</span>   2014-W16     1
+#&gt; <span style='color: #BCBCBC;'> 3</span>   2014-W17     5
+#&gt; <span style='color: #BCBCBC;'> 4</span>   2014-W18     4
+#&gt; <span style='color: #BCBCBC;'> 5</span>   2014-W19    12
+#&gt; <span style='color: #BCBCBC;'> 6</span>   2014-W20    17
+#&gt; <span style='color: #BCBCBC;'> 7</span>   2014-W21    15
+#&gt; <span style='color: #BCBCBC;'> 8</span>   2014-W22    19
+#&gt; <span style='color: #BCBCBC;'> 9</span>   2014-W23    23
+#&gt; <span style='color: #BCBCBC;'>10</span>   2014-W24    21
+#&gt; <span style='color: #949494;'># … with 46 more rows</span>
 #&gt; 
 #&gt; &gt; incidence(dat, date_of_onset, interval = "epiweek")
-#&gt; </span><span style='color: #949494;'>An incidence2 object: 56 x 2
-#&gt; </span><span>5829 cases from 2014-W15 to 2015-W17
+#&gt; <span style='color: #949494;'>An incidence2 object: 56 x 2
+#&gt; </span>5829 cases from 2014-W15 to 2015-W17
 #&gt; interval: 1 (Sunday) week 
 #&gt; cumulative: FALSE
 #&gt; 
 #&gt;    date_index count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;yrwk&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2014-W15       1
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2014-W16       1
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2014-W17       4
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2014-W18       4
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2014-W19      12
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2014-W20      15
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2014-W21      15
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2014-W22      22
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2014-W23      22
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2014-W24      17
-#&gt; </span><span style='color: #949494;'># … with 46 more rows</span><span>
+#&gt;        <span style='color: #949494; font-style: italic;'>&lt;yrwk&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>   2014-W15     1
+#&gt; <span style='color: #BCBCBC;'> 2</span>   2014-W16     1
+#&gt; <span style='color: #BCBCBC;'> 3</span>   2014-W17     4
+#&gt; <span style='color: #BCBCBC;'> 4</span>   2014-W18     4
+#&gt; <span style='color: #BCBCBC;'> 5</span>   2014-W19    12
+#&gt; <span style='color: #BCBCBC;'> 6</span>   2014-W20    15
+#&gt; <span style='color: #BCBCBC;'> 7</span>   2014-W21    15
+#&gt; <span style='color: #BCBCBC;'> 8</span>   2014-W22    22
+#&gt; <span style='color: #BCBCBC;'> 9</span>   2014-W23    22
+#&gt; <span style='color: #BCBCBC;'>10</span>   2014-W24    17
+#&gt; <span style='color: #949494;'># … with 46 more rows</span>
 #&gt; 
 #&gt; &gt; incidence(dat, date_of_onset, interval = 7, groups = gender)
-#&gt; </span><span style='color: #949494;'>An incidence2 object: 109 x 3
-#&gt; </span><span>5829 cases from 2014-04-07 to 2015-05-03
+#&gt; <span style='color: #949494;'>An incidence2 object: 109 x 3
+#&gt; </span>5829 cases from 2014-04-07 to 2015-05-03
 #&gt; interval: 7 days
 #&gt; cumulative: FALSE
 #&gt; 
-#&gt;    date_index               gender count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;period&gt;</span><span>                 </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2014-04-07 to 2014-04-13 f          1
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2014-04-14 to 2014-04-20 m          1
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2014-04-21 to 2014-04-27 f          4
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2014-04-21 to 2014-04-27 m          1
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2014-04-28 to 2014-05-04 f          4
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2014-05-05 to 2014-05-11 f          9
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2014-05-05 to 2014-05-11 m          3
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2014-05-12 to 2014-05-18 f          7
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2014-05-12 to 2014-05-18 m         10
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2014-05-19 to 2014-05-25 f          8
-#&gt; </span><span style='color: #949494;'># … with 99 more rows</span><span>
+#&gt;                  date_index gender count
+#&gt;                    <span style='color: #949494; font-style: italic;'>&lt;period&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 2014-04-07 to 2014-04-13 f          1
+#&gt; <span style='color: #BCBCBC;'> 2</span> 2014-04-14 to 2014-04-20 m          1
+#&gt; <span style='color: #BCBCBC;'> 3</span> 2014-04-21 to 2014-04-27 f          4
+#&gt; <span style='color: #BCBCBC;'> 4</span> 2014-04-21 to 2014-04-27 m          1
+#&gt; <span style='color: #BCBCBC;'> 5</span> 2014-04-28 to 2014-05-04 f          4
+#&gt; <span style='color: #BCBCBC;'> 6</span> 2014-05-05 to 2014-05-11 f          9
+#&gt; <span style='color: #BCBCBC;'> 7</span> 2014-05-05 to 2014-05-11 m          3
+#&gt; <span style='color: #BCBCBC;'> 8</span> 2014-05-12 to 2014-05-18 f          7
+#&gt; <span style='color: #BCBCBC;'> 9</span> 2014-05-12 to 2014-05-18 m         10
+#&gt; <span style='color: #BCBCBC;'>10</span> 2014-05-19 to 2014-05-25 f          8
+#&gt; <span style='color: #949494;'># … with 99 more rows</span>
 #&gt; 
 #&gt; &gt; incidence(dat, date_of_onset, interval = "2 weeks", groups = c(gender, 
 #&gt; +     hospital))
-#&gt; </span><span style='color: #949494;'>An incidence2 object: 316 x 4
-#&gt; </span><span>5829 cases from 2014-04-07 to 2015-05-03
+#&gt; <span style='color: #949494;'>An incidence2 object: 316 x 4
+#&gt; </span>5829 cases from 2014-04-07 to 2015-05-03
 #&gt; interval: 14 days
 #&gt; cumulative: FALSE
 #&gt; 
-#&gt;    date_index              gender hospital                                 count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;period&gt;</span><span>                </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>                                    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2014-04-07 to 2014-04-… f      Military Hospital                            1
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2014-04-07 to 2014-04-… m      Connaught Hospital                           1
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2014-04-21 to 2014-05-… f      </span><span style='color: #BB0000;'>NA</span><span>                                           3
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2014-04-21 to 2014-05-… f      Connaught Hospital                           1
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2014-04-21 to 2014-05-… f      other                                        2
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2014-04-21 to 2014-05-… f      Princess Christian Maternity Hospital (…     1
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2014-04-21 to 2014-05-… f      Rokupa Hospital                              1
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2014-04-21 to 2014-05-… m      other                                        1
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2014-05-05 to 2014-05-… f      </span><span style='color: #BB0000;'>NA</span><span>                                           4
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2014-05-05 to 2014-05-… f      Connaught Hospital                           3
-#&gt; </span><span style='color: #949494;'># … with 306 more rows</span><span>
+#&gt;                  date_index gender hospital                                count
+#&gt;                    <span style='color: #949494; font-style: italic;'>&lt;period&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>                                   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 2014-04-07 to 2014-04-20 f      Military Hospital                           1
+#&gt; <span style='color: #BCBCBC;'> 2</span> 2014-04-07 to 2014-04-20 m      Connaught Hospital                          1
+#&gt; <span style='color: #BCBCBC;'> 3</span> 2014-04-21 to 2014-05-04 f      <span style='color: #BB0000;'>NA</span>                                          3
+#&gt; <span style='color: #BCBCBC;'> 4</span> 2014-04-21 to 2014-05-04 f      Connaught Hospital                          1
+#&gt; <span style='color: #BCBCBC;'> 5</span> 2014-04-21 to 2014-05-04 f      other                                       2
+#&gt; <span style='color: #BCBCBC;'> 6</span> 2014-04-21 to 2014-05-04 f      Princess Christian Maternity Hospital …     1
+#&gt; <span style='color: #BCBCBC;'> 7</span> 2014-04-21 to 2014-05-04 f      Rokupa Hospital                             1
+#&gt; <span style='color: #BCBCBC;'> 8</span> 2014-04-21 to 2014-05-04 m      other                                       1
+#&gt; <span style='color: #BCBCBC;'> 9</span> 2014-05-05 to 2014-05-18 f      <span style='color: #BB0000;'>NA</span>                                          4
+#&gt; <span style='color: #BCBCBC;'>10</span> 2014-05-05 to 2014-05-18 f      Connaught Hospital                          3
+#&gt; <span style='color: #949494;'># … with 306 more rows</span>
 #&gt; </div><div class='input'>
 <span class='co'># use of first_date</span>
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>10</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>dates</span>, interval <span class='op'>=</span> <span class='st'>"week"</span>, firstdate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>1 observations were removed.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'>An incidence2 object: 2 x 2
-#&gt; </span><span>9 cases from 2021-W20 to 2021-W21
+</div><div class='output co'>#&gt; <span class='message'>1 observations were removed.</span></div><div class='output co'>#&gt; <span style='color: #949494;'>An incidence2 object: 2 x 2
+#&gt; </span>9 cases from 2021-W21 to 2021-W22
 #&gt; interval: 1 (Monday) week 
 #&gt; cumulative: FALSE
 #&gt; 
 #&gt;   date_index count
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;yrwk&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2021-W20       6
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2021-W21       3
+#&gt;       <span style='color: #949494; font-style: italic;'>&lt;yrwk&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>   2021-W21     6
+#&gt; <span style='color: #BCBCBC;'>2</span>   2021-W22     3
 #&gt; </div><div class='input'>
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

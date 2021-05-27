@@ -133,7 +133,7 @@
 <li><p><strong><code><a href="../reference/as_tibble.html">as_tibble()</a></code></strong>: converts an <code><a href="../reference/incidence.html">incidence()</a></code> object into a <code>tibble</code>.</p></li>
 </ul>
 </li>
-<li><p>Accessor functions: <strong><code><a href="../reference/accessors.html">get_count_names()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_dates_name()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_date_index()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_group_names()</a></code></strong>, <strong><code><a href="../reference/get_interval.html">get_interval()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_timespan()</a></code></strong> and <strong><code><a href="../reference/accessors.html">get_n()</a></code></strong>.</p></li>
+<li><p>Accessor functions: <strong><code><a href="../reference/accessors.html">get_count_names()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_dates_name()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_date_index()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_group_names()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_interval()</a></code></strong>, <strong><code><a href="../reference/accessors.html">get_timespan()</a></code></strong> and <strong><code><a href="../reference/accessors.html">get_n()</a></code></strong>.</p></li>
 </ul>
 </div>
 <div id="worked-example-simulated-ebola-outbreak" class="section level1">
@@ -209,8 +209,8 @@
 <span class="co">#&gt; interval: 7 days</span>
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    date_index               count</span>
-<span class="co">#&gt;    &lt;period&gt;                 &lt;int&gt;</span>
+<span class="co">#&gt;                  date_index count</span>
+<span class="co">#&gt;                    &lt;period&gt; &lt;int&gt;</span>
 <span class="co">#&gt;  1 2014-04-07 to 2014-04-13     1</span>
 <span class="co">#&gt;  2 2014-04-14 to 2014-04-20     1</span>
 <span class="co">#&gt;  3 2014-04-21 to 2014-04-27     5</span>
@@ -266,17 +266,17 @@
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index gender count</span>
-<span class="co">#&gt;    &lt;yrwk&gt;     &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-W15   f          1</span>
-<span class="co">#&gt;  2 2014-W16   m          1</span>
-<span class="co">#&gt;  3 2014-W17   f          4</span>
-<span class="co">#&gt;  4 2014-W17   m          1</span>
-<span class="co">#&gt;  5 2014-W18   f          4</span>
-<span class="co">#&gt;  6 2014-W19   f          9</span>
-<span class="co">#&gt;  7 2014-W19   m          3</span>
-<span class="co">#&gt;  8 2014-W20   f          7</span>
-<span class="co">#&gt;  9 2014-W20   m         10</span>
-<span class="co">#&gt; 10 2014-W21   f          8</span>
+<span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;  1   2014-W15 f          1</span>
+<span class="co">#&gt;  2   2014-W16 m          1</span>
+<span class="co">#&gt;  3   2014-W17 f          4</span>
+<span class="co">#&gt;  4   2014-W17 m          1</span>
+<span class="co">#&gt;  5   2014-W18 f          4</span>
+<span class="co">#&gt;  6   2014-W19 f          9</span>
+<span class="co">#&gt;  7   2014-W19 m          3</span>
+<span class="co">#&gt;  8   2014-W20 f          7</span>
+<span class="co">#&gt;  9   2014-W20 m         10</span>
+<span class="co">#&gt; 10   2014-W21 f          8</span>
 <span class="co">#&gt; # … with 99 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">i_weekly_sex</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 109 x 3</span>
