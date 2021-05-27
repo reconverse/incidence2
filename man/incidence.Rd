@@ -53,8 +53,9 @@ data is taken to be a linelist of individual observations.}
 numeric prefix greater than 1, then you can optionally specify the date
 that you wish to anchor your intervals to begin from.  If NULL (default)
 then the intervals will start at the minimum value contained in the
-\code{date_index} column. Note that the class of \code{firstdate} should match that of
-\code{date_index}.}
+\code{date_index} column. Note that the class of \code{firstdate} must be \code{Date} if
+the \code{date_index} column is Date, POSIXct, POSIXlt, or character and integer
+otherwise.}
 }
 \value{
 An incidence2 object.  This is a subclass of tibble that represents
@@ -92,10 +93,10 @@ The format in this situation is similar to that used by \code{\link[=seq.Date]{s
 where these values can optionally be preceded by a (positive or negative)
 integer and a space, or followed by "s".  When no prefix is given:
 \itemize{
-\item "week"    : uses the "grate_yearweek" class (see \code{\link[grates:as_yearweek]{grates::as_yearweek()}}).
-\item "month"   : uses the "yrmon" class (see \code{\link[grates:as_month]{grates::as_month()}}).
-\item "quarter" : uses the "yrqtr" class (see \code{\link[grates:as_quarter]{grates::as_quarter()}}).
-\item "year"    : uses the "yr" class (see \code{\link[grates:as_year]{grates::as_year()}}).
+\item "week"    : uses the "grates_yearweek" class (see \code{\link[grates:as_yearweek]{grates::as_yearweek()}}).
+\item "month"   : uses the "grates_month" class (see \code{\link[grates:as_month]{grates::as_month()}}).
+\item "quarter" : uses the "grates_quarter" class (see \code{\link[grates:as_quarter]{grates::as_quarter()}}).
+\item "year"    : uses the "grates_year" class (see \code{\link[grates:as_year]{grates::as_year()}}).
 }
 
 When a prefix is provided (e.g. 2 weeks) the output is an object of class

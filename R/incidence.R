@@ -33,8 +33,9 @@
 #'   numeric prefix greater than 1, then you can optionally specify the date
 #'   that you wish to anchor your intervals to begin from.  If NULL (default)
 #'   then the intervals will start at the minimum value contained in the
-#'   `date_index` column. Note that the class of `firstdate` should match that of
-#'   `date_index`.
+#'   `date_index` column. Note that the class of `firstdate` must be `Date` if
+#'   the `date_index` column is Date, POSIXct, POSIXlt, or character and integer
+#'   otherwise.
 #'
 #' @return An incidence2 object.  This is a subclass of tibble that represents
 #'   and aggregated count of observations grouped according to the specified
@@ -68,10 +69,10 @@
 #'   where these values can optionally be preceded by a (positive or negative)
 #'   integer and a space, or followed by "s".  When no prefix is given:
 #'
-#'   - "week"    : uses the "grate_yearweek" class (see [`grates::as_yearweek()`]).
-#'   - "month"   : uses the "yrmon" class (see [`grates::as_month()`]).
-#'   - "quarter" : uses the "yrqtr" class (see [`grates::as_quarter()`]).
-#'   - "year"    : uses the "yr" class (see [`grates::as_year()`]).
+#'   - "week"    : uses the "grates_yearweek" class (see [`grates::as_yearweek()`]).
+#'   - "month"   : uses the "grates_month" class (see [`grates::as_month()`]).
+#'   - "quarter" : uses the "grates_quarter" class (see [`grates::as_quarter()`]).
+#'   - "year"    : uses the "grates_year" class (see [`grates::as_year()`]).
 #'
 #'   When a prefix is provided (e.g. 2 weeks) the output is an object of class
 #'   "period" (see [`as_period()`]).  Note that for the values "month",
@@ -209,7 +210,7 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   }
 
   # ensure we can work with dates (done here mainly for error message)
-  x[date_index] <- lapply(x[date_index], standardise_dates)
+  x[date_index] <- lapply(x[date_index], check_dates)
 
   # Calculate an incidence object for each value of date_index
   res <-
@@ -253,6 +254,12 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
 
   res
 }
+
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+# -------------------------------- INTERNALS ------------------------------ #
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
 
 
 #' Default internal constructor for incidence objects.
@@ -336,9 +343,7 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, counts,
   x <- x[c(date_col, groups, counts)]
 
   # standardise interval
-  if (!is.integer(x[[date_col]])) {
-    interval <- get_interval_string(x[[date_col]])
-  }
+  interval <- create_interval_string(x[[date_col]])
 
   # create subclass of tibble
   tbl <- tibble::new_tibble(
@@ -357,7 +362,7 @@ make_incidence <- function(x, date_index, groups, interval, na_as_group, counts,
 }
 
 
-standardise_dates <- function(x) {
+check_dates <- function(x) {
   if (inherits(x, "numeric")) {
     # Attempt to cast to integer and give useful error message if not possible
     tmp <- try(vctrs::vec_cast(x, integer()), silent = TRUE)
@@ -376,3 +381,41 @@ standardise_dates <- function(x) {
   }
   x
 }
+
+create_interval_string <- function(x) {
+  UseMethod("create_interval_string")
+}
+
+create_interval_string.default <- function(x) {
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
+}
+
+create_interval_string.grates_month <- function(x) {
+  n <- grates::get_n(x)
+  if (n > 1) sprintf("%d months", n) else "1 month"
+}
+
+create_interval_string.grates_yearweek <- function(x) {
+  firstday <- grates::get_firstday(x)
+  weekday <- get_weekday_name(firstday)
+  sprintf("1 (%s) week ", weekday)
+}
+
+create_interval_string.grates_quarter <- function(x) "1 quarter"
+
+create_interval_string.grates_year <- function(x) "1 year"
+
+create_interval_string.grates_period <- function(x) {
+  n <- grates::get_n(x)
+  sprintf("%d days", n)
+}
+
+create_interval_string.grates_int_period <- function(x) grates::get_n(x)
+
+create_interval_string.numeric <- function(x) 1
+
+create_interval_string.Date <- function(x) "1 day"
+
+

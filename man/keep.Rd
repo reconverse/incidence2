@@ -5,19 +5,19 @@
 \alias{keep_first}
 \alias{keep_first.default}
 \alias{keep_first.incidence2}
-\alias{keep_first.grate_yearweek}
-\alias{keep_first.grate_month}
-\alias{keep_first.grate_quarter}
-\alias{keep_first.grate_year}
-\alias{keep_first.grate_period}
+\alias{keep_first.grates_yearweek}
+\alias{keep_first.grates_month}
+\alias{keep_first.grates_quarter}
+\alias{keep_first.grates_year}
+\alias{keep_first.grates_period}
 \alias{keep_last}
 \alias{keep_last.default}
 \alias{keep_last.incidence2}
-\alias{keep_last.grate_yearweek}
-\alias{keep_last.grate_month}
-\alias{keep_last.grate_quarter}
-\alias{keep_last.grate_year}
-\alias{keep_last.grate_period}
+\alias{keep_last.grates_yearweek}
+\alias{keep_last.grates_month}
+\alias{keep_last.grates_quarter}
+\alias{keep_last.grates_year}
+\alias{keep_last.grates_period}
 \title{Keep first and last occurences}
 \usage{
 keep_first(x, n, ...)
@@ -26,15 +26,15 @@ keep_first(x, n, ...)
 
 \method{keep_first}{incidence2}(x, n, ...)
 
-\method{keep_first}{grate_yearweek}(x, n, ...)
+\method{keep_first}{grates_yearweek}(x, n, ...)
 
-\method{keep_first}{grate_month}(x, n, ...)
+\method{keep_first}{grates_month}(x, n, ...)
 
-\method{keep_first}{grate_quarter}(x, n, ...)
+\method{keep_first}{grates_quarter}(x, n, ...)
 
-\method{keep_first}{grate_year}(x, n, ...)
+\method{keep_first}{grates_year}(x, n, ...)
 
-\method{keep_first}{grate_period}(x, n, ...)
+\method{keep_first}{grates_period}(x, n, ...)
 
 keep_last(x, n, ...)
 
@@ -42,15 +42,15 @@ keep_last(x, n, ...)
 
 \method{keep_last}{incidence2}(x, n, ...)
 
-\method{keep_last}{grate_yearweek}(x, n, ...)
+\method{keep_last}{grates_yearweek}(x, n, ...)
 
-\method{keep_last}{grate_month}(x, n, ...)
+\method{keep_last}{grates_month}(x, n, ...)
 
-\method{keep_last}{grate_quarter}(x, n, ...)
+\method{keep_last}{grates_quarter}(x, n, ...)
 
-\method{keep_last}{grate_year}(x, n, ...)
+\method{keep_last}{grates_year}(x, n, ...)
 
-\method{keep_last}{grate_period}(x, n, ...)
+\method{keep_last}{grates_period}(x, n, ...)
 }
 \arguments{
 \item{x}{Object to filter.}

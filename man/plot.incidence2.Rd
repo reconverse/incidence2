@@ -20,6 +20,7 @@
   xlab = "",
   ylab = NULL,
   n.breaks = 6,
+  width = 1,
   show_cases = FALSE,
   border = "white",
   na_color = "grey",
@@ -46,6 +47,7 @@ facet_plot(x, ...)
   xlab = "",
   ylab = NULL,
   n.breaks = 3,
+  width = 1,
   show_cases = FALSE,
   border = "white",
   na_color = "grey",
@@ -95,6 +97,9 @@ computation.}
 
 \item{n.breaks}{Approximate number of breaks calculated using
 \code{scales::breaks_pretty} (default 6).}
+
+\item{width}{Value between 0 and 1 indicating the relative size of the bars
+to the interval. Default 1.}
 
 \item{show_cases}{if \code{TRUE} (default: \code{FALSE}), then each observation will be
 colored by a border. The border defaults to a white border unless specified

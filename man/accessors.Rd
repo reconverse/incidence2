@@ -24,6 +24,8 @@
 \alias{get_n}
 \alias{get_n.default}
 \alias{get_n.incidence2}
+\alias{get_interval}
+\alias{get_interval.default}
 \alias{get_interval.incidence2}
 \title{Access various elements of an incidence object}
 \usage{
@@ -71,15 +73,16 @@ get_n(x)
 
 \method{get_n}{incidence2}(x)
 
-\method{get_interval}{incidence2}(x, integer = FALSE, ...)
+get_interval(x, ...)
+
+\method{get_interval}{default}(x, ...)
+
+\method{get_interval}{incidence2}(x, ...)
 }
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
 
 \item{...}{Not used.}
-
-\item{integer}{When \code{TRUE}, the interval will be converted to an
-integer vector if it is stored as a character in the incidence object.}
 }
 \value{
 \itemize{

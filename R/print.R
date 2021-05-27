@@ -21,13 +21,13 @@ print.incidence2 <- function(x, ...) {
   for (i in count_var) {
     if (inherits(dat, "Date") ||
         inherits(dat, "numeric") ||
-        inherits(dat, "grate_yearweek") ||
-        inherits(dat, "grate_quarter") ||
-        inherits(dat, "grate_year") ||
-        (inherits(dat, "grate_month") && attr(dat, "interval") == 1)) {
+        inherits(dat, "grates_yearweek") ||
+        inherits(dat, "grates_quarter") ||
+        inherits(dat, "grates_year") ||
+        (inherits(dat, "grates_month") && attr(dat, "n") == 1)) {
       d1 <- min(dat)
       d2 <- max(dat)
-    } else if (inherits(dat, "grate_int_period") || inherits(dat, "numeric") || inherits(dat, "integer")) {
+    } else if (inherits(dat, "grates_int_period") || inherits(dat, "numeric") || inherits(dat, "integer")) {
       d1 <- as.integer(min(dat))
       d2 <- as.integer(max(dat + 1)) - 1
     } else {

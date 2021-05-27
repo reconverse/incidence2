@@ -39,7 +39,7 @@ keep_first.incidence2 <- function(x, n, ...) {
 
 #' @rdname keep
 #' @export
-keep_first.grate_yearweek <- function(x, n, ...) {
+keep_first.grates_yearweek <- function(x, n, ...) {
   idx <- keep_idx(x, n = n)
   x[idx]
 }
@@ -47,22 +47,22 @@ keep_first.grate_yearweek <- function(x, n, ...) {
 
 #' @rdname keep
 #' @export
-keep_first.grate_month <- keep_first.grate_yearweek
+keep_first.grates_month <- keep_first.grates_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_first.grate_quarter <- keep_first.grate_yearweek
+keep_first.grates_quarter <- keep_first.grates_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_first.grate_year <- keep_first.grate_yearweek
+keep_first.grates_year <- keep_first.grates_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_first.grate_period <- keep_first.grate_yearweek
+keep_first.grates_period <- keep_first.grates_yearweek
 
 
 # -------------------------------------------------------------------------
@@ -95,7 +95,7 @@ keep_last.incidence2 <- function(x, n, ...) {
 
 #' @rdname keep
 #' @export
-keep_last.grate_yearweek <- function(x, n, ...) {
+keep_last.grates_yearweek <- function(x, n, ...) {
   idx <- keep_idx(x, n = n, from_last = TRUE)
   x[idx]
 }
@@ -103,22 +103,22 @@ keep_last.grate_yearweek <- function(x, n, ...) {
 
 #' @rdname keep
 #' @export
-keep_last.grate_month <- keep_last.grate_yearweek
+keep_last.grates_month <- keep_last.grates_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_last.grate_quarter <- keep_last.grate_yearweek
+keep_last.grates_quarter <- keep_last.grates_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_last.grate_year <- keep_last.grate_yearweek
+keep_last.grates_year <- keep_last.grates_yearweek
 
 
 #' @rdname keep
 #' @export
-keep_last.grate_period <- keep_last.grate_yearweek
+keep_last.grates_period <- keep_last.grates_yearweek
 
 
 # ------------------------------------------------------------------------- #

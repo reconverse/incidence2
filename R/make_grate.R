@@ -1,31 +1,41 @@
-#' @import grates
-NULL
-
 make_grate <- function(x, interval, firstdate) {
 
   n <- get_interval_number(interval)
   type <- get_interval_type(interval)
 
-  if (type == "week") {
-    firstday <- get_yearweek_start(interval)
-    out <- as_yearweek(x, firstday = firstday)
+  if (is.numeric(x)) {
+    stopifnot("Invalid interval for numeric `date_index`" = type == "period")
+    stopifnot("`firstdate` must be numeric" = is.numeric(firstdate))
+    out <- x
     if (n > 1) {
-      out <- as_period(as.Date(out), interval = 7 * n)
+      origin <- unclass(firstdate) %% n
+      out <- grates::as_int_period(x, n = n, origin = origin)
+    }
+  } else if (type == "week") {
+    firstday <- get_yearweek_start(interval)
+    out <- grates::as_yearweek(x, firstday = firstday)
+    if (n > 1) {
+      firstdate <- as.Date(min(out, na.rm = TRUE))
+      origin <- unclass(firstdate) %% (7*n)
+      out <- grates::as_period(as.Date(out), n = (7*n), origin = origin)
     }
   } else if (type == "month") {
-    out <- as_month(x, interval = n, origin = firstdate)
+    firstdate <- as.Date(firstdate)
+    origin <- origin_from_firstdate(firstdate)
+    out <- grates::as_month(x, n = n, origin = origin)
   } else if (type == "quarter") {
-    if (n > 1) {
-      abort("Invalid interval - cannot group by multiple quarters")
-    }
-    out <- as_quarter(x)
+    stopifnot("Invalid interval - cannot group by multiple quarters" = n == 1)
+    out <- grates::as_quarter(x)
   } else if (type == "year") {
-    out <- as_year(x)
-    if (n > 1) {
-      abort("Invalid interval - cannot group by multiple years")
-    }
+    out <- grates::as_year(x)
+    stopifnot("Invalid interval - cannot group by multiple years" = n == 1)
   } else {
-    out <- as_period(x, interval = n, origin = firstdate)
+    out <- x
+    if (n > 1) {
+      firstdate <- as.Date(firstdate)
+      origin <- unclass(firstdate) %% n
+      out <- grates::as_period(x, n = n, origin = origin)
+    }
   }
   out
 }
@@ -35,7 +45,8 @@ get_interval_type <- function(interval) {
 
   # if interval is numeric check cast to integer (will error if not possible)
   if (is.numeric(interval)) {
-    vctrs::vec_cast(interval, integer(), x_arg = "interval")
+    interval <- vctrs::vec_cast(interval, integer())
+    vctrs::vec_assert(interval, size = 1L)
     return("period")
   }
 
@@ -89,6 +100,12 @@ get_yearweek_start <- function(interval, numeric = TRUE) {
   weekday_from_char(weekday, numeric)
 }
 
+origin_from_firstdate <- function(x) {
+  x <- as.POSIXlt(x, tz="UTC")
+  yr <- x$year + 1900L # calculate the year
+  mon <- (yr - 1970L) * 12L + x$mon # calculate the month relative to unix epoch
+  mon
+}
 
 # ---------------------------------------------------------------------------- #
 # ---------------------------------------------------------------------------- #
@@ -148,7 +165,7 @@ weekday_from_char <- function(x, numeric = TRUE) {
 
   if (length(weekday) == 0) {
     # find the definitions of the weekdays in the current locale
-    w <- weekdays(as.Date(as_yearweek(as.Date("2020-01-01"), firstday = 1L)) + 0:6)
+    w <- weekdays(as.Date(grates::as_yearweek(as.Date("2020-01-01"), firstday = 1L)) + 0:6)
     weekday <- grep(x, w, ignore.case = TRUE, value = !numeric)
   }
 

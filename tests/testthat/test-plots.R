@@ -46,8 +46,8 @@ test_that("grouped week plotting works", {
 
 test_that("grouped month plot works", {
   dat <- load_dat()
-  x <- incidence(dat, date_index = date_of_infection, interval = "month", groups = "gender")
-  expect_snapshot_plot("month_grouped", facet_plot(x, n.breaks = 7, angle = 45))
+  x <- incidence(dat, date_index = date_of_infection, interval = "2 months", groups = "gender")
+  expect_snapshot_plot("month_grouped", facet_plot(x, centre_dates=FALSE, n.breaks = 7, angle = 45))
 })
 
 

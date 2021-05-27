@@ -63,7 +63,7 @@ test_that("multi-day, no groupings and without count work as expected", {
   expected_counts <- rep(17L, 43)
 
   # class
-  expect_s3_class(x$date_index, "grate_period")
+  expect_s3_class(x$date_index, "grates_period")
 
   # results
   expect_equal(nrow(x), 43L)
@@ -84,7 +84,7 @@ test_that("multi-day, no groupings and with count work as expected", {
   expected_counts <- c(rep(17L, 21), 25L, rep(34L, 21))
 
   # class
-  expect_s3_class(x$date_index, "grate_period")
+  expect_s3_class(x$date_index, "grates_period")
 
   # results
   expect_equal(nrow(x), 43L)
@@ -108,7 +108,7 @@ test_that("single week, no groupings and without count work as expected", {
   expected_counts <- c(rep(7L, 104), 3L)
 
   # class
-  expect_s3_class(x$date_index, "grate_yearweek")
+  expect_s3_class(x$date_index, "grates_yearweek")
 
   # results
   expect_equal(nrow(x), 105L)
@@ -146,7 +146,7 @@ test_that("single week, with groups and without count work as expected", {
   expected_sizes <- c(rep("small", 2), rep("large", 6))
 
   # class
-  expect_s3_class(x$date_index, "grate_yearweek")
+  expect_s3_class(x$date_index, "grates_yearweek")
 
   # results
   expect_equal(nrow(x), 8L)
@@ -183,7 +183,7 @@ test_that("single week, with groups and with count work as expected", {
   expected_sizes <- c(rep("small", 2), rep("large", 6))
 
   # class
-  expect_s3_class(x$date_index, "grate_yearweek")
+  expect_s3_class(x$date_index, "grates_yearweek")
 
   # results
   expect_equal(nrow(x), 8L)
@@ -204,7 +204,7 @@ test_that("single week, no groupings and with count work as expected", {
   expected_counts <- c(rep(7L, 52), 12L, rep(14L, 51), 6L)
 
   # class
-  expect_s3_class(x$date_index, "grate_yearweek")
+  expect_s3_class(x$date_index, "grates_yearweek")
 
   # results
   expect_equal(nrow(x), 105L)
@@ -226,7 +226,7 @@ test_that("multi-week, no groupings and without count work as expected", {
   expected_counts <- c(rep(14L, 52), 3L)
 
   # class
-  expect_s3_class(x$date_index, "grate_period")
+  expect_s3_class(x$date_index, "grates_period")
 
   # results
   expect_equal(nrow(x), 53L)
@@ -248,7 +248,7 @@ test_that("multi-week, no groupings and with count work as expected", {
   expected_counts <- c(rep(14L, 26), 26L, rep(28L, 25), 6L)
 
   # class
-  expect_s3_class(x$date_index, "grate_period")
+  expect_s3_class(x$date_index, "grates_period")
 
   # results
   expect_equal(nrow(x), 53L)
@@ -269,7 +269,7 @@ test_that("week defaults to a monday", {
   expected_counts <- c(5L, rep(7L, 103), 5L)
 
   # class
-  expect_s3_class(x$date_index, "grate_yearweek")
+  expect_s3_class(x$date_index, "grates_yearweek")
 
   # results
   expect_equal(nrow(x), 105L)
@@ -292,7 +292,7 @@ test_that("single month, no groupings and without count work as expected", {
   )
 
   # class
-  expect_s3_class(x$date_index, "grate_month")
+  expect_s3_class(x$date_index, "grates_month")
 
   # results
   expect_equal(nrow(x), 24L)
@@ -313,7 +313,7 @@ test_that("single month, no groupings and with count work as expected", {
   )
 
   # class
-  expect_s3_class(x$date_index, "grate_month")
+  expect_s3_class(x$date_index, "grates_month")
 
   # results
   expect_equal(nrow(x), 24L)
@@ -334,7 +334,7 @@ test_that("multi-month, no groupings and without count work as expected", {
   )
 
   # class
-  expect_s3_class(x$date_index, "grate_month")
+  expect_s3_class(x$date_index, "grates_month")
 
   # results
   expect_equal(nrow(x), 12L)
@@ -355,7 +355,7 @@ test_that("multi-month, no groupings and with count work as expected", {
   )
 
   # class
-  expect_s3_class(x$date_index, "grate_month")
+  expect_s3_class(x$date_index, "grates_month")
 
   # results
   expect_equal(nrow(x), 12L)
@@ -377,7 +377,7 @@ test_that("single quarter, no groupings and without count work as expected", {
   )
 
   # class
-  expect_s3_class(x$date_index, "grate_quarter")
+  expect_s3_class(x$date_index, "grates_quarter")
 
   # results
   expect_equal(nrow(x), 8L)
@@ -398,7 +398,7 @@ test_that("single quarter, no groupings and with count work as expected", {
   )
 
   # class
-  expect_s3_class(x$date_index, "grate_quarter")
+  expect_s3_class(x$date_index, "grates_quarter")
 
   # results
   expect_equal(nrow(x), 8L)
@@ -435,7 +435,7 @@ test_that("single year, no groupings and without count work as expected", {
   )
 
   # class
-  expect_s3_class(x$date_index, "grate_year")
+  expect_s3_class(x$date_index, "grates_year")
 
   # results
   expect_equal(nrow(x), 2L)
@@ -456,7 +456,7 @@ test_that("single year, no groupings and with count work as expected", {
   )
 
   # class
-  expect_s3_class(x$date_index, "grate_year")
+  expect_s3_class(x$date_index, "grates_year")
 
   # results
   expect_equal(nrow(x), 2L)
@@ -511,7 +511,7 @@ test_that("integer date periods without counts work as expected", {
   x <- incidence(dat_int, date_index = date, interval = 5)
 
   # class
-  expect_s3_class(x$date_index, "grate_int_period")
+  expect_s3_class(x$date_index, "grates_int_period")
 
   # results
   expect_equal(nrow(x), 2L)
@@ -526,7 +526,7 @@ test_that("integer date periods with counts work as expected", {
   x <- incidence(dat_int, date_index = date, interval = 5, counts = count)
 
   # class
-  expect_s3_class(x$date_index, "grate_int_period")
+  expect_s3_class(x$date_index, "grates_int_period")
 
   # results
   expect_equal(nrow(x), 2L)

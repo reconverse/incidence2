@@ -113,8 +113,8 @@ i_7
 #> interval: 7 days
 #> cumulative: FALSE
 #> 
-#>    date_index               count
-#>    <period>                 <int>
+#>                  date_index count
+#>                    <period> <int>
 #>  1 2014-04-07 to 2014-04-13     1
 #>  2 2014-04-14 to 2014-04-20     1
 #>  3 2014-04-21 to 2014-04-27     5
@@ -155,17 +155,17 @@ i_week_sex
 #> cumulative: FALSE
 #> 
 #>    date_index gender count
-#>    <yrwk>     <fct>  <int>
-#>  1 2014-W15   f          1
-#>  2 2014-W16   m          1
-#>  3 2014-W17   f          4
-#>  4 2014-W17   m          1
-#>  5 2014-W18   f          4
-#>  6 2014-W19   f          9
-#>  7 2014-W19   m          3
-#>  8 2014-W20   f          7
-#>  9 2014-W20   m         10
-#> 10 2014-W21   f          8
+#>        <yrwk> <fct>  <int>
+#>  1   2014-W15 f          1
+#>  2   2014-W16 m          1
+#>  3   2014-W17 f          4
+#>  4   2014-W17 m          1
+#>  5   2014-W18 f          4
+#>  6   2014-W19 f          9
+#>  7   2014-W19 m          3
+#>  8   2014-W20 f          7
+#>  9   2014-W20 m         10
+#> 10   2014-W21 f          8
 #> # … with 99 more rows
 summary(i_week_sex)
 #> An incidence2 object: 109 x 3
@@ -207,17 +207,17 @@ i_week_sh
 #> cumulative: FALSE
 #> 
 #>    date_index gender hospital                                     count
-#>    <yrwk>     <fct>  <fct>                                        <int>
-#>  1 2014-W15   f      Military Hospital                                1
-#>  2 2014-W16   m      Connaught Hospital                               1
-#>  3 2014-W17   f      <NA>                                             2
-#>  4 2014-W17   f      other                                            2
-#>  5 2014-W17   m      other                                            1
-#>  6 2014-W18   f      <NA>                                             1
-#>  7 2014-W18   f      Connaught Hospital                               1
-#>  8 2014-W18   f      Princess Christian Maternity Hospital (PCMH)     1
-#>  9 2014-W18   f      Rokupa Hospital                                  1
-#> 10 2014-W19   f      <NA>                                             1
+#>        <yrwk> <fct>  <fct>                                        <int>
+#>  1   2014-W15 f      Military Hospital                                1
+#>  2   2014-W16 m      Connaught Hospital                               1
+#>  3   2014-W17 f      <NA>                                             2
+#>  4   2014-W17 f      other                                            2
+#>  5   2014-W17 m      other                                            1
+#>  6   2014-W18 f      <NA>                                             1
+#>  7   2014-W18 f      Connaught Hospital                               1
+#>  8   2014-W18 f      Princess Christian Maternity Hospital (PCMH)     1
+#>  9   2014-W18 f      Rokupa Hospital                                  1
+#> 10   2014-W19 f      <NA>                                             1
 #> # … with 591 more rows
 summary(i_week_sh)
 #> An incidence2 object: 601 x 4

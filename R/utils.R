@@ -20,7 +20,7 @@ new_bare_tibble <- function(x) {
 
 
 get_weekday_name <- function(x) {
-  wdays <- weekdays(as.Date(as_yearweek(as.Date("2020-01-01"), firstday = 1L)) + 0:6)
+  wdays <- weekdays(as.Date(grates::as_yearweek(as.Date("2020-01-01"), firstday = 1L)) + 0:6)
   wdays <- setNames(1:7, wdays)
   names(wdays[x])
 }

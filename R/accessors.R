@@ -214,8 +214,8 @@ get_timespan.incidence2 <- function(x, ...) {
   if(inherits(dat, "Date") || inherits(dat, "numeric")) {
     out <- max(dat) - min(dat)
   } else {
-    bounds <- get_date_bounds(dat)
-    out <- max(bounds$upper_bound) - min(bounds$lower_bound)
+    bounds <- grates::get_date_range(dat)
+    out <- bounds[2] - bounds[1]
   }
   out + 1
 }
@@ -250,79 +250,33 @@ get_n.incidence2 <- function(x) {
 }
 # -------------------------------------------------------------------------
 
-
-# -------------------------------------------------------------------------
-#' @name get_interval
-#' @keywords internal
-#' @export
-grates::get_interval
-
 #' @return
 #'   - `get_interval()`: if `integer = TRUE`, an integer vector, otherwise the
 #'     character value of the `interval`
-#' @param integer When `TRUE`, the interval will be converted to an
-#'   integer vector if it is stored as a character in the incidence object.
+#' @aliases get_interval
 #' @rdname accessors
-#' @aliases get_interval.incidence2
 #' @export
-get_interval.incidence2 <- function(x, integer = FALSE, ...) {
-  ellipsis::check_dots_empty()
-  interval <- attr(x, "interval")
-  if (!integer || is.numeric(interval)) return(interval)
-  get_interval_number(interval)
+get_interval <- function(x, ...) {
+  UseMethod("get_interval")
 }
 
-get_interval_string <- function(x) {
-  UseMethod("get_interval_string")
-}
-
-get_interval_string.default <- function(x) {
+#' @export
+#' @rdname accessors
+#' @aliases get_interval.default
+get_interval.default <- function(x, ...) {
   abort(
     sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
   )
 }
 
-get_interval_string.grate_month <- function(x) {
-  n <- get_interval(x)
-  if (n > 1) {
-    sprintf("%d months", n)
-  } else {
-    "1 month"
-  }
+#' @export
+#' @rdname accessors
+#' @aliases get_interval.incidence2
+get_interval.incidence2 <- function(x, ...) {
+  ellipsis::check_dots_empty()
+  interval <- attr(x, "interval")
+
 }
-
-get_interval_string.grate_yearweek <- function(x) {
-  firstday <- get_firstday(x)
-  weekday <- get_weekday_name(firstday)
-  sprintf("1 (%s) week ", weekday)
-}
-
-get_interval_string.grate_quarter <- function(x) {
-  "1 quarter"
-}
-
-get_interval_string.grate_year <- function(x) {
-  "1 year"
-}
-
-get_interval_string.grate_period <- function(x) {
-  n <- get_interval(x)
-  sprintf("%d days", n)
-}
-
-get_interval_string.grate_int_period <- function(x) {
-  get_interval(x)
-}
-
-get_interval_string.numeric <- function(x) {
-  1
-}
-
-get_interval_string.Date <- function(x) {
-  "1 day"
-}
-
-
 
 
 # -------------------------------------------------------------------------
