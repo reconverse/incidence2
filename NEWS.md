@@ -1,6 +1,10 @@
 # incidence2 (development version)
 
-* New function `complete_counts`.
+* New function `complete_counts()`.
+* `plot()` and `facet_plot()` now have a `centre_dates` argument which can be
+  set to `FALSE` to get histogram-esque date labels for single month, quarter
+  and yearweek groupings.
+* Maintenance updates due to breaking changes in the upstream grates package.
 
 # incidence2 1.0.0
 Due to multiple changes in the underlying representation of incidence2 objects
