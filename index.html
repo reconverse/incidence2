@@ -95,56 +95,51 @@
   <div class="contents col-md-9">
 
 
-<div id="scope" class="section level1">
+<div id="incidence2" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#scope" class="anchor"></a>Scope</h1></div>
-<p><em>incidence2</em> refocusses the scope of the original <a href="https://github.com/reconhub/incidence">incidence</a> package. The aim is to provide a “tidy” interface for users to work with whilst at the same time simplifying the underlying implementation. To this end, <em>incidence2</em> concentrates only on the initial data handling, calculation and graphing of incidence objects. The “fitting” and “peak estimation” functions of <a href="https://github.com/reconhub/incidence">incidence</a> (e.g. <code>incidence::fit</code> and <code>incidence::estimate_peak</code>) are being implemented in an accompanying package called <a href="https://github.com/reconverse/i2extras"><code>i2extras</code></a>. Here they will have a more consistent interface, better choice of underlying models, and tidier outputs.</p>
-</div>
-<div id="installing-the-package" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installing-the-package" class="anchor"></a>Installing the package</h1>
+<a href="#incidence2" class="anchor"></a><a href="https://www.reconverse.org/incidence2/">incidence2</a>
+</h1></div>
+<p>incidence2 is an R package that implements functions and classes to compute, handle and visualise incidences from linelist data. It refocusses the scope of the original <a href="https://github.com/reconhub/incidence">incidence</a> package. Unlike the original package, incidence2 concentrates only on the initial calculation, manipulation and plotting of the resultant incidence objects.</p>
+<div id="installing-the-package" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installing-the-package" class="anchor"></a>Installing the package</h2>
 <p>The development version, which this documentation refers to, can be installed from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org">remotes</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"reconverse/incidence2"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(remotes)) </span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="kw">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="er">}</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"reconverse/incidence2"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>You can install the current version of the package from the releases <a href="https://github.com/reconverse/incidence2/releases">page</a> or directly from <a href="https://cran.r-project.org/">CRAN</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"incidence2"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="resources" class="section level1">
-<h1 class="hasAnchor">
-<a href="#resources" class="anchor"></a>Resources</h1>
-<div id="vignettes" class="section level2">
+<div id="resources" class="section level2">
 <h2 class="hasAnchor">
-<a href="#vignettes" class="anchor"></a>Vignettes</h2>
-<p>A short overview of <em>incidence2</em> is provided below in the worked example below. More detailed tutorials are distributed as vignettes with the package:</p>
+<a href="#resources" class="anchor"></a>Resources</h2>
+<div id="vignettes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#vignettes" class="anchor"></a>Vignettes</h3>
+<p>A short overview of incidence2 is provided below in the worked example below. More detailed tutorials are distributed as vignettes with the package:</p>
 <ul>
 <li><code><a href="articles/Introduction.html">vignette("Introduction", package = "incidence2")</a></code></li>
 <li><code><a href="articles/handling_incidence_objects.html">vignette("handling_incidence_objects", package = "incidence2")</a></code></li>
 <li><code><a href="articles/customizing_incidence_plots.html">vignette("customizing_incidence_plots", package = "incidence2")</a></code></li>
 </ul>
 </div>
-<div id="websites" class="section level2">
-<h2 class="hasAnchor">
-<a href="#websites" class="anchor"></a>Websites</h2>
-<p>The following websites are available:</p>
-<ul>
-<li>The <em>incidence2</em> project on <em>github</em>, useful for developers, contributors, and users wanting to post issues, bug reports and feature requests: <br><a href="https://github.com/reconverse/incidence2" class="uri">https://github.com/reconverse/incidence2</a>
-</li>
-</ul>
 </div>
 <div id="getting-help-online" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-help-online" class="anchor"></a>Getting help online</h2>
-<p>Bug reports and feature requests should be posted on <em>github</em> using the <a href="https://github.com/reconverse/incidence2/issues"><em>issue</em> system</a>. All other questions should be posted on the <strong>RECON</strong> slack channel; see <a href="https://www.repidemicsconsortium.org/forum/" class="uri">https://www.repidemicsconsortium.org/forum/</a> for details on how to join.</p>
+<ul>
+<li>Bug reports and feature requests should be posted on <em>github</em> using the issue system: <a href="https://github.com/reconverse/incidence2/issues" class="uri">https://github.com/reconverse/incidence2/issues</a>.</li>
+<li>Online documentation: <a href="https://www.reconverse.org/incidence2" class="uri">https://www.reconverse.org/incidence2</a>.</li>
+<li>All other questions should be posted on the <strong>RECON</strong> slack channel; see <a href="https://www.repidemicsconsortium.org/forum/" class="uri">https://www.repidemicsconsortium.org/forum/</a> for details on how to join.</li>
+</ul>
 </div>
 </div>
 <div id="a-quick-overview" class="section level1">
 <h1 class="hasAnchor">
 <a href="#a-quick-overview" class="anchor"></a>A quick overview</h1>
-<p>This short example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="https://github.com/reconhub/outbreaks"><em>outbreaks</em></a>. It shows how to compute incidence for various time steps plot the resulting incidence tables.</p>
+<p>This short example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="https://github.com/reconhub/outbreaks"><em>outbreaks</em></a>. It shows how to compute incidence for various time steps and plot the resulting output.</p>
 <p>First, we load the data:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
@@ -197,11 +192,10 @@
 <span class="co">#&gt; timespan: 392 days</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_7</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-incid7-1.png" style="display: block; margin: auto;"></p>
-<p>Notice how specifying the interval as 7 creates weekly intervals with the coverage displayed by date. Below we illustrate how <code><a href="reference/incidence.html">incidence()</a></code> also allows us to create year-weekly groupings with the default being weeks starting on a Monday (following the ISO 8601 date and time standard). <code><a href="reference/incidence.html">incidence()</a></code> can also compute incidence by specified groups using the <code>groups</code> argument. For instance, we can compute the weekly incidence by gender and plot in a single, stacked chart:</p>
+<p>Notice how specifying the interval as 7 creates weekly intervals with the coverage displayed by date. <code><a href="reference/incidence.html">incidence()</a></code> also allows us to create year-weekly groupings with the default being weeks starting on a Monday (following the ISO 8601 date and time standard). <code><a href="reference/incidence.html">incidence()</a></code> can also compute incidence by specified groups using the <code>groups</code> argument. As an example, below we can compute the weekly incidence by gender and plot in a single, stacked chart:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i_week_sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, interval <span class="op">=</span> <span class="st">"week"</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
-                        groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
-<span class="va">i_week_sex</span>
+<code class="sourceCode R"><span class="va">iw</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, interval <span class="op">=</span> <span class="st">"week"</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
+<span class="va">iw</span>
 <span class="co">#&gt; An incidence2 object: 109 x 3</span>
 <span class="co">#&gt; 5829 cases from 2014-W15 to 2015-W18</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
@@ -220,7 +214,7 @@
 <span class="co">#&gt;  9   2014-W20 m         10</span>
 <span class="co">#&gt; 10   2014-W21 f          8</span>
 <span class="co">#&gt; # … with 99 more rows</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">i_week_sex</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">iw</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 109 x 3</span>
 <span class="co">#&gt; 5829 cases from 2014-W15 to 2015-W18</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
@@ -233,18 +227,16 @@
 <span class="co">#&gt;   &lt;fct&gt;  &lt;int&gt;</span>
 <span class="co">#&gt; 1 f       2934</span>
 <span class="co">#&gt; 2 m       2895</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_week_sex</span>, fill <span class="op">=</span> <span class="st">"gender"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">iw</span>, fill <span class="op">=</span> <span class="st">"gender"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-genderstack-1.png" style="display: block; margin: auto;"></p>
 <p>we can also facet our plot (grouping detected automatically):</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">i_week_sex</span>, n.breaks <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">iw</span>, n.breaks <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-genderfacet-1.png" style="display: block; margin: auto;"></p>
-<p>and we can also group by multiple variables specifying different facets and fills:</p>
+<p>It is also possible togroup by multiple variables specifying different facets and fills:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># incidence is compatible with the magrittr pipe operator</span>
-<span class="va">i_week_sh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"week"</span>,
-                       groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">hospital</span><span class="op">)</span><span class="op">)</span>
-<span class="va">i_week_sh</span>
+<code class="sourceCode R"><span class="va">iw2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"week"</span>,  groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">hospital</span><span class="op">)</span><span class="op">)</span>
+<span class="va">iw2</span>
 <span class="co">#&gt; An incidence2 object: 601 x 4</span>
 <span class="co">#&gt; 5829 cases from 2014-W15 to 2015-W18</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
@@ -263,7 +255,7 @@
 <span class="co">#&gt;  9   2014-W18 f      Rokupa Hospital                                  1</span>
 <span class="co">#&gt; 10   2014-W19 f      &lt;NA&gt;                                             1</span>
 <span class="co">#&gt; # … with 591 more rows</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">i_week_sh</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">iw2</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 601 x 4</span>
 <span class="co">#&gt; 5829 cases from 2014-W15 to 2015-W18</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
@@ -286,7 +278,7 @@
 <span class="co">#&gt; 4 other                                          876</span>
 <span class="co">#&gt; 5 Princess Christian Maternity Hospital (PCMH)   420</span>
 <span class="co">#&gt; 6 Rokupa Hospital                                451</span>
-<span class="fu"><a href="reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">i_week_sh</span>, facets <span class="op">=</span> <span class="va">gender</span>, fill <span class="op">=</span> <span class="va">hospital</span>, n.breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">iw2</span>, facets <span class="op">=</span> <span class="va">gender</span>, fill <span class="op">=</span> <span class="va">hospital</span>, n.breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-genderhospital-1.png" style="display: block; margin: auto;"></p>
 </div>
 </div>
