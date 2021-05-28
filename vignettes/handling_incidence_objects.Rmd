@@ -17,19 +17,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-We try to make `incidence()` objects easy to work with providing helper
-functions for both manipulating and accessing data within the objects, 
-and integration with [tidyverse](https://www.tidyverse.org/) verbs.
+`incidence()` objects are easy to work with, and we providing helper functions for both manipulating and accessing the underlying data and attributes.
+As `incidence()` objects are subclasses of [tibbles](https://tibble.tidyverse.org/) they also have good integration with [tidyverse](https://www.tidyverse.org/) verbs.
 
-# Modifying incidence objects
+## Modifying incidence objects
 
-## regroup
-Sometimes you may find you've created a grouped `incidence()` but now want to
-change the internal grouping.  Assuming you are after a subset of the grouping
-already generated, then you can use to `regroup()` function to get the desired
-aggregation:
+### `regroup()`
+Sometimes you may find you've created a grouped `incidence()` but now want to change the internal grouping.
+Assuming you are after a subset of the grouping already generated, then you can use to `regroup()` function to get the desired aggregation:
 
-```{r regroup}
+```{r regroup, message=FALSE}
 library(outbreaks)
 library(dplyr)
 library(incidence2)
@@ -38,9 +35,7 @@ library(incidence2)
 dat <- ebola_sim_clean$linelist
 
 # generate the incidence object with 3 groups
-inci <- incidence(dat, date_index = date_of_onset,
-                  groups = c(gender, hospital, outcome),
-                  interval = "week")
+inci <- incidence(dat, date_of_onset, groups = c(gender, hospital, outcome), interval = "week")
 inci
 
 # regroup to just two groups
@@ -50,49 +45,26 @@ inci %>% regroup(c(gender, outcome))
 inci %>% regroup()
 ```
 
-## cumulate
-We also provide a helper function, `cumulate`() to easily generate cumulative 
-incidences:
-
-```{r cumulate}
-inci %>% 
-  regroup(hospital) %>% 
-  cumulate() %>% 
-  facet_plot(n.breaks = 4)
-```
-
-## keep_first and keep_last
+### `keep_first()` and `keep_last()`
 Once your data is grouped by date, you may want to select the first or last few
 entries based on a particular date grouping using `keep_first()` and
 `keep_last()`:
 
 ```{r keep}
 inci %>% keep_first(3)
-
 inci %>% keep_last(3)
 ```
 
-## Tidyverse compatibility
-incidence2 has been written with *tidyverse* compatibility (in particular 
-[dplyr](https://dplyr.tidyverse.org/)) at the forefront of the
-design choices we have made.  By this we mean that if an operation from
-dplyr is applied to an `incidence()` object then as long as the invariants of
-the object are preserved (i.e. groups, interval and uniqueness of rows) then
-the object returned will be an `incidence()` object.  If the invariants are
-not preserved then a tibble will be returned instead.  Some examples of these
-behaviours are given below:
+### Tidyverse compatibility
+incidence2 has been written with *tidyverse* compatibility (in particular [dplyr](https://dplyr.tidyverse.org/)) at the forefront of the design choices we have made.
+By this we mean that if an operation from dplyr is applied to an `incidence()` object then as long as the invariants of the object are preserved (i.e. groups, interval and uniqueness of rows) then the object returned will be an `incidence()` object.
+If the invariants are not preserved then a tibble will be returned instead.
 
 ```{r tidyverse}
 library(dplyr)
 
 # create incidence object
-inci <-
-  dat %>%
-  incidence(
-    date_index = date_of_onset,
-    interval = "week",
-    groups = c(hospital, gender)
-  )
+inci <- incidence(dat, date_of_onset, interval = "week", groups = c(hospital, gender))
 
 # filtering preserves class
 inci %>%  filter(gender == "f", hospital == "Rokupa Hospital")
@@ -108,27 +80,16 @@ inci %>%  mutate(future = date_index + 999)
 # rename preserve class
 inci %>%  rename(left_bin = date_index)
 
-
 # select returns a tibble unless all date, count and group variables are preserved
 inci %>% select(-1)
 
 inci %>% select(everything())
-
 ```
 
 # Accessing variable information
-We provide multiple accessors to easily access information about an `incidence()`
-objects structure:
+We provide multiple accessors to easily access information about an `incidence()` objects structure:
 
-* `get_count_names()`, `get_dates_name()`, and `get_group_names()` all return
-  character vectors of the column names corresponding to the requested variables.
-
+* `get_count_names()`, `get_dates_name()`, and `get_group_names()` all return character vectors of the column names corresponding to the requested variables.
 * `get_n()` returns the number of observations.
-
 * `get_interval()` returns the interval of the object.
-
 * `get_timespan()` returns the number of days the object covers.
-
-
-
-
