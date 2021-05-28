@@ -23,28 +23,18 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 
-# Scope
+# [incidence2](https://www.reconverse.org/incidence2/)
+incidence2 is an R package that implements functions and classes to compute, handle and visualise incidences from linelist data.
+It refocusses the scope of the original [incidence](https://github.com/reconhub/incidence) package.
+Unlike the original package, incidence2 concentrates only on the initial calculation, manipulation and plotting of the resultant incidence objects.
 
-*incidence2* refocusses the scope of the original
-[incidence](https://github.com/reconhub/incidence) package.  The aim is to
-provide a "tidy" interface for users to work with whilst at the same time
-simplifying the underlying implementation. To this end, *incidence2* 
-concentrates only on the initial data handling, calculation and graphing of 
-incidence objects. The "fitting" and "peak estimation" functions of 
-[incidence](https://github.com/reconhub/incidence) (e.g. `incidence::fit` and
-`incidence::estimate_peak`) are being implemented in an accompanying package 
-called [`i2extras`](https://github.com/reconverse/i2extras).  Here 
-they will have a more consistent interface, better choice of underlying models,
-and tidier outputs. 
-
-
-# Installing the package
+## Installing the package
 
 The development version, which this documentation refers to, can be installed
 from [GitHub](https://github.com/) with:
 
 ```{r, eval=FALSE}
-if (!require(remotes)) {
+if (!require(remotes)) 
   install.packages("remotes")
 }
 remotes::install_github("reconverse/incidence2", build_vignettes = TRUE)
@@ -58,39 +48,27 @@ You can install the current version of the package from the releases
 install.packages("incidence2")
 ```
 
+## Resources
 
-# Resources
+### Vignettes
 
-## Vignettes
-
-A short overview of *incidence2* is provided below in the worked example below.
+A short overview of incidence2 is provided below in the worked example below.
 More detailed tutorials are distributed as vignettes with the package:
 
 * `vignette("Introduction", package = "incidence2")`
 * `vignette("handling_incidence_objects", package = "incidence2")`
 * `vignette("customizing_incidence_plots", package = "incidence2")`
 
-## Websites
-
-The following websites are available:
-
-- The *incidence2* project on *github*, useful for developers, contributors, and
-users wanting to post issues, bug reports and feature requests: <br>
-<https://github.com/reconverse/incidence2>
-
 ## Getting help online
-
-Bug reports and feature requests should be posted on *github* using the
-[*issue* system](https://github.com/reconverse/incidence2/issues). All other
-questions should be posted on the **RECON** slack channel; see 
-<https://www.repidemicsconsortium.org/forum/> for details on how to join.
-
+- Bug reports and feature requests should be posted on *github* using the issue system: <https://github.com/reconverse/incidence2/issues>.
+- Online documentation: <https://www.reconverse.org/incidence2>.
+- All other questions should be posted on the **RECON** slack channel;
+  see <https://www.repidemicsconsortium.org/forum/> for details on how to join.
 
 # A quick overview
 
-This short example uses the simulated Ebola Virus Disease (EVD) outbreak from
-the package [*outbreaks*](https://github.com/reconhub/outbreaks). It shows how
-to compute incidence for various time steps plot the resulting incidence tables.
+This short example uses the simulated Ebola Virus Disease (EVD) outbreak from the package [*outbreaks*](https://github.com/reconhub/outbreaks).
+It shows how to compute incidence for various time steps and plot the resulting output.
 
 First, we load the data:
 
@@ -113,36 +91,29 @@ summary(i_7)
 plot(i_7, color = "white")
 ```
 
-Notice how specifying the interval as 7 creates weekly intervals with the
-coverage displayed by date. Below we illustrate how `incidence()` also allows us
-to create year-weekly groupings with the default being weeks starting on a
-Monday (following the ISO 8601 date and time standard). `incidence()` can also
-compute incidence by specified groups using the `groups` argument. For instance,
-we can compute the weekly incidence by gender and plot in a single, stacked
-chart:
+Notice how specifying the interval as 7 creates weekly intervals with the coverage displayed by date.
+`incidence()` also allows us to create year-weekly groupings with the default being weeks starting on a Monday (following the ISO 8601 date and time standard).
+`incidence()` can also compute incidence by specified groups using the `groups` argument.
+As an example, below we can compute the weekly incidence by gender and plot in a single, stacked chart:
 
 ```{r genderstack}
-i_week_sex <- incidence(dat, interval = "week", date_index = date_of_onset,
-                        groups = gender)
-i_week_sex
-summary(i_week_sex)
-plot(i_week_sex, fill = "gender", color = "white")
+iw <- incidence(dat, interval = "week", date_index = date_of_onset, groups = gender)
+iw
+summary(iw)
+plot(iw, fill = "gender", color = "white")
 ```
 
 we can also facet our plot (grouping detected automatically):
 
 ```{r genderfacet}
-facet_plot(i_week_sex, n.breaks = 3, color = "white")
+facet_plot(iw, n.breaks = 3, color = "white")
 ```
 
-and we can also group by multiple variables specifying different facets and 
-fills:
+It is also possible togroup by multiple variables specifying different facets and fills:
 
 ```{r genderhospital}
-# incidence is compatible with the magrittr pipe operator
-i_week_sh <- incidence(dat, date_index = date_of_onset, interval = "week",
-                       groups = c(gender, hospital))
-i_week_sh
-summary(i_week_sh)
-facet_plot(i_week_sh, facets = gender, fill = hospital, n.breaks = 3)
+iw2 <- incidence(dat, date_of_onset, interval = "week",  groups = c(gender, hospital))
+iw2
+summary(iw2)
+facet_plot(iw2, facets = gender, fill = hospital, n.breaks = 3)
 ```
