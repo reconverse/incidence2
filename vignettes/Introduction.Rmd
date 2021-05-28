@@ -17,164 +17,101 @@ knitr::opts_chunk$set(
 )
 ```
 
-*incidence2* implements functions and classes to compute, handle and visualise 
-incidences from linelist data. This vignette provides an introduction to current
-features and is more extensive than the overview provided in README.md.
-
-
-# Installing the package
-
-You can install the current version of the package from 
-[CRAN](https://cran.r-project.org/) with:
-
-```{r, eval=FALSE}
-install.packages("incidence2")
-```
-
-The development version can be installed from [GitHub](https://github.com/) with:
-
-```{r, eval=FALSE}
-if (!require(remotes)) {
-  install.packages("remotes")
-}
-remotes::install_github("reconverse/incidence2", build_vignettes = TRUE)
-```
-
-
-# What does it do?
+## What does it do?
+incidence2 is an R package that implements functions and classes to compute, handle and visualise incidences from linelist data.
 
 The main features of the package include:
 
-- **`incidence()`**: compute incidence from both linelist and pre-aggregated
-  datasets; any fixed time interval can be used; the returned object is a 
-  tibble subclass called *incidence2*.
-
-- plotting functions **`plot()`** and **`facet_plot()`**: these functions
-  return customised ggplot2 plots of *incidence2* objects 
-  (see **`plot.incidence2()`** for details).
-
-- Compatible with [dplyr](https://dplyr.tidyverse.org/) for data manipulation.
-  (see `vignette("handling_incidence_objects")` for more details).
-
-- **`regroup()`**: regroup incidence from different groups into one global incidence
-  time series.
-
-- **`cumulate()`**: computes cumulative incidence over time from an `incidence()`
-  object.
-  
-- **`keep_first()`** and **`keep_last()`** : will keep the rows corresponding to
-  the first (or last) set of grouped dates (ordered by time) from an
-  `incidence()` object.
-
-- **`complete_counts`**: Ensure every possible combination of date and groupings
-  is given an explicit count.
-
-- **`print()`** and **`summary()`** functions.
-
-- Conversion functions:
-    
-    - **`as.data.frame()`**: converts an `incidence()` object into a `data.frame`.
-    
-    - **`as_tibble()`**: converts an `incidence()` object into a `tibble`.
-
-- Accessor functions: **`get_count_names()`**, **`get_dates_name()`**,
-  **`get_date_index()`**, **`get_group_names()`**, **`get_interval()`**, 
-  **`get_timespan()`** and  **`get_n()`**.
+- The `incidence()` function:
+  computes incidence from both linelist and pre-aggregated datasets across a range of date groupings.
+- The returned object from `incidence()` is a subclass of [tibble](https://CRAN.R-project.org/package=tibble). This is compatible with [dplyr](https://dplyr.tidyverse.org/) for data manipulation (see `vignette("handling_incidence_objects")` for more details).
+- Plotting methods, `plot.incidence2()` and `facet_plot.incidence2()` that provide quick plots with sensible defaults.
+- Additional functions for handling incidence objects, including:
+  * `regroup()`: regroup incidence from different groups into one global incidence time series.
+  * `keep_first()` and `keep_last()` : will keep the rows corresponding to the first (or last) set of grouped dates (ordered by time) from an `incidence()` object.
+  * `complete_counts()`: ensure every possible combination of date and groupings is given an explicit count.
+  * `print.incidence2()`** and `summary.incidence2()` methods.
+  * `as.data.frame.incidence2()` and `as_tibble.incidence2()` conversion methods.
+  * Accessor functions: `get_count_names()`, `get_dates_name()`, `get_date_index()`, `get_group_names()`, `get_interval()`, `get_timespan()` and  `get_n()`.
   
 
-# Worked example: simulated Ebola outbreak
+## Worked example: simulated Ebola outbreak
 
-This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
-[*outbreaks*](https://github.com/reconhub/outbreaks). We will compute incidence
-for various time steps and illustrate how to easily plot the data.
+This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package [outbreaks](https://github.com/reconhub/outbreaks).
+We will compute incidence for various time steps and illustrate how to easily plot the data.
 
-## Loading the data
+### Loading the data
 
 ```{r data}
 library(outbreaks)
 library(incidence2)
-
 dat <- ebola_sim_clean$linelist
 class(dat)
 str(dat)
 ```
 
-## Computing and plotting incidence
-To compute daily incidence we must pass observation data in the form of a
-*data.frame* or *tibble* to the `incidence()`. We must also pass the name of
-a date variable in the data that we can use to index the input:
+### Computing and plotting incidence
+To compute daily incidence we must pass observation data in the form of a *data.frame* to `incidence()`.
+We must also pass the name of a date variable in the data that we can use to index the input:
 
-We compute the daily incidence:
-```{r incid1, fig.height = 5, dpi = 90}
-i <- incidence(dat, date_index = date_of_onset)
-i
-summary(i)
-plot(i)
+First compute the daily incidence:
+```{r daily, fig.height = 5, dpi = 90}
+daily <- incidence(dat, date_index = date_of_onset)
+daily
+summary(daily)
+plot(daily)
 ```
 
-The daily incidence is quite noisy, but we can easily compute other incidence
-using other time intervals
+The daily incidence is quite noisy, but we can easily compute other incidence using other time intervals
 
-```{r i_7}
-
+```{r sevenday}
 # 7 day incidence
-i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
-i_7
-plot(i_7, color = "white")
+seven <- incidence(dat, date_index = date_of_onset, interval = 7)
+seven
+plot(seven, color = "white")
 ```
-Notice how specifying the interval as 7 creates weekly intervals with the
-coverage displayed by date. Below we illustrate how `incidence()` also allows
-us to create year-weekly groupings with the default being weeks starting on a
-Monday (following the ISO 8601 date and time standard).
+Notice how specifying the interval as 7 creates weekly intervals with the coverage displayed by date.
+Below we illustrate how `incidence()` also allows us to create year-weekly groupings with the default being weeks starting on a Monday (following the ISO 8601 date and time standard).
 
-```{r iweekly}
-
+```{r weekly}
 # year-weekly, starting on Monday (ISO week, default)
-i_weekly <- incidence(dat, date_index = date_of_onset, interval = "week")
-plot(i_weekly, color = "white")
-
+weekly <- incidence(dat, date_index = date_of_onset, interval = "week")
+plot(weekly, color = "white")
 ```
 
 `incidence()` will also work with larger intervals
 
-```{r ilarger}
+```{r otherinterval}
 # bi-weekly, based on first day in data
-i_biweekly <- incidence(dat, date_index = date_of_onset, interval = "2 weeks")
-plot(i_biweekly, color = "white")
-# year-monthly
-i_monthly <- incidence(dat, date_index = date_of_onset, interval = "month")
-plot(i_monthly, color = "white")
-# year-quarterly
-i_quarterly <- incidence(dat, date_index = date_of_onset, interval = "quarter")
-plot(i_quarterly, color = "white")
+biweekly <- incidence(dat, date_index = date_of_onset, interval = "2 weeks")
+plot(biweekly, color = "white")
+# monthly
+monthly <- incidence(dat, date_index = date_of_onset, interval = "month")
+plot(monthly, color = "white")
+# quarterly
+quarterly <- incidence(dat, date_index = date_of_onset, interval = "quarter")
+plot(quarterly, color = "white")
 # year
-i_year <- incidence(dat, date_index = date_of_onset, interval = "year")
-plot(i_year, color = "white", n.breaks = 2)
+yearly <- incidence(dat, date_index = date_of_onset, interval = "year")
+plot(yearly, color = "white", n.breaks = 2)
 ```
 
-## Grouping
-`incidence()` can also aggregate incidence by specified groups using the
-`groups` argument. For instance, we can compute incidence by gender and plot
-with both the `plot()` function for a single plot and the `facet_plot()`
-function for a multi-faceted plot across groups:
+### Grouping
+`incidence()` can also aggregate incidence by specified groups using the `groups` argument.
+For instance, we can compute incidence by gender and plot with both the `plot()` function for a single or the `facet_plot()` function for a multi-faceted plot across groups:
 
 ```{r gender}
-i_weekly_sex <- incidence(dat, date_index = date_of_onset,
-                     interval = "week", groups = gender)
-i_weekly_sex
-summary(i_weekly_sex)
-
+weekly_grouped <- incidence(dat, date_of_onset, interval = "week", groups = gender)
+weekly_grouped
+summary(weekly_grouped)
 # A singular plot
-plot(i_weekly_sex, fill = gender, color = "white")
-
+plot(weekly_grouped, fill = gender, color = "white")
 # a multi-facet plot
-facet_plot(i_weekly_sex, fill = gender, n.breaks = 5, angle = 45, color = "white")
+facet_plot(weekly_grouped, fill = gender, n.breaks = 5, angle = 45, color = "white")
 ```
 
-There is no limit to the number of groups that we group by and this allows
-us to both facet and fill by different variables:
+There is no limit to the number of groups that we group by and this allows us to both facet and fill by different variables:
 ```{r outcome_hospital}
-inci <- incidence(dat, date_index = date_of_onset,
-                     interval = "week", groups = c(outcome, hospital, gender))
+inci <- incidence(dat, date_of_onset, interval = "week", groups = c(outcome, hospital))
 facet_plot(inci, facets = hospital, fill = outcome, nrow = 3, n.breaks = 5, angle = 45)
 ```
