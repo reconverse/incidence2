@@ -99,17 +99,16 @@
 
     
     
-<p>This vignette provides some tips for the most common customisations of graphics produced by <code>plot.incidence()</code>. Our graphics use <em>ggplot2</em>, which is a distinct graphical system from base graphics. If you want advanced customisation of your incidence plots, we recommend following an introduction to <em>ggplot2</em> such as <a href="https://r4ds.had.co.nz/">R for Data Science</a>.</p>
-<p><br></p>
-<div id="example-data-simulated-ebola-outbreak" class="section level1">
-<h1 class="hasAnchor">
-<a href="#example-data-simulated-ebola-outbreak" class="anchor"></a>Example data: simulated Ebola outbreak</h1>
-<p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="https://github.com/reconhub/outbreaks"><em>outbreaks</em></a>: <code>ebola_sim_clean</code>.</p>
+<p>This vignette provides some tips for the most common customisations of graphics produced by <code>plot.incidence()</code> and <code>facet_plot.incidence()</code>. Our graphics use <em>ggplot2</em>, which is a distinct graphical system from base graphics.</p>
+<p>We try to provide reasonably good, out of the box, customisation via function arguments. For advanced customisation, however, it may be better to first convert to a data.frame and then proceeding to work directly with <code>ggplot2()</code>.</p>
+<div id="example-data-simulated-ebola-outbreak" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example-data-simulated-ebola-outbreak" class="anchor"></a>Example data: simulated Ebola outbreak</h2>
+<p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="https://github.com/reconhub/outbreaks">outbreaks</a>.</p>
 <p>First, we load the data, compute the weekly incidence and initially group by gender and hospital:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconverse/incidence2">incidence2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span>
 
 <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
@@ -126,8 +125,7 @@
 <span class="co">#&gt;  $ lon                    : num  -13.2 -13.2 -13.2 -13.2 -13.2 ...</span>
 <span class="co">#&gt;  $ lat                    : num  8.47 8.46 8.48 8.46 8.45 ...</span>
 
-<span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="fl">7</span>,
-               groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">hospital</span><span class="op">)</span><span class="op">)</span>
+<span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="fl">7</span>, groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">hospital</span><span class="op">)</span><span class="op">)</span>
 <span class="va">i</span>
 <span class="co">#&gt; An incidence2 object: 601 x 4</span>
 <span class="co">#&gt; 5829 cases from 2014-04-07 to 2015-05-03</span>
@@ -148,87 +146,89 @@
 <span class="co">#&gt; 10 2014-05-05 to 2014-05-11 f      &lt;NA&gt;                                        1</span>
 <span class="co">#&gt; # … with 591 more rows</span></code></pre></div>
 </div>
-<div id="plot-incidence" class="section level1">
-<h1 class="hasAnchor">
-<a href="#plot-incidence" class="anchor"></a><code>plot.incidence()</code>
-</h1>
-<p>When calling <code>plot</code> on an <code><a href="../reference/incidence.html">incidence()</a></code> object, the function <code>plot.incidence()</code> is implicitly used. To access its documentation, use <code>?plot.incidence</code>. In this section, we illustrate existing customisations.</p>
-<div id="default-behaviour" class="section level2">
+<div id="plot-incidence" class="section level2">
 <h2 class="hasAnchor">
-<a href="#default-behaviour" class="anchor"></a>Default behaviour</h2>
-<p>By default, the function uses colors from the color palette <code><a href="../reference/vibrant.html">vibrant()</a></code>. If no fill is specified, groups will all be filled with the same color and a message will be displayed due to multiple groups being present:</p>
+<a href="#plot-incidence" class="anchor"></a><code>plot.incidence()</code>
+</h2>
+<p>When calling <code>plot</code> on an <code><a href="../reference/incidence.html">incidence()</a></code> object, the function <code>plot.incidence()</code> is implicitly used. To access its documentation, use <code>?plot.incidence</code>. In this section, we illustrate existing customisations.</p>
+<div id="default-behaviour" class="section level3">
+<h3 class="hasAnchor">
+<a href="#default-behaviour" class="anchor"></a>Default behaviour</h3>
+<p>By default, the function uses colours from the colour palette <code><a href="../reference/vibrant.html">vibrant()</a></code>. If no fill is specified, groups will all be filled with the same colour and a message will be displayed due to multiple groups being present:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/plot1-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Note, however, that the groups are still present just hidden by the default border coloring:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/plot2-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
-<div id="additional-arguments" class="section level2">
-<h2 class="hasAnchor">
-<a href="#additional-arguments" class="anchor"></a>Additional arguments</h2>
+<div id="additional-arguments" class="section level3">
+<h3 class="hasAnchor">
+<a href="#additional-arguments" class="anchor"></a>Additional arguments</h3>
 <p><code>plot.incidence()</code> is designed for a high level of customization without needing knowledge of <em>ggplot2</em>. To this end, there are multiple arguments that can be provided which have been set to sensible defaults. Some common changes you may wish to make are illustrated below (for a full description of arguments check out the accompanying help file <code>?plot.incidence</code>).</p>
-<p>We can easily fill the plot according to the groups present or a color of our choosing:</p>
+<p>We can easily fill the plot according to the groups present or a colour of our choosing:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i</span>, fill <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/fill-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">hospital</span>, legend <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i</span>, fill <span class="op">=</span> <span class="va">hospital</span>, legend <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span>
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/fill-2.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"red"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">ii</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ii</span>, fill <span class="op">=</span> <span class="st">"red"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/fill-3.png" width="672" style="display: block; margin: auto;"></p>
 <p>Sometimes we may wish to change rotation of the x-axis and this can be done by passing an additional angle argument:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i</span>, angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span>
 <span class="co">#&gt; plot() can only stack/dodge by one variable.</span>
 <span class="co">#&gt; For multi-facet plotting try facet_plot()</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/rotateandformat-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
-<div id="applying-the-style-of-european-programme-for-intervention-epidemiology-training-epiet" class="section level2">
-<h2 class="hasAnchor">
-<a href="#applying-the-style-of-european-programme-for-intervention-epidemiology-training-epiet" class="anchor"></a>Applying the style of European Programme for Intervention Epidemiology Training (EPIET)</h2>
+<div id="applying-the-style-of-european-programme-for-intervention-epidemiology-training-epiet" class="section level3">
+<h3 class="hasAnchor">
+<a href="#applying-the-style-of-european-programme-for-intervention-epidemiology-training-epiet" class="anchor"></a>Applying the style of European Programme for Intervention Epidemiology Training (EPIET)</h3>
 <p>For small datasets it is convention of EPIET to display individual cases as rectangles. It can be done by doing two things: first, adding using the option <code>show_cases = TRUE</code> with a white border. We also add <code>coord_equal = TRUE</code> which forces each case to be a square.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">i_epiet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[</span><span class="fl">160</span><span class="op">:</span><span class="fl">180</span>, <span class="op">]</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span><span class="op">)</span>
-<span class="va">i_epiet</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"white"</span>, show_cases <span class="op">=</span> <span class="cn">TRUE</span>, angle <span class="op">=</span> <span class="fl">45</span>, size <span class="op">=</span> <span class="fl">10</span>, n.breaks <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_epiet</span>, color <span class="op">=</span> <span class="st">"white"</span>, show_cases <span class="op">=</span> <span class="cn">TRUE</span>, angle <span class="op">=</span> <span class="fl">45</span>, size <span class="op">=</span> <span class="fl">10</span>, n.breaks <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/epiet-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div id="facet_plot" class="section level1">
-<h1 class="hasAnchor">
+<div id="facet_plot" class="section level2">
+<h2 class="hasAnchor">
 <a href="#facet_plot" class="anchor"></a><code>facet_plot()</code>
-</h1>
-<p>With stacked plots it can be difficult to ascertain difference between groups. For this reason we provide users the ability to make faceted plots with the <code><a href="../reference/plot.incidence2.html">facet_plot()</a></code> function. This function takes similar arguments to <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> but includes an additional facet argument:</p>
+</h2>
+<p>With stacked plots it can be difficult to ascertain difference between groups. For this reason we provide users the ability to make faceted plots with the <code><a href="../reference/plot.incidence2.html">facet_plot()</a></code> function. This function takes similar arguments to <code>plot</code> but includes an additional facet argument:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span>facets <span class="op">=</span> <span class="va">gender</span>, n.breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">i</span>, facets <span class="op">=</span> <span class="va">gender</span>, n.breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/facets-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span>facets <span class="op">=</span> <span class="va">hospital</span>, fill <span class="op">=</span> <span class="va">gender</span>, n.breaks <span class="op">=</span> <span class="fl">3</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">i</span>, facets <span class="op">=</span> <span class="va">hospital</span>, fill <span class="op">=</span> <span class="va">gender</span>, n.breaks <span class="op">=</span> <span class="fl">3</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/facets-2.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span><span class="op">(</span><span class="va">gender</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span>facets <span class="op">=</span> <span class="va">gender</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">ii</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">gender</span><span class="op">)</span>
+<span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">ii</span>, facets <span class="op">=</span> <span class="va">gender</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/facets-3.png" width="672" style="display: block; margin: auto;"></p>
 </div>
-<div id="miscellaneous" class="section level1">
-<h1 class="hasAnchor">
-<a href="#miscellaneous" class="anchor"></a>Miscellaneous</h1>
-<div id="changing-colors" class="section level2">
+<div id="miscellaneous" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changing-colors" class="anchor"></a>Changing colors</h2>
-<div id="the-default-palette" class="section level3">
+<a href="#miscellaneous" class="anchor"></a>Miscellaneous</h2>
+<div id="changing-colors" class="section level3">
 <h3 class="hasAnchor">
-<a href="#the-default-palette" class="anchor"></a>The default palette</h3>
-<p>A color palette is a function which outputs a specified number of colors. By default, the color used in <em>incidence</em> is called <code><a href="../reference/vibrant.html">vibrant()</a></code>. Its behaviour is different from usual palettes, in the sense that the first 6 colours are not interpolated:</p>
+<a href="#changing-colors" class="anchor"></a>Changing colors</h3>
+<div id="the-default-palette" class="section level4">
+<h4 class="hasAnchor">
+<a href="#the-default-palette" class="anchor"></a>The default palette</h4>
+<p>A color palette is a function which outputs a specified number of colours. By default, the colour used in <em>incidence</em> is called <code><a href="../reference/vibrant.html">vibrant()</a></code>. Its behaviour is different from usual palettes, in the sense that the first 6 colours are not interpolated:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, col <span class="op">=</span> <span class="fu"><a href="../reference/vibrant.html">vibrant</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span>
@@ -244,15 +244,17 @@
 <span class="co">#&gt; Using more colors (20) than this palette can handle (9); some colors will be interpolated.</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/muted-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
-<div id="using-different-palettes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-different-palettes" class="anchor"></a>Using different palettes</h3>
-<p>Other color palettes can be provided via <code>col_pal</code>. Various palettes are part of the base R distribution, and many more are provided in additional packages. We provide a couple of examples:</p>
+<div id="using-different-palettes" class="section level4">
+<h4 class="hasAnchor">
+<a href="#using-different-palettes" class="anchor"></a>Using different palettes</h4>
+<p>Other color palettes can be provided via <code>col_pal</code>. Various palettes are part of the base R distribution, and many more are provided in additional packages. We provide a couple of examples below:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">hospital</span>, col_pal <span class="op">=</span> <span class="va">rainbow</span>, n.breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="co"># see ?rainbow</span></code></pre></div>
+<code class="sourceCode R"><span class="va">ih</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">hospital</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ih</span>, fill <span class="op">=</span> <span class="va">hospital</span>, col_pal <span class="op">=</span> <span class="va">rainbow</span>, n.breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="co"># see ?rainbow</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/palettes-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span><span class="op">(</span><span class="va">gender</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">gender</span>, col_pal <span class="op">=</span> <span class="va">cm.colors</span><span class="op">)</span>   <span class="co"># see ?cm.colors</span></code></pre></div>
+<code class="sourceCode R"><span class="va">ig</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/regroup.html">regroup</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">gender</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ig</span>, fill <span class="op">=</span> <span class="va">gender</span>, col_pal <span class="op">=</span> <span class="va">cm.colors</span><span class="op">)</span>   <span class="co"># see ?cm.colors</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/palettes-2.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
