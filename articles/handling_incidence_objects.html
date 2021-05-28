@@ -99,34 +99,25 @@
 
     
     
-<p>We try to make <code><a href="../reference/incidence.html">incidence()</a></code> objects easy to work with providing helper functions for both manipulating and accessing data within the objects, and integration with <a href="https://www.tidyverse.org/">tidyverse</a> verbs.</p>
-<div id="modifying-incidence-objects" class="section level1">
-<h1 class="hasAnchor">
-<a href="#modifying-incidence-objects" class="anchor"></a>Modifying incidence objects</h1>
-<div id="regroup" class="section level2">
+<p><code><a href="../reference/incidence.html">incidence()</a></code> objects are easy to work with, and we providing helper functions for both manipulating and accessing the underlying data and attributes. As <code><a href="../reference/incidence.html">incidence()</a></code> objects are subclasses of <a href="https://tibble.tidyverse.org/">tibbles</a> they also have good integration with <a href="https://www.tidyverse.org/">tidyverse</a> verbs.</p>
+<div id="modifying-incidence-objects" class="section level2">
 <h2 class="hasAnchor">
-<a href="#regroup" class="anchor"></a>regroup</h2>
+<a href="#modifying-incidence-objects" class="anchor"></a>Modifying incidence objects</h2>
+<div id="regroup" class="section level3">
+<h3 class="hasAnchor">
+<a href="#regroup" class="anchor"></a><code>regroup()</code>
+</h3>
 <p>Sometimes you may find you’ve created a grouped <code><a href="../reference/incidence.html">incidence()</a></code> but now want to change the internal grouping. Assuming you are after a subset of the grouping already generated, then you can use to <code><a href="../reference/regroup.html">regroup()</a></code> function to get the desired aggregation:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'dplyr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconverse/incidence2">incidence2</a></span><span class="op">)</span>
 
 <span class="co"># load data</span>
 <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span>
 
 <span class="co"># generate the incidence object with 3 groups</span>
-<span class="va">inci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
-                  groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">hospital</span>, <span class="va">outcome</span><span class="op">)</span>,
-                  interval <span class="op">=</span> <span class="st">"week"</span><span class="op">)</span>
+<span class="va">inci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">hospital</span>, <span class="va">outcome</span><span class="op">)</span>, interval <span class="op">=</span> <span class="st">"week"</span><span class="op">)</span>
 <span class="va">inci</span>
 <span class="co">#&gt; An incidence2 object: 1,448 x 5</span>
 <span class="co">#&gt; 5829 cases from 2014-W15 to 2015-W18</span>
@@ -189,22 +180,12 @@
 <span class="co">#&gt; 10   2014-W24    21</span>
 <span class="co">#&gt; # … with 46 more rows</span></code></pre></div>
 </div>
-<div id="cumulate" class="section level2">
-<h2 class="hasAnchor">
-<a href="#cumulate" class="anchor"></a>cumulate</h2>
-<p>We also provide a helper function, <code>cumulate</code>() to easily generate cumulative incidences:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">inci</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/regroup.html">regroup</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/cumulate.html">cumulate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
-<p><img src="handling_incidence_objects_files/figure-html/cumulate-1.png" width="672" style="display: block; margin: auto;"></p>
-</div>
-<div id="keep_first-and-keep_last" class="section level2">
-<h2 class="hasAnchor">
-<a href="#keep_first-and-keep_last" class="anchor"></a>keep_first and keep_last</h2>
+<div id="keep_first-and-keep_last" class="section level3">
+<h3 class="hasAnchor">
+<a href="#keep_first-and-keep_last" class="anchor"></a><code>keep_first()</code> and <code>keep_last()</code>
+</h3>
 <p>Once your data is grouped by date, you may want to select the first or last few entries based on a particular date grouping using <code><a href="../reference/keep.html">keep_first()</a></code> and <code><a href="../reference/keep.html">keep_last()</a></code>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/keep.html">keep_first</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 6 x 5</span>
 <span class="co">#&gt; 7 cases from 2014-W15 to 2014-W17</span>
@@ -219,7 +200,6 @@
 <span class="co">#&gt; 4   2014-W17 f      &lt;NA&gt;               Death       1</span>
 <span class="co">#&gt; 5   2014-W17 f      other              Recover     2</span>
 <span class="co">#&gt; 6   2014-W17 m      other              Recover     1</span>
-
 <span class="va">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/keep.html">keep_last</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 63 x 5</span>
 <span class="co">#&gt; 103 cases from 2015-W16 to 2015-W18</span>
@@ -240,21 +220,15 @@
 <span class="co">#&gt; 10   2015-W16 f      other              Recover     1</span>
 <span class="co">#&gt; # … with 53 more rows</span></code></pre></div>
 </div>
-<div id="tidyverse-compatibility" class="section level2">
-<h2 class="hasAnchor">
-<a href="#tidyverse-compatibility" class="anchor"></a>Tidyverse compatibility</h2>
-<p>incidence2 has been written with <em>tidyverse</em> compatibility (in particular <a href="https://dplyr.tidyverse.org/">dplyr</a>) at the forefront of the design choices we have made. By this we mean that if an operation from dplyr is applied to an <code><a href="../reference/incidence.html">incidence()</a></code> object then as long as the invariants of the object are preserved (i.e. groups, interval and uniqueness of rows) then the object returned will be an <code><a href="../reference/incidence.html">incidence()</a></code> object. If the invariants are not preserved then a tibble will be returned instead. Some examples of these behaviours are given below:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div id="tidyverse-compatibility" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tidyverse-compatibility" class="anchor"></a>Tidyverse compatibility</h3>
+<p>incidence2 has been written with <em>tidyverse</em> compatibility (in particular <a href="https://dplyr.tidyverse.org/">dplyr</a>) at the forefront of the design choices we have made. By this we mean that if an operation from dplyr is applied to an <code><a href="../reference/incidence.html">incidence()</a></code> object then as long as the invariants of the object are preserved (i.e. groups, interval and uniqueness of rows) then the object returned will be an <code><a href="../reference/incidence.html">incidence()</a></code> object. If the invariants are not preserved then a tibble will be returned instead.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
 <span class="co"># create incidence object</span>
-<span class="va">inci</span> <span class="op">&lt;-</span>
-  <span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span>
-    date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
-    interval <span class="op">=</span> <span class="st">"week"</span>,
-    groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">hospital</span>, <span class="va">gender</span><span class="op">)</span>
-  <span class="op">)</span>
+<span class="va">inci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"week"</span>, groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">hospital</span>, <span class="va">gender</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># filtering preserves class</span>
 <span class="va">inci</span> <span class="op">%&gt;%</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gender</span> <span class="op">==</span> <span class="st">"f"</span>, <span class="va">hospital</span> <span class="op">==</span> <span class="st">"Rokupa Hospital"</span><span class="op">)</span>
@@ -280,22 +254,22 @@
 <span class="co"># slice operations preserve class</span>
 <span class="va">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 10 x 4</span>
-<span class="co">#&gt; 58 cases from 2014-W19 to 2015-W14</span>
+<span class="co">#&gt; 46 cases from 2014-W22 to 2015-W18</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index hospital                                     gender count</span>
 <span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1   2014-W32 &lt;NA&gt;                                         f          9</span>
-<span class="co">#&gt;  2   2015-W12 Military Hospital                            f          4</span>
-<span class="co">#&gt;  3   2015-W14 Princess Christian Maternity Hospital (PCMH) f          4</span>
-<span class="co">#&gt;  4   2014-W40 Rokupa Hospital                              f          9</span>
-<span class="co">#&gt;  5   2014-W47 &lt;NA&gt;                                         f         12</span>
-<span class="co">#&gt;  6   2014-W44 Princess Christian Maternity Hospital (PCMH) m          6</span>
-<span class="co">#&gt;  7   2014-W26 other                                        f          2</span>
-<span class="co">#&gt;  8   2014-W19 Princess Christian Maternity Hospital (PCMH) f          1</span>
-<span class="co">#&gt;  9   2014-W43 Rokupa Hospital                              f          3</span>
-<span class="co">#&gt; 10   2015-W10 other                                        f          8</span>
+<span class="co">#&gt;  1   2015-W18 Military Hospital                            f          1</span>
+<span class="co">#&gt;  2   2014-W22 other                                        m          2</span>
+<span class="co">#&gt;  3   2015-W02 Princess Christian Maternity Hospital (PCMH) m          3</span>
+<span class="co">#&gt;  4   2014-W52 Connaught Hospital                           f         14</span>
+<span class="co">#&gt;  5   2015-W14 Military Hospital                            m          3</span>
+<span class="co">#&gt;  6   2014-W49 Rokupa Hospital                              f          4</span>
+<span class="co">#&gt;  7   2015-W14 Rokupa Hospital                              m          1</span>
+<span class="co">#&gt;  8   2014-W31 &lt;NA&gt;                                         m         10</span>
+<span class="co">#&gt;  9   2014-W35 Princess Christian Maternity Hospital (PCMH) f          4</span>
+<span class="co">#&gt; 10   2014-W28 Rokupa Hospital                              f          4</span>
 
 <span class="va">inci</span> <span class="op">%&gt;%</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; An incidence2 object: 3 x 4</span>
@@ -351,7 +325,6 @@
 <span class="co">#&gt; 10 2014-W19 &lt;NA&gt;                                         f          1</span>
 <span class="co">#&gt; # … with 591 more rows</span>
 
-
 <span class="co"># select returns a tibble unless all date, count and group variables are preserved</span>
 <span class="va">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 601 x 3</span>
@@ -395,10 +368,14 @@
 <a href="#accessing-variable-information" class="anchor"></a>Accessing variable information</h1>
 <p>We provide multiple accessors to easily access information about an <code><a href="../reference/incidence.html">incidence()</a></code> objects structure:</p>
 <ul>
-<li><p><code><a href="../reference/accessors.html">get_count_names()</a></code>, <code><a href="../reference/accessors.html">get_dates_name()</a></code>, and <code><a href="../reference/accessors.html">get_group_names()</a></code> all return character vectors of the column names corresponding to the requested variables.</p></li>
-<li><p><code><a href="../reference/accessors.html">get_n()</a></code> returns the number of observations.</p></li>
-<li><p><code><a href="../reference/accessors.html">get_interval()</a></code> returns the interval of the object.</p></li>
-<li><p><code><a href="../reference/accessors.html">get_timespan()</a></code> returns the number of days the object covers.</p></li>
+<li>
+<code><a href="../reference/accessors.html">get_count_names()</a></code>, <code><a href="../reference/accessors.html">get_dates_name()</a></code>, and <code><a href="../reference/accessors.html">get_group_names()</a></code> all return character vectors of the column names corresponding to the requested variables.</li>
+<li>
+<code><a href="../reference/accessors.html">get_n()</a></code> returns the number of observations.</li>
+<li>
+<code><a href="../reference/accessors.html">get_interval()</a></code> returns the interval of the object.</li>
+<li>
+<code><a href="../reference/accessors.html">get_timespan()</a></code> returns the number of days the object covers.</li>
 </ul>
 </div>
   </div>
