@@ -17,84 +17,71 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette provides some tips for the most common customisations of graphics
-produced by `plot.incidence()`. Our graphics use *ggplot2*, which is a distinct 
-graphical system from base graphics. If you want advanced customisation of your
-incidence plots, we recommend following an introduction to *ggplot2* such as
-[R for Data Science](https://r4ds.had.co.nz/).
+This vignette provides some tips for the most common customisations of graphics produced by `plot.incidence()` and `facet_plot.incidence()`.
+Our graphics use *ggplot2*, which is a distinct graphical system from base graphics.
 
-<br>
+We try to provide reasonably good, out of the box, customisation via function arguments.
+For advanced customisation, however, it may be better to first convert to a data.frame and then proceeding to work directly with `ggplot2()`.
 
+## Example data: simulated Ebola outbreak
 
-# Example data: simulated Ebola outbreak
+This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package [outbreaks](https://github.com/reconhub/outbreaks).
 
-This example uses the simulated Ebola Virus Disease (EVD) outbreak from the
-package [*outbreaks*](https://github.com/reconhub/outbreaks): `ebola_sim_clean`.
+First, we load the data, compute the weekly incidence and initially group by gender and hospital:
 
-First, we load the data, compute the weekly incidence and initially group by
-gender and hospital:
-
-```{r, data}
+```{r data, message = FALSE}
 library(outbreaks)
 library(incidence2)
-library(magrittr)
 
 dat <- ebola_sim_clean$linelist
 str(dat)
 
-i <- incidence(dat, date_index = date_of_onset, interval = 7,
-               groups = c(gender, hospital))
+i <- incidence(dat, date_of_onset, interval = 7, groups = c(gender, hospital))
 i
 ```
 
+## `plot.incidence()`
 
-# `plot.incidence()`
+When calling `plot` on an `incidence()` object, the function `plot.incidence()` is implicitly used.
+To access its documentation, use `?plot.incidence`.
+In this section, we illustrate existing customisations.
 
-When calling `plot` on an `incidence()` object, the function `plot.incidence()`
-is implicitly used. To access its documentation, use `?plot.incidence`. In this
-section, we illustrate existing customisations.
+### Default behaviour
 
-## Default behaviour
-
-By default, the function uses colors from the color palette `vibrant()`.  If no
-fill is specified, groups will all be filled with the same color and a message
-will be displayed due to multiple groups being present:
+By default, the function uses colours from the colour palette `vibrant()`.
+If no fill is specified, groups will all be filled with the same colour and a message will be displayed due to multiple groups being present:
 
 ```{r, plot1}
-i %>% plot()
+plot(i)
 ```
 
-Note, however, that the groups are still present just hidden by the default
-border coloring:
+Note, however, that the groups are still present just hidden by the default border coloring:
 ```{r, plot2}
-i %>% plot(color = "white")
+plot(i, color = "white")
 ```
 
 
-## Additional arguments
-`plot.incidence()` is designed for a high level of customization without needing
-knowledge of *ggplot2*.  To this end, there are multiple arguments that can
-be provided which have been set to sensible defaults. Some common changes you
-may wish to make are illustrated below (for a full description of arguments
-check out the accompanying help file `?plot.incidence`).
+### Additional arguments
+`plot.incidence()` is designed for a high level of customization without needing knowledge of *ggplot2*.
+To this end, there are multiple arguments that can be provided which have been set to sensible defaults.
+Some common changes you may wish to make are illustrated below (for a full description of arguments check out the accompanying help file `?plot.incidence`).
 
-We can easily fill the plot according to the groups present or a color of our
-choosing:
+We can easily fill the plot according to the groups present or a colour of our choosing:
 
 ```{r, fill}
-i %>% plot(fill = gender)
-i %>% plot(fill = hospital, legend = "bottom")
-i %>% regroup() %>% plot(fill = "red", color = "white")
+plot(i, fill = gender)
+plot(i, fill = hospital, legend = "bottom")
+ii <- regroup(i)
+plot(ii, fill = "red", color = "white")
 ```
 
-Sometimes we may wish to change rotation of the x-axis and this can be done by
-passing an additional angle argument:
+Sometimes we may wish to change rotation of the x-axis and this can be done by passing an additional angle argument:
 
 ```{r, rotateandformat}
-i %>% plot(angle = 45)
+plot(i, angle = 45)
 ```
 
-## Applying the style of European Programme for Intervention Epidemiology Training (EPIET)
+### Applying the style of European Programme for Intervention Epidemiology Training (EPIET)
 
 For small datasets it is convention of EPIET to display individual cases as
 rectangles. It can be done by doing two things: first, adding using the option
@@ -103,34 +90,32 @@ forces each case to be a square.
 
 ```{r, epiet}
 i_epiet <- incidence(dat[160:180, ], date_index = date_of_onset)
-i_epiet %>% plot(color = "white", show_cases = TRUE, angle = 45, size = 10, n.breaks = 20)
+plot(i_epiet, color = "white", show_cases = TRUE, angle = 45, size = 10, n.breaks = 20)
 ```
 
 
-# `facet_plot()`
+## `facet_plot()`
 
 With stacked plots it can be difficult to ascertain difference between groups.
-For this reason we provide users the ability to make faceted plots with the
-`facet_plot()` function.  This function takes similar arguments to `plot()` but
-includes an additional facet argument:
+For this reason we provide users the ability to make faceted plots with the `facet_plot()` function.
+This function takes similar arguments to `plot` but includes an additional facet argument:
 
 ```{r, facets}
-i %>% facet_plot(facets = gender, n.breaks = 3)
-i %>% facet_plot(facets = hospital, fill = gender, n.breaks = 3, nrow = 4)
-i %>% regroup(gender) %>% facet_plot(facets = gender, fill = "grey", color = "white")
+facet_plot(i, facets = gender, n.breaks = 3)
+facet_plot(i, facets = hospital, fill = gender, n.breaks = 3, nrow = 4)
+ii <- regroup(i, gender)
+facet_plot(ii, facets = gender, fill = "grey", color = "white")
 ```
 
+## Miscellaneous
 
-# Miscellaneous
+### Changing colors
 
-## Changing colors
+#### The default palette
 
-### The default palette
-
-A color palette is a function which outputs a specified number of colors. By
-default, the color used in *incidence* is called `vibrant()`. Its
-behaviour is different from usual palettes, in the sense that the first 6
-colours are not interpolated:
+A color palette is a function which outputs a specified number of colours.
+By default, the colour used in *incidence* is called `vibrant()`.
+Its behaviour is different from usual palettes, in the sense that the first 6 colours are not interpolated:
 
 ```{r, vibrant,   fig.height = 8}
 par(mfrow = c(2, 1), mar = c(4,2,1,1))
@@ -138,8 +123,7 @@ barplot(1:6, col = vibrant(6))
 barplot(1:20, col = vibrant(20))
 ```
 
-We also provide a second palette called `muted()` where the first 9 colours are
-not interpolated:
+We also provide a second palette called `muted()` where the first 9 colours are not interpolated:
 
 ```{r, muted, fig.height = 8}
 par(mfrow = c(2,1), mar = c(4,2,1,1))
@@ -147,13 +131,15 @@ barplot(1:9, col = muted(9))
 barplot(1:20, col = muted(20))
 ```
 
-### Using different palettes
+#### Using different palettes
 
-Other color palettes can be provided via `col_pal`. Various palettes are part of
-the base R distribution, and many more are provided in additional packages. We 
-provide a couple of examples:
+Other color palettes can be provided via `col_pal`.
+Various palettes are part of the base R distribution, and many more are provided in additional packages.
+We provide a couple of examples below:
 
 ```{r, palettes}
-i %>% regroup(hospital) %>% plot(fill = hospital, col_pal = rainbow, n.breaks = 3) # see ?rainbow
-i %>% regroup(gender) %>% plot(fill = gender, col_pal = cm.colors)   # see ?cm.colors
+ih <- regroup(i, hospital)
+plot(ih, fill = hospital, col_pal = rainbow, n.breaks = 3) # see ?rainbow
+ig <- regroup(i, gender)
+plot(ig, fill = gender, col_pal = cm.colors)   # see ?cm.colors
 ```
