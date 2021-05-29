@@ -27,7 +27,6 @@ Imports:
     pillar,
     data.table,
     stats,
-    graphics,
     rlang (>= 0.1.2),
     tidyselect,
     grates,
