@@ -1,3 +1,5 @@
+# incidence2 (development version)
+
 # incidence2 1.1.0
 
 * New function `complete_counts()`.
