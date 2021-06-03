@@ -61,7 +61,7 @@
 #' }
 #'
 #' \subsection{Interval specification (`interval`)}{
-#' `incidence2` uses the [`grates`](https://cran.r-project.org/package=grates)
+#' `incidence()` uses the [`grates`](https://cran.r-project.org/package=grates)
 #'   package to generate date groupings. The grouping used depends on the value
 #'   of `interval`. This can be specified as either an integer value or a more
 #'   standard specification such as "day", "week", "month", "quarter" or "year".
@@ -149,218 +149,49 @@
 incidence <- function(x, date_index, groups = NULL, interval = 1L,
                       na_as_group = TRUE, counts = NULL, firstdate = NULL) {
 
+
+  en_date <- rlang::enexpr(date_index)
+  en_groups <- rlang::enexpr(groups)
+  en_counts <- rlang::enexpr(counts)
+
   # minimal checks (others come later or in nested functions)
   vctrs::vec_assert(interval, size = 1)
-  vctrs::vec_assert(na_as_group, ptype = logical(), size = 1)
 
-  # tidyselect is used so we can rely on that for dealing with a lot of the
-  # non-standard evaluation issues that arise and also issue nice error messages
-
-  # Convert groups to character variables
-  groups <- rlang::enquo(groups)
-  if (!rlang::quo_is_null(groups)) {
-    idx <- tidyselect::eval_select(groups, x, allow_rename = FALSE)
-    groups <- names(x)[idx]
-  } else {
-    groups <- NULL
-  }
-
-  # Convert date_index to character variables and facilitate renaming
-  date_index <- rlang::enquo(date_index)
-  idx <- tidyselect::eval_select(date_index, x)
-
-  if (length(idx) > 1) {
-    call_nms <- rlang::call_args_names(rlang::get_expr(date_index))
-    if (any(call_nms %in% "")) {
-      abort("If multiple date indices are specified they must be named")
-    }
-    names(x)[idx] <- date_index <- names(idx)
-  } else {
-    idx <- tidyselect::eval_select(date_index, x, allow_rename = FALSE)
-    date_index <- names(x)[idx]
-  }
-
-  # Convert groups to character variables
-  counts <- rlang::enquo(counts)
-  if (!rlang::quo_is_null(counts)) {
-    idx <- tidyselect::eval_select(counts, x, allow_rename = FALSE)
-    counts <- names(x)[idx]
-  } else {
-    counts <- NULL
-  }
-
-  # generate names for resultant count columns if needed
-  if (is.null(counts)) {
-    if (length(date_index) == 1) {
-      count_names <- "count"
-    } else {
-      count_names <- date_index
-    }
-  }
-
-  # ensure all date_index are of same class
-  date_classes <- vapply(x[date_index], function(x) class(x)[1], character(1))
-  if (length(unique(date_classes)) != 1L) {
-    abort("date_index columns must be of the same class")
-  }
-
-  # ensure we have a firstdate value
+  # ensure we have a firstdate value and that we can work with dates
+  idx <- tidyselect::eval_select(en_date, x)
   if (is.null(firstdate)) {
-    firstdate <- do.call(min, args = c(x[date_index], na.rm = TRUE))
+    firstdate <- do.call(min, args = c(x[idx], na.rm = TRUE))
   }
+  n_orig <- nrow(x)
+  x <- x[x[[idx]] >= firstdate, , drop = FALSE]
+  n_new <- nrow(x)
+  if (n_new < n_orig) message(sprintf("%d observations were removed.", n_orig - n_new))
+  x[idx] <- lapply(x[idx], check_dates)
 
-  # ensure we can work with dates (done here mainly for error message)
-  x[date_index] <- lapply(x[date_index], check_dates)
+  dat <- as_incidence.data.frame(
+    x,
+    date_index = !!en_date,
+    groups = !!en_groups,
+    counts = !!en_counts,
+    na_as_group = na_as_group,
+    FUN = make_grate,
+    args = list(interval = interval, firstdate = firstdate)
+  )
 
-  # Calculate an incidence object for each value of date_index
-  res <-
-    lapply(
-      seq_along(date_index),
-      function(i) {
-        make_incidence(
-          x = x,
-          date_index = date_index[i],
-          groups = groups,
-          interval = interval,
-          na_as_group = na_as_group,
-          counts = counts,
-          count_name = count_names[i],
-          firstdate = firstdate
-        )
-      }
-    )
-
-  # if there is only 1 value for date_index we can just return the entry.
-  # Otherwise we need to set the relevant names and count_names attributes (but
-  # can take other attributes from any entry of the returned list).
-  # TODO - can we streamline this
-  if (length(date_index) == 1) {
-    res <- res[[1]]
-  } else {
-    res_attributes <- attributes(res[[1]])
-    res_attributes$counts <- count_names
-    nms <- lapply(res, names)
-    nms <- Reduce(union, nms)
-    res_attributes$names <- nms
-    res <- lapply(res, setDT)
-    by_var <- c("date_index", groups)
-    res <- do.call(merge, args = c(res, all = TRUE, by = by_var))
-    setnafill(res, fill = 0, cols = count_names)
-    setDF(res)
-    res_row_names <- attr(res,"row.names")
-    attributes(res) <- res_attributes
-    attr(res, "row.names") <- res_row_names
-  }
-
-  res
+  # standardise interval (below is for historical compatibility in incidence2)
+  interval <- create_interval_string(dat$date_index)
+  attr(dat, "interval") <- interval
+  attr(dat, "cumulative") <- FALSE
+  class(dat) <- c("incidence2", class(dat))
+  dat
 }
+
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 # -------------------------------- INTERNALS ------------------------------ #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-
-
-#' Default internal constructor for incidence objects.
-#'
-#' @param x A tibble.
-#' @param date_index The time index of the given data.  This should be the name
-#'   corresponding to a date column in x.
-#' @param interval An integer or character indicating the (fixed) size of the
-#'   time interval used for computing the incidence; defaults to 1 day.
-#' @param groups An optional character vector defining groups of observations
-#'   for which incidence should be computed separately.
-#' @param na_as_group A logical value indicating if missing group (NA) should be
-#'   treated as a separate group.
-#' @param counts The count variables of the given data.  If NULL (default) the
-#'   data is taken to be a linelist of individual observations.
-#' @param count_name The names to give the resultant count variable.  Only
-#'   used when counts = NULL.
-#' @param firstdate When the interval is in days, or numeric, and also has a
-#'   numeric prefix greater than 1, then you can optionally specify the date
-#'   that you wish your intervals to begin from.  If NULL (default) then the
-#'   intervals will start at the minimum value contained in the date_index
-#'   column.
-#'
-#' @return An incidence2 object.
-#'
-#' @noRd
-make_incidence <- function(x, date_index, groups, interval, na_as_group, counts,
-                           count_name, firstdate) {
-
-  # due to NSE notes in R CMD check
-  . <- ..counts <- NULL
-
-  # trim observations
-  n_orig <- nrow(x)
-  x <- x[x[[date_index]] >= firstdate, , drop = FALSE]
-  n_new <- nrow(x)
-  if (n_new < n_orig) {
-    message(sprintf("%d observations were removed.", n_orig - n_new))
-  }
-
-  # Group the dates
-  x[[date_index]] <- make_grate(
-    x[[date_index]],
-    interval = interval,
-    firstdate = firstdate
-  )
-
-  # Remove the missing observations
-  n_orig <- nrow(x)
-  x <- x[!is.na(x[[date_index]]), , drop=FALSE]
-  n_new <- nrow(x)
-  if (n_new < n_orig) {
-    message(sprintf("%d missing observations were removed.", n_orig - n_new))
-  }
-
-  # generate grouped_dates
-  setDT(x)
-  if (is.null(counts)) {
-    x <- x[, .N, keyby = c(date_index, groups)]
-    setnames(x, length(x), count_name)
-  } else {
-    x <- x[, lapply(.SD, sum, na.rm = TRUE), keyby = c(date_index, groups), .SDcols = counts]
-  }
-  setDF(x)
-
-  # set name for date column
-  date_col <- "date_index"
-
-  # give date column correct name
-  colnames(x)[1] <- date_col
-
-  # filter out NA groups if desired
-  if (!na_as_group) {
-    x <- x[complete.cases(x[, groups, drop = FALSE]), , drop = FALSE]
-  }
-
-  # reorder (dates, groups, counts)
-  if (is.null(counts)) {
-    counts <- count_name
-  }
-  x <- x[c(date_col, groups, counts)]
-
-  # standardise interval
-  interval <- create_interval_string(x[[date_col]])
-
-  # create subclass of tibble
-  tbl <- tibble::new_tibble(
-    x,
-    groups = groups,
-    date = date_col,
-    counts = counts,
-    interval = interval,
-    cumulative = FALSE,
-    nrow = nrow(x),
-    class = "incidence2"
-  )
-
-  tibble::validate_tibble(tbl)
-
-}
-
 
 check_dates <- function(x) {
   if (inherits(x, "numeric")) {

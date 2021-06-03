@@ -30,13 +30,13 @@ Imports:
     rlang (>= 0.1.2),
     tidyselect,
     grates,
-    tidyr
+    tidyr,
+    dplyr
 Suggests:
     outbreaks,
     knitr,
     rmarkdown,
     testthat,
-    dplyr (>= 1.0.0),
     scales,
     roxygen2,
     ggplot2,

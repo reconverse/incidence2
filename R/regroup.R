@@ -39,22 +39,21 @@ regroup <- function(x, groups = NULL){
 
   date_var <- get_dates_name(x)
   count_var <- get_count_names(x)
-  cumulate <- attr(x, "cumulative")
-  interval <- get_interval(x)
 
-  tbl <- as.data.table(x)
-  tbl <- tbl[, lapply(.SD, sum, na.rm = TRUE), keyby = c(date_var, groups), .SDcols = count_var]
-  setDF(tbl)
+  dt <- !any(vapply(x, typeof, character(1)) == "list")
+  if (dt) {
+    tbl <- as.data.table(x)
+    tbl <- tbl[, lapply(.SD, sum, na.rm = TRUE), keyby = c(date_var, groups), .SDcols = count_var]
+    setDF(tbl)
+  } else {
+    tbl <- grouped_df(x, c(date_var, groups))
+    tbl <- summarise(tbl, across(all_of(count_var), sum, na.rm = TRUE), .groups = "drop")
+  }
 
-  # create subclass of tibble
-  tbl <- tibble::new_tibble(tbl,
-                            groups = groups,
-                            date = date_var,
-                            counts = count_var,
-                            interval = interval,
-                            cumulative = cumulate,
-                            nrow = nrow(tbl),
-                            class = "incidence2"
-  )
-  tibble::validate_tibble(tbl)
+  tbl <- new_incidence(tbl, date = date_var, groups = groups, counts = count_var)
+  attr(tbl, "interval") <- attr(x, "interval")
+  attr(tbl, "cumulative") <- attr(x, "cumulative")
+  class(tbl) <- c("incidence2", class(tbl))
+
+  tbl
 }

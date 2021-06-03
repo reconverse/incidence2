@@ -47,13 +47,26 @@ cumulate.incidence2 <- function(x) {
   groups <- get_group_names(x)
   count_var <- get_count_names(x)
 
-  out <- as.data.table(x)
-  if (!is.null(groups)) {
-    out[, (count_var) := lapply(.SD, cumsum), keyby = groups, .SDcols = count_var]
+  dt <- !any(vapply(x, typeof, character(1)) == "list")
+  if (dt) {
+    out <- as.data.table(x)
+    if (!is.null(groups)) {
+      out[, (count_var) := lapply(.SD, cumsum), keyby = groups, .SDcols = count_var]
+    } else {
+      out[, (count_var) := lapply(.SD, cumsum), .SDcols = count_var]
+    }
+    setDF(out)
   } else {
-    out[, (count_var) := lapply(.SD, cumsum), .SDcols = count_var]
+    out <- x
+    if (!is.null(groups)) {
+      out <- grouped_df(out, groups)
+      out <- mutate(out, across(all_of(count_var), cumsum))
+      out <- ungroup(out)
+      out <- out[order(out[groups], out$date_index),]
+    } else {
+      out[count_var] <- lapply(out[count_var], cumsum)
+    }
   }
-  setDF(out)
 
   nms <- names(out)
   attributes(out) <- attributes(x)
