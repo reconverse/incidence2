@@ -20,6 +20,7 @@ License: MIT + file LICENSE
 URL: https://github.com/reconverse/incidence2
 BugReports: https://github.com/reconverse/incidence2/issues
 RoxygenNote: 7.1.1
+LazyData: true
 Imports: 
     tibble,
     ellipsis,
@@ -41,8 +42,11 @@ Suggests:
     roxygen2,
     ggplot2,
     magrittr,
-    covr
+    covr,
+    clock
 VignetteBuilder: 
     knitr
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
+Depends: 
+    R (>= 2.10)
