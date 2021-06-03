@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
       </span>
     </div>
 
@@ -238,7 +238,7 @@ format. Any other format will trigger an error.</p></li>
 
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Interval specification (<code>interval</code>)</h3>
-<p><code>incidence2</code> uses the <a href='https://cran.r-project.org/package=grates'><code>grates</code></a>
+<p><code>incidence()</code> uses the <a href='https://cran.r-project.org/package=grates'><code>grates</code></a>
 package to generate date groupings. The grouping used depends on the value
 of <code>interval</code>. This can be specified as either an integer value or a more
 standard specification such as "day", "week", "month", "quarter" or "year".
@@ -320,7 +320,7 @@ there are keywords reserved for specific days of the week:</p><ul>
 </div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
 #&gt; &gt; dat &lt;- ebola_sim_clean$linelist
 #&gt; &gt; incidence(dat, date_of_onset)
-#&gt; <span style='color: #949494;'>An incidence2 object: 367 x 2
+#&gt; <span style='color: #949494;'>An incidence object: 367 x 2
 #&gt; </span>5829 cases from 2014-04-07 to 2015-04-30
 #&gt; interval: 1 day
 #&gt; cumulative: FALSE
@@ -340,7 +340,7 @@ there are keywords reserved for specific days of the week:</p><ul>
 #&gt; <span style='color: #949494;'># … with 357 more rows</span>
 #&gt; 
 #&gt; &gt; incidence(dat, date_of_onset, interval = "week")
-#&gt; <span style='color: #949494;'>An incidence2 object: 56 x 2
+#&gt; <span style='color: #949494;'>An incidence object: 56 x 2
 #&gt; </span>5829 cases from 2014-W15 to 2015-W18
 #&gt; interval: 1 (Monday) week 
 #&gt; cumulative: FALSE
@@ -360,7 +360,7 @@ there are keywords reserved for specific days of the week:</p><ul>
 #&gt; <span style='color: #949494;'># … with 46 more rows</span>
 #&gt; 
 #&gt; &gt; incidence(dat, date_of_onset, interval = "isoweek")
-#&gt; <span style='color: #949494;'>An incidence2 object: 56 x 2
+#&gt; <span style='color: #949494;'>An incidence object: 56 x 2
 #&gt; </span>5829 cases from 2014-W15 to 2015-W18
 #&gt; interval: 1 (Monday) week 
 #&gt; cumulative: FALSE
@@ -380,7 +380,7 @@ there are keywords reserved for specific days of the week:</p><ul>
 #&gt; <span style='color: #949494;'># … with 46 more rows</span>
 #&gt; 
 #&gt; &gt; incidence(dat, date_of_onset, interval = "epiweek")
-#&gt; <span style='color: #949494;'>An incidence2 object: 56 x 2
+#&gt; <span style='color: #949494;'>An incidence object: 56 x 2
 #&gt; </span>5829 cases from 2014-W15 to 2015-W17
 #&gt; interval: 1 (Sunday) week 
 #&gt; cumulative: FALSE
@@ -400,7 +400,7 @@ there are keywords reserved for specific days of the week:</p><ul>
 #&gt; <span style='color: #949494;'># … with 46 more rows</span>
 #&gt; 
 #&gt; &gt; incidence(dat, date_of_onset, interval = 7, groups = gender)
-#&gt; <span style='color: #949494;'>An incidence2 object: 109 x 3
+#&gt; <span style='color: #949494;'>An incidence object: 109 x 3
 #&gt; </span>5829 cases from 2014-04-07 to 2015-05-03
 #&gt; interval: 7 days
 #&gt; cumulative: FALSE
@@ -421,7 +421,7 @@ there are keywords reserved for specific days of the week:</p><ul>
 #&gt; 
 #&gt; &gt; incidence(dat, date_of_onset, interval = "2 weeks", groups = c(gender, 
 #&gt; +     hospital))
-#&gt; <span style='color: #949494;'>An incidence2 object: 316 x 4
+#&gt; <span style='color: #949494;'>An incidence object: 316 x 4
 #&gt; </span>5829 cases from 2014-04-07 to 2015-05-03
 #&gt; interval: 14 days
 #&gt; cumulative: FALSE
@@ -443,7 +443,7 @@ there are keywords reserved for specific days of the week:</p><ul>
 <span class='co'># use of first_date</span>
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>10</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>dates</span>, interval <span class='op'>=</span> <span class='st'>"week"</span>, firstdate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>1 observations were removed.</span></div><div class='output co'>#&gt; <span style='color: #949494;'>An incidence2 object: 2 x 2
+</div><div class='output co'>#&gt; <span class='message'>1 observations were removed.</span></div><div class='output co'>#&gt; <span style='color: #949494;'>An incidence object: 2 x 2
 #&gt; </span>9 cases from 2021-W22 to 2021-W23
 #&gt; interval: 1 (Monday) week 
 #&gt; cumulative: FALSE

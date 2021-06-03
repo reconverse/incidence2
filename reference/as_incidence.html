@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert a data frame to incidence object — as_incidence • incidence2</title>
+<title>Coerce to incidence — as_incidence • incidence2</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Convert a data frame to incidence object — as_incidence" />
-<meta property="og:description" content="Convert a data frame to incidence object" />
+<meta property="og:title" content="Coerce to incidence — as_incidence" />
+<meta property="og:description" content="as_incidence() coerced an object to an incidence of events." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,8 +112,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/reconhub/incidence2">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/reconverse/incidence2">
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -130,79 +130,75 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert a data frame to incidence object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconhub/incidence2/blob/master/R/conversion.R'><code>R/conversion.R</code></a></small>
+    <h1>Coerce to incidence</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/incidence2/blob/master/R/as_incidence.R'><code>R/as_incidence.R</code></a></small>
     <div class="hidden name"><code>as_incidence.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert a data frame to incidence object</p>
+    <p><code>as_incidence()</code> coerced an object to an incidence of events.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_incidence</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>as_incidence</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>as_incidence</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>as_incidence</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>as_incidence</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>asis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>date_index</span>,
-  <span class='no'>counts_var</span>,
-  <span class='kw'>group_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>as_incidence</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>date_index</span>,
+  groups <span class='op'>=</span> <span class='cn'>NULL</span>,
+  counts <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na_as_group <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  FUN <span class='op'>=</span> <span class='va'>identity</span>,
+  args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An object that can be treated as a data frame.</p></td>
+      <td><p>An object to converse to <code>incidence</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not currently used.</p></td>
-    </tr>
-    <tr>
-      <th>asis</th>
-      <td><p>If FALSE (default) an incidence object is reconstructed using
-<code>incidence</code>. If TRUE, minimal checks are made on the input x, and the
-dataframe is changed to an incidence object (with interval 1L) with all
-columns present.</p></td>
+      <td><p>Further arguments passed to or from other methods.</p></td>
     </tr>
     <tr>
       <th>date_index</th>
-      <td><p>The time index of the given data in x.  This should be the
-name, with or without quotation, corresponding to a date column in x of the
-class:  integer, numeric, Date, POSIXct, POSIXlt, and character.</p></td>
+      <td><p>The time index(es) of the given data. Multiple inputs only
+make sense when x is a linelist, and in this situation, to avoid ambiguity,
+the vector must be named.  These names will be used for the resultant count
+columns.</p></td>
     </tr>
     <tr>
-      <th>counts_var</th>
-      <td><p>The count variable in x.</p></td>
-    </tr>
-    <tr>
-      <th>group_vars</th>
+      <th>groups</th>
       <td><p>An optional vector giving the names of the groups of
-observations for which incidence should be grouped.  This can be given with
-or without quotation.</p></td>
+observations for which incidence should be grouped.</p></td>
     </tr>
     <tr>
-      <th>interval</th>
-      <td><p>(Only applicable when <code>asis = FALSE</code>) An integer or character
-indicating the (fixed) size of the time interval used for computing the
-incidence; defaults to 1 day. This can also be a text string that
-corresponds to a valid date interval: day, week, month, quarter, or year.</p></td>
+      <th>counts</th>
+      <td><p>The count variables of the given data.  If NULL (default) the
+data is taken to be a linelist of individual observations.</p></td>
     </tr>
     <tr>
-      <th>standard</th>
-      <td><p>(Only applicable when <code>asis = FALSE</code> and where date_index
-references a Date object) When <code>TRUE</code> (default) and the <code>interval</code> one of
-"week", "month", "quarter", or "year", then this will cause the bins for
-the counts to start at the beginning of the interval.</p></td>
+      <th>na_as_group</th>
+      <td><p>A logical value indicating if missing group values (NA)
+should treated as a separate category (<code>TRUE</code>) or removed from
+consideration (<code>FALSE</code>). Defaults to <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>FUN</th>
+      <td><p>Function applied to the <code>dates_index</code> vectors before grouping. The
+first argument of <code>FUN</code> must work with a <code>dates_index</code> vector. Defaults to
+the identity function.</p></td>
+    </tr>
+    <tr>
+      <th>args</th>
+      <td><p>List of additional arguments passed to FUN.</p></td>
     </tr>
     </table>
 
@@ -218,11 +214,11 @@ the counts to start at the beginning of the interval.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Tim Taylor, Thibaut Jombart, Zhian N. Kamvar, Rich FitzJohn.</p>
+  <p>Developed by Tim Taylor.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

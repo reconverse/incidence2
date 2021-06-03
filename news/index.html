@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
       </span>
     </div>
 
@@ -133,6 +133,30 @@
       <small>Source: <a href='https://github.com/reconverse/incidence2/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="incidence2-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="development version">
+<a href="#incidence2-development-version" class="anchor"></a>incidence2 (development version)<small> Unreleased </small>
+</h1>
+<div id="new-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-functions" class="anchor"></a>New functions</h2>
+<ul>
+<li>
+<code><a href="../reference/new_incidence.html">new_incidence()</a></code>: A minimal incidence constructor.</li>
+<li>
+<code><a href="../reference/new_incidence.html">validate_incidence()</a></code>: Check for internal consistency of incidence-like object.</li>
+<li>
+<code><a href="../reference/as_incidence.html">as_incidence()</a></code>: Allows you to construct an incidence object whilst specifying your own date grouping function.</li>
+</ul>
+</div>
+<div id="other-updates" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-updates" class="anchor"></a>Other updates</h2>
+<ul>
+<li>Now uses <code>dplyr</code> to handle list based columns (e.g. record-type objects from <code>vctrs</code>). For data.frames with only atomic columns, data.table is still used.</li>
+</ul>
+</div>
+</div>
     <div id="incidence2-110" class="section level1">
 <h1 class="page-header" data-toc-text="1.1.0">
 <a href="#incidence2-110" class="anchor"></a>incidence2 1.1.0<small> Unreleased </small>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>incidence2: Compute, Handle and Plot Incidence of Dated Events — incidence2-package • incidence2</title>
+<title>Incidence constructor and validator — new_incidence • incidence2</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,9 @@
 
 
 
-<meta property="og:title" content="incidence2: Compute, Handle and Plot Incidence of Dated Events — incidence2-package" />
-<meta property="og:description" content="Provides functions and classes to compute, handle and visualise 
-  incidence from dated events for a defined time interval. Dates can be 
-  provided in various standard formats. The class 'incidence2' is used to store
-  computed incidence and can be easily manipulated, subsetted, and plotted.
-  This package is part of the RECON (&amp;lt;https://www.repidemicsconsortium.org/&amp;gt;) 
-  toolkit for outbreak analysis (&amp;lt;https://www.reconverse.org&amp;gt;)." />
+<meta property="og:title" content="Incidence constructor and validator — new_incidence" />
+<meta property="og:description" content="Creates or validates an incidence object. Mainly of use to those developing
+packages to work with incidence objects." />
 
 
 
@@ -135,39 +131,79 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>incidence2: Compute, Handle and Plot Incidence of Dated Events</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/incidence2/blob/master/R/incidence2-package.R'><code>R/incidence2-package.R</code></a></small>
-    <div class="hidden name"><code>incidence2-package.Rd</code></div>
+    <h1>Incidence constructor and validator</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/incidence2/blob/master/R/new_incidence.R'><code>R/new_incidence.R</code></a></small>
+    <div class="hidden name"><code>new_incidence.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Provides functions and classes to compute, handle and visualise 
-  incidence from dated events for a defined time interval. Dates can be 
-  provided in various standard formats. The class 'incidence2' is used to store
-  computed incidence and can be easily manipulated, subsetted, and plotted.
-  This package is part of the RECON (&lt;https://www.repidemicsconsortium.org/&gt;) 
-  toolkit for outbreak analysis (&lt;https://www.reconverse.org&gt;).</p>
+    <p>Creates or validates an incidence object. Mainly of use to those developing
+packages to work with incidence objects.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>new_incidence</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>date</span>,
+  groups <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>counts</span>,
+  measurements <span class='op'>=</span> <span class='cn'>NULL</span>,
+  validate <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
+<span class='fu'>validate_incidence</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>An incidence-like object</p></td>
+    </tr>
+    <tr>
+      <th>date</th>
+      <td><p>The time index of `x.</p></td>
+    </tr>
+    <tr>
+      <th>groups</th>
+      <td><p>An optional vector giving the names of the groups in <code>x</code>.</p></td>
+    </tr>
+    <tr>
+      <th>counts</th>
+      <td><p>The count variables of <code>x</code></p></td>
+    </tr>
+    <tr>
+      <th>measurements</th>
+      <td><p>An optional vector giving the names of measurement
+variables in <code>x</code>.</p></td>
+    </tr>
+    <tr>
+      <th>validate</th>
+      <td><p>A logical value indicating whether to validate the input.
+If FALSE, only minimal checks are made which can give a performance
+advantage if so desired.</p></td>
+    </tr>
+    </table>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://github.com/reconverse/incidence2'>https://github.com/reconverse/incidence2</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/reconverse/incidence2/issues'>https://github.com/reconverse/incidence2/issues</a></p></li>
-</ul>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-</div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+    <p>An incidence object (invisibly for <code>validate_incidence()</code>)</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Maintainer</strong>: Tim Taylor <a href='mailto:tim.taylor@hiddenelephants.co.uk'>tim.taylor@hiddenelephants.co.uk</a> (<a href='https://orcid.org/0000-0002-8587-7113'>ORCID</a>)</p>
-<p>Other contributors:</p><ul>
-<li><p>Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a> [contributor]</p></li>
-<li><p>Zhian N. Kamvar <a href='mailto:zkamvar@gmail.com'>zkamvar@gmail.com</a> (<a href='https://orcid.org/0000-0003-1458-7108'>ORCID</a>) [contributor]</p></li>
-</ul>
-
-
+    <p><code>new_incidence()</code> creates a new incidence object which is a subclass
+of a tibble (i.e. class <code>incidence</code>, <code>tbl_df</code>, <code>tbl</code> and <code>data.frame</code>).</p>
+<p><code>validate_incidence()</code> checks the object for internal consistency. For an
+object to be considered an incidence object it must:
+* <code>inherit</code> the incidence and data.frame class;
+* have a single column representing the date_index with the name of this
+variable being stored in the <code>date</code> attribute;
+* have one or more columns representing the counts with the name of
+these variables being stored in the <code>counts</code> attribute;
+* have zero or more columns representing groups with, if and only if
+present, the names of these being stored in the <code>groups</code> attribute;
+* have zero or more columns representing measurement with, if and only
+if present, the names of these being stored in the <code>measurements</code>
+attribute;
+* not have duplicated rows with regards to the date and group variables.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

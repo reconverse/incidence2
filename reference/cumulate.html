@@ -77,7 +77,7 @@ incidence objects: computes cumulative incidence over time
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
       </span>
     </div>
 
@@ -154,7 +154,7 @@ for different types of objects:</p><ul>
 <span class='co'># S3 method for default</span>
 <span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='co'># S3 method for incidence2</span>
+<span class='co'># S3 method for incidence</span>
 <span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -175,7 +175,7 @@ for different types of objects:</p><ul>
 
 <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>dat</span>, date_index <span class='op'>=</span> <span class='va'>dates</span>, groups <span class='op'>=</span> <span class='va'>groups</span><span class='op'>)</span>
 <span class='va'>i</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'>An incidence2 object: 6 x 3
+</div><div class='output co'>#&gt; <span style='color: #949494;'>An incidence object: 6 x 3
 #&gt; </span>7 cases from 0 to 7
 #&gt; interval: 1 day
 #&gt; cumulative: FALSE
@@ -191,7 +191,7 @@ for different types of objects:</p><ul>
 #&gt; </div><div class='input'>
 <span class='va'>cumulative_i</span> <span class='op'>&lt;-</span> <span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
 <span class='va'>cumulative_i</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'>An incidence2 object: 6 x 3
+</div><div class='output co'>#&gt; <span style='color: #949494;'>An incidence object: 6 x 3
 #&gt; </span>13 cases from 0 to 7
 #&gt; interval: 1 day
 #&gt; cumulative: TRUE
