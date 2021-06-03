@@ -1,5 +1,16 @@
 # incidence2 (development version)
 
+## New functions
+* `new_incidence()`: A minimal incidence constructor.
+* `validate_incidence()`: Check for internal consistency of incidence-like object.
+* `as_incidence()`: Allows you to construct an incidence object whilst specifying
+  your own date grouping function.
+
+## Other updates
+* Now uses `dplyr` to handle list based columns (e.g. record-type objects from
+  `vctrs`). For data.frames with only atomic columns, data.table is still used.
+
+
 # incidence2 1.1.0
 
 * New function `complete_counts()`.
