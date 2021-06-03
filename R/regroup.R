@@ -29,7 +29,7 @@ regroup <- function(x, groups = NULL){
   # due to NSE notes in R CMD check
   ..count_var <- . <- NULL
 
-  if (!inherits(x, "incidence2")) abort("x should be an 'incidence2' object.")
+  if (!inherits(x, "incidence")) abort("x should be an 'incidence' object.")
 
   # check groups present
   groups <- rlang::enquo(groups)
@@ -39,22 +39,23 @@ regroup <- function(x, groups = NULL){
 
   date_var <- get_dates_name(x)
   count_var <- get_count_names(x)
-  cumulate <- attr(x, "cumulative")
-  interval <- get_interval(x)
 
-  tbl <- as.data.table(x)
-  tbl <- tbl[, lapply(.SD, sum, na.rm = TRUE), keyby = c(date_var, groups), .SDcols = count_var]
-  setDF(tbl)
+  dt <- !any(vapply(x, typeof, character(1)) == "list")
+  if (dt) {
+    tbl <- as.data.table(x)
+    tbl <- tbl[, lapply(.SD, sum, na.rm = TRUE), keyby = c(date_var, groups), .SDcols = count_var]
+    setDF(tbl)
+  } else {
+    tbl <- grouped_df(x, c(date_var, groups))
+    tbl <- summarise(tbl, across(all_of(count_var), sum, na.rm = TRUE), .groups = "drop")
+  }
 
-  # create subclass of tibble
-  tbl <- tibble::new_tibble(tbl,
-                            groups = groups,
-                            date = date_var,
-                            counts = count_var,
-                            interval = interval,
-                            cumulative = cumulate,
-                            nrow = nrow(tbl),
-                            class = "incidence2"
-  )
-  tibble::validate_tibble(tbl)
+  tbl <- new_incidence(tbl, date = date_var, groups = groups, counts = count_var)
+  if (inherits(x, "incidence2")) {
+    attr(tbl, "interval") <- attr(x, "interval")
+    attr(tbl, "cumulative") <- attr(x, "cumulative")
+    class(tbl) <- c("incidence2", class(tbl))
+  }
+
+  tbl
 }

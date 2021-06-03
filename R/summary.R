@@ -6,6 +6,59 @@
 #' @return object (invisibly).
 #'
 #' @export
+summary.incidence <- function(object, ...) {
+
+  # due to NSE notes in R CMD check
+  ..count_var <- . <- NULL
+
+  # get the date and count variables
+  count_var <- get_count_names(object)
+  date_var <- get_dates_name(object)
+  dat <- object[[date_var]]
+
+  # header
+  header <- sprintf("An incidence object: %s x %s\n",
+                    formatC(nrow(object), big.mark = ","),
+                    formatC(ncol(object), big.mark = ","))
+  cat(pillar::style_subtle(header))
+
+
+  # groups
+  groups <- get_group_names(object)
+  if (!is.null(groups)) {
+    cat(sprintf("%d grouped %s\n\n",
+                length(groups),
+                ifelse(length(groups) < 2, "variable", "variables")))
+
+    dt <- !any(vapply(object, typeof, character(1)) == "list")
+    for (gr in groups) {
+      if (dt) {
+        tmp <- as.data.table(object)
+        tmp <- tmp[, lapply(.SD, sum, na.rm = TRUE), by = c(gr), .SDcols = count_var]
+        tmp <- tibble::as_tibble(tmp)
+      } else {
+        tmp <- grouped_df(object, gr)
+        tmp <- summarise(tmp, across(all_of(count_var), sum, na.rm = TRUE), .groups = "drop")
+      }
+      tmp <- format(tmp)
+      cat(tmp[-1], sep = "\n")
+      cat("\n\n")
+    }
+  }
+
+  cat("\n")
+  invisible(object)
+}
+
+
+#' Summary of a given incidence2 object
+#'
+#' @param object An 'incidence2' object.
+#' @param ... Not used.
+#'
+#' @return object (invisibly).
+#'
+#' @export
 summary.incidence2 <- function(object, ...) {
 
   # due to NSE notes in R CMD check
@@ -17,7 +70,7 @@ summary.incidence2 <- function(object, ...) {
   dat <- object[[date_var]]
 
   # header
-  header <- sprintf("An incidence2 object: %s x %s\n",
+  header <- sprintf("An incidence object: %s x %s\n",
                     formatC(nrow(object), big.mark = ","),
                     formatC(ncol(object), big.mark = ","))
   cat(pillar::style_subtle(header))

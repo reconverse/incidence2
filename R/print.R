@@ -1,5 +1,33 @@
 #' Print an incidence object.
 #'
+#' @param x An 'incidence' object.
+#' @param ... Not used.
+#'
+#' @export
+print.incidence <- function(x, ...) {
+
+  # get the date and count variables
+  count_var <- get_count_names(x)
+  date_var <- get_dates_name(x)
+  dat <- x[[date_var]]
+
+  # header
+  header <- sprintf("An incidence object: %s x %s\n",
+                    formatC(nrow(x), big.mark = ","),
+                    formatC(ncol(x), big.mark = ","))
+  cat(pillar::style_subtle(header))
+
+  # print tibble but remove title
+  out <- format(tibble::as_tibble(x))
+  cat(out[-1], sep = "\n")
+  cat("\n")
+
+  invisible(x)
+}
+
+
+#' Print an incidence object.
+#'
 #' @param x An 'incidence2' object.
 #' @param ... Not used.
 #'
@@ -12,7 +40,7 @@ print.incidence2 <- function(x, ...) {
   dat <- x[[date_var]]
 
   # header
-  header <- sprintf("An incidence2 object: %s x %s\n",
+  header <- sprintf("An incidence object: %s x %s\n",
                     formatC(nrow(x), big.mark = ","),
                     formatC(ncol(x), big.mark = ","))
   cat(pillar::style_subtle(header))
@@ -67,4 +95,3 @@ print.incidence2 <- function(x, ...) {
 
   invisible(x)
 }
-

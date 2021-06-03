@@ -85,7 +85,7 @@ format. Any other format will trigger an error.
 }
 
 \subsection{Interval specification (\code{interval})}{
-\code{incidence2} uses the \href{https://cran.r-project.org/package=grates}{\code{grates}}
+\code{incidence()} uses the \href{https://cran.r-project.org/package=grates}{\code{grates}}
 package to generate date groupings. The grouping used depends on the value
 of \code{interval}. This can be specified as either an integer value or a more
 standard specification such as "day", "week", "month", "quarter" or "year".

@@ -4,7 +4,7 @@
 \alias{keep}
 \alias{keep_first}
 \alias{keep_first.default}
-\alias{keep_first.incidence2}
+\alias{keep_first.incidence}
 \alias{keep_first.grates_yearweek}
 \alias{keep_first.grates_month}
 \alias{keep_first.grates_quarter}
@@ -12,7 +12,7 @@
 \alias{keep_first.grates_period}
 \alias{keep_last}
 \alias{keep_last.default}
-\alias{keep_last.incidence2}
+\alias{keep_last.incidence}
 \alias{keep_last.grates_yearweek}
 \alias{keep_last.grates_month}
 \alias{keep_last.grates_quarter}
@@ -24,7 +24,7 @@ keep_first(x, n, ...)
 
 \method{keep_first}{default}(x, n, ...)
 
-\method{keep_first}{incidence2}(x, n, ...)
+\method{keep_first}{incidence}(x, n, ...)
 
 \method{keep_first}{grates_yearweek}(x, n, ...)
 
@@ -40,7 +40,7 @@ keep_last(x, n, ...)
 
 \method{keep_last}{default}(x, n, ...)
 
-\method{keep_last}{incidence2}(x, n, ...)
+\method{keep_last}{incidence}(x, n, ...)
 
 \method{keep_last}{grates_yearweek}(x, n, ...)
 
