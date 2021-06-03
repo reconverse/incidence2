@@ -2,7 +2,7 @@
 .onLoad <- function(...) {
   vctrs::s3_register(
    "dplyr::dplyr_reconstruct",
-   "incidence2",
+   "incidence",
    method = dplyr_reconstruct_incidence
   )
   invisible()

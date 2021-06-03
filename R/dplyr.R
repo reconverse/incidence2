@@ -100,19 +100,19 @@ df_reconstruct <- function(x, to) {
 # Need to define a few base R methods to ensure things work as expected
 
 #' @export
-`[.incidence2` <- function(x, i, j, ...) {
+`[.incidence` <- function(x, i, j, ...) {
   out <- NextMethod()
   incidence_reconstruct(out, x)
 }
 
 #' @export
-`[<-.incidence2` <- function(x, i, j, ..., value) {
+`[<-.incidence` <- function(x, i, j, ..., value) {
   out <- NextMethod()
   incidence_reconstruct(out, x)
 }
 
 #' @export
-`names<-.incidence2` <- function(x, value) {
+`names<-.incidence` <- function(x, value) {
   current_names <- names(x)
 
   date_var <- attr(x, "date")

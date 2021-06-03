@@ -30,7 +30,7 @@ keep_first.default <- function(x, n, ...) {
 
 #' @rdname keep
 #' @export
-keep_first.incidence2 <- function(x, n, ...) {
+keep_first.incidence <- function(x, n, ...) {
   dat <- get_dates(x)
   idx <- keep_idx(dat, n = n)
   x[idx, ]
@@ -86,7 +86,7 @@ keep_last.default <- function(x, n, ...) {
 
 #' @rdname keep
 #' @export
-keep_last.incidence2 <- function(x, n, ...) {
+keep_last.incidence <- function(x, n, ...) {
   dat <- get_dates(x)
   idx <- keep_idx(dat, n = n, from_last = TRUE)
   x[idx, ]

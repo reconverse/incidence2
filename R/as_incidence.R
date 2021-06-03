@@ -85,9 +85,8 @@ as_incidence.data.frame <- function(x, date_index, groups = NULL, counts = NULL,
   # Apply function to date_index columns
   x[date_index] <- mapply(FUN = FUN, x[date_index], MoreArgs = args, SIMPLIFY = FALSE)
 
-  dt <- !any(vapply(x, typeof, character(1)) == "list")
-
   # Calculate an incidence object for each value of date_index
+  dt <- !any(vapply(x, typeof, character(1)) == "list")
   res <-
     lapply(
       seq_along(date_index),

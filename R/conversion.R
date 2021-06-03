@@ -12,13 +12,13 @@
 #' as.data.frame(dat)
 #'
 #' @export
-as.data.frame.incidence2 <- function(x, ...) {
+as.data.frame.incidence <- function(x, ...) {
   vctrs::new_data_frame(x)
 }
 # -------------------------------------------------------------------------
 
 # -------------------------------------------------------------------------
-#' Convert incident2 object to a tibble
+#' Convert incident object to a tibble
 #'
 #' @param x An [incidence()] object.
 #' @param ... Not used.
@@ -32,7 +32,7 @@ as.data.frame.incidence2 <- function(x, ...) {
 #'
 #' @export
 #' @name as_tibble
-as_tibble.incidence2 <- function(x, ...) {
+as_tibble.incidence <- function(x, ...) {
   new_bare_tibble(x)
 }
 # -------------------------------------------------------------------------

@@ -4,26 +4,26 @@
 \alias{accessors}
 \alias{get_counts}
 \alias{get_counts.default}
-\alias{get_counts.incidence2}
+\alias{get_counts.incidence}
 \alias{get_count_names}
 \alias{get_count_names.default}
-\alias{get_count_names.incidence2}
+\alias{get_count_names.incidence}
 \alias{get_date_index}
 \alias{get_date_index.default}
-\alias{get_date_index.incidence2}
+\alias{get_date_index.incidence}
 \alias{get_dates}
 \alias{get_dates_name}
 \alias{get_dates_name.default}
-\alias{get_dates_name.incidence2}
+\alias{get_dates_name.incidence}
 \alias{get_group_names}
 \alias{get_group_names.default}
-\alias{get_group_names.incidence2}
+\alias{get_group_names.incidence}
 \alias{get_timespan}
 \alias{get_timespan.default}
 \alias{get_timespan.incidence2}
 \alias{get_n}
 \alias{get_n.default}
-\alias{get_n.incidence2}
+\alias{get_n.incidence}
 \alias{get_interval}
 \alias{get_interval.default}
 \alias{get_interval.incidence2}
@@ -33,19 +33,19 @@ get_counts(x, ...)
 
 \method{get_counts}{default}(x, ...)
 
-\method{get_counts}{incidence2}(x, ...)
+\method{get_counts}{incidence}(x, ...)
 
 get_count_names(x, ...)
 
 \method{get_count_names}{default}(x, ...)
 
-\method{get_count_names}{incidence2}(x, ...)
+\method{get_count_names}{incidence}(x, ...)
 
 get_date_index(x, ...)
 
 \method{get_date_index}{default}(x, ...)
 
-\method{get_date_index}{incidence2}(x, ...)
+\method{get_date_index}{incidence}(x, ...)
 
 get_dates(x, ...)
 
@@ -53,13 +53,13 @@ get_dates_name(x, ...)
 
 \method{get_dates_name}{default}(x, ...)
 
-\method{get_dates_name}{incidence2}(x, ...)
+\method{get_dates_name}{incidence}(x, ...)
 
 get_group_names(x, ...)
 
 \method{get_group_names}{default}(x, ...)
 
-\method{get_group_names}{incidence2}(x, ...)
+\method{get_group_names}{incidence}(x, ...)
 
 get_timespan(x, ...)
 
@@ -71,7 +71,7 @@ get_n(x)
 
 \method{get_n}{default}(x)
 
-\method{get_n}{incidence2}(x)
+\method{get_n}{incidence}(x)
 
 get_interval(x, ...)
 

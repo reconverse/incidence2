@@ -3,14 +3,14 @@
 \name{cumulate}
 \alias{cumulate}
 \alias{cumulate.default}
-\alias{cumulate.incidence2}
+\alias{cumulate.incidence}
 \title{Compute cumulative 'incidence'}
 \usage{
 cumulate(x)
 
 \method{cumulate}{default}(x)
 
-\method{cumulate}{incidence2}(x)
+\method{cumulate}{incidence}(x)
 }
 \arguments{
 \item{x}{An incidence object.}

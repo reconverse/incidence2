@@ -29,7 +29,7 @@ regroup <- function(x, groups = NULL){
   # due to NSE notes in R CMD check
   ..count_var <- . <- NULL
 
-  if (!inherits(x, "incidence2")) abort("x should be an 'incidence2' object.")
+  if (!inherits(x, "incidence")) abort("x should be an 'incidence' object.")
 
   # check groups present
   groups <- rlang::enquo(groups)
@@ -51,9 +51,11 @@ regroup <- function(x, groups = NULL){
   }
 
   tbl <- new_incidence(tbl, date = date_var, groups = groups, counts = count_var)
-  attr(tbl, "interval") <- attr(x, "interval")
-  attr(tbl, "cumulative") <- attr(x, "cumulative")
-  class(tbl) <- c("incidence2", class(tbl))
+  if (inherits(x, "incidence2")) {
+    attr(tbl, "interval") <- attr(x, "interval")
+    attr(tbl, "cumulative") <- attr(x, "cumulative")
+    class(tbl) <- c("incidence2", class(tbl))
+  }
 
   tbl
 }

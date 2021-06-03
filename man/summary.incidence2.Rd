@@ -2,12 +2,12 @@
 % Please edit documentation in R/summary.R
 \name{summary.incidence2}
 \alias{summary.incidence2}
-\title{Summary of a given incidence object}
+\title{Summary of a given incidence2 object}
 \usage{
 \method{summary}{incidence2}(object, ...)
 }
 \arguments{
-\item{object}{An 'incidence' object.}
+\item{object}{An 'incidence2' object.}
 
 \item{...}{Not used.}
 }
@@ -15,5 +15,5 @@
 object (invisibly).
 }
 \description{
-Summary of a given incidence object
+Summary of a given incidence2 object
 }

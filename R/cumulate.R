@@ -36,7 +36,7 @@ cumulate.default <- function(x) {
 
 #' @export
 #' @rdname cumulate
-cumulate.incidence2 <- function(x) {
+cumulate.incidence <- function(x) {
 
   # due to NSE notes in R CMD check
   ..count_var <- NULL
@@ -71,6 +71,6 @@ cumulate.incidence2 <- function(x) {
   nms <- names(out)
   attributes(out) <- attributes(x)
   names(out) <- nms
-  attr(out, "cumulative") <- TRUE
+  if (inherits(out, "incidence2")) attr(out, "cumulative") <- TRUE
   out
 }

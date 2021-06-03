@@ -1,6 +1,6 @@
 # single day, no groupings and without count work as expected
 
-    An incidence2 object: 731 x 2
+    An incidence object: 731 x 2
     731 cases from 2020-01-01 to 2021-12-31
     interval: 1 day
     cumulative: FALSE
@@ -22,7 +22,7 @@
 
 ---
 
-    An incidence2 object: 731 x 2
+    An incidence object: 731 x 2
     731 cases from 2020-01-01 to 2021-12-31
     interval: 1 day
     cumulative: FALSE
@@ -32,7 +32,7 @@
 
 # single day, no groupings and with count work as expected
 
-    An incidence2 object: 731 x 2
+    An incidence object: 731 x 2
     1096 cases from 2020-01-01 to 2021-12-31
     interval: 1 day
     cumulative: FALSE
@@ -54,7 +54,7 @@
 
 ---
 
-    An incidence2 object: 731 x 2
+    An incidence object: 731 x 2
     1096 cases from 2020-01-01 to 2021-12-31
     interval: 1 day
     cumulative: FALSE
@@ -64,7 +64,7 @@
 
 # multi-day, no groupings and without count work as expected
 
-    An incidence2 object: 43 x 2
+    An incidence object: 43 x 2
     731 cases from 2020-01-01 to 2021-12-31
     interval: 17 days
     cumulative: FALSE
@@ -86,7 +86,7 @@
 
 ---
 
-    An incidence2 object: 43 x 2
+    An incidence object: 43 x 2
     731 cases from 2020-01-01 to 2021-12-31
     interval: 17 days
     cumulative: FALSE
@@ -96,7 +96,7 @@
 
 # multi-day, no groupings and with count work as expected
 
-    An incidence2 object: 43 x 2
+    An incidence object: 43 x 2
     1096 cases from 2020-01-01 to 2021-12-31
     interval: 17 days
     cumulative: FALSE
@@ -118,7 +118,7 @@
 
 ---
 
-    An incidence2 object: 43 x 2
+    An incidence object: 43 x 2
     1096 cases from 2020-01-01 to 2021-12-31
     interval: 17 days
     cumulative: FALSE
@@ -128,7 +128,7 @@
 
 # single week, no groupings and without count work as expected
 
-    An incidence2 object: 105 x 2
+    An incidence object: 105 x 2
     731 cases from 2020-W01 to 2022-W01
     interval: 1 (Wednesday) week 
     cumulative: FALSE
@@ -150,7 +150,7 @@
 
 ---
 
-    An incidence2 object: 105 x 2
+    An incidence object: 105 x 2
     731 cases from 2020-W01 to 2022-W01
     interval: 1 (Wednesday) week 
     cumulative: FALSE
@@ -160,7 +160,7 @@
 
 # single week, with groups and without count work as expected
 
-    An incidence2 object: 8 x 4
+    An incidence object: 8 x 4
     56 cases from 2021-W05 to 2021-W08
     interval: 1 (Monday) week 
     cumulative: FALSE
@@ -179,7 +179,7 @@
 
 ---
 
-    An incidence2 object: 8 x 4
+    An incidence object: 8 x 4
     56 cases from 2021-W05 to 2021-W08
     interval: 1 (Monday) week 
     cumulative: FALSE
@@ -203,7 +203,7 @@
 
 # single week, with groups and with count work as expected
 
-    An incidence2 object: 8 x 4
+    An incidence object: 8 x 4
     84 cases from 2021-W05 to 2021-W08
     interval: 1 (Monday) week 
     cumulative: FALSE
@@ -222,7 +222,7 @@
 
 ---
 
-    An incidence2 object: 8 x 4
+    An incidence object: 8 x 4
     84 cases from 2021-W05 to 2021-W08
     interval: 1 (Monday) week 
     cumulative: FALSE
@@ -246,7 +246,7 @@
 
 # single week, no groupings and with count work as expected
 
-    An incidence2 object: 105 x 2
+    An incidence object: 105 x 2
     1096 cases from 2020-W01 to 2022-W01
     interval: 1 (Wednesday) week 
     cumulative: FALSE
@@ -268,7 +268,7 @@
 
 ---
 
-    An incidence2 object: 105 x 2
+    An incidence object: 105 x 2
     1096 cases from 2020-W01 to 2022-W01
     interval: 1 (Wednesday) week 
     cumulative: FALSE
@@ -278,7 +278,7 @@
 
 # multi-week, no groupings and without count work as expected
 
-    An incidence2 object: 53 x 2
+    An incidence object: 53 x 2
     731 cases from 2020-01-01 to 2022-01-11
     interval: 14 days
     cumulative: FALSE
@@ -300,7 +300,7 @@
 
 ---
 
-    An incidence2 object: 53 x 2
+    An incidence object: 53 x 2
     731 cases from 2020-01-01 to 2022-01-11
     interval: 14 days
     cumulative: FALSE
@@ -310,7 +310,7 @@
 
 # multi-week, no groupings and with count work as expected
 
-    An incidence2 object: 53 x 2
+    An incidence object: 53 x 2
     1096 cases from 2020-01-01 to 2022-01-11
     interval: 14 days
     cumulative: FALSE
@@ -332,7 +332,7 @@
 
 ---
 
-    An incidence2 object: 53 x 2
+    An incidence object: 53 x 2
     1096 cases from 2020-01-01 to 2022-01-11
     interval: 14 days
     cumulative: FALSE
@@ -342,7 +342,7 @@
 
 # week defaults to a monday
 
-    An incidence2 object: 105 x 2
+    An incidence object: 105 x 2
     731 cases from 2020-W01 to 2021-W52
     interval: 1 (Monday) week 
     cumulative: FALSE
@@ -364,7 +364,7 @@
 
 ---
 
-    An incidence2 object: 105 x 2
+    An incidence object: 105 x 2
     731 cases from 2020-W01 to 2021-W52
     interval: 1 (Monday) week 
     cumulative: FALSE
@@ -374,7 +374,7 @@
 
 # single month, no groupings and without count work as expected
 
-    An incidence2 object: 24 x 2
+    An incidence object: 24 x 2
     731 cases from 2020-Jan to 2021-Dec
     interval: 1 month
     cumulative: FALSE
@@ -396,7 +396,7 @@
 
 ---
 
-    An incidence2 object: 24 x 2
+    An incidence object: 24 x 2
     731 cases from 2020-Jan to 2021-Dec
     interval: 1 month
     cumulative: FALSE
@@ -406,7 +406,7 @@
 
 # single month, no groupings and with count work as expected
 
-    An incidence2 object: 24 x 2
+    An incidence object: 24 x 2
     1096 cases from 2020-Jan to 2021-Dec
     interval: 1 month
     cumulative: FALSE
@@ -428,7 +428,7 @@
 
 ---
 
-    An incidence2 object: 24 x 2
+    An incidence object: 24 x 2
     1096 cases from 2020-Jan to 2021-Dec
     interval: 1 month
     cumulative: FALSE
@@ -438,7 +438,7 @@
 
 # multi-month, no groupings and without count work as expected
 
-    An incidence2 object: 12 x 2
+    An incidence object: 12 x 2
     731 cases from 2020-01-01 to 2021-12-31
     interval: 2 months
     cumulative: FALSE
@@ -461,7 +461,7 @@
 
 ---
 
-    An incidence2 object: 12 x 2
+    An incidence object: 12 x 2
     731 cases from 2020-01-01 to 2021-12-31
     interval: 2 months
     cumulative: FALSE
@@ -471,7 +471,7 @@
 
 # multi-month, no groupings and with count work as expected
 
-    An incidence2 object: 12 x 2
+    An incidence object: 12 x 2
     1096 cases from 2020-01-01 to 2021-12-31
     interval: 2 months
     cumulative: FALSE
@@ -494,7 +494,7 @@
 
 ---
 
-    An incidence2 object: 12 x 2
+    An incidence object: 12 x 2
     1096 cases from 2020-01-01 to 2021-12-31
     interval: 2 months
     cumulative: FALSE
@@ -504,7 +504,7 @@
 
 # single quarter, no groupings and without count work as expected
 
-    An incidence2 object: 8 x 2
+    An incidence object: 8 x 2
     731 cases from 2020-Q1 to 2021-Q4
     interval: 1 quarter
     cumulative: FALSE
@@ -523,7 +523,7 @@
 
 ---
 
-    An incidence2 object: 8 x 2
+    An incidence object: 8 x 2
     731 cases from 2020-Q1 to 2021-Q4
     interval: 1 quarter
     cumulative: FALSE
@@ -533,7 +533,7 @@
 
 # single quarter, no groupings and with count work as expected
 
-    An incidence2 object: 8 x 2
+    An incidence object: 8 x 2
     1096 cases from 2020-Q1 to 2021-Q4
     interval: 1 quarter
     cumulative: FALSE
@@ -552,7 +552,7 @@
 
 ---
 
-    An incidence2 object: 8 x 2
+    An incidence object: 8 x 2
     1096 cases from 2020-Q1 to 2021-Q4
     interval: 1 quarter
     cumulative: FALSE
@@ -562,7 +562,7 @@
 
 # single year, no groupings and without count work as expected
 
-    An incidence2 object: 2 x 2
+    An incidence object: 2 x 2
     731 cases from 2020 to 2021
     interval: 1 year
     cumulative: FALSE
@@ -575,7 +575,7 @@
 
 ---
 
-    An incidence2 object: 2 x 2
+    An incidence object: 2 x 2
     731 cases from 2020 to 2021
     interval: 1 year
     cumulative: FALSE
@@ -585,7 +585,7 @@
 
 # single year, no groupings and with count work as expected
 
-    An incidence2 object: 2 x 2
+    An incidence object: 2 x 2
     1096 cases from 2020 to 2021
     interval: 1 year
     cumulative: FALSE
@@ -598,7 +598,7 @@
 
 ---
 
-    An incidence2 object: 2 x 2
+    An incidence object: 2 x 2
     1096 cases from 2020 to 2021
     interval: 1 year
     cumulative: FALSE
@@ -608,7 +608,7 @@
 
 # integer date periods without counts work as expected
 
-    An incidence2 object: 2 x 2
+    An incidence object: 2 x 2
     10 cases from 1 to 10
     interval: 5 days
     cumulative: FALSE
@@ -621,7 +621,7 @@
 
 ---
 
-    An incidence2 object: 2 x 2
+    An incidence object: 2 x 2
     10 cases from 1 to 10
     interval: 5 days
     cumulative: FALSE
@@ -631,7 +631,7 @@
 
 # integer date periods with counts work as expected
 
-    An incidence2 object: 2 x 2
+    An incidence object: 2 x 2
     15 cases from 1 to 10
     interval: 5 days
     cumulative: FALSE
@@ -644,7 +644,7 @@
 
 ---
 
-    An incidence2 object: 2 x 2
+    An incidence object: 2 x 2
     15 cases from 1 to 10
     interval: 5 days
     cumulative: FALSE
@@ -654,7 +654,7 @@
 
 # date_index works for multiple values
 
-    An incidence2 object: 13 x 3
+    An incidence object: 13 x 3
     365 deaths from 2020-Dec to 2021-Dec
     365 onset from 2020-Dec to 2021-Dec
     interval: 1 month
@@ -679,7 +679,7 @@
 
 ---
 
-    An incidence2 object: 13 x 3
+    An incidence object: 13 x 3
     365 deaths from 2020-Dec to 2021-Dec
     365 onset from 2020-Dec to 2021-Dec
     interval: 1 month

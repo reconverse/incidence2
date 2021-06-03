@@ -20,7 +20,7 @@
 #' @export
 complete_counts <- function(x, fill = NA) {
 
-  if (!inherits(x, "incidence2")) {
+  if (!inherits(x, "incidence")) {
     abort(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
   }
 
