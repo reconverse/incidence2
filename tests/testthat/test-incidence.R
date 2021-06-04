@@ -497,6 +497,21 @@ test_that("posixlt single week, no groupings and with count work as expected", {
 
 
 # character groupings work as expected ----------------------------------
+test_that("character single day, no groupings and with count work as expected", {
+
+  x <- incidence(dat_char, date_index = date, counts = count)
+  x2 <- incidence(dat_dates, date_index = date, counts = count)
+  expect_identical(x, x2)
+})
+
+test_that("character multiday, no groupings and with count work as expected", {
+
+  x <- incidence(dat_char, date_index = date, interval = 3, counts = count)
+  x2 <- incidence(dat_dates, date_index = date, interval = 3, counts = count)
+  expect_identical(x, x2)
+})
+
+
 test_that("character single week, no groupings and with count work as expected", {
 
   x <- incidence(dat_char, date_index = date, interval = "wednesday week", counts = count)

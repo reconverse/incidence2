@@ -32,7 +32,8 @@ Imports:
     tidyselect,
     grates,
     tidyr,
-    dplyr
+    dplyr,
+    clock
 Suggests:
     outbreaks,
     knitr,
@@ -43,7 +44,6 @@ Suggests:
     ggplot2,
     magrittr,
     covr,
-    clock,
     zoo
 VignetteBuilder: 
     knitr

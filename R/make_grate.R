@@ -30,11 +30,14 @@ make_grate <- function(x, interval, firstdate) {
     out <- grates::as_year(x)
     stopifnot("Invalid interval - cannot group by multiple years" = n == 1)
   } else {
-    out <- x
     if (n > 1) {
       firstdate <- as.Date(firstdate)
       origin <- unclass(firstdate) %% n
       out <- grates::as_period(x, n = n, origin = origin)
+    } else if (is.character(x)){
+      out <- clock::date_parse(x)
+    } else {
+      out <- x
     }
   }
   out
