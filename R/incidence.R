@@ -168,7 +168,7 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   if (n_new < n_orig) message(sprintf("%d observations were removed.", n_orig - n_new))
   x[idx] <- lapply(x[idx], check_dates)
 
-  dat <- as_incidence.data.frame(
+  dat <- build_incidence.data.frame(
     x,
     date_index = !!en_date,
     groups = !!en_groups,

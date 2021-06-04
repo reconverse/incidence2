@@ -239,7 +239,7 @@ The `incidence()` function wraps the date grouping functionality of the
 [grates](https://www.reconverse.org/grates) package, providing an easy
 to use interface for constructing incidence objects. Sometimes, however,
 you may want greater flexibility in choosing how you would like to
-transform your “date” inputs. Using the function `as_incidence()`,you
+transform your “date” inputs. Using the function `build_incidence()`,you
 can specify the function you wish to apply. We illustrate this below
 with the excellent [clock](https://clock.r-lib.org) package:
 
@@ -250,7 +250,7 @@ library(clock)
 isoweek <- function(x) calendar_narrow(as_iso_year_week_day(x), "week")
 
 clock_week_inci <- 
-  as_incidence(
+  build_incidence(
     dat,
     date_index = date_of_onset,
     groups = c(gender, hospital),

@@ -3,7 +3,7 @@
 ## New functions
 * `new_incidence()`: A minimal incidence constructor.
 * `validate_incidence()`: Check for internal consistency of incidence-like object.
-* `as_incidence()`: Allows you to construct an incidence object whilst specifying
+* `build_incidence()`: Allows you to construct an incidence object whilst specifying
   your own date grouping function.
 
 ## Other updates

@@ -1,16 +1,16 @@
 #' Coerce to incidence
 #'
-#' `as_incidence()` coerced an object to an incidence of events.
+#' `build_incidence()` coerced an object to an incidence of events.
 #'
 #' @param x An object to converse to `incidence`.
 #' @param ... Further arguments passed to or from other methods.
 #'
 #' @export
-as_incidence <- function(x, ...) UseMethod("as_incidence")
+build_incidence <- function(x, ...) UseMethod("build_incidence")
 
-#' @rdname as_incidence
+#' @rdname build_incidence
 #' @export
-as_incidence.default <- function(x, ...) {
+build_incidence.default <- function(x, ...) {
   abort(sprintf("Not implemented for class %s", paste(class(x), collapse = ", ")))
 }
 
@@ -30,9 +30,9 @@ as_incidence.default <- function(x, ...) {
 #'   the identity function.
 #' @param args List of additional arguments passed to FUN.
 #'
-#' @rdname as_incidence
+#' @rdname build_incidence
 #' @export
-as_incidence.data.frame <- function(x, date_index, groups = NULL, counts = NULL,
+build_incidence.data.frame <- function(x, date_index, groups = NULL, counts = NULL,
                                     na_as_group = TRUE, FUN = identity,
                                     args = list(), ...) {
 

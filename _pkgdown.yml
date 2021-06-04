@@ -29,7 +29,7 @@ reference:
   - incidence
   - new_incidence
   - validate_incidence
-  - as_incidence
+  - build_incidence
   - print.incidence
   - summary.incidence
   - print.incidence2
