@@ -13,6 +13,8 @@ navbar:
         href: articles/handling_incidence_objects.html
       - text: "Customizing incidence plots"
         href: articles/customizing_incidence_plots.html
+      - text: "Alternative date groupings"
+        href: articles/alternative_date_groupings.html
   - text: Changelog
     href: news/index.html
   right:
@@ -25,10 +27,15 @@ reference:
     Functions for computing, viewing and converting incidence2 objects
 - contents:
   - incidence
+  - new_incidence
+  - validate_incidence
+  - as_incidence
+  - print.incidence
+  - summary.incidence
   - print.incidence2
   - summary.incidence2
-  - as.data.frame.incidence2
-  - as_tibble.incidence2
+  - as.data.frame.incidence
+  - as_tibble.incidence
 
 - title: Incidence curve visualisation
   desc: >
@@ -61,16 +68,3 @@ reference:
   - regroup
   - keep_first
   - keep_last
-
-- title: Grouped date classes
-  desc: >
-    Functions to create grouped date objects
-- contents:
-  - as_yrwk
-  - as_yrmon
-  - as_yrqtr
-  - as_yr
-  - as_period
-  - as_int_period
-
-
