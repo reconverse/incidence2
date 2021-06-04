@@ -47,7 +47,7 @@ new_incidence <- function(x, date, groups = NULL, counts, measurements = NULL,
     class = "incidence"
   )
 
-  if (validate) validate_incidence(validate_tibble(out)) else out
+  if (validate) (validate_incidence(validate_tibble(out))) else out
 }
 
 #' @rdname new_incidence

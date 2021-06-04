@@ -43,7 +43,8 @@ Suggests:
     ggplot2,
     magrittr,
     covr,
-    clock
+    clock,
+    zoo
 VignetteBuilder: 
     knitr
 Roxygen: list(markdown = TRUE)
