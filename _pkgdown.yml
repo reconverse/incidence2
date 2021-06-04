@@ -27,15 +27,20 @@ reference:
     Functions for computing, viewing and converting incidence2 objects
 - contents:
   - incidence
-  - new_incidence
-  - validate_incidence
-  - build_incidence
   - print.incidence
   - summary.incidence
   - print.incidence2
   - summary.incidence2
   - as.data.frame.incidence
   - as_tibble.incidence
+
+- title: Low-level constructors
+  desc: >
+    Functions for constructing incidence objects with greater flexibility
+- contents:
+  - new_incidence
+  - validate_incidence
+  - build_incidence
 
 - title: Incidence curve visualisation
   desc: >
@@ -45,6 +50,15 @@ reference:
   - facet_plot
   - vibrant
   - muted
+
+- title: Data manipulation
+  desc: >
+    Functions for manipulating incidence objects by date or group
+- contents:
+  - cumulate
+  - regroup
+  - keep_first
+  - keep_last
 
 - title: Accessors
   desc: >
@@ -60,11 +74,4 @@ reference:
   - get_n
   - get_timespan
 
-- title: Data manipulation
-  desc: >
-    Functions for manipulating incidence objects by date or group
-- contents:
-  - cumulate
-  - regroup
-  - keep_first
-  - keep_last
+
