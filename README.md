@@ -50,6 +50,7 @@ package:
   - `vignette("Introduction", package = "incidence2")`
   - `vignette("handling_incidence_objects", package = "incidence2")`
   - `vignette("customizing_incidence_plots", package = "incidence2")`
+  - `vignette("alternative_date_groupings", package = "incidence2")`
 
 ## Getting help online
 
@@ -96,7 +97,7 @@ We compute the weekly incidence:
 ``` r
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
 i_7
-#> An incidence2 object: 56 x 2
+#> An incidence object: 56 x 2
 #> 5829 cases from 2014-04-07 to 2015-05-03
 #> interval: 7 days
 #> cumulative: FALSE
@@ -115,7 +116,7 @@ i_7
 #> 10 2014-06-09 to 2014-06-15    21
 #> # … with 46 more rows
 summary(i_7)
-#> An incidence2 object: 56 x 2
+#> An incidence object: 56 x 2
 #> 5829 cases from 2014-04-07 to 2015-05-03
 #> interval: 7 days
 #> cumulative: FALSE
@@ -136,7 +137,7 @@ a single, stacked chart:
 ``` r
 iw <- incidence(dat, interval = "week", date_index = date_of_onset, groups = gender)
 iw
-#> An incidence2 object: 109 x 3
+#> An incidence object: 109 x 3
 #> 5829 cases from 2014-W15 to 2015-W18
 #> interval: 1 (Monday) week 
 #> cumulative: FALSE
@@ -155,7 +156,7 @@ iw
 #> 10   2014-W21 f          8
 #> # … with 99 more rows
 summary(iw)
-#> An incidence2 object: 109 x 3
+#> An incidence object: 109 x 3
 #> 5829 cases from 2014-W15 to 2015-W18
 #> interval: 1 (Monday) week 
 #> cumulative: FALSE
@@ -186,7 +187,7 @@ facets and fills:
 ``` r
 iw2 <- incidence(dat, date_of_onset, interval = "week",  groups = c(gender, hospital))
 iw2
-#> An incidence2 object: 601 x 4
+#> An incidence object: 601 x 4
 #> 5829 cases from 2014-W15 to 2015-W18
 #> interval: 1 (Monday) week 
 #> cumulative: FALSE
@@ -205,7 +206,7 @@ iw2
 #> 10   2014-W19 f      <NA>                                             1
 #> # … with 591 more rows
 summary(iw2)
-#> An incidence2 object: 601 x 4
+#> An incidence object: 601 x 4
 #> 5829 cases from 2014-W15 to 2015-W18
 #> interval: 1 (Monday) week 
 #> cumulative: FALSE

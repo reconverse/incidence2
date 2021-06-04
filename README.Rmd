@@ -58,6 +58,7 @@ More detailed tutorials are distributed as vignettes with the package:
 * `vignette("Introduction", package = "incidence2")`
 * `vignette("handling_incidence_objects", package = "incidence2")`
 * `vignette("customizing_incidence_plots", package = "incidence2")`
+* `vignette("alternative_date_groupings", package = "incidence2")`
 
 ## Getting help online
 - Bug reports and feature requests should be posted on *github* using the issue system: <https://github.com/reconverse/incidence2/issues>.
