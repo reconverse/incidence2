@@ -14,7 +14,7 @@ navbar:
       - text: "Customizing incidence plots"
         href: articles/customizing_incidence_plots.html
       - text: "Alternative date groupings"
-        href: articles/alternative_date_groupings.html
+        href: articles/Alternative_date_groupings.html
   - text: Changelog
     href: news/index.html
   right:
