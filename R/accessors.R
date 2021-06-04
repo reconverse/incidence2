@@ -65,8 +65,8 @@ get_counts.incidence <- function(x, ...) {
 #' @return
 #'   - `get_count_names()`: The name of the count variable of x.
 #' @aliases get_count_names
-#' @export
 #' @rdname accessors
+#' @export
 get_count_names <- function(x, ...) {
   UseMethod("get_count_names")
 }
