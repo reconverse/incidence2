@@ -23,7 +23,7 @@ A data frame with 6370 rows and 26 variables:
 }
 }
 \source{
-\url{https://epiforecasts.io/covidregionaldata}
+\url{https://CRAN.R-project.org/package=covidregionaldata}
 }
 \usage{
 covidregionaldataUK
@@ -34,7 +34,7 @@ and deaths for UK.
 }
 \note{
 Extracted using the
-\href{https://epiforecasts.io/covidregionaldata}{covidregionaldata} package
+\href{https://CRAN.R-project.org/package=covidregionaldata}{covidregionaldata} package
 on 2021-06-03.
 }
 \keyword{datasets}

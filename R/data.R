@@ -4,7 +4,7 @@
 #'   and deaths for UK.
 #'
 #' @note Extracted using the
-#'   [covidregionaldata](https://epiforecasts.io/covidregionaldata) package
+#'   [covidregionaldata](https://CRAN.R-project.org/package=covidregionaldata) package
 #'   on 2021-06-03.
 #'
 #' @format A data frame with 6370 rows and 26 variables:
@@ -23,5 +23,5 @@
 #'   \item{tested_new}{tests for that day}
 #'   \item{tested_total}{total tests completed up to and including that day}
 #' }
-#' @source \url{https://epiforecasts.io/covidregionaldata}
+#' @source \url{https://CRAN.R-project.org/package=covidregionaldata}
 "covidregionaldataUK"

@@ -17,10 +17,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `incidence()` function wraps the date grouping functionality of the [grates](https://www.reconverse.org/grates) package, providing an easy to use interface for constructing incidence objects.
+The `incidence()` function wraps the date grouping functionality of the [grates](https://cran.r-project.org/package=grates) package, providing an easy to use interface for constructing incidence objects.
 Sometimes, however, you may want greater flexibility in choosing how you would like to transform your "date" inputs.
 For this reason we also the provide the function `build_incidence()`, where you can specify the function you wish to apply.
-We illustrate this approach using both the [clock](https://clock.r-lib.org) and [zoo](https://cran.r-project.org/package=zoo) packages.
+We illustrate this approach using both the [clock](https://cran.r-project.org/package=clock) and [zoo](https://cran.r-project.org/package=zoo) packages.
 
 ```{r}
 library(incidence2)
@@ -32,7 +32,7 @@ data("covidregionaldataUK")
 dat <- covidregionaldataUK
 ```
 
-## Month grouping based on [clock](https://clock.r-lib.org) functions
+## Month grouping based on [clock](https://cran.r-project.org/package=clock) functions
 
 ```{r}
 clock_month_inci <- 

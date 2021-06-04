@@ -14,8 +14,8 @@ coverage](https://codecov.io/gh/reconverse/incidence2/branch/master/graph/badge.
 incidence2 is an R package that implements functions and classes to
 compute, handle and visualise incidences from linelist data. It
 refocusses the scope of the original
-[incidence](https://github.com/reconhub/incidence) package. Unlike the
-original package, incidence2 concentrates only on the initial
+[incidence](https://cran.r-project.org/package=incidence) package.
+Unlike the original package, incidence2 concentrates only on the initial
 calculation, manipulation and plotting of the resultant incidence
 objects.
 
@@ -241,7 +241,8 @@ to use interface for constructing incidence objects. Sometimes, however,
 you may want greater flexibility in choosing how you would like to
 transform your “date” inputs. Using the function `build_incidence()`,you
 can specify the function you wish to apply. We illustrate this below
-with the excellent [clock](https://clock.r-lib.org) package:
+with the excellent [clock](https://cran.r-project.org/package=clock)
+package:
 
 ``` r
 library(clock)
