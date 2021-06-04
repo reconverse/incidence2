@@ -232,3 +232,44 @@ facet_plot(iw2, facets = gender, fill = hospital, n.breaks = 3)
 ```
 
 <img src="man/figures/README-genderhospital-1.png" style="display: block; margin: auto;" />
+
+## Using an alternative function
+
+The `incidence()` function wraps the date grouping functionality of the
+[grates](https://www.reconverse.org/grates) package, providing an easy
+to use interface for constructing incidence objects. Sometimes, however,
+you may want greater flexibility in choosing how you would like to
+transform your “date” inputs. Using the function `as_incidence()`,you
+can specify the function you wish to apply. We illustrate this below
+with the excellent [clock](https://clock.r-lib.org) package:
+
+``` r
+library(clock)
+
+# create a week function comparable to above approach
+isoweek <- function(x) calendar_narrow(as_iso_year_week_day(x), "week")
+
+clock_week_inci <- 
+  as_incidence(
+    dat,
+    date_index = date_of_onset,
+    groups = c(gender, hospital),
+    FUN = isoweek
+  )
+
+clock_week_inci
+#> An incidence object: 601 x 4
+#>    date_index      gender hospital                                     count
+#>    <iso_ywd<week>> <fct>  <fct>                                        <int>
+#>  1 2014-W15        f      Military Hospital                                1
+#>  2 2014-W16        m      Connaught Hospital                               1
+#>  3 2014-W17        f      other                                            2
+#>  4 2014-W17        f      <NA>                                             2
+#>  5 2014-W17        m      other                                            1
+#>  6 2014-W18        f      Connaught Hospital                               1
+#>  7 2014-W18        f      Princess Christian Maternity Hospital (PCMH)     1
+#>  8 2014-W18        f      Rokupa Hospital                                  1
+#>  9 2014-W18        f      <NA>                                             1
+#> 10 2014-W19        f      Connaught Hospital                               2
+#> # … with 591 more rows
+```
