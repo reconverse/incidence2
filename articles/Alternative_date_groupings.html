@@ -102,7 +102,7 @@
 
     
     
-<p>The <code><a href="../reference/incidence.html">incidence()</a></code> function wraps the date grouping functionality of the <a href="https://www.reconverse.org/grates">grates</a> package, providing an easy to use interface for constructing incidence objects. Sometimes, however, you may want greater flexibility in choosing how you would like to transform your “date” inputs. For this reason we also the provide the function <code><a href="../reference/as_incidence.html">as_incidence()</a></code>, where you can specify the function you wish to apply. We illustrate this approach using both the <a href="https://clock.r-lib.org">clock</a> and <a href="https://cran.r-project.org/package=zoo">zoo</a> packages.</p>
+<p>The <code><a href="../reference/incidence.html">incidence()</a></code> function wraps the date grouping functionality of the <a href="https://www.reconverse.org/grates">grates</a> package, providing an easy to use interface for constructing incidence objects. Sometimes, however, you may want greater flexibility in choosing how you would like to transform your “date” inputs. For this reason we also the provide the function <code><a href="../reference/build_incidence.html">build_incidence()</a></code>, where you can specify the function you wish to apply. We illustrate this approach using both the <a href="https://clock.r-lib.org">clock</a> and <a href="https://cran.r-project.org/package=zoo">zoo</a> packages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconverse/incidence2">incidence2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://clock.r-lib.org">clock</a></span><span class="op">)</span>
@@ -121,7 +121,7 @@
 <a href="#month-grouping-based-on-clock-functions" class="anchor"></a>Month grouping based on <a href="https://clock.r-lib.org">clock</a> functions</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">clock_month_inci</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../reference/as_incidence.html">as_incidence</a></span><span class="op">(</span>
+  <span class="fu"><a href="../reference/build_incidence.html">build_incidence</a></span><span class="op">(</span>
     <span class="va">dat</span>,
     date_index <span class="op">=</span> <span class="va">date</span>,
     groups <span class="op">=</span> <span class="va">region</span>,
@@ -151,7 +151,7 @@
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">zoo_month_inci</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../reference/as_incidence.html">as_incidence</a></span><span class="op">(</span>
+  <span class="fu"><a href="../reference/build_incidence.html">build_incidence</a></span><span class="op">(</span>
     <span class="va">dat</span>,
     date_index <span class="op">=</span> <span class="va">date</span>,
     groups <span class="op">=</span> <span class="va">region</span>,

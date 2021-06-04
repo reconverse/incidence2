@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • incidence2</title>
+<title>Coerce to incidence — build_incidence • incidence2</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Coerce to incidence — build_incidence" />
+<meta property="og:description" content="build_incidence() coerced an object to an incidence of events." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -132,104 +133,85 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/reconverse/incidence2/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Coerce to incidence</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/incidence2/blob/master/R/build_incidence.R'><code>R/build_incidence.R</code></a></small>
+    <div class="hidden name"><code>build_incidence.Rd</code></div>
     </div>
 
-    <div id="incidence2-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#incidence2-development-version" class="anchor"></a>incidence2 (development version)<small> Unreleased </small>
-</h1>
-<div id="new-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#new-functions" class="anchor"></a>New functions</h2>
-<ul>
-<li>
-<code><a href="../reference/new_incidence.html">new_incidence()</a></code>: A minimal incidence constructor.</li>
-<li>
-<code><a href="../reference/new_incidence.html">validate_incidence()</a></code>: Check for internal consistency of incidence-like object.</li>
-<li>
-<code><a href="../reference/build_incidence.html">build_incidence()</a></code>: Allows you to construct an incidence object whilst specifying your own date grouping function.</li>
-</ul>
-</div>
-<div id="other-updates" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other-updates" class="anchor"></a>Other updates</h2>
-<ul>
-<li>Now uses <code>dplyr</code> to handle list based columns (e.g. record-type objects from <code>vctrs</code>). For data.frames with only atomic columns, data.table is still used.</li>
-</ul>
-</div>
-</div>
-    <div id="incidence2-110" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.0">
-<a href="#incidence2-110" class="anchor"></a>incidence2 1.1.0<small> Unreleased </small>
-</h1>
-<ul>
-<li>New function <code><a href="../reference/complete_counts.html">complete_counts()</a></code>.</li>
-<li>
-<code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> and <code><a href="../reference/plot.incidence2.html">facet_plot()</a></code> now have a <code>centre_dates</code> argument which can be set to <code>FALSE</code> to get histogram-esque date labels for single month, quarter and yearweek groupings.</li>
-<li>Internal refactoring due to breakages changes in the upstream grates package.</li>
-</ul>
-</div>
-    <div id="incidence2-100" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.0">
-<a href="#incidence2-100" class="anchor"></a>incidence2 1.0.0<small> 2021-03-30 </small>
-</h1>
-<p>Due to multiple changes in the underlying representation of incidence2 objects this release may possibly break old workflows particularly those relying on the old implementations of date grouping:</p>
-<ul>
-<li>Now uses the package <a href="https://github.com/reconverse/grates"><code>grates</code></a> for date grouping. This introduces the s3 classes <code>yrwk</code>, <code>yrmon</code>, <code>yrqtr</code>, <code>yr</code>, <code>period</code> and <code>int_period</code> as well as associated constructors which <code>incidence</code> now builds upon. As a result of this the <a href="https://cran.r-project.org/package=aweek">aweek</a> dependency has been dropped.</li>
-<li>Add’s <code>keep_first</code> and <code>keep_last</code> functions.</li>
-<li>Construction of <code>incidence</code> objects now faster due to underlying use of data.table.</li>
-</ul>
-</div>
-    <div id="incidence2-022" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.2">
-<a href="#incidence2-022" class="anchor"></a>incidence2 0.2.2<small> 2020-11-12 </small>
-</h1>
-<ul>
-<li>Fixes bug in get_interval.</li>
-<li>Removes message that was displayed when incidence class dropped.</li>
-<li>Refactoring of internal code to improve maintainability.</li>
-<li>Tests now use the 3rd edition of testthat.</li>
-</ul>
-</div>
-    <div id="incidence2-021" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.1">
-<a href="#incidence2-021" class="anchor"></a>incidence2 0.2.1<small> 2020-10-16 </small>
-</h1>
-<ul>
-<li>Fixes bug in as.data.frame.incidence2</li>
-<li>Limits internal reliance on dplyr.</li>
-</ul>
-</div>
-    <div id="incidence2-020" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.0">
-<a href="#incidence2-020" class="anchor"></a>incidence2 0.2.0<small> 2020-09-22 </small>
-</h1>
-<ul>
-<li>Fixes issue with monthly incidence objects when <code>show_cases = TRUE</code> (see <a href='https://github.com/reconverse/incidence2/issues/42'>#42</a>).</li>
-<li>Additional checks added for assessing whether a manipulated incidence object maintains its class.</li>
-<li>Improved implementation speed.</li>
-<li>NA’s now ignored in the <code>count</code> variable of a pre-aggregated input to <code>incidence</code> function.</li>
-<li>Fixes axis labelling and spacing.</li>
-</ul>
-</div>
-    <div id="incidence2-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#incidence2-010" class="anchor"></a>incidence2 0.1.0<small> 2020-09-07 </small>
-</h1>
-<ul>
-<li>Initial release.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p><code>build_incidence()</code> coerced an object to an incidence of events.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>build_incidence</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>build_incidence</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for data.frame</span>
+<span class='fu'>build_incidence</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>date_index</span>,
+  groups <span class='op'>=</span> <span class='cn'>NULL</span>,
+  counts <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na_as_group <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  FUN <span class='op'>=</span> <span class='va'>identity</span>,
+  args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>An object to converse to <code>incidence</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Further arguments passed to or from other methods.</p></td>
+    </tr>
+    <tr>
+      <th>date_index</th>
+      <td><p>The time index(es) of the given data. Multiple inputs only
+make sense when x is a linelist, and in this situation, to avoid ambiguity,
+the vector must be named.  These names will be used for the resultant count
+columns.</p></td>
+    </tr>
+    <tr>
+      <th>groups</th>
+      <td><p>An optional vector giving the names of the groups of
+observations for which incidence should be grouped.</p></td>
+    </tr>
+    <tr>
+      <th>counts</th>
+      <td><p>The count variables of the given data.  If NULL (default) the
+data is taken to be a linelist of individual observations.</p></td>
+    </tr>
+    <tr>
+      <th>na_as_group</th>
+      <td><p>A logical value indicating if missing group values (NA)
+should treated as a separate category (<code>TRUE</code>) or removed from
+consideration (<code>FALSE</code>). Defaults to <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>FUN</th>
+      <td><p>Function applied to the <code>dates_index</code> vectors before grouping. The
+first argument of <code>FUN</code> must work with a <code>dates_index</code> vector. Defaults to
+the identity function.</p></td>
+    </tr>
+    <tr>
+      <th>args</th>
+      <td><p>List of additional arguments passed to FUN.</p></td>
+    </tr>
+    </table>
+
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
