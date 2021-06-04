@@ -27,8 +27,6 @@ reference:
     Functions for computing, viewing and converting incidence2 objects
 - contents:
   - incidence
-  - print.incidence
-  - summary.incidence
   - print.incidence2
   - summary.incidence2
   - as.data.frame.incidence
