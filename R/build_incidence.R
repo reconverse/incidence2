@@ -149,10 +149,9 @@ calculate_incidence <- function(x, date_index, groups, counts, count_name, na_as
       x <- summarise(x, count__ = n(), .groups = "drop")
       colnames(x)[length(x)] <- count_name
     } else {
-      x <- summarise(x, across(all_of(counts), sum, na.rm = TRUE), .groups = "drop")
+      x <- summarise(x, across(all_of(counts), ~sum(., na.rm = TRUE)), .groups = "drop")
     }
   }
-
 
   # set name for date column
   date_col <- "date_index"
