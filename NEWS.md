@@ -1,4 +1,4 @@
-# incidence2 (development version)
+# incidence2 1.2.0
 
 ## New functions
 * `new_incidence()`: A minimal incidence constructor.
