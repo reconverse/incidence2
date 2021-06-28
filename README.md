@@ -25,7 +25,7 @@ The development version, which this documentation refers to, can be
 installed from [GitHub](https://github.com/) with:
 
 ``` r
-if (!require(remotes)) 
+if (!require(remotes)) {
   install.packages("remotes")
 }
 remotes::install_github("reconverse/incidence2", build_vignettes = TRUE)
