@@ -38,7 +38,7 @@ summary.incidence <- function(object, ...) {
         tmp <- tibble::as_tibble(tmp)
       } else {
         tmp <- grouped_df(object, gr)
-        tmp <- summarise(tmp, across(all_of(count_var), sum, na.rm = TRUE), .groups = "drop")
+        tmp <- summarise(tmp, across(all_of(count_var), ~sum(., na.rm = TRUE)), .groups = "drop")
       }
       tmp <- format(tmp)
       cat(tmp[-1], sep = "\n")

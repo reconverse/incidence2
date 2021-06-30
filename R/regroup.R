@@ -47,7 +47,7 @@ regroup <- function(x, groups = NULL){
     setDF(tbl)
   } else {
     tbl <- grouped_df(x, c(date_var, groups))
-    tbl <- summarise(tbl, across(all_of(count_var), sum, na.rm = TRUE), .groups = "drop")
+    tbl <- summarise(tbl, across(all_of(count_var), ~sum(., na.rm = TRUE)), .groups = "drop")
   }
 
   tbl <- new_incidence(tbl, date = date_var, groups = groups, counts = count_var)
