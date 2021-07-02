@@ -6,7 +6,7 @@ navbar:
     href: reference/index.html
   - text: Articles
     menu:
-      - text: "Using the incidence package"
+      - text: "Using the incidence2 package"
       - text: "Introduction"
         href: articles/Introduction.html
       - text: "Handling incidence objects"

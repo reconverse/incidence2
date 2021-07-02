@@ -2,7 +2,7 @@
 title: "Introduction to the incidence2 package"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to the incidence package}
+  %\VignetteIndexEntry{Introduction to the incidence2 package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
