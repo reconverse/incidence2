@@ -22,17 +22,17 @@ incidence2 is an R package that implements functions and classes to compute, han
 
 The main features of the package include:
 
-- The `incidence()` function:
+* The `incidence()` function:
   computes incidence from both linelist and pre-aggregated datasets across a range of date groupings.
-- The returned object from `incidence()` is a subclass of [tibble](https://CRAN.R-project.org/package=tibble). This is compatible with [dplyr](https://dplyr.tidyverse.org/) for data manipulation (see `vignette("handling_incidence_objects")` for more details).
-- Plotting methods, `plot.incidence2()` and `facet_plot.incidence2()` that provide quick plots with sensible defaults.
-- Additional functions for handling incidence objects, including:
-  * `regroup()`: regroup incidence from different groups into one global incidence time series.
-  * `keep_first()` and `keep_last()` : will keep the rows corresponding to the first (or last) set of grouped dates (ordered by time) from an `incidence()` object.
-  * `complete_counts()`: ensure every possible combination of date and groupings is given an explicit count.
-  * `print.incidence2()`** and `summary.incidence2()` methods.
-  * `as.data.frame.incidence2()` and `as_tibble.incidence2()` conversion methods.
-  * Accessor functions: `get_count_names()`, `get_dates_name()`, `get_date_index()`, `get_group_names()`, `get_interval()`, `get_timespan()` and  `get_n()`.
+* The returned object from `incidence()` is a subclass of [tibble](https://CRAN.R-project.org/package=tibble). This is compatible with [dplyr](https://dplyr.tidyverse.org/) for data manipulation (see `vignette("handling_incidence_objects")` for more details).
+* Plotting methods, `plot.incidence2()` and `facet_plot.incidence2()` that provide quick plots with sensible defaults.
+* Additional functions for handling incidence objects, including:
+  - `regroup()`: regroup incidence from different groups into one global incidence time series.
+  - `keep_first()` and `keep_last()` : will keep the rows corresponding to the first (or last) set of grouped dates (ordered by time) from an `incidence()` object.
+  - `complete_counts()`: ensure every possible combination of date and groupings is given an explicit count.
+  - `print.incidence2()`** and `summary.incidence2()` methods.
+  - `as.data.frame.incidence2()` and `as_tibble.incidence2()` conversion methods.
+  - Accessor functions: `get_count_names()`, `get_dates_name()`, `get_date_index()`, `get_group_names()`, `get_interval()`, `get_timespan()` and  `get_n()`.
   
 
 ## Worked example: simulated Ebola outbreak

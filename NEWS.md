@@ -1,4 +1,4 @@
-# incidence2 1.2.0
+# incidence2 1.1.9000
 
 ## New functions
 * `new_incidence()`: A minimal incidence constructor.
