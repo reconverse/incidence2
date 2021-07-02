@@ -371,7 +371,7 @@ plot_basic <- function(x, count, fill = NULL, centre_dates = TRUE, stack = TRUE,
       origin = as.numeric(min(d))
     )
   } else if (inherits(d, "Date")) {
-    out <-  out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n.breaks), ...)
+    out <-  out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n.breaks), date_labels = date_format, ...)
   } else if (inherits(d, "integer")) {
     out <- out + ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = n.breaks), ...)
   } else {
