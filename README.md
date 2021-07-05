@@ -98,9 +98,9 @@ We compute the weekly incidence:
 i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
 i_7
 #> An incidence object: 56 x 2
-#> date range: 2014-04-07 to 2014-04-13 to 2015-04-27 to 2015-05-03
-#> cases: 5829
+#> 5829 cases from 2014-04-07 to 2015-05-03
 #> interval: 7 days
+#> cumulative: FALSE
 #> 
 #>                  date_index count
 #>                    <period> <int>
@@ -119,6 +119,7 @@ summary(i_7)
 #> An incidence object: 56 x 2
 #> 5829 cases from 2014-04-07 to 2015-05-03
 #> interval: 7 days
+#> cumulative: FALSE
 #> timespan: 392 days
 plot(i_7, color = "white")
 ```
@@ -137,9 +138,9 @@ a single, stacked chart:
 iw <- incidence(dat, interval = "week", date_index = date_of_onset, groups = gender)
 iw
 #> An incidence object: 109 x 3
-#> date range: 2014-W15 to 2015-W18
-#> cases: 5829
+#> 5829 cases from 2014-W15 to 2015-W18
 #> interval: 1 (Monday) week 
+#> cumulative: FALSE
 #> 
 #>    date_index gender count
 #>        <yrwk> <fct>  <int>
@@ -158,6 +159,7 @@ summary(iw)
 #> An incidence object: 109 x 3
 #> 5829 cases from 2014-W15 to 2015-W18
 #> interval: 1 (Monday) week 
+#> cumulative: FALSE
 #> timespan: 392 days
 #> 
 #> 1 grouped variable
@@ -186,9 +188,9 @@ facets and fills:
 iw2 <- incidence(dat, date_of_onset, interval = "week",  groups = c(gender, hospital))
 iw2
 #> An incidence object: 601 x 4
-#> date range: 2014-W15 to 2015-W18
-#> cases: 5829
+#> 5829 cases from 2014-W15 to 2015-W18
 #> interval: 1 (Monday) week 
+#> cumulative: FALSE
 #> 
 #>    date_index gender hospital                                     count
 #>        <yrwk> <fct>  <fct>                                        <int>
@@ -207,6 +209,7 @@ summary(iw2)
 #> An incidence object: 601 x 4
 #> 5829 cases from 2014-W15 to 2015-W18
 #> interval: 1 (Monday) week 
+#> cumulative: FALSE
 #> timespan: 392 days
 #> 
 #> 2 grouped variables
@@ -257,9 +260,6 @@ clock_week_inci <-
 
 clock_week_inci
 #> An incidence object: 601 x 4
-#> date range: 2014-W15 to 2015-W18
-#> cases: 5829
-#> 
 #>    date_index      gender hospital                                     count
 #>    <iso_ywd<week>> <fct>  <fct>                                        <int>
 #>  1 2014-W15        f      Military Hospital                                1
