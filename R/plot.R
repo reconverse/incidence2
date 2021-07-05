@@ -110,13 +110,10 @@ plot.incidence2 <- function(x, count = NULL, fill = NULL, centre_dates = TRUE,
                             angle = 0, size = NULL, ...) {
 
   check_suggests("ggplot2")
+  ellipsis::check_dots_used()
   if (!(length(width) == 1L && is.numeric(width))) {
     abort("`width` should be numeric and of length 1")
   }
-
-
-
-  ellipsis::check_dots_used()
 
   # warnings
   group_vars <- get_group_names(x)
@@ -127,23 +124,26 @@ plot.incidence2 <- function(x, count = NULL, fill = NULL, centre_dates = TRUE,
     message(msg)
   }
 
-  if (is.null(count)) {
+  # convert count to character
+  tmp <- rlang::enquo(count)
+  if (rlang::quo_is_null(tmp)) {
     count <- get_count_names(x)[1]
-  } else if (length(count) > 1) {
-    abort("plot() can only work with one count variable at a time.")
-  } else if (!(count %in% get_count_names(x))) {
-    abort(c(
-      "Value given for 'count' is not a variable in x.",
-      i = "Permitted values can be obtained with get_count_names(x)."
-    ))
+  } else {
+    idx <- tidyselect::eval_select(tmp, x)
+    if (length(idx) > 1) {
+      abort("plot() can only work with one count variable at a time")
+    }
+    count <- names(x)[idx]
   }
 
-  # Convert fill to character
+  # Convert fill to character (need to allow for colours hence the try)
+  # TODO - this may need improving
   tmp <- rlang::enquo(fill)
-  idx <- try(tidyselect::eval_select(tmp, x), silent = TRUE)
-  if (!inherits(idx, "try-error")) {
-    fill <- names(x)[idx]
-    if (length(fill) == 0) fill <- NULL
+  if (rlang::quo_is_null(tmp)) {
+    fill <- NULL
+  } else {
+    idx <- try(tidyselect::eval_select(tmp, x), silent = TRUE)
+    if (!inherits(idx, "try-error")) fill <- names(x)[idx]
   }
 
   out <- plot_basic(x = x, count = count, fill = fill, stack = stack,
@@ -180,35 +180,37 @@ facet_plot.incidence2 <- function(x, count = NULL, facets = NULL,
                                   angle = 0, size = NULL, nrow = NULL, ...) {
 
   check_suggests("ggplot2")
-
   ellipsis::check_dots_used()
-
-  if (is.null(count)) {
-    count <- get_count_names(x)[1]
-  } else if (length(count) > 1) {
-    stop(
-      "plot() can only work with one count variable at a time.\n",
-      call. = FALSE
-    )
-  } else if (!(count %in% get_count_names(x))) {
-    stop(
-      "Value given for 'count' is not a variable in x.\n",
-      "       Permitted values can be obtained with get_count_names(x).",
-      call. = FALSE
-    )
+  if (!(length(width) == 1L && is.numeric(width))) {
+    abort("`width` should be numeric and of length 1")
   }
 
-  # convert inputs to character
+  # convert count to character
+  tmp <- rlang::enquo(count)
+  if (rlang::quo_is_null(tmp)) {
+    count <- get_count_names(x)[1]
+  } else {
+    idx <- tidyselect::eval_select(tmp, x)
+    if (length(idx) > 1) {
+      abort("plot() can only work with one count variable at a time")
+    }
+    count <- names(x)[idx]
+  }
+
+  # convert facets to character
   facets <- rlang::enquo(facets)
   idx <- tidyselect::eval_select(facets, x)
   facets <- names(x)[idx]
   if (length(facets) == 0) facets <- NULL
 
+  # Convert fill to character (need to allow for colours hence the try)
+  # TODO - this may need improving
   tmp <- rlang::enquo(fill)
-  idx <- try(tidyselect::eval_select(tmp, x), silent = TRUE)
-  if (!inherits(idx, "try-error")) {
-    fill <- names(x)[idx]
-    if (length(fill) == 0) fill <- NULL
+  if (rlang::quo_is_null(tmp)) {
+    fill <- NULL
+  } else {
+    idx <- try(tidyselect::eval_select(tmp, x), silent = TRUE)
+    if (!inherits(idx, "try-error")) fill <- names(x)[idx]
   }
 
   group_vars <- get_group_names(x)
@@ -250,7 +252,6 @@ plot_basic <- function(x, count, fill = NULL, centre_dates = TRUE, stack = TRUE,
 
   # get relevant variables
   date_var <- get_dates_name(x)
-  #count_var <- get_count_names(x)
   count_var <- count
   group_vars <- get_group_names(x)
   interval <- get_interval(x)
