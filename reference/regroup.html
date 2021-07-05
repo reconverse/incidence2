@@ -74,7 +74,7 @@ the groups present in the input." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
       </span>
     </div>
 
@@ -181,10 +181,10 @@ ignores all groups.</p></td>
 #&gt; &gt; dat &lt;- ebola_sim_clean$linelist
 #&gt; &gt; i &lt;- incidence(dat, date_index = date_of_onset, groups = c(gender, hospital))
 #&gt; &gt; regroup(i)
-#&gt; <span style='color: #949494;'>An incidence object: 367 x 2
-#&gt; </span>5829 cases from 2014-04-07 to 2015-04-30
+#&gt; <span style='color: #949494;'>An incidence object: 367 x 2</span>
+#&gt; date range: 2014-04-07 to 2015-04-30
+#&gt; cases: 5829
 #&gt; interval: 1 day
-#&gt; cumulative: FALSE
 #&gt; 
 #&gt;    date_index count
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
@@ -199,12 +199,11 @@ ignores all groups.</p></td>
 #&gt; <span style='color: #BCBCBC;'> 9</span> 2014-05-04     1
 #&gt; <span style='color: #BCBCBC;'>10</span> 2014-05-05     1
 #&gt; <span style='color: #949494;'># … with 357 more rows</span>
-#&gt; 
 #&gt; &gt; regroup(i, hospital)
-#&gt; <span style='color: #949494;'>An incidence object: 1,635 x 3
-#&gt; </span>5829 cases from 2014-04-07 to 2015-04-30
+#&gt; <span style='color: #949494;'>An incidence object: 1,635 x 3</span>
+#&gt; date range: 2014-04-07 to 2015-04-30
+#&gt; cases: 5829
 #&gt; interval: 1 day
-#&gt; cumulative: FALSE
 #&gt; 
 #&gt;    date_index hospital                                     count
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>                                        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
@@ -218,8 +217,7 @@ ignores all groups.</p></td>
 #&gt; <span style='color: #BCBCBC;'> 8</span> 2014-05-01 Rokupa Hospital                                  1
 #&gt; <span style='color: #BCBCBC;'> 9</span> 2014-05-03 Connaught Hospital                               1
 #&gt; <span style='color: #BCBCBC;'>10</span> 2014-05-04 <span style='color: #BB0000;'>NA</span>                                               1
-#&gt; <span style='color: #949494;'># … with 1,625 more rows</span>
-#&gt; </div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 1,625 more rows</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

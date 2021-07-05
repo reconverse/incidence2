@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
       </span>
     </div>
 
@@ -172,9 +172,9 @@
 <code class="sourceCode R"><span class="va">i_7</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>
 <span class="va">i_7</span>
 <span class="co">#&gt; An incidence object: 56 x 2</span>
-<span class="co">#&gt; 5829 cases from 2014-04-07 to 2015-05-03</span>
+<span class="co">#&gt; date range: 2014-04-07 to 2014-04-13 to 2015-04-27 to 2015-05-03</span>
+<span class="co">#&gt; cases: 5829</span>
 <span class="co">#&gt; interval: 7 days</span>
-<span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;                  date_index count</span>
 <span class="co">#&gt;                    &lt;period&gt; &lt;int&gt;</span>
@@ -193,7 +193,6 @@
 <span class="co">#&gt; An incidence object: 56 x 2</span>
 <span class="co">#&gt; 5829 cases from 2014-04-07 to 2015-05-03</span>
 <span class="co">#&gt; interval: 7 days</span>
-<span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; timespan: 392 days</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i_7</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-incid7-1.png" style="display: block; margin: auto;"></p>
@@ -202,9 +201,9 @@
 <code class="sourceCode R"><span class="va">iw</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, interval <span class="op">=</span> <span class="st">"week"</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
 <span class="va">iw</span>
 <span class="co">#&gt; An incidence object: 109 x 3</span>
-<span class="co">#&gt; 5829 cases from 2014-W15 to 2015-W18</span>
+<span class="co">#&gt; date range: 2014-W15 to 2015-W18</span>
+<span class="co">#&gt; cases: 5829</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
-<span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index gender count</span>
 <span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;  &lt;int&gt;</span>
@@ -223,7 +222,6 @@
 <span class="co">#&gt; An incidence object: 109 x 3</span>
 <span class="co">#&gt; 5829 cases from 2014-W15 to 2015-W18</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
-<span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; timespan: 392 days</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; 1 grouped variable</span>
@@ -243,9 +241,9 @@
 <code class="sourceCode R"><span class="va">iw2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"week"</span>,  groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">hospital</span><span class="op">)</span><span class="op">)</span>
 <span class="va">iw2</span>
 <span class="co">#&gt; An incidence object: 601 x 4</span>
-<span class="co">#&gt; 5829 cases from 2014-W15 to 2015-W18</span>
+<span class="co">#&gt; date range: 2014-W15 to 2015-W18</span>
+<span class="co">#&gt; cases: 5829</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
-<span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index gender hospital                                     count</span>
 <span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;  &lt;fct&gt;                                        &lt;int&gt;</span>
@@ -264,7 +262,6 @@
 <span class="co">#&gt; An incidence object: 601 x 4</span>
 <span class="co">#&gt; 5829 cases from 2014-W15 to 2015-W18</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
-<span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; timespan: 392 days</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; 2 grouped variables</span>
@@ -306,6 +303,9 @@
 
 <span class="va">clock_week_inci</span>
 <span class="co">#&gt; An incidence object: 601 x 4</span>
+<span class="co">#&gt; date range: 2014-W15 to 2015-W18</span>
+<span class="co">#&gt; cases: 5829</span>
+<span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index      gender hospital                                     count</span>
 <span class="co">#&gt;    &lt;iso_ywd&lt;week&gt;&gt; &lt;fct&gt;  &lt;fct&gt;                                        &lt;int&gt;</span>
 <span class="co">#&gt;  1 2014-W15        f      Military Hospital                                1</span>
