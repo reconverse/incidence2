@@ -112,12 +112,6 @@ summary.incidence2 <- function(object, ...) {
     cat(sprintf("interval: 1 %s\n", interval))
   }
 
-  # cumulative
-  cumulative <- attr(object, "cumulative")
-  if (!is.null(cumulative)) {
-    cat(sprintf("cumulative: %s\n", cumulative))
-  }
-
   # timespan
   cat(sprintf("timespan: %d days\n\n", get_timespan(object)))
 

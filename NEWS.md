@@ -1,15 +1,22 @@
-# incidence2 1.1.9000
+# incidence2 1.1.0.9000
 
 ## New functions
 * `new_incidence()`: A minimal incidence constructor.
 * `validate_incidence()`: Check for internal consistency of incidence-like object.
 * `build_incidence()`: Allows you to construct an incidence object whilst specifying
   your own date grouping function.
+* `format.incidence()`
+  
+## Deprecated functions
+* `cumulate()` will now give a deprecation error. We have removed the function
+  to avoid users erroneously regressing against a cumulative count.
 
 ## Other updates
 * Now uses `dplyr` to handle list based columns (e.g. record-type objects from
   `vctrs`). For data.frames with only atomic columns, data.table is still used.
-
+* Printing of incidence objects has been improved to remove duplication in the
+  overview section. 
+  
 
 # incidence2 1.1.0
 
