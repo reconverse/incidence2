@@ -53,7 +53,6 @@ reference:
   desc: >
     Functions for manipulating incidence objects by date or group
 - contents:
-  - cumulate
   - regroup
   - keep_first
   - keep_last

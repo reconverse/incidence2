@@ -4,7 +4,6 @@
     date range: 2020-01-01 to 2021-12-31
     cases: 731
     interval: 1 day
-    cumulative: FALSE
     
        date_index count
        <date>     <int>
@@ -25,7 +24,6 @@
     An incidence object: 731 x 2
     731 cases from 2020-01-01 to 2021-12-31
     interval: 1 day
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -36,7 +34,6 @@
     date range: 2020-01-01 to 2021-12-31
     cases: 1096
     interval: 1 day
-    cumulative: FALSE
     
        date_index count
        <date>     <int>
@@ -57,7 +54,6 @@
     An incidence object: 731 x 2
     1096 cases from 2020-01-01 to 2021-12-31
     interval: 1 day
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -68,7 +64,6 @@
     date range: 2020-01-01 to 2020-01-17 to 2021-12-15 to 2021-12-31
     cases: 731
     interval: 17 days
-    cumulative: FALSE
     
                      date_index count
                        <period> <int>
@@ -89,7 +84,6 @@
     An incidence object: 43 x 2
     731 cases from 2020-01-01 to 2021-12-31
     interval: 17 days
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -100,7 +94,6 @@
     date range: 2020-01-01 to 2020-01-17 to 2021-12-15 to 2021-12-31
     cases: 1096
     interval: 17 days
-    cumulative: FALSE
     
                      date_index count
                        <period> <int>
@@ -121,7 +114,6 @@
     An incidence object: 43 x 2
     1096 cases from 2020-01-01 to 2021-12-31
     interval: 17 days
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -132,7 +124,6 @@
     date range: 2020-W01 to 2022-W01
     cases: 731
     interval: 1 (Wednesday) week 
-    cumulative: FALSE
     
        date_index count
            <yrwk> <int>
@@ -153,7 +144,6 @@
     An incidence object: 105 x 2
     731 cases from 2020-W01 to 2022-W01
     interval: 1 (Wednesday) week 
-    cumulative: FALSE
     timespan: 735 days
     
     
@@ -164,7 +154,6 @@
     date range: 2021-W05 to 2021-W08
     cases: 56
     interval: 1 (Monday) week 
-    cumulative: FALSE
     
       date_index height size  count
           <yrwk> <chr>  <chr> <int>
@@ -182,7 +171,6 @@
     An incidence object: 8 x 4
     56 cases from 2021-W05 to 2021-W08
     interval: 1 (Monday) week 
-    cumulative: FALSE
     timespan: 28 days
     
     2 grouped variables
@@ -207,7 +195,6 @@
     date range: 2021-W05 to 2021-W08
     cases: 84
     interval: 1 (Monday) week 
-    cumulative: FALSE
     
       date_index height size  count
           <yrwk> <chr>  <chr> <int>
@@ -225,7 +212,6 @@
     An incidence object: 8 x 4
     84 cases from 2021-W05 to 2021-W08
     interval: 1 (Monday) week 
-    cumulative: FALSE
     timespan: 28 days
     
     2 grouped variables
@@ -250,7 +236,6 @@
     date range: 2020-W01 to 2022-W01
     cases: 1096
     interval: 1 (Wednesday) week 
-    cumulative: FALSE
     
        date_index count
            <yrwk> <int>
@@ -271,7 +256,6 @@
     An incidence object: 105 x 2
     1096 cases from 2020-W01 to 2022-W01
     interval: 1 (Wednesday) week 
-    cumulative: FALSE
     timespan: 735 days
     
     
@@ -282,7 +266,6 @@
     date range: 2020-01-01 to 2020-01-14 to 2021-12-29 to 2022-01-11
     cases: 731
     interval: 14 days
-    cumulative: FALSE
     
                      date_index count
                        <period> <int>
@@ -303,7 +286,6 @@
     An incidence object: 53 x 2
     731 cases from 2020-01-01 to 2022-01-11
     interval: 14 days
-    cumulative: FALSE
     timespan: 742 days
     
     
@@ -314,7 +296,6 @@
     date range: 2020-01-01 to 2020-01-14 to 2021-12-29 to 2022-01-11
     cases: 1096
     interval: 14 days
-    cumulative: FALSE
     
                      date_index count
                        <period> <int>
@@ -335,7 +316,6 @@
     An incidence object: 53 x 2
     1096 cases from 2020-01-01 to 2022-01-11
     interval: 14 days
-    cumulative: FALSE
     timespan: 742 days
     
     
@@ -346,7 +326,6 @@
     date range: 2020-W01 to 2021-W52
     cases: 731
     interval: 1 (Monday) week 
-    cumulative: FALSE
     
        date_index count
            <yrwk> <int>
@@ -367,7 +346,6 @@
     An incidence object: 105 x 2
     731 cases from 2020-W01 to 2021-W52
     interval: 1 (Monday) week 
-    cumulative: FALSE
     timespan: 735 days
     
     
@@ -378,7 +356,6 @@
     date range: 2020-Jan to 2021-Dec
     cases: 731
     interval: 1 month
-    cumulative: FALSE
     
        date_index count
            <mnth> <int>
@@ -399,7 +376,6 @@
     An incidence object: 24 x 2
     731 cases from 2020-Jan to 2021-Dec
     interval: 1 month
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -410,7 +386,6 @@
     date range: 2020-Jan to 2021-Dec
     cases: 1096
     interval: 1 month
-    cumulative: FALSE
     
        date_index count
            <mnth> <int>
@@ -431,7 +406,6 @@
     An incidence object: 24 x 2
     1096 cases from 2020-Jan to 2021-Dec
     interval: 1 month
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -442,7 +416,6 @@
     date range: 2020-Jan to 2020-Feb to 2021-Nov to 2021-Dec
     cases: 731
     interval: 2 months
-    cumulative: FALSE
     
                  date_index count
                      <mnth> <int>
@@ -464,7 +437,6 @@
     An incidence object: 12 x 2
     731 cases from 2020-01-01 to 2021-12-31
     interval: 2 months
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -475,7 +447,6 @@
     date range: 2020-Jan to 2020-Feb to 2021-Nov to 2021-Dec
     cases: 1096
     interval: 2 months
-    cumulative: FALSE
     
                  date_index count
                      <mnth> <int>
@@ -497,7 +468,6 @@
     An incidence object: 12 x 2
     1096 cases from 2020-01-01 to 2021-12-31
     interval: 2 months
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -508,7 +478,6 @@
     date range: 2020-Q1 to 2021-Q4
     cases: 731
     interval: 1 quarter
-    cumulative: FALSE
     
       date_index count
            <qtr> <int>
@@ -526,7 +495,6 @@
     An incidence object: 8 x 2
     731 cases from 2020-Q1 to 2021-Q4
     interval: 1 quarter
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -537,7 +505,6 @@
     date range: 2020-Q1 to 2021-Q4
     cases: 1096
     interval: 1 quarter
-    cumulative: FALSE
     
       date_index count
            <qtr> <int>
@@ -555,7 +522,6 @@
     An incidence object: 8 x 2
     1096 cases from 2020-Q1 to 2021-Q4
     interval: 1 quarter
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -566,7 +532,6 @@
     date range: 2020 to 2021
     cases: 731
     interval: 1 year
-    cumulative: FALSE
     
       date_index count
           <year> <int>
@@ -578,7 +543,6 @@
     An incidence object: 2 x 2
     731 cases from 2020 to 2021
     interval: 1 year
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -589,7 +553,6 @@
     date range: 2020 to 2021
     cases: 1096
     interval: 1 year
-    cumulative: FALSE
     
       date_index count
           <year> <int>
@@ -601,7 +564,6 @@
     An incidence object: 2 x 2
     1096 cases from 2020 to 2021
     interval: 1 year
-    cumulative: FALSE
     timespan: 731 days
     
     
@@ -612,7 +574,6 @@
     date range: 1 to 5 to 6 to 10
     cases: 10
     interval: 5 days
-    cumulative: FALSE
     
       date_index count
         <period> <int>
@@ -624,7 +585,6 @@
     An incidence object: 2 x 2
     10 cases from 1 to 10
     interval: 5 days
-    cumulative: FALSE
     timespan: 10 days
     
     
@@ -635,7 +595,6 @@
     date range: 1 to 5 to 6 to 10
     cases: 15
     interval: 5 days
-    cumulative: FALSE
     
       date_index count
         <period> <dbl>
@@ -647,7 +606,6 @@
     An incidence object: 2 x 2
     15 cases from 1 to 10
     interval: 5 days
-    cumulative: FALSE
     timespan: 10 days
     
     
@@ -659,7 +617,6 @@
     deaths: 365
     onset: 365
     interval: 1 month
-    cumulative: FALSE
     
        date_index deaths onset
            <mnth>  <int> <int>
@@ -683,7 +640,6 @@
     365 deaths from 2020-Dec to 2021-Dec
     365 onset from 2020-Dec to 2021-Dec
     interval: 1 month
-    cumulative: FALSE
     timespan: 396 days
     
     

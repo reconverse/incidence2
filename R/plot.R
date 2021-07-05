@@ -410,10 +410,6 @@ ylabel <- function(x, ylab) {
       }
 
     }
-
-    if (isTRUE(attr(x, "cumulative"))) {
-      ylab <- sub("incidence", "cumulative incidence", ylab)
-    }
     first_letter <- substring(ylab, 1, 1)
     substring(ylab, 1, 1) <- toupper(first_letter)
   }

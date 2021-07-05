@@ -33,7 +33,8 @@ Imports:
     grates,
     tidyr,
     dplyr,
-    clock
+    clock,
+    lifecycle
 Suggests:
     outbreaks,
     knitr,

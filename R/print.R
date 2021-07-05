@@ -6,7 +6,7 @@
 #' @name print_incidence
 #' @export
 print.incidence <- function(x, ...) {
-  writeLines(format(x, width = width, ..., n = n, n_extra = n_extra))
+  writeLines(format(x, ...))
   invisible(x)
 }
 
@@ -18,8 +18,7 @@ format.incidence <- function(x, ...) {
   body <- format(tibble::as_tibble(x, ...))[-1]
   if (inherits(x, "incidence2")) {
     inter <- interval(x)
-    cum <- cumulative(x)
-    out <- c(overview, inter, cum, "", body)
+    out <- c(overview, inter, "", body)
   } else {
     out <- c(overview, "", body)
   }
@@ -63,9 +62,4 @@ interval <- function(x) {
   } else {
     sprintf("interval: 1 %s", interval)
   }
-}
-
-cumulative <- function(x) {
-  cumulative <- attr(x, "cumulative")
-  if (!is.null(cumulative)) sprintf("cumulative: %s", cumulative) else NULL
 }
