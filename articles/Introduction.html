@@ -120,7 +120,7 @@
 <li>
 <code><a href="../reference/complete_counts.html">complete_counts()</a></code>: ensure every possible combination of date and groupings is given an explicit count.</li>
 <li>
-<code>print.incidence2()</code>** and <code><a href="../reference/summary.incidence2.html">summary.incidence2()</a></code> methods.</li>
+<code>print.incidence2()</code>** and <code>summary.incidence2()</code> methods.</li>
 <li>
 <code>as.data.frame.incidence2()</code> and <code>as_tibble.incidence2()</code> conversion methods.</li>
 <li>Accessor functions: <code><a href="../reference/accessors.html">get_count_names()</a></code>, <code><a href="../reference/accessors.html">get_dates_name()</a></code>, <code><a href="../reference/accessors.html">get_date_index()</a></code>, <code><a href="../reference/accessors.html">get_group_names()</a></code>, <code><a href="../reference/accessors.html">get_interval()</a></code>, <code><a href="../reference/accessors.html">get_timespan()</a></code> and <code><a href="../reference/accessors.html">get_n()</a></code>.</li>
@@ -164,7 +164,7 @@
 <code class="sourceCode R"><span class="va">daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span><span class="op">)</span>
 <span class="va">daily</span>
 <span class="co">#&gt; An incidence object: 367 x 2</span>
-<span class="co">#&gt; date range: 2014-04-07 to 2015-04-30</span>
+<span class="co">#&gt; date range: [2014-04-07] to [2015-04-30]</span>
 <span class="co">#&gt; cases: 5829</span>
 <span class="co">#&gt; interval: 1 day</span>
 <span class="co">#&gt; </span>
@@ -182,8 +182,9 @@
 <span class="co">#&gt; 10 2014-05-05     1</span>
 <span class="co">#&gt; # … with 357 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">daily</span><span class="op">)</span>
-<span class="co">#&gt; An incidence object: 367 x 2</span>
-<span class="co">#&gt; 5829 cases from 2014-04-07 to 2015-04-30</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; date range: [2014-04-07] to [2015-04-30]</span>
+<span class="co">#&gt; cases: 5829</span>
 <span class="co">#&gt; interval: 1 day</span>
 <span class="co">#&gt; timespan: 389 days</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">daily</span><span class="op">)</span></code></pre></div>
@@ -194,7 +195,7 @@
 <span class="va">seven</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>
 <span class="va">seven</span>
 <span class="co">#&gt; An incidence object: 56 x 2</span>
-<span class="co">#&gt; date range: 2014-04-07 to 2014-04-13 to 2015-04-27 to 2015-05-03</span>
+<span class="co">#&gt; date range: [2014-04-07 to 2014-04-13] to [2015-04-27 to 2015-05-03]</span>
 <span class="co">#&gt; cases: 5829</span>
 <span class="co">#&gt; interval: 7 days</span>
 <span class="co">#&gt; </span>
@@ -248,7 +249,7 @@
 <code class="sourceCode R"><span class="va">weekly_grouped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"week"</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
 <span class="va">weekly_grouped</span>
 <span class="co">#&gt; An incidence object: 109 x 3</span>
-<span class="co">#&gt; date range: 2014-W15 to 2015-W18</span>
+<span class="co">#&gt; date range: [2014-W15] to [2015-W18]</span>
 <span class="co">#&gt; cases: 5829</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
 <span class="co">#&gt; </span>
@@ -266,8 +267,9 @@
 <span class="co">#&gt; 10   2014-W21 f          8</span>
 <span class="co">#&gt; # … with 99 more rows</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">weekly_grouped</span><span class="op">)</span>
-<span class="co">#&gt; An incidence object: 109 x 3</span>
-<span class="co">#&gt; 5829 cases from 2014-W15 to 2015-W18</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; date range: [2014-W15] to [2015-W18]</span>
+<span class="co">#&gt; cases: 5829</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
 <span class="co">#&gt; timespan: 392 days</span>
 <span class="co">#&gt; </span>
