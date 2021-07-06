@@ -4,15 +4,15 @@
 \alias{summary.incidence}
 \title{Summary of an incidence object}
 \usage{
-\method{summary}{incidence}(x, ...)
+\method{summary}{incidence}(object, ...)
 }
 \arguments{
-\item{x}{An 'incidence' object.}
+\item{object}{An 'incidence' object.}
 
 \item{...}{Not used.}
 }
 \value{
-x (invisibly).
+object (invisibly).
 }
 \description{
 Summary of an incidence object

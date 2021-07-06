@@ -1,24 +1,24 @@
 #' Summary of an incidence object
 #'
-#' @param x An 'incidence' object.
+#' @param object An 'incidence' object.
 #' @param ... Not used.
 #'
-#' @return x (invisibly).
+#' @return object (invisibly).
 #'
 #' @export
-summary.incidence <- function(x, ...) {
+summary.incidence <- function(object, ...) {
 
   ..count_var <- . <- NULL # due to NSE notes in R CMD check
 
-  count_var <- get_count_names(x)
-  groups <- get_group_names(x)
+  count_var <- get_count_names(object)
+  groups <- get_group_names(object)
 
   # general overview text without header
-  out <- overview(x)[-1]
+  out <- overview(object)[-1]
 
-  if (inherits(x, "incidence2")) {
-    inter <- interval(x)
-    timespan <- sprintf("timespan: %d days", get_timespan(x))
+  if (inherits(object, "incidence2")) {
+    inter <- interval(object)
+    timespan <- sprintf("timespan: %d days", get_timespan(object))
     out <- c(out, inter, timespan)
   }
 
@@ -30,13 +30,13 @@ summary.incidence <- function(x, ...) {
       ifelse(length(groups) < 2, "variable\n", "variables\n")
     )
 
-    dt <- !any(vapply(x, typeof, character(1)) == "list")
+    dt <- !any(vapply(object, typeof, character(1)) == "list")
     tables <-
       if (dt) {
         lapply(
           groups,
           function(gr) {
-            tmp <- as.data.table(x)
+            tmp <- as.data.table(object)
             tmp <- tmp[, lapply(.SD, sum, na.rm = TRUE), by = c(gr), .SDcols = count_var]
             tmp <- tibble::as_tibble(tmp)
             c(format(tmp)[-1], "\n")
@@ -46,7 +46,7 @@ summary.incidence <- function(x, ...) {
         lapply(
           groups,
           function(gr) {
-            tmp <- grouped_df(x, gr)
+            tmp <- grouped_df(object, gr)
             tmp <- summarise(tmp, across(all_of(count_var), ~sum(., na.rm = TRUE)), .groups = "drop")
             c(format(tmp)[-1], "\n")
           }
@@ -56,5 +56,5 @@ summary.incidence <- function(x, ...) {
   }
 
   writeLines(c("", out))
-  invisible(x)
+  invisible(object)
 }
