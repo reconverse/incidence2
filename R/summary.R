@@ -1,137 +1,60 @@
-#' Summary of a given incidence object
+#' Summary of an incidence object
 #'
-#' @param object An 'incidence' object.
+#' @param x An 'incidence' object.
 #' @param ... Not used.
 #'
-#' @return object (invisibly).
+#' @return x (invisibly).
 #'
 #' @export
-summary.incidence <- function(object, ...) {
+summary.incidence <- function(x, ...) {
 
-  # due to NSE notes in R CMD check
-  ..count_var <- . <- NULL
+  ..count_var <- . <- NULL # due to NSE notes in R CMD check
 
-  # get the date and count variables
-  count_var <- get_count_names(object)
-  date_var <- get_dates_name(object)
-  dat <- object[[date_var]]
+  count_var <- get_count_names(x)
+  groups <- get_group_names(x)
 
-  # header
-  header <- sprintf("An incidence object: %s x %s\n",
-                    formatC(nrow(object), big.mark = ","),
-                    formatC(ncol(object), big.mark = ","))
-  cat(pillar::style_subtle(header))
+  # general overview text without header
+  out <- overview(x)[-1]
 
+  if (inherits(x, "incidence2")) {
+    inter <- interval(x)
+    timespan <- sprintf("timespan: %d days", get_timespan(x))
+    out <- c(out, inter, timespan)
+  }
 
-  # groups
-  groups <- get_group_names(object)
+  # information about groups
   if (!is.null(groups)) {
-    cat(sprintf("%d grouped %s\n\n",
-                length(groups),
-                ifelse(length(groups) < 2, "variable", "variables")))
+    groups_text <- sprintf(
+      "%d grouped %s",
+      length(groups),
+      ifelse(length(groups) < 2, "variable\n", "variables\n")
+    )
 
-    dt <- !any(vapply(object, typeof, character(1)) == "list")
-    for (gr in groups) {
+    dt <- !any(vapply(x, typeof, character(1)) == "list")
+    tables <-
       if (dt) {
-        tmp <- as.data.table(object)
-        tmp <- tmp[, lapply(.SD, sum, na.rm = TRUE), by = c(gr), .SDcols = count_var]
-        tmp <- tibble::as_tibble(tmp)
+        lapply(
+          groups,
+          function(gr) {
+            tmp <- as.data.table(x)
+            tmp <- tmp[, lapply(.SD, sum, na.rm = TRUE), by = c(gr), .SDcols = count_var]
+            tmp <- tibble::as_tibble(tmp)
+            c(format(tmp)[-1], "\n")
+          }
+        )
       } else {
-        tmp <- grouped_df(object, gr)
-        tmp <- summarise(tmp, across(all_of(count_var), ~sum(., na.rm = TRUE)), .groups = "drop")
+        lapply(
+          groups,
+          function(gr) {
+            tmp <- grouped_df(x, gr)
+            tmp <- summarise(tmp, across(all_of(count_var), ~sum(., na.rm = TRUE)), .groups = "drop")
+            c(format(tmp)[-1], "\n")
+          }
+        )
       }
-      tmp <- format(tmp)
-      cat(tmp[-1], sep = "\n")
-      cat("\n\n")
-    }
+    out <- c(out, "", groups_text, unlist(tables))
   }
 
-  cat("\n")
-  invisible(object)
-}
-
-
-#' Summary of a given incidence2 object
-#'
-#' @param object An 'incidence2' object.
-#' @param ... Not used.
-#'
-#' @return object (invisibly).
-#'
-#' @export
-summary.incidence2 <- function(object, ...) {
-
-  # due to NSE notes in R CMD check
-  ..count_var <- . <- NULL
-
-  # get the date and count variables
-  count_var <- get_count_names(object)
-  date_var <- get_dates_name(object)
-  dat <- object[[date_var]]
-
-  # header
-  header <- sprintf("An incidence object: %s x %s\n",
-                    formatC(nrow(object), big.mark = ","),
-                    formatC(ncol(object), big.mark = ","))
-  cat(pillar::style_subtle(header))
-
-  # cases over date range
-  for (i in count_var) {
-    if (inherits(dat, "Date") ||
-        inherits(dat, "numeric") ||
-        inherits(dat, "grates_yearweek") ||
-        inherits(dat, "grates_quarter") ||
-        inherits(dat, "grates_year") ||
-        (inherits(dat, "grates_month") && attr(dat, "n") == 1)) {
-      d1 <- min(dat)
-      d2 <- max(dat)
-    } else if (inherits(dat, "grates_int_period")) {
-      d1 <- as.integer(min(dat))
-      d2 <- as.integer(max(dat) + 1) - 1
-    } else {
-      d1 <- as.Date(min(dat))
-      d2 <- as.Date(max(dat) + 1) - 1
-    }
-
-    if(i == "count") {
-      msg <- sprintf("%d cases from %s to %s\n", sum(object[[i]]), d1, d2)
-    } else {
-      msg <- sprintf("%d %s from %s to %s\n", sum(object[[i]]), i, d1, d2)
-    }
-    cat(msg)
-  }
-
-
-  # interval
-  interval <- get_interval(object)
-  if (is.numeric(interval)) {
-    cat(sprintf("interval: %d %s\n", interval, ifelse(interval < 2, "day", "days")))
-  } else if (grepl("\\d", interval)) {
-    cat(sprintf("interval: %s\n", interval))
-  } else {
-    cat(sprintf("interval: 1 %s\n", interval))
-  }
-
-  # timespan
-  cat(sprintf("timespan: %d days\n\n", get_timespan(object)))
-
-  # groups
-  groups <- get_group_names(object)
-  if (!is.null(groups)) {
-    cat(sprintf("%d grouped %s\n\n",
-                length(groups),
-                ifelse(length(groups) < 2, "variable", "variables")))
-
-    for (gr in groups) {
-      tmp <- as.data.table(object)
-      tmp <- tmp[, lapply(.SD, sum, na.rm = TRUE), by = c(gr), .SDcols = count_var]
-      tmp <- tibble::as_tibble(tmp)
-      tmp <- format(tmp)
-      cat(tmp[-1], sep = "\n")
-      cat("\n\n")
-    }
-  }
-
-  cat("\n")
-  invisible(object)
+  writeLines(c("", out))
+  invisible(x)
 }
