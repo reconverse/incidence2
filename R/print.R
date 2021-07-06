@@ -38,7 +38,7 @@ overview <- function(x) {
     formatC(ncol(x), big.mark = ",")
   )
   header <- pillar::style_subtle(header)
-  date_range <- sprintf("date range: %s to %s", d1, d2)
+  date_range <- sprintf("date range: [%s] to [%s]", d1, d2)
   cases <- vapply(
     count_var,
     function(var) {
