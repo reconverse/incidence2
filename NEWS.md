@@ -11,6 +11,10 @@
 * `cumulate()` will now give a deprecation error. We have removed the function
   to avoid users erroneously regressing against a cumulative count.
 
+## Bug fixes
+* Fixes bug in `incidence()` when dates were a character vector and the the
+  default, daily, interval was specified.
+
 ## Other updates
 * Now uses `dplyr` to handle list based columns (e.g. record-type objects from
   `vctrs`). For data.frames with only atomic columns, data.table is still used.
