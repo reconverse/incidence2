@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
 <h3 class="hasAnchor">
 <a href="#regroup" class="anchor"></a><code>regroup()</code>
 </h3>
-<p>Sometimes you may find you’ve created a grouped <code><a href="../reference/incidence.html">incidence()</a></code> but now want to change the internal grouping. Assuming you are after a subset of the grouping already generated, then you can use to <code><a href="../reference/regroup.html">regroup()</a></code> function to get the desired aggregation:</p>
+<p>Sometimes you may find you’ve created a grouped incidence but now want to change the internal grouping. Assuming you are after a subset of the grouping already generated, then you can use to <code><a href="../reference/regroup.html">regroup()</a></code> function to get the desired aggregation:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
@@ -226,7 +226,7 @@
 <div id="tidyverse-compatibility" class="section level3">
 <h3 class="hasAnchor">
 <a href="#tidyverse-compatibility" class="anchor"></a>Tidyverse compatibility</h3>
-<p>incidence2 has been written with <em>tidyverse</em> compatibility (in particular <a href="https://dplyr.tidyverse.org/">dplyr</a>) at the forefront of the design choices we have made. By this we mean that if an operation from dplyr is applied to an <code><a href="../reference/incidence.html">incidence()</a></code> object then as long as the invariants of the object are preserved (i.e. groups, interval and uniqueness of rows) then the object returned will be an <code><a href="../reference/incidence.html">incidence()</a></code> object. If the invariants are not preserved then a tibble will be returned instead.</p>
+<p>incidence2 has been written with <em>tidyverse</em> compatibility (in particular <a href="https://dplyr.tidyverse.org/">dplyr</a>) at the forefront of the design choices we have made. By this we mean that if an operation from dplyr is applied to an incidence object then as long as the invariants of the object are preserved (i.e. groups, interval and uniqueness of rows) then the object returned will be an incidence object. If the invariants are not preserved then a tibble will be returned instead.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
@@ -257,22 +257,22 @@
 <span class="co"># slice operations preserve class</span>
 <span class="va">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; An incidence object: 10 x 4</span>
-<span class="co">#&gt; date range: [2014-W23] to [2015-W17]</span>
-<span class="co">#&gt; cases: 91</span>
+<span class="co">#&gt; date range: [2014-W18] to [2015-W10]</span>
+<span class="co">#&gt; cases: 136</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    date_index hospital                                     gender count</span>
-<span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1   2014-W31 Connaught Hospital                           m         10</span>
-<span class="co">#&gt;  2   2014-W23 &lt;NA&gt;                                         m          2</span>
-<span class="co">#&gt;  3   2014-W33 Princess Christian Maternity Hospital (PCMH) f          4</span>
-<span class="co">#&gt;  4   2015-W04 other                                        m          9</span>
-<span class="co">#&gt;  5   2014-W50 Military Hospital                            f         18</span>
-<span class="co">#&gt;  6   2015-W17 Connaught Hospital                           f          5</span>
-<span class="co">#&gt;  7   2014-W32 Rokupa Hospital                              f          4</span>
-<span class="co">#&gt;  8   2015-W06 other                                        m          5</span>
-<span class="co">#&gt;  9   2014-W38 Military Hospital                            m         28</span>
-<span class="co">#&gt; 10   2014-W47 Rokupa Hospital                              m          6</span>
+<span class="co">#&gt;    date_index hospital           gender count</span>
+<span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;              &lt;fct&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;  1   2014-W41 other              f         24</span>
+<span class="co">#&gt;  2   2014-W34 &lt;NA&gt;               m         25</span>
+<span class="co">#&gt;  3   2015-W10 &lt;NA&gt;               f          9</span>
+<span class="co">#&gt;  4   2014-W50 other              f          8</span>
+<span class="co">#&gt;  5   2015-W02 Rokupa Hospital    f          3</span>
+<span class="co">#&gt;  6   2014-W32 Connaught Hospital f         15</span>
+<span class="co">#&gt;  7   2014-W18 Rokupa Hospital    f          1</span>
+<span class="co">#&gt;  8   2014-W43 Connaught Hospital f         38</span>
+<span class="co">#&gt;  9   2014-W25 other              f          3</span>
+<span class="co">#&gt; 10   2014-W30 Military Hospital  f         10</span>
 
 <span class="va">inci</span> <span class="op">%&gt;%</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; An incidence object: 3 x 4</span>

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -215,15 +215,15 @@ otherwise.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An incidence2 object.  This is a subclass of tibble that represents
-and aggregated count of observations grouped according to the specified
-interval and, optionally, the given groups.  By default it will contain the
-following columns:</p><ul>
+    <p>An <code>incidence2</code> object.  This is a subclass of
+<code><a href='build_incidence.html'>incidence_df</a></code> and aggregated count of observations
+grouped according to the specified interval and, optionally, the given
+groups.  By default it will contain the following columns:</p><ul>
 <li><p><strong>date</strong> / <strong>date_index</strong>:  If the default interval of 1 day is used then
 this will be the dates of the given observations and given the name
 "date", otherwise, this will be values obtained from the specified date
 grouping with column name "date_index" (See Interval specification below).</p></li>
-<li><p><strong>groups</strong>: If specified, column(s) containing the categories of the
+<li><p><strong>groups</strong> (if specified): Column(s) containing the categories of the
 given groups.</p></li>
 <li><p><strong>count</strong> (or name of count variables): The aggregated observation counts.</p></li>
 </ul>

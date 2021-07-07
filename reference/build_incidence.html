@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -142,21 +142,14 @@
     <p><code>build_incidence()</code> coerces an object to an incidence of events.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_incidence</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>build_incidence</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>build_incidence</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>build_incidence</span><span class='op'>(</span>
   <span class='va'>x</span>,
   <span class='va'>date_index</span>,
   groups <span class='op'>=</span> <span class='cn'>NULL</span>,
   counts <span class='op'>=</span> <span class='cn'>NULL</span>,
   na_as_group <span class='op'>=</span> <span class='cn'>TRUE</span>,
   FUN <span class='op'>=</span> <span class='va'>identity</span>,
-  args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
-  <span class='va'>...</span>
+  args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -164,11 +157,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An object to converse to <code>incidence</code>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Further arguments passed to or from other methods.</p></td>
+      <td><p>A data frame representing a linelist (or potentially a
+pre-aggregated dataset).</p></td>
     </tr>
     <tr>
       <th>date_index</th>
@@ -204,6 +194,19 @@ the identity function.</p></td>
       <td><p>List of additional arguments passed to FUN.</p></td>
     </tr>
     </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An <code>incidence_df`` object.  This is a subclass of [</code>tibble<code>][</code>tibble::tbl-df`] represents an aggregated count of
+observations. It will contain the following columns:</p>
+<p><strong>date_index</strong>:  If the default interval of 1 day is used then
+this will be the dates of the given observations and given the name
+"date", otherwise, this will be values obtained from the specified date
+grouping with column name "date_index" (See Interval specification below).</p><ul>
+<li><p><strong>count</strong> (or name of count variables): The aggregated observation counts.</p></li>
+<li><p><strong>groups</strong> (if specified): column(s) containing the categories of the
+given groups.</p></li>
+</ul>
 
 
   </div>

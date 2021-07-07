@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -102,8 +102,9 @@
 
     
     
-<p>This vignette provides some tips for the most common customisations of graphics produced by <code>plot.incidence()</code> and <code>facet_plot.incidence()</code>. Our graphics use <em>ggplot2</em>, which is a distinct graphical system from base graphics.</p>
-<p>We try to provide reasonably good, out of the box, customisation via function arguments. For advanced customisation, however, it may be better to first convert to a data.frame and then proceeding to work directly with <code>ggplot2()</code>.</p>
+<p>This vignette provides some tips for the most common customisations of graphics produced by <code><a href="../reference/plot.incidence2.html">plot.incidence2()</a></code> and <code><a href="../reference/plot.incidence2.html">facet_plot.incidence2()</a></code>. Our graphics use <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a>, which is a distinct graphical system from base graphics.</p>
+<p>We try to provide reasonably good, out of the box, customisation via function arguments. For advanced customisation, however, it may be better to first convert to a data.frame and then proceeding to work directly with <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a>.</p>
+<p>Note that plotting functionality only works with objects created with <code><a href="../reference/incidence.html">incidence()</a></code> not <code><a href="../reference/build_incidence.html">build_incidence()</a></code>. This is due to <code><a href="../reference/incidence.html">incidence()</a></code> using the <a href="https://cran.r-project.org/package=ggplot2">grates</a> allowing us to rely on some of it’s behaviour within out plotting functions. For objects created with <code><a href="../reference/build_incidence.html">build_incidence()</a></code> you can again use <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a> directly.</p>
 <div id="example-data-simulated-ebola-outbreak" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-data-simulated-ebola-outbreak" class="anchor"></a>Example data: simulated Ebola outbreak</h2>
@@ -149,11 +150,11 @@
 <span class="co">#&gt; 10 2014-05-05 to 2014-05-11 f      &lt;NA&gt;                                        1</span>
 <span class="co">#&gt; # … with 591 more rows</span></code></pre></div>
 </div>
-<div id="plot-incidence" class="section level2">
+<div id="plot-incidence2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#plot-incidence" class="anchor"></a><code>plot.incidence()</code>
+<a href="#plot-incidence2" class="anchor"></a><code>plot.incidence2()</code>
 </h2>
-<p>When calling <code>plot</code> on an <code><a href="../reference/incidence.html">incidence()</a></code> object, the function <code>plot.incidence()</code> is implicitly used. To access its documentation, use <code>?plot.incidence</code>. In this section, we illustrate existing customisations.</p>
+<p>When calling <code>plot</code> on an <code><a href="../reference/incidence.html">incidence()</a></code> object, the function <code><a href="../reference/plot.incidence2.html">plot.incidence2()</a></code> is implicitly used. To access its documentation, use <code><a href="../reference/plot.incidence2.html">?plot.incidence2</a></code>. In this section, we illustrate existing customisations.</p>
 <div id="default-behaviour" class="section level3">
 <h3 class="hasAnchor">
 <a href="#default-behaviour" class="anchor"></a>Default behaviour</h3>
@@ -173,7 +174,7 @@
 <div id="additional-arguments" class="section level3">
 <h3 class="hasAnchor">
 <a href="#additional-arguments" class="anchor"></a>Additional arguments</h3>
-<p><code>plot.incidence()</code> is designed for a high level of customization without needing knowledge of <em>ggplot2</em>. To this end, there are multiple arguments that can be provided which have been set to sensible defaults. Some common changes you may wish to make are illustrated below (for a full description of arguments check out the accompanying help file <code>?plot.incidence</code>).</p>
+<p><code><a href="../reference/plot.incidence2.html">plot.incidence2()</a></code> is designed for a high level of customization without needing knowledge of <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a>. To this end, there are multiple arguments that can be provided which have been set to sensible defaults. Some common changes you may wish to make are illustrated below (for a full description of arguments check out the accompanying help file <code><a href="../reference/plot.incidence2.html">?plot.incidence2</a></code>).</p>
 <p>We can easily fill the plot according to the groups present or a colour of our choosing:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">i</span>, fill <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
@@ -210,7 +211,7 @@
 <h2 class="hasAnchor">
 <a href="#facet_plot" class="anchor"></a><code>facet_plot()</code>
 </h2>
-<p>With stacked plots it can be difficult to ascertain difference between groups. For this reason we provide users the ability to make faceted plots with the <code><a href="../reference/plot.incidence2.html">facet_plot()</a></code> function. This function takes similar arguments to <code>plot</code> but includes an additional facet argument:</p>
+<p>With stacked plots it can be difficult to ascertain difference between groups. For this reason we provide users the ability to make faceted plots with the <code><a href="../reference/plot.incidence2.html">facet_plot.incidence2()</a></code> function. This function takes similar arguments to <code>plot</code> but includes an additional facet argument:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">i</span>, facets <span class="op">=</span> <span class="va">gender</span>, n.breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <p><img src="customizing_incidence_plots_files/figure-html/facets-1.png" width="672" style="display: block; margin: auto;"></p>

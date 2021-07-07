@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated accessor functions — deprecated-accessors • incidence2</title>
+<title>Convert incident object to dataframe — as.data.frame.incidence_df • incidence2</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Deprecated accessor functions — deprecated-accessors" />
-<meta property="og:description" content="These accessor functions have now been deprecated in favour of better
-named alternatives but are left available for backwards compatibility." />
+<meta property="og:title" content="Convert incident object to dataframe — as.data.frame.incidence_df" />
+<meta property="og:description" content="Convert incident object to dataframe" />
 
 
 
@@ -134,19 +133,17 @@ named alternatives but are left available for backwards compatibility." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Deprecated accessor functions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/incidence2/blob/master/R/accessors.R'><code>R/accessors.R</code></a></small>
-    <div class="hidden name"><code>deprecated-accessors.Rd</code></div>
+    <h1>Convert incident object to dataframe</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/incidence2/blob/master/R/conversion.R'><code>R/conversion.R</code></a></small>
+    <div class="hidden name"><code>as.data.frame.incidence_df.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These accessor functions have now been deprecated in favour of better
-named alternatives but are left available for backwards compatibility.</p>
+    <p>Convert incident object to dataframe</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_counts_name</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>get_date_group_names</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='co'># S3 method for incidence_df</span>
+<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,39 +158,114 @@ named alternatives but are left available for backwards compatibility.</p>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    
-<ul>
-<li><p><code>get_counts_name()</code>: Same as <code><a href='accessors.html'>get_count_names()</a></code>.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_date_group_names()</code>: Same as <code><a href='accessors.html'>get_dates_name()</a></code></p></li>
-</ul>
-
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span><span class='op'>(</span><span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ebola_sim_clean</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
-    <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ebola_sim_clean</span><span class='op'>$</span><span class='va'>linelist</span>
-    <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>dat</span>,
-                   date_index <span class='op'>=</span> <span class='va'>date_of_onset</span>,
-                   groups <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>gender</span>, <span class='va'>hospital</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>,
+                  names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Jo"</span>, <span class='st'>"John"</span><span class='op'>)</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 
-    <span class='fu'>get_counts_name</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
-
-    <span class='fu'>get_date_group_names</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
-  <span class='op'>}</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
-#&gt; &gt; dat &lt;- ebola_sim_clean$linelist
-#&gt; &gt; i &lt;- incidence(dat, date_index = date_of_onset, groups = c(gender, hospital))
-#&gt; &gt; get_counts_name(i)
-#&gt; [1] "count"
-#&gt; &gt; get_date_group_names(i)
-#&gt; [1] "date_index"</div><div class='input'>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>dat</span>, date_index <span class='op'>=</span> <span class='va'>dates</span>, groups <span class='op'>=</span> <span class='va'>names</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     date_index names count
+#&gt; 1   2021-07-08    Jo     1
+#&gt; 2   2021-07-09  John     1
+#&gt; 3   2021-07-10    Jo     1
+#&gt; 4   2021-07-11  John     1
+#&gt; 5   2021-07-12    Jo     1
+#&gt; 6   2021-07-13  John     1
+#&gt; 7   2021-07-14    Jo     1
+#&gt; 8   2021-07-15  John     1
+#&gt; 9   2021-07-16    Jo     1
+#&gt; 10  2021-07-17  John     1
+#&gt; 11  2021-07-18    Jo     1
+#&gt; 12  2021-07-19  John     1
+#&gt; 13  2021-07-20    Jo     1
+#&gt; 14  2021-07-21  John     1
+#&gt; 15  2021-07-22    Jo     1
+#&gt; 16  2021-07-23  John     1
+#&gt; 17  2021-07-24    Jo     1
+#&gt; 18  2021-07-25  John     1
+#&gt; 19  2021-07-26    Jo     1
+#&gt; 20  2021-07-27  John     1
+#&gt; 21  2021-07-28    Jo     1
+#&gt; 22  2021-07-29  John     1
+#&gt; 23  2021-07-30    Jo     1
+#&gt; 24  2021-07-31  John     1
+#&gt; 25  2021-08-01    Jo     1
+#&gt; 26  2021-08-02  John     1
+#&gt; 27  2021-08-03    Jo     1
+#&gt; 28  2021-08-04  John     1
+#&gt; 29  2021-08-05    Jo     1
+#&gt; 30  2021-08-06  John     1
+#&gt; 31  2021-08-07    Jo     1
+#&gt; 32  2021-08-08  John     1
+#&gt; 33  2021-08-09    Jo     1
+#&gt; 34  2021-08-10  John     1
+#&gt; 35  2021-08-11    Jo     1
+#&gt; 36  2021-08-12  John     1
+#&gt; 37  2021-08-13    Jo     1
+#&gt; 38  2021-08-14  John     1
+#&gt; 39  2021-08-15    Jo     1
+#&gt; 40  2021-08-16  John     1
+#&gt; 41  2021-08-17    Jo     1
+#&gt; 42  2021-08-18  John     1
+#&gt; 43  2021-08-19    Jo     1
+#&gt; 44  2021-08-20  John     1
+#&gt; 45  2021-08-21    Jo     1
+#&gt; 46  2021-08-22  John     1
+#&gt; 47  2021-08-23    Jo     1
+#&gt; 48  2021-08-24  John     1
+#&gt; 49  2021-08-25    Jo     1
+#&gt; 50  2021-08-26  John     1
+#&gt; 51  2021-08-27    Jo     1
+#&gt; 52  2021-08-28  John     1
+#&gt; 53  2021-08-29    Jo     1
+#&gt; 54  2021-08-30  John     1
+#&gt; 55  2021-08-31    Jo     1
+#&gt; 56  2021-09-01  John     1
+#&gt; 57  2021-09-02    Jo     1
+#&gt; 58  2021-09-03  John     1
+#&gt; 59  2021-09-04    Jo     1
+#&gt; 60  2021-09-05  John     1
+#&gt; 61  2021-09-06    Jo     1
+#&gt; 62  2021-09-07  John     1
+#&gt; 63  2021-09-08    Jo     1
+#&gt; 64  2021-09-09  John     1
+#&gt; 65  2021-09-10    Jo     1
+#&gt; 66  2021-09-11  John     1
+#&gt; 67  2021-09-12    Jo     1
+#&gt; 68  2021-09-13  John     1
+#&gt; 69  2021-09-14    Jo     1
+#&gt; 70  2021-09-15  John     1
+#&gt; 71  2021-09-16    Jo     1
+#&gt; 72  2021-09-17  John     1
+#&gt; 73  2021-09-18    Jo     1
+#&gt; 74  2021-09-19  John     1
+#&gt; 75  2021-09-20    Jo     1
+#&gt; 76  2021-09-21  John     1
+#&gt; 77  2021-09-22    Jo     1
+#&gt; 78  2021-09-23  John     1
+#&gt; 79  2021-09-24    Jo     1
+#&gt; 80  2021-09-25  John     1
+#&gt; 81  2021-09-26    Jo     1
+#&gt; 82  2021-09-27  John     1
+#&gt; 83  2021-09-28    Jo     1
+#&gt; 84  2021-09-29  John     1
+#&gt; 85  2021-09-30    Jo     1
+#&gt; 86  2021-10-01  John     1
+#&gt; 87  2021-10-02    Jo     1
+#&gt; 88  2021-10-03  John     1
+#&gt; 89  2021-10-04    Jo     1
+#&gt; 90  2021-10-05  John     1
+#&gt; 91  2021-10-06    Jo     1
+#&gt; 92  2021-10-07  John     1
+#&gt; 93  2021-10-08    Jo     1
+#&gt; 94  2021-10-09  John     1
+#&gt; 95  2021-10-10    Jo     1
+#&gt; 96  2021-10-11  John     1
+#&gt; 97  2021-10-12    Jo     1
+#&gt; 98  2021-10-13  John     1
+#&gt; 99  2021-10-14    Jo     1
+#&gt; 100 2021-10-15  John     1</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

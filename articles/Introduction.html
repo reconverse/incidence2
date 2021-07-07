@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -105,11 +105,10 @@
 <div id="what-does-it-do" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-does-it-do" class="anchor"></a>What does it do?</h2>
-<p>incidence2 is an R package that implements functions and classes to compute, handle and visualise incidences from linelist data.</p>
+<p><strong>incidence2</strong> is an R package that implements functions and classes to compute, handle and visualise <em>incidence</em> from linelist data.</p>
 <p>The main features of the package include:</p>
 <ul>
-<li>The <code><a href="../reference/incidence.html">incidence()</a></code> function: computes incidence from both linelist and pre-aggregated datasets across a range of date groupings.</li>
-<li>The returned object from <code><a href="../reference/incidence.html">incidence()</a></code> is a subclass of <a href="https://CRAN.R-project.org/package=tibble">tibble</a>. This is compatible with <a href="https://dplyr.tidyverse.org/">dplyr</a> for data manipulation (see <code><a href="../articles/handling_incidence_objects.html">vignette("handling_incidence_objects")</a></code> for more details).</li>
+<li>The <code><a href="../reference/incidence.html">incidence()</a></code> and <code><a href="../reference/build_incidence.html">build_incidence()</a></code> functions compute <em>incidence</em> from both linelist and pre-aggregated datasets across a range of date groupings. The returned object from <code><a href="../reference/incidence.html">incidence()</a></code> is a subclass of <a href="https://CRAN.R-project.org/package=tibble">tibble</a>. This is compatible with <a href="https://dplyr.tidyverse.org/">dplyr</a> for data manipulation (see <code><a href="../articles/handling_incidence_objects.html">vignette("handling_incidence_objects")</a></code> for more details).</li>
 <li>Plotting methods, <code><a href="../reference/plot.incidence2.html">plot.incidence2()</a></code> and <code><a href="../reference/plot.incidence2.html">facet_plot.incidence2()</a></code> that provide quick plots with sensible defaults.</li>
 <li>Additional functions for handling incidence objects, including:
 <ul>
@@ -120,9 +119,9 @@
 <li>
 <code><a href="../reference/complete_counts.html">complete_counts()</a></code>: ensure every possible combination of date and groupings is given an explicit count.</li>
 <li>
-<code>print.incidence2()</code>** and <code>summary.incidence2()</code> methods.</li>
+<code><a href="../reference/print_incidence.html">print.incidence_df()</a></code>** and <code><a href="../reference/summary.incidence_df.html">summary.incidence_df()</a></code> methods.</li>
 <li>
-<code>as.data.frame.incidence2()</code> and <code>as_tibble.incidence2()</code> conversion methods.</li>
+<code><a href="../reference/as.data.frame.incidence_df.html">as.data.frame.incidence_df()</a></code> and <code><a href="../reference/as_tibble.html">as_tibble.incidence_df()</a></code> conversion methods.</li>
 <li>Accessor functions: <code><a href="../reference/accessors.html">get_count_names()</a></code>, <code><a href="../reference/accessors.html">get_dates_name()</a></code>, <code><a href="../reference/accessors.html">get_date_index()</a></code>, <code><a href="../reference/accessors.html">get_group_names()</a></code>, <code><a href="../reference/accessors.html">get_interval()</a></code>, <code><a href="../reference/accessors.html">get_timespan()</a></code> and <code><a href="../reference/accessors.html">get_n()</a></code>.</li>
 </ul>
 </li>
@@ -243,7 +242,7 @@
 <div id="grouping" class="section level3">
 <h3 class="hasAnchor">
 <a href="#grouping" class="anchor"></a>Grouping</h3>
-<p><code><a href="../reference/incidence.html">incidence()</a></code> can also aggregate incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender and plot with both the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function for a single or the <code><a href="../reference/plot.incidence2.html">facet_plot()</a></code> function for a multi-faceted plot across groups:</p>
+<p><code><a href="../reference/incidence.html">incidence()</a></code> can also aggregate incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender and plot with both the <code>plot.incidence_df()</code> function for a single or the <code>facet_plot.incidence_df()</code> function for a multi-faceted plot across groups:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">weekly_grouped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"week"</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
 <span class="va">weekly_grouped</span>
