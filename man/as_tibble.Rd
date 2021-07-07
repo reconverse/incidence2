@@ -2,10 +2,10 @@
 % Please edit documentation in R/conversion.R
 \name{as_tibble}
 \alias{as_tibble}
-\alias{as_tibble.incidence}
+\alias{as_tibble.incidence_df}
 \title{Convert incident object to a tibble}
 \usage{
-\method{as_tibble}{incidence}(x, ...)
+\method{as_tibble}{incidence_df}(x, ...)
 }
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}

@@ -37,17 +37,17 @@
 #'   the `date_index` column is Date, POSIXct, POSIXlt, or character and integer
 #'   otherwise.
 #'
-#' @return An incidence2 object.  This is a subclass of tibble that represents
-#'   and aggregated count of observations grouped according to the specified
-#'   interval and, optionally, the given groups.  By default it will contain the
-#'   following columns:
+#' @return An `incidence2` object.  This is a subclass of
+#'   [`incidence_df`][`build_incidence()`] and aggregated count of observations
+#'   grouped according to the specified interval and, optionally, the given
+#'   groups.  By default it will contain the following columns:
 #'
 #'   - **date** / **date_index**:  If the default interval of 1 day is used then
 #'     this will be the dates of the given observations and given the name
 #'     "date", otherwise, this will be values obtained from the specified date
 #'     grouping with column name "date_index" (See Interval specification below).
 #'
-#'   - **groups**: If specified, column(s) containing the categories of the
+#'   - **groups** (if specified): Column(s) containing the categories of the
 #'   given groups.
 #'
 #'   - **count** (or name of count variables): The aggregated observation counts.
@@ -168,7 +168,7 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   if (n_new < n_orig) message(sprintf("%d observations were removed.", n_orig - n_new))
   x[idx] <- lapply(x[idx], check_dates)
 
-  dat <- build_incidence.data.frame(
+  dat <- build_incidence(
     x,
     date_index = !!en_date,
     groups = !!en_groups,

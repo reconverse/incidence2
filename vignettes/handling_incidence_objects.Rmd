@@ -23,7 +23,7 @@ As `incidence()` objects are subclasses of [tibbles](https://tibble.tidyverse.or
 ## Modifying incidence objects
 
 ### `regroup()`
-Sometimes you may find you've created a grouped `incidence()` but now want to change the internal grouping.
+Sometimes you may find you've created a grouped incidence but now want to change the internal grouping.
 Assuming you are after a subset of the grouping already generated, then you can use to `regroup()` function to get the desired aggregation:
 
 ```{r regroup, message=FALSE}
@@ -46,9 +46,7 @@ inci %>% regroup()
 ```
 
 ### `keep_first()` and `keep_last()`
-Once your data is grouped by date, you may want to select the first or last few
-entries based on a particular date grouping using `keep_first()` and
-`keep_last()`:
+Once your data is grouped by date, you may want to select the first or last few entries based on a particular date grouping using `keep_first()` and `keep_last()`:
 
 ```{r keep}
 inci %>% keep_first(3)
@@ -57,7 +55,7 @@ inci %>% keep_last(3)
 
 ### Tidyverse compatibility
 incidence2 has been written with *tidyverse* compatibility (in particular [dplyr](https://dplyr.tidyverse.org/)) at the forefront of the design choices we have made.
-By this we mean that if an operation from dplyr is applied to an `incidence()` object then as long as the invariants of the object are preserved (i.e. groups, interval and uniqueness of rows) then the object returned will be an `incidence()` object.
+By this we mean that if an operation from dplyr is applied to an incidence object then as long as the invariants of the object are preserved (i.e. groups, interval and uniqueness of rows) then the object returned will be an incidence object.
 If the invariants are not preserved then a tibble will be returned instead.
 
 ```{r tidyverse}

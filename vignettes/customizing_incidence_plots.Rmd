@@ -17,11 +17,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette provides some tips for the most common customisations of graphics produced by `plot.incidence()` and `facet_plot.incidence()`.
-Our graphics use *ggplot2*, which is a distinct graphical system from base graphics.
+This vignette provides some tips for the most common customisations of graphics produced by `plot.incidence2()` and `facet_plot.incidence2()`.
+Our graphics use [ggplot2](https://cran.r-project.org/package=ggplot2), which is a distinct graphical system from base graphics.
 
 We try to provide reasonably good, out of the box, customisation via function arguments.
-For advanced customisation, however, it may be better to first convert to a data.frame and then proceeding to work directly with `ggplot2()`.
+For advanced customisation, however, it may be better to first convert to a data.frame and then proceeding to work directly with [ggplot2](https://cran.r-project.org/package=ggplot2).
+
+Note that plotting functionality only works with objects created with `incidence()` not `build_incidence()`.
+This is due to `incidence()` using the [grates](https://cran.r-project.org/package=ggplot2) allowing us to rely on some of it's behaviour within out plotting functions.
+For objects created with `build_incidence()` you can again use [ggplot2](https://cran.r-project.org/package=ggplot2) directly.
 
 ## Example data: simulated Ebola outbreak
 
@@ -40,10 +44,10 @@ i <- incidence(dat, date_of_onset, interval = 7, groups = c(gender, hospital))
 i
 ```
 
-## `plot.incidence()`
+## `plot.incidence2()`
 
-When calling `plot` on an `incidence()` object, the function `plot.incidence()` is implicitly used.
-To access its documentation, use `?plot.incidence`.
+When calling `plot` on an `incidence()` object, the function `plot.incidence2()` is implicitly used.
+To access its documentation, use `?plot.incidence2`.
 In this section, we illustrate existing customisations.
 
 ### Default behaviour
@@ -62,9 +66,9 @@ plot(i, color = "white")
 
 
 ### Additional arguments
-`plot.incidence()` is designed for a high level of customization without needing knowledge of *ggplot2*.
+`plot.incidence2()` is designed for a high level of customization without needing knowledge of [ggplot2](https://cran.r-project.org/package=ggplot2).
 To this end, there are multiple arguments that can be provided which have been set to sensible defaults.
-Some common changes you may wish to make are illustrated below (for a full description of arguments check out the accompanying help file `?plot.incidence`).
+Some common changes you may wish to make are illustrated below (for a full description of arguments check out the accompanying help file `?plot.incidence2`).
 
 We can easily fill the plot according to the groups present or a colour of our choosing:
 
@@ -97,7 +101,7 @@ plot(i_epiet, color = "white", show_cases = TRUE, angle = 45, size = 10, n.break
 ## `facet_plot()`
 
 With stacked plots it can be difficult to ascertain difference between groups.
-For this reason we provide users the ability to make faceted plots with the `facet_plot()` function.
+For this reason we provide users the ability to make faceted plots with the `facet_plot.incidence2()` function.
 This function takes similar arguments to `plot` but includes an additional facet argument:
 
 ```{r, facets}

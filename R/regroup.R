@@ -29,7 +29,7 @@ regroup <- function(x, groups = NULL){
   # due to NSE notes in R CMD check
   ..count_var <- . <- NULL
 
-  if (!inherits(x, "incidence")) abort("x should be an 'incidence' object.")
+  if (!inherits(x, "incidence_df")) abort("x should be an 'incidence_df' object.")
 
   # check groups present
   groups <- rlang::enquo(groups)

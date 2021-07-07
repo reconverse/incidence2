@@ -9,15 +9,15 @@ coverage](https://codecov.io/gh/reconverse/incidence2/branch/master/graph/badge.
 [![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-stable.svg)](https://www.reconverse.org/lifecycle.html#stable)
 <!-- badges: end -->
 
-# [incidence2](https://www.reconverse.org/incidence2/)
+# incidence2
 
-incidence2 is an R package that implements functions and classes to
-compute, handle and visualise incidences from linelist data. It
+**incidence2** is an R package that implements functions and classes to
+compute, handle and visualise *incidence* from linelist data. It
 refocusses the scope of the original
 [incidence](https://cran.r-project.org/package=incidence) package.
-Unlike the original package, incidence2 concentrates only on the initial
-calculation, manipulation and plotting of the resultant incidence
-objects.
+Unlike the original package, **incidence2** concentrates only on the
+initial calculation, manipulation and plotting of the resultant
+*incidence* objects.
 
 ## Installing the package
 
@@ -43,9 +43,9 @@ install.packages("incidence2")
 
 ### Vignettes
 
-A short overview of incidence2 is provided below in the worked example
-below. More detailed tutorials are distributed as vignettes with the
-package:
+A short overview of **incidence2** is provided below in the worked
+example below. More detailed tutorials are distributed as vignettes with
+the package:
 
   - `vignette("Introduction", package = "incidence2")`
   - `vignette("handling_incidence_objects", package = "incidence2")`
@@ -179,7 +179,7 @@ facet_plot(iw, n.breaks = 3, color = "white")
 
 <img src="man/figures/README-genderfacet-1.png" style="display: block; margin: auto;" />
 
-It is also possible togroup by multiple variables specifying different
+It is also possible to group by multiple variables specifying different
 facets and fills:
 
 ``` r

@@ -44,7 +44,7 @@ new_incidence <- function(x, date, groups = NULL, counts, measurements = NULL,
     counts = counts,
     measurements = measurements,
     nrow = nrow(x),
-    class = "incidence"
+    class = "incidence_df"
   )
 
   if (validate) (validate_incidence(validate_tibble(out))) else out
@@ -61,7 +61,7 @@ validate_incidence <- function(x) {
   measurements <- attr(x, "measurements")
 
   # check types and lengths
-  if (!inherits_all(x, c("incidence", "data.frame"))) {
+  if (!inherits_all(x, c("incidence_df", "data.frame"))) {
     abort("`x` must be a data frame with subclass incidence")
   }
   vec_assert(date, ptype = character(), size = 1L)

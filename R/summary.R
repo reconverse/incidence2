@@ -6,7 +6,7 @@
 #' @return object (invisibly).
 #'
 #' @export
-summary.incidence <- function(object, ...) {
+summary.incidence_df <- function(object, ...) {
 
   ..count_var <- . <- NULL # due to NSE notes in R CMD check
 

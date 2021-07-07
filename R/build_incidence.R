@@ -2,18 +2,8 @@
 #'
 #' `build_incidence()` coerces an object to an incidence of events.
 #'
-#' @param x An object to converse to `incidence`.
-#' @param ... Further arguments passed to or from other methods.
-#'
-#' @export
-build_incidence <- function(x, ...) UseMethod("build_incidence")
-
-#' @rdname build_incidence
-#' @export
-build_incidence.default <- function(x, ...) {
-  abort(sprintf("Not implemented for class %s", paste(class(x), collapse = ", ")))
-}
-
+#' @param x A data frame representing a linelist (or potentially a
+#'   pre-aggregated dataset).
 #' @param date_index The time index(es) of the given data. Multiple inputs only
 #'   make sense when x is a linelist, and in this situation, to avoid ambiguity,
 #'   the vector must be named.  These names will be used for the resultant count
@@ -30,11 +20,27 @@ build_incidence.default <- function(x, ...) {
 #'   the identity function.
 #' @param args List of additional arguments passed to FUN.
 #'
-#' @rdname build_incidence
+#' @return An `incidence_df`` object.  This is a subclass of
+#'   [`tibble`][`tibble::tbl-df`] represents an aggregated count of
+#'   observations. It will contain the following columns:
+#'
+#'   **date_index**:  If the default interval of 1 day is used then
+#'     this will be the dates of the given observations and given the name
+#'     "date", otherwise, this will be values obtained from the specified date
+#'     grouping with column name "date_index" (See Interval specification below).
+#'
+#'   - **count** (or name of count variables): The aggregated observation counts.
+#'
+#'   - **groups** (if specified): column(s) containing the categories of the
+#'     given groups.
+#'
 #' @export
-build_incidence.data.frame <- function(x, date_index, groups = NULL, counts = NULL,
-                                    na_as_group = TRUE, FUN = identity,
-                                    args = list(), ...) {
+build_incidence <- function(x, date_index, groups = NULL, counts = NULL,
+                            na_as_group = TRUE, FUN = identity, args = list()) {
+
+  if (!inherits(x, "data.frame")) {
+    abort(sprintf("Not implemented for class %s", paste(class(x), collapse = ", ")))
+  }
 
   # Convert date_index to character variables and facilitate renaming
   date_index <- enquo(date_index)

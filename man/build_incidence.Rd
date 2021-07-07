@@ -2,29 +2,21 @@
 % Please edit documentation in R/build_incidence.R
 \name{build_incidence}
 \alias{build_incidence}
-\alias{build_incidence.default}
-\alias{build_incidence.data.frame}
 \title{Coerce to incidence}
 \usage{
-build_incidence(x, ...)
-
-\method{build_incidence}{default}(x, ...)
-
-\method{build_incidence}{data.frame}(
+build_incidence(
   x,
   date_index,
   groups = NULL,
   counts = NULL,
   na_as_group = TRUE,
   FUN = identity,
-  args = list(),
-  ...
+  args = list()
 )
 }
 \arguments{
-\item{x}{An object to converse to \code{incidence}.}
-
-\item{...}{Further arguments passed to or from other methods.}
+\item{x}{A data frame representing a linelist (or potentially a
+pre-aggregated dataset).}
 
 \item{date_index}{The time index(es) of the given data. Multiple inputs only
 make sense when x is a linelist, and in this situation, to avoid ambiguity,
@@ -46,6 +38,20 @@ first argument of \code{FUN} must work with a \code{dates_index} vector. Default
 the identity function.}
 
 \item{args}{List of additional arguments passed to FUN.}
+}
+\value{
+An \verb{incidence_df`` object.  This is a subclass of [}tibble\verb{][}tibble::tbl-df`] represents an aggregated count of
+observations. It will contain the following columns:
+
+\strong{date_index}:  If the default interval of 1 day is used then
+this will be the dates of the given observations and given the name
+"date", otherwise, this will be values obtained from the specified date
+grouping with column name "date_index" (See Interval specification below).
+\itemize{
+\item \strong{count} (or name of count variables): The aggregated observation counts.
+\item \strong{groups} (if specified): column(s) containing the categories of the
+given groups.
+}
 }
 \description{
 \code{build_incidence()} coerces an object to an incidence of events.

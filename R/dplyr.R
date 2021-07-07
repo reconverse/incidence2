@@ -100,19 +100,19 @@ df_reconstruct <- function(x, to) {
 # Need to define a few base R methods to ensure things work as expected
 
 #' @export
-`[.incidence` <- function(x, i, j, ...) {
+`[.incidence_df` <- function(x, i, j, ...) {
   out <- NextMethod()
   incidence_reconstruct(out, x)
 }
 
 #' @export
-`[<-.incidence` <- function(x, i, j, ..., value) {
+`[<-.incidence_df` <- function(x, i, j, ..., value) {
   out <- NextMethod()
   incidence_reconstruct(out, x)
 }
 
 #' @export
-`names<-.incidence` <- function(x, value) {
+`names<-.incidence_df` <- function(x, value) {
   current_names <- names(x)
 
   date_var <- attr(x, "date")
@@ -137,7 +137,7 @@ df_reconstruct <- function(x, to) {
 
 # -------------------------------------------------------------------------
 # Registered in `.onLoad()` in zzz.R
-dplyr_reconstruct_incidence <- function(data, template) {
+dplyr_reconstruct_incidence_df <- function(data, template) {
   incidence_reconstruct(data, template)
 }
 # -------------------------------------------------------------------------

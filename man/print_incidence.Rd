@@ -2,13 +2,13 @@
 % Please edit documentation in R/print.R
 \name{print_incidence}
 \alias{print_incidence}
-\alias{print.incidence}
-\alias{format.incidence}
+\alias{print.incidence_df}
+\alias{format.incidence_df}
 \title{Print an incidence object.}
 \usage{
-\method{print}{incidence}(x, ...)
+\method{print}{incidence_df}(x, ...)
 
-\method{format}{incidence}(x, ...)
+\method{format}{incidence_df}(x, ...)
 }
 \arguments{
 \item{x}{An 'incidence' object.}

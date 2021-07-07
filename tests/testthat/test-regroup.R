@@ -19,7 +19,7 @@ test_that("regroup works", {
   expect_equal(regroup(x, group_1), expected)
 
   # regroup none-incidence object
-  expect_error(regroup("test"), "x should be an 'incidence' object.")
+  expect_error(regroup("test"), "x should be an 'incidence_df' object.")
 })
 
 

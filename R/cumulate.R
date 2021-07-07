@@ -12,9 +12,9 @@
 #' @export
 cumulate <- function(x) {
   lifecycle::deprecate_stop(
-    when = "2.0.0",
+    when = "1.2.0",
     what = "cumulate()",
-    details = "* See the 2.0.0 NEWS for more information"
+    details = "* See the 1.2.0 NEWS for more information"
   )
 }
 

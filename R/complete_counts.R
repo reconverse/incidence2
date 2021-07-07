@@ -20,8 +20,8 @@
 #' @export
 complete_counts <- function(x, fill = NA) {
 
-  if (!inherits(x, "incidence")) {
-    abort(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
+  if (!inherits(x, "incidence_df")) {
+    abort(sprintf("`%s` is not an 'incidence_df' object", deparse(substitute(x))))
   }
 
   if (!is.na(fill)) {

@@ -18,20 +18,20 @@ knitr::opts_chunk$set(
 ```
 
 ## What does it do?
-incidence2 is an R package that implements functions and classes to compute, handle and visualise incidences from linelist data.
+**incidence2** is an R package that implements functions and classes to compute, handle and visualise *incidence* from linelist data.
 
 The main features of the package include:
 
-* The `incidence()` function:
-  computes incidence from both linelist and pre-aggregated datasets across a range of date groupings.
-* The returned object from `incidence()` is a subclass of [tibble](https://CRAN.R-project.org/package=tibble). This is compatible with [dplyr](https://dplyr.tidyverse.org/) for data manipulation (see `vignette("handling_incidence_objects")` for more details).
+* The `incidence()` and `build_incidence()` functions compute *incidence* from both linelist and pre-aggregated datasets across a range of date groupings.
+  The returned object from `incidence()` is a subclass of [tibble](https://CRAN.R-project.org/package=tibble).
+  This is compatible with [dplyr](https://dplyr.tidyverse.org/) for data manipulation (see `vignette("handling_incidence_objects")` for more details).
 * Plotting methods, `plot.incidence2()` and `facet_plot.incidence2()` that provide quick plots with sensible defaults.
 * Additional functions for handling incidence objects, including:
   - `regroup()`: regroup incidence from different groups into one global incidence time series.
   - `keep_first()` and `keep_last()` : will keep the rows corresponding to the first (or last) set of grouped dates (ordered by time) from an `incidence()` object.
   - `complete_counts()`: ensure every possible combination of date and groupings is given an explicit count.
-  - `print.incidence2()`** and `summary.incidence2()` methods.
-  - `as.data.frame.incidence2()` and `as_tibble.incidence2()` conversion methods.
+  - `print.incidence_df()`** and `summary.incidence_df()` methods.
+  - `as.data.frame.incidence_df()` and `as_tibble.incidence_df()` conversion methods.
   - Accessor functions: `get_count_names()`, `get_dates_name()`, `get_date_index()`, `get_group_names()`, `get_interval()`, `get_timespan()` and  `get_n()`.
   
 
@@ -98,7 +98,7 @@ plot(yearly, color = "white", n.breaks = 2)
 
 ### Grouping
 `incidence()` can also aggregate incidence by specified groups using the `groups` argument.
-For instance, we can compute incidence by gender and plot with both the `plot()` function for a single or the `facet_plot()` function for a multi-faceted plot across groups:
+For instance, we can compute incidence by gender and plot with both the `plot.incidence_df()` function for a single or the `facet_plot.incidence_df()` function for a multi-faceted plot across groups:
 
 ```{r gender}
 weekly_grouped <- incidence(dat, date_of_onset, interval = "week", groups = gender)

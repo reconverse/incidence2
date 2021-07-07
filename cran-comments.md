@@ -1,5 +1,5 @@
 ## Reason for updated release
-* Internal refactoring and some additional user facing functionality.
+* Internal improvements, some additional user facing functionality and a bug fix.
 
 ## Downstream dependencies
 This causes a test to fail in the downstream i2extras package.

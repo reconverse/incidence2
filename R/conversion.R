@@ -12,7 +12,7 @@
 #' as.data.frame(dat)
 #'
 #' @export
-as.data.frame.incidence <- function(x, ...) {
+as.data.frame.incidence_df <- function(x, ...) {
   vctrs::new_data_frame(x)
 }
 # -------------------------------------------------------------------------
@@ -32,7 +32,7 @@ as.data.frame.incidence <- function(x, ...) {
 #'
 #' @export
 #' @name as_tibble
-as_tibble.incidence <- function(x, ...) {
+as_tibble.incidence_df <- function(x, ...) {
   new_bare_tibble(x)
 }
 # -------------------------------------------------------------------------

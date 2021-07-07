@@ -5,7 +5,7 @@
 #'
 #' @name print_incidence
 #' @export
-print.incidence <- function(x, ...) {
+print.incidence_df <- function(x, ...) {
   writeLines(format(x, ...))
   invisible(x)
 }
@@ -13,7 +13,7 @@ print.incidence <- function(x, ...) {
 
 #' @export
 #' @rdname print_incidence
-format.incidence <- function(x, ...) {
+format.incidence_df <- function(x, ...) {
   overview <- overview(x)
   body <- format(tibble::as_tibble(x, ...))[-1]
   if (inherits(x, "incidence2")) {
