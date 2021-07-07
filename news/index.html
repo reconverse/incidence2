@@ -161,12 +161,19 @@
 <code><a href="../reference/cumulate-deprecated.html">cumulate()</a></code> will now give a deprecation error. We have removed the function to avoid users erroneously regressing against a cumulative count.</li>
 </ul>
 </div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fixes bug in <code><a href="../reference/incidence.html">incidence()</a></code> when dates were a character vector and the the default, daily, interval was specified.</li>
+</ul>
+</div>
 <div id="other-updates" class="section level2">
 <h2 class="hasAnchor">
 <a href="#other-updates" class="anchor"></a>Other updates</h2>
 <ul>
 <li>Now uses <code>dplyr</code> to handle list based columns (e.g. record-type objects from <code>vctrs</code>). For data.frames with only atomic columns, data.table is still used.</li>
-<li>Printing of incidence objects has been improved to remove duplication in the overview section.</li>
+<li>Printing and summaries of incidence objects have been improved to remove duplication in the overview section.</li>
 </ul>
 </div>
 </div>
