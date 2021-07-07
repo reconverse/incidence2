@@ -1,6 +1,6 @@
 #' Coerce to incidence
 #'
-#' `build_incidence()` coerced an object to an incidence of events.
+#' `build_incidence()` coerces an object to an incidence of events.
 #'
 #' @param x An object to converse to `incidence`.
 #' @param ... Further arguments passed to or from other methods.

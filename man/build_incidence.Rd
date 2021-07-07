@@ -48,5 +48,5 @@ the identity function.}
 \item{args}{List of additional arguments passed to FUN.}
 }
 \description{
-\code{build_incidence()} coerced an object to an incidence of events.
+\code{build_incidence()} coerces an object to an incidence of events.
 }
