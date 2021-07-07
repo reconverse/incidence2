@@ -21,7 +21,6 @@
 
 ---
 
-    
     date range: [2020-01-01] to [2021-12-31]
     cases: 731
     interval: 1 day
@@ -50,7 +49,6 @@
 
 ---
 
-    
     date range: [2020-01-01] to [2021-12-31]
     cases: 1096
     interval: 1 day
@@ -79,7 +77,6 @@
 
 ---
 
-    
     date range: [2020-01-01 to 2020-01-17] to [2021-12-15 to 2021-12-31]
     cases: 731
     interval: 17 days
@@ -108,7 +105,6 @@
 
 ---
 
-    
     date range: [2020-01-01 to 2020-01-17] to [2021-12-15 to 2021-12-31]
     cases: 1096
     interval: 17 days
@@ -137,7 +133,6 @@
 
 ---
 
-    
     date range: [2020-W01] to [2022-W01]
     cases: 731
     interval: 1 (Wednesday) week 
@@ -163,7 +158,6 @@
 
 ---
 
-    
     date range: [2021-W05] to [2021-W08]
     cases: 56
     interval: 1 (Monday) week 
@@ -204,7 +198,6 @@
 
 ---
 
-    
     date range: [2021-W05] to [2021-W08]
     cases: 84
     interval: 1 (Monday) week 
@@ -248,7 +241,6 @@
 
 ---
 
-    
     date range: [2020-W01] to [2022-W01]
     cases: 1096
     interval: 1 (Wednesday) week 
@@ -277,7 +269,6 @@
 
 ---
 
-    
     date range: [2020-01-01 to 2020-01-14] to [2021-12-29 to 2022-01-11]
     cases: 731
     interval: 14 days
@@ -306,7 +297,6 @@
 
 ---
 
-    
     date range: [2020-01-01 to 2020-01-14] to [2021-12-29 to 2022-01-11]
     cases: 1096
     interval: 14 days
@@ -335,7 +325,6 @@
 
 ---
 
-    
     date range: [2020-W01] to [2021-W52]
     cases: 731
     interval: 1 (Monday) week 
@@ -364,7 +353,6 @@
 
 ---
 
-    
     date range: [2020-Jan] to [2021-Dec]
     cases: 731
     interval: 1 month
@@ -393,7 +381,6 @@
 
 ---
 
-    
     date range: [2020-Jan] to [2021-Dec]
     cases: 1096
     interval: 1 month
@@ -423,7 +410,6 @@
 
 ---
 
-    
     date range: [2020-Jan to 2020-Feb] to [2021-Nov to 2021-Dec]
     cases: 731
     interval: 2 months
@@ -453,7 +439,6 @@
 
 ---
 
-    
     date range: [2020-Jan to 2020-Feb] to [2021-Nov to 2021-Dec]
     cases: 1096
     interval: 2 months
@@ -479,7 +464,6 @@
 
 ---
 
-    
     date range: [2020-Q1] to [2021-Q4]
     cases: 731
     interval: 1 quarter
@@ -505,7 +489,6 @@
 
 ---
 
-    
     date range: [2020-Q1] to [2021-Q4]
     cases: 1096
     interval: 1 quarter
@@ -525,7 +508,6 @@
 
 ---
 
-    
     date range: [2020] to [2021]
     cases: 731
     interval: 1 year
@@ -545,7 +527,6 @@
 
 ---
 
-    
     date range: [2020] to [2021]
     cases: 1096
     interval: 1 year
@@ -565,7 +546,6 @@
 
 ---
 
-    
     date range: [1 to 5] to [6 to 10]
     cases: 10
     interval: 5 days
@@ -585,7 +565,6 @@
 
 ---
 
-    
     date range: [1 to 5] to [6 to 10]
     cases: 15
     interval: 5 days
@@ -617,7 +596,6 @@
 
 ---
 
-    
     date range: [2020-Dec] to [2021-Dec]
     deaths: 365
     onset: 365

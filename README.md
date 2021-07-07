@@ -116,7 +116,6 @@ i_7
 #> 10 2014-06-09 to 2014-06-15    21
 #> # … with 46 more rows
 summary(i_7)
-#> 
 #> date range: [2014-04-07 to 2014-04-13] to [2015-04-27 to 2015-05-03]
 #> cases: 5829
 #> interval: 7 days
@@ -156,7 +155,6 @@ iw
 #> 10   2014-W21 f          8
 #> # … with 99 more rows
 summary(iw)
-#> 
 #> date range: [2014-W15] to [2015-W18]
 #> cases: 5829
 #> interval: 1 (Monday) week 
@@ -206,7 +204,6 @@ iw2
 #> 10   2014-W19 f      <NA>                                             1
 #> # … with 591 more rows
 summary(iw2)
-#> 
 #> date range: [2014-W15] to [2015-W18]
 #> cases: 5829
 #> interval: 1 (Monday) week 

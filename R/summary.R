@@ -55,6 +55,6 @@ summary.incidence <- function(object, ...) {
     out <- c(out, "", groups_text, unlist(tables))
   }
 
-  writeLines(c("", out))
+  writeLines(out)
   invisible(object)
 }
