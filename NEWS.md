@@ -18,8 +18,8 @@
 ## Other updates
 * Now uses `dplyr` to handle list based columns (e.g. record-type objects from
   `vctrs`). For data.frames with only atomic columns, data.table is still used.
-* Printing of incidence objects has been improved to remove duplication in the
-  overview section. 
+* Printing and summaries of incidence objects have been improved to remove
+  duplication in the overview section. 
   
 
 # incidence2 1.1.0
