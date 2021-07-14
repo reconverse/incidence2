@@ -1,3 +1,9 @@
+# incidence2 1.2.1
+
+## Bug fixes
+* Fixes bug in `incidence()` when more than one column was given for the date_index.
+* Fixes incorrect test that did not take in to account changing time zones.
+
 # incidence2 1.2.0
 
 ## New functions
