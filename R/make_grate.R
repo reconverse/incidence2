@@ -1,5 +1,6 @@
 make_grate <- function(x, interval, firstdate) {
 
+  x[x < firstdate] <- NA
   n <- get_interval_number(interval)
   type <- get_interval_type(interval)
 
