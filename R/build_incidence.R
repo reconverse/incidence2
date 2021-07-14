@@ -130,13 +130,13 @@ build_incidence <- function(x, date_index, groups = NULL, counts = NULL,
 
 calculate_incidence <- function(x, date_index, groups, counts, count_name, na_as_group, dt) {
 
-  # Remove missing observations
-  n_orig <- nrow(x)
+  # TODO -
+  # This may want refactoring at some point as the make_grate function relies
+  # on this first step to ensure that the firstdate value is respected.
+  # Be careful when changing either function!
+
+  # Remove NA observations
   x <- x[!is.na(x[[date_index]]), , drop=FALSE]
-  n_new <- nrow(x)
-  if (n_new < n_orig) {
-    message(sprintf("%d missing observations were removed.", n_orig - n_new))
-  }
 
   # generate grouped_dates
   if (dt) {

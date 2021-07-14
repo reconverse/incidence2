@@ -1,5 +1,12 @@
 make_grate <- function(x, interval, firstdate) {
 
+  # Here we set values to NA knowing that they will later get removed by the
+  # calculate_incidence function.
+  # TODO
+  # This may want refactoring at some point as relying on the behaviour of this
+  # other function is not ideal
+  # Be careful when changing either function!
+  x[x < firstdate] <- NA
   n <- get_interval_number(interval)
   type <- get_interval_type(interval)
 

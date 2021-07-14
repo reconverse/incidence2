@@ -162,10 +162,6 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   if (is.null(firstdate)) {
     firstdate <- do.call(min, args = c(x[idx], na.rm = TRUE))
   }
-  n_orig <- nrow(x)
-  x <- x[x[[idx]] >= firstdate, , drop = FALSE]
-  n_new <- nrow(x)
-  if (n_new < n_orig) message(sprintf("%d observations were removed.", n_orig - n_new))
   x[idx] <- lapply(x[idx], check_dates)
 
   dat <- build_incidence(

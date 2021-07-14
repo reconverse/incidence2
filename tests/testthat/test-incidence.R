@@ -3,11 +3,13 @@
 firstday <- as.Date("2020-01-01") # Wednesday
 lastday <- as.Date("2021-12-31")  # Friday
 dates <- seq.Date(from = firstday, to = lastday, by = "day")
+dateslt <- as.POSIXlt(dates, tz = "UTC")
+datesct <- as.POSIXct(dateslt)
 count <- c(rep(1L, 366), rep(2L, 365))
 
 dat_dates <- data.frame(date = dates, count = count)
-dat_posixct <- data.frame(date = as.POSIXct(dates), count = count)
-dat_posixlt <- data.frame(date = as.POSIXlt(dates), count = count)
+dat_posixct <- data.frame(date = datesct, count = count)
+dat_posixlt <- data.frame(date = dateslt, count = count)
 dat_char <- data.frame(date = as.character(dates), count = count)
 dat_int <- data.frame(date = 1:10, count = c(rep(1, 5), rep(2, 5)))
 dat_numeric <- data.frame(date = as.numeric(1:10), count = c(rep(1, 5), rep(2, 5)))
