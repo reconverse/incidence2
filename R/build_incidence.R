@@ -45,7 +45,9 @@ build_incidence <- function(x, date_index, groups = NULL, counts = NULL,
   # Convert date_index to character variables and facilitate renaming
   date_index <- enquo(date_index)
   idx <- tidyselect::eval_select(date_index, x)
-  if (!length(idx)) abort("`date_index` must have length greater than zero")
+  if (!length(idx)) {
+    abort("`date_index` must have length greater than zero")
+  }
   if (length(idx) > 1) {
     call_nms <- call_args_names(get_expr(date_index))
     if (any(call_nms %in% "")) {
@@ -127,6 +129,7 @@ build_incidence <- function(x, date_index, groups = NULL, counts = NULL,
   new_incidence(res, date = "date_index", groups = groups, counts = counts)
 }
 
+# -------------------------------------------------------------------------
 
 calculate_incidence <- function(x, date_index, groups, counts, count_name, na_as_group, dt) {
 

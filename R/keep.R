@@ -10,6 +10,7 @@
 #' @return The objected with the chosen entries.
 #' @name keep
 NULL
+
 # -------------------------------------------------------------------------
 
 #' @rdname keep
@@ -18,6 +19,7 @@ keep_first <- function(x, n, ...) {
   UseMethod("keep_first")
 }
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
@@ -27,6 +29,7 @@ keep_first.default <- function(x, n, ...) {
   )
 }
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
@@ -36,6 +39,7 @@ keep_first.incidence_df <- function(x, n, ...) {
   x[idx, ]
 }
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
@@ -44,29 +48,31 @@ keep_first.grates_yearweek <- function(x, n, ...) {
   x[idx]
 }
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
 keep_first.grates_month <- keep_first.grates_yearweek
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
 keep_first.grates_quarter <- keep_first.grates_yearweek
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
 keep_first.grates_year <- keep_first.grates_yearweek
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
 keep_first.grates_period <- keep_first.grates_yearweek
 
-
 # -------------------------------------------------------------------------
-
 
 #' @rdname keep
 #' @export
@@ -74,6 +80,7 @@ keep_last <- function(x, n, ...) {
   UseMethod("keep_last")
 }
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
@@ -83,6 +90,7 @@ keep_last.default <- function(x, n, ...) {
   )
 }
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
@@ -92,6 +100,7 @@ keep_last.incidence_df <- function(x, n, ...) {
   x[idx, ]
 }
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
@@ -100,33 +109,34 @@ keep_last.grates_yearweek <- function(x, n, ...) {
   x[idx]
 }
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
 keep_last.grates_month <- keep_last.grates_yearweek
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
 keep_last.grates_quarter <- keep_last.grates_yearweek
 
+# -------------------------------------------------------------------------
 
 #' @rdname keep
 #' @export
 keep_last.grates_year <- keep_last.grates_yearweek
 
-
+# -------------------------------------------------------------------------
 #' @rdname keep
 #' @export
 keep_last.grates_period <- keep_last.grates_yearweek
-
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 # ------------------------------- INTERNALS ------------------------------- #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-
 
 keep_idx <- function(x, n, from_last = FALSE) {
   uniq <- unique(x)

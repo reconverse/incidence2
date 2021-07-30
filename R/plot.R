@@ -158,12 +158,16 @@ plot.incidence2 <- function(x, count = NULL, fill = NULL, centre_dates = TRUE,
 
 }
 
+# -------------------------------------------------------------------------
+
 #' @rdname plot.incidence2
 #' @aliases facet_plot
 #' @export
 facet_plot <- function(x, ...) {
   UseMethod("facet_plot")
 }
+
+# -------------------------------------------------------------------------
 
 #' @importFrom rlang sym syms
 #' @rdname plot.incidence2
@@ -239,6 +243,8 @@ facet_plot.incidence2 <- function(x, count = NULL, facets = NULL,
 
   out
 }
+
+# -------------------------------------------------------------------------
 
 plot_basic <- function(x, count, fill = NULL, centre_dates = TRUE, stack = TRUE,
                        n.breaks = 6, width = 1, date_format = "%Y-%m-%d",
@@ -372,7 +378,11 @@ plot_basic <- function(x, count, fill = NULL, centre_dates = TRUE, stack = TRUE,
       origin = as.numeric(min(d))
     )
   } else if (inherits(d, "Date")) {
-    out <-  out + ggplot2::scale_x_date(breaks = scales::pretty_breaks(n = n.breaks), date_labels = date_format, ...)
+    out <-  out + ggplot2::scale_x_date(
+      breaks = scales::pretty_breaks(n = n.breaks),
+      date_labels = date_format,
+      ...
+    )
   } else if (inherits(d, "integer")) {
     out <- out + ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = n.breaks), ...)
   } else {
@@ -382,6 +392,7 @@ plot_basic <- function(x, count, fill = NULL, centre_dates = TRUE, stack = TRUE,
   out
 }
 
+# -------------------------------------------------------------------------
 
 ylabel <- function(x, ylab) {
   if (is.null(ylab)) {
@@ -416,6 +427,8 @@ ylabel <- function(x, ylab) {
   }
   ylab
 }
+
+# -------------------------------------------------------------------------
 
 #' Rotate and scale incidence plot labels
 #'

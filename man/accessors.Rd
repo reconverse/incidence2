@@ -87,45 +87,22 @@ get_interval(x, ...)
 \value{
 \itemize{
 \item \code{get_counts}: The count vector from x.
-}
-
-\itemize{
 \item \code{get_count_names()}: The name of the count variable of x.
-}
-
-\itemize{
 \item \code{get_date_index()}: The date_index vector from x.
-}
-
-\itemize{
 \item \code{get_dates()}: Same as \code{get_date_index()}.
-}
-
-\itemize{
 \item \code{get_dates_name()}: The name of the date_index variable of x.
-}
-
-\itemize{
 \item \code{get_group_names()}: a character vector of the group variables of x or
-NULL if none are present.
-}
-
-\itemize{
 \item \code{get_timespan()}: an \code{integer} denoting the timespan in days represented
 by the incidence object.
-}
-
-\itemize{
 \item \code{get_n()} The total number of cases stored in the object
-}
-
-\itemize{
 \item \code{get_interval()}: if \code{integer = TRUE}, an integer vector, otherwise the
 character value of the \code{interval}
 }
 }
 \description{
 Access various elements of an incidence object
+
+NULL if none are present.
 }
 \examples{
 if (requireNamespace("outbreaks", quietly = TRUE)) {

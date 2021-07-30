@@ -10,6 +10,7 @@ print.incidence_df <- function(x, ...) {
   invisible(x)
 }
 
+# -------------------------------------------------------------------------
 
 #' @export
 #' @rdname print_incidence
@@ -25,6 +26,7 @@ format.incidence_df <- function(x, ...) {
   out
 }
 
+# -------------------------------------------------------------------------
 
 overview <- function(x) {
   count_var <- get_count_names(x)
@@ -52,6 +54,8 @@ overview <- function(x) {
   )
   c(header, date_range, cases)
 }
+
+# -------------------------------------------------------------------------
 
 interval <- function(x) {
   interval <- get_interval(x)

@@ -1,4 +1,3 @@
-# -------------------------------------------------------------------------
 make_palette <- function(x, quiet = FALSE, suggest = NULL) {
   function(n) {
     if (!is.numeric(n)) abort("n is not a number")
@@ -26,10 +25,9 @@ make_palette <- function(x, quiet = FALSE, suggest = NULL) {
     }
   }
 }
-# -------------------------------------------------------------------------
-
 
 # -------------------------------------------------------------------------
+
 vibrant_colors <- c(
   "#0077BB",
   "#33BBEE",
@@ -38,6 +36,8 @@ vibrant_colors <- c(
   "#CC3311",
   "#EE3377"
 )
+
+# -------------------------------------------------------------------------
 
 muted_colors <- c(
   "#332288",
@@ -50,10 +50,9 @@ muted_colors <- c(
   "#882255",
   "#AA4499"
 )
-# -------------------------------------------------------------------------
-
 
 # -------------------------------------------------------------------------
+
 #' Color palettes used in incidence
 #'
 #' These functions are color palettes used in incidence. The palettes come from
@@ -70,11 +69,10 @@ muted_colors <- c(
 #' @export
 #' @rdname palettes
 vibrant <- make_palette(vibrant_colors, suggest = "muted")
-# -------------------------------------------------------------------------
-
 
 # -------------------------------------------------------------------------
+
 #' @export
 #' @rdname palettes
 muted <- make_palette(muted_colors)
-# -------------------------------------------------------------------------
+

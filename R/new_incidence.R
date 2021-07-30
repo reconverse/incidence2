@@ -47,8 +47,14 @@ new_incidence <- function(x, date, groups = NULL, counts, measurements = NULL,
     class = "incidence_df"
   )
 
-  if (validate) (validate_incidence(validate_tibble(out))) else out
+  if (validate) {
+    (validate_incidence(validate_tibble(out)))
+  } else {
+    out
+  }
 }
+
+# -------------------------------------------------------------------------
 
 #' @rdname new_incidence
 #' @export
@@ -68,8 +74,12 @@ validate_incidence <- function(x) {
   vec_assert(counts, ptype = character())
   stopifnot("`counts` must have length greater than 0" = length(counts) > 0)
 
-  if(!is.null(groups)) vec_assert(groups, ptype = character())
-  if(!is.null(measurements)) vec_assert(measurements, ptype = character())
+  if(!is.null(groups)) {
+    vec_assert(groups, ptype = character())
+  }
+  if(!is.null(measurements)) {
+    vec_assert(measurements, ptype = character())
+  }
 
   # check that all attributes are present as column headers
   columns_present(x, date)
@@ -85,6 +95,7 @@ validate_incidence <- function(x) {
   invisible(x)
 }
 
+# -------------------------------------------------------------------------
 
 columns_present <- function(x, nms) {
   res <- if (length(nms)) all(nms %in% names(x)) else TRUE

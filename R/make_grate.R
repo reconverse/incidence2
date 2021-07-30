@@ -50,6 +50,8 @@ make_grate <- function(x, interval, firstdate) {
   out
 }
 
+# -------------------------------------------------------------------------
+
 # parse interval type
 get_interval_type <- function(interval) {
 
@@ -87,9 +89,13 @@ get_interval_type <- function(interval) {
   }
 }
 
+# -------------------------------------------------------------------------
+
 # parse interval number
 get_interval_number <- function(x) {
-  if (!grepl("^\\d", x)) return(1L)
+  if (!grepl("^\\d", x)) {
+    return(1L)
+  }
   as.integer(gsub("^(\\d*).*$", "\\1", x))
 }
 
@@ -98,7 +104,9 @@ get_yearweek_start <- function(interval, numeric = TRUE) {
   weekday <- gsub("weeks?", "", tolower(interval))
   weekday <- gsub("[[:punct:][:blank:][:digit:]]*", "", weekday)
 
-  if (weekday == "") return(1) # input was week or weeks => default to monday
+  if (weekday == "") {
+    return(1)           # input was week or weeks => default to monday
+  }
 
   weekday <- switch(
     weekday,
@@ -109,6 +117,8 @@ get_yearweek_start <- function(interval, numeric = TRUE) {
   )
   weekday_from_char(weekday, numeric)
 }
+
+# -------------------------------------------------------------------------
 
 origin_from_firstdate <- function(x) {
   x <- as.POSIXlt(x, tz="UTC")

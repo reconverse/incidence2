@@ -1,4 +1,3 @@
-# -------------------------------------------------------------------------
 #' Convert incident object to dataframe
 #'
 #' @param x An [incidence()] object.
@@ -15,9 +14,9 @@
 as.data.frame.incidence_df <- function(x, ...) {
   vctrs::new_data_frame(x)
 }
-# -------------------------------------------------------------------------
 
 # -------------------------------------------------------------------------
+
 #' Convert incident object to a tibble
 #'
 #' @param x An [incidence()] object.
@@ -35,11 +34,11 @@ as.data.frame.incidence_df <- function(x, ...) {
 as_tibble.incidence_df <- function(x, ...) {
   new_bare_tibble(x)
 }
+
 # -------------------------------------------------------------------------
 
 #' @importFrom tibble as_tibble
 #' @export
 #' @name as_tibble
 tibble::as_tibble()
-# -------------------------------------------------------------------------
 

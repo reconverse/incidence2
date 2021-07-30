@@ -47,10 +47,9 @@ incidence_can_reconstruct <- function(x, to) {
 
   TRUE
 }
-# -------------------------------------------------------------------------
-
 
 # -------------------------------------------------------------------------
+
 #' Function to reconstruct object of incidence class
 #'
 #' Once you have encoded the invariant logic into incidence_can_reconstruct, we
@@ -68,11 +67,9 @@ incidence_reconstruct <- function(x, to) {
     new_bare_tibble(x)
   }
 }
-# -------------------------------------------------------------------------
-
-
 
 # -------------------------------------------------------------------------
+
 # This function is a data frame specific helper.  Currently we are recommended
 # to copy in to our own package but it may evenutally find it's way in to one of
 # the tidy packages. See:
@@ -94,9 +91,9 @@ df_reconstruct <- function(x, to) {
 
   x
 }
-# -------------------------------------------------------------------------
 
 # -------------------------------------------------------------------------
+
 # Need to define a few base R methods to ensure things work as expected
 
 #' @export
@@ -105,11 +102,15 @@ df_reconstruct <- function(x, to) {
   incidence_reconstruct(out, x)
 }
 
+# -------------------------------------------------------------------------
+
 #' @export
 `[<-.incidence_df` <- function(x, i, j, ..., value) {
   out <- NextMethod()
   incidence_reconstruct(out, x)
 }
+
+# -------------------------------------------------------------------------
 
 #' @export
 `names<-.incidence_df` <- function(x, value) {
@@ -132,12 +133,10 @@ df_reconstruct <- function(x, to) {
   out <- NextMethod()
   incidence_reconstruct(out, x)
 }
-# -------------------------------------------------------------------------
-
 
 # -------------------------------------------------------------------------
+
 # Registered in `.onLoad()` in zzz.R
 dplyr_reconstruct_incidence_df <- function(data, template) {
   incidence_reconstruct(data, template)
 }
-# -------------------------------------------------------------------------
