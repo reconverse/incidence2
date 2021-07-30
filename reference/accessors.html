@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Access various elements of an incidence object — accessors" />
-<meta property="og:description" content="Access various elements of an incidence object" />
+<meta property="og:description" content="Access various elements of an incidence object
+NULL if none are present." />
 
 
 
@@ -140,6 +141,7 @@
 
     <div class="ref-description">
     <p>Access various elements of an incidence object</p>
+<p>NULL if none are present.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_counts</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -226,39 +228,14 @@
     
 <ul>
 <li><p><code>get_counts</code>: The count vector from x.</p></li>
-</ul>
-
-<ul>
 <li><p><code>get_count_names()</code>: The name of the count variable of x.</p></li>
-</ul>
-
-<ul>
 <li><p><code>get_date_index()</code>: The date_index vector from x.</p></li>
-</ul>
-
-<ul>
 <li><p><code>get_dates()</code>: Same as <code>get_date_index()</code>.</p></li>
-</ul>
-
-<ul>
 <li><p><code>get_dates_name()</code>: The name of the date_index variable of x.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_group_names()</code>: a character vector of the group variables of x or
-NULL if none are present.</p></li>
-</ul>
-
-<ul>
+<li><p><code>get_group_names()</code>: a character vector of the group variables of x or</p></li>
 <li><p><code>get_timespan()</code>: an <code>integer</code> denoting the timespan in days represented
 by the incidence object.</p></li>
-</ul>
-
-<ul>
 <li><p><code>get_n()</code> The total number of cases stored in the object</p></li>
-</ul>
-
-<ul>
 <li><p><code>get_interval()</code>: if <code>integer = TRUE</code>, an integer vector, otherwise the
 character value of the <code>interval</code></p></li>
 </ul>
