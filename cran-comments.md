@@ -1,13 +1,12 @@
 ## Reason for updated release
-* Fixes an incorrect test that was subsequently failing on some of the CRAN mac checks.
-* Also bug fixes a bug in a user-facing function.
+* bug fix
 
 ## Downstream dependencies
 i2extras passes checks without issue.
 
 ## Test environments
-* local Fedora 34, R Under development (unstable) (2021-07-14 r80618)
-* winbuilder, R Under development (unstable) (2021-07-12 r80615)
+* local Fedora 34, R Under development (unstable) (2021-08-22 r80811)
+* winbuilder, R Under development (unstable) (2021-08-20 r80804)
 
 ## R CMD check results
 Status: OK

@@ -64,7 +64,7 @@ the package:
 # A quick overview
 
 This short example uses the simulated Ebola Virus Disease (EVD) outbreak
-from the package [*outbreaks*](https://github.com/reconhub/outbreaks).
+from the package [*outbreaks*](https://github.com/reconverse/outbreaks).
 It shows how to compute incidence for various time steps and plot the
 resulting output.
 
