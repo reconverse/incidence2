@@ -599,3 +599,11 @@ test_that("incidence cannot work with different date_index types", {
   expect_error(incidence(dat, date_index = c(d1 = dates1, d2 = dates2)))
 })
 
+test_that("data.table input works as expected", {
+  dat <- covidregionaldataUK
+  dat2 <- data.table::as.data.table(dat)
+  i <- incidence(dat, date, counts = cases_new, groups = region)
+  i2 <- incidence(dat, date, counts = cases_new, groups = region)
+  expect_equal(i,i2)
+})
+

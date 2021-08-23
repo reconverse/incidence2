@@ -149,6 +149,8 @@
 incidence <- function(x, date_index, groups = NULL, interval = 1L,
                       na_as_group = TRUE, counts = NULL, firstdate = NULL) {
 
+  # convert data.table inputs to data frame
+  if (inherits(x, "data.table")) x <- as.data.frame(x)
 
   en_date <- rlang::enexpr(date_index)
   en_groups <- rlang::enexpr(groups)
