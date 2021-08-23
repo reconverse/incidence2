@@ -1,4 +1,4 @@
-# incidence2 (development version)
+# incidence2 1.2.2
 
 ## Bug fixes
 * Fixes bug when input object to incidence is a data.table.
