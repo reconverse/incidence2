@@ -179,6 +179,7 @@ incidence <- function(x, date_index, groups = NULL, interval = 1L,
   # standardise interval (below is for historical compatibility in incidence2)
   interval <- create_interval_string(dat$date_index)
   attr(dat, "interval") <- interval
+  attr(dat, "cumulative") <- FALSE
   class(dat) <- c("incidence2", class(dat))
   dat
 }

@@ -57,6 +57,7 @@ regroup <- function(x, groups = NULL){
   tbl <- new_incidence(tbl, date = date_var, groups = groups, counts = count_var)
   if (inherits(x, "incidence2")) {
     attr(tbl, "interval") <- attr(x, "interval")
+    attr(tbl, "cumulative") <- attr(x, "cumulative")
     class(tbl) <- c("incidence2", class(tbl))
   }
 

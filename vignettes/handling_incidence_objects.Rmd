@@ -45,6 +45,17 @@ inci %>% regroup(c(gender, outcome))
 inci %>% regroup()
 ```
 
+### cumulate
+We also provide a helper function, `cumulate`() to easily generate cumulative 
+incidences:
+
+```{r cumulate}
+inci %>% 
+  regroup(hospital) %>% 
+  cumulate() %>% 
+  facet_plot(n.breaks = 4)
+```
+
 ### `keep_first()` and `keep_last()`
 Once your data is grouped by date, you may want to select the first or last few entries based on a particular date grouping using `keep_first()` and `keep_last()`:
 

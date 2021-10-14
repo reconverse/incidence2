@@ -47,17 +47,17 @@ A short overview of **incidence2** is provided below in the worked
 example below. More detailed tutorials are distributed as vignettes with
 the package:
 
-  - `vignette("Introduction", package = "incidence2")`
-  - `vignette("handling_incidence_objects", package = "incidence2")`
-  - `vignette("customizing_incidence_plots", package = "incidence2")`
-  - `vignette("alternative_date_groupings", package = "incidence2")`
+-   `vignette("Introduction", package = "incidence2")`
+-   `vignette("handling_incidence_objects", package = "incidence2")`
+-   `vignette("customizing_incidence_plots", package = "incidence2")`
+-   `vignette("alternative_date_groupings", package = "incidence2")`
 
 ## Getting help online
 
-  - Bug reports and feature requests should be posted on *github* using
+-   Bug reports and feature requests should be posted on *github* using
     the issue system: <https://github.com/reconverse/incidence2/issues>.
-  - Online documentation: <https://www.reconverse.org/incidence2>.
-  - All other questions should be posted on the **RECON** slack channel;
+-   Online documentation: <https://www.reconverse.org/incidence2>.
+-   All other questions should be posted on the **RECON** slack channel;
     see <https://www.repidemicsconsortium.org/forum/> for details on how
     to join.
 
@@ -101,6 +101,7 @@ i_7
 #> date range: [2014-04-07 to 2014-04-13] to [2015-04-27 to 2015-05-03]
 #> cases: 5829
 #> interval: 7 days
+#> cumulative: FALSE
 #> 
 #>                  date_index count
 #>                    <period> <int>
@@ -119,6 +120,7 @@ summary(i_7)
 #> date range: [2014-04-07 to 2014-04-13] to [2015-04-27 to 2015-05-03]
 #> cases: 5829
 #> interval: 7 days
+#> cumulative: FALSE
 #> timespan: 392 days
 plot(i_7, color = "white")
 ```
@@ -140,6 +142,7 @@ iw
 #> date range: [2014-W15] to [2015-W18]
 #> cases: 5829
 #> interval: 1 (Monday) week 
+#> cumulative: FALSE
 #> 
 #>    date_index gender count
 #>        <yrwk> <fct>  <int>
@@ -158,6 +161,7 @@ summary(iw)
 #> date range: [2014-W15] to [2015-W18]
 #> cases: 5829
 #> interval: 1 (Monday) week 
+#> cumulative: FALSE
 #> timespan: 392 days
 #> 
 #> 1 grouped variable
@@ -189,6 +193,7 @@ iw2
 #> date range: [2014-W15] to [2015-W18]
 #> cases: 5829
 #> interval: 1 (Monday) week 
+#> cumulative: FALSE
 #> 
 #>    date_index gender hospital                                     count
 #>        <yrwk> <fct>  <fct>                                        <int>
@@ -207,6 +212,7 @@ summary(iw2)
 #> date range: [2014-W15] to [2015-W18]
 #> cases: 5829
 #> interval: 1 (Monday) week 
+#> cumulative: FALSE
 #> timespan: 392 days
 #> 
 #> 2 grouped variables

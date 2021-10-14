@@ -1,5 +1,8 @@
 # incidence2 (development version)
 
+## New functions
+* Reintroduces the `cumulate()` functionality (previously deprecated in 1.2.0).
+
 # incidence2 1.2.2
 
 ## Bug fixes

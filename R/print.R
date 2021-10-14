@@ -19,7 +19,8 @@ format.incidence_df <- function(x, ...) {
   body <- format(tibble::as_tibble(x, ...))[-1]
   if (inherits(x, "incidence2")) {
     inter <- interval(x)
-    out <- c(overview, inter, "", body)
+    cum <- cumulative(x)
+    out <- c(overview, inter, cum, "", body)
   } else {
     out <- c(overview, "", body)
   }
@@ -67,3 +68,11 @@ interval <- function(x) {
     sprintf("interval: 1 %s", interval)
   }
 }
+
+# -------------------------------------------------------------------------
+
+cumulative <- function(x) {
+  cumulative <- attr(x, "cumulative")
+  if (!is.null(cumulative)) sprintf("cumulative: %s", cumulative) else NULL
+}
+

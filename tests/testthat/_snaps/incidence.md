@@ -4,6 +4,7 @@
     date range: [2020-01-01] to [2021-12-31]
     cases: 731
     interval: 1 day
+    cumulative: FALSE
     
        date_index count
        <date>     <int>
@@ -24,6 +25,7 @@
     date range: [2020-01-01] to [2021-12-31]
     cases: 731
     interval: 1 day
+    cumulative: FALSE
     timespan: 731 days
 
 # single day, no groupings and with count work as expected
@@ -32,6 +34,7 @@
     date range: [2020-01-01] to [2021-12-31]
     cases: 1096
     interval: 1 day
+    cumulative: FALSE
     
        date_index count
        <date>     <int>
@@ -52,6 +55,7 @@
     date range: [2020-01-01] to [2021-12-31]
     cases: 1096
     interval: 1 day
+    cumulative: FALSE
     timespan: 731 days
 
 # multi-day, no groupings and without count work as expected
@@ -60,6 +64,7 @@
     date range: [2020-01-01 to 2020-01-17] to [2021-12-15 to 2021-12-31]
     cases: 731
     interval: 17 days
+    cumulative: FALSE
     
                      date_index count
                        <period> <int>
@@ -80,6 +85,7 @@
     date range: [2020-01-01 to 2020-01-17] to [2021-12-15 to 2021-12-31]
     cases: 731
     interval: 17 days
+    cumulative: FALSE
     timespan: 731 days
 
 # multi-day, no groupings and with count work as expected
@@ -88,6 +94,7 @@
     date range: [2020-01-01 to 2020-01-17] to [2021-12-15 to 2021-12-31]
     cases: 1096
     interval: 17 days
+    cumulative: FALSE
     
                      date_index count
                        <period> <int>
@@ -108,6 +115,7 @@
     date range: [2020-01-01 to 2020-01-17] to [2021-12-15 to 2021-12-31]
     cases: 1096
     interval: 17 days
+    cumulative: FALSE
     timespan: 731 days
 
 # single week, no groupings and without count work as expected
@@ -116,6 +124,7 @@
     date range: [2020-W01] to [2022-W01]
     cases: 731
     interval: 1 (Wednesday) week 
+    cumulative: FALSE
     
        date_index count
            <yrwk> <int>
@@ -136,6 +145,7 @@
     date range: [2020-W01] to [2022-W01]
     cases: 731
     interval: 1 (Wednesday) week 
+    cumulative: FALSE
     timespan: 735 days
 
 # single week, with groups and without count work as expected
@@ -144,6 +154,7 @@
     date range: [2021-W05] to [2021-W08]
     cases: 56
     interval: 1 (Monday) week 
+    cumulative: FALSE
     
       date_index height size  count
           <yrwk> <chr>  <chr> <int>
@@ -161,6 +172,7 @@
     date range: [2021-W05] to [2021-W08]
     cases: 56
     interval: 1 (Monday) week 
+    cumulative: FALSE
     timespan: 28 days
     
     2 grouped variables
@@ -184,6 +196,7 @@
     date range: [2021-W05] to [2021-W08]
     cases: 84
     interval: 1 (Monday) week 
+    cumulative: FALSE
     
       date_index height size  count
           <yrwk> <chr>  <chr> <int>
@@ -201,6 +214,7 @@
     date range: [2021-W05] to [2021-W08]
     cases: 84
     interval: 1 (Monday) week 
+    cumulative: FALSE
     timespan: 28 days
     
     2 grouped variables
@@ -224,6 +238,7 @@
     date range: [2020-W01] to [2022-W01]
     cases: 1096
     interval: 1 (Wednesday) week 
+    cumulative: FALSE
     
        date_index count
            <yrwk> <int>
@@ -244,6 +259,7 @@
     date range: [2020-W01] to [2022-W01]
     cases: 1096
     interval: 1 (Wednesday) week 
+    cumulative: FALSE
     timespan: 735 days
 
 # multi-week, no groupings and without count work as expected
@@ -252,6 +268,7 @@
     date range: [2020-01-01 to 2020-01-14] to [2021-12-29 to 2022-01-11]
     cases: 731
     interval: 14 days
+    cumulative: FALSE
     
                      date_index count
                        <period> <int>
@@ -272,6 +289,7 @@
     date range: [2020-01-01 to 2020-01-14] to [2021-12-29 to 2022-01-11]
     cases: 731
     interval: 14 days
+    cumulative: FALSE
     timespan: 742 days
 
 # multi-week, no groupings and with count work as expected
@@ -280,6 +298,7 @@
     date range: [2020-01-01 to 2020-01-14] to [2021-12-29 to 2022-01-11]
     cases: 1096
     interval: 14 days
+    cumulative: FALSE
     
                      date_index count
                        <period> <int>
@@ -300,6 +319,7 @@
     date range: [2020-01-01 to 2020-01-14] to [2021-12-29 to 2022-01-11]
     cases: 1096
     interval: 14 days
+    cumulative: FALSE
     timespan: 742 days
 
 # week defaults to a monday
@@ -308,6 +328,7 @@
     date range: [2020-W01] to [2021-W52]
     cases: 731
     interval: 1 (Monday) week 
+    cumulative: FALSE
     
        date_index count
            <yrwk> <int>
@@ -328,6 +349,7 @@
     date range: [2020-W01] to [2021-W52]
     cases: 731
     interval: 1 (Monday) week 
+    cumulative: FALSE
     timespan: 735 days
 
 # single month, no groupings and without count work as expected
@@ -336,6 +358,7 @@
     date range: [2020-Jan] to [2021-Dec]
     cases: 731
     interval: 1 month
+    cumulative: FALSE
     
        date_index count
            <mnth> <int>
@@ -356,6 +379,7 @@
     date range: [2020-Jan] to [2021-Dec]
     cases: 731
     interval: 1 month
+    cumulative: FALSE
     timespan: 731 days
 
 # single month, no groupings and with count work as expected
@@ -364,6 +388,7 @@
     date range: [2020-Jan] to [2021-Dec]
     cases: 1096
     interval: 1 month
+    cumulative: FALSE
     
        date_index count
            <mnth> <int>
@@ -384,6 +409,7 @@
     date range: [2020-Jan] to [2021-Dec]
     cases: 1096
     interval: 1 month
+    cumulative: FALSE
     timespan: 731 days
 
 # multi-month, no groupings and without count work as expected
@@ -392,6 +418,7 @@
     date range: [2020-Jan to 2020-Feb] to [2021-Nov to 2021-Dec]
     cases: 731
     interval: 2 months
+    cumulative: FALSE
     
                  date_index count
                      <mnth> <int>
@@ -413,6 +440,7 @@
     date range: [2020-Jan to 2020-Feb] to [2021-Nov to 2021-Dec]
     cases: 731
     interval: 2 months
+    cumulative: FALSE
     timespan: 731 days
 
 # multi-month, no groupings and with count work as expected
@@ -421,6 +449,7 @@
     date range: [2020-Jan to 2020-Feb] to [2021-Nov to 2021-Dec]
     cases: 1096
     interval: 2 months
+    cumulative: FALSE
     
                  date_index count
                      <mnth> <int>
@@ -442,6 +471,7 @@
     date range: [2020-Jan to 2020-Feb] to [2021-Nov to 2021-Dec]
     cases: 1096
     interval: 2 months
+    cumulative: FALSE
     timespan: 731 days
 
 # single quarter, no groupings and without count work as expected
@@ -450,6 +480,7 @@
     date range: [2020-Q1] to [2021-Q4]
     cases: 731
     interval: 1 quarter
+    cumulative: FALSE
     
       date_index count
            <qtr> <int>
@@ -467,6 +498,7 @@
     date range: [2020-Q1] to [2021-Q4]
     cases: 731
     interval: 1 quarter
+    cumulative: FALSE
     timespan: 731 days
 
 # single quarter, no groupings and with count work as expected
@@ -475,6 +507,7 @@
     date range: [2020-Q1] to [2021-Q4]
     cases: 1096
     interval: 1 quarter
+    cumulative: FALSE
     
       date_index count
            <qtr> <int>
@@ -492,6 +525,7 @@
     date range: [2020-Q1] to [2021-Q4]
     cases: 1096
     interval: 1 quarter
+    cumulative: FALSE
     timespan: 731 days
 
 # single year, no groupings and without count work as expected
@@ -500,6 +534,7 @@
     date range: [2020] to [2021]
     cases: 731
     interval: 1 year
+    cumulative: FALSE
     
       date_index count
           <year> <int>
@@ -511,6 +546,7 @@
     date range: [2020] to [2021]
     cases: 731
     interval: 1 year
+    cumulative: FALSE
     timespan: 731 days
 
 # single year, no groupings and with count work as expected
@@ -519,6 +555,7 @@
     date range: [2020] to [2021]
     cases: 1096
     interval: 1 year
+    cumulative: FALSE
     
       date_index count
           <year> <int>
@@ -530,6 +567,7 @@
     date range: [2020] to [2021]
     cases: 1096
     interval: 1 year
+    cumulative: FALSE
     timespan: 731 days
 
 # integer date periods without counts work as expected
@@ -538,6 +576,7 @@
     date range: [1 to 5] to [6 to 10]
     cases: 10
     interval: 5 days
+    cumulative: FALSE
     
       date_index count
         <period> <int>
@@ -549,6 +588,7 @@
     date range: [1 to 5] to [6 to 10]
     cases: 10
     interval: 5 days
+    cumulative: FALSE
     timespan: 10 days
 
 # integer date periods with counts work as expected
@@ -557,6 +597,7 @@
     date range: [1 to 5] to [6 to 10]
     cases: 15
     interval: 5 days
+    cumulative: FALSE
     
       date_index count
         <period> <dbl>
@@ -568,6 +609,7 @@
     date range: [1 to 5] to [6 to 10]
     cases: 15
     interval: 5 days
+    cumulative: FALSE
     timespan: 10 days
 
 # date_index works for multiple values
@@ -577,6 +619,7 @@
     deaths: 365
     onset: 365
     interval: 1 month
+    cumulative: FALSE
     
        date_index deaths onset
            <mnth>  <int> <int>
@@ -600,5 +643,6 @@
     deaths: 365
     onset: 365
     interval: 1 month
+    cumulative: FALSE
     timespan: 396 days
 

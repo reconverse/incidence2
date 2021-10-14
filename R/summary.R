@@ -18,8 +18,11 @@ summary.incidence_df <- function(object, ...) {
 
   if (inherits(object, "incidence2")) {
     inter <- interval(object)
+    # cumulative
+    cumulative <- attr(object, "cumulative")
+    if (!is.null(cumulative)) cumulative <- sprintf("cumulative: %s", cumulative)
     timespan <- sprintf("timespan: %d days", get_timespan(object))
-    out <- c(out, inter, timespan)
+    out <- c(out, inter, cumulative, timespan)
   }
 
   # information about groups
