@@ -194,7 +194,7 @@
 <code class="sourceCode R"><span class="va">inci</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/regroup.html">regroup</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/cumulate.html">cumulate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="../reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">4</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <p><img src="handling_incidence_objects_files/figure-html/cumulate-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="keep_first-and-keep_last" class="section level3">
@@ -274,23 +274,23 @@
 <span class="co"># slice operations preserve class</span>
 <span class="va">inci</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; An incidence object: 10 x 4</span>
-<span class="co">#&gt; date range: [2014-W23] to [2015-W14]</span>
-<span class="co">#&gt; cases: 116</span>
+<span class="co">#&gt; date range: [2014-W22] to [2015-W17]</span>
+<span class="co">#&gt; cases: 135</span>
 <span class="co">#&gt; interval: 1 (Monday) week </span>
 <span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index hospital                                     gender count</span>
 <span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;                                        &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1   2014-W40 &lt;NA&gt;                                         f         44</span>
-<span class="co">#&gt;  2   2014-W23 Military Hospital                            m          1</span>
-<span class="co">#&gt;  3   2015-W14 &lt;NA&gt;                                         m         10</span>
-<span class="co">#&gt;  4   2014-W25 other                                        f          3</span>
-<span class="co">#&gt;  5   2014-W36 Princess Christian Maternity Hospital (PCMH) f          6</span>
-<span class="co">#&gt;  6   2014-W32 Rokupa Hospital                              f          4</span>
+<span class="co">#&gt;  1   2014-W22 &lt;NA&gt;                                         f          2</span>
+<span class="co">#&gt;  2   2014-W43 &lt;NA&gt;                                         f         35</span>
+<span class="co">#&gt;  3   2015-W17 Rokupa Hospital                              f          3</span>
+<span class="co">#&gt;  4   2015-W07 other                                        f          5</span>
+<span class="co">#&gt;  5   2015-W01 Princess Christian Maternity Hospital (PCMH) m          6</span>
+<span class="co">#&gt;  6   2014-W48 Connaught Hospital                           m         33</span>
 <span class="co">#&gt;  7   2014-W32 &lt;NA&gt;                                         m         10</span>
-<span class="co">#&gt;  8   2014-W51 &lt;NA&gt;                                         m         21</span>
-<span class="co">#&gt;  9   2015-W13 Military Hospital                            f          4</span>
-<span class="co">#&gt; 10   2015-W08 Connaught Hospital                           f         13</span>
+<span class="co">#&gt;  8   2014-W45 other                                        m         15</span>
+<span class="co">#&gt;  9   2015-W01 Military Hospital                            m         11</span>
+<span class="co">#&gt; 10   2014-W49 &lt;NA&gt;                                         f         15</span>
 
 <span class="va">inci</span> <span class="op">%&gt;%</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; An incidence object: 3 x 4</span>
