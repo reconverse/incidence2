@@ -107,7 +107,7 @@ plot(iw, fill = "gender", color = "white")
 we can also facet our plot (grouping detected automatically):
 
 ```{r genderfacet}
-facet_plot(iw, n.breaks = 3, color = "white")
+facet_plot(iw, n_breaks = 3, color = "white")
 ```
 
 It is also possible to group by multiple variables specifying different facets and fills:
@@ -116,7 +116,7 @@ It is also possible to group by multiple variables specifying different facets a
 iw2 <- incidence(dat, date_of_onset, interval = "week",  groups = c(gender, hospital))
 iw2
 summary(iw2)
-facet_plot(iw2, facets = gender, fill = hospital, n.breaks = 3)
+facet_plot(iw2, facets = gender, fill = hospital, n_breaks = 3)
 ```
 
 ## Using an alternative function

@@ -178,7 +178,7 @@ plot(iw, fill = "gender", color = "white")
 we can also facet our plot (grouping detected automatically):
 
 ``` r
-facet_plot(iw, n.breaks = 3, color = "white")
+facet_plot(iw, n_breaks = 3, color = "white")
 ```
 
 <img src="man/figures/README-genderfacet-1.png" style="display: block; margin: auto;" />
@@ -231,7 +231,7 @@ summary(iw2)
 #> 4 other                                          876
 #> 5 Princess Christian Maternity Hospital (PCMH)   420
 #> 6 Rokupa Hospital                                451
-facet_plot(iw2, facets = gender, fill = hospital, n.breaks = 3)
+facet_plot(iw2, facets = gender, fill = hospital, n_breaks = 3)
 ```
 
 <img src="man/figures/README-genderhospital-1.png" style="display: block; margin: auto;" />

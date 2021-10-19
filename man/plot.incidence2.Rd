@@ -19,7 +19,7 @@
   color = NA,
   xlab = "",
   ylab = NULL,
-  n.breaks = 6,
+  n_breaks = 6,
   width = 1,
   show_cases = FALSE,
   border = "white",
@@ -46,7 +46,7 @@ facet_plot(x, ...)
   color = NA,
   xlab = "",
   ylab = NULL,
-  n.breaks = 3,
+  n_breaks = 3,
   width = 1,
   show_cases = FALSE,
   border = "white",
@@ -95,7 +95,7 @@ invisible borders; defaults to NA.}
 generated automatically according to the time interval used in incidence
 computation.}
 
-\item{n.breaks}{Approximate number of breaks calculated using
+\item{n_breaks}{Approximate number of breaks calculated using
 \code{scales::breaks_pretty} (default 6).}
 
 \item{width}{Value between 0 and 1 indicating the relative size of the bars
