@@ -30,7 +30,7 @@ Imports:
     stats,
     rlang (>= 0.1.2),
     tidyselect,
-    grates (>= 0.2.1),
+    grates (>= 0.2.0.9000),
     tidyr,
     dplyr,
     clock
