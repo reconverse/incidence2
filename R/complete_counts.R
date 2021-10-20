@@ -28,14 +28,26 @@ complete_counts <- function(x, fill = NA) {
     stopifnot("fill must be NA or of length 1" = length(fill) == 1)
   }
 
+  count_vars <- get_count_names(x)
   date_var <- get_dates_name(x)
   group_vars <- get_group_names(x)
-  tmp <- attributes(x)
 
+  dates <- get_dates(x)
+  if (inherits(dates, "Date")) {
+    dates_seq <- seq(from = min(dates), to = max(dates), by = 1)
+  } else {
+    dates_seq <- seq(from = min(dates), to = max(dates))
+  }
+  dates_seq <- setNames(data.frame(dates_seq), date_var)
+  if (!is.null(group_vars)) {
+    dates_seq <- tidyr::expand_grid(dates_seq, x[, group_vars])
+  }
+
+  tmp <- attributes(x)
+  x <- dplyr::left_join(dates_seq, x, by = c(date_var, group_vars))
   if (is.na(fill)) {
     x <- tidyr::complete(x, !!!rlang::syms(date_var), !!!rlang::syms(group_vars))
   } else {
-    count_vars <- get_count_names(x)
     count_fill <- rep(fill, length(count_vars))
     count_fill <- setNames(as.list(count_fill), count_vars)
     x <- tidyr::complete(x, !!!rlang::syms(date_var), !!!rlang::syms(group_vars), fill = count_fill)

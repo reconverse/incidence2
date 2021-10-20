@@ -46,6 +46,7 @@ cumulate.incidence_df <- function(x) {
 
   groups <- get_group_names(x)
   count_var <- get_count_names(x)
+  date_var <- get_date_group_names(x)
 
   dt <- !any(vapply(x, typeof, character(1)) == "list")
   if (dt) {
@@ -62,15 +63,13 @@ cumulate.incidence_df <- function(x) {
       out <- grouped_df(out, groups)
       out <- mutate(out, across(all_of(count_var), cumsum))
       out <- ungroup(out)
-      out <- out[order(out[groups], out$date_index),]
+      out <- out[order(out[[groups]], out[[date_var]]),]
     } else {
       out[count_var] <- lapply(out[count_var], cumsum)
     }
   }
 
-  nms <- names(out)
   attributes(out) <- attributes(x)
-  names(out) <- nms
-  if (inherits(out, "incidence2")) attr(out, "cumulative") <- TRUE
+  if (inherits(out, "incidence_df")) attr(out, "cumulative") <- TRUE
   out
 }

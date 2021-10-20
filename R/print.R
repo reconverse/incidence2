@@ -16,7 +16,7 @@ print.incidence_df <- function(x, ...) {
 #' @rdname print_incidence
 format.incidence_df <- function(x, ...) {
   overview <- overview(x)
-  body <- format(tibble::as_tibble(x, ...))[-1]
+  body <- format(tibble::as_tibble(x), ...)[-1]
   if (inherits(x, "incidence2")) {
     inter <- interval(x)
     cum <- cumulative(x)
@@ -42,18 +42,23 @@ overview <- function(x) {
   )
   header <- pillar::style_subtle(header)
   date_range <- sprintf("date range: [%s] to [%s]", d1, d2)
-  cases <- vapply(
-    count_var,
-    function(var) {
-      if(var == "count") {
-        sprintf("cases: %d", sum(x[[var]]))
-      } else {
-        sprintf("%s: %d", var, sum(x[[var]]))
-      }
-    },
-    character(1)
-  )
-  c(header, date_range, cases)
+  if (isTRUE(attr(x, "cumulative"))) {
+    out <- c(header, date_range)
+  } else {
+    cases <- vapply(
+      count_var,
+      function(var) {
+        if(var == "count") {
+          sprintf("cases: %d", sum(x[[var]]))
+        } else {
+          sprintf("%s: %d", var, sum(x[[var]]))
+        }
+      },
+      character(1)
+    )
+    out <- c(header, date_range, cases)
+  }
+  out
 }
 
 # -------------------------------------------------------------------------
