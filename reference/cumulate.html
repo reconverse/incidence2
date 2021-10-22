@@ -152,13 +152,13 @@ for different types of objects:</p><ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for incidence_df</span>
-<span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+<span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>x</span>, fill <span class='op'>=</span> <span class='fl'>0L</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,6 +166,15 @@ for different types of objects:</p><ul>
     <tr>
       <th>x</th>
       <td><p>An incidence object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not currently used</p></td>
+    </tr>
+    <tr>
+      <th>fill</th>
+      <td><p>Value to complete missing date-grouping combinations with. If
+NULL, no completion is performed. Default: 0L.</p></td>
     </tr>
     </table>
 
@@ -194,19 +203,24 @@ for different types of objects:</p><ul>
 #&gt; <span style='color: #BCBCBC;'>6</span>          7 1          1</div><div class='input'>
 <span class='va'>cumulative_i</span> <span class='op'>&lt;-</span> <span class='fu'>cumulate</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
 <span class='va'>cumulative_i</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'>An incidence object: 6 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'>An incidence object: 24 x 3</span>
 #&gt; date range: [0] to [7]
 #&gt; interval: 1 day
 #&gt; cumulative: TRUE
 #&gt; 
-#&gt;   date_index groups count
-#&gt;        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span>          0 1          1
-#&gt; <span style='color: #BCBCBC;'>2</span>          7 1          2
-#&gt; <span style='color: #BCBCBC;'>3</span>          1 2          1
-#&gt; <span style='color: #BCBCBC;'>4</span>          2 3          2
-#&gt; <span style='color: #BCBCBC;'>5</span>          3 3          3
-#&gt; <span style='color: #BCBCBC;'>6</span>          5 3          4</div><div class='input'>
+#&gt;    date_index groups count
+#&gt;         <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>          0 1          1
+#&gt; <span style='color: #BCBCBC;'> 2</span>          1 1          1
+#&gt; <span style='color: #BCBCBC;'> 3</span>          2 1          1
+#&gt; <span style='color: #BCBCBC;'> 4</span>          3 1          1
+#&gt; <span style='color: #BCBCBC;'> 5</span>          4 1          1
+#&gt; <span style='color: #BCBCBC;'> 6</span>          5 1          1
+#&gt; <span style='color: #BCBCBC;'> 7</span>          6 1          1
+#&gt; <span style='color: #BCBCBC;'> 8</span>          7 1          2
+#&gt; <span style='color: #BCBCBC;'> 9</span>          0 2          0
+#&gt; <span style='color: #BCBCBC;'>10</span>          1 2          1
+#&gt; <span style='color: #949494;'># … with 14 more rows</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
