@@ -6,14 +6,19 @@
 \alias{cumulate.incidence_df}
 \title{Compute cumulative 'incidence'}
 \usage{
-cumulate(x)
+cumulate(x, ...)
 
-\method{cumulate}{default}(x)
+\method{cumulate}{default}(x, ...)
 
-\method{cumulate}{incidence_df}(x)
+\method{cumulate}{incidence_df}(x, fill = 0L, ...)
 }
 \arguments{
 \item{x}{An incidence object.}
+
+\item{...}{Not currently used}
+
+\item{fill}{Value to complete missing date-grouping combinations with. If
+NULL, no completion is performed. Default: 0L.}
 }
 \description{
 \code{cumulate} is an S3 generic to compute cumulative numbers, with methods

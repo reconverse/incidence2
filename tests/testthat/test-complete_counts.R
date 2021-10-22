@@ -15,14 +15,13 @@ test_that("complete_counts works", {
     counts = c(counts1, counts2)
   )
 
-  res <- complete_counts(i)
+  res <- complete_counts(i, fill = NA)
+  expect_equal(nrow(res), 16)
   expect_equal(res[complete.cases(res),], i)
-
-  res2 <- complete_counts(i, fill = 0)
+  res2 <- complete_counts(i)
   expect_equal(sum(res2$counts1), sum(i$counts1))
   expect_equal(sum(res2$counts2), sum(i$counts2))
   expect_equal(nrow(res2), 16)
-
 })
 
 

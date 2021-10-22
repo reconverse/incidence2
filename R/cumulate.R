@@ -6,6 +6,7 @@
 #' * `incidence` objects: computes cumulative incidence over time
 #'
 #' @param x An incidence object.
+#' @param ... Not currently used
 #'
 #' @examples
 #' dat <- data.frame(
@@ -23,26 +24,31 @@
 #' @export
 #'
 #' @rdname cumulate
-cumulate <- function(x) {
+cumulate <- function(x, ...) {
   UseMethod("cumulate", x)
 }
 
 #' @export
 #' @rdname cumulate
-cumulate.default <- function(x) {
+cumulate.default <- function(x, ...) {
   cumsum(x)
 }
 
 
+#' @param fill Value to complete missing date-grouping combinations with. If
+#'   NULL, no completion is performed. Default: 0L.
+#'
 #' @export
 #' @rdname cumulate
-cumulate.incidence_df <- function(x) {
+cumulate.incidence_df <- function(x, fill = 0L, ...) {
 
   # due to NSE notes in R CMD check
   ..count_var <- NULL
 
   is_cumulate <- attr(x, "cumulative")
   if (is_cumulate) abort("x is already a cumulative incidence")
+
+  x <- complete_counts(x)
 
   groups <- get_group_names(x)
   count_var <- get_count_names(x)

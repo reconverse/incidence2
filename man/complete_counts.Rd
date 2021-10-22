@@ -4,17 +4,16 @@
 \alias{complete_counts}
 \title{Complete counts for all date and group combinations}
 \usage{
-complete_counts(x, fill = NA)
+complete_counts(x, fill = 0L)
 }
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
 
-\item{fill}{The value to replace missing counts by. Defaults to \code{NA}.}
+\item{fill}{The value to replace missing counts by. Defaults to \code{0L}.}
 }
 \description{
 This function ensures that an incidence object has the same range of dates
-for each grouping. By default missing counts will be filled with \code{NA} but
-you can optionally specify a value to replace these by.
+for each grouping. By default missing counts will be filled with \code{0L}.
 }
 \examples{
 dat <- data.frame(
@@ -24,6 +23,6 @@ dat <- data.frame(
 )
 
 i <- incidence(dat, date_index = dates, groups = groups, counts = counts)
-complete_counts(i, fill = 0)
+complete_counts(i)
 
 }

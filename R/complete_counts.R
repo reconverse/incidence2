@@ -1,11 +1,10 @@
 #' Complete counts for all date and group combinations
 #'
 #' This function ensures that an incidence object has the same range of dates
-#' for each grouping. By default missing counts will be filled with `NA` but
-#' you can optionally specify a value to replace these by.
+#' for each grouping. By default missing counts will be filled with `0L`.
 #'
 #' @param x An [incidence()] object.
-#' @param fill The value to replace missing counts by. Defaults to `NA`.
+#' @param fill The value to replace missing counts by. Defaults to `0L`.
 #'
 #' @examples
 #' dat <- data.frame(
@@ -15,10 +14,10 @@
 #' )
 #'
 #' i <- incidence(dat, date_index = dates, groups = groups, counts = counts)
-#' complete_counts(i, fill = 0)
+#' complete_counts(i)
 #'
 #' @export
-complete_counts <- function(x, fill = NA) {
+complete_counts <- function(x, fill = 0L) {
 
   if (!inherits(x, "incidence_df")) {
     abort(sprintf("`%s` is not an 'incidence_df' object", deparse(substitute(x))))
@@ -38,20 +37,17 @@ complete_counts <- function(x, fill = NA) {
   } else {
     dates_seq <- seq(from = min(dates), to = max(dates))
   }
+
   dates_seq <- setNames(data.frame(dates_seq), date_var)
   if (!is.null(group_vars)) {
-    dates_seq <- tidyr::expand_grid(dates_seq, x[, group_vars])
+    dates_seq <- unclass(dates_seq)
+    vars <- lapply(x[,group_vars], unique)
+    dates_seq <- do.call(expand.grid, c(dates_seq, vars))
   }
 
   tmp <- attributes(x)
   x <- dplyr::left_join(dates_seq, x, by = c(date_var, group_vars))
-  if (is.na(fill)) {
-    x <- tidyr::complete(x, !!!rlang::syms(date_var), !!!rlang::syms(group_vars))
-  } else {
-    count_fill <- rep(fill, length(count_vars))
-    count_fill <- setNames(as.list(count_fill), count_vars)
-    x <- tidyr::complete(x, !!!rlang::syms(date_var), !!!rlang::syms(group_vars), fill = count_fill)
-  }
+  if (!is.na(fill)) x[, count_vars][is.na(x[, count_vars])] <- fill
 
   new_row_names <- attr(x, "row.names")
   attributes(x) <- tmp
