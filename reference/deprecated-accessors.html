@@ -73,7 +73,7 @@ named alternatives but are left available for backwards compatibility." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.3</span>
       </span>
     </div>
 
@@ -174,27 +174,28 @@ named alternatives but are left available for backwards compatibility.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span><span class='op'>(</span><span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ebola_sim_clean</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
-    <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ebola_sim_clean</span><span class='op'>$</span><span class='va'>linelist</span>
-    <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>dat</span>,
-                   date_index <span class='op'>=</span> <span class='va'>date_of_onset</span>,
-                   groups <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>gender</span>, <span class='va'>hospital</span><span class='op'>)</span><span class='op'>)</span>
-
-    <span class='fu'>get_counts_name</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
-
-    <span class='fu'>get_date_group_names</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
-  <span class='op'>}</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; &gt; data(ebola_sim_clean, package = "outbreaks")
-#&gt; &gt; dat &lt;- ebola_sim_clean$linelist
-#&gt; &gt; i &lt;- incidence(dat, date_index = date_of_onset, groups = c(gender, hospital))
-#&gt; &gt; get_counts_name(i)
-#&gt; [1] "count"
-#&gt; &gt; get_date_group_names(i)
-#&gt; [1] "date_index"</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span><span class='op'>(</span><span class='op'>{</span></span>
+<span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ebola_sim_clean</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ebola_sim_clean</span><span class='op'>$</span><span class='va'>linelist</span></span>
+<span class='r-in'>    <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>dat</span>,</span>
+<span class='r-in'>                   date_index <span class='op'>=</span> <span class='va'>date_of_onset</span>,</span>
+<span class='r-in'>                   groups <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>gender</span>, <span class='va'>hospital</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>    <span class='fu'>get_counts_name</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>    <span class='fu'>get_date_group_names</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='op'>}</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &gt; data(ebola_sim_clean, package = "outbreaks")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &gt; dat &lt;- ebola_sim_clean$linelist</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &gt; i &lt;- incidence(dat, date_index = date_of_onset, groups = c(gender, hospital))</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &gt; get_counts_name(i)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "count"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &gt; get_date_group_names(i)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "date_index"</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
