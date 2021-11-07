@@ -1,7 +1,10 @@
-# incidence2 (development version)
+# incidence2 1.2.3
 
 ## New functions
 * Reintroduces the `cumulate()` functionality (previously deprecated in 1.2.0).
+
+## Breaking changes
+* Default `fill` argument in `complete_counts()` is now 0 rather than NA.
 
 # incidence2 1.2.2
 
