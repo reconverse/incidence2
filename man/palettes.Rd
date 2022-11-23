@@ -11,7 +11,11 @@ vibrant(n)
 muted(n)
 }
 \arguments{
-\item{n}{a number of colors}
+\item{n}{\verb{[integer]}
+
+Number of colours.
+
+\code{double} vectors will be converted via \code{as.integer(n)}.}
 }
 \description{
 These functions are color palettes used in incidence. The palettes come from
@@ -21,4 +25,5 @@ is reserved for missing data.
 \examples{
 vibrant(5)
 muted(10)
+
 }

@@ -9,27 +9,31 @@ regroup(x, groups = NULL)
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
 
-\item{groups}{The groups to sum over.  If \code{NULL} (default) then the function
-ignores all groups.}
+\item{groups}{\verb{[character]}
+
+The groups to sum over.
+
+If \code{NULL} (default) then the function returns the corresponding object with
+no groupings.}
 }
 \description{
-This function regroups an \code{\link[=incidence]{incidence()}} object across the specified groups.
-The resulting \code{\link[=incidence]{incidence()}} object will contains counts summed over
-the groups present in the input.
+This function regroups an \verb{[incidence]} object across the specified groups.
+The resulting \verb{[incidence]} object will contains counts summed over the
+groups present in the input.
 }
 \examples{
 if (requireNamespace("outbreaks", quietly = TRUE)) {
-  withAutoprint({
+\dontshow{withAutoprint(\{}
     data(ebola_sim_clean, package = "outbreaks")
     dat <- ebola_sim_clean$linelist
-    i <- incidence(dat,
-                   date_index = date_of_onset,
-                   groups = c(gender, hospital))
-
+    i <- incidence(
+        dat,
+        date_index = "date_of_onset",
+        groups = c("gender", "hospital")
+    )
     regroup(i)
-
-    regroup(i, hospital)
-  })
+    regroup(i, "hospital")
+\dontshow{\})}
 }
 
 }

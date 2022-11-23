@@ -1,6 +1,16 @@
 # incidence2 (development version)
 
-* Maintainer changed to Thibaut Jombart
+We are currently undertaking a major refactor of incidence2 for the 2.0.0
+release. Whilst we are making many changes internally, the two big changes that
+will affect users are (1), the removal of support for non-standard evaluation 
+(NSE), and (2), the removal of the date manipulation functionality.
+
+Our motivation for removing support for NSE are both the complexity it can
+bring to the underlying code (making long term maintenance harder) and the
+complexity it can cause for other users / developers who want to build on
+top of incidence2.
+
+* Maintainer changed to Thibaut Jombart.
 
 # incidence2 1.2.3
 

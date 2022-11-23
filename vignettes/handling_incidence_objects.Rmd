@@ -17,32 +17,36 @@ knitr::opts_chunk$set(
 )
 ```
 
-`incidence()` objects are easy to work with, and we providing helper functions for both manipulating and accessing the underlying data and attributes.
-As `incidence()` objects are subclasses of [tibbles](https://tibble.tidyverse.org/) they also have good integration with [tidyverse](https://www.tidyverse.org/) verbs.
+`incidence()` objects are easy to work with, and we providing helper functions
+for both manipulating and accessing the underlying data and attributes.
 
 ## Modifying incidence objects
 
 ### `regroup()`
-Sometimes you may find you've created a grouped incidence but now want to change the internal grouping.
-Assuming you are after a subset of the grouping already generated, then you can use to `regroup()` function to get the desired aggregation:
+Sometimes you may find you've created a grouped incidence but now want to change
+the internal grouping. Assuming you are after a subset of the grouping already
+generated, then you can use to `regroup()` function to get the desired
+aggregation:
 
 ```{r regroup, message=FALSE}
 library(outbreaks)
-library(dplyr)
 library(incidence2)
+library(grates)
 
 # load data
 dat <- ebola_sim_clean$linelist
 
+# convert date_of_onset to isoweeks
+dat$date_of_onset <- as_isoweek(dat$date_of_onset)
+
 # generate the incidence object with 3 groups
-inci <- incidence(dat, date_of_onset, groups = c(gender, hospital, outcome), interval = "week")
-inci
+(inci <- incidence(dat, "date_of_onset", groups = c("gender", "hospital", "outcome")))
 
 # regroup to just two groups
-inci %>% regroup(c(gender, outcome))
+regroup(inci, c("gender", "outcome"))
 
 # drop all groups
-inci %>% regroup()
+regroup(inci)
 ```
 
 ### cumulate
@@ -50,55 +54,84 @@ We also provide a helper function, `cumulate`() to easily generate cumulative
 incidences:
 
 ```{r cumulate}
-inci %>% 
-  regroup(hospital) %>% 
-  cumulate() %>% 
-  facet_plot(n_breaks = 4, nrow = 3)
+x <- regroup(inci, "hospital")
+x <- cumulate(x)
+plot(x, nrow = 3)
 ```
 
 ### `keep_first()` and `keep_last()`
-Once your data is grouped by date, you may want to select the first or last few entries based on a particular date grouping using `keep_first()` and `keep_last()`:
+Once your data is grouped by date, you may want to select the first or last few
+entries based on a particular date grouping using `keep_first()` and
+`keep_last()`:
 
 ```{r keep}
-inci %>% keep_first(3)
-inci %>% keep_last(3)
+keep_first(inci, 3)
+keep_last(inci, 3)
 ```
 
-### Tidyverse compatibility
-incidence2 has been written with *tidyverse* compatibility (in particular [dplyr](https://dplyr.tidyverse.org/)) at the forefront of the design choices we have made.
-By this we mean that if an operation from dplyr is applied to an incidence object then as long as the invariants of the object are preserved (i.e. groups, interval and uniqueness of rows) then the object returned will be an incidence object.
-If the invariants are not preserved then a tibble will be returned instead.
+### subsetting and other manipulations
+`<incidence>` objects have been carefully constructed to preserve their
+structure under a range of different operations that can be applied to data
+frames. By this we mean that if an operation is applied to an `<incidence>`
+object then as long as the invariants of the object are preserved (i.e. groups,
+interval and uniqueness of rows) then the object retain it's incidence class.
+If the invariants are not preserved then a `<data frame>` will be returned
+instead.
 
-```{r tidyverse}
-library(dplyr)
-
-# create incidence object
-inci <- incidence(dat, date_of_onset, interval = "week", groups = c(hospital, gender))
+```{r subsetting}
+inci <- regroup(inci, groups = c("hospital", "gender"))
 
 # filtering preserves class
-inci %>%  filter(gender == "f", hospital == "Rokupa Hospital")
+subset(inci, gender == "f" & hospital == "Rokupa Hospital")
+inci[c(1L, 3L, 5L), ]
 
-# slice operations preserve class
-inci %>% slice_sample(n = 10)
-
-inci %>%  slice(1, 5, 10)
-
-# mutate preserve class
-inci %>%  mutate(future = date_index + 999)
+# Adding columns preserve class
+inci$future <- inci$date_index + 999L
+inci
 
 # rename preserve class
-inci %>%  rename(left_bin = date_index)
+names(inci)[names(inci) == "date_index"] <- "isoweek"
+inci
 
-# select returns a tibble unless all date, count and group variables are preserved
-inci %>% select(-1)
-
-inci %>% select(everything())
+# select returns a data frame unless all date, count and group variables are
+# preserved in the output
+str(inci[,-1L])
+inci[, -6L]
 ```
 
-# Accessing variable information
-We provide multiple accessors to easily access information about an `incidence()` objects structure:
+## Accessing variable information
 
-* `get_count_names()`, `get_dates_name()`, and `get_group_names()` all return character vectors of the column names corresponding to the requested variables.
-* `get_n()` returns the number of observations.
-* `get_interval()` returns the interval of the object.
-* `get_timespan()` returns the number of days the object covers.
+We provide multiple accessors to easily access information about an
+`<incidence>` object's structure:
+
+```{r accessors}
+# the name of the date_index variable of x
+get_date_index_name(inci)
+
+# alias for `get_date_index_name()`
+get_dates_name(inci)
+
+# the name of the count variable of x
+get_count_variable_name(inci)
+
+# the name of the count value of x
+get_count_value_name(inci)
+
+# the name(s) of the group variable(s) of x
+get_group_names(inci)
+
+# list containing date_index variable of x
+str(get_date_index(inci))
+
+# alias for get_date_index
+str(get_dates(inci))
+
+# list containing the count variable of x
+str(get_count_variable(inci))
+
+# list containing count value of x
+str(get_count_value(inci))
+
+# list of the group variable(s) of x
+str(get_groups(inci)) 
+```

@@ -2,131 +2,120 @@
 % Please edit documentation in R/accessors.R
 \name{accessors}
 \alias{accessors}
-\alias{get_counts}
-\alias{get_counts.default}
-\alias{get_counts.incidence_df}
-\alias{get_count_names}
-\alias{get_count_names.default}
-\alias{get_count_names.incidence_df}
-\alias{get_date_index}
-\alias{get_date_index.default}
-\alias{get_date_index.incidence_df}
-\alias{get_dates}
+\alias{get_date_index_name}
+\alias{get_date_index_name.default}
+\alias{get_date_index_name.incidence}
 \alias{get_dates_name}
-\alias{get_dates_name.default}
-\alias{get_dates_name.incidence_df}
+\alias{get_count_variable_name}
+\alias{get_count_variable_name.default}
+\alias{get_count_variable_name.incidence}
+\alias{get_count_value_name}
+\alias{get_count_value_name.default}
+\alias{get_count_value_name.incidence}
 \alias{get_group_names}
 \alias{get_group_names.default}
-\alias{get_group_names.incidence_df}
-\alias{get_timespan}
-\alias{get_timespan.default}
-\alias{get_timespan.incidence2}
-\alias{get_n}
-\alias{get_n.default}
-\alias{get_n.incidence_df}
-\alias{get_interval}
-\alias{get_interval.default}
-\alias{get_interval.incidence2}
+\alias{get_group_names.incidence}
+\alias{get_date_index}
+\alias{get_date_index.default}
+\alias{get_date_index.incidence}
+\alias{get_dates}
+\alias{get_count_variable}
+\alias{get_count_variable.default}
+\alias{get_count_variable.incidence}
+\alias{get_count_value}
+\alias{get_count_value.default}
+\alias{get_count_value.incidence}
+\alias{get_groups}
+\alias{get_groups.default}
+\alias{get_groups.incidence}
 \title{Access various elements of an incidence object}
 \usage{
-get_counts(x, ...)
+get_date_index_name(x, ...)
 
-\method{get_counts}{default}(x, ...)
+\method{get_date_index_name}{default}(x, ...)
 
-\method{get_counts}{incidence_df}(x, ...)
-
-get_count_names(x, ...)
-
-\method{get_count_names}{default}(x, ...)
-
-\method{get_count_names}{incidence_df}(x, ...)
-
-get_date_index(x, ...)
-
-\method{get_date_index}{default}(x, ...)
-
-\method{get_date_index}{incidence_df}(x, ...)
-
-get_dates(x, ...)
+\method{get_date_index_name}{incidence}(x, ...)
 
 get_dates_name(x, ...)
 
-\method{get_dates_name}{default}(x, ...)
+get_count_variable_name(x, ...)
 
-\method{get_dates_name}{incidence_df}(x, ...)
+\method{get_count_variable_name}{default}(x, ...)
+
+\method{get_count_variable_name}{incidence}(x, ...)
+
+get_count_value_name(x, ...)
+
+\method{get_count_value_name}{default}(x, ...)
+
+\method{get_count_value_name}{incidence}(x, ...)
 
 get_group_names(x, ...)
 
 \method{get_group_names}{default}(x, ...)
 
-\method{get_group_names}{incidence_df}(x, ...)
+\method{get_group_names}{incidence}(x, ...)
 
-get_timespan(x, ...)
+get_date_index(x, ...)
 
-\method{get_timespan}{default}(x, ...)
+\method{get_date_index}{default}(x, ...)
 
-\method{get_timespan}{incidence2}(x, ...)
+\method{get_date_index}{incidence}(x, ...)
 
-get_n(x)
+get_dates(x, ...)
 
-\method{get_n}{default}(x)
+get_count_variable(x, ...)
 
-\method{get_n}{incidence_df}(x)
+\method{get_count_variable}{default}(x, ...)
 
-get_interval(x, ...)
+\method{get_count_variable}{incidence}(x, ...)
 
-\method{get_interval}{default}(x, ...)
+get_count_value(x, ...)
 
-\method{get_interval}{incidence2}(x, ...)
+\method{get_count_value}{default}(x, ...)
+
+\method{get_count_value}{incidence}(x, ...)
+
+get_groups(x, ...)
+
+\method{get_groups}{default}(x, ...)
+
+\method{get_groups}{incidence}(x, ...)
 }
 \arguments{
-\item{x}{An \code{\link[=incidence]{incidence()}} object.}
+\item{x}{An \R object.}
 
-\item{...}{Not used.}
+\item{...}{Not currently used.}
 }
 \value{
 \itemize{
-\item \code{get_counts}: The count vector from x.
-\item \code{get_count_names()}: The name of the count variable of x.
-\item \code{get_date_index()}: The date_index vector from x.
-\item \code{get_dates()}: Same as \code{get_date_index()}.
-\item \code{get_dates_name()}: The name of the date_index variable of x.
-\item \code{get_group_names()}: a character vector of the group variables of x or
-\item \code{get_timespan()}: an \code{integer} denoting the timespan in days represented
-by the incidence object.
-\item \code{get_n()} The total number of cases stored in the object
-\item \code{get_interval()}: if \code{integer = TRUE}, an integer vector, otherwise the
-character value of the \code{interval}
+\item \code{get_date_index_name()}: The name of the date_index variable of x.
+\item \code{get_dates_name()}: Alias for \code{get_date_index_name()}.
+\item \code{get_count_variable_name()}: The name of the count variable of x.
+\item \code{get_count_value_name()}: The name of the count value of x.
+\item \code{get_group_names()}: The name(s) of the group variable(s) of x.
+\item \code{get_date_index()}: List containing date_index variable of x.
+\item \code{get_dates()}: Alias for \code{get_date_index()}.
+\item \code{get_count_variable()}: List containing the count variable of x.
+\item \code{get_count_value()}: List containing count value of x.
+\item \code{get_groups()}: List of the group variable(s) of x.
 }
 }
 \description{
 Access various elements of an incidence object
-
-NULL if none are present.
 }
 \examples{
 if (requireNamespace("outbreaks", quietly = TRUE)) {
-  withAutoprint({
+\dontshow{withAutoprint(\{}
     data(ebola_sim_clean, package = "outbreaks")
     dat <- ebola_sim_clean$linelist
-    i <- incidence(dat,
-                   date_index = date_of_onset,
-                   groups = c(gender, hospital))
+    i <- incidence(dat, date_index = "date_of_onset",
+                   groups = c("gender", "hospital"))
 
-    get_counts(i)
-    get_count_names(i)
-
+    get_count_variable_name(i)
     get_group_names(i)
-
-    get_date_index(i)
     get_dates_name(i)
-
-    get_interval(i)
-
-    get_n(i)
-
-    get_timespan(i)
-  })
+\dontshow{\})}
 }
 
 }

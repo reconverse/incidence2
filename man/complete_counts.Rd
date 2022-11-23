@@ -2,27 +2,47 @@
 % Please edit documentation in R/complete_counts.R
 \name{complete_counts}
 \alias{complete_counts}
-\title{Complete counts for all date and group combinations}
+\title{Complete counts for all group combinations}
 \usage{
-complete_counts(x, fill = 0L)
+complete_counts(x, expand_dates = TRUE, fill = 0L, by = 1L)
 }
 \arguments{
 \item{x}{An \code{\link[=incidence]{incidence()}} object.}
 
-\item{fill}{The value to replace missing counts by. Defaults to \code{0L}.}
+\item{expand_dates}{\verb{[logical]}
+
+Should a range of dates from the minimum to maximum value of the date index
+also be created.}
+
+\item{fill}{\verb{[numeric]}
+
+The value to replace missing counts by. Defaults to \code{0L}.}
+
+\item{by}{Passed as the \code{by} argument to seq.
+
+if \code{expand_dates} is TRUE (default) then complete counts will attempt to use
+\code{function(x) seq(min(x), max(x), by = by)} to generate a complete sequence of
+dates.
+
+Defaults to \code{1L}.}
 }
 \description{
 This function ensures that an incidence object has the same range of dates
 for each grouping. By default missing counts will be filled with \code{0L}.
 }
+\note{
+if \code{expand_dates} is TRUE (default) then complete counts will attempt to use
+\code{function(x) seq(min(x), max(x), by = by)} to generate a complete sequence of
+dates.
+}
 \examples{
-dat <- data.frame(
-  dates = Sys.Date() + 1:4,
-  groups = rep(c("grp1","grp2"), 2),
-  counts = 1:4
+x <- data.frame(
+    dates = Sys.Date() + c(1,3,4),
+    groups = c("grp1","grp2", "grp1"),
+    counts = 1:3
 )
 
-i <- incidence(dat, date_index = dates, groups = groups, counts = counts)
+i <- incidence(x, date_index = "dates", groups = "groups", counts = "counts")
 complete_counts(i)
 
 }

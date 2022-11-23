@@ -1,0 +1,137 @@
+---
+title: "incidence2"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{incidence2}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+## What does it do?
+
+**incidence2** is an R package that implements functions and classes to compute,
+handle and visualise *incidence* data.
+
+### Overview
+
+The main feature of the package is the `incidence()` function which works on
+both linelist and pre-aggregated data sets. It returns an object of class
+`<incidence>`. This is a data frame subclass with some additional invariants.
+That is, an `<incidence>` object must:
+  
+- have one column representing the date index (this does not need to be a `date`
+  object but must have an inherent ordering over time);
+  
+- have one column representing the count variable (i.e. what is being counted)
+  and one variable representing the associated count;
+  
+- have zero or more columns representing groups;
+
+- not have duplicated rows with regards to the date and group variables.
+    
+### Additional functionality
+
+- `plot.incidence()`: generate simple plots with reasonable defaults.
+
+- `regroup()`: regroup incidence from different groups into one global incidence
+  time series.
+  
+- `keep_first()` and `keep_last()`: keep the rows corresponding to the first (or
+  last) set of grouped dates (ordered by time) from an `<incidence>` object.
+  
+- `complete_counts()`: ensure every possible combination of date and groupings
+  is given an explicit count.
+  
+- `cumulate()`: calculate the cumulative incidence over time.
+  
+- `print.incidence()` and `summary.incidence()` methods.
+
+- `as.data.frame.incidence()` conversion method.
+
+- Accessor functions for accessing underlying variables: `get_date_index()`,
+  `get_count_variable()`, `get_count_value()`, `get_groups()`,
+  `get_count_value_name()`, `get_count_variable_name()`, `get_date_index_name()`
+  and `get_group_names()`.
+
+### Example usage: computing and plotting incidence
+
+```{r}
+library(outbreaks)  # for the underlying data
+library(grates)     # for date aggregation
+library(ggplot2)    # For custom plotting later
+library(incidence2) 
+```
+
+This example uses the simulated Ebola Virus Disease (EVD) outbreak from the
+package [outbreaks](https://github.com/reconverse/outbreaks). 
+
+```{r data}
+dat <- ebola_sim_clean$linelist
+class(dat)
+str(dat)
+```
+
+To compute daily incidence we must pass to `incidence()` a *data.frame* of
+observation data. We must also pass the name of a date variable in the data that
+we can use to index the input:
+
+```{r daily, fig.height = 5, dpi = 90}
+(daily <- incidence(dat, date_index = "date_of_onset"))
+plot(daily)
+```
+
+The daily incidence is quite noisy, but we can group input dates using the [grates](https://www.reconverse.org/grates/dev/) package prior to calculating
+the incidence. Here we calculate the 7 day incidence:
+
+```{r sevenday}
+# 7 day incidence
+dat <- transform(dat, date_of_onset = as_period(date_of_onset, n = 7L))
+(inci <- incidence(dat, date_index = "date_of_onset"))
+plot(inci, border_colour = "white")
+```
+
+`incidence()` can also aggregate incidence by specified groups using the 
+`groups` argument. For instance, we can compute incidence by gender:
+
+```{r gender}
+(grouped_inci <- incidence(
+    dat,
+    date_index = "date_of_onset",
+    groups = "gender"
+))
+```
+
+For grouped data, the plot method will create a faceted plot across groups:
+
+```{r genderplot}
+plot(grouped_inci, border_colour = "white", n_breaks = 5, angle = 45)
+```
+
+Similarly, `incidence()` also supports multiple date inputs where the different
+date indices are used for filling the resultant plot
+```{r}
+dat <- transform(dat, date_of_infection = as_period(date_of_infection, n = 7L))
+(grouped_inci <- incidence(
+    dat,
+    date_index = c("date_of_onset", "date_of_infection")
+))
+
+# by default the plot is dodged
+plot(grouped_inci, breaks = 5, angle = 45)
+# optionally can be stacked
+plot(grouped_inci, stack = TRUE, breaks = 5, angle = 45, border_colour = "white")
+```
+
+Note that although the plot method for `<incidence>` objects tries to balance
+flexibility with simplicity it can be preferable to call ggplot2 directly on the
+underlying data.

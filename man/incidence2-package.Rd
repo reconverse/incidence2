@@ -17,12 +17,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Tim Taylor \email{tim.taylor@hiddenelephants.co.uk} (\href{https://orcid.org/0000-0002-8587-7113}{ORCID})
+\strong{Maintainer}: Thibaut Jombart \email{thibautjombart@gmail.com} [contributor]
 
-Other contributors:
+Authors:
 \itemize{
-  \item Thibaut Jombart \email{thibautjombart@gmail.com} [contributor]
-  \item Zhian N. Kamvar \email{zkamvar@gmail.com} (\href{https://orcid.org/0000-0003-1458-7108}{ORCID}) [contributor]
+  \item Tim Taylor \email{tim.taylor@hiddenelephants.co.uk} (\href{https://orcid.org/0000-0002-8587-7113}{ORCID})
 }
 
 }
