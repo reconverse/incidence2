@@ -1,0 +1,13 @@
+pandoc: 2.19.2
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  Introduction: Introduction.html
+  alternative_date_groupings: alternative_date_groupings.html
+  customizing_incidence_plots: customizing_incidence_plots.html
+  handling_incidence_objects: handling_incidence_objects.html
+last_built: 2022-11-23T14:09Z
+urls:
+  reference: http://www.reconverse.org/incidence2/reference
+  article: http://www.reconverse.org/incidence2/articles
+
