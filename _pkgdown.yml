@@ -4,83 +4,35 @@ template:
 development:
   mode: auto
 
-
-navbar:
-  left:
-  - icon: fa-home fa-lg
-    href: index.html
-  - text: Reference
-    href: reference/index.html
-  - text: Articles
-    menu:
-      - text: "Using the incidence2 package"
-      - text: "Introduction"
-        href: articles/Introduction.html
-      - text: "Handling incidence objects"
-        href: articles/handling_incidence_objects.html
-      - text: "Customizing incidence plots"
-        href: articles/customizing_incidence_plots.html
-      - text: "Alternative date groupings"
-        href: articles/Alternative_date_groupings.html
-  - text: Changelog
-    href: news/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/reconverse/incidence2
-
 reference:
 - title: Incidence2 objects
-  desc: >
-    Functions for computing, viewing and converting incidence2 objects
 - contents:
   - incidence
-  - print.incidence_df
-  - summary.incidence_df
-  - as.data.frame.incidence_df
-  - as_tibble.incidence_df
+  - print.incidence
+  - summary.incidence
+  - as_incidence
 
-- title: Low-level constructors
+- title: Manipulation
   desc: >
-    Functions for constructing incidence objects with greater flexibility
+    Functions for manipulating incidence objects
 - contents:
-  - new_incidence
-  - validate_incidence
-  - build_incidence
-
-- title: Incidence curve visualisation
-  desc: >
-    Functions for plotting incidence curves and models
-- contents:
-  - plot.incidence2
-  - facet_plot
-  - vibrant
-  - muted
-
-- title: Data manipulation
-  desc: >
-    Functions for manipulating incidence objects by date or group
-- contents:
-  - complete_counts
+  - as.data.frame.incidence
   - cumulate
-  - regroup
+  - complete_dates
   - keep_first
   - keep_last
+  - regroup
 
 - title: Accessors
   desc: >
-    Accessor functions for the incidence object
+    Accessor functions for incidence objects
 - contents:
-  - get_counts
-  - get_counts_name
-  - get_dates
-  - get_dates_name
-  - get_date_group_names
-  - get_group_names
-  - get_interval
-  - get_n
-  - get_timespan
+  - starts_with("get")
 
-- title: Data
+- title: Plotting
+  desc: >
+    Basic plotting for incidence objects
 - contents:
-  - covidregionaldataUK
-
+  - plot.incidence
+  - muted
+  - vibrant

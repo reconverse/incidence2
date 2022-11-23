@@ -5,59 +5,42 @@
 #'
 #' @return object (invisibly).
 #'
+#' @examples
+#'
+#' data(ebola_sim_clean, package = "outbreaks")
+#' dat <- ebola_sim_clean$linelist
+#' inci <- incidence(dat, "date_of_onset", groups = c("gender", "hospital"))
+#' summary(inci)
+#'
 #' @export
-summary.incidence_df <- function(object, ...) {
+summary.incidence <- function(object, ...) {
 
-  ..count_var <- . <- NULL # due to NSE notes in R CMD check
+    count_variable <- get_count_variable_name.incidence(object)
+    group_variables <- get_group_names.incidence(object)
+    date_variable <- get_date_index_name.incidence(object)
+    count_name <- get_count_value_name.incidence(object)
 
-  count_var <- get_count_names(object)
-  groups <- get_group_names(object)
+    # range
+    dates <- range(.subset2(object, date_variable))
+    from  <- sprintf("From:          %s", format(dates[1]))
+    to    <- sprintf("To:            %s", format(dates[2]))
 
-  # general overview text without header
-  out <- overview(object)[-1]
+    # group summary
+    if (is.null(group_variables)) {
+        groups_text <- "Groups:      NULL"
+    } else {
+        groups_text <- sprintf("Groups:        %s", paste(group_variables, collapse =", " ))
+    }
 
-  if (inherits(object, "incidence2")) {
-    inter <- interval(object)
-    # cumulative
-    cumulative <- attr(object, "cumulative")
-    if (!is.null(cumulative)) cumulative <- sprintf("cumulative: %s", cumulative)
-    timespan <- sprintf("timespan: %d days", get_timespan(object))
-    out <- c(out, inter, cumulative, timespan)
-  }
+    # observation summary
+    tmp <- .subset(object, c(count_variable, group_variables, count_name))
+    setDT(tmp)
+    tmp <- tmp[, lapply(.SD, sum), by = c(group_variables, count_variable)]
+    setDF(tmp)
+    class(tmp) <- c("tbl", class(tmp))
+    observations <- c("\nTotal observations:", format(tmp, n=nrow(tmp)))
 
-  # information about groups
-  if (!is.null(groups)) {
-    groups_text <- sprintf(
-      "%d grouped %s",
-      length(groups),
-      ifelse(length(groups) < 2, "variable\n", "variables\n")
-    )
-
-    dt <- !any(vapply(object, typeof, character(1)) == "list")
-    tables <-
-      if (dt) {
-        lapply(
-          groups,
-          function(gr) {
-            tmp <- as.data.table(object)
-            tmp <- tmp[, lapply(.SD, sum, na.rm = TRUE), by = c(gr), .SDcols = count_var]
-            tmp <- tibble::as_tibble(tmp)
-            c(format(tmp)[-1], "\n")
-          }
-        )
-      } else {
-        lapply(
-          groups,
-          function(gr) {
-            tmp <- grouped_df(object, gr)
-            tmp <- summarise(tmp, across(all_of(count_var), ~sum(., na.rm = TRUE)), .groups = "drop")
-            c(format(tmp)[-1], "\n")
-          }
-        )
-      }
-    out <- c(out, "", groups_text, unlist(tables))
-  }
-
-  writeLines(out)
-  invisible(object)
+    out <- c(from, to, groups_text, observations)
+    writeLines(out)
+    invisible(object)
 }

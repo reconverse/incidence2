@@ -8,170 +8,137 @@ incidence(
   x,
   date_index,
   groups = NULL,
-  interval = 1L,
-  na_as_group = TRUE,
   counts = NULL,
-  firstdate = NULL
+  count_names_to = "count_variable",
+  count_values_to = "count",
+  date_names_to = "date_index",
+  rm_na_dates = TRUE,
+  interval = NULL,
+  offset = NULL
 )
 }
 \arguments{
-\item{x}{A data frame representing a linelist (or potentially a
-pre-aggregated dataset).}
+\item{x}{A data frame object representing a linelist or pre-aggregated dataset.}
 
-\item{date_index}{The time index(es) of the given data.  This should be the
-name(s) corresponding to the desired date column(s) in x of class:
-integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note  about
-\code{numeric} and \code{character} formats). Multiple inputs only make sense when
-x is a linelist, and in this situation, to avoid ambiguity, the vector must
-be named.  These names will be used for the resultant count columns.}
+\item{date_index}{\verb{[character]}
 
-\item{groups}{An optional vector giving the names of the groups of
-observations for which incidence should be grouped.}
+The time index(es) of the given data.
 
-\item{interval}{An integer or character indicating the (fixed) size of the
-time interval used for computing the incidence; defaults to 1 day. This can
-also be a text string that corresponds to a valid date interval, e.g.
+This should be the name(s) corresponding to the desired date column(s) in x.
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{* (x) day(s)
-* (x) weeks(s)
-* (x) epiweeks(s)
-* (x) isoweeks(s)
-* (x) months(s)
-* (x) quarter(s)
-* (x) years(s)
+A name vector can be used for convenient relabelling of the resultant output.
+
+Multiple indices only make sense when  \code{x} is a linelist.}
+
+\item{groups}{\verb{[character]}
+
+An optional vector giving the names of the groups of observations for which
+incidence should be grouped.}
+
+\item{counts}{\verb{[character]}
+
+The count variables of the given data.  If NULL (default) the data is taken
+to be a linelist of individual observations.}
+
+\item{count_names_to}{\verb{[character]}
+
+The column to create which will store the \code{counts} column names provided that
+\code{counts} is not NULL.}
+
+\item{count_values_to}{\verb{[character]}
+
+The name of the column to store the resultant count values in.}
+
+\item{date_names_to}{\verb{[character]}
+
+The name of the column to store the date variables in.}
+
+\item{rm_na_dates}{\verb{[logical]}
+
+Should \code{NA} dates be removed prior to aggregation?}
+
+\item{interval}{An optional scalar integer or string indicating the (fixed) size of
+the desired time interval you wish to use for for computing the incidence.
+
+Defaults to NULL in which case the date_index columns are left unchanged.
+
+Numeric values are coerced to integer and treated as a number of days to
+group.
+
+Text strings can be one of:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{* week(s) or weekly
+* epiweek(s)
+* isoweek(s)
+* month(s) or monthly
+* yearmonth(s)
+* quarter(s) or quarterly
+* yearquarter(s)
+* year(s) or yearly
 }\if{html}{\out{</div>}}
 
-More details can be found in the "Interval specification" and "Week
-intervals" sections below.}
+More details can be found in the "Interval specification" section.}
 
-\item{na_as_group}{A logical value indicating if missing group values (NA)
-should treated as a separate category (\code{TRUE}) or removed from
-consideration (\code{FALSE}). Defaults to \code{TRUE}.}
+\item{offset}{Only applicable when \code{interval} is not NULL.
 
-\item{counts}{The count variables of the given data.  If NULL (default) the
-data is taken to be a linelist of individual observations.}
-
-\item{firstdate}{When the interval is numeric or in days/months and has a
-numeric prefix greater than 1, then you can optionally specify the date
-that you wish to anchor your intervals to begin from.  If NULL (default)
-then the intervals will start at the minimum value contained in the
-\code{date_index} column. Note that the class of \code{firstdate} must be \code{Date} if
-the \code{date_index} column is Date, POSIXct, POSIXlt, or character and integer
-otherwise.}
+An optional scalar integer or date indicating the value you wish to start
+counting periods from relative to the Unix Epoch:
+\itemize{
+\item Default value of NULL corresponds to 0L.
+\item For other integer values this is stored scaled by \code{n}
+(\code{offset <- as.integer(offset) \%\% n}).
+\item For date values this is first converted to an integer offset
+(\code{offset <- floor(as.numeric(offset))}) and then scaled via \code{n} as above.
+}}
 }
 \value{
-An \code{incidence2} object.  This is a subclass of
-\code{\link[=build_incidence]{incidence_df}} and aggregated count of observations
-grouped according to the specified interval and, optionally, the given
-groups.  By default it will contain the following columns:
-\itemize{
-\item \strong{date} / \strong{date_index}:  If the default interval of 1 day is used then
-this will be the dates of the given observations and given the name
-"date", otherwise, this will be values obtained from the specified date
-grouping with column name "date_index" (See Interval specification below).
-\item \strong{groups} (if specified): Column(s) containing the categories of the
-given groups.
-\item \strong{count} (or name of count variables): The aggregated observation counts.
-}
+An object of class \verb{[incidence, data.frame]}.
 }
 \description{
-Compute the incidence of events
+\code{incidence()} calculates event the \emph{incidence} of different events across
+specified time periods and groupings.
 }
-\note{
-\subsection{Input data (\code{date_index})}{
+\details{
+\verb{<incidence>} objects are a sub class of data frame with some
+additional invariants. That is, an \verb{<incidence>} object must:
 \itemize{
-\item \strong{Decimal (numeric) dates}: will be truncated.
-\item \strong{Character dates} should be in the unambiguous \code{yyyy-mm-dd} (ISO 8601)
-format. Any other format will trigger an error.
+\item have one column representing the date index (this does not need to be a
+\code{date} object but must have an inherent ordering over time);
+\item have one column representing the count variable (i.e. what is being
+counted) and one variable representing the associated count;
+\item have zero or more columns representing groups;
+\item not have duplicated rows with regards to the date and group variables.
 }
 }
-
-\subsection{Interval specification (\code{interval})}{
-\code{incidence()} uses the \href{https://cran.r-project.org/package=grates}{\code{grates}}
-package to generate date groupings. The grouping used depends on the value
-of \code{interval}. This can be specified as either an integer value or a more
-standard specification such as "day", "week", "month", "quarter" or "year".
-The format in this situation is similar to that used by \code{\link[=seq.Date]{seq.Date()}}
-where these values can optionally be preceded by a (positive or negative)
-integer and a space, or followed by "s".  When no prefix is given:
+\section{Interval specification}{
+Where \code{interval} is specified, \code{incidence()} uses the
+\href{https://cran.r-project.org/package=grates}{\code{grates}} package to generate
+appropriate date groupings. The grouping used depends on the value of
+\code{interval}. This can be specified as either an integer value or a string
+corresponding to one of the grates classes:
 \itemize{
-\item "week"    : uses the "grates_yearweek" class (see \code{\link[grates:as_yearweek]{grates::as_yearweek()}}).
-\item "month"   : uses the "grates_month" class (see \code{\link[grates:as_month]{grates::as_month()}}).
-\item "quarter" : uses the "grates_quarter" class (see \code{\link[grates:as_quarter]{grates::as_quarter()}}).
-\item "year"    : uses the "grates_year" class (see \code{\link[grates:as_year]{grates::as_year()}}).
-}
-
-When a prefix is provided (e.g. 2 weeks) the output is an object of class
-"period" (see \code{\link[=as_period]{as_period()}}).  Note that for the values "month",
-"quarter" and "year" intervals are always chosen to start at the beginning
-of the calendar equivalent.  If the input is an integer value the input is
-treated as if it was specified in days (i.e. 2 and 2 days) produce the
-same output.
-
-The only interval values that do not produce these grouped classes are 1,
-1L, "day" or "days" (both without prefix) are used.  In this situation the
-returned object is of the standard "Date" class.
-}
-
-\subsection{Week intervals}{
-
-It is possible to construct incidence objects standardized to any day of the
-week. The default state is to use ISO 8601 definition of weeks, which start
-on Monday. You can specify the day of the week an incidence object should
-be standardised to by using the pattern "{n} {W} weeks" where "{W}"
-represents the weekday in an English or current locale and "{n}" represents
-the duration, but this can be ommitted.  Below are examples of specifying
-weeks starting on different days assuming we had data that started on
-2016-09-05, which is ISO week 36 of 2016:
-\itemize{
-\item interval = "2 monday weeks" (Monday 2016-09-05)
-\item interval = "1 tue week" (Tuesday 2016-08-30)
-\item interval = "1 Wed week" (Wednesday 2016-08-31)
-\item interval = "1 Thursday week" (Thursday 2016-09-01)
-\item interval = "1 F week" (Friday 2016-09-02)
-\item interval = "1 Saturday week" (Saturday 2016-09-03)
-\item interval = "Sunday week" (Sunday 2016-09-04)
-}
-
-It's also possible to use something like "3 weeks: Saturday"; In addition,
-there are keywords reserved for specific days of the week:
-\itemize{
-\item interval = "week", (Default, Monday)
-\item interval = "ISOweek"  (Monday)
-\item interval = "EPIweek"  (Sunday)
-\item interval = "MMWRweek" (Sunday)
-}
-
+\item \if{html}{\out{<integer>}} values:                   \code{\link[grates:new_period]{<grates_period>}} object, grouped by the specified number of days.
+\item week(s), weekly, isoweek:           \code{\link[grates:isoweek]{<grates_isoweek>}} objects.
+\item epiweek(s):                         \code{\link[grates:epiweek]{<grates_epiweek>}} objects.
+\item month(s), monthly, yearmonth:       \code{\link[grates:yearmonth]{<grates_yearmonth>}} objects.
+\item quarter(s), quarterly, yearquarter: \code{\link[grates:yearquarter]{<grates_yearquarter>}} objects.
+\item year(s) and yearly:                 \code{\link[grates:year]{<grates_year>}} objects.
 }
 }
+
 \examples{
 if (requireNamespace("outbreaks", quietly = TRUE)) {
-  withAutoprint({
+\dontshow{withAutoprint(\{}
     data(ebola_sim_clean, package = "outbreaks")
     dat <- ebola_sim_clean$linelist
-
-    # daily incidence
-    incidence(dat, date_of_onset)
-
-    # weekly incidence
-    incidence(dat, date_of_onset, interval = "week")
-
-    # starting on a Monday
-    incidence(dat, date_of_onset, interval = "isoweek")
-
-    # starting on a Sunday
-    incidence(dat, date_of_onset, interval = "epiweek")
-
-    # group by gender
-    incidence(dat, date_of_onset, interval = 7, groups = gender)
-
-    # group by gender and hospital
-    incidence(dat, date_of_onset, interval = "2 weeks", groups = c(gender, hospital))
-  })
+    incidence(dat, "date_of_onset")
+    incidence(dat, "date_of_onset", groups = c("gender", "hospital"))
+\dontshow{\})}
 }
 
-# use of first_date
-dat <- data.frame(dates = Sys.Date() + sample(-3:10, 10, replace = TRUE))
-incidence(dat, dates, interval = "week", firstdate = Sys.Date() + 1)
 
+}
+\seealso{
+\code{browseVignettes("grates")} for more details on the grate object
+classes.
 }

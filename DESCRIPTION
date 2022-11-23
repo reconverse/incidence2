@@ -1,14 +1,12 @@
 Package: incidence2
 Type: Package
 Title: Compute, Handle and Plot Incidence of Dated Events
-Version: 1.2.3.9001
+Version: 1.9.9.9000
 Authors@R: c(
-  person("Tim", "Taylor", role = "aut", email = "tim.taylor@hiddenelephants.co.uk",
-         comment = c(ORCID = "0000-0002-8587-7113")),
-  person("Thibaut", "Jombart", role = c("ctb", "cre"), email = "thibautjombart@gmail.com"),
-  person("Zhian N.", "Kamvar", role = "ctb", email = "zkamvar@gmail.com",
-         comment = c(ORCID = "0000-0003-1458-7108"))
-  )
+    person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
+           comment = c(ORCID = "0000-0002-8587-7113")),
+    person("Thibaut", "Jombart", role = "ctb", email = "thibautjombart@gmail.com")
+    )   
 Description: Provides functions and classes to compute, handle and visualise 
   incidence from dated events for a defined time interval. Dates can be 
   provided in various standard formats. The class 'incidence2' is used to store
@@ -19,34 +17,22 @@ Encoding: UTF-8
 License: MIT + file LICENSE
 URL: https://github.com/reconverse/incidence2
 BugReports: https://github.com/reconverse/incidence2/issues
-RoxygenNote: 7.2.2
-LazyData: true
-Imports: 
-    tibble,
-    ellipsis,
-    vctrs,
-    pillar,
+Depends: grates (>= 0.9.9.9000)
+Imports:
+    grDevices,
     data.table,
-    stats,
-    rlang (>= 0.1.2),
-    tidyselect,
-    grates (>= 0.3.0),
-    dplyr,
-    clock
-Suggests:
+    pillar
+RoxygenNote: 7.2.3
+Roxygen: list(markdown = TRUE)
+Suggests: 
     outbreaks,
+    dplyr,
+    tinytest,
+    ggplot2,
     knitr,
     rmarkdown,
-    testthat,
-    scales,
-    roxygen2,
-    ggplot2,
-    magrittr,
-    covr,
-    zoo
-VignetteBuilder: 
-    knitr
-Roxygen: list(markdown = TRUE)
-Config/testthat/edition: 3
-Depends: 
-    R (>= 2.10)
+    rlang,
+    clock
+VignetteBuilder: knitr
+Remotes:
+    reconverse/grates

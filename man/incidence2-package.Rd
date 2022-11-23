@@ -22,7 +22,6 @@ Useful links:
 Other contributors:
 \itemize{
   \item Thibaut Jombart \email{thibautjombart@gmail.com} [contributor]
-  \item Zhian N. Kamvar \email{zkamvar@gmail.com} (\href{https://orcid.org/0000-0003-1458-7108}{ORCID}) [contributor]
 }
 
 }

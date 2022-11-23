@@ -1,75 +1,76 @@
-## Plotting notes
-##
-## Note 1: it seems safest to specify the aes() as part of the geom,
-## not in ggplot(), as it interacts badly with some other geoms like
-## geom_ribbon - used e.g. in projections::add_projections().
-##
-## Note 2: because of the way 'fill' works, we need to specify it through
-## 'aes' if not directly in the geom. This causes the kludge below, where we
-## make a fake constant group to specify the color and remove the legend.
-##
-## Note 3: when there are groups, and the 'color' argument does not have one
-## value per group, we generate colors from a color palette. This means that
-## by default, the palette is used, but the user can manually specify the
-## colors.
-
-#' Plotting functions
+#' Plot an incidence object
 #'
-#' incidence2 includes two plotting functions to simplify graph creation.
-#'
-#' @param x An [incidence()] object.
-#' @param count Which count variable to have on the y-axis. If NULL (default)
-#'   the first entry returned from `get_count_names(x)` is used.
-#' @param fill Which variable to color plots by. If NULL no distinction if made
-#'   for plot colors.
-#' @param facets Which variable to facet plots by.  If NULL will use all
-#'   group_labels of the incidence object.
-#' @param title Optional title for the graph.
-#' @param centre_dates If the interval is one of a single week, month, quarter
-#'   or year the x_axis labels are centred with custom category labels. Set this
-#'   option to FALSE to use date labels at the breaks.
-#' @param date_format Format to use if "Date" scales are required. The value is
-#'   used by `format.Date()` and can be any input acceptable by that function
-#'   (defaults to "%Y-%m-%d).
-#' @param stack A logical indicating if bars of multiple groups should be
-#'   stacked, or displayed side-by-side. Only used if fill is not NULL.
-#' @param col_pal col_pal The color palette to be used for the groups; defaults
-#'   to `vibrant` (see `?palettes`).
-#' @param alpha The alpha level for color transparency, with 1 being fully
-#'   opaque and 0 fully transparent; defaults to 0.7.
-#' @param color The color to be used for the borders of the bars; NA for
-#'   invisible borders; defaults to NA.
-#' @param xlab The label to be used for the x-axis; empty by default.
-#' @param ylab The label to be used for the y-axis; by default, a label will be
-#'   generated automatically according to the time interval used in incidence
-#'   computation.
-#' @param n_breaks Approximate number of breaks calculated using
-#'   `scales::breaks_pretty` (default 6).
-#' @param width Value between 0 and 1 indicating the relative size of the bars
-#'   to the interval. Default 1.
-#' @param show_cases if `TRUE` (default: `FALSE`), then each observation will be
-#'   colored by a border. The border defaults to a white border unless specified
-#'   otherwise. This is normally used outbreaks with a small number of cases.
-#'   Note: this can only be used if `stack = TRUE`
-#' @param border If show_cases is TRUE this represents the color used for the
-#'   borders of the individual squares plotted (defaults to `"white"`).
-#' @param na_color The colour to plot `NA` values in graphs (default: `grey`).
-#' @param legend Position of legend in plot.
-#' @param angle Rotation angle for text.
-#' @param size text size in pts.
-#' @param nrow Number of rows.
-#' @param ... other arguments to pass to [`ggplot2::scale_x_continuous()`].
-#'
-#' @return
-#'  - `facet_plot()` and `plot()` generate a [ggplot2::ggplot()] object.
+#' `plot()` can be used to provide a quick bar plot of an incidence object.
 #'
 #' @details
-#'  - `plot` creates a one-pane graph of an incidence object.
-#'  - `facet_plot` creates a multi-facet graph of a grouped incidence object.
-#'    If the object has no groups it returns the same output as a call to
-#'    [plot()].
-#'  - If the [incidence()] object has a rolling average column then that
-#'    average will be overlaid on top.
+#'
+#' - Facetting will occur automatically if either grouping variables or
+#'   multiple counts are present.
+#'
+#' - If there are multiple count variables, each count will occupy a different
+#'   row of the resulting plot.
+#'
+#' - Utilises ggplot2 so this must be installed to use.
+#'
+#' @param x An [incidence()] object.
+#'
+#' @param y Not used.
+#'
+#' Required for compatibility with the `plot()` generic.
+#'
+#' @param width `[numeric]`
+#'
+#' Value between 0 and 1 indicating the relative size of the bars to the
+#' interval.
+#'
+#' Default 1.
+#'
+#' @param colour_palette `[function]`
+#'
+#' The color palette to be used for the different count variables.
+#'
+#' Defaults to `vibrant` (see `?palettes`).
+#'
+#' @param border_colour `[character]`
+#'
+#' The color to be used for the borders of the bars.
+#'
+#' Use `NA` (default) for invisible borders.
+#'
+#' @param na_color `[character]`
+#'
+#' The colour to plot `NA` values in graphs.
+#'
+#' Defaults to `grey`.
+#'
+#' @param alpha `[numeric]`
+#'
+#' The alpha level for color transparency, with 1 being fully opaque and
+#' 0 fully transparent
+#'
+#' Defaults to 0.7.
+#'
+#' @param title `[character]`
+#'
+#' Optional title for the graph.
+#'
+#' @param angle `[numeric]`
+#'
+#' Rotation angle for text.
+#'
+#' @param size `[numeric]`
+#'
+#' text size in pts.
+#'
+#' @param nrow `[integer]`
+#'
+#' Number of rows used for facetting if there are group variables present and
+#' just one count in the incidence object.
+#'
+#' @param ... Not currently used.
+#'
+#' @return
+#'  - A `[ggplot2::ggplot()]` object.
 #'
 #' @examples
 #' if (requireNamespace("outbreaks", quietly = TRUE) && requireNamespace("ggplot2", quietly = TRUE)) {
@@ -77,382 +78,106 @@
 #'     data(ebola_sim_clean, package = "outbreaks")
 #'     dat <- ebola_sim_clean$linelist
 #'
-#'     inci <- incidence(dat,
-#'                       date_index = date_of_onset,
-#'                       interval = 7,
-#'                       groups = hospital)
+#'     inci <- incidence(dat, date_index = "date_of_onset", groups = "hospital")
+#'     plot(inci, angle = 45)
 #'
-#'     inci2 <- incidence(dat,
-#'                       date_index = date_of_onset,
-#'                       interval = 7,
-#'                       groups = c(hospital, gender))
-#'
-#'     plot(inci)
-#'     plot(inci, fill = hospital)
-#'     plot(inci, fill = hospital, stack = FALSE)
-#'
-#'     facet_plot(inci)
-#'     facet_plot(inci2)
-#'     facet_plot(inci2, facets = gender)
-#'     facet_plot(inci2, facets = hospital, fill = gender)
+#'     inci2 <- regroup(inci)
+#'     plot(inci2)
 #'   })
 #' }
-
-#' @importFrom rlang sym syms .data
+#'
 #' @export
-plot.incidence2 <- function(x, count = NULL, fill = NULL, centre_dates = TRUE,
-                            date_format = "%Y-%m-%d", stack = TRUE,
-                            title = NULL, col_pal = vibrant, alpha = 0.7,
-                            color = NA, xlab = "", ylab = NULL, n_breaks = 6,
-                            width = 1, show_cases = FALSE, border = "white",
-                            na_color = "grey",
-                            legend = c("right", "left", "bottom", "top", "none"),
-                            angle = 0, size = NULL, ...) {
+plot.incidence <- function(
+    x, y,
+    width = 1,
+    colour_palette = vibrant, border_colour = NA, na_color = "grey", alpha = 0.7,
+    title = NULL,
+    angle = 0, size = NULL,
+    nrow = NULL,
+    ...
+) {
 
-  check_suggests("ggplot2")
-  ellipsis::check_dots_used()
-  if (!(length(width) == 1L && is.numeric(width))) {
-    abort("`width` should be numeric and of length 1")
-  }
+    if (!requireNamespace("ggplot2", quietly = TRUE))
+        stopf("'ggplot2' is required for the incidence plot method but is not present.")
 
-  # warnings
-  group_vars <- get_group_names(x)
-  if (length(group_vars) > 1) {
-    msg <- paste("plot() can only stack/dodge by one variable.",
-                 "For multi-facet plotting try facet_plot()",
-                 sep = "\n")
-    message(msg)
-  }
+    # For R CMD check
+    .data <- NULL
 
-  # convert count to character
-  tmp <- rlang::enquo(count)
-  if (rlang::quo_is_null(tmp)) {
-    count <- get_count_names(x)[1]
-  } else {
-    idx <- tidyselect::eval_select(tmp, x)
-    if (length(idx) > 1) {
-      abort("plot() can only work with one count variable at a time")
-    }
-    count <- names(x)[idx]
-  }
+    # get relevant variables
+    groups <- get_group_names.incidence(x)
+    count_values <- get_count_value_name.incidence(x)
+    dates <- get_date_index_name.incidence(x)
 
-  # Convert fill to character (need to allow for colours hence the try)
-  # TODO - this may need improving
-  tmp <- rlang::enquo(fill)
-  if (rlang::quo_is_null(tmp)) {
-    fill <- NULL
-  } else {
-    idx <- try(tidyselect::eval_select(tmp, x), silent = TRUE)
-    if (!inherits(idx, "try-error")) fill <- names(x)[idx]
-  }
+    # set axis variables
+    x_axis <- dates
+    y_axis <- count_values
 
-  out <- plot_basic(x = x, count = count, fill = fill, stack = stack,
-                    centre_dates = centre_dates, date_format = date_format,
-                    n_breaks = n_breaks, width = width,
-                    col_pal = col_pal, alpha = alpha, color = color,
-                    xlab = xlab, ylab = ylab, show_cases = show_cases,
-                    border = border, na_color = na_color,
-                    legend = match.arg(legend), title = title, ...)
+    # create fill palette by count variable
+    fill <- get_count_variable_name.incidence(x)
+    count_vars <- get_count_variable.incidence(x)[[1L]]
+    n_count_vars <- length(unique(count_vars))
+    fill_colours <- colour_palette(n_count_vars)
 
-  out + rotate_and_scale(angle = angle, size = size)
+    # convert input to data frame
+    dat <- as.data.frame.incidence(x)
 
-}
+    # make plot
+    out <- ggplot2::ggplot(dat) +
+        ggplot2::geom_col(
+            ggplot2::aes(x = .data[[x_axis]], y = .data[[y_axis]]),
+            colour = border_colour,
+            alpha = alpha,
+            width = width,...
+        ) +
+        ggplot2::theme_bw() +
+        ggplot2::aes(fill = .data[[fill]]) +
+        ggplot2::scale_fill_manual(values = fill_colours, na.value = na_color) +
+        ggplot2::theme(legend.position = "none")
 
-# -------------------------------------------------------------------------
+    # facet_grid if multiple counts / groups
+    if (n_count_vars > 1L) {
+        if (length(groups)) {
+            out <- out +
+                ggplot2::facet_grid(
+                    rows = ggplot2::vars(!!rlang::sym(fill)),
+                    cols = ggplot2::vars(!!!rlang::syms(groups))
+                )
+        } else {
+            out <- out +
+                ggplot2::facet_grid(
+                    rows = ggplot2::vars(!!rlang::sym(fill))
+                )
+        }
+    } else if (length(groups)) {
+        out <- out +
+            ggplot2::facet_wrap(
+                ggplot2::vars(!!!rlang::syms(groups)),
+                nrow = nrow
+            ) +
+            ggplot2::labs(x = count_vars[[1L]], y = get_count_value_name(x))
 
-#' @rdname plot.incidence2
-#' @aliases facet_plot
-#' @export
-facet_plot <- function(x, ...) {
-  UseMethod("facet_plot")
-}
-
-# -------------------------------------------------------------------------
-
-#' @importFrom rlang sym syms
-#' @rdname plot.incidence2
-#' @aliases facet_plot.incidence2
-#' @export
-facet_plot.incidence2 <- function(x, count = NULL, facets = NULL,
-                                  centre_dates = TRUE, date_format = "%Y-%m-%d",
-                                  stack = TRUE, fill = NULL, title = NULL,
-                                  col_pal = vibrant, alpha = 0.7, color = NA,
-                                  xlab = "", ylab = NULL, n_breaks = 3,
-                                  width = 1, show_cases = FALSE,
-                                  border = "white", na_color = "grey",
-                                  legend = c("bottom", "top", "left", "right", "none"),
-                                  angle = 0, size = NULL, nrow = NULL, ...) {
-
-  check_suggests("ggplot2")
-  ellipsis::check_dots_used()
-  if (!(length(width) == 1L && is.numeric(width))) {
-    abort("`width` should be numeric and of length 1")
-  }
-
-  # convert count to character
-  tmp <- rlang::enquo(count)
-  if (rlang::quo_is_null(tmp)) {
-    count <- get_count_names(x)[1]
-  } else {
-    idx <- tidyselect::eval_select(tmp, x)
-    if (length(idx) > 1) {
-      abort("plot() can only work with one count variable at a time")
-    }
-    count <- names(x)[idx]
-  }
-
-  # convert facets to character
-  facets <- rlang::enquo(facets)
-  idx <- tidyselect::eval_select(facets, x)
-  facets <- names(x)[idx]
-  if (length(facets) == 0) facets <- NULL
-
-  # Convert fill to character (need to allow for colours hence the try)
-  # TODO - this may need improving
-  tmp <- rlang::enquo(fill)
-  if (rlang::quo_is_null(tmp)) {
-    fill <- NULL
-  } else {
-    idx <- try(tidyselect::eval_select(tmp, x), silent = TRUE)
-    if (!inherits(idx, "try-error")) fill <- names(x)[idx]
-  }
-
-  group_vars <- get_group_names(x)
-
-  out <- plot_basic(x = x, count = count, fill = fill, stack = stack,
-                    centre_dates = centre_dates, date_format = date_format,
-                    n_breaks = n_breaks, width = width,
-                    col_pal = col_pal,alpha = alpha, color = color, xlab = xlab,
-                    ylab = ylab, show_cases = show_cases, border = border,
-                    na_color = na_color, legend = match.arg(legend),
-                    title = title, ...)
-
-  out <- out + rotate_and_scale(angle = angle, size = size)
-
-  if (is.null(facets) && !is.null(group_vars)) {
-    out <-
-      out +
-      ggplot2::facet_wrap(ggplot2::vars(!!!syms(group_vars)), nrow) +
-      ggplot2::theme(panel.spacing.x = ggplot2::unit(8, "mm"))
-  } else if (!is.null(facets)) {
-    out <-
-      out +
-      ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)), nrow) +
-      ggplot2::theme(panel.spacing.x = ggplot2::unit(8, "mm"))
-  }
-
-  out
-}
-
-# -------------------------------------------------------------------------
-
-plot_basic <- function(x, count, fill = NULL, centre_dates = TRUE, stack = TRUE,
-                       n_breaks = 6, width = 1, date_format = "%Y-%m-%d",
-                       col_pal = vibrant, alpha = 0.7, color = NA,
-                       xlab = "", ylab = NULL,
-                       show_cases = FALSE, border = "white",
-                       na_color = "grey",
-                       legend = c("right", "left", "bottom", "top", "none"),
-                       title = NULL, ...) {
-
-
-  # get relevant variables
-  date_var <- get_dates_name(x)
-  count_var <- count
-  group_vars <- get_group_names(x)
-  interval <- get_interval(x)
-  legend <- match.arg(legend)
-
-  # Handle stacking
-  stack.txt <- if (stack) "stack" else "dodge"
-
-  # set axis variables
-  x_axis <- date_var
-  y_axis <- count_var
-
-  # copy data
-  df <- x
-
-  # generate label for y-axis
-  ylab <- ylabel(df, ylab)
-
-  if (!is.null(group_vars)) {
-    if (!is.null(fill) && all(fill %in% group_vars)) {
-      group_vars <- fill
-    } else if (!is.null(fill) && !all(fill %in% group_vars)) {
-      group_vars <- NULL
-    }
-  }
-
-  d <- get_dates(x)
-  width <- get_interval_number(interval) * width
-
-  if (is.null(fill)) {
-    out <- ggplot2::ggplot(df) +
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis), y = !!sym(y_axis)),
-                        color = color,
-                        fill = col_pal(1),
-                        alpha = alpha,
-                        width = width) +
-      ggplot2::theme_bw() +
-      ggplot2::labs(x = xlab, y = ylab)
-  } else if (!all(fill %in% group_vars)) {
-    out <- ggplot2::ggplot(df) +
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis), y = !!sym(y_axis)),
-                        color = color,
-                        fill = fill,
-                        alpha = alpha,
-                        width = width) +
-      ggplot2::theme_bw() +
-      ggplot2::labs(x = xlab, y = ylab)
-  } else if (group_vars == fill) {
-    group_names <- unique(df[[group_vars]])
-    n_groups <- length(group_names)
-    group_colors <- col_pal(n_groups)
-
-    ## add colors to the plot
-    out <- ggplot2::ggplot(df) +
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis), y = !!sym(y_axis)),
-                        color = color,
-                        alpha = alpha,
-                        position = stack.txt,
-                        width = width) +
-      ggplot2::theme_bw() +
-      ggplot2::theme(legend.position = legend) +
-      ggplot2::labs(x = xlab, y = ylab) +
-      ggplot2::aes(fill = !!sym(fill)) +
-      ggplot2::scale_fill_manual(values = group_colors, na.value = na_color)
-  } else {
-    abort("Hhhhmmm, this shouldn't happen! Please raise an issue at https://github.com/reconverse/incidence2/issues")
-  }
-
-  if (show_cases && (stack == TRUE || is.null(fill))) {
-    squaredf <- df[rep(seq.int(nrow(df)), df[[count_var]]), ]
-    squaredf[[count_var]] <- 1
-    squares <-
-      ggplot2::geom_col(ggplot2::aes(x = !!sym(x_axis), y = !!sym(y_axis)),
-                        color = if (is.na(border)) "white" else border,
-                        fill  = NA,
-                        position = "stack",
-                        data = squaredf)
-
-    out <- out + squares + ggplot2::coord_equal()
-  }
-
-  if (!is.null(title)) out <- out + ggplot2::labs(title = title)
-
-  if (inherits(d, "grates_yearweek")) {
-    if (centre_dates) date_format <- NULL
-    out <- out + grates::scale_x_grates_yearweek(
-      n.breaks = n_breaks,
-      firstday = grates::get_firstday(d),
-      format = date_format
-    )
-  } else if (inherits(d, "grates_quarter")) {
-    if (centre_dates) date_format <- NULL
-    out <- out + grates::scale_x_grates_quarter(
-      n.breaks = n_breaks,
-      format = date_format
-    )
-  } else if (inherits(d, "grates_month")) {
-    if (centre_dates && attr(d, "n") == 1) date_format <- NULL
-    out <- out + grates::scale_x_grates_month(
-      n.breaks = n_breaks,
-      format = date_format,
-      n = attr(d, "n"),
-      origin = as.numeric(min(d))
-    )
-  } else if (inherits(d, "grates_year")) {
-    out <- out + grates::scale_x_grates_year(n.breaks = n_breaks)
-  } else if (inherits(d, "grates_int_period")) {
-    out <- out + grates::scale_x_grates_int_period(
-      n.breaks = n_breaks,
-      n = attr(d, "n"),
-      origin = as.numeric(min(d))
-    )
-  } else if (inherits(d, "grates_period")) {
-    out <- out + grates::scale_x_grates_period(
-      n.breaks = n_breaks,
-      format = date_format,
-      n = attr(d, "n"),
-      origin = as.numeric(min(d))
-    )
-  } else if (inherits(d, "Date")) {
-    out <-  out + ggplot2::scale_x_date(
-      breaks = scales::pretty_breaks(n = n_breaks),
-      date_labels = date_format,
-      ...
-    )
-  } else if (inherits(d, "integer")) {
-    out <- out + ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = n_breaks), ...)
-  } else {
-    abort("Something has gone wrong! Please let the incidence2 devs know.")
-  }
-
-  out
-}
-
-# -------------------------------------------------------------------------
-
-ylabel <- function(x, ylab) {
-  if (is.null(ylab)) {
-
-    interval <- get_interval(x)
-    type <- get_interval_type(interval)
-    n <- get_interval_number(interval)
-    date_vars <- get_dates_name(x)
-
-    if (grates::is_int_period(get_dates(x))) {
-      ylab <- sprintf("incidence by period of %d", interval)
-    } else if (is.character(interval)) {
-      if (interval == "1 day") {
-        ylab <- "daily incidence"
-      } else if (type == "period") {
-        ylab <- sprintf("incidence by period of %d days", n)
-      } else if (n == 1) {
-        ylab <- sprintf("%sly incidence", type)
-      } else {
-        ylab <- sprintf("incidence by a period of %d %ss", n, type)
-      }
     } else {
-      if (n == 1) {
-        ylab <- "incidence by day"
-      } else {
-        ylab <- sprintf("incidence by period of %d days", n)
-      }
+        out <- out + ggplot2::labs(x = count_vars[[1L]], y = get_count_value_name(x))
+    }
 
-    }
-    if (isTRUE(attr(x, "cumulative"))) {
-      ylab <- sub("incidence", "cumulative incidence", ylab)
-    }
-    first_letter <- substring(ylab, 1, 1)
-    substring(ylab, 1, 1) <- toupper(first_letter)
-  }
-  ylab
+
+
+    # rotate and scale
+    hjust <- if (angle != 0) 1 else NULL
+    out <- out +
+        ggplot2::theme(
+            axis.text.x = ggplot2::element_text(
+                hjust = hjust,
+                angle = angle,
+                size = size
+            )
+        )
+
+    # return plot
+    out
 }
 
-# -------------------------------------------------------------------------
 
-#' Rotate and scale incidence plot labels
-#'
-#' @param angle Angle to rotate x-axis labels.
-#' @param size text size in pts.
-#'
-#' @noRd
-rotate_and_scale <- function(angle = 0, size = NULL) {
-  if (angle != 0) {
-    hjust <- 1
-  } else {
-    hjust <- NULL
-  }
 
-  if (is.null(size)) {
-    ggplot2::theme(
-      axis.text.x = ggplot2::element_text(hjust = hjust, angle = angle)
-    )
-  } else {
-    ggplot2::theme(
-      axis.text.x = ggplot2::element_text(angle = angle, hjust = hjust, size = size)
-    )
-  }
-}
+
+

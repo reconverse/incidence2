@@ -1,7 +1,42 @@
 # incidence2 (development version)
 
-* Maintainer changed to Thibaut Jombart
+Version 2.0.0 is a major, breaking release of incidence2. We have undertaken a
+significant refactor in order to simplify the underlying code base and make the
+user interface more consistent and robust. We highlight the main
+changes below, but users are strongly advised to read through the accompanying
+documentation and vignettes.
 
+## breaking changes
+
+* We no longer support NSE (e.g. tidyselect semantics) within the package. Our
+  motivation for removing support for NSE are both the complexity it can bring
+  to the underlying code (making long term maintenance harder) and the
+  complexity it can cause for other users / developers who want to build on
+  top of incidence2.
+  
+* `new_incidence()`, `validate_incidence()`, `build_incidence()`, `get_n()`,
+  `get_interval()`, `get_timespan()` and `facet_plot()` are now defunct and
+  will error if called.
+  
+* `complete_counts()` is now renamed `complete_dates()` and gains two new
+  parameters, `expand` and `by`. If `expand` is TRUE (default) then
+  `complete_dates()` will attempt to use
+  `function(x) seq(min(x), max(x), by = by)` to generate a complete sequence of
+  dates.
+  
+* The `incidence()` function now always returns output in long format with
+  dedicated columns for the count variables and values (set by arguments
+  `count_names_to` and `count_values_to`).
+  
+* `incidence()` is now less flexible in what it can accept for the `interval`
+  argument. For more complex date groupings users are encouraged to perform
+  their require data transformations prior to calling `incidence()`.
+  
+* The default plotting of incidence objects as been greatly simplified. Sensible
+  defaults have been chosen to enable a quick visual overview of incidence
+  objects but users are advised to call ggplot2 directly for more bespoke
+  plotting.
+  
 # incidence2 1.2.3
 
 ## New functions

@@ -24,9 +24,12 @@ knitr::opts_chunk$set(
 
 
 # incidence2
-**incidence2** is an R package that implements functions and classes to compute, handle and visualise *incidence* from linelist data.
-It refocusses the scope of the original [incidence](https://cran.r-project.org/package=incidence) package.
-Unlike the original package, **incidence2** concentrates only on the initial calculation, manipulation and plotting of the resultant *incidence* objects.
+
+**incidence2** is an R package that implements functions and classes to compute,
+handle and visualise *incidence* from linelist data. It refocusses the scope of
+the original [incidence](https://cran.r-project.org/package=incidence) package.
+Unlike the original package, **incidence2** concentrates only on the initial
+calculation, manipulation and plotting of the resultant *incidence* objects.
 
 ## Installing the package
 
@@ -43,97 +46,10 @@ remotes::install_github("reconverse/incidence2", build_vignettes = TRUE)
 ```
 :::
 
-## Resources
+## Vignettes
 
-### Vignettes
+An overview of **incidence2** is provided in the vignettes distributed with the
+package:
 
-A short overview of **incidence2** is provided below in the worked example below.
-More detailed tutorials are distributed as vignettes with the package:
-
-* `vignette("Introduction", package = "incidence2")`
+* `vignette("incidence2", package = "incidence2")`
 * `vignette("handling_incidence_objects", package = "incidence2")`
-* `vignette("customizing_incidence_plots", package = "incidence2")`
-* `vignette("alternative_date_groupings", package = "incidence2")`
-
-## Getting help online
-- Bug reports and feature requests should be posted on *github* using the issue system: <https://github.com/reconverse/incidence2/issues>.
-- Online documentation: <https://www.reconverse.org/incidence2>.
-- All other questions should be posted on the **RECON** slack channel;
-  see <https://www.repidemicsconsortium.org/forum/> for details on how to join.
-
-# A quick overview
-
-This short example uses the simulated Ebola Virus Disease (EVD) outbreak from the package [*outbreaks*](https://github.com/reconverse/outbreaks).
-It shows how to compute incidence for various time steps and plot the resulting output.
-
-First, we load the data:
-
-```{r data, message=FALSE}
-library(outbreaks)
-library(incidence2)
-
-dat <- ebola_sim_clean$linelist
-str(dat)
-```
-
-## Computing and plotting incidence
-
-We compute the weekly incidence:
-
-```{r incid7}
-i_7 <- incidence(dat, date_index = date_of_onset, interval = 7)
-i_7
-summary(i_7)
-plot(i_7, color = "white")
-```
-
-Notice how specifying the interval as 7 creates weekly intervals with the coverage displayed by date.
-`incidence()` also allows us to create year-weekly groupings with the default being weeks starting on a Monday (following the ISO 8601 date and time standard).
-`incidence()` can also compute incidence by specified groups using the `groups` argument.
-As an example, below we can compute the weekly incidence by gender and plot in a single, stacked chart:
-
-```{r genderstack}
-iw <- incidence(dat, interval = "week", date_index = date_of_onset, groups = gender)
-iw
-summary(iw)
-plot(iw, fill = "gender", color = "white")
-```
-
-we can also facet our plot (grouping detected automatically):
-
-```{r genderfacet}
-facet_plot(iw, n_breaks = 3, color = "white")
-```
-
-It is also possible to group by multiple variables specifying different facets and fills:
-
-```{r genderhospital}
-iw2 <- incidence(dat, date_of_onset, interval = "week",  groups = c(gender, hospital))
-iw2
-summary(iw2)
-facet_plot(iw2, facets = gender, fill = hospital, n_breaks = 3)
-```
-
-## Using an alternative function
-
-The `incidence()` function wraps the date grouping functionality of the [grates](https://www.reconverse.org/grates) package, providing an easy to use interface for constructing incidence objects.
-Sometimes, however, you may want greater flexibility in choosing how you would like to transform your "date" inputs.
-Using the function `build_incidence()`,you can specify the function you wish to apply.
-We illustrate this below with the excellent [clock](https://cran.r-project.org/package=clock) package:
-
-```{r clock}
-library(clock)
-
-# create a week function comparable to above approach
-isoweek <- function(x) calendar_narrow(as_iso_year_week_day(x), "week")
-
-clock_week_inci <- 
-  build_incidence(
-    dat,
-    date_index = date_of_onset,
-    groups = c(gender, hospital),
-    FUN = isoweek
-  )
-
-clock_week_inci
-

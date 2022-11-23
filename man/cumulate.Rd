@@ -2,42 +2,25 @@
 % Please edit documentation in R/cumulate.R
 \name{cumulate}
 \alias{cumulate}
-\alias{cumulate.default}
-\alias{cumulate.incidence_df}
 \title{Compute cumulative 'incidence'}
 \usage{
-cumulate(x, ...)
-
-\method{cumulate}{default}(x, ...)
-
-\method{cumulate}{incidence_df}(x, fill = 0L, ...)
+cumulate(x)
 }
 \arguments{
 \item{x}{An incidence object.}
-
-\item{...}{Not currently used}
-
-\item{fill}{Value to complete missing date-grouping combinations with. If
-NULL, no completion is performed. Default: 0L.}
 }
 \description{
-\code{cumulate} is an S3 generic to compute cumulative numbers, with methods
-for different types of objects:
-\itemize{
-\item default method is a wrapper for \code{cumsum}
-\item \code{incidence} objects: computes cumulative incidence over time
-}
+\code{cumulate()} computes the cumulative incidence over time for an \verb{<incidence>}
+object.
 }
 \examples{
+
 dat <- data.frame(
   dates = as.integer(c(0,1,2,2,3,5,7)),
   groups = factor(c(1, 2, 3, 3, 3, 3, 1))
 )
 
-i <- incidence(dat, date_index = dates, groups = groups)
-i
-
-cumulative_i <- cumulate(i)
-cumulative_i
+i <- incidence(dat, date_index = "dates", groups = "groups")
+cumulate(i)
 
 }
