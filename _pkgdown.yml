@@ -80,4 +80,7 @@ reference:
   - get_n
   - get_timespan
 
+- title: Data
+- contents:
+  - covidregionaldataUK
 
