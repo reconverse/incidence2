@@ -30,14 +30,16 @@ observations for which incidence should be grouped.}
 
 \item{interval}{An integer or character indicating the (fixed) size of the
 time interval used for computing the incidence; defaults to 1 day. This can
-also be a text string that corresponds to a valid date interval, e.g.\preformatted{* (x) day(s)
+also be a text string that corresponds to a valid date interval, e.g.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{* (x) day(s)
 * (x) weeks(s)
 * (x) epiweeks(s)
 * (x) isoweeks(s)
 * (x) months(s)
 * (x) quarter(s)
 * (x) years(s)
-}
+}\if{html}{\out{</div>}}
 
 More details can be found in the "Interval specification" and "Week
 intervals" sections below.}

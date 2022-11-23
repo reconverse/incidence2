@@ -1,3 +1,5 @@
+# incidence2 (development version)
+
 # incidence2 1.2.3
 
 ## New functions

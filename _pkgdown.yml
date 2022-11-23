@@ -1,3 +1,10 @@
+url: http://www.reconverse.org/incidence2
+template:
+  bootstrap: 5
+development:
+  mode: auto
+
+
 navbar:
   left:
   - icon: fa-home fa-lg
@@ -53,6 +60,7 @@ reference:
   desc: >
     Functions for manipulating incidence objects by date or group
 - contents:
+  - complete_counts
   - cumulate
   - regroup
   - keep_first

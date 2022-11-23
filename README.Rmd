@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/incidence2)](https://CRAN.R-project.org/package=incidence2)
 [![Codecov test coverage](https://codecov.io/gh/reconverse/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconverse/incidence2?branch=master)
-[![R-CMD-check](https://github.com/reconverse/incidence2/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/incidence2/actions)
+[![R-CMD-check](https://github.com/reconverse/incidence2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/reconverse/incidence2/actions/workflows/R-CMD-check.yaml)
 [![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-stable.svg)](https://www.reconverse.org/lifecycle.html#stable)
 <!-- badges: end -->
 
@@ -30,23 +30,18 @@ Unlike the original package, **incidence2** concentrates only on the initial cal
 
 ## Installing the package
 
-The development version, which this documentation refers to, can be installed
-from [GitHub](https://github.com/) with:
-
-```{r, eval=FALSE}
-if (!require(remotes)) {
-  install.packages("remotes")
-}
-remotes::install_github("reconverse/incidence2", build_vignettes = TRUE)
-```
-
-You can install the current version of the package from the releases
-[page](https://github.com/reconverse/incidence2/releases) or directly from
-[CRAN](https://cran.r-project.org/) with:
+You can install the released version of incidence2 from [CRAN](https://cran.r-project.org/) with:
 
 ```{r, eval=FALSE}
 install.packages("incidence2")
 ```
+
+::: {.pkgdown-devel}
+The development version of incidence2 can be installed from GitHub with:
+```{r, eval=FALSE}
+remotes::install_github("reconverse/incidence2", build_vignettes = TRUE)
+```
+:::
 
 ## Resources
 

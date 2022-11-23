@@ -6,12 +6,7 @@
 \alias{incidence2-package}
 \title{incidence2: Compute, Handle and Plot Incidence of Dated Events}
 \description{
-Provides functions and classes to compute, handle and visualise 
-  incidence from dated events for a defined time interval. Dates can be 
-  provided in various standard formats. The class 'incidence2' is used to store
-  computed incidence and can be easily manipulated, subsetted, and plotted.
-  This package is part of the RECON (<https://www.repidemicsconsortium.org/>) 
-  toolkit for outbreak analysis (<https://www.reconverse.org>).
+Provides functions and classes to compute, handle and visualise incidence from dated events for a defined time interval. Dates can be provided in various standard formats. The class 'incidence2' is used to store computed incidence and can be easily manipulated, subsetted, and plotted. This package is part of the RECON (\url{https://www.repidemicsconsortium.org/}) toolkit for outbreak analysis (\url{https://www.reconverse.org}).
 }
 \seealso{
 Useful links:
