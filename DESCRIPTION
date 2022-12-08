@@ -1,11 +1,11 @@
 Package: incidence2
 Type: Package
 Title: Compute, Handle and Plot Incidence of Dated Events
-Version: 1.2.3.9000
+Version: 1.2.3.9001
 Authors@R: c(
-  person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
+  person("Tim", "Taylor", role = "aut", email = "tim.taylor@hiddenelephants.co.uk",
          comment = c(ORCID = "0000-0002-8587-7113")),
-  person("Thibaut", "Jombart", role = "ctb", email = "thibautjombart@gmail.com"),
+  person("Thibaut", "Jombart", role = c("ctb", "cre"), email = "thibautjombart@gmail.com"),
   person("Zhian N.", "Kamvar", role = "ctb", email = "zkamvar@gmail.com",
          comment = c(ORCID = "0000-0003-1458-7108"))
   )
