@@ -1,5 +1,7 @@
 # incidence2 (development version)
 
+* Maintainer changed to Thibaut Jombart
+
 # incidence2 1.2.3
 
 ## New functions
