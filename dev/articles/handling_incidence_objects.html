@@ -27,7 +27,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">incidence2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.3.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.3.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -280,23 +280,23 @@ returned instead.</p>
 <span><span class="co"># slice operations preserve class</span></span>
 <span><span class="va">inci</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">An incidence object: 10 x 4</span></span></span>
-<span><span class="co">#&gt; date range: [2014-W32] to [2015-W16]</span></span>
-<span><span class="co">#&gt; cases: 123</span></span>
+<span><span class="co">#&gt; date range: [2014-W22] to [2015-W09]</span></span>
+<span><span class="co">#&gt; cases: 130</span></span>
 <span><span class="co">#&gt; interval: 1 (Monday) week </span></span>
 <span><span class="co">#&gt; cumulative: FALSE</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;    date_index hospital           gender count</span></span>
-<span><span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;yrwk&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>   2014-W49 other              m         11</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>   2015-W06 other              m          5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>   2014-W35 other              f          7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>   2014-W32 Connaught Hospital f         15</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>   2015-W11 Rokupa Hospital    f          1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>   2014-W41 Military Hospital  m         20</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>   2015-W16 Connaught Hospital f          9</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>   2015-W03 Connaught Hospital f         16</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>   2014-W34 other              f         13</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>   2014-W38 other              m         26</span></span>
+<span><span class="co">#&gt;    date_index hospital                                     gender count</span></span>
+<span><span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;yrwk&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                                        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>   2014-W51 other                                        m          5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>   2014-W44 Connaught Hospital                           m         34</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>   2014-W23 Military Hospital                            m          1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>   2014-W42 other                                        f         32</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>   2014-W44 Military Hospital                            m         27</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>   2014-W28 Princess Christian Maternity Hospital (PCMH) m          1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>   2014-W45 Rokupa Hospital                              f         13</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>   2015-W09 Military Hospital                            f          8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>   2014-W51 Military Hospital                            f          7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>   2014-W22 Princess Christian Maternity Hospital (PCMH) m          2</span></span>
 <span></span>
 <span><span class="va">inci</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">An incidence object: 3 x 4</span></span></span>
@@ -421,7 +421,7 @@ covers.</li>
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Tim Taylor.</p>
+<p>Developed by Tim Taylor, Thibaut Jombart.</p>
 </div>
 
 <div class="pkgdown-footer-right">
