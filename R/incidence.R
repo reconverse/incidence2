@@ -37,23 +37,6 @@
 #'
 #' Should `NA` dates be removed prior to aggregation?
 #'
-#' @param na_as_zero `[logical]`
-#'
-#' Should explicitly missing `NA` counts be treated as zero?
-#'
-#' This can have multiple effects depending on whether we are aggregating over
-#' multiple date indices whether the input `x` is pre-aggregated, with specified
-#' `count` variables, or, a linelist:
-#'
-#' - If `date_index` has length greater than one, it is possible for some
-#'   groupings to not occur for particular date variables. When merging the
-#'   resulting aggregated tables the missing group counts will initially be set
-#'   to `NA`. If `na_as_zero` is `TRUE` they will then be converted to 0.
-#'
-#' - If `x` is pre-aggregated, with counts specified, then setting `na_as_zero`
-#'   to `TRUE` replaces all `NA` within the `count` columns to 0, prior to
-#'   aggregation.
-#'
 #' @param ... Not currently used
 #'
 #' @details
@@ -94,7 +77,6 @@ incidence <- function(
     count_names_to = "count_variable",
     count_values_to = "count",
     rm_na_dates = TRUE,
-    na_as_zero = TRUE,
     ...
 ) {
 
@@ -155,7 +137,6 @@ incidence <- function(
 
     # boolean checks
     .assert_bool(rm_na_dates)
-    .assert_bool(na_as_zero)
 
     # convert to data.table
     x <- as.data.table(x)
@@ -183,20 +164,12 @@ incidence <- function(
         counts = counts,
         count_names_to = count_names_to,
         count_values_to = count_values_to,
-        rm_na_dates = rm_na_dates,
-        na_as_zero = na_as_zero
+        rm_na_dates = rm_na_dates
     )
 
     # if there is only 1 value for date_index we can just return the entry,
-    # otherwise we need to merge the results and fill na values
-    if (length_date_index == 1) {
-        res <- res[[1L]]
-    } else {
-        res <- rbindlist(res)
-        if (na_as_zero) {
-            setnafill(res, fill = 0L, cols = count_values_to)
-        }
-    }
+    # otherwise combine the results
+    res <- if (length_date_index == 1) res[[1L]] else rbindlist(res)
 
     # ensure we are nicely ordered
     setorderv(res, c("date_index", groups, count_names_to))
@@ -229,8 +202,7 @@ incidence <- function(
         counts,
         count_names_to,
         count_values_to,
-        rm_na_dates,
-        na_as_zero
+        rm_na_dates
 ) {
 
     # Ensure we don't alter input
@@ -260,12 +232,9 @@ incidence <- function(
             na_id <- is.na(.subset2(DT, date_index))
             DT <- DT[!na_id]
         }
-        if (na_as_zero)
-            setnafill(DT, fill = 0L, cols = counts)
         DT <- DT[, lapply(.SD, sum, na.rm = FALSE), keyby = c(date_index, groups), .SDcols = counts]
         DT <- melt(DT, measure.vars = counts, variable.name = count_names_to, value.name = count_values_to)
     }
-
 
     # give date column correct name and return columns in desired order
     setnames(DT, 1L, "date_index")

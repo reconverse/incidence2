@@ -12,7 +12,6 @@ incidence(
   count_names_to = "count_variable",
   count_values_to = "count",
   rm_na_dates = TRUE,
-  na_as_zero = TRUE,
   ...
 )
 }
@@ -48,23 +47,6 @@ The name of the column to store the resultant count values in.}
 \item{rm_na_dates}{\verb{[logical]}
 
 Should \code{NA} dates be removed prior to aggregation?}
-
-\item{na_as_zero}{\verb{[logical]}
-
-Should explicitly missing \code{NA} counts be treated as zero?
-
-This can have multiple effects depending on whether we are aggregating over
-multiple date indices whether the input \code{x} is pre-aggregated, with specified
-\code{count} variables, or, a linelist:
-\itemize{
-\item If \code{date_index} has length greater than one, it is possible for some
-groupings to not occur for particular date variables. When merging the
-resulting aggregated tables the missing group counts will initially be set
-to \code{NA}. If \code{na_as_zero} is \code{TRUE} they will then be converted to 0.
-\item If \code{x} is pre-aggregated, with counts specified, then setting \code{na_as_zero}
-to \code{TRUE} replaces all \code{NA} within the \code{count} columns to 0, prior to
-aggregation.
-}}
 
 \item{...}{Not currently used}
 }
