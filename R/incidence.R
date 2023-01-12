@@ -68,6 +68,7 @@
 #' \dontshow{\})}
 #' }
 #'
+#'
 #' @export
 incidence <- function(
     x,
@@ -100,7 +101,7 @@ incidence <- function(
     # TODO - remove this once dplyr support added
     is_list_date <- vapply(date_cols, function(x) inherits(x, c("POSIXlt", "vctrs_rcrd")), TRUE)
     if (any(is_list_date))
-        stopf("vctrs_rcrd and POSIXlt date_index columns are not currently supported.")
+       stopf("vctrs_rcrd and POSIXlt date_index columns are not currently supported.")
 
     # counts checks
     if (!is.null(counts)) {
@@ -126,10 +127,10 @@ incidence <- function(
 
     # TODO - remove this once dplyr support added
     if (length(groups)) {
-        group_cols <- .subset(x, groups)
-        is_list_group <- vapply(group_cols, function(x) inherits(x, c("POSIXlt", "vctrs_rcrd")), TRUE)
-        if (any(is_list_group))
-            stopf("vctrs_rcrd and POSIXlt date_index columns are not currently supported.")
+       group_cols <- .subset(x, groups)
+       is_list_group <- vapply(group_cols, function(x) inherits(x, c("POSIXlt", "vctrs_rcrd")), TRUE)
+       if (any(is_list_group))
+           stopf("vctrs_rcrd and POSIXlt date_index columns are not currently supported.")
     }
 
     if (!all(groups %in% names(x)))
@@ -137,9 +138,6 @@ incidence <- function(
 
     # boolean checks
     .assert_bool(rm_na_dates)
-
-    # convert to data.table
-    x <- as.data.table(x)
 
     # generate name for date_index column
     nms <- names(date_index)
@@ -155,27 +153,58 @@ incidence <- function(
         }
     }
 
-    # apply .single_date_incidence for each date_index
-    res <- lapply(
-        X = date_index,
-        FUN = .single_date_incidence,
-        DT = x,
-        groups = groups,
-        counts = counts,
-        count_names_to = count_names_to,
-        count_values_to = count_values_to,
-        rm_na_dates = rm_na_dates
-    )
+    # can we use data.table (cannot for vctrs_rcrd objects)
+    use_dt <- !any(vapply(x, typeof, character(1)) == "list")
 
-    # if there is only 1 value for date_index we can just return the entry,
-    # otherwise combine the results
-    res <- if (length_date_index == 1) res[[1L]] else rbindlist(res)
+    if (isTRUE(use_dt)) {
+        # convert to data.table
+        x <- as.data.table(x)
 
-    # ensure we are nicely ordered
-    setorderv(res, c("date_index", groups, count_names_to))
+        # apply .single_date_incidence for each date_index
+        res <- lapply(
+            X = date_index,
+            FUN = .single_date_incidence_dt,
+            DT = x,
+            groups = groups,
+            counts = counts,
+            count_names_to = count_names_to,
+            count_values_to = count_values_to,
+            rm_na_dates = rm_na_dates
+        )
 
-    # convert back to data frame
-    setDF(res)
+        # if there is only 1 value for date_index we can just return the entry,
+        # otherwise combine the results
+        res <- if (length_date_index == 1) res[[1L]] else rbindlist(res)
+
+        # ensure we are nicely ordered
+        setorderv(res, c("date_index", groups, count_names_to))
+
+        # convert back to data frame
+        setDF(res)
+    } else {
+
+        # apply .single_date_incidence for each date_index
+        res <- lapply(
+            X = date_index,
+            FUN = .single_date_incidence_dplyr,
+            DT = x,
+            groups = groups,
+            counts = counts,
+            count_names_to = count_names_to,
+            count_values_to = count_values_to,
+            rm_na_dates = rm_na_dates
+        )
+
+        # if there is only 1 value for date_index we can just return the entry,
+        # otherwise combine the results
+        res <- if (length_date_index == 1) res[[1L]] else bind_rows(res)
+
+        # ensure we are nicely ordered
+        tmp <- .subset(res, c("date_index", groups, count_names_to))
+        res <- res[do.call(order, unname(tmp)), ]
+
+    }
+
 
     # if no groups set to character(0L)
     if (is.null(groups))
@@ -195,7 +224,7 @@ incidence <- function(
 # -------------------------------- INTERNALS ------------------------------ #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-.single_date_incidence <- function(
+.single_date_incidence_dt <- function(
         DT,
         date_index,
         groups,
@@ -227,11 +256,6 @@ incidence <- function(
         )
         set(DT, j = count_names_to, value = date_index)
     } else {
-        # filter out NA counts if desired
-        if (rm_na_dates) {
-            na_id <- is.na(.subset2(DT, date_index))
-            DT <- DT[!na_id]
-        }
         DT <- DT[, lapply(.SD, sum, na.rm = FALSE), keyby = c(date_index, groups), .SDcols = counts]
         DT <- melt(DT, measure.vars = counts, variable.name = count_names_to, value.name = count_values_to)
     }
@@ -240,6 +264,44 @@ incidence <- function(
     setnames(DT, 1L, "date_index")
     vars <- c("date_index", groups, count_names_to)
     setorderv(DT, vars)
+}
+
+# -------------------------------------------------------------------------
+
+.single_date_incidence_dplyr <- function(
+        DT,
+        date_index,
+        groups,
+        counts,
+        count_names_to,
+        count_values_to,
+        rm_na_dates
+) {
+
+    # filter out NA dates if desired
+    if (rm_na_dates) {
+        na_id <- is.na(.subset2(DT, date_index))
+        DT <- DT[!na_id, , drop = FALSE]
+    }
+
+    # switch behaviour depending on if counts are already present
+    if (is.null(counts)) {
+        # hacky use of count___123 but it works.
+        vars <- c(date_index, groups)
+        DT <- count(DT,across(all_of(vars)), name = "count___123")
+        DT <- pivot_longer(DT, cols = "count___123", names_to = count_names_to, values_to = count_values_to)
+        DT[[count_names_to]] <- date_index
+    } else {
+        vars <- c(date_index, groups)
+        DT <- grouped_df(DT, vars)
+        DT <- summarise(DT, across(all_of(counts), sum, na.rm = FALSE), .groups = "drop")
+        DT <- pivot_longer(DT, cols = all_of(counts), names_to = count_names_to, values_to = count_values_to)
+    }
+
+    # give date column correct name and return columns in desired order
+    setnames(DT, date_index, "date_index")
+    tmp <- .subset(DT, c("date_index", groups, count_names_to))
+    DT[do.call(order, unname(tmp)), , drop = FALSE]
 }
 
 

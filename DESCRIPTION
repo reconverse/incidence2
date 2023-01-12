@@ -20,7 +20,9 @@ BugReports: https://github.com/reconverse/incidence2/issues
 Imports:
     grDevices,
     data.table,
-    pillar
+    pillar,
+    dplyr,
+    tidyr
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Suggests: 
@@ -29,7 +31,6 @@ Suggests:
     ggplot2,
     knitr,
     rmarkdown,
-    dplyr,
     grates (>= 0.9.9.9000),
     rlang
 VignetteBuilder: knitr
