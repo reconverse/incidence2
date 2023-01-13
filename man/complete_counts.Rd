@@ -7,7 +7,7 @@
 complete_counts(x, expand_dates = TRUE, fill = 0L, by = 1L)
 }
 \arguments{
-\item{x}{An \code{\link[=incidence]{incidence()}} object.}
+\item{x}{An \verb{[incidence]} object.}
 
 \item{expand_dates}{\verb{[logical]}
 
@@ -20,7 +20,7 @@ The value to replace missing counts by. Defaults to \code{0L}.}
 
 \item{by}{Passed as the \code{by} argument to seq.
 
-if \code{expand_dates} is TRUE (default) then complete counts will attempt to use
+If \code{expand_dates} is TRUE (default) then complete counts will attempt to use
 \code{function(x) seq(min(x), max(x), by = by)} to generate a complete sequence of
 dates.
 

@@ -3,7 +3,7 @@
 #' This function ensures that an incidence object has the same range of dates
 #' for each grouping. By default missing counts will be filled with `0L`.
 #'
-#' @param x An [incidence()] object.
+#' @param x An `[incidence]` object.
 #'
 #' @param expand_dates `[logical]`
 #'
@@ -14,12 +14,11 @@
 #'
 #' Passed as the `by` argument to seq.
 #'
-#' if `expand_dates` is TRUE (default) then complete counts will attempt to use
+#' If `expand_dates` is TRUE (default) then complete counts will attempt to use
 #' `function(x) seq(min(x), max(x), by = by)` to generate a complete sequence of
 #' dates.
 #'
 #' Defaults to `1L`.
-#'
 #'
 #' @param fill `[numeric]`
 #'
@@ -67,11 +66,19 @@ complete_counts <- function(x, expand_dates = TRUE, fill = 0L, by = 1L) {
 
     groups <- c(dates, groups, counts)
     groups <- lapply(groups, unique)
-    dat <- do.call(CJ, groups)
 
-    out <- as.data.table(x)
+    # can we use data.table (cannot for vctrs_rcrd objects)
+    use_dt <- !any(vapply(x, typeof, character(1)) == "list")
 
-    out <- as.data.frame(merge(dat, out, by = c(date_variable, group_variables, count_variable), all.x = TRUE))
+    if (isTRUE(use_dt)) {
+        dat <- do.call(CJ, groups)
+        out <- as.data.table(x)
+        out <- as.data.frame(merge(dat, out, by = c(date_variable, group_variables, count_variable), all.x = TRUE))
+    } else {
+        dat <- expand.grid(groups, stringsAsFactors = FALSE)
+        out <- as.data.frame(merge(dat, x, by = c(date_variable, group_variables, count_variable), all.x = TRUE))
+    }
+
     tmp <- .set_row_names(nrow(out))
     attributes(out) <- attributes(x)
     attr(out,"row.names") <- tmp
