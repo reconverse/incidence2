@@ -1,9 +1,21 @@
+# (old comment)
 # Due to tidyverse/ggplot2#4786 it is safer to temporarily add a fake tbl class
 # to an incidence object when printing rather than use it as part of the objects
 # explicit class. Although rare for a user not to have dplyr installed, if
-# ggplot2 is installed, it is not impossible.
+# ggplot2 is installed, it is not impossible. The dummy xincidence class is used
+# to make this work.
 #
-# The dummy xincidence class is needed to make this work.
+# (2022-01-13)
+# I've now pulled in dplyr as a hard (import) dependency which removes the need
+# for this approach. We could instead make an incidence object always be of
+# class c("incidence" ,"tbl", "data.frame"). I'm still leaving this approach as
+# is though because:
+#    1 - it makes it easier to drop dplyr if we wish in future;
+#    2 - it protects against the case where someone may serialise an incidence
+#        object for later loading and plotting. In this case, even if they do
+#        not load incidence, it will be treated like a normal data frame on
+#        deserialisation.
+#    3 - it protects against other misuse of the tbl class by external packages.
 
 #' @export
 tbl_sum.xincidence <- function(x, ...) {
