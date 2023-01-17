@@ -27,7 +27,6 @@ cumulate <- function(x) {
 
     # can we use data.table (cannot for vctrs_rcrd objects)
     use_dt <- !any(vapply(x, typeof, character(1)) == "list")
-    use_dt <- FALSE
 
     if (isTRUE(use_dt)) {
         out <- as.data.table(x)
