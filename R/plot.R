@@ -4,10 +4,11 @@
 #'
 #' @details
 #'
-#' - Facetting will occur automatically if grouping variables are present.
+#' - Facetting will occur automatically if either grouping variables or
+#'   multiple counts are present.
 #'
-#' - If there are multiple count variables, these are used to fill the plot and
-#'   the user has the option to "stack" or "dodge" the resulting plot.
+#' - If there are multiple count variables, each count will occupy a different
+#'   row of the resulting plot.
 #'
 #' - Utilises ggplot2 so this must be installed to use.
 #'
@@ -24,17 +25,9 @@
 #'
 #' Default 1.
 #'
-#' @param stack `[logical]`
-#'
-#' Boolean indicating if bars of count variables should be stacked or displayed
-#' side-by-side.
-#'
-#' Only utilised if the object contains more than one unique element in the
-#' count variable.
-#'
 #' @param colour_palette `[function]`
 #'
-#' The color palette to be used for the groups.
+#' The color palette to be used for the different count variables.
 #'
 #' Defaults to `vibrant` (see `?palettes`).
 #'
@@ -69,10 +62,6 @@
 #'
 #' The label to be used for the y-axis.
 #'
-#' @param legend `[character]`
-#'
-#' Position of legend in plot.
-#'
 #' @param angle `[numeric]`
 #'
 #' Rotation angle for text.
@@ -83,8 +72,8 @@
 #'
 #' @param nrow `[integer]`
 #'
-#' Number of rows used for facetting if there are group variables present in the
-#' object.
+#' Number of rows used for facetting if there are group variables present and
+#' just one count in the incidence object.
 #'
 #' @param ... Not currently used.
 #'
@@ -108,10 +97,9 @@
 #' @export
 plot.incidence <- function(
     x, y,
-    width = 1, stack = FALSE,
+    width = 1,
     colour_palette = vibrant, border_colour = NA, na_color = "grey", alpha = 0.7,
     title = NULL, xlab = "", ylab = "",
-    legend = c("right", "left", "bottom", "top", "none"),
     angle = 0, size = NULL,
     nrow = NULL,
     ...
@@ -127,10 +115,6 @@ plot.incidence <- function(
     groups <- get_group_names.incidence(x)
     count_values <- get_count_value_name.incidence(x)
     dates <- get_date_index_name.incidence(x)
-    legend <- match.arg(legend)
-
-    # handle stacking
-    position <- if (isTRUE(stack)) "stack" else "dodge"
 
     # set axis variables
     x_axis <- dates
@@ -151,17 +135,29 @@ plot.incidence <- function(
             ggplot2::aes(x = .data[[x_axis]], y = .data[[y_axis]]),
             colour = border_colour,
             alpha = alpha,
-            position = position,
             width = width
         ) +
         ggplot2::theme_bw() +
-        ggplot2::theme(legend.position = legend) +
         ggplot2::labs(x = xlab, y = ylab) +
         ggplot2::aes(fill = .data[[fill]]) +
-        ggplot2::scale_fill_manual(values = fill_colours, na.value = na_color)
+        ggplot2::scale_fill_manual(values = fill_colours, na.value = na_color) +
+        ggplot2::theme(legend.position = "none")
 
-    # facet if multiple groups
-    if (length(groups)) {
+    # facet_grid if multiple counts / groups
+    if (n_count_vars > 1L) {
+        if (length(groups)) {
+            out <- out +
+                ggplot2::facet_grid(
+                    rows = ggplot2::vars(!!rlang::sym(fill)),
+                    cols = ggplot2::vars(!!!rlang::syms(groups))
+                )
+        } else {
+            out <- out +
+                ggplot2::facet_grid(
+                    rows = ggplot2::vars(!!rlang::sym(fill))
+                )
+        }
+    } else if (length(groups)) {
         out <- out +
             ggplot2::facet_wrap(
                 ggplot2::vars(!!!rlang::syms(groups)),

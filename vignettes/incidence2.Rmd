@@ -123,13 +123,13 @@ date indices are used for filling the resultant plot
 dat <- transform(dat, date_of_infection = as_period(date_of_infection, n = 7L))
 (grouped_inci <- incidence(
     dat,
-    date_index = c("date_of_onset", "date_of_infection")
+    date_index = c(
+        onset = "date_of_onset",
+        infection = "date_of_infection"
+    )
 ))
 
-# by default the plot is dodged
-plot(grouped_inci, breaks = 5, angle = 45)
-# optionally can be stacked
-plot(grouped_inci, stack = TRUE, breaks = 5, angle = 45, border_colour = "white")
+plot(grouped_inci, breaks = 5, angle = 45, border_colour = "white")
 ```
 
 Note that although the plot method for `<incidence>` objects tries to balance

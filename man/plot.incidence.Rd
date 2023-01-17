@@ -8,7 +8,6 @@
   x,
   y,
   width = 1,
-  stack = FALSE,
   colour_palette = vibrant,
   border_colour = NA,
   na_color = "grey",
@@ -16,7 +15,6 @@
   title = NULL,
   xlab = "",
   ylab = "",
-  legend = c("right", "left", "bottom", "top", "none"),
   angle = 0,
   size = NULL,
   nrow = NULL,
@@ -37,17 +35,9 @@ interval.
 
 Default 1.}
 
-\item{stack}{\verb{[logical]}
-
-Boolean indicating if bars of count variables should be stacked or displayed
-side-by-side.
-
-Only utilised if the object contains more than one unique element in the
-count variable.}
-
 \item{colour_palette}{\verb{[function]}
 
-The color palette to be used for the groups.
+The color palette to be used for the different count variables.
 
 Defaults to \code{vibrant} (see \code{?palettes}).}
 
@@ -82,10 +72,6 @@ The label to be used for the x-axis.}
 
 The label to be used for the y-axis.}
 
-\item{legend}{\verb{[character]}
-
-Position of legend in plot.}
-
 \item{angle}{\verb{[numeric]}
 
 Rotation angle for text.}
@@ -96,8 +82,8 @@ text size in pts.}
 
 \item{nrow}{\verb{[integer]}
 
-Number of rows used for facetting if there are group variables present in the
-object.}
+Number of rows used for facetting if there are group variables present and
+just one count in the incidence object.}
 
 \item{...}{Not currently used.}
 }
@@ -111,9 +97,10 @@ object.}
 }
 \details{
 \itemize{
-\item Facetting will occur automatically if grouping variables are present.
-\item If there are multiple count variables, these are used to fill the plot and
-the user has the option to "stack" or "dodge" the resulting plot.
+\item Facetting will occur automatically if either grouping variables or
+multiple counts are present.
+\item If there are multiple count variables, each count will occupy a different
+row of the resulting plot.
 \item Utilises ggplot2 so this must be installed to use.
 }
 }
