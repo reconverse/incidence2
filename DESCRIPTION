@@ -22,7 +22,8 @@ Imports:
     data.table,
     pillar,
     dplyr,
-    tidyr
+    tidyr,
+    vctrs
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Suggests: 
