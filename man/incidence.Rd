@@ -21,9 +21,13 @@ incidence(
 
 \item{date_index}{\verb{[character]}
 
-The time index(es) of the given data.  This should be the name(s)
-corresponding to the desired date column(s) in x. Multiple indices only make
-sense when  \code{x} is a linelist.}
+The time index(es) of the given data.
+
+This should be the name(s) corresponding to the desired date column(s) in x.
+
+A name vector can be used for convenient relabelling of the resultant output.
+
+Multiple indices only make sense when  \code{x} is a linelist.}
 
 \item{groups}{\verb{[character]}
 

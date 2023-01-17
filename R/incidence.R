@@ -9,9 +9,13 @@
 #'
 #' @param date_index `[character]`
 #'
-#' The time index(es) of the given data.  This should be the name(s)
-#' corresponding to the desired date column(s) in x. Multiple indices only make
-#' sense when  `x` is a linelist.
+#' The time index(es) of the given data.
+#'
+#' This should be the name(s) corresponding to the desired date column(s) in x.
+#'
+#' A name vector can be used for convenient relabelling of the resultant output.
+#'
+#' Multiple indices only make sense when  `x` is a linelist.
 #'
 #' @param groups `[character]`
 #'
@@ -132,6 +136,20 @@ incidence <- function(
 
     # boolean checks
     .assert_bool(rm_na_dates)
+
+    # generate name for date_index column
+    nms <- names(date_index)
+    if (!is.null(nms)) {
+        if (length_date_index == 1L && nms != "") {
+            setnames(x, date_index, nms)
+            date_index <- nms
+        } else if (any(nms != "")) {
+            new_names <- date_index
+            new_names[nms != ""] <- nms
+            setnames(x, date_index, new_names)
+            date_index <- new_names
+        }
+    }
 
     # can we use data.table (cannot for vctrs_rcrd objects)
     use_dt <- !any(vapply(x, typeof, character(1)) == "list")
