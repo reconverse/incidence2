@@ -11,8 +11,7 @@
 #'
 #' The time index(es) of the given data.  This should be the name(s)
 #' corresponding to the desired date column(s) in x. Multiple indices only make
-#' sense when  `x` is a linelist; in this situation the vector must be named and
-#' these names will be used for the resultant count variables.
+#' sense when  `x` is a linelist.
 #'
 #' @param groups `[character]`
 #'
@@ -32,6 +31,10 @@
 #' @param count_values_to `[character]`
 #'
 #' The name of the column to store the resultant count values in.
+#'
+#' @param date_names_to `[character]`
+#'
+#' The name of the column to store the date variables in.
 #'
 #' @param rm_na_dates `[logical]`
 #'
@@ -77,6 +80,7 @@ incidence <- function(
     counts = NULL,
     count_names_to = "count_variable",
     count_values_to = "count",
+    date_names_to = "date_index",
     rm_na_dates = TRUE,
     ...
 ) {
@@ -121,6 +125,9 @@ incidence <- function(
     # count_values_to check
     .assert_scalar_character(count_values_to)
 
+    # date_names_to check
+    .assert_scalar_character(date_names_to)
+
     # group checks
     if (!(is.null(groups) || is.character(groups)))
         stopf("`groups` must be NULL or a character vector.")
@@ -139,20 +146,6 @@ incidence <- function(
     # boolean checks
     .assert_bool(rm_na_dates)
 
-    # generate name for date_index column
-    nms <- names(date_index)
-    if (!is.null(nms)) {
-        if (length_date_index == 1L && nms != "") {
-            setnames(x, date_index, nms)
-            date_index <- nms
-        } else if (any(nms != "")) {
-            new_names <- date_index
-            new_names[nms != ""] <- nms
-            setnames(x, date_index, new_names)
-            date_index <- new_names
-        }
-    }
-
     # can we use data.table (cannot for vctrs_rcrd objects)
     use_dt <- !any(vapply(x, typeof, character(1)) == "list")
 
@@ -165,24 +158,24 @@ incidence <- function(
         if (is.null(counts)) {
 
             # make from wide to long
-            DT <- melt(DT, measure.vars = date_index, variable.name = count_names_to, value.name = "date_index", variable.factor = FALSE)
+            DT <- melt(DT, measure.vars = date_index, variable.name = count_names_to, value.name = date_names_to, variable.factor = FALSE)
 
             # filter out NA dates if desired
             if (rm_na_dates) {
-                na_id <- is.na(.subset2(DT, "date_index"))
+                na_id <- is.na(.subset2(DT, date_names_to))
                 DT <- DT[!na_id]
             }
 
-            res <- DT[, .N, keyby = c("date_index", groups, count_names_to)]
+            res <- DT[, .N, keyby = c(date_names_to, groups, count_names_to)]
             setnames(res, length(res), count_values_to)
         } else {
             DT <- DT[, lapply(.SD, sum, na.rm = FALSE), keyby = c(date_index, groups), .SDcols = counts]
             res <- melt(DT, measure.vars = counts, variable.name = count_names_to, value.name = count_values_to)
-            setnames(res, date_index, "date_index")
+            setnames(res, date_index, date_names_to)
         }
 
         # ensure we are nicely ordered
-        setorderv(res, c("date_index", groups, count_names_to))
+        setorderv(res, c(date_names_to, groups, count_names_to))
 
         # convert back to data frame
         setDF(res)
@@ -192,53 +185,38 @@ incidence <- function(
         if (is.null(counts)) {
 
             # make from wide to long
-            res <- pivot_longer(x, cols = date_index, names_to = count_names_to, values_to = "date_index")
+            res <- pivot_longer(x, cols = date_index, names_to = count_names_to, values_to = date_names_to)
 
             # filter out NA dates if desired
             if (rm_na_dates) {
-                na_id <- is.na(.subset2(res, "date_index"))
+                na_id <- is.na(.subset2(res, date_names_to))
                 res <- res[!na_id, , drop = FALSE]
             }
 
-            vars <- c("date_index", groups, count_names_to)
+            vars <- c(date_names_to, groups, count_names_to)
             res <- count(res,across(all_of(vars)), name = count_values_to)
         } else {
             vars <- c(date_index, groups)
             res <- grouped_df(x, vars)
             res <- summarise(res, across(all_of(counts), sum, na.rm = FALSE), .groups = "drop")
             res <- pivot_longer(res, cols = all_of(counts), names_to = count_names_to, values_to = count_values_to)
-            setnames(res, date_index, "date_index")
-            tmp <- .subset(res, c("date_index", groups, count_names_to))
+            setnames(res, date_index, date_names_to)
+            tmp <- .subset(res, c(date_names_to, groups, count_names_to))
             res <- res[do.call(order, unname(tmp)), , drop = FALSE]
         }
 
     }
 
-
     # if no groups set to character(0L)
     if (is.null(groups))
         groups <- character(0L)
 
-    .new_incidence(
+    # return incidence object
+    structure(
         res,
-        date_index = "date_index",
+        date_index = date_names_to,
         count_variable = count_names_to,
         count_value = count_values_to,
-        groups = groups
-    )
-}
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# -------------------------------- INTERNALS ------------------------------ #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-.new_incidence <- function(x, date_index, count_variable, count_value, groups) {
-    structure(
-        x,
-        date_index = date_index,
-        count_variable = count_variable,
-        count_value = count_value,
         groups = groups,
         class = c("incidence", "data.frame")
     )

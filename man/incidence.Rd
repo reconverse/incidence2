@@ -11,6 +11,7 @@ incidence(
   counts = NULL,
   count_names_to = "count_variable",
   count_values_to = "count",
+  date_names_to = "date_index",
   rm_na_dates = TRUE,
   ...
 )
@@ -22,8 +23,7 @@ incidence(
 
 The time index(es) of the given data.  This should be the name(s)
 corresponding to the desired date column(s) in x. Multiple indices only make
-sense when  \code{x} is a linelist; in this situation the vector must be named and
-these names will be used for the resultant count variables.}
+sense when  \code{x} is a linelist.}
 
 \item{groups}{\verb{[character]}
 
@@ -43,6 +43,10 @@ The column to create which will store the \code{counts} column names provided th
 \item{count_values_to}{\verb{[character]}
 
 The name of the column to store the resultant count values in.}
+
+\item{date_names_to}{\verb{[character]}
+
+The name of the column to store the date variables in.}
 
 \item{rm_na_dates}{\verb{[logical]}
 
