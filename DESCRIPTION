@@ -33,7 +33,8 @@ Suggests:
     knitr,
     rmarkdown,
     grates (>= 0.9.9.9000),
-    rlang
+    rlang,
+    clock
 VignetteBuilder: knitr
 Remotes:
     reconverse/grates
