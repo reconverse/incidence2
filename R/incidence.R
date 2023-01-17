@@ -102,11 +102,6 @@ incidence <- function(
     if (length(unique(date_classes)) != 1L)
         stopf("`date_index` columns must be of the same class.")
 
-    # TODO - remove this once dplyr support added
-    is_list_date <- vapply(date_cols, function(x) inherits(x, c("POSIXlt", "vctrs_rcrd")), TRUE)
-    if (any(is_list_date))
-       stopf("vctrs_rcrd and POSIXlt date_index columns are not currently supported.")
-
     # counts checks
     if (!is.null(counts)) {
         if (!is.character(counts) || length(counts) < 1L)
@@ -131,14 +126,6 @@ incidence <- function(
     # group checks
     if (!(is.null(groups) || is.character(groups)))
         stopf("`groups` must be NULL or a character vector.")
-
-    # TODO - remove this once dplyr support added
-    if (length(groups)) {
-       group_cols <- .subset(x, groups)
-       is_list_group <- vapply(group_cols, function(x) inherits(x, c("POSIXlt", "vctrs_rcrd")), TRUE)
-       if (any(is_list_group))
-           stopf("vctrs_rcrd and POSIXlt date_index columns are not currently supported.")
-    }
 
     if (!all(groups %in% names(x)))
         stopf("Not all variables from `groups` are present in `x`.")
