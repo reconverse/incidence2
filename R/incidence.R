@@ -137,7 +137,8 @@ incidence <- function(
     # boolean checks
     .assert_bool(rm_na_dates)
 
-    # generate name for date_index column
+    # generate name for date_index column (must copy first!!!)
+    x <- copy(x)
     nms <- names(date_index)
     if (!is.null(nms)) {
         if (length_date_index == 1L && nms != "") {
@@ -156,8 +157,8 @@ incidence <- function(
 
     if (isTRUE(use_dt)) {
 
-        # Ensure we don't alter input
-        DT <- as.data.table(x)
+        # convert to data.table
+        DT <- setDT(x)
 
         # switch behaviour depending on if counts are already present
         if (is.null(counts)) {
