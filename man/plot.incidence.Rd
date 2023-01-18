@@ -13,8 +13,6 @@
   na_color = "grey",
   alpha = 0.7,
   title = NULL,
-  xlab = "",
-  ylab = "",
   angle = 0,
   size = NULL,
   nrow = NULL,
@@ -63,14 +61,6 @@ Defaults to 0.7.}
 \item{title}{\verb{[character]}
 
 Optional title for the graph.}
-
-\item{xlab}{\verb{[character]}
-
-The label to be used for the x-axis.}
-
-\item{ylab}{\verb{[character]}
-
-The label to be used for the y-axis.}
 
 \item{angle}{\verb{[numeric]}
 

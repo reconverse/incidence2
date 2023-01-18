@@ -54,14 +54,6 @@
 #'
 #' Optional title for the graph.
 #'
-#' @param xlab `[character]`
-#'
-#' The label to be used for the x-axis.
-#'
-#' @param ylab `[character]`
-#'
-#' The label to be used for the y-axis.
-#'
 #' @param angle `[numeric]`
 #'
 #' Rotation angle for text.
@@ -99,7 +91,7 @@ plot.incidence <- function(
     x, y,
     width = 1,
     colour_palette = vibrant, border_colour = NA, na_color = "grey", alpha = 0.7,
-    title = NULL, xlab = "", ylab = "",
+    title = NULL,
     angle = 0, size = NULL,
     nrow = NULL,
     ...
@@ -138,7 +130,6 @@ plot.incidence <- function(
             width = width
         ) +
         ggplot2::theme_bw() +
-        ggplot2::labs(x = xlab, y = ylab) +
         ggplot2::aes(fill = .data[[fill]]) +
         ggplot2::scale_fill_manual(values = fill_colours, na.value = na_color) +
         ggplot2::theme(legend.position = "none")
@@ -162,8 +153,14 @@ plot.incidence <- function(
             ggplot2::facet_wrap(
                 ggplot2::vars(!!!rlang::syms(groups)),
                 nrow = nrow
-            )
+            ) +
+            ggplot2::labs(x = count_vars[[1L]], y = get_count_value_name(x))
+
+    } else {
+        out <- out + ggplot2::labs(x = count_vars[[1L]], y = get_count_value_name(x))
     }
+
+
 
     # rotate and scale
     hjust <- if (angle != 0) 1 else NULL
