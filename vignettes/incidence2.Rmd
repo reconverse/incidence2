@@ -81,17 +81,20 @@ class(dat)
 str(dat)
 ```
 
-To compute daily incidence we must pass to `incidence()` a *data.frame* of
-observation data. We must also pass the name of a date variable in the data that
-we can use to index the input:
+To compute daily incidence we pass to `incidence()` a *data.frame* of
+observation data. We must also pass the name of a variable in the data that we
+can use to index the input. Note that whilst we we refer to this index as the
+`date_index` there is no restriction on it's type save that it can be used to
+represent the relative time of an observation:
 
 ```{r daily, fig.height = 5, dpi = 90}
 (daily <- incidence(dat, date_index = "date_of_onset"))
 plot(daily)
 ```
 
-The daily incidence is quite noisy, but we can group input dates using the [grates](https://www.reconverse.org/grates/dev/) package prior to calculating
-the incidence. Here we calculate the 7 day incidence:
+The daily incidence is quite noisy, so we can use the
+[grates](https://www.reconverse.org/grates/dev/) package to group the dates
+prior to calculating the incidence. Here we calculate the 7 day incidence:
 
 ```{r sevenday}
 # 7 day incidence
@@ -100,8 +103,8 @@ dat <- transform(dat, date_of_onset = as_period(date_of_onset, n = 7L))
 plot(inci, border_colour = "white")
 ```
 
-`incidence()` can also aggregate incidence by specified groups using the 
-`groups` argument. For instance, we can compute incidence by gender:
+We can aggregate by specified groups using the `groups` argument. For instance,
+computing incidence by gender:
 
 ```{r gender}
 (grouped_inci <- incidence(
