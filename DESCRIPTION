@@ -21,14 +21,12 @@ Depends: grates (>= 0.9.9.9000)
 Imports:
     grDevices,
     data.table,
-    pillar,
-    dplyr,
-    tidyr,
-    vctrs
+    pillar
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Suggests: 
     outbreaks,
+    dplyr,
     tinytest,
     ggplot2,
     knitr,

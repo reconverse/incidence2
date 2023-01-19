@@ -75,17 +75,8 @@
     }
 
     # ensure no rows are duplicated within x
-    # note - we could only use the vctrs::vec_duplicate_any function but I want
-    #        to explicitly branch on non-data.table use as it will allow us to
-    #        easily drop dplyr support should we ever wish to do so.
-    use_dt <- !any(vapply(x, typeof, character(1)) == "list")
-    if (isTRUE(use_dt)) {
-        if (anyDuplicated(as.data.table(x)))
-            return(FALSE)
-    } else {
-        if (vec_duplicate_any(x))
-            return(FALSE)
-    }
+    if (anyDuplicated(as.data.table(x)))
+        return(FALSE)
 
     # else we can reconstruct
     TRUE

@@ -25,17 +25,10 @@ cumulate <- function(x) {
     count_var <- get_count_variable_name.incidence(x)
     count_value <- get_count_value_name.incidence(x)
 
-    # can we use data.table (cannot for vctrs_rcrd objects)
-    use_dt <- !any(vapply(x, typeof, character(1)) == "list")
+    out <- as.data.table(x)
+    out[, (count_value) := lapply(.SD, cumsum), keyby = c(group_vars, count_var), .SDcols = count_value]
+    setDF(out)
 
-    if (isTRUE(use_dt)) {
-        out <- as.data.table(x)
-        out[, (count_value) := lapply(.SD, cumsum), keyby = c(group_vars, count_var), .SDcols = count_value]
-        setDF(out)
-    } else {
-        out <- grouped_df(x, c(group_vars, count_var))
-        out <- ungroup(mutate(out, across(all_of(count_value), cumsum)))
-    }
     attributes(out) <- attributes(x)
     names(out)[names(out) == count_value] <- sprintf("cumulative_%s", count_value)
     out

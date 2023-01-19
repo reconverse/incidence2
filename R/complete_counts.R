@@ -67,17 +67,9 @@ complete_counts <- function(x, expand_dates = TRUE, fill = 0L, by = 1L) {
     groups <- c(dates, groups, counts)
     groups <- lapply(groups, unique)
 
-    # can we use data.table (cannot for vctrs_rcrd objects)
-    use_dt <- !any(vapply(x, typeof, character(1)) == "list")
-
-    if (isTRUE(use_dt)) {
-        dat <- do.call(CJ, groups)
-        out <- as.data.table(x)
-        out <- as.data.frame(merge(dat, out, by = c(date_variable, group_variables, count_variable), all.x = TRUE))
-    } else {
-        dat <- expand.grid(groups, stringsAsFactors = FALSE)
-        out <- as.data.frame(merge(dat, x, by = c(date_variable, group_variables, count_variable), all.x = TRUE))
-    }
+    dat <- do.call(CJ, groups)
+    out <- as.data.table(x)
+    out <- as.data.frame(merge(dat, out, by = c(date_variable, group_variables, count_variable), all.x = TRUE))
 
     tmp <- .set_row_names(nrow(out))
     attributes(out) <- attributes(x)

@@ -137,81 +137,48 @@ incidence <- function(
     # boolean checks
     .assert_bool(rm_na_dates)
 
-    # generate name for date_index column (must copy first!!!)
-    x <- copy(x)
+    # create data.table
+    DT <- as.data.table(x)
+
+    # generate name for date_index column (ensure coerced to DT before using setnames)
     nms <- names(date_index)
     if (!is.null(nms)) {
         if (length_date_index == 1L && nms != "") {
-            setnames(x, date_index, nms)
+            setnames(DT, date_index, nms)
             date_index <- nms
         } else if (any(nms != "")) {
             new_names <- date_index
             new_names[nms != ""] <- nms
-            setnames(x, date_index, new_names)
+            setnames(DT, date_index, new_names)
             date_index <- new_names
         }
     }
 
-    # can we use data.table (cannot for vctrs_rcrd objects)
-    use_dt <- !any(vapply(x, typeof, character(1)) == "list")
+    # switch behaviour depending on if counts are already present
+    if (is.null(counts)) {
 
-    if (isTRUE(use_dt)) {
+        # make from wide to long
+        DT <- melt(DT, measure.vars = date_index, variable.name = count_names_to, value.name = date_names_to, variable.factor = FALSE)
 
-        # convert to data.table
-        DT <- setDT(x)
-
-        # switch behaviour depending on if counts are already present
-        if (is.null(counts)) {
-
-            # make from wide to long
-            DT <- melt(DT, measure.vars = date_index, variable.name = count_names_to, value.name = date_names_to, variable.factor = FALSE)
-
-            # filter out NA dates if desired
-            if (rm_na_dates) {
-                na_id <- is.na(.subset2(DT, date_names_to))
-                DT <- DT[!na_id]
-            }
-
-            res <- DT[, .N, keyby = c(date_names_to, groups, count_names_to)]
-            setnames(res, length(res), count_values_to)
-        } else {
-            DT <- DT[, lapply(.SD, sum, na.rm = FALSE), keyby = c(date_index, groups), .SDcols = counts]
-            res <- melt(DT, measure.vars = counts, variable.name = count_names_to, value.name = count_values_to)
-            setnames(res, date_index, date_names_to)
+        # filter out NA dates if desired
+        if (rm_na_dates) {
+            na_id <- is.na(.subset2(DT, date_names_to))
+            DT <- DT[!na_id]
         }
 
-        # ensure we are nicely ordered
-        setorderv(res, c(date_names_to, groups, count_names_to))
-
-        # convert back to data frame
-        setDF(res)
+        res <- DT[, .N, keyby = c(date_names_to, groups, count_names_to)]
+        setnames(res, length(res), count_values_to)
     } else {
-
-        # switch behaviour depending on if counts are already present
-        if (is.null(counts)) {
-
-            # make from wide to long
-            res <- pivot_longer(x, cols = date_index, names_to = count_names_to, values_to = date_names_to)
-
-            # filter out NA dates if desired
-            if (rm_na_dates) {
-                na_id <- is.na(.subset2(res, date_names_to))
-                res <- res[!na_id, , drop = FALSE]
-            }
-
-            vars <- c(date_names_to, groups, count_names_to)
-            res <- count(res,across(all_of(vars)), name = count_values_to)
-        } else {
-            vars <- c(date_index, groups)
-            res <- grouped_df(x, vars)
-            res <- summarise(res, across(all_of(counts), sum, na.rm = FALSE), .groups = "drop")
-            res <- pivot_longer(res, cols = all_of(counts), names_to = count_names_to, values_to = count_values_to)
-            setnames(res, date_index, date_names_to)
-            tmp <- .subset(res, c(date_names_to, groups, count_names_to))
-            res <- res[do.call(order, unname(tmp)), , drop = FALSE]
-        }
-
+        DT <- DT[, lapply(.SD, sum, na.rm = FALSE), keyby = c(date_index, groups), .SDcols = counts]
+        res <- melt(DT, measure.vars = counts, variable.name = count_names_to, value.name = count_values_to)
+        setnames(res, date_index, date_names_to)
     }
+
+    # ensure we are nicely ordered
+    setorderv(res, c(date_names_to, groups, count_names_to))
+
+    # convert back to data frame
+    setDF(res)
 
     # if no groups set to character(0L)
     if (is.null(groups))
