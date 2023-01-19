@@ -17,6 +17,7 @@ Encoding: UTF-8
 License: MIT + file LICENSE
 URL: https://github.com/reconverse/incidence2
 BugReports: https://github.com/reconverse/incidence2/issues
+Depends: grates (>= 0.9.9.9000)
 Imports:
     grDevices,
     data.table,
@@ -32,7 +33,6 @@ Suggests:
     ggplot2,
     knitr,
     rmarkdown,
-    grates (>= 0.9.9.9000),
     rlang,
     clock
 VignetteBuilder: knitr

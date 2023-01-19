@@ -1,4 +1,4 @@
-if (require(dplyr) && require(outbreaks) && require(grates)) {
+if (require(dplyr) && require(outbreaks)) {
     data(ebola_sim_clean, package = "outbreaks")
     dat <- ebola_sim_clean$linelist
 

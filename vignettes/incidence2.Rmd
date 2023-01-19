@@ -67,7 +67,6 @@ That is, an `<incidence>` object must:
 
 ```{r}
 library(outbreaks)  # for the underlying data
-library(grates)     # for date aggregation
 library(ggplot2)    # For custom plotting later
 library(incidence2) 
 ```
@@ -92,13 +91,16 @@ represent the relative time of an observation:
 plot(daily)
 ```
 
-The daily incidence is quite noisy, so we can use the
+The daily incidence is quite noisy, so we can use functions from the
 [grates](https://www.reconverse.org/grates/dev/) package to group the dates
-prior to calculating the incidence. Here we calculate the 7 day incidence:
+prior to calculating the incidence. As [grates](https://www.reconverse.org/grates/dev/)
+is integral to incidence2 it is automatically attached upon loading incidence2
+so there is no need to load seperately. Here we use the `as_isoweek()` function
+to calculate the weekly (starting on a Monday) incidence:
 
 ```{r sevenday}
 # 7 day incidence
-dat <- transform(dat, date_of_onset = as_period(date_of_onset, n = 7L))
+dat <- transform(dat, date_of_onset = as_isoweek(date_of_onset))
 (inci <- incidence(dat, date_index = "date_of_onset"))
 plot(inci, border_colour = "white")
 ```
@@ -123,7 +125,7 @@ plot(grouped_inci, border_colour = "white", n_breaks = 5, angle = 45)
 Similarly, `incidence()` also supports multiple date inputs where the different
 date indices are used for filling the resultant plot
 ```{r}
-dat <- transform(dat, date_of_infection = as_period(date_of_infection, n = 7L))
+dat <- transform(dat, date_of_infection = as_isoweek(date_of_infection))
 (grouped_inci <- incidence(
     dat,
     date_index = c(
