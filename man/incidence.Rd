@@ -13,7 +13,7 @@ incidence(
   count_values_to = "count",
   date_names_to = "date_index",
   rm_na_dates = TRUE,
-  ...
+  interval = NULL
 )
 }
 \arguments{
@@ -56,7 +56,27 @@ The name of the column to store the date variables in.}
 
 Should \code{NA} dates be removed prior to aggregation?}
 
-\item{...}{Not currently used}
+\item{interval}{An optional scalar integer integer or string indicating the (fixed) size of
+the desired time interval you wish to use for for computing the incidence.
+
+Defaults to NULL in which case the date_index columns are left unchanged.
+
+Numeric values are coerced to integer and treated as a number of days to
+group.
+
+Text strings can be one of:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{* week(s) or weekly
+* epiweek(s)
+* isoweek(s)
+* month(s) or monthly
+* yearmonth(s)
+* quarter(s) or quarterly
+* yearquarter(s)
+* year(s) or yearly
+}\if{html}{\out{</div>}}
+
+More details can be found in the "Interval specification" section below.}
 }
 \value{
 An object of class \verb{[incidence, data.frame]}.
@@ -77,6 +97,22 @@ counted) and one variable representing the associated count;
 \item not have duplicated rows with regards to the date and group variables.
 }
 }
+\section{Interval specification}{
+Where \code{interval} is specified, \code{incidence()} uses the
+\href{https://cran.r-project.org/package=grates}{\code{grates}} package to generate
+appropriate date groupings. The grouping used depends on the value of
+\code{interval}. This can be specified as either an integer value or a string
+corresponding to one of the grates classes:
+\itemize{
+\item \if{html}{\out{<integer>}} values:                   \code{\link[grates:new_period]{<grates_period>}} object, grouped by the specified number of days.
+\item week(s), weekly, isoweek:           \code{\link[grates:isoweek]{<grates_isoweek>}} objects.
+\item epiweek(s):                         \code{\link[grates:epiweek]{<grates_epiweek>}} objects.
+\item month(s), monthly, yearmonth:       \code{\link[grates:yearmonth]{<grates_yearmonth>}} objects.
+\item quarter(s), quarterly, yearquarter: \code{\link[grates:yearquarter]{<grates_yearquarter>}} objects.
+\item year(s) and yearly:                 \code{\link[grates:year]{<grates_year>}} objects.
+}
+}
+
 \examples{
 if (requireNamespace("outbreaks", quietly = TRUE)) {
 \dontshow{withAutoprint(\{}
@@ -88,4 +124,8 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 }
 
 
+}
+\seealso{
+\code{browseVignettes("grates")} for more details on the grate object
+classes.
 }

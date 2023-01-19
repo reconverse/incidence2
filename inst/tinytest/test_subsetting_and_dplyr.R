@@ -7,8 +7,7 @@ if (require(dplyr) && require(outbreaks)) {
     inci <- incidence(
         dat,
         date_index = "date_of_onset",
-        groups = c("hospital", "gender"),
-        na_as_group = TRUE
+        groups = c("hospital", "gender")
     )
 
     # dplyr operations preserve class

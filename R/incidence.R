@@ -1,7 +1,9 @@
 #' Compute the incidence of events
 #'
+#'
 #' `incidence()` calculates event the *incidence* of different events across
 #' specified time periods and groupings.
+#'
 #'
 #' @param x
 #'
@@ -44,7 +46,29 @@
 #'
 #' Should `NA` dates be removed prior to aggregation?
 #'
-#' @param ... Not currently used
+#' @param interval
+#'
+#' An optional scalar integer integer or string indicating the (fixed) size of
+#' the desired time interval you wish to use for for computing the incidence.
+#'
+#' Defaults to NULL in which case the date_index columns are left unchanged.
+#'
+#' Numeric values are coerced to integer and treated as a number of days to
+#' group.
+#'
+#' Text strings can be one of:
+#'
+#'     * week(s) or weekly
+#'     * epiweek(s)
+#'     * isoweek(s)
+#'     * month(s) or monthly
+#'     * yearmonth(s)
+#'     * quarter(s) or quarterly
+#'     * yearquarter(s)
+#'     * year(s) or yearly
+#'
+#' More details can be found in the "Interval specification" section below.
+#'
 #'
 #' @details
 #'
@@ -60,6 +84,27 @@
 #' - have zero or more columns representing groups;
 #'
 #' - not have duplicated rows with regards to the date and group variables.
+#'
+#'
+#' # Interval specification
+#'
+#' Where `interval` is specified, `incidence()` uses the
+#' [`grates`](https://cran.r-project.org/package=grates) package to generate
+#' appropriate date groupings. The grouping used depends on the value of
+#' `interval`. This can be specified as either an integer value or a string
+#' corresponding to one of the grates classes:
+#'
+#' - <integer> values:                   [`<grates_period>`][grates::new_period] object, grouped by the specified number of days.
+#' - week(s), weekly, isoweek:           [`<grates_isoweek>`][grates::isoweek] objects.
+#' - epiweek(s):                         [`<grates_epiweek>`][grates::epiweek] objects.
+#' - month(s), monthly, yearmonth:       [`<grates_yearmonth>`][grates::yearmonth] objects.
+#' - quarter(s), quarterly, yearquarter: [`<grates_yearquarter>`][grates::yearquarter] objects.
+#' - year(s) and yearly:                 [`<grates_year>`][grates::year] objects.
+#'
+#'
+#' @seealso `browseVignettes("grates")` for more details on the grate object
+#' classes.
+#'
 #'
 #' @return
 #'
@@ -86,7 +131,7 @@ incidence <- function(
     count_values_to = "count",
     date_names_to = "date_index",
     rm_na_dates = TRUE,
-    ...
+    interval = NULL
 ) {
 
     if (!is.data.frame(x))
@@ -136,6 +181,41 @@ incidence <- function(
 
     # boolean checks
     .assert_bool(rm_na_dates)
+
+    # check interval and apply transformation across date index
+    if (!is.null(interval)) {
+        if (length(interval) != 1L)
+            stopf("`interval` must be a character or integer vector of length 1.")
+        if (is.numeric(interval)) {
+            n <- as.integer(interval)
+            x[date_index] <- lapply(x[date_index], as_period, n = n)
+        } else if (is.character(interval)) {
+            interval <- tolower(interval)
+            FUN <- switch(EXPR = interval,
+                week        =,
+                weeks       =,
+                weekly      =,
+                yearweek    =,
+                isoweek     =,
+                isoweeks    = as_isoweek,
+                epiweek     =,
+                epiweeks    = as_epiweek,
+                month       =,
+                months      =,
+                monthly     =,
+                yearmonth   = as_yearmonth,
+                quarter     =,
+                quarters    =,
+                quarterly   =,
+                yearquarter = as_yearquarter,
+                year        =,
+                years       = as_year
+            )
+            x[date_index] <- lapply(x[date_index], FUN)
+        } else {
+            stopf("`interval` must be a character or integer vector of length 1.")
+        }
+    }
 
     # create data.table
     DT <- as.data.table(x)
