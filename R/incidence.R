@@ -48,7 +48,7 @@
 #'
 #' @param interval
 #'
-#' An optional scalar integer integer or string indicating the (fixed) size of
+#' An optional scalar integer or string indicating the (fixed) size of
 #' the desired time interval you wish to use for for computing the incidence.
 #'
 #' Defaults to NULL in which case the date_index columns are left unchanged.
@@ -67,7 +67,22 @@
 #'     * yearquarter(s)
 #'     * year(s) or yearly
 #'
-#' More details can be found in the "Interval specification" section below.
+#' More details can be found in the "Interval specification" section.
+#'
+#' @param offset
+#'
+#' Only applicable when `interval` is not NULL.
+#'
+#' An optional scalar integer or date indicating the value you wish to start
+#' counting periods from relative to the Unix Epoch:
+#'
+#' - Default value of NULL corresponds to 0L.
+#'
+#' - For other integer values this is stored scaled by `n`
+#'   (`offset <- as.integer(offset) %% n`).
+#'
+#' - For date values this is first converted to an integer offset
+#'   (`offset <- floor(as.numeric(offset))`) and then scaled via `n` as above.
 #'
 #'
 #' @details
@@ -131,7 +146,8 @@ incidence <- function(
     count_values_to = "count",
     date_names_to = "date_index",
     rm_na_dates = TRUE,
-    interval = NULL
+    interval = NULL,
+    offset = NULL
 ) {
 
     if (!is.data.frame(x))
@@ -184,12 +200,34 @@ incidence <- function(
 
     # check interval and apply transformation across date index
     if (!is.null(interval)) {
+
+        # check interval is valid length
         if (length(interval) != 1L)
             stopf("`interval` must be a character or integer vector of length 1.")
+
+        # For numeric we coerce to integer and use as_period
         if (is.numeric(interval)) {
             n <- as.integer(interval)
-            x[date_index] <- lapply(x[date_index], as_period, n = n)
+
+            # coerce offset (do here rather than in grates for better easier error messagin)
+            if (!is.null(offset)) {
+                if (inherits(offset, "Date"))
+                    offset <- floor(as.numeric(offset))
+
+                if (!.is_scalar_whole(offset))
+                    stop("`offset` must be an integer or date of length 1.")
+            } else {
+                offset <- 0L
+            }
+            x[date_index] <- lapply(x[date_index], as_period, n = n, offset = offset)
+        } else if (!is.null(offset)) {
+            # offset only valid for numeric interval
+            stopf("`offset` can only be used with a numeric (period) interval.")
         } else if (is.character(interval)) {
+            # We are restrictive on intervals we allow to keep the code simple.
+            # Users can always call grates functionality directly (reccomended)
+            # and not use the `interval` argument which mainly a convenience
+            # for new users and interactive work.
             interval <- tolower(interval)
             FUN <- switch(EXPR = interval,
                 week        =,
@@ -209,8 +247,21 @@ incidence <- function(
                 quarterly   =,
                 yearquarter = as_yearquarter,
                 year        =,
-                years       = as_year
+                years       = as_year,
+                "invalid"
             )
+            if (FUN == "invalid") {
+                stopf(paste(
+                    "`interval` must be one of:",
+                    "    - an <integer> value;",
+                    "    - 'week(s)', 'weekly' or 'isoweek';",
+                    "    - 'epiweek(s)';",
+                    "    - 'month(s)', 'monthly', 'yearmonth';",
+                    "    - 'quarter(s)', 'quarterly', 'yearquarter';",
+                    "    - 'year(s)', year or 'yearly'.",
+                    sep = "\n"
+                ))
+            }
             x[date_index] <- lapply(x[date_index], FUN)
         } else {
             stopf("`interval` must be a character or integer vector of length 1.")

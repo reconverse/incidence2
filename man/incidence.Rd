@@ -13,7 +13,8 @@ incidence(
   count_values_to = "count",
   date_names_to = "date_index",
   rm_na_dates = TRUE,
-  interval = NULL
+  interval = NULL,
+  offset = NULL
 )
 }
 \arguments{
@@ -56,7 +57,7 @@ The name of the column to store the date variables in.}
 
 Should \code{NA} dates be removed prior to aggregation?}
 
-\item{interval}{An optional scalar integer integer or string indicating the (fixed) size of
+\item{interval}{An optional scalar integer or string indicating the (fixed) size of
 the desired time interval you wish to use for for computing the incidence.
 
 Defaults to NULL in which case the date_index columns are left unchanged.
@@ -76,7 +77,19 @@ Text strings can be one of:
 * year(s) or yearly
 }\if{html}{\out{</div>}}
 
-More details can be found in the "Interval specification" section below.}
+More details can be found in the "Interval specification" section.}
+
+\item{offset}{Only applicable when \code{interval} is not NULL.
+
+An optional scalar integer or date indicating the value you wish to start
+counting periods from relative to the Unix Epoch:
+\itemize{
+\item Default value of NULL corresponds to 0L.
+\item For other integer values this is stored scaled by \code{n}
+(\code{offset <- as.integer(offset) \%\% n}).
+\item For date values this is first converted to an integer offset
+(\code{offset <- floor(as.numeric(offset))}) and then scaled via \code{n} as above.
+}}
 }
 \value{
 An object of class \verb{[incidence, data.frame]}.

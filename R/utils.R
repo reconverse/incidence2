@@ -26,3 +26,11 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
     if (missing(x))
         stopf("argument `%s` is missing, with no default.", arg, .call = call)
 }
+
+.is_scalar_whole <- function(x, tol = .Machine$double.eps^0.5) {
+    if (is.integer(x) && length(x) == 1L)
+        return(TRUE)
+    if (is.double(x) && length(x) == 1L && (abs(x - round(x)) < tol))
+        return(TRUE)
+    FALSE
+}
