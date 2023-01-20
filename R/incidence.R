@@ -167,6 +167,16 @@ incidence <- function(
     if (length(unique(date_classes)) != 1L)
         stopf("`date_index` columns must be of the same class.")
 
+    # error if date_index cols are vctrs_rcrd type
+    is_vctrs_rcrd <- sapply(date_cols, inherits, "vctrs_rcrd")
+    if (any(is_vctrs_rcrd))
+        stopf("vctrs_rcrd date_index columns are not currently supported.")
+
+    # error if date_index cols are POSIXlt
+    is_POSIXlt <- sapply(date_cols, inherits, "POSIXlt")
+    if (any(is_POSIXlt))
+        stopf("POSIXlt date_index columns are not currently supported.")
+
     # counts checks
     if (!is.null(counts)) {
         if (!is.character(counts) || length(counts) < 1L)
@@ -192,8 +202,21 @@ incidence <- function(
     if (!(is.null(groups) || is.character(groups)))
         stopf("`groups` must be NULL or a character vector.")
 
-    if (!all(groups %in% names(x)))
-        stopf("Not all variables from `groups` are present in `x`.")
+    if (length(groups)) {
+        # error if group cols are vctrs_rcrd type
+        is_vctrs_rcrd <- sapply(groups, inherits, "vctrs_rcrd")
+        if (any(is_vctrs_rcrd))
+            stopf("vctrs_rcrd group columns are not currently supported.")
+
+        # error if group cols are POSIXlt
+        is_POSIXlt <- sapply(groups, inherits, "POSIXlt")
+        if (any(is_POSIXlt))
+            stopf("POSIXlt group columns are not currently supported.")
+
+        # ensure groups are present
+        if (!all(groups %in% names(x)))
+            stopf("Not all variables from `groups` are present in `x`.")
+    }
 
     # boolean checks
     .assert_bool(rm_na_dates)
