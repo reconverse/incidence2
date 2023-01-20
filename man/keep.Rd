@@ -6,9 +6,9 @@
 \alias{keep_last}
 \title{Keep first and last occurences}
 \usage{
-keep_first(x, n)
+keep_first(x, n, complete_dates = TRUE, ...)
 
-keep_last(x, n)
+keep_last(x, n, complete_dates = TRUE, ...)
 }
 \arguments{
 \item{x}{\verb{[incidence]} object.}
@@ -18,13 +18,22 @@ keep_last(x, n)
 Number of entries to keep.
 
 \code{double} vectors will be converted via \code{as.integer(n)}.}
+
+\item{complete_dates}{\verb{[bool]}
+
+Should \code{complete_dates()} be called on the data prior to keeping the first
+entries.
+
+Defaults to TRUE.}
+
+\item{...}{Other arguments passed to \code{complete_dates()}.}
 }
 \value{
 Incidence object with the chosen entries.
 }
 \description{
-\code{keep_first()} (\code{keep_last}) keeps the first (last) \code{n} entries to occur by
-date ordering.
+\code{keep_first()} (\code{keep_last}) keeps the first (last) \code{n} rows to occur for
+each group when in ascending date order.
 }
 \examples{
 
