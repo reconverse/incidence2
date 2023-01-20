@@ -19,7 +19,7 @@ for (gr in unique(group_1)) {
     tmp2[idx, "count"] <- cumsum(tmp2[idx, "count"])
 }
 
-res <- cumulate(complete_counts(x))
+res <- cumulate(complete_dates(x))
 res <- res[do.call(order, as.list(res)), ]
 tmp2 <- tmp2[do.call(order, as.list(tmp2)), ]
 

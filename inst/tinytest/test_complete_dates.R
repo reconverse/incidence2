@@ -13,12 +13,12 @@ i <- incidence(
     counts = c("counts1", "counts2")
 )
 
-res <- complete_counts(i, fill = NA)
+res <- complete_dates(i, fill = NA)
 expect_identical(nrow(res), 32L)
 tmp <- res[complete.cases(res),]
 row.names(tmp) <- NULL
 expect_identical(tmp, i)
-res2 <- complete_counts(i)
+res2 <- complete_dates(i)
 expect_identical(sum(res2$counts1), sum(i$counts1))
 expect_identical(sum(res2$counts2), sum(i$counts2))
 expect_identical(nrow(res2), 32L)

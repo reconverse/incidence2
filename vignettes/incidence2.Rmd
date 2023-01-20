@@ -49,7 +49,7 @@ That is, an `<incidence>` object must:
 - `keep_first()` and `keep_last()`: keep the rows corresponding to the first (or
   last) set of grouped dates (ordered by time) from an `<incidence>` object.
   
-- `complete_counts()`: ensure every possible combination of date and groupings
+- `complete_dates()`: ensure every possible combination of date and groupings
   is given an explicit count.
   
 - `cumulate()`: calculate the cumulative incidence over time.

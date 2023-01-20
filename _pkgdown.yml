@@ -18,7 +18,7 @@ reference:
 - contents:
   - as.data.frame.incidence
   - cumulate
-  - complete_counts
+  - complete_dates
   - keep_first
   - keep_last
   - regroup

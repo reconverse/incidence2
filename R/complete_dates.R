@@ -1,11 +1,11 @@
-#' Complete counts for all group combinations
+#' Complete dates for all group combinations
 #'
 #' This function ensures that an incidence object has the same range of dates
 #' for each grouping. By default missing counts will be filled with `0L`.
 #'
 #' @param x An `[incidence]` object.
 #'
-#' @param expand_dates `[logical]`
+#' @param expand `[logical]`
 #'
 #' Should a range of dates from the minimum to maximum value of the date index
 #' also be created.
@@ -14,7 +14,7 @@
 #'
 #' Passed as the `by` argument to seq.
 #'
-#' If `expand_dates` is TRUE (default) then complete counts will attempt to use
+#' If `expand` is TRUE (default) then complete_dates will attempt to use
 #' `function(x) seq(min(x), max(x), by = by)` to generate a complete sequence of
 #' dates.
 #'
@@ -24,10 +24,11 @@
 #'
 #' The value to replace missing counts by. Defaults to `0L`.
 #'
-#' @note
-#' if `expand_dates` is TRUE (default) then complete counts will attempt to use
-#' `function(x) seq(min(x), max(x), by = by)` to generate a complete sequence of
-#' dates.
+#'
+#' @return
+#'
+#' An `<incidence>` object.
+#'
 #'
 #' @examples
 #' x <- data.frame(
@@ -37,15 +38,15 @@
 #' )
 #'
 #' i <- incidence(x, date_index = "dates", groups = "groups", counts = "counts")
-#' complete_counts(i)
+#' complete_dates(i)
 #'
 #' @export
-complete_counts <- function(x, expand_dates = TRUE, fill = 0L, by = 1L) {
+complete_dates <- function(x, expand = TRUE, fill = 0L, by = 1L) {
 
     if (!inherits(x, "incidence"))
         stopf("`%s` is not an 'incidence' object", deparse(substitute(x)))
 
-    .assert_bool(expand_dates)
+    .assert_bool(expand)
 
     if (length(fill) != 1L)
         stopf("`fill` must be of lenth 1.")
@@ -53,7 +54,7 @@ complete_counts <- function(x, expand_dates = TRUE, fill = 0L, by = 1L) {
     date_variable <- get_date_index_name.incidence(x)
     dates <- get_date_index.incidence(x)[[1L]]
     # TODO - catch this and give better / combined error message
-    if (expand_dates)
+    if (expand)
         dates <- seq(min(dates), max(dates), by = by)
     dates <- list(dates)
     names(dates) <- date_variable
