@@ -271,9 +271,6 @@ incidence <- function(
                 yearquarter = as_yearquarter,
                 year        =,
                 years       = as_year,
-                "invalid"
-            )
-            if (FUN == "invalid") {
                 stopf(paste(
                     "`interval` must be one of:",
                     "    - an <integer> value;",
@@ -284,7 +281,7 @@ incidence <- function(
                     "    - 'year(s)', year or 'yearly'.",
                     sep = "\n"
                 ))
-            }
+            )
             x[date_index] <- lapply(x[date_index], FUN)
         } else {
             stopf("`interval` must be a character or integer vector of length 1.")
