@@ -61,7 +61,6 @@ build_incidence <- function(
 
 # -------------------------------------------------------------------------
 #' @rdname incidence2-defunct
-#' @export
 get_n <- function(x) {
     .Defunct(
         msg = sprintf(
