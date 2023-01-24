@@ -3,10 +3,10 @@ Type: Package
 Title: Compute, Handle and Plot Incidence of Dated Events
 Version: 1.9.9.9000
 Authors@R: c(
-    person("Tim", "Taylor", role = "aut", email = "tim.taylor@hiddenelephants.co.uk",
+    person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
            comment = c(ORCID = "0000-0002-8587-7113")),
-    person("Thibaut", "Jombart", role = c("ctb", "cre"), email = "thibautjombart@gmail.com")
-    )
+    person("Thibaut", "Jombart", role = "ctb", email = "thibautjombart@gmail.com")
+    )   
 Description: Provides functions and classes to compute, handle and visualise 
   incidence from dated events for a defined time interval. Dates can be 
   provided in various standard formats. The class 'incidence2' is used to store
