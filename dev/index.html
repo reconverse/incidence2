@@ -13,10 +13,10 @@
   toolkit for outbreak analysis (&lt;https://www.reconverse.org&gt;).">
 <title>Compute, Handle and Plot Incidence of Dated Events • incidence2</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Compute, Handle and Plot Incidence of Dated Events">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Compute, Handle and Plot Incidence of Dated Events">
 <meta property="og:description" content="Provides functions and classes to compute, handle and visualise 
   incidence from dated events for a defined time interval. Dates can be 
   provided in various standard formats. The class incidence2 is used to store
@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="index.html">incidence2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.3.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9.9.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,11 +46,8 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="active nav-item">
-  <a class="nav-link" href="index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+<li class="nav-item">
+  <a class="nav-link" href="articles/incidence2.html">Get started</a>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
@@ -58,11 +55,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <h6 class="dropdown-header" data-toc-skip>Using the incidence2 package</h6>
-    <a class="dropdown-item" href="articles/Introduction.html">Introduction</a>
     <a class="dropdown-item" href="articles/handling_incidence_objects.html">Handling incidence objects</a>
-    <a class="dropdown-item" href="articles/customizing_incidence_plots.html">Customizing incidence plots</a>
-    <a class="dropdown-item" href="articles/Alternative_date_groupings.html">Alternative date groupings</a>
   </div>
 </li>
 <li class="nav-item">
@@ -75,8 +68,8 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/reconverse/incidence2">
-    <span class="fa fa-github fa-lg"></span>
+  <a class="external-link nav-link" href="https://github.com/reconverse/incidence2/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -95,225 +88,23 @@
 <div class="section level2">
 <h2 id="installing-the-package">Installing the package<a class="anchor" aria-label="anchor" href="#installing-the-package"></a>
 </h2>
-<p>The development version, which this documentation refers to, can be installed from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the released version of incidence2 from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"reconverse/incidence2"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>You can install the current version of the package from the releases <a href="https://github.com/reconverse/incidence2/releases" class="external-link">page</a> or directly from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"incidence2"</span><span class="op">)</span></span></code></pre></div>
+<div class="pkgdown-devel">
+<p>The development version of incidence2 can be installed from GitHub with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"reconverse/incidence2"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
-<h2 id="resources">Resources<a class="anchor" aria-label="anchor" href="#resources"></a>
+<h2 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
 </h2>
-<div class="section level3">
-<h3 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
-</h3>
-<p>A short overview of <strong>incidence2</strong> is provided below in the worked example below. More detailed tutorials are distributed as vignettes with the package:</p>
+<p>An overview of <strong>incidence2</strong> is provided in the vignettes distributed with the package:</p>
 <ul>
-<li><code><a href="articles/Introduction.html">vignette("Introduction", package = "incidence2")</a></code></li>
+<li><code><a href="articles/incidence2.html">vignette("incidence2", package = "incidence2")</a></code></li>
 <li><code><a href="articles/handling_incidence_objects.html">vignette("handling_incidence_objects", package = "incidence2")</a></code></li>
-<li><code><a href="articles/customizing_incidence_plots.html">vignette("customizing_incidence_plots", package = "incidence2")</a></code></li>
-<li><code><a href="articles/alternative_date_groupings.html">vignette("alternative_date_groupings", package = "incidence2")</a></code></li>
 </ul>
-</div>
-</div>
-<div class="section level2">
-<h2 id="getting-help-online">Getting help online<a class="anchor" aria-label="anchor" href="#getting-help-online"></a>
-</h2>
-<ul>
-<li>Bug reports and feature requests should be posted on <em>github</em> using the issue system: <a href="https://github.com/reconverse/incidence2/issues" class="external-link uri">https://github.com/reconverse/incidence2/issues</a>.</li>
-<li>Online documentation: <a href="https://www.reconverse.org/incidence2" class="external-link uri">https://www.reconverse.org/incidence2</a>.</li>
-<li>All other questions should be posted on the <strong>RECON</strong> slack channel; see <a href="https://www.repidemicsconsortium.org/forum/" class="external-link uri">https://www.repidemicsconsortium.org/forum/</a> for details on how to join.</li>
-</ul>
-</div>
-</div>
-<div class="section level1">
-<h1 id="a-quick-overview">A quick overview<a class="anchor" aria-label="anchor" href="#a-quick-overview"></a>
-</h1>
-<p>This short example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="https://github.com/reconverse/outbreaks" class="external-link"><em>outbreaks</em></a>. It shows how to compute incidence for various time steps and plot the resulting output.</p>
-<p>First, we load the data:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks" class="external-link">outbreaks</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconverse/incidence2" class="external-link">incidence2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 'data.frame':    5829 obs. of  11 variables:</span></span>
-<span><span class="co">#&gt;  $ case_id                : chr  "d1fafd" "53371b" "f5c3d8" "6c286a" ...</span></span>
-<span><span class="co">#&gt;  $ generation             : int  0 1 1 2 2 0 3 3 2 3 ...</span></span>
-<span><span class="co">#&gt;  $ date_of_infection      : Date, format: NA "2014-04-09" ...</span></span>
-<span><span class="co">#&gt;  $ date_of_onset          : Date, format: "2014-04-07" "2014-04-15" ...</span></span>
-<span><span class="co">#&gt;  $ date_of_hospitalisation: Date, format: "2014-04-17" "2014-04-20" ...</span></span>
-<span><span class="co">#&gt;  $ date_of_outcome        : Date, format: "2014-04-19" NA ...</span></span>
-<span><span class="co">#&gt;  $ outcome                : Factor w/ 2 levels "Death","Recover": NA NA 2 1 2 NA 2 1 2 1 ...</span></span>
-<span><span class="co">#&gt;  $ gender                 : Factor w/ 2 levels "f","m": 1 2 1 1 1 1 1 1 2 2 ...</span></span>
-<span><span class="co">#&gt;  $ hospital               : Factor w/ 5 levels "Connaught Hospital",..: 2 1 3 NA 3 NA 1 4 3 5 ...</span></span>
-<span><span class="co">#&gt;  $ lon                    : num  -13.2 -13.2 -13.2 -13.2 -13.2 ...</span></span>
-<span><span class="co">#&gt;  $ lat                    : num  8.47 8.46 8.48 8.46 8.45 ...</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="computing-and-plotting-incidence">Computing and plotting incidence<a class="anchor" aria-label="anchor" href="#computing-and-plotting-incidence"></a>
-</h2>
-<p>We compute the weekly incidence:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">i_7</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
-<span><span class="va">i_7</span></span>
-<span><span class="co">#&gt; An incidence object: 56 x 2</span></span>
-<span><span class="co">#&gt; date range: [2014-04-07 to 2014-04-13] to [2015-04-27 to 2015-05-03]</span></span>
-<span><span class="co">#&gt; cases: 5829</span></span>
-<span><span class="co">#&gt; interval: 7 days</span></span>
-<span><span class="co">#&gt; cumulative: FALSE</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;                  date_index count</span></span>
-<span><span class="co">#&gt;                    &lt;period&gt; &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1 2014-04-07 to 2014-04-13     1</span></span>
-<span><span class="co">#&gt;  2 2014-04-14 to 2014-04-20     1</span></span>
-<span><span class="co">#&gt;  3 2014-04-21 to 2014-04-27     5</span></span>
-<span><span class="co">#&gt;  4 2014-04-28 to 2014-05-04     4</span></span>
-<span><span class="co">#&gt;  5 2014-05-05 to 2014-05-11    12</span></span>
-<span><span class="co">#&gt;  6 2014-05-12 to 2014-05-18    17</span></span>
-<span><span class="co">#&gt;  7 2014-05-19 to 2014-05-25    15</span></span>
-<span><span class="co">#&gt;  8 2014-05-26 to 2014-06-01    19</span></span>
-<span><span class="co">#&gt;  9 2014-06-02 to 2014-06-08    23</span></span>
-<span><span class="co">#&gt; 10 2014-06-09 to 2014-06-15    21</span></span>
-<span><span class="co">#&gt; # … with 46 more rows</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">i_7</span><span class="op">)</span></span>
-<span><span class="co">#&gt; date range: [2014-04-07 to 2014-04-13] to [2015-04-27 to 2015-05-03]</span></span>
-<span><span class="co">#&gt; cases: 5829</span></span>
-<span><span class="co">#&gt; interval: 7 days</span></span>
-<span><span class="co">#&gt; cumulative: FALSE</span></span>
-<span><span class="co">#&gt; timespan: 392 days</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">i_7</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-incid7-1.png" style="display: block; margin: auto;"></p>
-<p>Notice how specifying the interval as 7 creates weekly intervals with the coverage displayed by date. <code><a href="reference/incidence.html">incidence()</a></code> also allows us to create year-weekly groupings with the default being weeks starting on a Monday (following the ISO 8601 date and time standard). <code><a href="reference/incidence.html">incidence()</a></code> can also compute incidence by specified groups using the <code>groups</code> argument. As an example, below we can compute the weekly incidence by gender and plot in a single, stacked chart:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">iw</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, interval <span class="op">=</span> <span class="st">"week"</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span></span>
-<span><span class="va">iw</span></span>
-<span><span class="co">#&gt; An incidence object: 109 x 3</span></span>
-<span><span class="co">#&gt; date range: [2014-W15] to [2015-W18]</span></span>
-<span><span class="co">#&gt; cases: 5829</span></span>
-<span><span class="co">#&gt; interval: 1 (Monday) week </span></span>
-<span><span class="co">#&gt; cumulative: FALSE</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;    date_index gender count</span></span>
-<span><span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;  &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1   2014-W15 f          1</span></span>
-<span><span class="co">#&gt;  2   2014-W16 m          1</span></span>
-<span><span class="co">#&gt;  3   2014-W17 f          4</span></span>
-<span><span class="co">#&gt;  4   2014-W17 m          1</span></span>
-<span><span class="co">#&gt;  5   2014-W18 f          4</span></span>
-<span><span class="co">#&gt;  6   2014-W19 f          9</span></span>
-<span><span class="co">#&gt;  7   2014-W19 m          3</span></span>
-<span><span class="co">#&gt;  8   2014-W20 f          7</span></span>
-<span><span class="co">#&gt;  9   2014-W20 m         10</span></span>
-<span><span class="co">#&gt; 10   2014-W21 f          8</span></span>
-<span><span class="co">#&gt; # … with 99 more rows</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">iw</span><span class="op">)</span></span>
-<span><span class="co">#&gt; date range: [2014-W15] to [2015-W18]</span></span>
-<span><span class="co">#&gt; cases: 5829</span></span>
-<span><span class="co">#&gt; interval: 1 (Monday) week </span></span>
-<span><span class="co">#&gt; cumulative: FALSE</span></span>
-<span><span class="co">#&gt; timespan: 392 days</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 1 grouped variable</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   gender count</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;  &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 f       2934</span></span>
-<span><span class="co">#&gt; 2 m       2895</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">iw</span>, fill <span class="op">=</span> <span class="st">"gender"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-genderstack-1.png" style="display: block; margin: auto;"></p>
-<p>we can also facet our plot (grouping detected automatically):</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">iw</span>, n_breaks <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-genderfacet-1.png" style="display: block; margin: auto;"></p>
-<p>It is also possible to group by multiple variables specifying different facets and fills:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">iw2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">date_of_onset</span>, interval <span class="op">=</span> <span class="st">"week"</span>,  groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">hospital</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">iw2</span></span>
-<span><span class="co">#&gt; An incidence object: 601 x 4</span></span>
-<span><span class="co">#&gt; date range: [2014-W15] to [2015-W18]</span></span>
-<span><span class="co">#&gt; cases: 5829</span></span>
-<span><span class="co">#&gt; interval: 1 (Monday) week </span></span>
-<span><span class="co">#&gt; cumulative: FALSE</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;    date_index gender hospital                                     count</span></span>
-<span><span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;  &lt;fct&gt;                                        &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1   2014-W15 f      Military Hospital                                1</span></span>
-<span><span class="co">#&gt;  2   2014-W16 m      Connaught Hospital                               1</span></span>
-<span><span class="co">#&gt;  3   2014-W17 f      &lt;NA&gt;                                             2</span></span>
-<span><span class="co">#&gt;  4   2014-W17 f      other                                            2</span></span>
-<span><span class="co">#&gt;  5   2014-W17 m      other                                            1</span></span>
-<span><span class="co">#&gt;  6   2014-W18 f      &lt;NA&gt;                                             1</span></span>
-<span><span class="co">#&gt;  7   2014-W18 f      Connaught Hospital                               1</span></span>
-<span><span class="co">#&gt;  8   2014-W18 f      Princess Christian Maternity Hospital (PCMH)     1</span></span>
-<span><span class="co">#&gt;  9   2014-W18 f      Rokupa Hospital                                  1</span></span>
-<span><span class="co">#&gt; 10   2014-W19 f      &lt;NA&gt;                                             1</span></span>
-<span><span class="co">#&gt; # … with 591 more rows</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">iw2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; date range: [2014-W15] to [2015-W18]</span></span>
-<span><span class="co">#&gt; cases: 5829</span></span>
-<span><span class="co">#&gt; interval: 1 (Monday) week </span></span>
-<span><span class="co">#&gt; cumulative: FALSE</span></span>
-<span><span class="co">#&gt; timespan: 392 days</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 2 grouped variables</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   gender count</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;  &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 f       2934</span></span>
-<span><span class="co">#&gt; 2 m       2895</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   hospital                                     count</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;                                        &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Military Hospital                              889</span></span>
-<span><span class="co">#&gt; 2 Connaught Hospital                            1737</span></span>
-<span><span class="co">#&gt; 3 &lt;NA&gt;                                          1456</span></span>
-<span><span class="co">#&gt; 4 other                                          876</span></span>
-<span><span class="co">#&gt; 5 Princess Christian Maternity Hospital (PCMH)   420</span></span>
-<span><span class="co">#&gt; 6 Rokupa Hospital                                451</span></span>
-<span><span class="fu"><a href="reference/plot.incidence2.html">facet_plot</a></span><span class="op">(</span><span class="va">iw2</span>, facets <span class="op">=</span> <span class="va">gender</span>, fill <span class="op">=</span> <span class="va">hospital</span>, n_breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-genderhospital-1.png" style="display: block; margin: auto;"></p>
-</div>
-<div class="section level2">
-<h2 id="using-an-alternative-function">Using an alternative function<a class="anchor" aria-label="anchor" href="#using-an-alternative-function"></a>
-</h2>
-<p>The <code><a href="reference/incidence.html">incidence()</a></code> function wraps the date grouping functionality of the <a href="https://www.reconverse.org/grates" class="external-link">grates</a> package, providing an easy to use interface for constructing incidence objects. Sometimes, however, you may want greater flexibility in choosing how you would like to transform your “date” inputs. Using the function <code><a href="reference/build_incidence.html">build_incidence()</a></code>,you can specify the function you wish to apply. We illustrate this below with the excellent <a href="https://cran.r-project.org/package=clock" class="external-link">clock</a> package:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://clock.r-lib.org" class="external-link">clock</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># create a week function comparable to above approach</span></span>
-<span><span class="va">isoweek</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://clock.r-lib.org/reference/calendar_narrow.html" class="external-link">calendar_narrow</a></span><span class="op">(</span><span class="fu"><a href="https://clock.r-lib.org/reference/as_iso_year_week_day.html" class="external-link">as_iso_year_week_day</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="st">"week"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">clock_week_inci</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="reference/build_incidence.html">build_incidence</a></span><span class="op">(</span></span>
-<span>    <span class="va">dat</span>,</span>
-<span>    date_index <span class="op">=</span> <span class="va">date_of_onset</span>,</span>
-<span>    groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">hospital</span><span class="op">)</span>,</span>
-<span>    FUN <span class="op">=</span> <span class="va">isoweek</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="va">clock_week_inci</span></span>
-<span><span class="co">#&gt; An incidence object: 601 x 4</span></span>
-<span><span class="co">#&gt; date range: [2014-W15] to [2015-W18]</span></span>
-<span><span class="co">#&gt; cases: 5829</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;    date_index      gender hospital                                     count</span></span>
-<span><span class="co">#&gt;    &lt;iso_ywd&lt;week&gt;&gt; &lt;fct&gt;  &lt;fct&gt;                                        &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1 2014-W15        f      Military Hospital                                1</span></span>
-<span><span class="co">#&gt;  2 2014-W16        m      Connaught Hospital                               1</span></span>
-<span><span class="co">#&gt;  3 2014-W17        f      other                                            2</span></span>
-<span><span class="co">#&gt;  4 2014-W17        f      &lt;NA&gt;                                             2</span></span>
-<span><span class="co">#&gt;  5 2014-W17        m      other                                            1</span></span>
-<span><span class="co">#&gt;  6 2014-W18        f      Connaught Hospital                               1</span></span>
-<span><span class="co">#&gt;  7 2014-W18        f      Princess Christian Maternity Hospital (PCMH)     1</span></span>
-<span><span class="co">#&gt;  8 2014-W18        f      Rokupa Hospital                                  1</span></span>
-<span><span class="co">#&gt;  9 2014-W18        f      &lt;NA&gt;                                             1</span></span>
-<span><span class="co">#&gt; 10 2014-W19        f      Connaught Hospital                               2</span></span>
-<span><span class="co">#&gt; # … with 591 more rows</span></span></code></pre></div>
 </div>
 </div>
 
@@ -345,8 +136,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Tim Taylor <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8587-7113" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Thibaut Jombart <br><small class="roles"> Contributor, maintainer </small>  </li>
+<li>Tim Taylor <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-8587-7113" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -356,7 +146,7 @@
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=incidence2" class="external-link"><img src="https://www.r-pkg.org/badges/version/incidence2" alt="CRAN status"></a></li>
 <li><a href="https://codecov.io/gh/reconverse/incidence2?branch=master" class="external-link"><img src="https://codecov.io/gh/reconverse/incidence2/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/reconverse/incidence2/actions" class="external-link"><img src="https://github.com/reconverse/incidence2/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/reconverse/incidence2/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/reconverse/incidence2/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://www.reconverse.org/lifecycle.html#stable" class="external-link"><img src="https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-stable.svg"></a></li>
 </ul>
 </div>
@@ -367,12 +157,12 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Tim Taylor, Thibaut Jombart.</p>
+<p>Developed by Tim Taylor.</p>
 </div>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
     </footer>
