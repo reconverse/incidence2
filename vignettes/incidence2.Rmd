@@ -20,7 +20,9 @@ knitr::opts_chunk$set(
 ## What does it do?
 
 **incidence2** is an R package that implements functions and classes to compute,
-handle and visualise *incidence* data.
+handle and visualise *incidence* data. It aims to be intuitive to use for both
+interactive data exploration and as part of more robust outbreak analytic 
+pipelines.
 
 ### Overview
 
@@ -50,7 +52,7 @@ That is, an `<incidence>` object must:
   last) set of grouped dates (ordered by time) from an `<incidence>` object.
   
 - `complete_dates()`: ensure every possible combination of date and groupings
-  is given an explicit count.
+  is represented with a count.
   
 - `cumulate()`: calculate the cumulative incidence over time.
   
@@ -76,7 +78,6 @@ package [outbreaks](https://github.com/reconverse/outbreaks).
 
 ```{r data}
 dat <- ebola_sim_clean$linelist
-class(dat)
 str(dat)
 ```
 
@@ -91,50 +92,71 @@ represent the relative time of an observation:
 plot(daily)
 ```
 
-The daily incidence is quite noisy, so we can use functions from the
-[grates](https://www.reconverse.org/grates/dev/) package to group the dates
-prior to calculating the incidence. As [grates](https://www.reconverse.org/grates/dev/)
-is integral to incidence2 it is automatically attached upon loading incidence2
-so there is no need to load seperately. Here we use the `as_isoweek()` function
-to calculate the weekly (starting on a Monday) incidence:
+The daily data is quite noisy, so we may want to pre group dates prior to
+calculating the incidence. One way to do this is to utilise functions from the
+[grates](https://www.reconverse.org/grates/dev/) package. Here we use the
+`as_isoweek()` function to calculate the weekly (starting on a Monday)
+incidence:
 
-```{r sevenday}
+```{r}
 # 7 day incidence
-dat <- transform(dat, date_of_onset = as_isoweek(date_of_onset))
-(inci <- incidence(dat, date_index = "date_of_onset"))
+weekly_dat <- transform(dat, date_of_onset = as_isoweek(date_of_onset))
+(inci <- incidence(weekly_dat, date_index = "date_of_onset"))
 plot(inci, border_colour = "white")
 ```
 
-We can aggregate by specified groups using the `groups` argument. For instance,
-computing incidence by gender:
+We prefer grouping dates prior to calling `incidence()` as it makes it very
+clear to readers of your code what transformations are being applied to your
+input data. That said, it is such a common and useful operation that we have
+integrated much of
+[grates'](https://www.reconverse.org/grates/dev/) functionality in to 
+incidence2. We do this via an `interval` parameter which can take values:
+
+- week(s), isoweek(s) or weekly (mapping to `<grates_isoweek>`);
+- epiweek(s) (mapping to `<grates_epiweek>`);
+- month(s), yearmonth(s) or monthly (`<grates_yearmonth>`);
+- quarter(s), yearquarter(s) or quarterly (`<grates_yearquarter>`);
+- year(s) or yearly (`<grates_year>`).
+
+For example, the following is equivalent to the `inci` output above:
+
+```{r sevenday}
+# equivalent - using `interval` argument
+(inci2 <- incidence(dat, date_index = "date_of_onset", interval = "isoweek"))
+identical(inci, inci2)
+```
+
+If we wish to aggregate by specified groups we can use the `groups` argument.
+For instance, computing incidence by gender:
 
 ```{r gender}
 (grouped_inci <- incidence(
     dat,
     date_index = "date_of_onset",
-    groups = "gender"
+    groups = "gender",
+    interval = "isoweek"
 ))
 ```
 
 For grouped data, the plot method will create a faceted plot across groups:
 
 ```{r genderplot}
-plot(grouped_inci, border_colour = "white", n_breaks = 5, angle = 45)
+plot(grouped_inci, border_colour = "white", angle = 45)
 ```
 
 Similarly, `incidence()` also supports multiple date inputs where the different
 date indices are used for filling the resultant plot
 ```{r}
-dat <- transform(dat, date_of_infection = as_isoweek(date_of_infection))
 (grouped_inci <- incidence(
     dat,
     date_index = c(
         onset = "date_of_onset",
         infection = "date_of_infection"
-    )
+    ), 
+    interval = "isoweek"
 ))
 
-plot(grouped_inci, breaks = 5, angle = 45, border_colour = "white")
+plot(grouped_inci, angle = 45, border_colour = "white")
 ```
 
 Note that although the plot method for `<incidence>` objects tries to balance
