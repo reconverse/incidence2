@@ -153,7 +153,8 @@ date indices are used for filling the resultant plot
         onset = "date_of_onset",
         infection = "date_of_infection"
     ), 
-    interval = "isoweek"
+    interval = "isoweek",
+    groups = "gender"
 ))
 
 plot(grouped_inci, angle = 45, border_colour = "white")
