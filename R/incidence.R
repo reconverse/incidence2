@@ -123,7 +123,7 @@
 #'
 #' @return
 #'
-#' An object of class `[incidence, data.frame]`.
+#' An object of class `[incidence2, data.frame]`.
 #'
 #' @examples
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
@@ -342,6 +342,6 @@ incidence <- function(
         count_variable = count_names_to,
         count_value = count_values_to,
         groups = groups,
-        class = c("incidence", "data.frame")
+        class = c("incidence2", "data.frame")
     )
 }

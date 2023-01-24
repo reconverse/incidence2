@@ -54,7 +54,7 @@ get_date_index_name.default <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @rdname accessors
 #' @export
-get_date_index_name.incidence <- function(x, ...) {
+get_date_index_name.incidence2 <- function(x, ...) {
     attr(x, "date_index")
 }
 
@@ -83,7 +83,7 @@ get_count_variable_name.default <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @rdname accessors
 #' @export
-get_count_variable_name.incidence <- function(x, ...) {
+get_count_variable_name.incidence2 <- function(x, ...) {
     attr(x, "count_variable")
 }
 
@@ -107,7 +107,7 @@ get_count_value_name.default <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @rdname accessors
 #' @export
-get_count_value_name.incidence <- function(x, ...) {
+get_count_value_name.incidence2 <- function(x, ...) {
     attr(x, "count_value")
 }
 
@@ -131,7 +131,7 @@ get_group_names.default <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @rdname accessors
 #' @export
-get_group_names.incidence <- function(x, ...) {
+get_group_names.incidence2 <- function(x, ...) {
     attr(x, "groups")
 }
 
@@ -156,7 +156,7 @@ get_date_index.default <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @rdname accessors
 #' @export
-get_date_index.incidence <- function(x, ...) {
+get_date_index.incidence2 <- function(x, ...) {
     .subset(x, attr(x, "date_index"))
 }
 
@@ -185,7 +185,7 @@ get_count_variable.default <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @rdname accessors
 #' @export
-get_count_variable.incidence <- function(x, ...) {
+get_count_variable.incidence2 <- function(x, ...) {
     .subset(x, attr(x, "count_variable"))
 }
 
@@ -209,7 +209,7 @@ get_count_value.default <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @rdname accessors
 #' @export
-get_count_value.incidence <- function(x, ...) {
+get_count_value.incidence2 <- function(x, ...) {
     .subset(x, attr(x, "count_value"))
 }
 
@@ -233,6 +233,6 @@ get_groups.default <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @rdname accessors
 #' @export
-get_groups.incidence <- function(x, ...) {
+get_groups.incidence2 <- function(x, ...) {
     .subset(x, attr(x, "groups"))
 }

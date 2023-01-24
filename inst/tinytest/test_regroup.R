@@ -20,5 +20,5 @@ expected <- incidence(dat, date_index = "dates")
 expect_equal(regroup(expected), expected)
 
 # regroup none-incidence object
-expect_error(regroup("test"), "`x` must be an <incidence> object.")
+expect_error(regroup("test"), "`x` must be an <incidence2> object.")
 

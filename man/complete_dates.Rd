@@ -7,7 +7,7 @@
 complete_dates(x, expand = TRUE, fill = 0L, by = 1L)
 }
 \arguments{
-\item{x}{An \verb{[incidence]} object.}
+\item{x}{An \verb{[incidence2]} object.}
 
 \item{expand}{\verb{[logical]}
 

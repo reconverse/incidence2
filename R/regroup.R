@@ -1,10 +1,10 @@
 #' Regroup 'incidence' objects
 #'
-#' This function regroups an `[incidence]` object across the specified groups.
-#' The resulting `[incidence]` object will contains counts summed over the
+#' This function regroups an `[incidence2]` object across the specified groups.
+#' The resulting `[incidence2]` object will contains counts summed over the
 #' groups present in the input.
 #'
-#' @param x An [incidence()] object.
+#' @param x An `[incidence2]` object.
 #'
 #' @param groups `[character]`
 #'
@@ -31,8 +31,8 @@
 #' @export
 regroup <- function(x, groups = NULL){
 
-    if (!inherits(x, "incidence"))
-        stopf("`x` must be an <incidence> object.")
+    if (!inherits(x, "incidence2"))
+        stopf("`x` must be an <incidence2> object.")
 
     # group checks
     group_variables <- attr(x, "groups")

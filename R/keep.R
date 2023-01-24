@@ -3,7 +3,7 @@
 #' `keep_first()` (`keep_last`) keeps the first (last) `n` rows to occur for
 #' each group when in ascending date order.
 #'
-#' @param x `[incidence]` object.
+#' @param x `[incidence2]` object.
 #'
 #' @param n `[integer]`
 #'
@@ -44,8 +44,8 @@ NULL
 #' @export
 keep_first <- function(x, n, complete_dates = TRUE, ...) {
 
-    if (!inherits(x, "incidence"))
-        stopf("`x` must be an incidence object.")
+    if (!inherits(x, "incidence2"))
+        stopf("`x` must be an incidence2 object.")
 
     if (!is.integer(n)) {
         if (is.vector(n, "double")) {
@@ -70,8 +70,8 @@ keep_first <- function(x, n, complete_dates = TRUE, ...) {
 #' @export
 keep_last <- function(x, n, complete_dates = TRUE, ...) {
 
-    if (!inherits(x, "incidence"))
-        stopf("`x` must be an incidence object.")
+    if (!inherits(x, "incidence2"))
+        stopf("`x` must be an incidence2 object.")
 
     if (!is.integer(n)) {
         if (is.vector(n, "double")) {

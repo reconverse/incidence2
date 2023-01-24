@@ -13,12 +13,12 @@
 #' summary(inci)
 #'
 #' @export
-summary.incidence <- function(object, ...) {
+summary.incidence2 <- function(object, ...) {
 
-    count_variable <- get_count_variable_name.incidence(object)
-    group_variables <- get_group_names.incidence(object)
-    date_variable <- get_date_index_name.incidence(object)
-    count_name <- get_count_value_name.incidence(object)
+    count_variable <- get_count_variable_name.incidence2(object)
+    group_variables <- get_group_names.incidence2(object)
+    date_variable <- get_date_index_name.incidence2(object)
+    count_name <- get_count_value_name.incidence2(object)
 
     # range
     dates <- range(.subset2(object, date_variable))

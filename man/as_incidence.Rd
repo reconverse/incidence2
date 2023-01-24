@@ -3,14 +3,14 @@
 \name{as_incidence}
 \alias{as_incidence}
 \alias{as_incidence.default}
-\alias{as_incidence.incidence}
+\alias{as_incidence.incidence2}
 \title{Coerce to an incidence object}
 \usage{
 as_incidence(x, ...)
 
 \method{as_incidence}{default}(x, ...)
 
-\method{as_incidence}{incidence}(x, ...)
+\method{as_incidence}{incidence2}(x, ...)
 }
 \arguments{
 \item{x}{An \R object.}

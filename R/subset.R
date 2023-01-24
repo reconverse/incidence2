@@ -8,7 +8,7 @@
 
 # -------------------------------------------------------------------------
 #' @export
-`[.incidence` <- function(x, i, j, ...) {
+`[.incidence2` <- function(x, i, j, ...) {
     out <- NextMethod()
     .incidence_reconstruct(out, x)
 }
@@ -16,14 +16,14 @@
 
 # -------------------------------------------------------------------------
 #' @export
-`[<-.incidence` <- function(x, i, j, ..., value) {
+`[<-.incidence2` <- function(x, i, j, ..., value) {
     out <- NextMethod()
     .incidence_reconstruct(out, x)
 }
 
 # -------------------------------------------------------------------------
 #' @export
-`names<-.incidence` <- function(x, value) {
+`names<-.incidence2` <- function(x, value) {
 
     # correct essential names
     current_names <- names(x)
@@ -108,6 +108,6 @@
 # -------------------------------------------------------------------------
 
 # Registered in `.onLoad()` in zzz.R
-dplyr_reconstruct.incidence <- function(data, template) {
+dplyr_reconstruct.incidence2 <- function(data, template) {
     .incidence_reconstruct(data, template)
 }

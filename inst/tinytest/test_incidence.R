@@ -7,14 +7,14 @@ dat <- data.frame(date = c(dates,dates), count = c(count, count))
 
 # no groupings and no counts
 x <- incidence(dat, date_index = "date")
-expect_equal(class(x), c("incidence", "data.frame"))
+expect_equal(class(x), c("incidence2", "data.frame"))
 expect_equal(nrow(x), 731L)
 expect_true(all(x$count == 2L))
 expect_equal(x$date_index, dates)
 
 # no groupings but with count
 x <- incidence(dat, date_index = "date", counts = "count")
-expect_equal(class(x), c("incidence", "data.frame"))
+expect_equal(class(x), c("incidence2", "data.frame"))
 expect_equal(nrow(x), 731L)
 expect_equal(sum(x$count == 2L), 366L)
 expect_equal(sum(x$count == 4L), 365L)

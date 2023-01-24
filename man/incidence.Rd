@@ -92,7 +92,7 @@ counting periods from relative to the Unix Epoch:
 }}
 }
 \value{
-An object of class \verb{[incidence, data.frame]}.
+An object of class \verb{[incidence2, data.frame]}.
 }
 \description{
 \code{incidence()} calculates event the \emph{incidence} of different events across

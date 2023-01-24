@@ -7,7 +7,7 @@
 regroup(x, groups = NULL)
 }
 \arguments{
-\item{x}{An \code{\link[=incidence]{incidence()}} object.}
+\item{x}{An \verb{[incidence2]} object.}
 
 \item{groups}{\verb{[character]}
 
@@ -17,8 +17,8 @@ If \code{NULL} (default) then the function returns the corresponding object with
 no groupings.}
 }
 \description{
-This function regroups an \verb{[incidence]} object across the specified groups.
-The resulting \verb{[incidence]} object will contains counts summed over the
+This function regroups an \verb{[incidence2]} object across the specified groups.
+The resulting \verb{[incidence2]} object will contains counts summed over the
 groups present in the input.
 }
 \examples{

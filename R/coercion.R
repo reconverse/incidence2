@@ -1,6 +1,6 @@
 #' Convert incident object to a data frame
 #'
-#' @param x An `[incidence]` object.
+#' @param x An `[incidence2]` object.
 #'
 #' @param row.names Not used.
 #'
@@ -16,7 +16,7 @@
 #' as.data.frame(dat)
 #'
 #' @export
-as.data.frame.incidence <- function(x, row.names, optional,...) {
+as.data.frame.incidence2 <- function(x, row.names, optional,...) {
     attributes(x) <- list(
         names = attr(x, "names"),
         row.names = .row_names_info(x, type = 0L),
@@ -48,7 +48,7 @@ as_incidence.default <- function(x, ...) {
 
 #' @rdname as_incidence
 #' @export
-as_incidence.incidence <- function(x, ...) {
+as_incidence.incidence2 <- function(x, ...) {
     x
 }
 

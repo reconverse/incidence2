@@ -43,7 +43,7 @@ That is, an `<incidence>` object must:
     
 ### Additional functionality
 
-- `plot.incidence()`: generate simple plots with reasonable defaults.
+- `plot.incidence2()`: generate simple plots with reasonable defaults.
 
 - `regroup()`: regroup incidence from different groups into one global incidence
   time series.
@@ -56,9 +56,9 @@ That is, an `<incidence>` object must:
   
 - `cumulate()`: calculate the cumulative incidence over time.
   
-- `print.incidence()` and `summary.incidence()` methods.
+- `print.incidence2()` and `summary.incidence2()` methods.
 
-- `as.data.frame.incidence()` conversion method.
+- `as.data.frame.incidence2()` conversion method.
 
 - Accessor functions for accessing underlying variables: `get_date_index()`,
   `get_count_variable()`, `get_count_value()`, `get_groups()`,

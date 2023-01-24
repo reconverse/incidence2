@@ -1,9 +1,9 @@
 #' Compute cumulative 'incidence'
 #'
-#' `cumulate()` computes the cumulative incidence over time for an `<incidence>`
-#' object.
+#' `cumulate()` computes the cumulative incidence over time for an
+#' `<incidence2>` object.
 #'
-#' @param x An incidence object.
+#' @param x An `[incidence2]` object.
 #'
 #' @examples
 #'
@@ -18,12 +18,12 @@
 #' @export
 cumulate <- function(x) {
 
-    if (!inherits(x, "incidence"))
-        stopf("`%s` is not an 'incidence' object", deparse(substitute(x)))
+    if (!inherits(x, "incidence2"))
+        stopf("`%s` is not an 'incidence2' object", deparse(substitute(x)))
 
-    group_vars <- get_group_names.incidence(x)
-    count_var <- get_count_variable_name.incidence(x)
-    count_value <- get_count_value_name.incidence(x)
+    group_vars <- get_group_names.incidence2(x)
+    count_var <- get_count_variable_name.incidence2(x)
+    count_value <- get_count_value_name.incidence2(x)
 
     out <- as.data.table(x)
     out[, (count_value) := lapply(.SD, cumsum), keyby = c(group_vars, count_var), .SDcols = count_value]

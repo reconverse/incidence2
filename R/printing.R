@@ -5,7 +5,7 @@
 # to make this work.
 
 #' @export
-tbl_sum.xincidence <- function(x, ...) {
+tbl_sum.xincidence2 <- function(x, ...) {
     header <- sprintf(
         "%s x %s",
         formatC(nrow(x), big.mark = ","),
@@ -16,11 +16,11 @@ tbl_sum.xincidence <- function(x, ...) {
 
 #' Print an incidence object.
 #'
-#' Printing of `<incidence>` objects is handled via the \pkg{pillar} package.
+#' Printing of `<incidence2>` objects is handled via the \pkg{pillar} package.
 #'
 #' @param
 #'
-#' x An `<incidence>` object.
+#' x An `<incidence2>` object.
 #'
 #' @param ...
 #'
@@ -40,7 +40,7 @@ tbl_sum.xincidence <- function(x, ...) {
 #' }
 #'
 #' @export
-print.incidence <- function(x, ...) {
-    class(x) <- c("xincidence" ,"tbl", "data.frame")
+print.incidence2 <- function(x, ...) {
+    class(x) <- c("xincidence2" ,"tbl", "data.frame")
     print(x, ...)
 }

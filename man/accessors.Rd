@@ -4,37 +4,37 @@
 \alias{accessors}
 \alias{get_date_index_name}
 \alias{get_date_index_name.default}
-\alias{get_date_index_name.incidence}
+\alias{get_date_index_name.incidence2}
 \alias{get_dates_name}
 \alias{get_count_variable_name}
 \alias{get_count_variable_name.default}
-\alias{get_count_variable_name.incidence}
+\alias{get_count_variable_name.incidence2}
 \alias{get_count_value_name}
 \alias{get_count_value_name.default}
-\alias{get_count_value_name.incidence}
+\alias{get_count_value_name.incidence2}
 \alias{get_group_names}
 \alias{get_group_names.default}
-\alias{get_group_names.incidence}
+\alias{get_group_names.incidence2}
 \alias{get_date_index}
 \alias{get_date_index.default}
-\alias{get_date_index.incidence}
+\alias{get_date_index.incidence2}
 \alias{get_dates}
 \alias{get_count_variable}
 \alias{get_count_variable.default}
-\alias{get_count_variable.incidence}
+\alias{get_count_variable.incidence2}
 \alias{get_count_value}
 \alias{get_count_value.default}
-\alias{get_count_value.incidence}
+\alias{get_count_value.incidence2}
 \alias{get_groups}
 \alias{get_groups.default}
-\alias{get_groups.incidence}
+\alias{get_groups.incidence2}
 \title{Access various elements of an incidence object}
 \usage{
 get_date_index_name(x, ...)
 
 \method{get_date_index_name}{default}(x, ...)
 
-\method{get_date_index_name}{incidence}(x, ...)
+\method{get_date_index_name}{incidence2}(x, ...)
 
 get_dates_name(x, ...)
 
@@ -42,25 +42,25 @@ get_count_variable_name(x, ...)
 
 \method{get_count_variable_name}{default}(x, ...)
 
-\method{get_count_variable_name}{incidence}(x, ...)
+\method{get_count_variable_name}{incidence2}(x, ...)
 
 get_count_value_name(x, ...)
 
 \method{get_count_value_name}{default}(x, ...)
 
-\method{get_count_value_name}{incidence}(x, ...)
+\method{get_count_value_name}{incidence2}(x, ...)
 
 get_group_names(x, ...)
 
 \method{get_group_names}{default}(x, ...)
 
-\method{get_group_names}{incidence}(x, ...)
+\method{get_group_names}{incidence2}(x, ...)
 
 get_date_index(x, ...)
 
 \method{get_date_index}{default}(x, ...)
 
-\method{get_date_index}{incidence}(x, ...)
+\method{get_date_index}{incidence2}(x, ...)
 
 get_dates(x, ...)
 
@@ -68,19 +68,19 @@ get_count_variable(x, ...)
 
 \method{get_count_variable}{default}(x, ...)
 
-\method{get_count_variable}{incidence}(x, ...)
+\method{get_count_variable}{incidence2}(x, ...)
 
 get_count_value(x, ...)
 
 \method{get_count_value}{default}(x, ...)
 
-\method{get_count_value}{incidence}(x, ...)
+\method{get_count_value}{incidence2}(x, ...)
 
 get_groups(x, ...)
 
 \method{get_groups}{default}(x, ...)
 
-\method{get_groups}{incidence}(x, ...)
+\method{get_groups}{incidence2}(x, ...)
 }
 \arguments{
 \item{x}{An \R object.}

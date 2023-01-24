@@ -12,7 +12,7 @@
 #'
 #' - Utilises ggplot2 so this must be installed to use.
 #'
-#' @param x An [incidence()] object.
+#' @param x An `[incidence2]` object.
 #'
 #' @param y Not used.
 #'
@@ -87,7 +87,7 @@
 #' }
 #'
 #' @export
-plot.incidence <- function(
+plot.incidence2 <- function(
     x, y,
     width = 1,
     colour_palette = vibrant, border_colour = NA, na_color = "grey", alpha = 0.7,
@@ -104,22 +104,22 @@ plot.incidence <- function(
     .data <- NULL
 
     # get relevant variables
-    groups <- get_group_names.incidence(x)
-    count_values <- get_count_value_name.incidence(x)
-    dates <- get_date_index_name.incidence(x)
+    groups <- get_group_names.incidence2(x)
+    count_values <- get_count_value_name.incidence2(x)
+    dates <- get_date_index_name.incidence2(x)
 
     # set axis variables
     x_axis <- dates
     y_axis <- count_values
 
     # create fill palette by count variable
-    fill <- get_count_variable_name.incidence(x)
-    count_vars <- get_count_variable.incidence(x)[[1L]]
+    fill <- get_count_variable_name.incidence2(x)
+    count_vars <- get_count_variable.incidence2(x)[[1L]]
     n_count_vars <- length(unique(count_vars))
     fill_colours <- colour_palette(n_count_vars)
 
     # convert input to data frame
-    dat <- as.data.frame.incidence(x)
+    dat <- as.data.frame.incidence2(x)
 
     # make plot
     out <- ggplot2::ggplot(dat) +

@@ -3,7 +3,7 @@
 #' This function ensures that an incidence object has the same range of dates
 #' for each grouping. By default missing counts will be filled with `0L`.
 #'
-#' @param x An `[incidence]` object.
+#' @param x An `[incidence2]` object.
 #'
 #' @param expand `[logical]`
 #'
@@ -43,27 +43,27 @@
 #' @export
 complete_dates <- function(x, expand = TRUE, fill = 0L, by = 1L) {
 
-    if (!inherits(x, "incidence"))
-        stopf("`%s` is not an 'incidence' object", deparse(substitute(x)))
+    if (!inherits(x, "incidence2"))
+        stopf("`%s` is not an 'incidence2' object", deparse(substitute(x)))
 
     .assert_bool(expand)
 
     if (length(fill) != 1L)
         stopf("`fill` must be of lenth 1.")
 
-    date_variable <- get_date_index_name.incidence(x)
-    dates <- get_date_index.incidence(x)[[1L]]
+    date_variable <- get_date_index_name.incidence2(x)
+    dates <- get_date_index.incidence2(x)[[1L]]
     # TODO - catch this and give better / combined error message
     if (expand)
         dates <- seq(min(dates), max(dates), by = by)
     dates <- list(dates)
     names(dates) <- date_variable
 
-    count_variable <- get_count_variable_name.incidence(x)
-    counts <- get_count_variable.incidence(x)
+    count_variable <- get_count_variable_name.incidence2(x)
+    counts <- get_count_variable.incidence2(x)
 
-    group_variables <- get_group_names.incidence(x)
-    groups <- get_groups.incidence(x)
+    group_variables <- get_group_names.incidence2(x)
+    groups <- get_groups.incidence2(x)
 
     groups <- c(dates, groups, counts)
     groups <- lapply(groups, unique)
@@ -75,6 +75,6 @@ complete_dates <- function(x, expand = TRUE, fill = 0L, by = 1L) {
     tmp <- .set_row_names(nrow(out))
     attributes(out) <- attributes(x)
     attr(out,"row.names") <- tmp
-    setnafill(out, fill = fill, cols = get_count_value_name.incidence(x))
+    setnafill(out, fill = fill, cols = get_count_value_name.incidence2(x))
     out
 }

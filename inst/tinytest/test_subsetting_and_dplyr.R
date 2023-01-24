@@ -12,30 +12,30 @@ if (require(dplyr) && require(outbreaks)) {
 
     # dplyr operations preserve class
     x <- filter(inci, gender == "f", hospital == "Rokupa Hospital")
-    expect_inherits(x, "incidence")
+    expect_inherits(x, "incidence2")
 
     x <- slice_sample(inci, prop = 0.1)
-    expect_inherits(x, "incidence")
+    expect_inherits(x, "incidence2")
 
     x <- slice_sample(inci, n = 10)
-    expect_inherits(x, "incidence")
+    expect_inherits(x, "incidence2")
 
     x <- slice(inci, 1, 5, 10)
-    expect_inherits(x, "incidence")
+    expect_inherits(x, "incidence2")
 
     x <- slice_max(inci, order_by = count, n = 10)
-    expect_inherits(x, "incidence")
+    expect_inherits(x, "incidence2")
 
     x <- select(inci, everything())
-    expect_inherits(x, "incidence")
+    expect_inherits(x, "incidence2")
 
     x <- mutate(inci, future = date_index + 999)
-    expect_inherits(x, "incidence")
+    expect_inherits(x, "incidence2")
 
     x <- rename(inci, left_bin = date_index)
-    expect_inherits(x, "incidence")
+    expect_inherits(x, "incidence2")
 
-    expect_inherits(inci[], "incidence")
+    expect_inherits(inci[], "incidence2")
 
     # Adding rows that are multiple of 2 weeks maintains class
     x <-
@@ -43,28 +43,28 @@ if (require(dplyr) && require(outbreaks)) {
         slice_head(n = 2) %>%
         mutate(date_index = date_index + 112) %>%
         bind_rows(inci)
-    expect_true(inherits(x, "incidence"))
+    expect_true(inherits(x, "incidence2"))
 
     # operations that drop class
-    expect_false(inherits(inci[1:3], "incidence"))
+    expect_false(inherits(inci[1:3], "incidence2"))
 
     x <- select(inci, date_index, count)
-    expect_false(inherits(x, "incidence"))
+    expect_false(inherits(x, "incidence2"))
 
     x <- select(inci, -1)
-    expect_false(inherits(x, "incidence"))
+    expect_false(inherits(x, "incidence2"))
 
     x <- pull(inci, 1)
-    expect_false(inherits(x, "incidence"))
+    expect_false(inherits(x, "incidence2"))
 
     x <- transmute(inci, new_count = count + 1)
-    expect_false(inherits(x, "incidence"))
+    expect_false(inherits(x, "incidence2"))
 
     # Adding duplicate rows drops class
     x <-
         inci %>%
         slice_head(n = 1) %>%
         bind_rows(inci)
-    expect_false(inherits(x, "incidence"))
+    expect_false(inherits(x, "incidence2"))
 }
 

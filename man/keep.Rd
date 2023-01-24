@@ -11,7 +11,7 @@ keep_first(x, n, complete_dates = TRUE, ...)
 keep_last(x, n, complete_dates = TRUE, ...)
 }
 \arguments{
-\item{x}{\verb{[incidence]} object.}
+\item{x}{\verb{[incidence2]} object.}
 
 \item{n}{\verb{[integer]}
 
