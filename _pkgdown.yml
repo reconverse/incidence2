@@ -8,15 +8,15 @@ reference:
 - title: Incidence2 objects
 - contents:
   - incidence
-  - print.incidence
-  - summary.incidence
+  - print.incidence2
+  - summary.incidence2
   - as_incidence
 
 - title: Manipulation
   desc: >
     Functions for manipulating incidence objects
 - contents:
-  - as.data.frame.incidence
+  - as.data.frame.incidence2
   - cumulate
   - complete_dates
   - keep_first
@@ -33,6 +33,6 @@ reference:
   desc: >
     Basic plotting for incidence objects
 - contents:
-  - plot.incidence
+  - plot.incidence2
   - muted
   - vibrant
