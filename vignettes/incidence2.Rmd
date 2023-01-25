@@ -53,7 +53,7 @@ That is, an `<incidence>` object must:
   
 - `keep_peaks()`: keep the rows corresponding to the maximum count value for
   each grouping of an `<incidence>` object.
-  
+
 - `complete_dates()`: ensure every possible combination of date and groupings
   is represented with a count.
   

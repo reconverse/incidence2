@@ -19,6 +19,12 @@
 #'
 #' Defaults to TRUE.
 #'
+#' @param first_only `[bool]`
+#'
+#' Should only the first peak (by date) be kept.
+#'
+#' Defaults to `TRUE`.
+#'
 #' @param ...
 #'
 #' Other arguments passed to `complete_dates()`.
@@ -125,7 +131,7 @@ keep_last <- function(x, n, complete_dates = TRUE, ...) {
 
 #' @rdname keep
 #' @export
-keep_peaks <- function(x, complete_dates = TRUE, ...) {
+keep_peaks <- function(x, complete_dates = TRUE, first_only = FALSE, ...) {
 
     if (!inherits(x, "incidence2"))
         stopf("`x` must be an incidence2 object.")
@@ -134,29 +140,38 @@ keep_peaks <- function(x, complete_dates = TRUE, ...) {
     if (complete_dates)
         x <- complete_dates(x, ...)
 
+    .assert_bool(first_only)
+
     # pull out grouping variables
     groups <- get_group_names.incidence2(x)
     count_var <- get_count_variable_name.incidence2(x)
 
-    # pull out count value variable
+    # pull out date and count value variable
     count_value <- get_count_value_name.incidence2(x)
+    date_var <- get_date_index_name.incidence2(x)
+    date_values <- get_date_index.incidence2(x)[[1L]]
 
     # convert to data.table
     tmp <- as.data.table(x)
 
     # avoid check warnings
-    ..count_value <- tmp___index <- NULL
+    tmp___index <- NULL
 
     # order by count
     tmp[, tmp___index := .I]
     tmp <- tmp[,
-               list(
-                   tmp___index = {
-                       vals <- .subset2(.SD, ..count_value)
-                       tmp___index[vals == max(vals)]
-                   }
-               )
-               , by = c(count_var, groups)]
+               list(tmp___index = tmp___index[.SD == max(.SD)]),
+               by = c(count_var, groups),
+               .SDcols = count_value]
+    tmp[, (date_var) := date_values[tmp$tmp___index]]
+
+    # do we want to keep only the first peak
+    if (first_only) {
+        tmp <- tmp[,
+                   list(tmp___index = tmp___index[which.min(.SD[[1L]])]),
+                   by = c(count_var, groups),
+                   .SDcols = date_var]
+    }
 
     # index input
     idx <- tmp$tmp___index

@@ -13,8 +13,6 @@ reference:
   - as_incidence
 
 - title: Manipulation
-  desc: >
-    Functions for manipulating incidence objects
 - contents:
   - as.data.frame.incidence2
   - cumulate
@@ -25,14 +23,10 @@ reference:
   - regroup
 
 - title: Accessors
-  desc: >
-    Accessor functions for incidence objects
 - contents:
   - starts_with("get")
 
 - title: Plotting
-  desc: >
-    Basic plotting for incidence objects
 - contents:
   - plot.incidence2
   - muted

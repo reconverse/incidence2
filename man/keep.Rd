@@ -11,7 +11,7 @@ keep_first(x, n, complete_dates = TRUE, ...)
 
 keep_last(x, n, complete_dates = TRUE, ...)
 
-keep_peaks(x, complete_dates = TRUE, ...)
+keep_peaks(x, complete_dates = TRUE, first_only = FALSE, ...)
 }
 \arguments{
 \item{x}{\verb{[incidence2]} object.}
@@ -30,6 +30,12 @@ entries.
 Defaults to TRUE.}
 
 \item{...}{Other arguments passed to \code{complete_dates()}.}
+
+\item{first_only}{\verb{[bool]}
+
+Should only the first peak (by date) be kept.
+
+Defaults to \code{TRUE}.}
 }
 \value{
 Incidence object with the chosen entries.
