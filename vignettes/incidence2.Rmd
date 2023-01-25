@@ -48,8 +48,11 @@ That is, an `<incidence>` object must:
 - `regroup()`: regroup incidence from different groups into one global incidence
   time series.
   
-- `keep_first()` and `keep_last()`: keep the rows corresponding to the first (or
+- `keep_first()`, `keep_last()`: keep the rows corresponding to the first (or
   last) set of grouped dates (ordered by time) from an `<incidence>` object.
+  
+- `keep_peaks()`: keep the rows corresponding to the maximum count value for
+  each grouping of an `<incidence>` object.
   
 - `complete_dates()`: ensure every possible combination of date and groupings
   is represented with a count.

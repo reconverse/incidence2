@@ -21,6 +21,7 @@ reference:
   - complete_dates
   - keep_first
   - keep_last
+  - keep_peaks
   - regroup
 
 - title: Accessors

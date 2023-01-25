@@ -1,7 +1,8 @@
-#' Keep first and last occurences
+#' Keep first, last and peak occurences
 #'
-#' `keep_first()` (`keep_last`) keeps the first (last) `n` rows to occur for
-#' each group when in ascending date order.
+#' `keep_first()` (`keep_last()`) keeps the first (last) `n` rows to occur for
+#' each grouping when in ascending date order. `keep_peaks()` keeps the rows
+#' with the maximum count value for each group.
 #'
 #' @param x `[incidence2]` object.
 #'
@@ -65,13 +66,17 @@ keep_first <- function(x, n, complete_dates = TRUE, ...) {
     groups <- get_group_names.incidence2(x)
     count_var <- get_count_variable_name.incidence2(x)
 
+    # avoid check warnings
+    tmp___index <- NULL
+
     # convert to data.table and order by date
     tmp <- as.data.table(x)
-    setorderv(tmp, get_date_index_name.incidence2(x))
+    tmp[, tmp___index := .I]
+    setorderv(tmp, get_date_index_name.incidence2(x), order = 1L)
 
     # pull out n entries for each group
-    tmp <- tmp[, list(tmp___123 = head(.I, n)), by = c(count_var, groups)]
-    idx <- tmp$tmp___123
+    tmp <- tmp[, list(tmp___index = head(tmp___index, n)), by = c(count_var, groups)]
+    idx <- tmp$tmp___index
 
     # index input
     x[idx, ]
@@ -102,14 +107,59 @@ keep_last <- function(x, n, complete_dates = TRUE, ...) {
     groups <- get_group_names.incidence2(x)
     count_var <- get_count_variable_name.incidence2(x)
 
+    # avoid check warnings
+    tmp___index <- NULL
+
     # convert to data.table and order by date
     tmp <- as.data.table(x)
+    tmp[, tmp___index := .I]
     setorderv(tmp, get_date_index_name.incidence2(x))
 
     # pull out n entries for each group
-    tmp <- tmp[, list(tmp___123 = tail(.I, n)), by = c(count_var, groups)]
-    idx <- tmp$tmp___123
+    tmp <- tmp[, list(tmp___index = tail(tmp___index, n)), by = c(count_var, groups)]
+    idx <- tmp$tmp___index
 
     # index input
     x[idx, ]
 }
+
+#' @rdname keep
+#' @export
+keep_peaks <- function(x, complete_dates = TRUE, ...) {
+
+    if (!inherits(x, "incidence2"))
+        stopf("`x` must be an incidence2 object.")
+
+    .assert_bool(complete_dates)
+    if (complete_dates)
+        x <- complete_dates(x, ...)
+
+    # pull out grouping variables
+    groups <- get_group_names.incidence2(x)
+    count_var <- get_count_variable_name.incidence2(x)
+
+    # pull out count value variable
+    count_value <- get_count_value_name.incidence2(x)
+
+    # convert to data.table
+    tmp <- as.data.table(x)
+
+    # avoid check warnings
+    ..count_value <- tmp___index <- NULL
+
+    # order by count
+    tmp[, tmp___index := .I]
+    tmp <- tmp[,
+               list(
+                   tmp___index = {
+                       vals <- .subset2(.SD, ..count_value)
+                       tmp___index[vals == max(vals)]
+                   }
+               )
+               , by = c(count_var, groups)]
+
+    # index input
+    idx <- tmp$tmp___index
+    x[idx, ]
+}
+

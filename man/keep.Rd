@@ -4,11 +4,14 @@
 \alias{keep}
 \alias{keep_first}
 \alias{keep_last}
-\title{Keep first and last occurences}
+\alias{keep_peaks}
+\title{Keep first, last and peak occurences}
 \usage{
 keep_first(x, n, complete_dates = TRUE, ...)
 
 keep_last(x, n, complete_dates = TRUE, ...)
+
+keep_peaks(x, complete_dates = TRUE, ...)
 }
 \arguments{
 \item{x}{\verb{[incidence2]} object.}
@@ -32,8 +35,9 @@ Defaults to TRUE.}
 Incidence object with the chosen entries.
 }
 \description{
-\code{keep_first()} (\code{keep_last}) keeps the first (last) \code{n} rows to occur for
-each group when in ascending date order.
+\code{keep_first()} (\code{keep_last()}) keeps the first (last) \code{n} rows to occur for
+each grouping when in ascending date order. \code{keep_peaks()} keeps the rows
+with the maximum count value for each group.
 }
 \examples{
 
