@@ -28,7 +28,7 @@
     <loc>http://www.reconverse.org/incidence2/dev/reference/accessors.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/incidence2/dev/reference/as.data.frame.incidence.html</loc>
+    <loc>http://www.reconverse.org/incidence2/dev/reference/as.data.frame.incidence2.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/incidence2/dev/reference/as_incidence.html</loc>
@@ -58,10 +58,10 @@
     <loc>http://www.reconverse.org/incidence2/dev/reference/palettes.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/incidence2/dev/reference/plot.incidence.html</loc>
+    <loc>http://www.reconverse.org/incidence2/dev/reference/plot.incidence2.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/incidence2/dev/reference/print.incidence.html</loc>
+    <loc>http://www.reconverse.org/incidence2/dev/reference/print.incidence2.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/incidence2/dev/reference/regroup.html</loc>
@@ -70,6 +70,6 @@
     <loc>http://www.reconverse.org/incidence2/dev/reference/s3_register.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/incidence2/dev/reference/summary.incidence.html</loc>
+    <loc>http://www.reconverse.org/incidence2/dev/reference/summary.incidence2.html</loc>
   </url>
 </urlset>
