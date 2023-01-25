@@ -61,8 +61,19 @@ keep_first <- function(x, n, complete_dates = TRUE, ...) {
     if (complete_dates)
         x <- complete_dates(x, ...)
 
-    dat <- get_dates(x)[[1L]]
-    idx <- .keep_idx(dat, n = n, from_last = FALSE)
+    # pull out grouping variables
+    groups <- get_group_names.incidence2(x)
+    count_var <- get_count_variable_name.incidence2(x)
+
+    # convert to data.table and order by date
+    tmp <- as.data.table(x)
+    setorderv(tmp, get_date_index_name.incidence2(x))
+
+    # pull out n entries for each group
+    tmp <- tmp[, list(tmp___123 = head(.I, n)), by = c(count_var, groups)]
+    idx <- tmp$tmp___123
+
+    # index input
     x[idx, ]
 }
 
@@ -87,30 +98,18 @@ keep_last <- function(x, n, complete_dates = TRUE, ...) {
     if (complete_dates)
         x <- complete_dates(x, ...)
 
-    dat <- get_dates(x)[[1L]]
-    idx <- .keep_idx(dat, n = n, from_last = TRUE)
+    # pull out grouping variables
+    groups <- get_group_names.incidence2(x)
+    count_var <- get_count_variable_name.incidence2(x)
+
+    # convert to data.table and order by date
+    tmp <- as.data.table(x)
+    setorderv(tmp, get_date_index_name.incidence2(x))
+
+    # pull out n entries for each group
+    tmp <- tmp[, list(tmp___123 = tail(.I, n)), by = c(count_var, groups)]
+    idx <- tmp$tmp___123
+
+    # index input
     x[idx, ]
-}
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------- INTERNALS ------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-.keep_idx <- function(x, n, from_last = FALSE) {
-    uniq <- sort(unique(x), decreasing = FALSE)
-    len <- length(uniq)
-    if (n > len) {
-        message("n greater than number of unique date groupings. Returning all rows.")
-        n <- len
-    }
-
-    if (from_last) {
-        id <- rev(uniq)[n]
-        return(x >= id)
-    } else {
-        id <- uniq[n]
-        return(x <= id)
-    }
 }

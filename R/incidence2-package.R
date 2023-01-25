@@ -9,4 +9,5 @@ NULL
 #' @import grates
 #' @importFrom grDevices colorRampPalette
 #' @importFrom pillar tbl_sum
+#' @importFrom utils head tail
 NULL
