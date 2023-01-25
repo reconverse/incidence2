@@ -70,7 +70,7 @@ with the maximum count value for each group.</p>
 <span></span>
 <span><span class="fu">keep_last</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, complete_dates <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">keep_peaks</span><span class="op">(</span><span class="va">x</span>, complete_dates <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">keep_peaks</span><span class="op">(</span><span class="va">x</span>, complete_dates <span class="op">=</span> <span class="cn">TRUE</span>, first_only <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -94,6 +94,12 @@ entries.</p>
 
 <dt>...</dt>
 <dd><p>Other arguments passed to <code><a href="complete_dates.html">complete_dates()</a></code>.</p></dd>
+
+
+<dt>first_only</dt>
+<dd><p><code>[bool]</code></p>
+<p>Should only the first peak (by date) be kept.</p>
+<p>Defaults to <code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
