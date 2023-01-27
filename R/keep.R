@@ -1,6 +1,6 @@
 #' Keep first, last and peak occurences
 #'
-#' `keep_first()` (`keep_last()`) keeps the first (last) `n` rows to occur for
+#' `keep_first()` and `keep_last()` keep the first and last `n` rows to occur for
 #' each grouping when in ascending date order. `keep_peaks()` keeps the rows
 #' with the maximum count value for each group.
 #'

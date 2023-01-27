@@ -41,7 +41,7 @@ Defaults to \code{TRUE}.}
 Incidence object with the chosen entries.
 }
 \description{
-\code{keep_first()} (\code{keep_last()}) keeps the first (last) \code{n} rows to occur for
+\code{keep_first()} and \code{keep_last()} keep the first and last \code{n} rows to occur for
 each grouping when in ascending date order. \code{keep_peaks()} keeps the rows
 with the maximum count value for each group.
 }
