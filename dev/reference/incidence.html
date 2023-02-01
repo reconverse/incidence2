@@ -201,7 +201,8 @@ classes.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt; data(ebola_sim_clean, package = "outbreaks")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt; dat &lt;- ebola_sim_clean$linelist</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt; incidence(dat, "date_of_onset")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># incidence: 367 x 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># incidence:  367 x 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># count vars: date_of_onset</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    date_index count_variable count</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2014-04-07 date_of_onset      1</span>
@@ -216,7 +217,9 @@ classes.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2014-05-05 date_of_onset      1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 357 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt; incidence(dat, "date_of_onset", groups = c("gender", "hospital"))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># incidence: 2,535 x 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># incidence:  2,535 x 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># count vars: date_of_onset</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># groups:     gender, hospital</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    date_index gender hospital                                     count_…¹ count</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2014-04-07 f      Military Hospital                            date_of…     1</span>

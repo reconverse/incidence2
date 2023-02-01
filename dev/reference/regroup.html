@@ -103,7 +103,8 @@ no groupings.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt; i &lt;- incidence(dat, date_index = "date_of_onset", groups = c("gender", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +     "hospital"))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt; regroup(i)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># incidence: 367 x 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># incidence:  367 x 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># count vars: date_of_onset</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    date_index count_variable count</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2014-04-07 date_of_onset      1</span>
@@ -118,7 +119,9 @@ no groupings.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2014-05-05 date_of_onset      1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 357 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt; regroup(i, "hospital")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># incidence: 1,635 x 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># incidence:  1,635 x 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># count vars: date_of_onset</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># groups:     hospital</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    date_index hospital                                     count_variable count</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2014-04-07 Military Hospital                            date_of_onset      1</span>
