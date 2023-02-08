@@ -281,7 +281,6 @@ incidence <- function(
                 week        =,
                 weeks       =,
                 weekly      =,
-                yearweek    =,
                 isoweek     =,
                 isoweeks    = as_isoweek,
                 epiweek     =,

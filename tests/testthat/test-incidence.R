@@ -111,7 +111,7 @@ test_that("isoweek incidence with no groupings or count works", {
     expect_equal(x$count, expected_counts)
 
     expect_identical(
-        incidence(dat, date_index = "date", interval = "yearweek"),
+        incidence(dat, date_index = "date", interval = "week"),
         x
     )
 
