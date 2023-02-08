@@ -212,24 +212,34 @@ y
 plot(y, angle = 45, nrow = 3)
 ```
 
+### subsetting and other manipulations
+
 #### `keep_first()`, `keep_last()` and `keep_peaks()`
+
 Once your data is grouped by date, you may want to select the first or last few
 entries based on a particular date grouping using `keep_first()` and
 `keep_last()`:
 
 ```{r}
-keep_first(xx, 3)
-keep_last(xx, 3)
+inci <- incidence(
+    dat,
+    date_index = "date_of_onset",
+    interval = "isoweek",
+    groups = c("hospital", "gender")
+)
+
+keep_first(inci, 3)
+keep_last(inci, 3)
 ```
 
 Similarly you may want to quickly view the incidence peaks:
 
 ```{r}
-keep_peaks(xx)
+keep_peaks(inci)
 ```
 
+#### preservation of class
 
-### subsetting and other manipulations
 `<incidence>` objects have been carefully constructed to preserve their
 structure under a range of different operations that can be applied to data
 frames. By this we mean that if an operation is applied to an `<incidence>`
@@ -239,12 +249,6 @@ If the invariants are not preserved then a `<data frame>` will be returned
 instead.
 
 ```{r subsetting}
-inci <- incidence(
-    dat,
-    date_index = "date_of_onset",
-    interval = "isoweek",
-    groups = c("hospital", "gender")
-)
 
 # filtering preserves class
 subset(inci, gender == "f" & hospital == "Rokupa Hospital")
