@@ -73,7 +73,8 @@ specified time periods and groupings.</p>
 <span>  date_names_to <span class="op">=</span> <span class="st">"date_index"</span>,</span>
 <span>  rm_na_dates <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  interval <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  offset <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -151,6 +152,10 @@ counting periods from relative to the Unix Epoch:</p><ul><li><p>Default value of
 <li><p>For date values this is first converted to an integer offset
 (<code>offset &lt;- floor(as.numeric(offset))</code>) and then scaled via <code>n</code> as above.</p></li>
 </ul></dd>
+
+
+<dt>...</dt>
+<dd><p>Not currently used.</p></dd>
 
 </dl></div>
     <div class="section level2">
