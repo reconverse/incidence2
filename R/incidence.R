@@ -267,7 +267,8 @@ incidence <- function(
                 quarterly   =,
                 yearquarter = as_yearquarter,
                 year        =,
-                years       = as_year,
+                years       =,
+                yearly       = as_year,
                 stopf(paste(
                     "`interval` must be one of:",
                     "    - an <integer> value;",
@@ -275,7 +276,7 @@ incidence <- function(
                     "    - 'epiweek(s)';",
                     "    - 'month(s)', 'monthly', 'yearmonth';",
                     "    - 'quarter(s)', 'quarterly', 'yearquarter';",
-                    "    - 'year(s)', year or 'yearly'.",
+                    "    - 'year(s)' or 'yearly'.",
                     sep = "\n"
                 ))
             )

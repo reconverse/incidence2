@@ -28,12 +28,14 @@ Roxygen: list(markdown = TRUE)
 Suggests: 
     outbreaks,
     dplyr,
-    tinytest,
     ggplot2,
     knitr,
     rmarkdown,
     rlang,
-    clock
+    clock,
+    testthat (>= 3.0.0),
+    tibble
 VignetteBuilder: knitr
 Remotes:
     reconverse/grates
+Config/testthat/edition: 3
