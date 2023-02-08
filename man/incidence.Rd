@@ -14,7 +14,8 @@ incidence(
   date_names_to = "date_index",
   rm_na_dates = TRUE,
   interval = NULL,
-  offset = NULL
+  offset = NULL,
+  ...
 )
 }
 \arguments{
@@ -90,6 +91,8 @@ counting periods from relative to the Unix Epoch:
 \item For date values this is first converted to an integer offset
 (\code{offset <- floor(as.numeric(offset))}) and then scaled via \code{n} as above.
 }}
+
+\item{...}{Not currently used.}
 }
 \value{
 An object of class \verb{<incidence2, data.frame>}.

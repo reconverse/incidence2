@@ -113,6 +113,10 @@
 #' - For date values this is first converted to an integer offset
 #'   (`offset <- floor(as.numeric(offset))`) and then scaled via `n` as above.
 #'
+#' @param ...
+#'
+#' Not currently used.
+#'
 # -------------------------------------------------------------------------
 #' @seealso
 #' `browseVignettes("grates")` for more details on the grate object classes.
@@ -144,9 +148,32 @@ incidence <- function(
     date_names_to = "date_index",
     rm_na_dates = TRUE,
     interval = NULL,
-    offset = NULL
+    offset = NULL,
+    ...
 ) {
 
+    # handle defunct arguments
+    if (...length()) {
+        if (getRversion() >= "4.1.0") {
+            nms <- ...names()
+        } else {
+            dots <- match.call(expand.dots = FALSE)$`...`
+            nms <- names(dots)
+        }
+        idx <- nms %in% c("na_as_group", "firstdate")
+        if(any(idx)) {
+            nms <- nms[idx]
+            stopf("As of incidence 2.0.0, `%s` is no longer a valid parameter name. See `help('incidence')` for supported parameters.", nms[1L])
+        } else if (is.null(nms)) {
+            stop("Too many arguments given.")
+        } else {
+            nms <- nms[nms != ""]
+            stopf("`%s` is not a valid parameter", nms[1L])
+        }
+
+    }
+
+    # x must be a data frame
     if (!is.data.frame(x))
         stopf("`x` must be a data frame.")
 
