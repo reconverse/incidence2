@@ -40,8 +40,7 @@ remotes::install_github("reconverse/incidence2", build_vignettes = TRUE)
 
 ## Vignettes
 
-An overview of **incidence2** is provided in the vignettes distributed
+An overview of **incidence2** is provided in the vignette distributed
 with the package:
 
 -   `vignette("incidence2", package = "incidence2")`
--   `vignette("handling_incidence_objects", package = "incidence2")`
