@@ -148,7 +148,7 @@ incidence <- function(
 ) {
 
     if (!is.data.frame(x))
-        stopf("`x` must be a dataframe.")
+        stopf("`x` must be a data frame.")
 
     # date_index checks
     length_date_index <- length(date_index)
@@ -200,19 +200,20 @@ incidence <- function(
         stopf("`groups` must be NULL or a character vector.")
 
     if (length(groups)) {
+        # ensure groups are present
+        if (!all(groups %in% names(x)))
+            stopf("Not all variables from `groups` are present in `x`.")
+
         # error if group cols are vctrs_rcrd type
-        is_vctrs_rcrd <- sapply(groups, inherits, "vctrs_rcrd")
+        group_cols <- .subset(x, groups)
+        is_vctrs_rcrd <- sapply(group_cols, inherits, "vctrs_rcrd")
         if (any(is_vctrs_rcrd))
             stopf("vctrs_rcrd group columns are not currently supported.")
 
         # error if group cols are POSIXlt
-        is_POSIXlt <- sapply(groups, inherits, "POSIXlt")
+        is_POSIXlt <- sapply(group_cols, inherits, "POSIXlt")
         if (any(is_POSIXlt))
             stopf("POSIXlt group columns are not currently supported.")
-
-        # ensure groups are present
-        if (!all(groups %in% names(x)))
-            stopf("Not all variables from `groups` are present in `x`.")
     }
 
     # boolean checks
