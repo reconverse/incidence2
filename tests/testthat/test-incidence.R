@@ -288,7 +288,7 @@ test_that("yearquarter incidence with no groupings but with count works", {
     dat_dates <- data.frame(date = as_yearquarter(dates), count = count)
     x <- incidence(dat_dates, date_index = "date", counts = "count")
 
-    expected_dates <- seq.Date(from = firstday, to = lastday, by = "1 quarter", counts = count)
+    expected_dates <- seq.Date(from = firstday, to = lastday, by = "1 quarter")
     expected_counts <- c(
         91L, 91L, 92L, 92L,
         180L, 182L, 184L, 184L
@@ -354,7 +354,7 @@ test_that("year incidence with no groupings but with a count works", {
     count <- c(rep(1L, 366), rep(2L, 365))
     dat_dates <- data.frame(date = as_year(dates), count = count)
     x <- incidence(dat_dates, date_index = "date", counts = "count")
-    expected_dates <- seq.Date(from = firstday, to = lastday, by = "1 year", counts = "count")
+    expected_dates <- seq.Date(from = firstday, to = lastday, by = "1 year")
     expected_counts <- c(366, 730L)
     expect_s3_class(x$date_index, "grates_year")
     expect_equal(nrow(x), 2L)
@@ -375,5 +375,89 @@ test_that("year incidence with no groupings but with a count works", {
         incidence(dat, date_index = "date", interval = "yearly", counts = "count"),
         x
     )
+
+})
+
+test_that("10 incidence with no groupings but with a count works", {
+    firstday <- as.Date("2020-01-01") # Monday
+    lastday <- as.Date("2020-12-31")  # Wednesday
+    dates <- seq.Date(from = firstday, to = lastday, by = "day")
+    count <- integer(366L) + 1L
+    dat_dates <- data.frame(date = dates, count = count)
+    x <- incidence(dat_dates, date_index = "date", counts = "count", interval = 10, offset = firstday)
+    expected_dates <- seq.Date(from = firstday, to = lastday, by = "10 days", counts = "count")
+    expected_counts <- c(integer(36L) + 10L, 6L)
+    expect_s3_class(x$date_index, "grates_period")
+    expect_equal(nrow(x), 37L)
+    expect_equal(as.Date(x$date_index), expected_dates)
+    expect_equal(x$count, expected_counts)
+})
+
+
+test_that("miscellaneous incidence error messaging works as expected", {
+    dat <- data.frame(dates = Sys.Date() + 1:10, count = 1:10)
+    expect_error(
+        incidence("bob"),
+        "`x` must be a data frame.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        incidence(dat, date_index = character()),
+        "`date_index` must be a character vector of length 1 or more.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        incidence(dat, date_index = 1L),
+        "`date_index` must be a character vector of length 1 or more.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        incidence(dat, date_index = "bob"),
+        "Not all variables from `date_index` are present in `x`.",
+        fixed = TRUE
+    )
+
+    dat2 <- transform(dat, dates = as.POSIXlt(dates))
+    expect_error(
+        incidence(dat2, date_index = "dates"),
+        "POSIXlt date_index columns are not currently supported.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        incidence(dat, date_index = "dates", counts = character()),
+        "`counts` must be NULL or a character vector of length 1 or more.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        incidence(dat, date_index = "dates", counts = 1L),
+        "`counts` must be NULL or a character vector of length 1 or more.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        incidence(dat, date_index = c("dates", "dates"), counts = "count"),
+        "If `counts` is specified `date_index` must be of length 1.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        incidence(dat, date_index = "dates", counts = "bob"),
+        "Not all variables from `counts` are present in `x`.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        incidence(dat, date_index = "dates", counts = "count", groups = 1),
+        "`groups` must be NULL or a character vector.",
+        fixed = TRUE
+    )
+
+
+
 
 })
