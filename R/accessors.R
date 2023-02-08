@@ -1,8 +1,11 @@
 #' Access various elements of an incidence object
 #'
+# -------------------------------------------------------------------------
 #' @param x An \R object.
+#'
 #' @param ... Not currently used.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #'
 #'   - `get_date_index_name()`: The name of the date_index variable of x.
@@ -17,6 +20,7 @@
 #'   - `get_count_value()`: List containing count value of x.
 #'   - `get_groups()`: List of the group variable(s) of x.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
 #' \dontshow{withAutoprint(\{}
@@ -31,6 +35,7 @@
 #' \dontshow{\})}
 #' }
 #'
+# -------------------------------------------------------------------------
 #' @name accessors
 NULL
 

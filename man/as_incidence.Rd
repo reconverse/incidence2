@@ -18,8 +18,8 @@ as_incidence(x, ...)
 \item{...}{Additional arguments to be passed to or from other methods.}
 }
 \value{
-An \verb{[incidence]} object.
+An \verb{<incidence2>} object.
 }
 \description{
-Generic for coercion to an \verb{[incidence]} object.
+Generic for coercion to an \verb{<incidence2>} object.
 }

@@ -92,15 +92,15 @@ counting periods from relative to the Unix Epoch:
 }}
 }
 \value{
-An object of class \verb{[incidence2, data.frame]}.
+An object of class \verb{<incidence2, data.frame>}.
 }
 \description{
 \code{incidence()} calculates event the \emph{incidence} of different events across
 specified time periods and groupings.
 }
 \details{
-\verb{<incidence>} objects are a sub class of data frame with some
-additional invariants. That is, an \verb{<incidence>} object must:
+\verb{<incidence2>} objects are a sub class of data frame with some
+additional invariants. That is, an \verb{<incidence2>} object must:
 \itemize{
 \item have one column representing the date index (this does not need to be a
 \code{date} object but must have an inherent ordering over time);
@@ -136,9 +136,7 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 \dontshow{\})}
 }
 
-
 }
 \seealso{
-\code{browseVignettes("grates")} for more details on the grate object
-classes.
+\code{browseVignettes("grates")} for more details on the grate object classes.
 }

@@ -35,13 +35,9 @@ tbl_sum.xincidence2 <- function(x, ...) {
 #'
 #' Printing of `<incidence2>` objects is handled via the \pkg{pillar} package.
 #'
-#' @param
+#' @param x `<incidence2>` object.
 #'
-#' x An `<incidence2>` object.
-#'
-#' @param ...
-#'
-#' Additional arguments passed through to `pillar::tbl_format_setup()`.
+#' @param ... Additional arguments passed through to `pillar::tbl_format_setup()`.
 #'
 #' @examples
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {

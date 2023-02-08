@@ -2,8 +2,7 @@
 #'
 #' `plot()` can be used to provide a quick bar plot of an incidence object.
 #'
-#' @details
-#'
+# -------------------------------------------------------------------------
 #' - Facetting will occur automatically if either grouping variables or
 #'   multiple counts are present.
 #'
@@ -12,7 +11,8 @@
 #'
 #' - Utilises ggplot2 so this must be installed to use.
 #'
-#' @param x An `[incidence2]` object.
+# -------------------------------------------------------------------------
+#' @param x `<incidence2>` object.
 #'
 #' @param y Not used.
 #'
@@ -69,9 +69,11 @@
 #'
 #' @param ... Not currently used.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #'  - A `[ggplot2::ggplot()]` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' if (requireNamespace("outbreaks", quietly = TRUE) && requireNamespace("ggplot2", quietly = TRUE)) {
 #'   withAutoprint({
@@ -86,6 +88,7 @@
 #'   })
 #' }
 #'
+# -------------------------------------------------------------------------
 #' @export
 plot.incidence2 <- function(
     x, y,

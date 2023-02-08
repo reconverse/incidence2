@@ -1,10 +1,11 @@
 #' Regroup 'incidence' objects
 #'
-#' This function regroups an `[incidence2]` object across the specified groups.
-#' The resulting `[incidence2]` object will contains counts summed over the
+#' This function regroups an `<incidence2>` object across the specified groups.
+#' The resulting `<incidence2>` object will contains counts summed over the
 #' groups present in the input.
 #'
-#' @param x An `[incidence2]` object.
+# -------------------------------------------------------------------------
+#' @param x `<incidence2>` object.
 #'
 #' @param groups `[character]`
 #'
@@ -13,6 +14,7 @@
 #' If `NULL` (default) then the function returns the corresponding object with
 #' no groupings.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
 #' \dontshow{withAutoprint(\{}
@@ -28,6 +30,7 @@
 #' \dontshow{\})}
 #' }
 #'
+# -------------------------------------------------------------------------
 #' @export
 regroup <- function(x, groups = NULL){
 

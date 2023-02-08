@@ -4,18 +4,23 @@
 #' https://personal.sron.nl/~pault/#sec:qualitative and exclude `grey`, which
 #' is reserved for missing data.
 #'
+# -------------------------------------------------------------------------
+#'
 #' @param n `[integer]`
 #'
 #' Number of colours.
 #'
 #' `double` vectors will be converted via `as.integer(n)`.
 #'
+# -------------------------------------------------------------------------
 #' @aliases palettes vibrant muted
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' vibrant(5)
 #' muted(10)
 #'
+# -------------------------------------------------------------------------
 #' @export
 #' @rdname palettes
 vibrant <- function(n) {
@@ -24,7 +29,6 @@ vibrant <- function(n) {
 }
 
 # -------------------------------------------------------------------------
-
 #' @export
 #' @rdname palettes
 muted <- function(n) {

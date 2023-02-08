@@ -7,7 +7,7 @@
 cumulate(x)
 }
 \arguments{
-\item{x}{An \verb{[incidence2]} object.}
+\item{x}{\verb{[incidence2]} object.}
 }
 \description{
 \code{cumulate()} computes the cumulative incidence over time for an

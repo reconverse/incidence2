@@ -3,7 +3,8 @@
 #' This function ensures that an incidence object has the same range of dates
 #' for each grouping. By default missing counts will be filled with `0L`.
 #'
-#' @param x An `[incidence2]` object.
+# -------------------------------------------------------------------------
+#' @param x `<incidence2>` object.
 #'
 #' @param expand `[logical]`
 #'
@@ -24,12 +25,11 @@
 #'
 #' The value to replace missing counts by. Defaults to `0L`.
 #'
-#'
+# -------------------------------------------------------------------------
 #' @return
+#' An `<incidence2>` object.
 #'
-#' An `<incidence>` object.
-#'
-#'
+# -------------------------------------------------------------------------
 #' @examples
 #' x <- data.frame(
 #'     dates = Sys.Date() + c(1,3,4),
@@ -40,6 +40,7 @@
 #' i <- incidence(x, date_index = "dates", groups = "groups", counts = "counts")
 #' complete_dates(i)
 #'
+# -------------------------------------------------------------------------
 #' @export
 complete_dates <- function(x, expand = TRUE, fill = 0L, by = 1L) {
 

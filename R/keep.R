@@ -1,10 +1,11 @@
 #' Keep first, last and peak occurences
 #'
-#' `keep_first()` and `keep_last()` keep the first and last `n` rows to occur for
-#' each grouping when in ascending date order. `keep_peaks()` keeps the rows
+#' `keep_first()` and `keep_last()` keep the first and last `n` rows to occur
+#' for each grouping when in ascending date order. `keep_peaks()` keeps the rows
 #' with the maximum count value for each group.
 #'
-#' @param x `[incidence2]` object.
+# -------------------------------------------------------------------------
+#' @param x `<incidence2>` object.
 #'
 #' @param n `[integer]`
 #'
@@ -29,10 +30,11 @@
 #'
 #' Other arguments passed to `complete_dates()`.
 #'
+# -------------------------------------------------------------------------
 #' @return
-#'
 #' Incidence object with the chosen entries.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #'
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
@@ -44,6 +46,8 @@
 #'     keep_last(inci, 3)
 #' \dontshow{\})}
 #' }
+#'
+# -------------------------------------------------------------------------
 #' @name keep
 NULL
 

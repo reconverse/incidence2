@@ -7,7 +7,7 @@
 \method{print}{incidence2}(x, ...)
 }
 \arguments{
-\item{x}{An \verb{<incidence2>} object.}
+\item{x}{\verb{<incidence2>} object.}
 
 \item{...}{Additional arguments passed through to \code{pillar::tbl_format_setup()}.}
 }

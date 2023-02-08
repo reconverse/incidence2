@@ -1,10 +1,39 @@
 #' Compute the incidence of events
 #'
-#'
 #' `incidence()` calculates event the *incidence* of different events across
 #' specified time periods and groupings.
 #'
+# -------------------------------------------------------------------------
+#' `<incidence2>` objects are a sub class of data frame with some
+#' additional invariants. That is, an `<incidence2>` object must:
 #'
+#' - have one column representing the date index (this does not need to be a
+#'   `date` object but must have an inherent ordering over time);
+#'
+#' - have one column representing the count variable (i.e. what is being
+#'   counted) and one variable representing the associated count;
+#'
+#' - have zero or more columns representing groups;
+#'
+#' - not have duplicated rows with regards to the date and group variables.
+#'
+# -------------------------------------------------------------------------
+#' # Interval specification
+#'
+#' Where `interval` is specified, `incidence()` uses the
+#' [`grates`](https://cran.r-project.org/package=grates) package to generate
+#' appropriate date groupings. The grouping used depends on the value of
+#' `interval`. This can be specified as either an integer value or a string
+#' corresponding to one of the grates classes:
+#'
+#' - <integer> values:                   [`<grates_period>`][grates::new_period] object, grouped by the specified number of days.
+#' - week(s), weekly, isoweek:           [`<grates_isoweek>`][grates::isoweek] objects.
+#' - epiweek(s):                         [`<grates_epiweek>`][grates::epiweek] objects.
+#' - month(s), monthly, yearmonth:       [`<grates_yearmonth>`][grates::yearmonth] objects.
+#' - quarter(s), quarterly, yearquarter: [`<grates_yearquarter>`][grates::yearquarter] objects.
+#' - year(s) and yearly:                 [`<grates_year>`][grates::year] objects.
+#'
+# -------------------------------------------------------------------------
 #' @param x
 #'
 #' A data frame object representing a linelist or pre-aggregated dataset.
@@ -84,47 +113,15 @@
 #' - For date values this is first converted to an integer offset
 #'   (`offset <- floor(as.numeric(offset))`) and then scaled via `n` as above.
 #'
+# -------------------------------------------------------------------------
+#' @seealso
+#' `browseVignettes("grates")` for more details on the grate object classes.
 #'
-#' @details
-#'
-#' `<incidence>` objects are a sub class of data frame with some
-#' additional invariants. That is, an `<incidence>` object must:
-#'
-#' - have one column representing the date index (this does not need to be a
-#'   `date` object but must have an inherent ordering over time);
-#'
-#' - have one column representing the count variable (i.e. what is being
-#'   counted) and one variable representing the associated count;
-#'
-#' - have zero or more columns representing groups;
-#'
-#' - not have duplicated rows with regards to the date and group variables.
-#'
-#'
-#' # Interval specification
-#'
-#' Where `interval` is specified, `incidence()` uses the
-#' [`grates`](https://cran.r-project.org/package=grates) package to generate
-#' appropriate date groupings. The grouping used depends on the value of
-#' `interval`. This can be specified as either an integer value or a string
-#' corresponding to one of the grates classes:
-#'
-#' - <integer> values:                   [`<grates_period>`][grates::new_period] object, grouped by the specified number of days.
-#' - week(s), weekly, isoweek:           [`<grates_isoweek>`][grates::isoweek] objects.
-#' - epiweek(s):                         [`<grates_epiweek>`][grates::epiweek] objects.
-#' - month(s), monthly, yearmonth:       [`<grates_yearmonth>`][grates::yearmonth] objects.
-#' - quarter(s), quarterly, yearquarter: [`<grates_yearquarter>`][grates::yearquarter] objects.
-#' - year(s) and yearly:                 [`<grates_year>`][grates::year] objects.
-#'
-#'
-#' @seealso `browseVignettes("grates")` for more details on the grate object
-#' classes.
-#'
-#'
+# -------------------------------------------------------------------------
 #' @return
+#' An object of class `<incidence2, data.frame>`.
 #'
-#' An object of class `[incidence2, data.frame]`.
-#'
+# -------------------------------------------------------------------------
 #' @examples
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
 #' \dontshow{withAutoprint(\{}
@@ -135,7 +132,7 @@
 #' \dontshow{\})}
 #' }
 #'
-#'
+# -------------------------------------------------------------------------
 #' @export
 incidence <- function(
     x,

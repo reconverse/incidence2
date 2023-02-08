@@ -7,7 +7,7 @@
 complete_dates(x, expand = TRUE, fill = 0L, by = 1L)
 }
 \arguments{
-\item{x}{An \verb{[incidence2]} object.}
+\item{x}{\verb{<incidence2>} object.}
 
 \item{expand}{\verb{[logical]}
 
@@ -27,7 +27,7 @@ dates.
 Defaults to \code{1L}.}
 }
 \value{
-An \verb{<incidence>} object.
+An \verb{<incidence2>} object.
 }
 \description{
 This function ensures that an incidence object has the same range of dates

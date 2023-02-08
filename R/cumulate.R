@@ -3,7 +3,7 @@
 #' `cumulate()` computes the cumulative incidence over time for an
 #' `<incidence2>` object.
 #'
-#' @param x An `[incidence2]` object.
+#' @param x `[incidence2]` object.
 #'
 #' @examples
 #'

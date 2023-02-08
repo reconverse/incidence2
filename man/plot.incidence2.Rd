@@ -20,7 +20,7 @@
 )
 }
 \arguments{
-\item{x}{An \verb{[incidence2]} object.}
+\item{x}{\verb{<incidence2>} object.}
 
 \item{y}{Not used.
 

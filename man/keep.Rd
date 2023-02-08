@@ -14,7 +14,7 @@ keep_last(x, n, complete_dates = TRUE, ...)
 keep_peaks(x, complete_dates = TRUE, first_only = FALSE, ...)
 }
 \arguments{
-\item{x}{\verb{[incidence2]} object.}
+\item{x}{\verb{<incidence2>} object.}
 
 \item{n}{\verb{[integer]}
 
@@ -41,8 +41,8 @@ Defaults to \code{TRUE}.}
 Incidence object with the chosen entries.
 }
 \description{
-\code{keep_first()} and \code{keep_last()} keep the first and last \code{n} rows to occur for
-each grouping when in ascending date order. \code{keep_peaks()} keeps the rows
+\code{keep_first()} and \code{keep_last()} keep the first and last \code{n} rows to occur
+for each grouping when in ascending date order. \code{keep_peaks()} keeps the rows
 with the maximum count value for each group.
 }
 \examples{
@@ -56,4 +56,5 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
     keep_last(inci, 3)
 \dontshow{\})}
 }
+
 }

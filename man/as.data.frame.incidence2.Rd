@@ -7,7 +7,7 @@
 \method{as.data.frame}{incidence2}(x, row.names, optional, ...)
 }
 \arguments{
-\item{x}{An \verb{[incidence2]} object.}
+\item{x}{\verb{<incidence2>} object.}
 
 \item{row.names}{Not used.}
 
@@ -19,8 +19,10 @@
 Convert incident object to a data frame
 }
 \examples{
-dat <- data.frame(dates = Sys.Date() + 1:100,
-                  names = rep(c("Jo", "John"), 5))
+dat <- data.frame(
+    dates = Sys.Date() + 1:100,
+    names = rep(c("Jo", "John"), 5)
+)
 
 dat <- incidence(dat, date_index = "dates", groups = "names")
 as.data.frame(dat)
