@@ -15,7 +15,7 @@ tbl_sum.xincidence2 <- function(x, ...) {
     )
 
     # counts
-    counts <- unique(get_count_variable.incidence2(x)[[1L]])
+    counts <- unique(get_count_variable.incidence2(x))
     counts <- toString(counts)
 
     # output

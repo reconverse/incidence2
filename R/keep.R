@@ -153,7 +153,7 @@ keep_peaks <- function(x, complete_dates = TRUE, first_only = FALSE, ...) {
     # pull out date and count value variable
     count_value <- get_count_value_name.incidence2(x)
     date_var <- get_date_index_name.incidence2(x)
-    date_values <- get_date_index.incidence2(x)[[1L]]
+    date_values <- get_date_index.incidence2(x)
 
     # convert to data.table
     tmp <- as.data.table(x)

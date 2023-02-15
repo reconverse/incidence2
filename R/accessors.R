@@ -14,10 +14,10 @@
 #'   - `get_count_value_name()`: The name of the count value of x.
 #'   - `get_group_names()`: The name(s) of the group variable(s) of x.
 #'
-#'   - `get_date_index()`: List containing date_index variable of x.
+#'   - `get_date_index()`: The date_index variable of x.
 #'   - `get_dates()`: Alias for `get_date_index()`.
-#'   - `get_count_variable()`: List containing the count variable of x.
-#'   - `get_count_value()`: List containing count value of x.
+#'   - `get_count_variable()`: The count variable of x.
+#'   - `get_count_value()`: The count value of x.
 #'   - `get_groups()`: List of the group variable(s) of x.
 #'
 # -------------------------------------------------------------------------
@@ -162,7 +162,7 @@ get_date_index.default <- function(x, ...) {
 #' @rdname accessors
 #' @export
 get_date_index.incidence2 <- function(x, ...) {
-    .subset(x, attr(x, "date_index"))
+    .subset2(x, attr(x, "date_index"))
 }
 
 # -------------------------------------------------------------------------
@@ -191,7 +191,7 @@ get_count_variable.default <- function(x, ...) {
 #' @rdname accessors
 #' @export
 get_count_variable.incidence2 <- function(x, ...) {
-    .subset(x, attr(x, "count_variable"))
+    .subset2(x, attr(x, "count_variable"))
 }
 
 # -------------------------------------------------------------------------
@@ -215,7 +215,7 @@ get_count_value.default <- function(x, ...) {
 #' @rdname accessors
 #' @export
 get_count_value.incidence2 <- function(x, ...) {
-    .subset(x, attr(x, "count_value"))
+    .subset2(x, attr(x, "count_value"))
 }
 
 # -------------------------------------------------------------------------

@@ -94,10 +94,10 @@ get_groups(x, ...)
 \item \code{get_count_variable_name()}: The name of the count variable of x.
 \item \code{get_count_value_name()}: The name of the count value of x.
 \item \code{get_group_names()}: The name(s) of the group variable(s) of x.
-\item \code{get_date_index()}: List containing date_index variable of x.
+\item \code{get_date_index()}: The date_index variable of x.
 \item \code{get_dates()}: Alias for \code{get_date_index()}.
-\item \code{get_count_variable()}: List containing the count variable of x.
-\item \code{get_count_value()}: List containing count value of x.
+\item \code{get_count_variable()}: The count variable of x.
+\item \code{get_count_value()}: The count value of x.
 \item \code{get_groups()}: List of the group variable(s) of x.
 }
 }

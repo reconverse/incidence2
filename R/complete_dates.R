@@ -53,7 +53,7 @@ complete_dates <- function(x, expand = TRUE, fill = 0L, by = 1L) {
         stopf("`fill` must be of lenth 1.")
 
     date_variable <- get_date_index_name.incidence2(x)
-    dates <- get_date_index.incidence2(x)[[1L]]
+    dates <- get_date_index.incidence2(x)
     # TODO - catch this and give better / combined error message
     if (expand)
         dates <- seq(min(dates), max(dates), by = by)
@@ -61,7 +61,7 @@ complete_dates <- function(x, expand = TRUE, fill = 0L, by = 1L) {
     names(dates) <- date_variable
 
     count_variable <- get_count_variable_name.incidence2(x)
-    counts <- get_count_variable.incidence2(x)
+    counts <- .subset(x, count_variable)
 
     group_variables <- get_group_names.incidence2(x)
     groups <- get_groups.incidence2(x)

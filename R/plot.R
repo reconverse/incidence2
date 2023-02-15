@@ -117,7 +117,7 @@ plot.incidence2 <- function(
 
     # create fill palette by count variable
     fill <- get_count_variable_name.incidence2(x)
-    count_vars <- get_count_variable.incidence2(x)[[1L]]
+    count_vars <- get_count_variable.incidence2(x)
     n_count_vars <- length(unique(count_vars))
     fill_colours <- colour_palette(n_count_vars)
 
