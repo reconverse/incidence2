@@ -17,7 +17,9 @@ Encoding: UTF-8
 License: MIT + file LICENSE
 URL: https://github.com/reconverse/incidence2
 BugReports: https://github.com/reconverse/incidence2/issues
-Depends: grates (>= 0.9.9.9000)
+Depends: 
+    grates (>= 0.9.9.9000),
+    R (>= 3.5.0)
 Imports:
     grDevices,
     data.table,
@@ -39,3 +41,4 @@ VignetteBuilder: knitr
 Remotes:
     reconverse/grates
 Config/testthat/edition: 3
+LazyData: true
