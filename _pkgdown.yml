@@ -31,3 +31,7 @@ reference:
   - plot.incidence2
   - muted
   - vibrant
+
+-title: Data
+- contents:
+  - covidregionaldataUK
