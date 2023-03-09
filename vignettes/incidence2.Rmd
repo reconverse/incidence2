@@ -19,9 +19,10 @@ knitr::opts_chunk$set(
 
 ## What does it do?
 
-**incidence2** is an R package that implements functions to compute, handle and
-visualise *incidence* data. It aims to be intuitive to use for both interactive
-data exploration and as part of more robust outbreak analytic pipelines.
+{incidence2} is an R package that implements functions to compute, handle
+and visualise *incidence* data. It aims to be intuitive to use for both
+interactive data exploration and as part of more robust outbreak analytic
+pipelines.
 
 The package is based around objects of the namesake class, `<incidence2>`. These
 objects are a data frame subclass with some additional invariants. That is, an
@@ -70,15 +71,15 @@ To create and work with `<incidence2>` objects we provide a number of functions:
   
 ## Usage
 
-### Data
-
-The following sections give an overview of the package. They utilise two data
-different data sets. Firstly, one from the
-[outbreaks](https://cran.r-project.org/package=outbreaks) package containing a
+The following sections give an overview of the package utilising two different
+data sets. The first of these datasets comes from the
+[{outbreaks}](https://cran.r-project.org/package=outbreaks) package and is a
 synthetic linelist generated from a simulated Ebola Virus Disease (EVD)
-outbreak. Secondly, one containing a pre-aggregated time-series of Covid cases,
-tests, hospitalisations, and deaths for UK regions that was obtained using the [covidregionaldata](https://CRAN.R-project.org/package=covidregionaldata)
-(extracted on 2021-06-03).
+outbreak. The second data set is available within {incidence2} and represents a
+pre-aggregated time-series of Covid cases, tests, hospitalisations, and deaths
+for UK regions that was obtained using the
+[{covidregionaldata}](https://CRAN.R-project.org/package=covidregionaldata)
+package (extracted on 2021-06-03).
 
 ```{r}
 library(outbreaks)  # for the underlying data
@@ -109,7 +110,7 @@ plot(daily)
 
 The daily data is quite noisy, so we may want to pre group dates prior to
 calculating the incidence. One way to do this is to utilise functions from the
-[grates](https://www.reconverse.org/grates/dev/) package. Here we use the
+[{grates}](https://www.reconverse.org/grates/dev/) package. Here we use the
 `as_isoweek()` function to convert the 'date of onset' to an isoweek (a week
 starting on a Monday) before calculating the incidence incidence:
 
@@ -125,7 +126,7 @@ By grouping dates prior to calling `incidence()` it makes it clear to future
 readers of your code (including yourself) which transformations are being
 applied to your input data. This grouping, however, is such a common and useful
 operation that we have chosen to integrate much of
-[grates'](https://www.reconverse.org/grates/dev/)
+[{grates}](https://www.reconverse.org/grates/dev/)
 functionality directly in to incidence2. This integration is done via an
 `interval` parameter in the `incidence()` call. This can take values:
 
@@ -284,12 +285,12 @@ complete_dates(i)
 
 #### preservation of class
 
-`<incidence>` objects have been carefully constructed to preserve their
+`<incidence2>` objects have been carefully constructed to preserve their
 structure under a range of different operations that can be applied to data
-frames. By this we mean that if an operation is applied to an `<incidence>`
+frames. By this we mean that if an operation is applied to an `<incidence2>`
 object then as long as the invariants of the object are preserved (i.e. groups,
 interval and uniqueness of rows) then the object retain it's incidence class.
-If the invariants are not preserved then a `<data frame>` will be returned
+If the invariants are not preserved then a `<data.frame>` will be returned
 instead.
 
 ```{r subsetting}
