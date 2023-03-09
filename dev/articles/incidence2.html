@@ -81,10 +81,10 @@
 <div class="section level2">
 <h2 id="what-does-it-do">What does it do?<a class="anchor" aria-label="anchor" href="#what-does-it-do"></a>
 </h2>
-<p><strong>incidence2</strong> is an R package that implements functions
-to compute, handle and visualise <em>incidence</em> data. It aims to be
-intuitive to use for both interactive data exploration and as part of
-more robust outbreak analytic pipelines.</p>
+<p>{incidence2} is an R package that implements functions to compute,
+handle and visualise <em>incidence</em> data. It aims to be intuitive to
+use for both interactive data exploration and as part of more robust
+outbreak analytic pipelines.</p>
 <p>The package is based around objects of the namesake class,
 <code>&lt;incidence2&gt;</code>. These objects are a data frame subclass
 with some additional invariants. That is, an
@@ -135,16 +135,14 @@ method.</p></li>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<div class="section level3">
-<h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
-</h3>
-<p>The following sections give an overview of the package. They utilise
-two data different data sets. Firstly, one from the <a href="https://cran.r-project.org/package=outbreaks" class="external-link">outbreaks</a>
-package containing a synthetic linelist generated from a simulated Ebola
-Virus Disease (EVD) outbreak. Secondly, one containing a pre-aggregated
-time-series of Covid cases, tests, hospitalisations, and deaths for UK
-regions that was obtained using the <a href="https://CRAN.R-project.org/package=covidregionaldata" class="external-link">covidregionaldata</a>
-(extracted on 2021-06-03).</p>
+<p>The following sections give an overview of the package utilising two
+different data sets. The first of these datasets comes from the <a href="https://cran.r-project.org/package=outbreaks" class="external-link">{outbreaks}</a>
+package and is a synthetic linelist generated from a simulated Ebola
+Virus Disease (EVD) outbreak. The second data set is available within
+{incidence2} and represents a pre-aggregated time-series of Covid cases,
+tests, hospitalisations, and deaths for UK regions that was obtained
+using the <a href="https://CRAN.R-project.org/package=covidregionaldata" class="external-link">{covidregionaldata}</a>
+package (extracted on 2021-06-03).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks" class="external-link">outbreaks</a></span><span class="op">)</span>  <span class="co"># for the underlying data</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>    <span class="co"># For custom plotting later</span></span>
@@ -181,7 +179,6 @@ regions that was obtained using the <a href="https://CRAN.R-project.org/package=
 <span><span class="co">#&gt;  $ hosp_total     : num  NA NA NA NA NA NA NA NA NA NA ...</span></span>
 <span><span class="co">#&gt;  $ tested_new     : num  NA NA NA NA NA NA NA NA NA NA ...</span></span>
 <span><span class="co">#&gt;  $ tested_total   : num  NA NA NA NA NA NA NA NA NA NA ...</span></span></code></pre></div>
-</div>
 <div class="section level3">
 <h3 id="computing-incidence-from-a-linelist">Computing incidence from a linelist<a class="anchor" aria-label="anchor" href="#computing-incidence-from-a-linelist"></a>
 </h3>
@@ -214,7 +211,7 @@ has an ordering).</p>
 <p><img src="incidence2_files/figure-html/unnamed-chunk-3-1.png" width="630" style="display: block; margin: auto;"></p>
 <p>The daily data is quite noisy, so we may want to pre group dates
 prior to calculating the incidence. One way to do this is to utilise
-functions from the <a href="https://www.reconverse.org/grates/dev/" class="external-link">grates</a> package. Here
+functions from the <a href="https://www.reconverse.org/grates/dev/" class="external-link">{grates}</a> package. Here
 we use the <code><a href="http://www.reconverse.org/grates/reference/as_isoweek.html" class="external-link">as_isoweek()</a></code> function to convert the ‘date of
 onset’ to an isoweek (a week starting on a Monday) before calculating
 the incidence incidence:</p>
@@ -244,7 +241,7 @@ the incidence incidence:</p>
 it clear to future readers of your code (including yourself) which
 transformations are being applied to your input data. This grouping,
 however, is such a common and useful operation that we have chosen to
-integrate much of <a href="https://www.reconverse.org/grates/dev/" class="external-link">grates’</a> functionality
+integrate much of <a href="https://www.reconverse.org/grates/dev/" class="external-link">{grates}</a> functionality
 directly in to incidence2. This integration is done via an
 <code>interval</code> parameter in the <code><a href="../reference/incidence.html">incidence()</a></code> call.
 This can take values:</p>
@@ -593,14 +590,14 @@ filling with a 0 value).</p>
 <div class="section level4">
 <h4 id="preservation-of-class">preservation of class<a class="anchor" aria-label="anchor" href="#preservation-of-class"></a>
 </h4>
-<p><code>&lt;incidence&gt;</code> objects have been carefully
+<p><code>&lt;incidence2&gt;</code> objects have been carefully
 constructed to preserve their structure under a range of different
 operations that can be applied to data frames. By this we mean that if
-an operation is applied to an <code>&lt;incidence&gt;</code> object then
-as long as the invariants of the object are preserved (i.e. groups,
+an operation is applied to an <code>&lt;incidence2&gt;</code> object
+then as long as the invariants of the object are preserved (i.e. groups,
 interval and uniqueness of rows) then the object retain it’s incidence
 class. If the invariants are not preserved then a
-<code>&lt;data frame&gt;</code> will be returned instead.</p>
+<code>&lt;data.frame&gt;</code> will be returned instead.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># filtering preserves class</span></span>
