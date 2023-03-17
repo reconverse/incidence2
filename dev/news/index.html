@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">incidence2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9.9.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,9 +49,12 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="incidence2-development-version">incidence2 (development version)<a class="anchor" aria-label="anchor" href="#incidence2-development-version"></a></h2>
-<p>Version 2.0.0 is a major, breaking release of incidence2. We have undertaken a significant refactor in order to simplify the underlying code base and make the user interface more consistent and robust. We highlight the main changes below, but users are strongly advised to read through the accompanying documentation and vignettes.</p>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.0.0" id="incidence2-200">incidence2 2.0.0<a class="anchor" aria-label="anchor" href="#incidence2-200"></a></h2>
+<p>Version 2.0.0 is a major, breaking release of incidence2. We have undertaken a significant refactor that both simplifies the underlying code base and makes the user interface more consistent and robust. Although the main changes are highlighted below, users are strongly advised to read through the accompanying documentation and vignettes.</p>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-2-0-0">breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-2-0-0"></a></h3>
 <ul><li><p>We no longer support NSE (e.g. tidyselect semantics) within the package. Our motivation for removing support for NSE are both the complexity it can bring to the underlying code (making long term maintenance harder) and the complexity it can cause for other users / developers who want to build on top of incidence2.</p></li>
 <li><p><code><a href="../reference/incidence2-defunct.html">new_incidence()</a></code>, <code><a href="../reference/incidence2-defunct.html">validate_incidence()</a></code>, <code><a href="../reference/incidence2-defunct.html">build_incidence()</a></code>, <code><a href="../reference/incidence2-defunct.html">get_n()</a></code>, <code><a href="../reference/incidence2-defunct.html">get_interval()</a></code>, <code><a href="../reference/incidence2-defunct.html">get_timespan()</a></code> and <code><a href="../reference/incidence2-defunct.html">facet_plot()</a></code> are now defunct and will error if called.</p></li>
 <li><p><code>complete_counts()</code> is now renamed <code><a href="../reference/complete_dates.html">complete_dates()</a></code> and gains two new parameters, <code>expand</code> and <code>by</code>. If <code>expand</code> is TRUE (default) then <code><a href="../reference/complete_dates.html">complete_dates()</a></code> will attempt to use <code>function(x) seq(min(x), max(x), by = by)</code> to generate a complete sequence of dates.</p></li>
