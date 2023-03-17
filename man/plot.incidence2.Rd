@@ -10,7 +10,7 @@
   width = 1,
   colour_palette = vibrant,
   border_colour = NA,
-  na_color = "grey",
+  na_colour = "grey",
   alpha = 0.7,
   title = NULL,
   angle = 0,
@@ -45,7 +45,7 @@ The color to be used for the borders of the bars.
 
 Use \code{NA} (default) for invisible borders.}
 
-\item{na_color}{\verb{[character]}
+\item{na_colour}{\verb{[character]}
 
 The colour to plot \code{NA} values in graphs.
 

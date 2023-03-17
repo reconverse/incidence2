@@ -37,7 +37,7 @@
 #'
 #' Use `NA` (default) for invisible borders.
 #'
-#' @param na_color `[character]`
+#' @param na_colour `[character]`
 #'
 #' The colour to plot `NA` values in graphs.
 #'
@@ -93,7 +93,7 @@
 plot.incidence2 <- function(
     x, y,
     width = 1,
-    colour_palette = vibrant, border_colour = NA, na_color = "grey", alpha = 0.7,
+    colour_palette = vibrant, border_colour = NA, na_colour = "grey", alpha = 0.7,
     title = NULL,
     angle = 0, size = NULL,
     nrow = NULL,
@@ -134,7 +134,7 @@ plot.incidence2 <- function(
         ) +
         ggplot2::theme_bw() +
         ggplot2::aes(fill = .data[[fill]]) +
-        ggplot2::scale_fill_manual(values = fill_colours, na.value = na_color) +
+        ggplot2::scale_fill_manual(values = fill_colours, na.value = na_colour) +
         ggplot2::theme(legend.position = "none")
 
     # facet_grid if multiple counts / groups
