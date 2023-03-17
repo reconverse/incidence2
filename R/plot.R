@@ -176,6 +176,10 @@ plot.incidence2 <- function(
             )
         )
 
+    # Add title
+    if (!is.null(title))
+        out <- out + ggplot2::labs(title = title)
+
     # return plot
     out
 }
