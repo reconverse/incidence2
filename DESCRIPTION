@@ -1,7 +1,7 @@
 Package: incidence2
 Type: Package
 Title: Compute, Handle and Plot Incidence of Dated Events
-Version: 1.9.9.9000
+Version: 2.0.0
 Authors@R: c(
     person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
            comment = c(ORCID = "0000-0002-8587-7113")),
@@ -18,7 +18,7 @@ License: MIT + file LICENSE
 URL: https://github.com/reconverse/incidence2
 BugReports: https://github.com/reconverse/incidence2/issues
 Depends: 
-    grates (>= 0.9.9.9000),
+    grates (>= 1.0.0),
     R (>= 3.5.0)
 Imports:
     grDevices,
@@ -38,7 +38,5 @@ Suggests:
     testthat (>= 3.0.0),
     tibble
 VignetteBuilder: knitr
-Remotes:
-    reconverse/grates
 Config/testthat/edition: 3
 LazyData: true

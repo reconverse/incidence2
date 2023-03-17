@@ -1,9 +1,9 @@
-# incidence2 (development version)
+# incidence2 2.0.0
 
 Version 2.0.0 is a major, breaking release of incidence2. We have undertaken a
-significant refactor in order to simplify the underlying code base and make the
-user interface more consistent and robust. We highlight the main
-changes below, but users are strongly advised to read through the accompanying
+significant refactor that both simplifies the underlying code base and makes the
+user interface more consistent and robust. Although the main changes are
+highlighted below, users are strongly advised to read through the accompanying
 documentation and vignettes.
 
 ## breaking changes

@@ -4,7 +4,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/incidence2)](https://CRAN.R-project.org/package=incidence2)
 [![Codecov test
-coverage](https://codecov.io/gh/reconverse/incidence2/branch/master/graph/badge.svg)](https://codecov.io/gh/reconverse/incidence2?branch=master)
+coverage](https://codecov.io/gh/reconverse/incidence2/branch/master/graph/badge.svg)](https://app.codecov.io/gh/reconverse/incidence2?branch=master)
 [![R-CMD-check](https://github.com/reconverse/incidence2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/reconverse/incidence2/actions/workflows/R-CMD-check.yaml)
 [![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-stable.svg)](https://www.reconverse.org/lifecycle.html#stable)
 <!-- badges: end -->
@@ -44,4 +44,4 @@ remotes::install_github("reconverse/incidence2", build_vignettes = TRUE)
 An overview of {incidence2} is provided in the vignette distributed with
 the package:
 
--   `vignette("incidence2", package = "incidence2")`
+- `vignette("incidence2", package = "incidence2")`

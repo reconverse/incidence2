@@ -120,7 +120,7 @@ appropriate date groupings. The grouping used depends on the value of
 \code{interval}. This can be specified as either an integer value or a string
 corresponding to one of the grates classes:
 \itemize{
-\item \if{html}{\out{<integer>}} values:                   \code{\link[grates:new_period]{<grates_period>}} object, grouped by the specified number of days.
+\item integer values:                     \code{\link[grates:new_period]{<grates_period>}} object, grouped by the specified number of days.
 \item week(s), weekly, isoweek:           \code{\link[grates:isoweek]{<grates_isoweek>}} objects.
 \item epiweek(s):                         \code{\link[grates:epiweek]{<grates_epiweek>}} objects.
 \item month(s), monthly, yearmonth:       \code{\link[grates:yearmonth]{<grates_yearmonth>}} objects.

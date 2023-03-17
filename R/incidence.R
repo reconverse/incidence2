@@ -26,7 +26,7 @@
 #' `interval`. This can be specified as either an integer value or a string
 #' corresponding to one of the grates classes:
 #'
-#' - <integer> values:                   [`<grates_period>`][grates::new_period] object, grouped by the specified number of days.
+#' - integer values:                     [`<grates_period>`][grates::new_period] object, grouped by the specified number of days.
 #' - week(s), weekly, isoweek:           [`<grates_isoweek>`][grates::isoweek] objects.
 #' - epiweek(s):                         [`<grates_epiweek>`][grates::epiweek] objects.
 #' - month(s), monthly, yearmonth:       [`<grates_yearmonth>`][grates::yearmonth] objects.
