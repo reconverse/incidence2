@@ -68,7 +68,8 @@ group.
 
 Text strings can be one of:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{* week(s) or weekly
+\if{html}{\out{<div class="sourceCode">}}\preformatted{* day or daily
+* week(s) or weekly
 * epiweek(s)
 * isoweek(s)
 * month(s) or monthly
@@ -114,19 +115,26 @@ counted) and one variable representing the associated count;
 }
 }
 \section{Interval specification}{
-Where \code{interval} is specified, \code{incidence()} uses the
+Where \code{interval} is specified, \code{incidence()}, predominantly uses the
 \href{https://cran.r-project.org/package=grates}{\code{grates}} package to generate
 appropriate date groupings. The grouping used depends on the value of
 \code{interval}. This can be specified as either an integer value or a string
-corresponding to one of the grates classes:
+corresponding to one of the classes:
 \itemize{
 \item integer values:                     \code{\link[grates:new_period]{<grates_period>}} object, grouped by the specified number of days.
+\item day, daily:                         \code{\link[base:Dates]{<Date>}} objects.
 \item week(s), weekly, isoweek:           \code{\link[grates:isoweek]{<grates_isoweek>}} objects.
 \item epiweek(s):                         \code{\link[grates:epiweek]{<grates_epiweek>}} objects.
 \item month(s), monthly, yearmonth:       \code{\link[grates:yearmonth]{<grates_yearmonth>}} objects.
 \item quarter(s), quarterly, yearquarter: \code{\link[grates:yearquarter]{<grates_yearquarter>}} objects.
 \item year(s) and yearly:                 \code{\link[grates:year]{<grates_year>}} objects.
 }
+
+For "day" or "daily" interval, we provide a thin wrapper around \code{as.Date()}
+that ensures the underlying data are whole numbers and that time zones are
+respected. Note that additional arguments are not forwarded to \code{as.Date()}
+so for greater flexibility users are advised to modifying your input prior to
+calling \code{incidence()}.
 }
 
 \examples{

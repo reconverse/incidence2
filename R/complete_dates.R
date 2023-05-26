@@ -11,20 +11,26 @@
 #' Should a range of dates from the minimum to maximum value of the date index
 #' also be created.
 #'
-#' @param by
-#'
-#' Passed as the `by` argument to seq.
-#'
 #' If `expand` is TRUE (default) then complete_dates will attempt to use
-#' `function(x) seq(min(x), max(x), by = by)` to generate a complete sequence of
+#' `function(x) seq(min(x), max(x), by = 1)` to generate a complete sequence of
 #' dates.
 #'
-#' Defaults to `1L`.
+#'
+#' @param by `[Defunct]`
+#'
+#' Ignored.
 #'
 #' @param fill `[numeric]`
 #'
-#' The value to replace missing counts by. Defaults to `0L`.
+#' The value to replace missing counts by.
 #'
+#' Defaults to `0L`.
+#'
+#' @param allow_POSIXct `[logical]`
+#'
+#' Should this function work with POSIXct dates?
+#'
+#' Defaults to `FALSE`.
 # -------------------------------------------------------------------------
 #' @return
 #' An `<incidence2>` object.
@@ -42,7 +48,13 @@
 #'
 # -------------------------------------------------------------------------
 #' @export
-complete_dates <- function(x, expand = TRUE, fill = 0L, by = 1L) {
+complete_dates <- function(
+    x,
+    expand = TRUE,
+    fill = 0L,
+    by = 1L,
+    allow_POSIXct = FALSE
+) {
 
     if (!inherits(x, "incidence2"))
         stopf("`%s` is not an 'incidence2' object", deparse(substitute(x)))
@@ -54,9 +66,30 @@ complete_dates <- function(x, expand = TRUE, fill = 0L, by = 1L) {
 
     date_variable <- get_date_index_name.incidence2(x)
     dates <- get_date_index.incidence2(x)
+
+    # Note the following was motivated by
+    # https://github.com/reconverse/incidence2/issues/104
+    .assert_bool(allow_POSIXct)
+    if (inherits(dates, "POSIXct") && !allow_POSIXct) {
+        stopf(paste0(
+            "<POSIXct> date_index columns detected. Internally <POSIXct> objects ",
+            "are represented as seconds since the UNIX epoch and calling ",
+            "`complete_dates()` on an object of granularity can lead to ",
+            "significant memory usage. If you are sure you wish to do this, ",
+            "please call again with the argument `allow_POSIXct` set to `TRUE`. ",
+            "If this level of aggregation is not desired, consider recreating the ",
+            "<incidence> object using <Dates> for daily incidence. This can be done ",
+            "prior to calling `incidence()` or, alternatively, by setting the ",
+            "argument `interval = 'day'` within the call itself."
+        ))
+    }
+
+    if (by != 1)
+        stopf("`by` argument is now Defunct. Setting `by = 1L` or `by = 1` is permitted for compatibility only.")
+
     # TODO - catch this and give better / combined error message
     if (expand)
-        dates <- seq(min(dates), max(dates), by = by)
+        dates <- seq(min(dates), max(dates), by = 1L)
     dates <- list(dates)
     names(dates) <- date_variable
 

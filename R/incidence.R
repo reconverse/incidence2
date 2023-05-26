@@ -20,18 +20,25 @@
 # -------------------------------------------------------------------------
 #' # Interval specification
 #'
-#' Where `interval` is specified, `incidence()` uses the
+#' Where `interval` is specified, `incidence()`, predominantly uses the
 #' [`grates`](https://cran.r-project.org/package=grates) package to generate
 #' appropriate date groupings. The grouping used depends on the value of
 #' `interval`. This can be specified as either an integer value or a string
-#' corresponding to one of the grates classes:
+#' corresponding to one of the classes:
 #'
 #' - integer values:                     [`<grates_period>`][grates::new_period] object, grouped by the specified number of days.
+#' - day, daily:                         [`<Date>`][base::Dates] objects.
 #' - week(s), weekly, isoweek:           [`<grates_isoweek>`][grates::isoweek] objects.
 #' - epiweek(s):                         [`<grates_epiweek>`][grates::epiweek] objects.
 #' - month(s), monthly, yearmonth:       [`<grates_yearmonth>`][grates::yearmonth] objects.
 #' - quarter(s), quarterly, yearquarter: [`<grates_yearquarter>`][grates::yearquarter] objects.
 #' - year(s) and yearly:                 [`<grates_year>`][grates::year] objects.
+#'
+#' For "day" or "daily" interval, we provide a thin wrapper around `as.Date()`
+#' that ensures the underlying data are whole numbers and that time zones are
+#' respected. Note that additional arguments are not forwarded to `as.Date()`
+#' so for greater flexibility users are advised to modifying your input prior to
+#' calling `incidence()`.
 #'
 # -------------------------------------------------------------------------
 #' @param x
@@ -87,6 +94,7 @@
 #'
 #' Text strings can be one of:
 #'
+#'     * day or daily
 #'     * week(s) or weekly
 #'     * epiweek(s)
 #'     * isoweek(s)
@@ -278,6 +286,8 @@ incidence <- function(
             # for new users and interactive work.
             interval <- tolower(interval)
             FUN <- switch(EXPR = interval,
+                day         =,
+                daily       = .as_date,
                 week        =,
                 weeks       =,
                 weekly      =,
@@ -299,6 +309,7 @@ incidence <- function(
                 stopf(paste(
                     "`interval` must be one of:",
                     "    - an <integer> value;",
+                    "    - 'day' or 'daily';",
                     "    - 'week(s)', 'weekly' or 'isoweek';",
                     "    - 'epiweek(s)';",
                     "    - 'month(s)', 'monthly', 'yearmonth';",
@@ -311,6 +322,15 @@ incidence <- function(
         } else {
             stopf("`interval` must be a character or integer vector of length 1.")
         }
+    } else if (any(sapply(date_cols, inherits, "POSIXct"))) {
+        warnf(paste0(
+            "<POSIXct> date_index columns detected. Internally <POSIXct> objects ",
+            "are represented as seconds since the UNIX epoch and, in our experience, ",
+            "this level of granularity is not normally desired for aggregation. ",
+            "For daily incidence consider converting the inputs to <Dates>. This can ",
+            "be done prior to calling `incidence()` or, alternatively, by setting the ",
+            "argument `interval = 'day'` within the call itself."
+        ))
     }
 
     # create data.table

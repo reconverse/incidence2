@@ -4,7 +4,7 @@
 \alias{complete_dates}
 \title{Complete dates for all group combinations}
 \usage{
-complete_dates(x, expand = TRUE, fill = 0L, by = 1L)
+complete_dates(x, expand = TRUE, fill = 0L, by = 1L, allow_POSIXct = FALSE)
 }
 \arguments{
 \item{x}{\verb{<incidence2>} object.}
@@ -12,19 +12,27 @@ complete_dates(x, expand = TRUE, fill = 0L, by = 1L)
 \item{expand}{\verb{[logical]}
 
 Should a range of dates from the minimum to maximum value of the date index
-also be created.}
+also be created.
+
+If \code{expand} is TRUE (default) then complete_dates will attempt to use
+\code{function(x) seq(min(x), max(x), by = 1)} to generate a complete sequence of
+dates.}
 
 \item{fill}{\verb{[numeric]}
 
-The value to replace missing counts by. Defaults to \code{0L}.}
+The value to replace missing counts by.
 
-\item{by}{Passed as the \code{by} argument to seq.
+Defaults to \code{0L}.}
 
-If \code{expand} is TRUE (default) then complete_dates will attempt to use
-\code{function(x) seq(min(x), max(x), by = by)} to generate a complete sequence of
-dates.
+\item{by}{\verb{[Defunct]}
 
-Defaults to \code{1L}.}
+Ignored.}
+
+\item{allow_POSIXct}{\verb{[logical]}
+
+Should this function work with POSIXct dates?
+
+Defaults to \code{FALSE}.}
 }
 \value{
 An \verb{<incidence2>} object.

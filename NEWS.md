@@ -1,5 +1,29 @@
 # incidence2 (development version)
 
+## New features
+
+* Specifying `interval = "day"` or `interval = daily` in a call to incidence
+  will force the resultant `date_index` variable to be a `<Date>`. Underlying
+  this is a wrapper around `as.Date()` that ensures the underlying data are
+  whole numbers and that time zones are respected.
+
+## (minor) breaking changes
+
+* `incidence()` will now warn if objects are created with POSIXct columns.
+  The motivation for this is that, internally, <POSIXct> objects are represented
+  as seconds since the UNIX epoch and, in our experience, this level of
+  granularity is not normally desired for aggregation.
+  
+* The `by` parameter of `complete_dates()` is now defunct. This was previously
+  passed to an underlying `seq` function when, in practice, it should always
+  have been forced to 1 to match the precision of the underlying date_index.
+
+* `complete_dates()` will now error if called on an input with a <POSIXct>
+  date_index. Users must now explicitly set the argument `allow_POSIXct = TRUE`
+  to maintain old behaviour.
+  
+
+
 # incidence2 2.0.0
 
 Version 2.0.0 is a major, breaking release of incidence2. We have undertaken a

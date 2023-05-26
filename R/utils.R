@@ -7,6 +7,13 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
     stop(err)
 }
 
+warnf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
+    .call <- if (isTRUE(.use_call)) .call[1L] else NULL
+    msg <- sprintf(fmt, ...)
+    err <- simpleWarning(msg, .call)
+    warning(err)
+}
+
 .assert_scalar_character <- function(x, arg = deparse(substitute(x)), call = sys.call(-1L)) {
     .assert_not_missing(x = x, arg = arg, call = call)
 
@@ -33,4 +40,19 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
     if (is.double(x) && length(x) == 1L && (abs(x - round(x)) < tol))
         return(TRUE)
     FALSE
+}
+
+.as_date <- function(x, ...) {
+    if (inherits(x, "POSIXct")) {
+        tz <- attr(x, "tzone")
+        if (is.null(tz))
+            tz <- "" # current time zone (used for POSIXt transformations)
+        out <- as.Date(x, tz = tz)
+    } else {
+        out <- as.Date(x, ...)
+    }
+
+    # floor values for integerish dates
+    out <- floor(as.numeric(out))
+    .Date(out)
 }
