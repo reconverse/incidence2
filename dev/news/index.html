@@ -49,6 +49,16 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="incidence2-development-version">incidence2 (development version)<a class="anchor" aria-label="anchor" href="#incidence2-development-version"></a></h2>
+<div class="section level3">
+<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<ul><li>Specifying <code>interval = "day"</code> or <code>interval = daily</code> in a call to incidence will force the resultant <code>date_index</code> variable to be a <code>&lt;Date&gt;</code>. Underlying this is a wrapper around <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date()</a></code> that ensures the underlying data are whole numbers and that time zones are respected.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="minor-breaking-changes-development-version">(minor) breaking changes<a class="anchor" aria-label="anchor" href="#minor-breaking-changes-development-version"></a></h3>
+<ul><li><p><code><a href="../reference/incidence.html">incidence()</a></code> will now warn if objects are created with POSIXct columns. The motivation for this is that, internally, <posixct> objects are represented as seconds since the UNIX epoch and, in our experience, this level of granularity is not normally desired for aggregation.</posixct></p></li>
+<li><p>The <code>by</code> parameter of <code><a href="../reference/complete_dates.html">complete_dates()</a></code> is now defunct. This was previously passed to an underlying <code>seq</code> function when, in practice, it should always have been forced to 1 to match the precision of the underlying date_index.</p></li>
+<li><p><code><a href="../reference/complete_dates.html">complete_dates()</a></code> will now error if called on an input with a <posixct> date_index. Users must now explicitly set the argument <code>allow_POSIXct = TRUE</code> to maintain old behaviour.</posixct></p></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.0" id="incidence2-200">incidence2 2.0.0<a class="anchor" aria-label="anchor" href="#incidence2-200"></a></h2><p class="text-muted">CRAN release: 2023-03-17</p>

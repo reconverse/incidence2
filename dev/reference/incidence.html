@@ -126,14 +126,15 @@ the desired time interval you wish to use for for computing the incidence.</p>
 <p>Numeric values are coerced to integer and treated as a number of days to
 group.</p>
 <p>Text strings can be one of:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">week</span>(s) or weekly</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">epiweek</span>(s)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">isoweek</span>(s)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">month</span>(s) or monthly</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">yearmonth</span>(s)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">quarter</span>(s) or quarterly</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">yearquarter</span>(s)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">year</span>(s) or yearly</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> day or daily</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">week</span>(s) or weekly</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">epiweek</span>(s)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">isoweek</span>(s)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">month</span>(s) or monthly</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">yearmonth</span>(s)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">quarter</span>(s) or quarterly</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">yearquarter</span>(s)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">year</span>(s) or yearly</span></code></pre><p></p></div>
 <p>More details can be found in the "Interval specification" section.</p></dd>
 
 
@@ -170,17 +171,23 @@ counted) and one variable representing the associated count;</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="interval-specification">Interval specification<a class="anchor" aria-label="anchor" href="#interval-specification"></a></h2>
-    <p>Where <code>interval</code> is specified, <code>incidence()</code> uses the
+    <p>Where <code>interval</code> is specified, <code>incidence()</code>, predominantly uses the
 <a href="https://cran.r-project.org/package=grates" class="external-link"><code>grates</code></a> package to generate
 appropriate date groupings. The grouping used depends on the value of
 <code>interval</code>. This can be specified as either an integer value or a string
-corresponding to one of the grates classes:</p><ul><li><p>integer values:                     <code><a href="http://www.reconverse.org/grates/reference/new_period.html" class="external-link">&lt;grates_period&gt;</a></code> object, grouped by the specified number of days.</p></li>
+corresponding to one of the classes:</p><ul><li><p>integer values:                     <code><a href="http://www.reconverse.org/grates/reference/new_period.html" class="external-link">&lt;grates_period&gt;</a></code> object, grouped by the specified number of days.</p></li>
+<li><p>day, daily:                         <code><a href="https://rdrr.io/r/base/Dates.html" class="external-link">&lt;Date&gt;</a></code> objects.</p></li>
 <li><p>week(s), weekly, isoweek:           <code><a href="http://www.reconverse.org/grates/reference/isoweek.html" class="external-link">&lt;grates_isoweek&gt;</a></code> objects.</p></li>
 <li><p>epiweek(s):                         <code><a href="http://www.reconverse.org/grates/reference/epiweek.html" class="external-link">&lt;grates_epiweek&gt;</a></code> objects.</p></li>
 <li><p>month(s), monthly, yearmonth:       <code><a href="http://www.reconverse.org/grates/reference/yearmonth.html" class="external-link">&lt;grates_yearmonth&gt;</a></code> objects.</p></li>
 <li><p>quarter(s), quarterly, yearquarter: <code><a href="http://www.reconverse.org/grates/reference/yearquarter.html" class="external-link">&lt;grates_yearquarter&gt;</a></code> objects.</p></li>
 <li><p>year(s) and yearly:                 <code><a href="http://www.reconverse.org/grates/reference/year.html" class="external-link">&lt;grates_year&gt;</a></code> objects.</p></li>
-</ul></div>
+</ul><p>For "day" or "daily" interval, we provide a thin wrapper around <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date()</a></code>
+that ensures the underlying data are whole numbers and that time zones are
+respected. Note that additional arguments are not forwarded to <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date()</a></code>
+so for greater flexibility users are advised to modifying your input prior to
+calling <code>incidence()</code>.</p>
+    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code>browseVignettes("grates")</code> for more details on the grate object classes.</p></div>
