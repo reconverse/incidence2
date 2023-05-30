@@ -130,6 +130,7 @@ operation that we have chosen to integrate much of
 functionality directly in to incidence2. This integration is done via an
 `interval` parameter in the `incidence()` call. This can take values:
 
+- day or daily (mapping to `<Date>` objects);
 - week(s), isoweek(s) or weekly (mapping to `<grates_isoweek>`);
 - epiweek(s) (mapping to `<grates_epiweek>`);
 - month(s), yearmonth(s) or monthly (`<grates_yearmonth>`);
