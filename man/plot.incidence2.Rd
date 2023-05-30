@@ -12,10 +12,14 @@
   border_colour = NA,
   na_colour = "grey",
   alpha = 0.7,
+  fill = NULL,
+  legend = c("right", "left", "bottom", "top", "none"),
   title = NULL,
   angle = 0,
   size = NULL,
   nrow = NULL,
+  n_breaks = 6L,
+  show_cases = FALSE,
   ...
 )
 }
@@ -58,6 +62,23 @@ The alpha level for color transparency, with 1 being fully opaque and
 
 Defaults to 0.7.}
 
+\item{fill}{\verb{[character]}
+
+Which variable to colour plots by.
+
+Must be a \code{group} or \code{count} variable and will mean that variable is not used
+for facetting.
+
+If NULL no distinction if made for plot colours.}
+
+\item{legend}{\verb{[character]}
+
+Position of legend in plot.
+
+Only applied if \code{fill} is not NULL.
+
+One of "right" (default), "left", "bottom", "top" or "none".}
+
 \item{title}{\verb{[character]}
 
 Optional title for the graph.}
@@ -73,7 +94,26 @@ text size in pts.}
 \item{nrow}{\verb{[integer]}
 
 Number of rows used for facetting if there are group variables present and
-just one count in the incidence object.}
+just one count in the incidence object.
+
+Numeric values are coerced to integer via \code{as.integer()}.}
+
+\item{n_breaks}{\verb{[integer]}
+
+Approximate number of breaks calculated using \code{scales::breaks_pretty}.
+
+Numeric values are coerced to integer via \code{as.integer()}.
+
+Default 6L.}
+
+\item{show_cases}{\verb{[logical]}
+
+if \code{TRUE}, then each observation will be shown individually in a square
+format.
+
+Normally only used for outbreaks with a small number of cases.
+
+Defaults to \code{FALSE}.}
 
 \item{...}{Not currently used.}
 }
@@ -83,7 +123,10 @@ just one count in the incidence object.}
 }
 }
 \description{
-\code{plot()} can be used to provide a quick bar plot of an incidence object.
+\code{plot()} can be used to provide a bar plot of an incidence object. Due
+to the complexities with automating plotting it is some what experimental in
+nature and we recommend calling {ggplot2} but this function is often
+sufficient for generating a quick visualisation of an \if{html}{\out{<incidence2>}} object.
 }
 \details{
 \itemize{
