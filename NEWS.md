@@ -1,9 +1,9 @@
-# incidence2 (development version)
+# incidence2 2.1.0
 
 ## New features
 
 * Specifying `interval = "day"` or `interval = daily` in a call to incidence
-  will force the resultant `date_index` variable to be a `<Date>`. Underlying
+  will force the resultant `date_index` variable to be a `<Date>`. Functionally
   this is a wrapper around `as.Date()` that ensures the underlying data are
   whole numbers and that time zones are respected.
 

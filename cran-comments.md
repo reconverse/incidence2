@@ -1,9 +1,9 @@
 ## Tested on the following environments
-* fedora 38 (beta), R Under development (unstable) (2023-03-17 r83999)
-* win-builder, R Under development (unstable) (2023-03-16 r83996 ucrt)
+* fedora 38 (beta), R Under development (unstable) (2023-05-30 r84466)
+* win-builder, R Under development (unstable) (2023-05-27 r84465 ucrt)
 
 ## R CMD check results
 Status: OK
 
 ## Reverse dependencies
-This breaks the, already broken, reverse dependency, i2extras. However, I am the maintainer of that package and have a new, working, version ready to submit as soon as this reaches CRAN.
+All OK
