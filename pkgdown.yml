@@ -1,0 +1,10 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  incidence2: incidence2.html
+last_built: 2023-05-31T07:36Z
+urls:
+  reference: http://www.reconverse.org/incidence2/reference
+  article: http://www.reconverse.org/incidence2/articles
+
