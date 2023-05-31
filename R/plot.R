@@ -308,7 +308,7 @@ plot.incidence2 <- function(
     } else if ((use_fill && fill_var != count_var && lg)  || (!use_fill && lg)) {
         out <- out +
             ggplot2::facet_wrap(ggplot2::vars(!!!rlang::syms(group_vars)), nrow = nrow) +
-            ggplot2::labs(x = counts[[1L]], y = get_count_value_name(x))
+            ggplot2::labs(x = x_axis, y = get_count_value_name(x))
     } else if (use_fill && fill_var == count_var) {
         out <- out +
             ggplot2::facet_wrap(ggplot2::vars(!!!rlang::syms(group_vars)), nrow = nrow) +
