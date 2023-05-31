@@ -1,5 +1,11 @@
 # incidence2 (development version)
 
+## New features
+
+* `plot.incidence2()` gains arguments `n_breaks`, `fill`, `show_cases` and
+  `legend` allowing for a wider range of plot styles (see
+  `vignette("incidence2", package = "incidence2")` for examples).
+
 # incidence2 2.1.0
 
 ## New features
