@@ -179,7 +179,7 @@ plot.incidence2 <- function(
         stopf("`angle` must be a numeric scalar.")
 
     if (!is.null(size)) {
-        if (!is.numeric(numeric) || length(fill) != 1L) {
+        if (!is.numeric(size) || length(size) != 1L) {
             stopf("`size` must be a numeric scalar or NULL.")
         }
     }
