@@ -126,7 +126,7 @@ Defaults to \code{FALSE}.}
 \code{plot()} can be used to provide a bar plot of an incidence object. Due
 to the complexities with automating plotting it is some what experimental in
 nature and we recommend calling {ggplot2} but this function is often
-sufficient for generating a quick visualisation of an \if{html}{\out{<incidence2>}} object.
+sufficient for generating a quick visualisation of an \verb{<incidence2>} object.
 }
 \details{
 \itemize{

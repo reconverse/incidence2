@@ -4,7 +4,7 @@
 #' `plot()` can be used to provide a bar plot of an incidence object. Due
 #' to the complexities with automating plotting it is some what experimental in
 #' nature and we recommend calling {ggplot2} but this function is often
-#' sufficient for generating a quick visualisation of an <incidence2> object.
+#' sufficient for generating a quick visualisation of an `<incidence2>` object.
 #'
 # -------------------------------------------------------------------------
 #' - Facetting will occur automatically if either grouping variables or
