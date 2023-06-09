@@ -1,4 +1,4 @@
-# incidence2 (development version)
+# incidence2 2.2.0
 
 ## New features
 
@@ -17,7 +17,7 @@
 
 ## (minor) breaking changes
 
-* `incidence()` will now warn if objects are created with POSIXct columns.
+* `incidence()` will now warn if objects are created with <POSIXct> columns.
   The motivation for this is that, internally, <POSIXct> objects are represented
   as seconds since the UNIX epoch and, in our experience, this level of
   granularity is not normally desired for aggregation.
