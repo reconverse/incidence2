@@ -1,9 +1,8 @@
 ## Tested on the following environments
-* fedora 38 (beta), R Under development (unstable) (2023-05-30 r84466)
-* win-builder, R Under development (unstable) (2023-05-27 r84465 ucrt)
+* fedora 38, R Under development (unstable) (2023-06-07 r84523)
 
 ## R CMD check results
 Status: OK
 
 ## Reverse dependencies
-All OK
+Status: OK
