@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">incidence2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,14 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.2.1" id="incidence2-221">incidence2 2.2.1<a class="anchor" aria-label="anchor" href="#incidence2-221"></a></h2>
+<div class="section level3">
+<h3 id="new-features-2-2-1">New features<a class="anchor" aria-label="anchor" href="#new-features-2-2-1"></a></h3>
+<ul><li>
+<code><a href="../reference/plot.incidence2.html">plot.incidence2()</a></code> gains arguments <code>n_breaks</code>, <code>fill</code>, <code>show_cases</code> and <code>legend</code> allowing for a wider range of plot styles. See <code><a href="../articles/incidence2.html">vignette("incidence2", package = "incidence2")</a></code> for examples.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.0" id="incidence2-210">incidence2 2.1.0<a class="anchor" aria-label="anchor" href="#incidence2-210"></a></h2><p class="text-muted">CRAN release: 2023-05-30</p>
 <div class="section level3">
 <h3 id="new-features-2-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-2-1-0"></a></h3>
@@ -55,7 +63,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="minor-breaking-changes-2-1-0">(minor) breaking changes<a class="anchor" aria-label="anchor" href="#minor-breaking-changes-2-1-0"></a></h3>
-<ul><li><p><code><a href="../reference/incidence.html">incidence()</a></code> will now warn if objects are created with POSIXct columns. The motivation for this is that, internally, <posixct> objects are represented as seconds since the UNIX epoch and, in our experience, this level of granularity is not normally desired for aggregation.</posixct></p></li>
+<ul><li><p><code><a href="../reference/incidence.html">incidence()</a></code> will now warn if objects are created with <posixct> columns. The motivation for this is that, internally, <posixct> objects are represented as seconds since the UNIX epoch and, in our experience, this level of granularity is not normally desired for aggregation.</posixct></posixct></p></li>
 <li><p>The <code>by</code> parameter of <code><a href="../reference/complete_dates.html">complete_dates()</a></code> is now defunct. This was previously passed to an underlying <code>seq</code> function when, in practice, it should always have been forced to 1 to match the precision of the underlying date_index.</p></li>
 <li><p><code><a href="../reference/complete_dates.html">complete_dates()</a></code> will now error if called on an input with a <posixct> date_index. Users must now explicitly set the argument <code>allow_POSIXct = TRUE</code> to maintain old behaviour.</posixct></p></li>
 </ul></div>
