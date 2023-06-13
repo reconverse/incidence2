@@ -114,6 +114,21 @@
 #'  - A `[ggplot2::ggplot()]` object.
 #'
 # -------------------------------------------------------------------------
+#' @examples
+#' if (requireNamespace("outbreaks", quietly = TRUE) && requireNamespace("ggplot2", quietly = TRUE)) {
+#'   withAutoprint({
+#'     data(ebola_sim_clean, package = "outbreaks")
+#'     dat <- ebola_sim_clean$linelist
+#'
+#'     inci <- incidence(dat, date_index = "date_of_onset", groups = "hospital")
+#'     plot(inci, angle = 45)
+#'
+#'     inci2 <- regroup(inci)
+#'     plot(inci2)
+#'   })
+#' }
+#'
+# -------------------------------------------------------------------------
 #' @export
 plot.incidence2 <- function(
     x, y,
