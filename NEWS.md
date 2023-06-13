@@ -1,4 +1,4 @@
-# incidence2 2.2.0
+# incidence2 2.2.1
 
 ## New features
 
