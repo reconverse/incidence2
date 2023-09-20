@@ -11,6 +11,7 @@ Provides functions and classes to compute, handle and visualise incidence from d
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://www.reconverse.org/incidence2/}
   \item \url{https://github.com/reconverse/incidence2}
   \item Report bugs at \url{https://github.com/reconverse/incidence2/issues}
 }

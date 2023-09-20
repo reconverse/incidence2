@@ -15,7 +15,7 @@ Description: Provides functions and classes to compute, handle and visualise
   toolkit for outbreak analysis (<https://www.reconverse.org>).
 Encoding: UTF-8
 License: MIT + file LICENSE
-URL: https://github.com/reconverse/incidence2
+URL: https://www.reconverse.org/incidence2/, https://github.com/reconverse/incidence2
 BugReports: https://github.com/reconverse/incidence2/issues
 Depends: 
     grates (>= 1.0.0),
