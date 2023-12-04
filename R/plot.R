@@ -286,12 +286,21 @@ plot.incidence2 <- function(
                 breaks = scales::breaks_pretty(n  = n_breaks),
                 date_labels = "%Y-%m-%d"
             )
+    } else if (inherits(dates, "grates_period")) {
+        n <- grates::get_n(dates)
+        offset <- grates::get_offset(dates)
+        out <- out +
+            grates::scale_x_grates_period(
+                n.breaks = n_breaks,
+                n = n,
+                offset = offset
+            )
     } else {
         scale_fun <- .grates_scale(dates)
         out <-  out + scale_fun(n.breaks = n_breaks)
     }
 
-    # conditional facetting
+    # conditional faceting
     luc <- length(unique(counts)) > 1L
     lg <- length(group_vars)
 
@@ -340,8 +349,3 @@ plot.incidence2 <- function(
     # return plot
     out
 }
-
-
-
-
-

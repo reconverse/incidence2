@@ -1,5 +1,11 @@
 # incidence2 (development version)
 
+## Bug fixes
+
+* `plot.incidence2()` now works again when applied to <incidence2> objects with
+  a <grates_period> date_index. This was inadvertently broken in the 2.2.1
+  release. Thanks to @Bisaloo for the report (#110).
+
 # incidence2 2.2.1
 
 ## New features
