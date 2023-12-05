@@ -1,4 +1,4 @@
-# incidence2 (development version)
+# incidence2 2.2.2
 
 ## Bug fixes
 
