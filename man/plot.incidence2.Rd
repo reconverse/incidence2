@@ -125,12 +125,11 @@ Defaults to \code{FALSE}.}
 \description{
 \code{plot()} can be used to provide a bar plot of an incidence object. Due
 to the complexities with automating plotting it is some what experimental in
-nature and we recommend calling {ggplot2} but this function is often
-sufficient for generating a quick visualisation of an \verb{<incidence2>} object.
+nature and it may be better to use ggplot2 directly.
 }
 \details{
 \itemize{
-\item Facetting will occur automatically if either grouping variables or
+\item Faceting will occur automatically if either grouping variables or
 multiple counts are present.
 \item If there are multiple count variables, each count will occupy a different
 row of the resulting plot.
