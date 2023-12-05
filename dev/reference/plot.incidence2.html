@@ -196,6 +196,31 @@ row of the resulting plot.</p></li>
 <li><p>Utilises ggplot2 so this must be installed to use.</p></li>
 </ul></div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"outbreaks"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"ggplot2"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/source.html" class="external-link">withAutoprint</a></span><span class="op">(</span><span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ebola_sim_clean</span>, package <span class="op">=</span> <span class="st">"outbreaks"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="va">inci</span> <span class="op">&lt;-</span> <span class="fu"><a href="incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="st">"date_of_onset"</span>, groups <span class="op">=</span> <span class="st">"hospital"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">inci</span>, angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="va">inci2</span> <span class="op">&lt;-</span> <span class="fu"><a href="regroup.html">regroup</a></span><span class="op">(</span><span class="va">inci</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">inci2</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; data(ebola_sim_clean, package = "outbreaks")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; dat &lt;- ebola_sim_clean$linelist</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; inci &lt;- incidence(dat, date_index = "date_of_onset", groups = "hospital")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; plot(inci, angle = 45)</span>
+<span class="r-plt img"><img src="plot.incidence2-1.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; inci2 &lt;- regroup(inci)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; plot(inci2)</span>
+<span class="r-plt img"><img src="plot.incidence2-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
