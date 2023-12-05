@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
   fig.width = 7,
   fig.height = 5
 )
+data.table::setDTthreads(2)
 ```
 
 ## What does it do?

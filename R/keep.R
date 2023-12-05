@@ -36,7 +36,7 @@
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#'
+#' \dontshow{data.table::setDTthreads(2)}
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
 #' \dontshow{withAutoprint(\{}
 #'     data(ebola_sim_clean, package = "outbreaks")

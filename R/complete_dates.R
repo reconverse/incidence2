@@ -37,6 +37,7 @@
 #'
 # -------------------------------------------------------------------------
 #' @examples
+#' \dontshow{data.table::setDTthreads(2)}
 #' x <- data.frame(
 #'     dates = Sys.Date() + c(1,3,4),
 #'     groups = c("grp1","grp2", "grp1"),

@@ -14,7 +14,7 @@ cumulate(x)
 \verb{<incidence2>} object.
 }
 \examples{
-
+\dontshow{data.table::setDTthreads(2)}
 dat <- data.frame(
   dates = as.integer(c(0,1,2,2,3,5,7)),
   groups = factor(c(1, 2, 3, 3, 3, 3, 1))
