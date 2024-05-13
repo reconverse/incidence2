@@ -33,7 +33,7 @@ Suggests:
     ggplot2,
     scales,
     knitr,
-    rmarkdown,
+    markdown,
     rlang,
     clock,
     testthat (>= 3.0.0),
