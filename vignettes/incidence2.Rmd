@@ -111,7 +111,7 @@ plot(daily)
 
 The daily data is quite noisy, so we may want to pre group dates prior to
 calculating the incidence. One way to do this is to utilise functions from the
-[grates](https://www.reconverse.org/grates/dev/) package. Here we use the
+[grates](https://cran.r-project.org/package=grates) package. Here we use the
 `as_isoweek()` function to convert the 'date of onset' to an isoweek (a week
 starting on a Monday) before calculating the incidence incidence:
 
@@ -127,7 +127,7 @@ By grouping dates prior to calling `incidence()` it makes it clear to future
 readers of your code (including yourself) which transformations are being
 applied to your input data. This grouping, however, is such a common and useful
 operation that we have chosen to integrate much of
-[grates](https://www.reconverse.org/grates/dev/)
+[grates](https://cran.r-project.org/package=grates)
 functionality directly in to incidence2. This integration is done via an
 `interval` parameter in the `incidence()` call. This can take values:
 
