@@ -35,7 +35,6 @@ Suggests:
     knitr,
     markdown,
     rlang,
-    clock,
     testthat (>= 3.0.0),
     tibble
 VignetteBuilder: knitr
