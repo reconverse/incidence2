@@ -20,7 +20,11 @@ test_that("complete_dates works", {
     row.names(tmp) <- NULL
     expect_identical(tmp, i)
     res2 <- complete_dates(i)
-    expect_identical(sum(res2$counts1), sum(i$counts1))
-    expect_identical(sum(res2$counts2), sum(i$counts2))
+
+    expect_identical(
+        tapply(res2$count, res2$count_variable, sum),
+        tapply(i$count, i$count_variable, sum)
+    )
+
     expect_identical(nrow(res2), 32L)
 })
