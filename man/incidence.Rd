@@ -96,7 +96,7 @@ counting periods from relative to the Unix Epoch:
 \item{...}{Not currently used.}
 }
 \value{
-An object of class \verb{<incidence2, data.frame>}.
+A \code{\link[tibble:tibble]{tibble}} with subclass \code{incidence2}.
 }
 \description{
 \code{incidence()} calculates event the \emph{incidence} of different events across

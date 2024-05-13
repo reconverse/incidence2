@@ -8,7 +8,6 @@ reference:
 - title: Incidence2 objects
 - contents:
   - incidence
-  - print.incidence2
   - summary.incidence2
   - as_incidence
 

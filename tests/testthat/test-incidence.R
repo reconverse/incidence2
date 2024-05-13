@@ -7,14 +7,22 @@ test_that("incidence with no groupings and no intervals works", {
 
     # no groupings and no counts
     x <- incidence(dat, date_index = "date")
-    expect_s3_class(x, c("incidence2", "data.frame"), exact = TRUE)
+    expect_s3_class(
+        x,
+        c("incidence2", class(tibble::new_tibble(mtcars))),
+        exact = TRUE
+    )
     expect_equal(nrow(x), 731L)
     expect_true(all(x$count == 2L))
     expect_equal(x$date_index, dates)
 
     # no groupings but with count
     x <- incidence(dat, date_index = "date", counts = "count")
-    expect_s3_class(x, c("incidence2", "data.frame"), exact = TRUE)
+    expect_s3_class(
+        x,
+        c("incidence2", class(tibble::new_tibble(mtcars))),
+        exact = TRUE
+    )
     expect_equal(nrow(x), 731L)
     expect_equal(sum(x$count == 2L), 366L)
     expect_equal(sum(x$count == 4L), 365L)

@@ -131,7 +131,7 @@
 #'
 # -------------------------------------------------------------------------
 #' @return
-#' An object of class `<incidence2, data.frame>`.
+#' A [`tibble`][tibble::tibble] with subclass `incidence2`.
 #'
 # -------------------------------------------------------------------------
 #' @examples
@@ -382,12 +382,12 @@ incidence <- function(
         groups <- character(0L)
 
     # return incidence object
-    structure(
-        res,
+    tibble::new_tibble(
+        x = res,
         date_index = date_names_to,
         count_variable = count_names_to,
         count_value = count_values_to,
         groups = groups,
-        class = c("incidence2", "data.frame")
+        class = "incidence2"
     )
 }
