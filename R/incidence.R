@@ -135,15 +135,14 @@
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#' \dontshow{data.table::setDTthreads(2)}
+#' \dontshow{.old <- data.table::setDTthreads(2)}
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
-#' \dontshow{withAutoprint(\{}
 #'     data(ebola_sim_clean, package = "outbreaks")
 #'     dat <- ebola_sim_clean$linelist
 #'     incidence(dat, "date_of_onset")
 #'     incidence(dat, "date_of_onset", groups = c("gender", "hospital"))
-#' \dontshow{\})}
 #' }
+#' \dontshow{data.table::setDTthreads(.old)}
 #'
 # -------------------------------------------------------------------------
 #' @export

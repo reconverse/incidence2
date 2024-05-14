@@ -19,7 +19,7 @@
 Convert incident object to a data frame
 }
 \examples{
-\dontshow{data.table::setDTthreads(2)}
+\dontshow{.old <- data.table::setDTthreads(2)}
 dat <- data.frame(
     dates = Sys.Date() + 1:100,
     names = rep(c("Jo", "John"), 5)
@@ -27,5 +27,6 @@ dat <- data.frame(
 
 dat <- incidence(dat, date_index = "dates", groups = "names")
 as.data.frame(dat)
+\dontshow{data.table::setDTthreads(.old)}
 
 }

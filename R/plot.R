@@ -114,9 +114,8 @@
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#' \dontshow{data.table::setDTthreads(2)}
+#' \dontshow{.old <- data.table::setDTthreads(2)}
 #' if (requireNamespace("outbreaks", quietly = TRUE) && requireNamespace("ggplot2", quietly = TRUE)) {
-#'   withAutoprint({
 #'     data(ebola_sim_clean, package = "outbreaks")
 #'     dat <- ebola_sim_clean$linelist
 #'
@@ -125,8 +124,8 @@
 #'
 #'     inci2 <- regroup(inci)
 #'     plot(inci2)
-#'   })
 #' }
+#' \dontshow{data.table::setDTthreads(.old)}
 #'
 # -------------------------------------------------------------------------
 #' @export

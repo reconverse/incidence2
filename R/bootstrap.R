@@ -32,6 +32,7 @@
 #'
 # -------------------------------------------------------------------------
 #' @examples
+#' \dontshow{.old <- data.table::setDTthreads(2)}
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
 #'     data(fluH7N9_china_2013, package = "outbreaks")
 #'     i <- incidence(
@@ -41,6 +42,7 @@
 #'    )
 #'    bootstrap_incidence(i)
 #' }
+#' \dontshow{data.table::setDTthreads(.old)}
 #'
 # -------------------------------------------------------------------------
 #' @export

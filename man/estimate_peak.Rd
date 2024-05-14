@@ -61,7 +61,7 @@ equally likely to be reported
 }
 }
 \examples{
-
+\dontshow{.old <- data.table::setDTthreads(2)}
 if (requireNamespace("outbreaks", quietly = TRUE)) {
 
   # load data and create incidence
@@ -70,8 +70,8 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 
   # find 95\% CI for peak time using bootstrap
   estimate_peak(i)
-
 }
+\dontshow{data.table::setDTthreads(.old)}
 
 }
 \seealso{

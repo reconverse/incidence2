@@ -18,10 +18,11 @@ object (invisibly).
 Summary of an incidence object
 }
 \examples{
-\dontshow{data.table::setDTthreads(2)}
+\dontshow{.old <- data.table::setDTthreads(2)}
 data(ebola_sim_clean, package = "outbreaks")
 dat <- ebola_sim_clean$linelist
 inci <- incidence(dat, "date_of_onset", groups = c("gender", "hospital"))
 summary(inci)
+\dontshow{data.table::setDTthreads(.old)}
 
 }

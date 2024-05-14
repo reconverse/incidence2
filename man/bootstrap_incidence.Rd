@@ -30,6 +30,7 @@ bootstrapping is achieved by multinomial sampling of date bins weighted by
 their relative incidence.
 }
 \examples{
+\dontshow{.old <- data.table::setDTthreads(2)}
 if (requireNamespace("outbreaks", quietly = TRUE)) {
     data(fluH7N9_china_2013, package = "outbreaks")
     i <- incidence(
@@ -39,6 +40,7 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
    )
    bootstrap_incidence(i)
 }
+\dontshow{data.table::setDTthreads(.old)}
 
 }
 \author{

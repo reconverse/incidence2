@@ -22,9 +22,8 @@
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#' \dontshow{data.table::setDTthreads(2)}
+#' \dontshow{.old <- data.table::setDTthreads(2)}
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
-#' \dontshow{withAutoprint(\{}
 #'     data(ebola_sim_clean, package = "outbreaks")
 #'     dat <- ebola_sim_clean$linelist
 #'     i <- incidence(dat, date_index = "date_of_onset",
@@ -33,8 +32,8 @@
 #'     get_count_variable_name(i)
 #'     get_group_names(i)
 #'     get_dates_name(i)
-#' \dontshow{\})}
 #' }
+#' \dontshow{data.table::setDTthreads(.old)}
 #'
 # -------------------------------------------------------------------------
 #' @name accessors

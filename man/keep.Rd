@@ -50,15 +50,14 @@ with the maximum count value for each group. \code{find_peak()} is a convenience
 wrapper around \code{keep_peaks()} with the \code{first_only} argument set to \code{TRUE}.
 }
 \examples{
-\dontshow{data.table::setDTthreads(2)}
+\dontshow{.old <- data.table::setDTthreads(2)}
 if (requireNamespace("outbreaks", quietly = TRUE)) {
-\dontshow{withAutoprint(\{}
     data(ebola_sim_clean, package = "outbreaks")
     dat <- ebola_sim_clean$linelist
     inci <- incidence(dat, "date_of_onset")
     keep_first(inci, 3)
     keep_last(inci, 3)
-\dontshow{\})}
 }
+\dontshow{data.table::setDTthreads(.old)}
 
 }

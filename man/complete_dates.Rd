@@ -42,7 +42,7 @@ This function ensures that an incidence object has the same range of dates
 for each grouping. By default missing counts will be filled with \code{0L}.
 }
 \examples{
-\dontshow{data.table::setDTthreads(2)}
+\dontshow{.old <- data.table::setDTthreads(2)}
 x <- data.frame(
     dates = Sys.Date() + c(1,3,4),
     groups = c("grp1","grp2", "grp1"),
@@ -51,5 +51,6 @@ x <- data.frame(
 
 i <- incidence(x, date_index = "dates", groups = "groups", counts = "counts")
 complete_dates(i)
+\dontshow{data.table::setDTthreads(.old)}
 
 }
