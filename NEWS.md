@@ -1,6 +1,10 @@
 # incidence2 (development version)
 
-## New features
+## New functions
+
+* The `bootstrap_incidence()`, `estimate_peak()` and `find_peak()` functions,
+  and the associated vignette on peak estimation have been integrated from the
+  downstream [i2extras](https://cran.r-project.org/package=i2extras) package.
 
 ## Breaking change
 
@@ -10,6 +14,7 @@
   differences between tibbles and data.frames can be found at
   https://tibble.tidyverse.org/articles/invariants.html.
 
+
 # incidence2 2.2.3
 
 ## Bug fixes
@@ -18,6 +23,7 @@
   a <grates_period> date_index. This was inadvertently broken in the 2.2.1
   release. Thanks to @Bisaloo for the report (#110).
 
+
 # incidence2 2.2.1
 
 ## New features
@@ -25,6 +31,7 @@
 * `plot.incidence2()` gains arguments `n_breaks`, `fill`, `show_cases` and
   `legend` allowing for a wider range of plot styles. See
   `vignette("incidence2", package = "incidence2")` for examples.
+
 
 # incidence2 2.1.0
 
@@ -49,7 +56,6 @@
 * `complete_dates()` will now error if called on an input with a <POSIXct>
   date_index. Users must now explicitly set the argument `allow_POSIXct = TRUE`
   to maintain old behaviour.
-  
 
 
 # incidence2 2.0.0
@@ -90,6 +96,7 @@ documentation and vignettes.
   defaults have been chosen to enable a quick visual overview of incidence
   objects but users are advised to call ggplot2 directly for more bespoke
   plotting.
+
   
 # incidence2 1.2.3
 
@@ -109,6 +116,7 @@ documentation and vignettes.
 ## Bug fixes
 * Fixes bug in `incidence()` when more than one column was given for the date_index.
 * Fixes incorrect test that did not take in to account changing time zones.
+
 
 # incidence2 1.2.0
 
@@ -144,6 +152,7 @@ documentation and vignettes.
 
 
 # incidence2 1.0.0
+
 Due to multiple changes in the underlying representation of incidence2 objects
 this release may possibly break old workflows particularly those relying on
 the old implementations of date grouping:
@@ -157,15 +166,20 @@ the old implementations of date grouping:
 * Construction of `incidence` objects now faster due to underlying use of
   data.table.
 
+
 # incidence2 0.2.2
+
 * Fixes bug in get_interval.
 * Removes message that was displayed when incidence class dropped.
 * Refactoring of internal code to improve maintainability.
 * Tests now use the 3rd edition of testthat. 
 
+
 # incidence2 0.2.1
+
 * Fixes bug in as.data.frame.incidence2
 * Limits internal reliance on dplyr.
+
 
 # incidence2 0.2.0
 
