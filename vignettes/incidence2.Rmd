@@ -1,6 +1,7 @@
 ---
 title: "incidence2"
-output: rmarkdown::html_vignette
+output:
+    markdown::html_format:
 vignette: >
   %\VignetteIndexEntry{incidence2}
   %\VignetteEngine{knitr::knitr}
