@@ -143,12 +143,12 @@ estimate_peak <- function(x, n = 100L, alpha = 0.05, first_only = TRUE, progress
     # group quantiles by group_vars count variable
 
     quantiles_list <- function(x, probs) {
-        res <- quantile(x, probs = probs, names = FALSE, type = 1)
+        res <- stats::quantile(x, probs = probs, names = FALSE, type = 1)
         as.list(res)
     }
 
     quantiles <- out[,
-                     setNames(
+                     stats::setNames(
                          Reduce(c, lapply(.SD, quantiles_list, probs = probs)),
                          c("lower_ci", "median", "upper_ci")
                      )

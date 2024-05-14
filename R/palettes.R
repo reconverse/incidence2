@@ -69,7 +69,7 @@ muted <- function(n) {
                 }
                 message(msg)
             }
-            colorRampPalette(x)(n)
+            grDevices::colorRampPalette(x)(n)
         }
     }
 }

@@ -1,3 +1,4 @@
+#' @importFrom pillar tbl_sum
 #' @export
 tbl_sum.incidence2 <- function(x, ...) {
 

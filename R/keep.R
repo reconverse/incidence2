@@ -86,7 +86,7 @@ keep_first <- function(x, n, complete_dates = TRUE, ...) {
     setorderv(tmp, get_date_index_name.incidence2(x), order = 1L)
 
     # pull out n entries for each group
-    tmp <- tmp[, list(tmp___index = head(tmp___index, n)), by = c(count_var, groups)]
+    tmp <- tmp[, list(tmp___index = utils::head(tmp___index, n)), by = c(count_var, groups)]
     idx <- tmp$tmp___index
 
     # index input
@@ -127,7 +127,7 @@ keep_last <- function(x, n, complete_dates = TRUE, ...) {
     setorderv(tmp, get_date_index_name.incidence2(x))
 
     # pull out n entries for each group
-    tmp <- tmp[, list(tmp___index = tail(tmp___index, n)), by = c(count_var, groups)]
+    tmp <- tmp[, list(tmp___index = utils::tail(tmp___index, n)), by = c(count_var, groups)]
     idx <- tmp$tmp___index
 
     # index input

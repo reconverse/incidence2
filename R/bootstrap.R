@@ -65,7 +65,7 @@ bootstrap_incidence <- function(x, randomise_groups = FALSE) {
     out <- as.data.table(x)
 
     # overwrite the count column with the bootstrapped values
-    out[, (count_value) := rmultinom(1, sum(.SD[[count_value]]), .SD[[count_value]]), by = count_var]
+    out[, (count_value) := stats::rmultinom(1, sum(.SD[[count_value]]), .SD[[count_value]]), by = count_var]
 
     # randomise groups if desired
     if (randomise_groups && length(group_vars))
