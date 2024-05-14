@@ -77,7 +77,7 @@ The following sections give an overview of the package utilising two different
 data sets. The first of these datasets comes from the
 [outbreaks](https://cran.r-project.org/package=outbreaks) package and is a
 synthetic linelist generated from a simulated Ebola Virus Disease (EVD)
-outbreak. The second data set is available within {incidence2} and represents a
+outbreak. The second data set is available within incidence2 and represents a
 pre-aggregated time-series of Covid cases, tests, hospitalisations, and deaths
 for UK regions that was obtained using the
 [covidregionaldata](https://CRAN.R-project.org/package=covidregionaldata)
