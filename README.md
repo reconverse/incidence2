@@ -26,19 +26,10 @@ You can install the released version of incidence2 from
 install.packages("incidence2")
 ```
 
-<div class="pkgdown-devel">
-
-The development version of incidence2 can be installed from GitHub with:
-
-``` r
-remotes::install_github("reconverse/incidence2", build_vignettes = TRUE)
-```
-
-</div>
-
 ## Vignettes
 
-An overview of incidence2 is provided in the vignette distributed with
+An overview of incidence2 is provided in the vignetted distributed with
 the package:
 
 - `vignette("incidence2", package = "incidence2")`
+- `vignette("peak_estimation", package = "incidence2")`
