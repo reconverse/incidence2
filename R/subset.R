@@ -107,7 +107,7 @@
 
 # -------------------------------------------------------------------------
 
-# Registered in `.onLoad()` in zzz.R
+#'@exportS3Method dplyr::dplyr_reconstruct
 dplyr_reconstruct.incidence2 <- function(data, template) {
     .incidence_reconstruct(data, template)
 }
