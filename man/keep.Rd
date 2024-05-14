@@ -5,6 +5,7 @@
 \alias{keep_first}
 \alias{keep_last}
 \alias{keep_peaks}
+\alias{find_peak}
 \title{Keep first, last and peak occurences}
 \usage{
 keep_first(x, n, complete_dates = TRUE, ...)
@@ -12,6 +13,8 @@ keep_first(x, n, complete_dates = TRUE, ...)
 keep_last(x, n, complete_dates = TRUE, ...)
 
 keep_peaks(x, complete_dates = TRUE, first_only = FALSE, ...)
+
+find_peak(x, complete_dates = TRUE, ...)
 }
 \arguments{
 \item{x}{\verb{<incidence2>} object.}
@@ -43,7 +46,8 @@ Incidence object with the chosen entries.
 \description{
 \code{keep_first()} and \code{keep_last()} keep the first and last \code{n} rows to occur
 for each grouping when in ascending date order. \code{keep_peaks()} keeps the rows
-with the maximum count value for each group.
+with the maximum count value for each group. \code{find_peak()} is a convenience
+wrapper around \code{keep_peaks()} with the \code{first_only} argument set to \code{TRUE}.
 }
 \examples{
 \dontshow{data.table::setDTthreads(2)}

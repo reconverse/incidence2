@@ -2,7 +2,8 @@
 #'
 #' `keep_first()` and `keep_last()` keep the first and last `n` rows to occur
 #' for each grouping when in ascending date order. `keep_peaks()` keeps the rows
-#' with the maximum count value for each group.
+#' with the maximum count value for each group. `find_peak()` is a convenience
+#' wrapper around `keep_peaks()` with the `first_only` argument set to `TRUE`.
 #'
 # -------------------------------------------------------------------------
 #' @param x `<incidence2>` object.
@@ -182,3 +183,8 @@ keep_peaks <- function(x, complete_dates = TRUE, first_only = FALSE, ...) {
     x[idx, ]
 }
 
+#' @rdname keep
+#' @export
+find_peak <- function(x, complete_dates = TRUE, ...) {
+    keep_peaks(x = x, complete_dates = complete_dates, first_only = TRUE, ...)
+}
