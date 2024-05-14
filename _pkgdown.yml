@@ -21,6 +21,12 @@ reference:
   - keep_peaks
   - regroup
 
+- title: Peak estimation
+- contents:
+  - bootstrap_incidence
+  - estimate_peak
+  - find_peak
+
 - title: Accessors
 - contents:
   - starts_with("get")
