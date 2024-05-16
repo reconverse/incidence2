@@ -160,8 +160,6 @@ incidence <- function(
     ...
 ) {
 
-    ..counts <- NULL
-
     # handle defunct arguments
     if (...length()) {
         if (getRversion() >= "4.1.0") {
@@ -367,7 +365,7 @@ incidence <- function(
         res <- DT[, .N, keyby = c(date_names_to, groups, count_names_to)]
         setnames(res, length(res), count_values_to)
     } else {
-        nas_present <- sapply(DT[,..counts], anyNA)
+        nas_present <- sapply(.subset(DT,counts), anyNA)
         if (any(nas_present)) {
             missing_names <- names(nas_present)[nas_present]
             warnf(
