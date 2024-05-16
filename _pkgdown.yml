@@ -25,7 +25,7 @@ reference:
 - contents:
   - bootstrap_incidence
   - estimate_peak
-  - find_peak
+  - first_peak
 
 - title: Accessors
 - contents:
