@@ -160,6 +160,8 @@ incidence <- function(
     ...
 ) {
 
+    ..counts <- NULL
+
     # handle defunct arguments
     if (...length()) {
         if (getRversion() >= "4.1.0") {
