@@ -204,9 +204,10 @@ str(covid)
 The Covid data set is in a wide format with multiple count values given for each
 day. Like with our linelist data, `incidence()` requires us to specify a
 `date_index` column and optionally `groups` and `interval`. In addition we must
-now also provide the `counts` variable(s) that we are interested in. Before
-continuing, take note of the missing values, in the Covid data above. If these
-occur in one of the count variables, `incidence()` will warn users:
+now also provide the `counts` variable(s) that we are interested in.
+
+Before continuing, take note of the missing values, in the Covid data above. If
+these occur in one of the count variables, `incidence()` will warn users:
 
 ```{r}
 monthly_covid <- incidence(
