@@ -206,7 +206,7 @@ day. Like with our linelist data, `incidence()` requires us to specify a
 `date_index` column and optionally `groups` and `interval`. In addition we must
 now also provide the `counts` variable(s) that we are interested in.
 
-Before continuing, take note of the missing values, in the Covid data above. If
+Before continuing, take note of the missing values in the data above. Where
 these occur in one of the count variables, `incidence()` will warn users:
 
 ```{r}
