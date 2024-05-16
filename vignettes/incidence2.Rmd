@@ -64,25 +64,13 @@ library(outbreaks)
 
 ### Computing incidence from a linelist
 
-To compute daily incidence we pass to `incidence()` our linelist of observation
-data as well as the name of a column in the data that we can use to index over
-time. Note that whilst we we refer to this index as the `date_index` there is no
-restriction on it's type, save it needing represent the relative time of an
-observation (i.e. it has an ordering).
-
-### Computing incidence from a linelist
-
-To compute daily incidence we pass to `incidence()` a linelist of observation
-data. This input should be in the form of a data frame and we must also pass the
-name of a variable in the data that we can use to index the input. Note that
-whilst we we refer to this index as the `date_index` there is no restriction on
-it's type, save it needing represent the relative time of an observation
-(i.e. it has an ordering).
-
-First we get the linelist from the simulated outbreak data and calculate the
-daily incidence.
+To compute daily incidence we pass to `incidence()` our linelist data frame
+as well as the name of a column in the data that we can use to index over
+time. Whilst we refer to this index as the `date_index` there is no
+restriction on it's type, save the requirement that is has an inherent ordering.
 
 ```{r}
+# get the linelist from the simulated ebola outbreak
 ebola <- dplyr::filter(ebola_sim_clean$linelist ,!is.na(hospital))
 str(ebola)
 (daily_incidence <- incidence(ebola, date_index = "date_of_onset"))
