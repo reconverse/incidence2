@@ -365,6 +365,14 @@ incidence <- function(
         res <- DT[, .N, keyby = c(date_names_to, groups, count_names_to)]
         setnames(res, length(res), count_values_to)
     } else {
+        nas_present <- sapply(DT[,..counts], anyNA)
+        if (any(nas_present)) {
+            missing_names <- names(nas_present)[nas_present]
+            warnf(
+                "`%s` contains NA values. Consider imputing these and calling `incidence()` again.",
+                missing_names[1L]
+            )
+        }
         DT <- DT[, lapply(.SD, sum, na.rm = FALSE), keyby = c(date_index, groups), .SDcols = counts]
         res <- melt(DT, measure.vars = counts, variable.name = count_names_to, value.name = count_values_to)
         setnames(res, date_index, date_names_to)

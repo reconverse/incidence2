@@ -2,9 +2,9 @@
 
 ## New functions
 
-* The `bootstrap_incidence()`, `estimate_peak()` and `find_peak()` functions,
-  and the associated vignette on peak estimation have been integrated from the
-  downstream [i2extras](https://cran.r-project.org/package=i2extras) package.
+* The `bootstrap_incidence()`, `estimate_peak()` and `first_peak()` functions,
+  and have been integrated from the downstream
+  [i2extras](https://cran.r-project.org/package=i2extras) package.
 
 ## Breaking change
 
@@ -13,7 +13,9 @@
   tibble (as opposed to data.frame) methods will be called. An overview of the
   differences between tibbles and data.frames can be found at
   https://tibble.tidyverse.org/articles/invariants.html.
-
+  
+* `incidence()` now warns if a count variable contains missing values and
+  encourages users to handle these prior to calling `incidence()`.
 
 # incidence2 2.2.3
 
