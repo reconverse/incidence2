@@ -217,7 +217,6 @@ monthly_covid <- incidence(
     counts = "cases_new",
     interval = "yearmonth"
 )
-
 monthly_covid
 ```
 
