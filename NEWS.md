@@ -5,8 +5,19 @@
 * The `bootstrap_incidence()`, `estimate_peak()` and `first_peak()` functions,
   and have been integrated from the downstream
   [i2extras](https://cran.r-project.org/package=i2extras) package.
+  
+* We have added methods for [dplyr](https://cran.r-project.org/package=dplyr)
+  generics `mutate()`, `reframe()` and `summarise()`, as well as the
+  [tidyr](https://cran.r-project.org/package=tidyr) generic `nest()`. Each of
+  these utilise the implicit groupings of <incidence2> objects in their `.by`
+  arguments.
 
 ## Breaking change
+
+* Due to the aforementioned addition of methods for some dplyr and tidyr
+  generics, previous uses of these on <incidence2> are now likely to behave
+  differently (prior to this change they would have dispatched on the
+  underlying data.frame method).
 
 * <incidence2> objects are now built upon tibbles rather than standard data
   frames. This means where we do not provide methods for <incidence2> objects
@@ -16,6 +27,8 @@
   
 * `incidence()` now warns if a count variable contains missing values and
   encourages users to handle these prior to calling `incidence()`.
+  
+
 
 # incidence2 2.2.3
 

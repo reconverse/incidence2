@@ -19,7 +19,7 @@ URL: https://www.reconverse.org/incidence2/, https://github.com/reconverse/incid
 BugReports: https://github.com/reconverse/incidence2/issues
 Depends: 
     grates (>= 1.0.0),
-    R (>= 3.6.0)
+    R (>= 4.1.0)
 Imports:
     grDevices,
     data.table,
@@ -27,19 +27,19 @@ Imports:
     utils,
     stats,
     tibble,
-    ympes (>= 1.1.0)
+    ympes (>= 1.1.0),
+    tidyr,
+    dplyr (>= 1.1.0)
 RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
 Suggests: 
     outbreaks,
-    dplyr,
     ggplot2,
     scales,
     knitr,
     markdown,
     rlang,
-    testthat (>= 3.0.0),
-    tidyr
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 LazyData: true

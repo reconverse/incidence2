@@ -1,4 +1,5 @@
 test_that("operations preserve class as expected", {
+
     # outbreaks required for all tests
     skip_if_not_installed("outbreaks")
 
@@ -15,9 +16,6 @@ test_that("operations preserve class as expected", {
 
     # selecting all columns
     expect_s3_class(inci[], "incidence2")
-
-    # dplyr required from here onwards
-    skip_if_not_installed("dplyr")
 
     # dplyr operations preserve class
     x <- dplyr::filter(inci, gender == "f", hospital == "Rokupa Hospital")
@@ -38,18 +36,7 @@ test_that("operations preserve class as expected", {
     x <- dplyr::select(inci, everything())
     expect_s3_class(x, "incidence2")
 
-    x <- dplyr::mutate(inci, future = date_index + 999)
-    expect_s3_class(x, "incidence2")
-
     x <- dplyr::rename(inci, left_bin = date_index)
-    expect_s3_class(x, "incidence2")
-
-    # Adding rows that are multiple of 2 weeks maintains class
-    x <-
-        inci %>%
-        dplyr::slice_head(n = 2) %>%
-        dplyr::mutate(date_index = date_index + 112) %>%
-        dplyr::bind_rows(inci)
     expect_s3_class(x, "incidence2")
 
 })
@@ -73,9 +60,6 @@ test_that("operations drop class as expected", {
     # operations that drop class
     expect_false(inherits(inci[1:3], "incidence2"))
 
-    # dplyr required from here onwards
-    skip_if_not_installed("dplyr")
-
     x <- dplyr::select(inci, date_index, count)
     expect_false(inherits(x, "incidence2"))
 
@@ -84,6 +68,10 @@ test_that("operations drop class as expected", {
 
     x <- dplyr::pull(inci, 1)
     expect_false(inherits(x, "incidence2"))
+
+    x <- dplyr::mutate(inci, future = date_index + 999)
+    expect_false(inherits(x, "incidence2"))
+    expect_true(tibble::is_tibble(x))
 
     x <- dplyr::transmute(inci, new_count = count + 1)
     expect_false(inherits(x, "incidence2"))
