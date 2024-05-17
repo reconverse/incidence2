@@ -78,8 +78,8 @@ test_that("operations drop class as expected", {
 
     # Adding duplicate rows drops class
     x <-
-        inci %>%
-        dplyr::slice_head(n = 1) %>%
+        inci |>
+        dplyr::slice_head(n = 1) |>
         dplyr::bind_rows(inci)
     expect_false(inherits(x, "incidence2"))
 })
