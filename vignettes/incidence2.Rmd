@@ -72,7 +72,7 @@ restriction on it's type, save the requirement that is has an inherent ordering.
 # get the linelist from the simulated ebola outbreak
 ebola <- dplyr::filter(ebola_sim_clean$linelist ,!is.na(hospital))
 str(ebola)
-(daily_incidence <- incidence(ebola, date_index = "date_of_onset"))
+(daily_incidence <- incidence(ebola, date_index = date_of_onset))
 ```
 
 incidence2 also provides a simple plot function (see `help("plot.incidence2")`)
@@ -95,7 +95,7 @@ to calculate the incidence:
 
 ```{r}
 weekly_ebola <- dplyr::mutate(ebola, date_of_onset = as_isoweek(date_of_onset))
-(weekly_incidence <- incidence(weekly_ebola, date_index = "date_of_onset"))
+(weekly_incidence <- incidence(weekly_ebola, date_index = date_of_onset))
 plot(weekly_incidence, border_colour = "white")
 ```
 
@@ -113,7 +113,7 @@ chosen to integrate this functionality directly in to `incidence()` via an
 As an example, the following is equivalent to the `weekly_incidence` output above:
 
 ```{r}
-(dat <- incidence(ebola, date_index = "date_of_onset", interval = "isoweek"))
+(dat <- incidence(ebola, date_index = date_of_onset, interval = "isoweek"))
 # check equivalent
 identical(dat, weekly_incidence)
 ```
@@ -124,8 +124,8 @@ For instance, to compute the weekly incidence by gender:
 ```{r}
 (weekly_incidence_gender <- incidence(
     ebola,
-    date_index = "date_of_onset",
-    groups = "gender",
+    date_index = date_of_onset,
+    groups = gender,
     interval = "isoweek"
 ))
 ```
@@ -143,11 +143,11 @@ plot(weekly_incidence_gender, border_colour = "white", angle = 45, fill = "gende
 (weekly_multi_dates <- incidence(
     ebola,
     date_index = c(
-        onset = "date_of_onset",
-        infection = "date_of_infection"
+        onset = date_of_onset,
+        infection = date_of_infection
     ), 
-    interval = "isoweek",
-    groups = "gender"
+    groups = gender,
+    interval = "isoweek"
 ))
 ```
 
@@ -177,14 +177,14 @@ dat <- ebola[160:180, ]
 
 incidence(
     dat,
-    date_index = "date_of_onset",
+    date_index = date_of_onset,
     date_names_to = "date"
 ) |> 
 plot(color = "white", show_cases = TRUE, angle = 45, n_breaks = 10)
 incidence(
     dat,
-    date_index = "date_of_onset",
-    groups = "gender",
+    date_index = date_of_onset,
+    groups = gender,
     date_names_to = "date"
 ) |> 
 plot(show_cases = TRUE, color = "white", angle = 45, n_breaks = 10, fill = "gender")
@@ -211,9 +211,9 @@ these occur in one of the count variables, `incidence()` will warn users:
 ```{r}
 monthly_covid <- incidence(
     covid,
-    date_index = "date",
-    groups = "region",
-    counts = "cases_new",
+    date_index = date,
+    groups = region,
+    counts = cases_new,
     interval = "yearmonth"
 )
 monthly_covid
@@ -230,9 +230,9 @@ values as zero counts we can simply replace them in the data prior to calling
      covid |>
      tidyr::replace_na(list(cases_new = 0)) |> 
      incidence(
-         date_index = "date",
-         groups = "region",
-         counts = "cases_new",
+         date_index = date,
+         groups = region,
+         counts = cases_new,
          interval = "yearmonth"
      ))
 plot(monthly_covid, nrow = 3, angle = 45, border_colour = "white")

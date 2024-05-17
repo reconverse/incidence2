@@ -72,12 +72,12 @@ grouping you can `regroup()` to get the desired aggregation:
 # generate an incidence object with 3 groups
 (x <- incidence(
     ebola,
-    date_index = "date_of_onset",
-    interval = "isoweek",
-    groups = c("gender", "hospital", "outcome")
+    date_index = date_of_onset,
+    groups = c(gender, hospital, outcome),
+    interval = "isoweek"
 ))
 # regroup to just two groups
-regroup(x, c("gender", "outcome"))
+regroup(x, c(gender, outcome))
 # drop all groups
 regroup(x)
 ```
@@ -86,7 +86,7 @@ regroup(x)
 You can use `cumulate()` to easily generate cumulative incidences:
 
 ```{r}
-(y <- cumulate(regroup(x, "hospital")))
+(y <- cumulate(regroup(x, hospital)))
 plot(y, angle = 45, nrow = 3)
 ```
 
@@ -102,7 +102,7 @@ dat <- data.frame(
     gender = c("male", "female")
 )
 
-(incidence <- incidence(dat, date_index = "dates", groups = "gender"))
+(incidence <- incidence(dat, date_index = dates, groups = gender))
 complete_dates(incidence)
 ```
 
@@ -115,9 +115,9 @@ entries based on a particular date grouping using `keep_first()` and
 ```{r}
 weekly_incidence <- incidence(
     ebola,
-    date_index = "date_of_onset",
-    interval = "isoweek",
-    groups = "hospital"
+    date_index = date_of_onset,
+    groups = "hospital",
+    interval = "isoweek"
 )
 
 keep_first(weekly_incidence, 3)
@@ -142,7 +142,7 @@ the following assumptions:
 
 ```{r}
 dat <- fluH7N9_china_2013
-influenza <- incidence(dat, date_index = "date_of_onset", groups = "province")
+influenza <- incidence(dat, date_index = date_of_onset, groups = province)
 
 # across provinces (we suspend progress bar for markdown)
 estimate_peak(influenza, progress = FALSE) |> 
@@ -175,9 +175,9 @@ instead.
 
 weekly_incidence <- incidence(
     ebola,
-    date_index = "date_of_onset",
-    interval = "isoweek",
-    groups = c("gender", "hospital")
+    date_index = date_of_onset,
+    groups = c(gender, hospital),
+    interval = "isoweek"
 )
 
 # filtering preserves class

@@ -21,7 +21,7 @@ incidence(
 \arguments{
 \item{x}{A data frame object representing a linelist or pre-aggregated dataset.}
 
-\item{date_index}{\verb{[character]}
+\item{date_index}{\code{\link[dplyr:dplyr_tidy_select]{<tidyselect>}}
 
 The time index(es) of the given data.
 
@@ -31,12 +31,12 @@ A name vector can be used for convenient relabelling of the resultant output.
 
 Multiple indices only make sense when  \code{x} is a linelist.}
 
-\item{groups}{\verb{[character]}
+\item{groups}{\code{\link[dplyr:dplyr_tidy_select]{<tidyselect>}}
 
 An optional vector giving the names of the groups of observations for which
 incidence should be grouped.}
 
-\item{counts}{\verb{[character]}
+\item{counts}{\code{\link[dplyr:dplyr_tidy_select]{<tidyselect>}}
 
 The count variables of the given data.  If NULL (default) the data is taken
 to be a linelist of individual observations.}

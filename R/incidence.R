@@ -45,7 +45,7 @@
 #'
 #' A data frame object representing a linelist or pre-aggregated dataset.
 #'
-#' @param date_index `[character]`
+#' @param date_index [`<tidyselect>`][dplyr::dplyr_tidy_select]
 #'
 #' The time index(es) of the given data.
 #'
@@ -55,12 +55,12 @@
 #'
 #' Multiple indices only make sense when  `x` is a linelist.
 #'
-#' @param groups `[character]`
+#' @param groups [`<tidyselect>`][dplyr::dplyr_tidy_select]
 #'
 #' An optional vector giving the names of the groups of observations for which
 #' incidence should be grouped.
 #'
-#' @param counts `[character]`
+#' @param counts [`<tidyselect>`][dplyr::dplyr_tidy_select]
 #'
 #' The count variables of the given data.  If NULL (default) the data is taken
 #' to be a linelist of individual observations.
@@ -162,64 +162,22 @@ incidence <- function(
 
     # handle defunct arguments
     if (...length()) {
-        if (getRversion() >= "4.1.0") {
-            nms <- ...names()
-        } else {
-            dots <- match.call(expand.dots = FALSE)$`...`
-            nms <- names(dots)
-        }
+        nms <- ...names()
         idx <- nms %in% c("na_as_group", "firstdate")
         if(any(idx)) {
             nms <- nms[idx]
-            stopf("As of incidence 2.0.0, `%s` is no longer a valid parameter name. See `help('incidence')` for supported parameters.", nms[1L])
+            stop("As of incidence 2.0.0, `%s` is no longer a valid parameter name. See `help('incidence')` for supported parameters.", nms[1L])
         } else if (is.null(nms)) {
             stop("Too many arguments given.")
         } else {
             nms <- nms[nms != ""]
             stopf("`%s` is not a valid parameter", nms[1L])
         }
-
     }
 
     # x must be a data frame
     if (!is.data.frame(x))
         stopf("`x` must be a data frame.")
-
-    # date_index checks
-    length_date_index <- length(date_index)
-
-    if (!(is.character(date_index) && length_date_index))
-        stopf("`date_index` must be a character vector of length 1 or more.")
-
-    if (!all(date_index %in% names(x)))
-        stopf("Not all variables from `date_index` are present in `x`.")
-
-    date_cols <- .subset(x, date_index)
-    date_classes <- vapply(date_cols, function(x) class(x)[1], "")
-    if (length(unique(date_classes)) != 1L)
-        stopf("`date_index` columns must be of the same class.")
-
-    # error if date_index cols are vctrs_rcrd type
-    is_vctrs_rcrd <- sapply(date_cols, inherits, "vctrs_rcrd")
-    if (any(is_vctrs_rcrd))
-        stopf("vctrs_rcrd date_index columns are not currently supported.")
-
-    # error if date_index cols are POSIXlt
-    is_POSIXlt <- sapply(date_cols, inherits, "POSIXlt")
-    if (any(is_POSIXlt))
-        stopf("POSIXlt date_index columns are not currently supported.")
-
-    # counts checks
-    if (!is.null(counts)) {
-        if (!is.character(counts) || length(counts) < 1L)
-            stopf("`counts` must be NULL or a character vector of length 1 or more.")
-
-        if (length_date_index > 1)
-            stopf("If `counts` is specified `date_index` must be of length 1.")
-    }
-
-    if (!all(counts %in% names(x)))
-        stopf("Not all variables from `counts` are present in `x`.")
 
     # count_names_to check
     .assert_scalar_character(count_names_to)
@@ -230,14 +188,53 @@ incidence <- function(
     # date_names_to check
     .assert_scalar_character(date_names_to)
 
-    # group checks
-    if (!(is.null(groups) || is.character(groups)))
-        stopf("`groups` must be NULL or a character vector.")
+    # boolean checks
+    .assert_bool(rm_na_dates)
 
-    if (length(groups)) {
-        # ensure groups are present
-        if (!all(groups %in% names(x)))
-            stopf("Not all variables from `groups` are present in `x`.")
+    # date_index checks
+    date_expr <- rlang::enquo(date_index)
+    date_position <- tidyselect::eval_select(date_expr, data = x)
+    length_date_index <- length(date_position)
+    if(!length_date_index)
+        stop("`date_index` must be of length 1 or more.")
+    date_index <- names(date_position)
+    names(x)[date_position] <- date_index
+
+    date_cols <- .subset(x, date_index)
+    date_classes <- vapply(date_cols, function(x) class(x)[1], "")
+    if (length(unique(date_classes)) != 1L)
+        stop("`date_index` columns must be of the same class.")
+
+    # error if date_index cols are vctrs_rcrd type
+    is_vctrs_rcrd <- sapply(date_cols, inherits, "vctrs_rcrd")
+    if (any(is_vctrs_rcrd))
+        stop("vctrs_rcrd date_index columns are not currently supported.")
+
+    # error if date_index cols are POSIXlt
+    is_POSIXlt <- sapply(date_cols, inherits, "POSIXlt")
+    if (any(is_POSIXlt))
+        stop("POSIXlt date_index columns are not currently supported.")
+
+    # counts checks
+    counts_expr <- rlang::enquo(counts)
+    counts_position <- tidyselect::eval_select(counts_expr, data = x)
+
+    if (length(counts_position)) {
+        if (length_date_index > 1)
+            stop("If `counts` is specified `date_index` must be of length 1.")
+        counts <- names(counts_position)
+        names(x)[counts_position] <- counts
+    } else if (!is.null(counts)) {
+        stop("`counts` must be NULL or a column in `x`.")
+    }
+
+    # group checks
+    groups_expr <- rlang::enquo(groups)
+    groups_position <- tidyselect::eval_select(groups_expr, data = x)
+
+    if (length(groups_position)) {
+        groups <- names(groups_position)
+        names(x)[groups_position] <- groups
 
         # error if group cols are vctrs_rcrd type
         group_cols <- .subset(x, groups)
@@ -251,8 +248,15 @@ incidence <- function(
             stopf("POSIXlt group columns are not currently supported.")
     }
 
-    # boolean checks
-    .assert_bool(rm_na_dates)
+    # ensure selected columns are distinct
+    if (length(intersect(date_index, groups)))
+        stop("`date_index` columns must be distinct from `groups`.")
+
+    if (length(intersect(date_index, counts)))
+        stop("`date_index` columns must be distinct from `counts`.")
+
+    if (length(intersect(groups, counts)))
+        stop("`group` columns must be distinct from `counts`.")
 
     # check interval and apply transformation across date index
     if (!is.null(interval)) {

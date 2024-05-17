@@ -403,7 +403,13 @@ test_that("10 incidence with no groupings but with a count works", {
 
 
 test_that("miscellaneous incidence error messaging works as expected", {
-    dat <- data.frame(dates = Sys.Date() + 1:10, count = 1:10)
+    dat <- data.frame(
+        dates = Sys.Date() + 1:10,
+        dates2 = Sys.Date() + 11:20,
+        count = 1:10
+    )
+
+
     expect_error(
         incidence("bob"),
         "`x` must be a data frame.",
@@ -412,19 +418,7 @@ test_that("miscellaneous incidence error messaging works as expected", {
 
     expect_error(
         incidence(dat, date_index = character()),
-        "`date_index` must be a character vector of length 1 or more.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, date_index = 1L),
-        "`date_index` must be a character vector of length 1 or more.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, date_index = "bob"),
-        "Not all variables from `date_index` are present in `x`.",
+        "`date_index` must be of length 1 or more.",
         fixed = TRUE
     )
 
@@ -437,31 +431,25 @@ test_that("miscellaneous incidence error messaging works as expected", {
 
     expect_error(
         incidence(dat, date_index = "dates", counts = character()),
-        "`counts` must be NULL or a character vector of length 1 or more.",
+        "`counts` must be NULL or a column in `x`.",
         fixed = TRUE
     )
 
     expect_error(
         incidence(dat, date_index = "dates", counts = 1L),
-        "`counts` must be NULL or a character vector of length 1 or more.",
+        "`date_index` columns must be distinct from `counts`.",
         fixed = TRUE
     )
 
     expect_error(
-        incidence(dat, date_index = c("dates", "dates"), counts = "count"),
+        incidence(dat, date_index = c("dates", "dates2"), counts = "count"),
         "If `counts` is specified `date_index` must be of length 1.",
         fixed = TRUE
     )
 
     expect_error(
-        incidence(dat, date_index = "dates", counts = "bob"),
-        "Not all variables from `counts` are present in `x`.",
-        fixed = TRUE
-    )
-
-    expect_error(
         incidence(dat, date_index = "dates", counts = "count", groups = 1),
-        "`groups` must be NULL or a character vector.",
+        "`date_index` columns must be distinct from `groups`.",
         fixed = TRUE
     )
 
