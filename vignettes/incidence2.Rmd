@@ -6,7 +6,6 @@ vignette: >
   %\VignetteIndexEntry{An introduction to incidence2}
   %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{dplyr, tidyr}
 ---
 
 ```{r, include = FALSE}

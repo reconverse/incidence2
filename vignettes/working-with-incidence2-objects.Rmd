@@ -6,7 +6,6 @@ vignette: >
   %\VignetteIndexEntry{Working with incidence2 objects}
   %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{dplyr}
 ---
 
 ```{r, include = FALSE}
