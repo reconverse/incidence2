@@ -15,6 +15,9 @@
 * The `incidence()` and `regroup()` functions now utilise
   [<tidy-select>](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)
   argument modifiers for some input.
+  
+* New subset-assign, `$<-.incidence2`, method that drops the <incidence2> class
+  if the required invariants no longer hold.
 
 ## Breaking change
 

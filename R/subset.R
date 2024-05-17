@@ -23,6 +23,13 @@
 
 # -------------------------------------------------------------------------
 #' @export
+`$<-.incidence2` <- function(x, name, value) {
+    out <- NextMethod()
+    .incidence_reconstruct(out, x)
+}
+
+# -------------------------------------------------------------------------
+#' @export
 `names<-.incidence2` <- function(x, value) {
 
     # correct essential names
