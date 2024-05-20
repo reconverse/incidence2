@@ -8,6 +8,7 @@ reference:
 - title: Incidence2 objects
 - contents:
   - incidence
+  - incidence_
   - summary.incidence2
   - as_incidence
 
@@ -20,6 +21,7 @@ reference:
   - keep_last
   - keep_peaks
   - regroup
+  - regroup_
 
 - title: Peak estimation
 - contents:
