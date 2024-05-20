@@ -1,6 +1,6 @@
 # incidence2 (development version)
 
-## New functions
+## New functions / features
 
 * The `bootstrap_incidence()`, `estimate_peak()` and `first_peak()` functions,
   and have been integrated from the downstream
@@ -35,7 +35,7 @@
 * `incidence()` now warns if a count variable contains missing values and
   encourages users to handle these prior to calling `incidence()`.
   
-* Package now has a har dependency on the R version (>= 4.1.0).
+* Package now has a hard dependency on the R version (>= 4.1.0).
   
 
 
