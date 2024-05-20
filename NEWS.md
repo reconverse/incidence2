@@ -11,13 +11,16 @@
   [tidyr](https://cran.r-project.org/package=tidyr) generic `nest()`. Each of
   these utilise the implicit groupings of <incidence2> objects in their `.by`
   arguments.
+  
+* New subset-assign, `$<-.incidence2`, method that drops the <incidence2> class
+  if the required invariants no longer hold.
 
 ## Breaking change
 
-* Due to the aforementioned addition of methods for some dplyr and tidyr
-  generics, previous uses of these on <incidence2> are now likely to behave
-  differently (prior to this change they would have dispatched on the
-  underlying data.frame method).
+* Due to the aforementioned addition of methods for `mutate()`, `reframe()`,
+  `summarise()`, `nest()` and  `$<-.` users should be prepared for their
+  behaviour to be different (prior to this change they would have dispatched on
+  the underlying data.frame method).
 
 * <incidence2> objects are now built upon tibbles rather than standard data
   frames. This means where we do not provide methods for <incidence2> objects
