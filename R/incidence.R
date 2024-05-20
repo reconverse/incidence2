@@ -178,16 +178,31 @@ incidence <- function(
 
     # x must be a data frame
     if (!is.data.frame(x))
-        stopf("`x` must be a data frame.")
+        stop("`x` must be a data frame.")
+
+    # count_names_to check
+    .assert_scalar_character(count_names_to)
+
+    # count_values_to check
+    .assert_scalar_character(count_values_to)
+
+    # date_names_to check
+    .assert_scalar_character(date_names_to)
+
+    # boolean checks
+    .assert_bool(rm_na_dates)
 
     # date_index checks
     length_date_index <- length(date_index)
 
     if (!(is.character(date_index) && length_date_index))
-        stopf("`date_index` must be a character vector of length 1 or more.")
+        stop("`date_index` must be a character vector of length 1 or more.")
+
+    if (anyDuplicated(date_index))
+        stop("`date_index` values must be unique.")
 
     if (!all(date_index %in% names(x)))
-        stopf("Not all variables from `date_index` are present in `x`.")
+        stop("Not all variables from `date_index` are present in `x`.")
 
     date_cols <- .subset(x, date_index)
     date_classes <- vapply(date_cols, function(x) class(x)[1], "")
@@ -209,21 +224,15 @@ incidence <- function(
         if (!is.character(counts) || length(counts) < 1L)
             stopf("`counts` must be NULL or a character vector of length 1 or more.")
 
+        if (anyDuplicated(counts))
+            stop("`counts` values must be unique.")
+
         if (length_date_index > 1)
             stopf("If `counts` is specified `date_index` must be of length 1.")
     }
 
     if (!all(counts %in% names(x)))
         stopf("Not all variables from `counts` are present in `x`.")
-
-    # count_names_to check
-    .assert_scalar_character(count_names_to)
-
-    # count_values_to check
-    .assert_scalar_character(count_values_to)
-
-    # date_names_to check
-    .assert_scalar_character(date_names_to)
 
     # group checks
     if (!(is.null(groups) || is.character(groups)))
@@ -233,6 +242,9 @@ incidence <- function(
         # ensure groups are present
         if (!all(groups %in% names(x)))
             stopf("Not all variables from `groups` are present in `x`.")
+
+        if (anyDuplicated(groups))
+            stop("`group` values must be unique.")
 
         # error if group cols are vctrs_rcrd type
         group_cols <- .subset(x, groups)
@@ -245,9 +257,6 @@ incidence <- function(
         if (any(is_POSIXlt))
             stopf("POSIXlt group columns are not currently supported.")
     }
-
-    # boolean checks
-    .assert_bool(rm_na_dates)
 
     # check interval and apply transformation across date index
     if (!is.null(interval)) {
