@@ -14,6 +14,10 @@
   
 * New subset-assign, `$<-.incidence2`, method that drops the <incidence2> class
   if the required invariants no longer hold.
+  
+* Named vectors can now be used for the `groups` and `counts` arguments of
+  incidence()` to allow renaming prior to aggregation. Previously this was
+  only possible with the `date_index` input.
 
 ## Breaking change
 

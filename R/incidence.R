@@ -343,16 +343,44 @@ incidence <- function(
     # generate name for date_index column (ensure coerced to DT before using setnames)
     nms <- names(date_index)
     if (!is.null(nms)) {
-        if (length_date_index == 1L && nms != "") {
-            setnames(DT, date_index, nms)
-            date_index <- nms
-        } else if (any(nms != "")) {
-            new_names <- date_index
-            new_names[nms != ""] <- nms
-            setnames(DT, date_index, new_names)
-            date_index <- new_names
-        }
+     if (length_date_index == 1L && nms != "") {
+         setnames(DT, date_index, nms)
+         date_index <- nms
+     } else if (any(nms != "")) {
+         new_names <- date_index
+         new_names[nms != ""] <- nms
+         setnames(DT, date_index, new_names)
+         date_index <- new_names
+     }
     }
+
+    # generate names for group columns (ensure coerced to DT before using setnames)
+    nms <- names(groups)
+    if (!is.null(nms)) {
+     if (length(groups) == 1L && nms != "") {
+         setnames(DT, groups, nms)
+         groups <- nms
+     } else if (any(nms != "")) {
+         new_names <- groups
+         new_names[nms != ""] <- nms
+         setnames(DT, groups, new_names)
+         groups <- new_names
+     }
+    }
+
+    # generate names for count columns (ensure coerced to DT before using setnames)
+     nms <- names(counts)
+     if (!is.null(nms)) {
+         if (length(counts) == 1L && nms != "") {
+             setnames(DT, counts, nms)
+             counts <- nms
+         } else if (any(nms != "")) {
+             new_names <- counts
+             new_names[nms != ""] <- nms
+             setnames(DT, counts, new_names)
+             counts <- new_names
+         }
+     }
 
     # switch behaviour depending on if counts are already present
     if (is.null(counts)) {
