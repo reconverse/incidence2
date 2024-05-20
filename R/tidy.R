@@ -13,8 +13,9 @@ mutate.incidence2 <- function(
     }
 
     groupings <- c(get_count_variable_name(.data), get_group_names(.data))
-    .data <- tibble::as_tibble(.data)
-    mutate(.data, ..., .by = tidyr::all_of(groupings), .keep = .keep, .before = !!.before, .after = !!.after)
+    out <- tibble::as_tibble(.data)
+    out <- mutate(out, ..., .by = tidyr::all_of(groupings), .keep = .keep, .before = {{.before}}, .after = {{.after}})
+    .incidence_reconstruct(out, .data)
 }
 
 #' @importFrom dplyr summarise
