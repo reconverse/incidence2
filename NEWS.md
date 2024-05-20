@@ -31,6 +31,8 @@
 * `incidence()` now warns if a count variable contains missing values and
   encourages users to handle these prior to calling `incidence()`.
   
+* Package now has a har dependency on the R version (>= 4.1.0).
+  
 
 
 # incidence2 2.2.3
