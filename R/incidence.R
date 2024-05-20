@@ -162,12 +162,7 @@ incidence <- function(
 
     # handle defunct arguments
     if (...length()) {
-        if (getRversion() >= "4.1.0") {
-            nms <- ...names()
-        } else {
-            dots <- match.call(expand.dots = FALSE)$`...`
-            nms <- names(dots)
-        }
+        nms <- ...names()
         idx <- nms %in% c("na_as_group", "firstdate")
         if(any(idx)) {
             nms <- nms[idx]
