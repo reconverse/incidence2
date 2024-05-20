@@ -1,7 +1,7 @@
 #' Compute the incidence of events
 #'
-#' `incidence()` calculates event the *incidence* of different events across
-#' specified time periods and groupings.
+#' `incidence()` calculates the *incidence* of different events across specified
+#' time periods and groupings.
 #'
 # -------------------------------------------------------------------------
 #' `<incidence2>` objects are a sub class of data frame with some
@@ -131,7 +131,9 @@
 #'
 # -------------------------------------------------------------------------
 #' @seealso
-#' `browseVignettes("grates")` for more details on the grate object classes.
+#' - `browseVignettes("grates")` for more details on the grate object classes.
+#' - `incidence_()` for a version supporting
+#'   [`<tidy-select>`][dplyr::dplyr_tidy_select] semantics in some arguments.
 #'
 # -------------------------------------------------------------------------
 #' @return
@@ -211,41 +213,41 @@ incidence <- function(
     date_cols <- .subset(x, date_index)
     date_classes <- vapply(date_cols, function(x) class(x)[1], "")
     if (length(unique(date_classes)) != 1L)
-        stopf("`date_index` columns must be of the same class.")
+        stop("`date_index` columns must be of the same class.")
 
     # error if date_index cols are vctrs_rcrd type
     is_vctrs_rcrd <- sapply(date_cols, inherits, "vctrs_rcrd")
     if (any(is_vctrs_rcrd))
-        stopf("vctrs_rcrd date_index columns are not currently supported.")
+        stop("vctrs_rcrd date_index columns are not currently supported.")
 
     # error if date_index cols are POSIXlt
     is_POSIXlt <- sapply(date_cols, inherits, "POSIXlt")
     if (any(is_POSIXlt))
-        stopf("POSIXlt date_index columns are not currently supported.")
+        stop("POSIXlt date_index columns are not currently supported.")
 
     # counts checks
     if (!is.null(counts)) {
         if (!is.character(counts) || length(counts) < 1L)
-            stopf("`counts` must be NULL or a character vector of length 1 or more.")
+            stop("`counts` must be NULL or a character vector of length 1 or more.")
 
         if (anyDuplicated(counts))
             stop("`counts` values must be unique.")
 
         if (length_date_index > 1)
-            stopf("If `counts` is specified `date_index` must be of length 1.")
+            stop("If `counts` is specified `date_index` must be of length 1.")
     }
 
     if (!all(counts %in% names(x)))
-        stopf("Not all variables from `counts` are present in `x`.")
+        stop("Not all variables from `counts` are present in `x`.")
 
     # group checks
     if (!(is.null(groups) || is.character(groups)))
-        stopf("`groups` must be NULL or a character vector.")
+        stop("`groups` must be NULL or a character vector.")
 
     if (length(groups)) {
         # ensure groups are present
         if (!all(groups %in% names(x)))
-            stopf("Not all variables from `groups` are present in `x`.")
+            stop("Not all variables from `groups` are present in `x`.")
 
         if (anyDuplicated(groups))
             stop("`group` values must be unique.")
@@ -254,12 +256,12 @@ incidence <- function(
         group_cols <- .subset(x, groups)
         is_vctrs_rcrd <- sapply(group_cols, inherits, "vctrs_rcrd")
         if (any(is_vctrs_rcrd))
-            stopf("vctrs_rcrd group columns are not currently supported.")
+            stop("vctrs_rcrd group columns are not currently supported.")
 
         # error if group cols are POSIXlt
         is_POSIXlt <- sapply(group_cols, inherits, "POSIXlt")
         if (any(is_POSIXlt))
-            stopf("POSIXlt group columns are not currently supported.")
+            stop("POSIXlt group columns are not currently supported.")
     }
 
     # check interval and apply transformation across date index
@@ -267,7 +269,7 @@ incidence <- function(
 
         # check interval is valid length
         if (length(interval) != 1L)
-            stopf("`interval` must be a character or integer vector of length 1.")
+            stop("`interval` must be a character or integer vector of length 1.")
 
         # For numeric we coerce to integer and use as_period
         if (is.numeric(interval)) {
@@ -286,7 +288,7 @@ incidence <- function(
             x[date_index] <- lapply(x[date_index], as_period, n = n, offset = offset)
         } else if (!is.null(offset)) {
             # offset only valid for numeric interval
-            stopf("`offset` can only be used with a numeric (period) interval.")
+            stop("`offset` can only be used with a numeric (period) interval.")
         } else if (is.character(interval)) {
             # We are restrictive on intervals we allow to keep the code simple.
             # Users can always call grates functionality directly (reccomended)
@@ -328,10 +330,10 @@ incidence <- function(
             )
             x[date_index] <- lapply(x[date_index], FUN)
         } else {
-            stopf("`interval` must be a character or integer vector of length 1.")
+            stop("`interval` must be a character or integer vector of length 1.")
         }
     } else if (any(sapply(date_cols, inherits, "POSIXct"))) {
-        warnf(paste0(
+        warning(paste0(
             "<POSIXct> date_index columns detected. Internally <POSIXct> objects ",
             "are represented as seconds since the UNIX epoch and, in our experience, ",
             "this level of granularity is not normally desired for aggregation. ",
@@ -434,3 +436,231 @@ incidence <- function(
         class = "incidence2"
     )
 }
+
+
+#' Compute the incidence of events (tidyselect compatible)
+#'
+#' `incidence_()` calculates the *incidence* of different events across
+#' specified time periods and groupings. It differs from `incidence()` only in
+#' support for
+#' [`<tidy-select>`][`<tidy-select>`][dplyr::dplyr_tidy_select]
+#' semantics in some of its arguments.
+#'
+# -------------------------------------------------------------------------
+#' `<incidence2>` objects are a sub class of data frame with some
+#' additional invariants. That is, an `<incidence2>` object must:
+#'
+#' - have one column representing the date index (this does not need to be a
+#'   `date` object but must have an inherent ordering over time);
+#'
+#' - have one column representing the count variable (i.e. what is being
+#'   counted) and one variable representing the associated count;
+#'
+#' - have zero or more columns representing groups;
+#'
+#' - not have duplicated rows with regards to the date and group variables.
+#'
+# -------------------------------------------------------------------------
+#' # Interval specification
+#'
+#' Where `interval` is specified, `incidence_()`, predominantly uses the
+#' [`grates`](https://cran.r-project.org/package=grates) package to generate
+#' appropriate date groupings. The grouping used depends on the value of
+#' `interval`. This can be specified as either an integer value or a string
+#' corresponding to one of the classes:
+#'
+#' - integer values:                     [`<grates_period>`][grates::new_period] object, grouped by the specified number of days.
+#' - day, daily:                         [`<Date>`][base::Dates] objects.
+#' - week(s), weekly, isoweek:           [`<grates_isoweek>`][grates::isoweek] objects.
+#' - epiweek(s):                         [`<grates_epiweek>`][grates::epiweek] objects.
+#' - month(s), monthly, yearmonth:       [`<grates_yearmonth>`][grates::yearmonth] objects.
+#' - quarter(s), quarterly, yearquarter: [`<grates_yearquarter>`][grates::yearquarter] objects.
+#' - year(s) and yearly:                 [`<grates_year>`][grates::year] objects.
+#'
+#' For "day" or "daily" interval, we provide a thin wrapper around `as.Date()`
+#' that ensures the underlying data are whole numbers and that time zones are
+#' respected. Note that additional arguments are not forwarded to `as.Date()`
+#' so for greater flexibility users are advised to modifying your input prior to
+#' calling `incidence_()`.
+#'
+# -------------------------------------------------------------------------
+#' @param x
+#'
+#' A data frame object representing a linelist or pre-aggregated dataset.
+#'
+#' @param date_index [`<tidyselect>`][dplyr::dplyr_tidy_select]
+#'
+#' The time index(es) of the given data.
+#'
+#' This should be the name(s) corresponding to the desired date column(s) in x.
+#'
+#' A named vector can be used for convenient relabelling of the resultant output.
+#'
+#' Multiple indices only make sense when  `x` is a linelist.
+#'
+#' @param groups [`<tidyselect>`][dplyr::dplyr_tidy_select]
+#'
+#' An optional vector giving the names of the groups of observations for which
+#' incidence should be grouped.
+#'
+#' A named vector can be used for convenient relabelling of the resultant output.
+#'
+#' @param counts [`<tidyselect>`][dplyr::dplyr_tidy_select]
+#'
+#' The count variables of the given data.  If NULL (default) the data is taken
+#' to be a linelist of individual observations.
+#'
+#' A named vector can be used for convenient relabelling of the resultant output.
+#'
+#' @param count_names_to `[character]`
+#'
+#' The column to create which will store the `counts` column names provided that
+#' `counts` is not NULL.
+#'
+#' @param count_values_to `[character]`
+#'
+#' The name of the column to store the resultant count values in.
+#'
+#' @param date_names_to `[character]`
+#'
+#' The name of the column to store the date variables in.
+#'
+#' @param rm_na_dates `[logical]`
+#'
+#' Should `NA` dates be removed prior to aggregation?
+#'
+#' @param interval
+#'
+#' An optional scalar integer or string indicating the (fixed) size of
+#' the desired time interval you wish to use for for computing the incidence.
+#'
+#' Defaults to NULL in which case the date_index columns are left unchanged.
+#'
+#' Numeric values are coerced to integer and treated as a number of days to
+#' group.
+#'
+#' Text strings can be one of:
+#'
+#'     * day or daily
+#'     * week(s) or weekly
+#'     * epiweek(s)
+#'     * isoweek(s)
+#'     * month(s) or monthly
+#'     * yearmonth(s)
+#'     * quarter(s) or quarterly
+#'     * yearquarter(s)
+#'     * year(s) or yearly
+#'
+#' More details can be found in the "Interval specification" section.
+#'
+#' @param offset
+#'
+#' Only applicable when `interval` is not NULL.
+#'
+#' An optional scalar integer or date indicating the value you wish to start
+#' counting periods from relative to the Unix Epoch:
+#'
+#' - Default value of NULL corresponds to 0L.
+#'
+#' - For other integer values this is stored scaled by `n`
+#'   (`offset <- as.integer(offset) %% n`).
+#'
+#' - For date values this is first converted to an integer offset
+#'   (`offset <- floor(as.numeric(offset))`) and then scaled via `n` as above.
+#'
+#' @param ...
+#'
+#' Not currently used.
+#'
+# -------------------------------------------------------------------------
+#' @seealso
+#' - `browseVignettes("grates")` for more details on the grate object classes.
+#' - `incidence()` for a the underlying function without support for tidyselect
+#'   semantics. This may be preferable for programatic usage.
+#'
+# -------------------------------------------------------------------------
+#' @return
+#' A [`tibble`][tibble::tibble] with subclass `incidence2`.
+#'
+# -------------------------------------------------------------------------
+#' @examples
+#' \dontshow{.old <- data.table::setDTthreads(2)}
+#' if (requireNamespace("outbreaks", quietly = TRUE)) {
+#'     data(ebola_sim_clean, package = "outbreaks")
+#'     dat <- ebola_sim_clean$linelist
+#'     incidence_(dat, date_of_onset)
+#'     incidence_(dat, date_of_onset, groups = c(gender, hospital))
+#' }
+#' \dontshow{data.table::setDTthreads(.old)}
+#'
+# -------------------------------------------------------------------------
+#' @export
+incidence_ <- function(
+        x,
+        date_index,
+        groups = NULL,
+        counts = NULL,
+        count_names_to = "count_variable",
+        count_values_to = "count",
+        date_names_to = "date_index",
+        rm_na_dates = TRUE,
+        interval = NULL,
+        offset = NULL,
+        ...
+) {
+
+    # date_index
+    date_expr <- rlang::enquo(date_index)
+    date_position <- tidyselect::eval_select(date_expr, data = x)
+    length_date_index <- length(date_position)
+    if(!length_date_index)
+        stop("`date_index` must be of length 1 or more.")
+    date_index <- names(date_position)
+    names(x)[date_position] <- date_index
+
+    # counts
+    counts_expr <- rlang::enquo(counts)
+    counts_position <- tidyselect::eval_select(counts_expr, data = x)
+    if (length(counts_position)) {
+        if (length_date_index > 1)
+            stop("If `counts` is specified `date_index` must be of length 1.")
+        counts <- names(counts_position)
+        names(x)[counts_position] <- counts
+    } else if (!is.null(counts)) {
+        stop("`counts` must be NULL or a column in `x`.")
+    }
+
+    # group checks
+    groups_expr <- rlang::enquo(groups)
+    groups_position <- tidyselect::eval_select(groups_expr, data = x)
+    if (length(groups_position)) {
+        groups <- names(groups_position)
+        names(x)[groups_position] <- groups
+    }
+
+    # ensure selected columns are distinct
+    if (length(intersect(date_index, groups)))
+        stop("`date_index` columns must be distinct from `groups`.")
+
+    if (length(intersect(date_index, counts)))
+        stop("`date_index` columns must be distinct from `counts`.")
+
+    if (length(intersect(groups, counts)))
+        stop("`group` columns must be distinct from `counts`.")
+
+    incidence(
+        x = x,
+        date_index = date_index,
+        groups = groups,
+        counts = counts,
+        count_names_to = count_names_to,
+        count_values_to = count_values_to,
+        date_names_to = date_names_to,
+        rm_na_dates = rm_na_dates,
+        interval = interval,
+        offset = offset,
+        ...
+    )
+
+}
+

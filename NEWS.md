@@ -18,8 +18,13 @@
 * Named vectors can now be used for the `groups` and `counts` arguments of
   incidence()` to allow renaming prior to aggregation. Previously this was
   only possible with the `date_index` input.
+  
+* New functions `incidence_()` and `regroup_()` that work similar to their
+  existing namesakes save for additional support for
+  [`<tidy-select>`](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)
+  semantics in some of their arguments.
 
-## Breaking change
+## Breaking changes
 
 * Due to the aforementioned addition of methods for `mutate()`, `reframe()`,
   `summarise()`, `nest()` and  `$<-.` users should be prepared for their
