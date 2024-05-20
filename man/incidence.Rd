@@ -27,19 +27,23 @@ The time index(es) of the given data.
 
 This should be the name(s) corresponding to the desired date column(s) in x.
 
-A name vector can be used for convenient relabelling of the resultant output.
+A named vector can be used for convenient relabelling of the resultant output.
 
 Multiple indices only make sense when  \code{x} is a linelist.}
 
 \item{groups}{\verb{[character]}
 
 An optional vector giving the names of the groups of observations for which
-incidence should be grouped.}
+incidence should be grouped.
+
+A named vector can be used for convenient relabelling of the resultant output.}
 
 \item{counts}{\verb{[character]}
 
 The count variables of the given data.  If NULL (default) the data is taken
-to be a linelist of individual observations.}
+to be a linelist of individual observations.
+
+A named vector can be used for convenient relabelling of the resultant output.}
 
 \item{count_names_to}{\verb{[character]}
 
