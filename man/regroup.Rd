@@ -9,7 +9,7 @@ regroup(x, groups = NULL)
 \arguments{
 \item{x}{\verb{<incidence2>} object.}
 
-\item{groups}{\code{\link[dplyr:dplyr_tidy_select]{<tidyselect>}}
+\item{groups}{\verb{[character]}
 
 The groups to sum over.
 

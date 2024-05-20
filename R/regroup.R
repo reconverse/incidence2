@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------------
 #' @param x `<incidence2>` object.
 #'
-#' @param groups [`<tidyselect>`][dplyr::dplyr_tidy_select]
+#' @param groups `[character]`
 #'
 #' The groups to sum over.
 #'
@@ -37,16 +37,16 @@ regroup <- function(x, groups = NULL){
     if (!inherits(x, "incidence2"))
         stopf("`x` must be an <incidence2> object.")
 
-    groups_expr <- rlang::enquo(groups)
-    groups_position <- tidyselect::eval_select(groups_expr, data = x)
-    groups <- if(length(groups_position)) names(x)[groups_position] else NULL
-
+    # group checks
     group_variables <- attr(x, "groups")
-    if (is.null(groups) && !length(group_variables))
-        return(x)
-
-    if (!all(groups %in% group_variables))
-        stop("Not all variables from `groups` are groupings of `x`.")
+    if (is.null(groups)) {
+        if (!length(group_variables))
+            return(x)
+    } else if(!(is.character(groups) && length(groups) >= 1L)) {
+        stopf("`groups` must be NULL or a character vector.")
+    } else if (!all(groups %in% group_variables)) {
+        stopf("Not all variables from `groups` are groupings of `x`.")
+    }
 
     # rebuild incidence
     date_variable <- attr(x, "date_index")
@@ -60,9 +60,9 @@ regroup <- function(x, groups = NULL){
 
     out <- incidence(
         x,
-        date_index = !!date_variable,
-        groups = tidyselect::all_of(c(groups, count_variable)),
-        counts = !!count_value,
+        date_index = date_variable,
+        groups = c(groups, count_variable),
+        counts = count_value,
         count_values_to = count_value,
         count_names_to = count_names_to
     )

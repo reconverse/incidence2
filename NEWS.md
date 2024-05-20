@@ -11,13 +11,6 @@
   [tidyr](https://cran.r-project.org/package=tidyr) generic `nest()`. Each of
   these utilise the implicit groupings of <incidence2> objects in their `.by`
   arguments.
-  
-* The `incidence()` and `regroup()` functions now utilise
-  [<tidy-select>](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)
-  argument modifiers for some input.
-  
-* New subset-assign, `$<-.incidence2`, method that drops the <incidence2> class
-  if the required invariants no longer hold.
 
 ## Breaking change
 
@@ -25,11 +18,6 @@
   generics, previous uses of these on <incidence2> are now likely to behave
   differently (prior to this change they would have dispatched on the
   underlying data.frame method).
-  
-* The inclusion of <tidy-select> argument modifiers in `incidence()` and 
-  `regroup()` means programmatic use of these functions will need modifying.
-  See https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html for an
-  overview of how this can be utilised.
 
 * <incidence2> objects are now built upon tibbles rather than standard data
   frames. This means where we do not provide methods for <incidence2> objects

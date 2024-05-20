@@ -1,6 +1,3 @@
-# See https://github.com/tidyverse/dplyr/issues/6633#issuecomment-1372383098
-# for why we cannot use NextMethod with tidyselect arguments :(
-
 #' @importFrom dplyr mutate
 #' @export
 mutate.incidence2 <- function(
@@ -11,13 +8,13 @@ mutate.incidence2 <- function(
     .before = NULL,
     .after = NULL
 ) {
-    if(!missing(.by))
+    if(!missing(.by)) {
         stop("`.by` argument is not used in `mutate.incidence2()` as the groupings are implicit.")
+    }
 
     groupings <- c(get_count_variable_name(.data), get_group_names(.data))
-    out <- tibble::as_tibble(.data)
-    out <- mutate(out, ..., .by = tidyr::all_of(groupings), .keep = .keep, .before = {{.before}}, .after = {{.after}})
-    .incidence_reconstruct(out, .data)
+    .data <- tibble::as_tibble(.data)
+    mutate(.data, ..., .by = tidyr::all_of(groupings), .keep = .keep, .before = !!.before, .after = !!.after)
 }
 
 #' @importFrom dplyr summarise
