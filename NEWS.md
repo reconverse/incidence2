@@ -26,6 +26,8 @@
   
 * New methods for `as.data.table()` and `as_tibble()` generics.
 
+* New `split()` method.
+
 ## Breaking changes
 
 * Due to the aforementioned addition of methods for `mutate()`, `reframe()`,
