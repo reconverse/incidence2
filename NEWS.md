@@ -28,6 +28,8 @@
 
 * New `split()` method.
 
+* New `rbind()` method.
+
 ## Breaking changes
 
 * Due to the aforementioned addition of methods for `mutate()`, `reframe()`,
