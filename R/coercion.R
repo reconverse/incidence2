@@ -52,3 +52,15 @@ as_incidence.incidence2 <- function(x, ...) {
     x
 }
 
+#' @importFrom tibble as_tibble
+#' @export
+as_tibble.incidence2 <- function(x, ..., .rows, .name_repair, rownames) {
+    x <- as.data.frame(x)
+    NextMethod()
+}
+
+#' @export
+as.data.table.incidence2 <- function(x, keep.rownames = FALSE, ...) {
+    x <- as.data.frame(x)
+    NextMethod()
+}

@@ -23,6 +23,8 @@
   existing namesakes save for additional support for
   [`<tidy-select>`](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)
   semantics in some of their arguments.
+  
+* New methods for `as.data.table()` and `as_tibble()` generics.
 
 ## Breaking changes
 
