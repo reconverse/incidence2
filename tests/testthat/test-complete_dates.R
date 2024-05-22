@@ -27,4 +27,15 @@ test_that("complete_dates works", {
     )
 
     expect_identical(nrow(res2), 32L)
+
+    expect_identical(
+        incidence(
+            dat,
+            date_index = "dates",
+            groups = c("groups1", "groups2"),
+            counts = c("counts1", "counts2"),
+            complete_dates = TRUE
+        ),
+        res2
+    )
 })

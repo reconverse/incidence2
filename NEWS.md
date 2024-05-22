@@ -23,20 +23,19 @@
 - New subset-assign, `$<-.incidence2`, and `rbind.incidence2` methods that
   will drop the incidence2 class if the required invariants are broken.
 
-- Named vectors can now be used for the `groups` and `counts` arguments of
-  `incidence()` to allow renaming prior to aggregation. Previously this was
-  only possible with the `date_index` input.
-  
 - New functions `incidence_()` and `regroup_()` that work similar to their
   existing namesakes save for additional support for
   [tidy-select](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)
   semantics in some of their arguments.
   
-- New methods for `as.data.table()` and `as_tibble()` generics.
-
-- New `split()` method.
-
-- New `rbind()` method.
+- Named vectors can now be used for the `groups` and `counts` arguments of
+  `incidence()` to allow renaming prior to aggregation. Previously this was
+  only possible with the `date_index` input.
+  
+- `incidence()` gains a `complete_dates` argument defaulting to `FALSE`. If set
+  this is equivalent of a call to `incidence()` followed by a call to
+  `complete_dates()` with the default arguments. Users wanting more flexibility
+  can still call the `complete_dates()` function with different arguments.
 
 ## Breaking changes
 

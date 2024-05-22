@@ -15,13 +15,14 @@ incidence_(
   rm_na_dates = TRUE,
   interval = NULL,
   offset = NULL,
+  complete_dates = FALSE,
   ...
 )
 }
 \arguments{
 \item{x}{A data frame object representing a linelist or pre-aggregated dataset.}
 
-\item{date_index}{\code{\link[dplyr:dplyr_tidy_select]{<tidyselect>}}
+\item{date_index}{\link[dplyr:dplyr_tidy_select]{tidyselect}.
 
 The time index(es) of the given data.
 
@@ -31,14 +32,14 @@ A named vector can be used for convenient relabelling of the resultant output.
 
 Multiple indices only make sense when  \code{x} is a linelist.}
 
-\item{groups}{\code{\link[dplyr:dplyr_tidy_select]{<tidyselect>}}
+\item{groups}{\link[dplyr:dplyr_tidy_select]{tidyselect}.
 
 An optional vector giving the names of the groups of observations for which
 incidence should be grouped.
 
 A named vector can be used for convenient relabelling of the resultant output.}
 
-\item{counts}{\code{\link[dplyr:dplyr_tidy_select]{<tidyselect>}}
+\item{counts}{\link[dplyr:dplyr_tidy_select]{tidyselect}.
 
 The count variables of the given data.  If NULL (default) the data is taken
 to be a linelist of individual observations.
@@ -58,7 +59,7 @@ The name of the column to store the resultant count values in.}
 
 The name of the column to store the date variables in.}
 
-\item{rm_na_dates}{\code{logical}.
+\item{rm_na_dates}{\code{bool}.
 
 Should \code{NA} dates be removed prior to aggregation?}
 
@@ -97,6 +98,17 @@ counting periods from relative to the Unix Epoch:
 (\code{offset <- floor(as.numeric(offset))}) and then scaled via \code{n} as above.
 }}
 
+\item{complete_dates}{\code{bool}.
+
+Should the resulting object have the same range of dates for each grouping.
+
+Missing counts will be filled with \code{0L}.
+
+Will attempt to use \code{function(x) seq(min(x), max(x), by = 1)} on the
+resultant date_index column to generate a complete sequence of dates.
+
+More flexible completion is possible by using the \code{complete_dates()}}
+
 \item{...}{Not currently used.}
 }
 \value{
@@ -105,8 +117,7 @@ A \code{\link[tibble:tibble]{tibble}} with subclass \code{incidence2}.
 \description{
 \code{incidence_()} calculates the \emph{incidence} of different events across
 specified time periods and groupings. It differs from \code{incidence()} only in
-support for
-[\verb{<tidy-select>}][\verb{<tidy-select>}][dplyr::dplyr_tidy_select]
+its support for \link[dplyr:dplyr_tidy_select]{tidy-select}
 semantics in some of its arguments.
 }
 \details{

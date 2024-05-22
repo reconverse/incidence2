@@ -15,6 +15,7 @@ incidence(
   rm_na_dates = TRUE,
   interval = NULL,
   offset = NULL,
+  complete_dates = FALSE,
   ...
 )
 }
@@ -58,7 +59,7 @@ The name of the column to store the resultant count values in.}
 
 The name of the column to store the date variables in.}
 
-\item{rm_na_dates}{\code{logical}.
+\item{rm_na_dates}{\code{bool}.
 
 Should \code{NA} dates be removed prior to aggregation?}
 
@@ -96,6 +97,18 @@ counting periods from relative to the Unix Epoch:
 \item For date values this is first converted to an integer offset
 (\code{offset <- floor(as.numeric(offset))}) and then scaled via \code{n} as above.
 }}
+
+\item{complete_dates}{\code{bool}.
+
+Should the resulting object have the same range of dates for each grouping.
+
+Missing counts will be filled with \code{0L}.
+
+Will attempt to use \code{function(x) seq(min(x), max(x), by = 1)} on the
+resultant date_index column to generate a complete sequence of dates.
+
+More flexible completion is possible by using the \code{complete_dates()}
+function.}
 
 \item{...}{Not currently used.}
 }
@@ -156,6 +169,6 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 \itemize{
 \item \code{browseVignettes("grates")} for more details on the grate object classes.
 \item \code{incidence_()} for a version supporting
-\code{\link[dplyr:dplyr_tidy_select]{<tidy-select>}} semantics in some arguments.
+\link[dplyr:dplyr_tidy_select]{tidy-select} semantics in some arguments.
 }
 }

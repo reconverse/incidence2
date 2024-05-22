@@ -82,7 +82,7 @@
 #'
 #' The name of the column to store the date variables in.
 #'
-#' @param rm_na_dates `logical`.
+#' @param rm_na_dates `bool`.
 #'
 #' Should `NA` dates be removed prior to aggregation?
 #'
@@ -125,6 +125,18 @@
 #' - For date values this is first converted to an integer offset
 #'   (`offset <- floor(as.numeric(offset))`) and then scaled via `n` as above.
 #'
+#' @param complete_dates `bool`.
+#'
+#' Should the resulting object have the same range of dates for each grouping.
+#'
+#' Missing counts will be filled with `0L`.
+#'
+#' Will attempt to use `function(x) seq(min(x), max(x), by = 1)` on the
+#' resultant date_index column to generate a complete sequence of dates.
+#'
+#' More flexible completion is possible by using the `complete_dates()`
+#' function.
+#'
 #' @param ...
 #'
 #' Not currently used.
@@ -133,7 +145,7 @@
 #' @seealso
 #' - `browseVignettes("grates")` for more details on the grate object classes.
 #' - `incidence_()` for a version supporting
-#'   [`<tidy-select>`][dplyr::dplyr_tidy_select] semantics in some arguments.
+#'   [tidy-select][dplyr::dplyr_tidy_select] semantics in some arguments.
 #'
 # -------------------------------------------------------------------------
 #' @return
@@ -163,6 +175,7 @@ incidence <- function(
     rm_na_dates = TRUE,
     interval = NULL,
     offset = NULL,
+    complete_dates = FALSE,
     ...
 ) {
 
@@ -197,6 +210,8 @@ incidence <- function(
 
     # boolean checks
     .assert_bool(rm_na_dates)
+    .assert_bool(complete_dates)
+
 
     # date_index checks
     length_date_index <- length(date_index)
@@ -341,6 +356,16 @@ incidence <- function(
             "be done prior to calling `incidence()` or, alternatively, by setting the ",
             "argument `interval = 'day'` within the call itself."
         ))
+
+        if (complete_dates) {
+            stop(paste0(
+                "`complete_dates = TRUE` is not compatible with <POSIXct> ",
+                "date_index columns due to the aforementioned warning. ",
+                "If you wish to use <POSIXct> columns then set `complete_dates = FALSE` ",
+                "and call the `complete_dates()` function directly after the call ",
+                "to incidence."
+            ))
+        }
     }
 
     # create data.table
@@ -426,8 +451,8 @@ incidence <- function(
     if (is.null(groups))
         groups <- character(0L)
 
-    # return incidence object
-    tibble::new_tibble(
+    # incidence object
+    out <- tibble::new_tibble(
         x = res,
         date_index = date_names_to,
         count_variable = count_names_to,
@@ -435,6 +460,10 @@ incidence <- function(
         groups = groups,
         class = "incidence2"
     )
+
+    # complete dates if flag set
+    # TODO - this could be more efficient but this is safest for now
+    if (complete_dates) complete_dates(out) else out
 }
 
 
@@ -442,8 +471,7 @@ incidence <- function(
 #'
 #' `incidence_()` calculates the *incidence* of different events across
 #' specified time periods and groupings. It differs from `incidence()` only in
-#' support for
-#' [`<tidy-select>`][`<tidy-select>`][dplyr::dplyr_tidy_select]
+#' its support for [tidy-select][dplyr::dplyr_tidy_select]
 #' semantics in some of its arguments.
 #'
 # -------------------------------------------------------------------------
@@ -488,7 +516,7 @@ incidence <- function(
 #'
 #' A data frame object representing a linelist or pre-aggregated dataset.
 #'
-#' @param date_index [`<tidyselect>`][dplyr::dplyr_tidy_select]
+#' @param date_index [tidyselect][dplyr::dplyr_tidy_select].
 #'
 #' The time index(es) of the given data.
 #'
@@ -498,14 +526,14 @@ incidence <- function(
 #'
 #' Multiple indices only make sense when  `x` is a linelist.
 #'
-#' @param groups [`<tidyselect>`][dplyr::dplyr_tidy_select]
+#' @param groups [tidyselect][dplyr::dplyr_tidy_select].
 #'
 #' An optional vector giving the names of the groups of observations for which
 #' incidence should be grouped.
 #'
 #' A named vector can be used for convenient relabelling of the resultant output.
 #'
-#' @param counts [`<tidyselect>`][dplyr::dplyr_tidy_select]
+#' @param counts [tidyselect][dplyr::dplyr_tidy_select].
 #'
 #' The count variables of the given data.  If NULL (default) the data is taken
 #' to be a linelist of individual observations.
@@ -525,7 +553,7 @@ incidence <- function(
 #'
 #' The name of the column to store the date variables in.
 #'
-#' @param rm_na_dates `logical`.
+#' @param rm_na_dates `bool`.
 #'
 #' Should `NA` dates be removed prior to aggregation?
 #'
@@ -568,6 +596,17 @@ incidence <- function(
 #' - For date values this is first converted to an integer offset
 #'   (`offset <- floor(as.numeric(offset))`) and then scaled via `n` as above.
 #'
+#' @param complete_dates `bool`.
+#'
+#' Should the resulting object have the same range of dates for each grouping.
+#'
+#' Missing counts will be filled with `0L`.
+#'
+#' Will attempt to use `function(x) seq(min(x), max(x), by = 1)` on the
+#' resultant date_index column to generate a complete sequence of dates.
+#'
+#' More flexible completion is possible by using the `complete_dates()`
+#'
 #' @param ...
 #'
 #' Not currently used.
@@ -606,6 +645,7 @@ incidence_ <- function(
         rm_na_dates = TRUE,
         interval = NULL,
         offset = NULL,
+        complete_dates = FALSE,
         ...
 ) {
 
@@ -659,6 +699,7 @@ incidence_ <- function(
         rm_na_dates = rm_na_dates,
         interval = interval,
         offset = offset,
+        complete_dates = complete_dates,
         ...
     )
 
