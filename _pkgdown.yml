@@ -14,7 +14,6 @@ reference:
 
 - title: Manipulation
 - contents:
-  - as.data.frame.incidence2
   - cumulate
   - complete_dates
   - keep_first
@@ -22,6 +21,16 @@ reference:
   - keep_peaks
   - regroup
   - regroup_
+
+- title: Coercion
+- contents:
+    - as.data.frame.incidence2
+    - as.data.table.incidence2
+    - as_tibble.incidence2
+
+- title: Grouping aware methods
+- contents:
+    - mutate.incidence2
 
 - title: Peak estimation
 - contents:

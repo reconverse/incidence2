@@ -103,13 +103,6 @@ To create and work with `incidence2` objects we provide a number of functions:
 ```{r}
 library(incidence2)
 library(outbreaks, include.only = c("ebola_sim_clean", "fluH7N9_china_2013"))
-library(data.table, include.only = "frollmean")
-library(ggplot2, include.only = c("geom_line", "aes"))
-library(
-    dplyr,
-    include.only = c("select","filter", "mutate", "summarise", "reframe", "glimpse", "bind_rows"),
-    warn.conflicts = FALSE
-)
 ```
 
 Examples in the vignette utilise three different sets of data:
@@ -132,7 +125,7 @@ Broadly speaking, we refer to data with one row of observations (e.g. 'Sex',
 ```{r}
 # linelist from the simulated ebola outbreak  (removing some missing entries)
 ebola <- dplyr::filter(ebola_sim_clean$linelist ,!is.na(hospital))
-glimpse(ebola)
+dplyr::glimpse(ebola)
 ```
 
 To compute daily incidence we pass to `incidence()` our linelist data frame
@@ -245,7 +238,7 @@ covid <- dplyr::filter(
     covidregionaldataUK,
     !region %in% c("England", "Scotland", "Northern Ireland", "Wales")
 )
-glimpse(covid)
+dplyr::glimpse(covid)
 ```
 
 Like with our linelist data, `incidence()` requires us to specify a `date_index`
@@ -421,11 +414,11 @@ influenza <- incidence_(
 
 # across provinces (we suspend progress bar for markdown)
 estimate_peak(influenza, progress = FALSE) |> 
-    select(-count_variable)
+    dplyr::select(-count_variable)
 # regrouping for overall peak
 plot(regroup(influenza))
 estimate_peak(regroup(influenza), progress = FALSE) |> 
-    select(-count_variable)
+    dplyr::select(-count_variable)
 # return the first peak of the grouped and ungrouped data
 first_peak(influenza)
 first_peak(regroup(influenza))
@@ -499,7 +492,7 @@ class(weekly_incidence[c(1L, 3L, 5L), ])
 weekly_incidence$future <- weekly_incidence$date_index + 999L
 class(weekly_incidence)
 weekly_incidence |> 
-    dplyr::mutate(past = date_index - 999L) |> 
+    mutate(past = date_index - 999L) |> 
     class()
 
 # rename preserve class
@@ -564,9 +557,9 @@ what it is. This makes it very easy to utilise in analysis pipelines.
 ```{r}
 weekly_incidence |>
     regroup_(hospital) |> 
-    mutate(rolling_average = frollmean(count, n = 3L, align = "right")) |> 
+    mutate(rolling_average = data.table::frollmean(count, n = 3L, align = "right")) |> 
     plot(border_colour = "white", angle = 45) +
-    geom_line(aes(x = date_index, y = rolling_average))
+    ggplot2::geom_line(ggplot2::aes(x = date_index, y = rolling_average))
 ```
 
 

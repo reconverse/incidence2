@@ -1,5 +1,8 @@
 #' @importFrom dplyr summarise
 #' @export
+dplyr::summarise
+
+#' @export
 summarise.incidence2 <- function(
     .data,
     ...,

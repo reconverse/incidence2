@@ -1,5 +1,8 @@
 #' @importFrom tidyr nest
 #' @export
+tidyr::nest
+
+#' @export
 nest.incidence2 <- function(.data, ..., .by, .key, .names_sep) {
     if(!missing(.by))
         stop("`.by` argument cannot be used in `nest.incidence2()` as the groupings are implicit.")

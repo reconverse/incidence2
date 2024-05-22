@@ -1,5 +1,35 @@
 #' @importFrom dplyr mutate
 #' @export
+dplyr::mutate
+
+#' Create, modify, and delete incidence2 columns
+#'
+#' Method for [dplyr::mutate] that implicitly accounts for the inherent
+#' grouping structure of incidence2 objects.
+#'
+#' @param .data An [incidence2][incidence2::incidence] object.
+#'
+#' @inheritParams dplyr::mutate
+#'
+#' @return
+#'
+#' A modified [incidence2][incidence2::incidence] object if the necessary
+#' invariants are preserved, otherwise a [tibble][tibble::tibble].
+#'
+#' @examples
+#' \dontshow{.old <- data.table::setDTthreads(2)}
+#' if (requireNamespace("outbreaks", quietly = TRUE)) {
+#'     data(ebola_sim_clean, package = "outbreaks")
+#'     ebola_sim_clean$linelist |>
+#'         dplyr::filter(!is.na(hospital)) |>
+#'         incidence_(date_of_onset, hospital, interval = "isoweek") |>
+#'         mutate(ave = data.table::frollmean(count, n = 3L, align = "right")) |>
+#'         plot(border_colour = "white", angle = 45) +
+#'         ggplot2::geom_line(ggplot2::aes(x = date_index, y = ave))
+#' }
+#' \dontshow{data.table::setDTthreads(.old)}
+#'
+#' @export
 mutate.incidence2 <- function(
     .data,
     ...,
@@ -14,6 +44,13 @@ mutate.incidence2 <- function(
 
     groupings <- c(get_count_variable_name(.data), get_group_names(.data))
     out <- tibble::as_tibble(.data)
-    out <- mutate(out, ..., .by = tidyr::all_of(groupings), .keep = .keep, .before = {{.before}}, .after = {{.after}})
+    out <- mutate(
+        out,
+        ...,
+        .by = tidyr::all_of(groupings),
+        .keep = .keep,
+        .before = {{.before}},
+        .after = {{.after}}
+    )
     .incidence_reconstruct(out, .data)
 }

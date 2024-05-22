@@ -1,5 +1,8 @@
 #' @importFrom dplyr reframe
 #' @export
+dplyr::reframe
+
+#' @export
 reframe.incidence2 <- function(
     .data,
     ...,
