@@ -4,8 +4,8 @@
 #' time periods and groupings.
 #'
 # -------------------------------------------------------------------------
-#' `<incidence2>` objects are a sub class of data frame with some
-#' additional invariants. That is, an `<incidence2>` object must:
+#' `incidence2` objects are a sub class of data frame with some
+#' additional invariants. That is, an `incidence2` object must:
 #'
 #' - have one column representing the date index (this does not need to be a
 #'   `date` object but must have an inherent ordering over time);
@@ -45,7 +45,7 @@
 #'
 #' A data frame object representing a linelist or pre-aggregated dataset.
 #'
-#' @param date_index `[character]`
+#' @param date_index `character`.
 #'
 #' The time index(es) of the given data.
 #'
@@ -55,34 +55,34 @@
 #'
 #' Multiple indices only make sense when  `x` is a linelist.
 #'
-#' @param groups `[character]`
+#' @param groups `character`.
 #'
 #' An optional vector giving the names of the groups of observations for which
 #' incidence should be grouped.
 #'
 #' A named vector can be used for convenient relabelling of the resultant output.
 #'
-#' @param counts `[character]`
+#' @param counts `character`.
 #'
 #' The count variables of the given data.  If NULL (default) the data is taken
 #' to be a linelist of individual observations.
 #'
 #' A named vector can be used for convenient relabelling of the resultant output.
 #'
-#' @param count_names_to `[character]`
+#' @param count_names_to `character`.
 #'
 #' The column to create which will store the `counts` column names provided that
 #' `counts` is not NULL.
 #'
-#' @param count_values_to `[character]`
+#' @param count_values_to `character`.
 #'
 #' The name of the column to store the resultant count values in.
 #'
-#' @param date_names_to `[character]`
+#' @param date_names_to `character`.
 #'
 #' The name of the column to store the date variables in.
 #'
-#' @param rm_na_dates `[logical]`
+#' @param rm_na_dates `logical`.
 #'
 #' Should `NA` dates be removed prior to aggregation?
 #'
@@ -512,20 +512,20 @@ incidence <- function(
 #'
 #' A named vector can be used for convenient relabelling of the resultant output.
 #'
-#' @param count_names_to `[character]`
+#' @param count_names_to `character`.
 #'
 #' The column to create which will store the `counts` column names provided that
 #' `counts` is not NULL.
 #'
-#' @param count_values_to `[character]`
+#' @param count_values_to `character`.
 #'
 #' The name of the column to store the resultant count values in.
 #'
-#' @param date_names_to `[character]`
+#' @param date_names_to `character`.
 #'
 #' The name of the column to store the date variables in.
 #'
-#' @param rm_na_dates `[logical]`
+#' @param rm_na_dates `logical`.
 #'
 #' Should `NA` dates be removed prior to aggregation?
 #'

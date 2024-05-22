@@ -7,7 +7,7 @@
 \method{summary}{incidence2}(object, ...)
 }
 \arguments{
-\item{object}{An 'incidence' object.}
+\item{object}{An \link[=incidence]{incidence2} object.}
 
 \item{...}{Not used.}
 }

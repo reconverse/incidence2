@@ -9,7 +9,7 @@ regroup(x, groups = NULL)
 \arguments{
 \item{x}{\verb{<incidence2>} object.}
 
-\item{groups}{\verb{[character]}
+\item{groups}{\code{character}.
 
 The groups to sum over.
 
@@ -17,9 +17,9 @@ If \code{NULL} (default) then the function returns the corresponding object with
 no groupings.}
 }
 \description{
-This function regroups an \verb{<incidence2>} object across the specified groups.
-The resulting \verb{<incidence2>} object will contains counts summed over the
-groups present in the input.
+This function regroups an \link[=incidence]{incidence2} object across
+the specified groups. The resulting \link[=incidence]{incidence2}
+object will contains counts aggregated over the specified groups.
 }
 \examples{
 \dontshow{.old <- data.table::setDTthreads(2)}

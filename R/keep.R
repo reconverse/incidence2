@@ -6,22 +6,22 @@
 #' wrapper around `keep_peaks()` with the `first_only` argument set to `TRUE`.
 #'
 # -------------------------------------------------------------------------
-#' @param x `<incidence2>` object.
+#' @param x [incidence2][incidence2::incidence] object.
 #'
-#' @param n `[integer]`
+#' @param n `integer`.
 #'
 #' Number of entries to keep.
 #'
 #' `double` vectors will be converted via `as.integer(n)`.
 #'
-#' @param complete_dates `[bool]`
+#' @param complete_dates `bool`.
 #'
 #' Should `complete_dates()` be called on the data prior to keeping the first
 #' entries.
 #'
 #' Defaults to TRUE.
 #'
-#' @param first_only `[bool]`
+#' @param first_only `bool`.
 #'
 #' Should only the first peak (by date) be kept.
 #'
@@ -33,7 +33,7 @@
 #'
 # -------------------------------------------------------------------------
 #' @return
-#' Incidence object with the chosen entries.
+#' [incidence2][incidence2::incidence] object with the chosen entries.
 #'
 # -------------------------------------------------------------------------
 #' @examples

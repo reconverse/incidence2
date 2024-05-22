@@ -1,6 +1,6 @@
 #' Summary of an incidence object
 #'
-#' @param object An 'incidence' object.
+#' @param object An [incidence2][incidence2::incidence] object.
 #' @param ... Not used.
 #'
 #' @return object (invisibly).

@@ -11,7 +11,7 @@ vibrant(n)
 muted(n)
 }
 \arguments{
-\item{n}{\verb{[integer]}
+\item{n}{\code{integer}.
 
 Number of colours.
 

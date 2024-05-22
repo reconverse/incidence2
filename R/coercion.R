@@ -1,6 +1,6 @@
 #' Convert incident object to a data frame
 #'
-#' @param x `<incidence2>` object.
+#' @param x [incidence2][incidence2::incidence] object.
 #' @param row.names Not used.
 #' @param optional Not used.
 #' @param ... Not used.

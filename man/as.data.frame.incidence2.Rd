@@ -7,7 +7,7 @@
 \method{as.data.frame}{incidence2}(x, row.names, optional, ...)
 }
 \arguments{
-\item{x}{\verb{<incidence2>} object.}
+\item{x}{\link[=incidence]{incidence2} object.}
 
 \item{row.names}{Not used.}
 

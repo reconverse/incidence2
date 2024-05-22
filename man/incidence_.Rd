@@ -45,20 +45,20 @@ to be a linelist of individual observations.
 
 A named vector can be used for convenient relabelling of the resultant output.}
 
-\item{count_names_to}{\verb{[character]}
+\item{count_names_to}{\code{character}.
 
 The column to create which will store the \code{counts} column names provided that
 \code{counts} is not NULL.}
 
-\item{count_values_to}{\verb{[character]}
+\item{count_values_to}{\code{character}.
 
 The name of the column to store the resultant count values in.}
 
-\item{date_names_to}{\verb{[character]}
+\item{date_names_to}{\code{character}.
 
 The name of the column to store the date variables in.}
 
-\item{rm_na_dates}{\verb{[logical]}
+\item{rm_na_dates}{\code{logical}.
 
 Should \code{NA} dates be removed prior to aggregation?}
 

@@ -7,11 +7,11 @@
 cumulate(x)
 }
 \arguments{
-\item{x}{\verb{[incidence2]} object.}
+\item{x}{\link[=incidence]{incidence2} object.}
 }
 \description{
 \code{cumulate()} computes the cumulative incidence over time for an
-\verb{<incidence2>} object.
+\link[=incidence]{incidence2} object.
 }
 \examples{
 \dontshow{.old <- data.table::setDTthreads(2)}

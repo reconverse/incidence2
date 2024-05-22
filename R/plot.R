@@ -15,45 +15,45 @@
 #' - Utilises ggplot2 so this must be installed to use.
 #'
 # -------------------------------------------------------------------------
-#' @param x `<incidence2>` object.
+#' @param x [incidence2][incidence2::incidence] object.
 #'
 #' @param y Not used.
 #'
 #' Required for compatibility with the `plot()` generic.
 #'
-#' @param width `[numeric]`
+#' @param width `numeric`.
 #'
 #' Value between 0 and 1 indicating the relative size of the bars to the
 #' interval.
 #'
 #' Default 1.
 #'
-#' @param colour_palette `[function]`
+#' @param colour_palette `function`.
 #'
 #' The color palette to be used for the different count variables.
 #'
 #' Defaults to `vibrant` (see `?palettes`).
 #'
-#' @param border_colour `[character]`
+#' @param border_colour `character`.
 #'
 #' The color to be used for the borders of the bars.
 #'
 #' Use `NA` (default) for invisible borders.
 #'
-#' @param na_colour `[character]`
+#' @param na_colour `character`.
 #'
 #' The colour to plot `NA` values in graphs.
 #'
 #' Defaults to `grey`.
 #'
-#' @param alpha `[numeric]`
+#' @param alpha `numeric`.
 #'
 #' The alpha level for color transparency, with 1 being fully opaque and
 #' 0 fully transparent
 #'
 #' Defaults to 0.7.
 #'
-#' @param fill `[character]`
+#' @param fill `character`.
 #'
 #' Which variable to colour plots by.
 #'
@@ -62,7 +62,7 @@
 #'
 #' If NULL no distinction if made for plot colours.
 #'
-#' @param legend `[character]`
+#' @param legend `character`.
 #'
 #' Position of legend in plot.
 #'
@@ -70,34 +70,34 @@
 #'
 #' One of "right" (default), "left", "bottom", "top" or "none".
 #'
-#' @param title `[character]`
+#' @param title `character`.
 #'
 #' Optional title for the graph.
 #'
-#' @param angle `[numeric]`
+#' @param angle `numeric`.
 #'
 #' Rotation angle for text.
 #'
-#' @param size `[numeric]`
+#' @param size `numeric`.
 #'
 #' text size in pts.
 #'
-#' @param nrow `[integer]`
+#' @param nrow `integer`.
 #'
 #' Number of rows used for facetting if there are group variables present and
 #' just one count in the incidence object.
 #'
 #' Numeric values are coerced to integer via `as.integer()`.
 #'
-#' @param n_breaks `[integer]`
+#' @param n_breaks `integer`.
 #'
-#' Approximate number of breaks calculated using `scales::breaks_pretty`.
+#' Approximate number of breaks calculated using `scales::breaks_pretty()`.
 #'
 #' Numeric values are coerced to integer via `as.integer()`.
 #'
 #' Default 6L.
 #'
-#' @param show_cases `[logical]`
+#' @param show_cases `logical`.
 #'
 #' if `TRUE`, then each observation will be shown individually in a square
 #' format.
@@ -110,7 +110,7 @@
 #'
 # -------------------------------------------------------------------------
 #' @return
-#'  - A `[ggplot2::ggplot()]` object.
+#'  - A `ggplot2::ggplot()` object.
 #'
 # -------------------------------------------------------------------------
 #' @examples

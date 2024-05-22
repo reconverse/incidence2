@@ -24,45 +24,45 @@
 )
 }
 \arguments{
-\item{x}{\verb{<incidence2>} object.}
+\item{x}{\link[=incidence]{incidence2} object.}
 
 \item{y}{Not used.
 
 Required for compatibility with the \code{plot()} generic.}
 
-\item{width}{\verb{[numeric]}
+\item{width}{\code{numeric}.
 
 Value between 0 and 1 indicating the relative size of the bars to the
 interval.
 
 Default 1.}
 
-\item{colour_palette}{\verb{[function]}
+\item{colour_palette}{\code{function}.
 
 The color palette to be used for the different count variables.
 
 Defaults to \code{vibrant} (see \code{?palettes}).}
 
-\item{border_colour}{\verb{[character]}
+\item{border_colour}{\code{character}.
 
 The color to be used for the borders of the bars.
 
 Use \code{NA} (default) for invisible borders.}
 
-\item{na_colour}{\verb{[character]}
+\item{na_colour}{\code{character}.
 
 The colour to plot \code{NA} values in graphs.
 
 Defaults to \code{grey}.}
 
-\item{alpha}{\verb{[numeric]}
+\item{alpha}{\code{numeric}.
 
 The alpha level for color transparency, with 1 being fully opaque and
 0 fully transparent
 
 Defaults to 0.7.}
 
-\item{fill}{\verb{[character]}
+\item{fill}{\code{character}.
 
 Which variable to colour plots by.
 
@@ -71,7 +71,7 @@ for facetting.
 
 If NULL no distinction if made for plot colours.}
 
-\item{legend}{\verb{[character]}
+\item{legend}{\code{character}.
 
 Position of legend in plot.
 
@@ -79,34 +79,34 @@ Only applied if \code{fill} is not NULL.
 
 One of "right" (default), "left", "bottom", "top" or "none".}
 
-\item{title}{\verb{[character]}
+\item{title}{\code{character}.
 
 Optional title for the graph.}
 
-\item{angle}{\verb{[numeric]}
+\item{angle}{\code{numeric}.
 
 Rotation angle for text.}
 
-\item{size}{\verb{[numeric]}
+\item{size}{\code{numeric}.
 
 text size in pts.}
 
-\item{nrow}{\verb{[integer]}
+\item{nrow}{\code{integer}.
 
 Number of rows used for facetting if there are group variables present and
 just one count in the incidence object.
 
 Numeric values are coerced to integer via \code{as.integer()}.}
 
-\item{n_breaks}{\verb{[integer]}
+\item{n_breaks}{\code{integer}.
 
-Approximate number of breaks calculated using \code{scales::breaks_pretty}.
+Approximate number of breaks calculated using \code{scales::breaks_pretty()}.
 
 Numeric values are coerced to integer via \code{as.integer()}.
 
 Default 6L.}
 
-\item{show_cases}{\verb{[logical]}
+\item{show_cases}{\code{logical}.
 
 if \code{TRUE}, then each observation will be shown individually in a square
 format.
@@ -119,7 +119,7 @@ Defaults to \code{FALSE}.}
 }
 \value{
 \itemize{
-\item A \verb{[ggplot2::ggplot()]} object.
+\item A \code{ggplot2::ggplot()} object.
 }
 }
 \description{

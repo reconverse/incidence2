@@ -1,11 +1,3 @@
-# The following functions are needed to make data frame subclasses work nicely
-# with dplyr.  It is based on the
-# (guide)[(https://github.com/DavisVaughan/2020-06-01_dplyr-vctrs-compat)]
-# by Davis Vaughan. The idea is to think to an object in terms of its invariants
-# (structural information that must be true for an object to be of the specified
-# subclass). Where an operation breaks these invariants, a data frame is
-# returned instead of the input class.
-
 # -------------------------------------------------------------------------
 #' @export
 `[.incidence2` <- function(x, i, j, ...) {
@@ -52,7 +44,17 @@
 # -------------------------------- INTERNALS ------------------------------ #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
+#
+# The following functions are needed to make data frame subclasses work nicely
+# with dplyr.  It is based on the
+# (guide)[(https://github.com/DavisVaughan/2020-06-01_dplyr-vctrs-compat)]
+# by Davis Vaughan. The idea is to think to an object in terms of its invariants
+# (structural information that must be true for an object to be of the specified
+# subclass). Where an operation breaks these invariants, a data frame is
+# returned instead of the input class.
 
+
+# -------------------------------------------------------------------------
 # To quote "This function is a data frame specific helper.  Currently we are
 # recommended to copy in to our own package but it may eventually find it's way
 # in to one of the tidy packages."

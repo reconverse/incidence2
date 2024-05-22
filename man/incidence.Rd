@@ -21,7 +21,7 @@ incidence(
 \arguments{
 \item{x}{A data frame object representing a linelist or pre-aggregated dataset.}
 
-\item{date_index}{\verb{[character]}
+\item{date_index}{\code{character}.
 
 The time index(es) of the given data.
 
@@ -31,34 +31,34 @@ A named vector can be used for convenient relabelling of the resultant output.
 
 Multiple indices only make sense when  \code{x} is a linelist.}
 
-\item{groups}{\verb{[character]}
+\item{groups}{\code{character}.
 
 An optional vector giving the names of the groups of observations for which
 incidence should be grouped.
 
 A named vector can be used for convenient relabelling of the resultant output.}
 
-\item{counts}{\verb{[character]}
+\item{counts}{\code{character}.
 
 The count variables of the given data.  If NULL (default) the data is taken
 to be a linelist of individual observations.
 
 A named vector can be used for convenient relabelling of the resultant output.}
 
-\item{count_names_to}{\verb{[character]}
+\item{count_names_to}{\code{character}.
 
 The column to create which will store the \code{counts} column names provided that
 \code{counts} is not NULL.}
 
-\item{count_values_to}{\verb{[character]}
+\item{count_values_to}{\code{character}.
 
 The name of the column to store the resultant count values in.}
 
-\item{date_names_to}{\verb{[character]}
+\item{date_names_to}{\code{character}.
 
 The name of the column to store the date variables in.}
 
-\item{rm_na_dates}{\verb{[logical]}
+\item{rm_na_dates}{\code{logical}.
 
 Should \code{NA} dates be removed prior to aggregation?}
 
@@ -107,8 +107,8 @@ A \code{\link[tibble:tibble]{tibble}} with subclass \code{incidence2}.
 time periods and groupings.
 }
 \details{
-\verb{<incidence2>} objects are a sub class of data frame with some
-additional invariants. That is, an \verb{<incidence2>} object must:
+\code{incidence2} objects are a sub class of data frame with some
+additional invariants. That is, an \code{incidence2} object must:
 \itemize{
 \item have one column representing the date index (this does not need to be a
 \code{date} object but must have an inherent ordering over time);

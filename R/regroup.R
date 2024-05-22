@@ -1,13 +1,13 @@
 #' Regroup 'incidence' objects
 #'
-#' This function regroups an `<incidence2>` object across the specified groups.
-#' The resulting `<incidence2>` object will contains counts summed over the
-#' groups present in the input.
+#' This function regroups an [incidence2][incidence2::incidence] object across
+#' the specified groups. The resulting [incidence2][incidence2::incidence]
+#' object will contains counts aggregated over the specified groups.
 #'
 # -------------------------------------------------------------------------
 #' @param x `<incidence2>` object.
 #'
-#' @param groups `[character]`
+#' @param groups `character`.
 #'
 #' The groups to sum over.
 #'

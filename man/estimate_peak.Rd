@@ -8,25 +8,25 @@
 estimate_peak(x, n = 100L, alpha = 0.05, first_only = TRUE, progress = TRUE)
 }
 \arguments{
-\item{x}{An \verb{<incidence2>} object.}
+\item{x}{An \link[=incidence]{incidence2} object.}
 
-\item{n}{\verb{[integer]}
+\item{n}{\code{integer}.
 
 The number of bootstrap datasets to be generated; defaults to 100.
 
 \verb{[double]} vectors will be converted via \code{as.integer(n)}.}
 
-\item{alpha}{\verb{[numeric]}
+\item{alpha}{\code{numeric}.
 
 The type 1 error chosen for the confidence interval; defaults to 0.05.}
 
-\item{first_only}{\verb{[bool]}
+\item{first_only}{\code{bool}.
 
 Should only the first peak (by date) be kept.
 
 Defaults to \code{TRUE}.}
 
-\item{progress}{\verb{[bool]}
+\item{progress}{\code{bool}.
 
 Should a progress bar be displayed (default = TRUE)}
 }
@@ -76,7 +76,8 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 }
 \seealso{
 \code{\link[=bootstrap_incidence]{bootstrap_incidence()}} for the bootstrapping underlying this approach and
-\code{\link[=keep_peaks]{keep_peaks()}} to get the peaks in a single \verb{[incidence2]} object.
+\code{\link[=keep_peaks]{keep_peaks()}} to get the peaks in a single
+\link[=incidence]{incidence2} object.
 }
 \author{
 Thibaut Jombart and Tim Taylor, with inputs on caveats from Michael Höhle.

@@ -1,18 +1,19 @@
 #' Bootstrap incidence time series
 #'
 # -------------------------------------------------------------------------
-#' This function can be used to bootstrap `[incidence2]` objects. Bootstrapping
-#' is done by sampling with replacement the original input dates.
+#' This function can be used to bootstrap [incidence2][incidence2::incidence]
+#' objects. Bootstrapping is done by sampling with replacement the original
+#' input dates.
 #'
 # -------------------------------------------------------------------------
-#' As original data are not stored in [incidence2::incidence] objects, the
-#' bootstrapping is achieved by multinomial sampling of date bins weighted by
-#' their relative incidence.
+#' As original data are not stored in [incidence2][incidence2::incidence]
+#' objects, the bootstrapping is achieved by multinomial sampling of date bins
+#' weighted by their relative incidence.
 #'
 # -------------------------------------------------------------------------
-#' @param x An `[incidence2]` object.
+#' @param x An [incidence2][incidence2::incidence] object.
 #'
-#' @param randomise_groups `[bool]`
+#' @param randomise_groups `bool`.
 #'
 #' Should groups be randomised as well in the resampling procedure; respective
 #' group sizes will be preserved, but this can be used to remove any
@@ -23,7 +24,7 @@
 # -------------------------------------------------------------------------
 #' @return
 #'
-#' An `[incidence2]` object.
+#' An [incidence2][incidence2::incidence] object.
 #'
 # -------------------------------------------------------------------------
 #' @author

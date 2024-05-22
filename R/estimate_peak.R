@@ -21,25 +21,25 @@
 #'   equally likely to be reported
 #'
 # -------------------------------------------------------------------------
-#' @param x An `<incidence2>` object.
+#' @param x An [incidence2][incidence2::incidence] object.
 #'
-#' @param n `[integer]`
+#' @param n `integer`.
 #'
 #' The number of bootstrap datasets to be generated; defaults to 100.
 #'
 #' `[double]` vectors will be converted via `as.integer(n)`.
 #'
-#' @param alpha `[numeric]`
+#' @param alpha `numeric`.
 #'
 #' The type 1 error chosen for the confidence interval; defaults to 0.05.
 #'
-#' @param first_only `[bool]`
+#' @param first_only `bool`.
 #'
 #' Should only the first peak (by date) be kept.
 #'
 #' Defaults to `TRUE`.
 #'
-#' @param progress `[bool]`
+#' @param progress `bool`.
 #'
 #' Should a progress bar be displayed (default = TRUE)
 #'
@@ -59,7 +59,8 @@
 #' @seealso
 #'
 #' [`bootstrap_incidence()`] for the bootstrapping underlying this approach and
-#' [`keep_peaks()`] to get the peaks in a single `[incidence2]` object.
+#' [`keep_peaks()`] to get the peaks in a single
+#' [incidence2][incidence2::incidence] object.
 #'
 # -------------------------------------------------------------------------
 #' @author

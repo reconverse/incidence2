@@ -7,9 +7,9 @@
 bootstrap_incidence(x, randomise_groups = FALSE)
 }
 \arguments{
-\item{x}{An \verb{[incidence2]} object.}
+\item{x}{An \link[=incidence]{incidence2} object.}
 
-\item{randomise_groups}{\verb{[bool]}
+\item{randomise_groups}{\code{bool}.
 
 Should groups be randomised as well in the resampling procedure; respective
 group sizes will be preserved, but this can be used to remove any
@@ -18,16 +18,17 @@ group-specific temporal dynamics.
 If \code{FALSE} (default), data are resampled within groups.}
 }
 \value{
-An \verb{[incidence2]} object.
+An \link[=incidence]{incidence2} object.
 }
 \description{
-This function can be used to bootstrap \verb{[incidence2]} objects. Bootstrapping
-is done by sampling with replacement the original input dates.
+This function can be used to bootstrap \link[=incidence]{incidence2}
+objects. Bootstrapping is done by sampling with replacement the original
+input dates.
 }
 \details{
-As original data are not stored in \link{incidence} objects, the
-bootstrapping is achieved by multinomial sampling of date bins weighted by
-their relative incidence.
+As original data are not stored in \link[=incidence]{incidence2}
+objects, the bootstrapping is achieved by multinomial sampling of date bins
+weighted by their relative incidence.
 }
 \examples{
 \dontshow{.old <- data.table::setDTthreads(2)}

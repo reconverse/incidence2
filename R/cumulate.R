@@ -1,9 +1,9 @@
 #' Compute cumulative 'incidence'
 #'
 #' `cumulate()` computes the cumulative incidence over time for an
-#' `<incidence2>` object.
+#' [incidence2][incidence2::incidence] object.
 #'
-#' @param x `[incidence2]` object.
+#' @param x [incidence2][incidence2::incidence] object.
 #'
 #' @examples
 #' \dontshow{.old <- data.table::setDTthreads(2)}

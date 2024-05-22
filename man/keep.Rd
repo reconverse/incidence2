@@ -17,15 +17,15 @@ keep_peaks(x, complete_dates = TRUE, first_only = FALSE, ...)
 first_peak(x, complete_dates = TRUE, ...)
 }
 \arguments{
-\item{x}{\verb{<incidence2>} object.}
+\item{x}{\link[=incidence]{incidence2} object.}
 
-\item{n}{\verb{[integer]}
+\item{n}{\code{integer}.
 
 Number of entries to keep.
 
 \code{double} vectors will be converted via \code{as.integer(n)}.}
 
-\item{complete_dates}{\verb{[bool]}
+\item{complete_dates}{\code{bool}.
 
 Should \code{complete_dates()} be called on the data prior to keeping the first
 entries.
@@ -34,14 +34,14 @@ Defaults to TRUE.}
 
 \item{...}{Other arguments passed to \code{complete_dates()}.}
 
-\item{first_only}{\verb{[bool]}
+\item{first_only}{\code{bool}.
 
 Should only the first peak (by date) be kept.
 
 Defaults to \code{TRUE}.}
 }
 \value{
-Incidence object with the chosen entries.
+\link[=incidence]{incidence2} object with the chosen entries.
 }
 \description{
 \code{keep_first()} and \code{keep_last()} keep the first and last \code{n} rows to occur
