@@ -28,8 +28,7 @@ install.packages("incidence2")
 
 ## Vignettes
 
-An overview of incidence2 is provided in the vignettes distributed with
+An overview of incidence2 is provided in the vignette distributed with
 the package:
 
 - `vignette("incidence2", package = "incidence2")`
-- `vignette("working-with-incidence2-objects", package = "incidence2")`
