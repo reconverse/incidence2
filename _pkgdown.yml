@@ -30,6 +30,7 @@ reference:
 
 - title: Grouping aware methods
 - contents:
+    - split.incidence2
     - mutate.incidence2
     - nest.incidence2
     - summarise.incidence2
