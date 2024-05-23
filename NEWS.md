@@ -19,8 +19,8 @@
     - `as_tibble.incidence2()`
     - `as.data.table.incidence2()`
     
-- New subset-assign, `$<-.incidence2`, and `rbind.incidence2` methods that
-  will drop the incidence2 class if the required invariants are broken.
+- New methods, `$<-.incidence2` and `rbind.incidence2`, that drop the incidence2
+  class if the required invariants are broken.
 
 - New functions `incidence_()` and `regroup_()` that work similar to their
   existing namesakes save for additional support for
