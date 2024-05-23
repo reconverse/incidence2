@@ -232,7 +232,7 @@ wide format with multiple count values given for each day.
 
 ```{r}
 covid <- subset(
-    outbreaks::covidregionaldataUK,
+    covidregionaldataUK,
     !region %in% c("England", "Scotland", "Northern Ireland", "Wales")
 )
 str(covid)
