@@ -24,7 +24,7 @@ dplyr::mutate
 # -------------------------------------------------------------------------
 #' @examples
 #' \dontshow{.old <- data.table::setDTthreads(2)}
-#' if (requireNamespace("outbreaks", quietly = TRUE)) {
+#' if (requireNamespace("outbreaks", quietly = TRUE) && requireNamespace("ggplot2", quietly = TRUE)) {
 #'     data(ebola_sim_clean, package = "outbreaks")
 #'     ebola_sim_clean$linelist |>
 #'         subset(!is.na(hospital)) |>
