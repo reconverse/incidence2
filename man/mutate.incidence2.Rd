@@ -70,3 +70,6 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 \dontshow{data.table::setDTthreads(.old)}
 
 }
+\seealso{
+\link[dplyr:mutate]{dplyr::mutate} for the underlying generic.
+}

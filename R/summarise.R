@@ -2,11 +2,14 @@
 #' @export
 dplyr::summarise
 
+
 #' Summarise each grouping down to one row
 #'
+# -------------------------------------------------------------------------
 #' Method for [dplyr::summarise] that implicitly accounts for the inherent
 #' grouping structure of [incidence2][incidence2::incidence] objects.
 #'
+# -------------------------------------------------------------------------
 #' @inheritParams dplyr::mutate
 #'
 #' @param .data An [incidence2][incidence2::incidence] object.
@@ -15,10 +18,11 @@ dplyr::summarise
 #'
 #' @param .groups Not used.
 #'
+# -------------------------------------------------------------------------
 #' @return
-#'
 #' A [tibble][tibble::tibble].
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' \dontshow{.old <- data.table::setDTthreads(2)}
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
@@ -30,6 +34,10 @@ dplyr::summarise
 #' }
 #' \dontshow{data.table::setDTthreads(.old)}
 #'
+# -------------------------------------------------------------------------
+#' @seealso [dplyr::summarise] for the underlying grouping.
+#'
+# -------------------------------------------------------------------------
 #' @export
 summarise.incidence2 <- function(
     .data,

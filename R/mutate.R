@@ -2,22 +2,26 @@
 #' @export
 dplyr::mutate
 
+
 #' Create, modify, and delete incidence2 columns
 #'
+# -------------------------------------------------------------------------
 #' Method for [dplyr::mutate] that implicitly accounts for the inherent
 #' grouping structure of incidence2 objects.
 #'
+# -------------------------------------------------------------------------
 #' @inheritParams dplyr::mutate
 #'
 #' @param .data An [incidence2][incidence2::incidence] object.
 #'
 #' @param .by Not used as grouping structure implicit.
 #'
+# -------------------------------------------------------------------------
 #' @return
-#'
 #' A modified [incidence2][incidence2::incidence] object if the necessary
 #' invariants are preserved, otherwise a [tibble][tibble::tibble].
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' \dontshow{.old <- data.table::setDTthreads(2)}
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
@@ -31,6 +35,10 @@ dplyr::mutate
 #' }
 #' \dontshow{data.table::setDTthreads(.old)}
 #'
+# -------------------------------------------------------------------------
+#' @seealso [dplyr::mutate] for the underlying generic.
+#'
+# -------------------------------------------------------------------------
 #' @export
 mutate.incidence2 <- function(
     .data,

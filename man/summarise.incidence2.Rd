@@ -44,3 +44,6 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 \dontshow{data.table::setDTthreads(.old)}
 
 }
+\seealso{
+\link[dplyr:summarise]{dplyr::summarise} for the underlying grouping.
+}

@@ -38,4 +38,8 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
         nest()
 }
 \dontshow{data.table::setDTthreads(.old)}
+
+}
+\seealso{
+\link[tidyr:nest]{tidyr::nest} for the underlying generic.
 }

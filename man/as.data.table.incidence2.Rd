@@ -18,8 +18,8 @@
   }}
 }
 \value{
-A \link[data.table:data.table]{data.table} of the original input but with
-no additional attributes.
+A \link[data.table:data.table]{data.table} of the original input but with no
+additional attributes.
 }
 \description{
 Coerce to a data.table
@@ -34,4 +34,7 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 }
 \dontshow{data.table::setDTthreads(.old)}
 
+}
+\seealso{
+\link[data.table:as.data.table]{data.table::as.data.table} for the underlying generic.
 }

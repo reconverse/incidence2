@@ -30,3 +30,6 @@ as.data.frame(dat)
 \dontshow{data.table::setDTthreads(.old)}
 
 }
+\seealso{
+\link{as.data.frame} for the underlying generic.
+}

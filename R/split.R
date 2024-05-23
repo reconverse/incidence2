@@ -1,8 +1,10 @@
 #' Divide an incidence2 object in to it's implicit groupings
 #'
+# -------------------------------------------------------------------------
 #' Split divides and [incidence2][incidence2::incidence] object in to it's
 #' underlying groupings (count variable and optionally groups).
 #'
+# -------------------------------------------------------------------------
 #' @param x An [incidence2][incidence2::incidence] object.
 #'
 #' @param f Not used. Present only for generic compatibility.
@@ -11,12 +13,13 @@
 #'
 #' @param ... Not used. Present only for generic compatibility.
 #'
+# -------------------------------------------------------------------------
 #' @return
-#'
 #' A list of tibbles contained the split data. This list also has a "key"
 #' attribute which is a tibble with rows corresponding to the grouping of
 #' each split.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' \dontshow{.old <- data.table::setDTthreads(2)}
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
@@ -28,9 +31,11 @@
 #' }
 #' \dontshow{data.table::setDTthreads(.old)}
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' [vctrs::vec_split()] on which `split.incidence2()` is built.
 #'
+# -------------------------------------------------------------------------
 #' @export
 split.incidence2 <- function(x, f, drop, ...) {
 
