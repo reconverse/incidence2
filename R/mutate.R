@@ -7,9 +7,11 @@ dplyr::mutate
 #' Method for [dplyr::mutate] that implicitly accounts for the inherent
 #' grouping structure of incidence2 objects.
 #'
+#' @inheritParams dplyr::mutate
+#'
 #' @param .data An [incidence2][incidence2::incidence] object.
 #'
-#' @inheritParams dplyr::mutate
+#' @param .by Not used as grouping structure implicit.
 #'
 #' @return
 #'
