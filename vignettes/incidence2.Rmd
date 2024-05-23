@@ -544,7 +544,7 @@ incidence2 provides methods for popular group-aware generics from both base R
 and the wider package ecosystem:
 
 - base: `split()`.
-- [dplyr](https://cran.r-project.org/package=dplyr): `mutate()`, `summarise()` and `reframe()`.
+- [dplyr](https://cran.r-project.org/package=dplyr): `mutate()` and `summarise()`.
 - [tidyr](https://cran.r-project.org/package=tidyr): `nest()`.
 
 When called on incidence2 objects, these methods will utilise the
