@@ -9,6 +9,7 @@ vignette: >
   %\VignetteIndexEntry{An introduction to incidence2}
   %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{outbreaks}
 ---
 
 ```{r, include = FALSE}
@@ -99,11 +100,6 @@ To create and work with `incidence2` objects we provide a number of functions:
     
 ## Basic Usage
 
-```{r}
-library(incidence2)
-library(outbreaks, include.only = c("ebola_sim_clean", "fluH7N9_china_2013"))
-```
-
 Examples in the vignette utilise three different sets of data:
 
 - A synthetic linelist generated from a simulated Ebola Virus Disease
@@ -122,9 +118,11 @@ Broadly speaking, we refer to data with one row of observations (e.g. 'Sex',
 'Date of symptom onset', 'Date of Hospitalisation') per individual as a linelist
 
 ```{r}
+library(incidence2)
+
 # linelist from the simulated ebola outbreak  (removing some missing entries)
-ebola <- dplyr::filter(ebola_sim_clean$linelist ,!is.na(hospital))
-dplyr::glimpse(ebola)
+ebola <- subset(outbreaks::ebola_sim_clean$linelist ,!is.na(hospital))
+str(ebola)
 ```
 
 To compute daily incidence we pass to `incidence()` our linelist data frame
@@ -233,11 +231,11 @@ optionally split by characteristics). The included Covid data set is in this
 wide format with multiple count values given for each day.
 
 ```{r}
-covid <- dplyr::filter(
-    covidregionaldataUK,
+covid <- subset(
+    outbreaks::covidregionaldataUK,
     !region %in% c("England", "Scotland", "Northern Ireland", "Wales")
 )
-dplyr::glimpse(covid)
+str(covid)
 ```
 
 Like with our linelist data, `incidence()` requires us to specify a `date_index`
@@ -413,11 +411,11 @@ influenza <- incidence_(
 
 # across provinces (we suspend progress bar for markdown)
 estimate_peak(influenza, progress = FALSE) |> 
-    dplyr::select(-count_variable)
+    subset(select = -count_variable)
 # regrouping for overall peak
 plot(regroup(influenza))
 estimate_peak(regroup(influenza), progress = FALSE) |> 
-    dplyr::select(-count_variable)
+    subset(select = -count_variable)
 # return the first peak of the grouped and ungrouped data
 first_peak(influenza)
 first_peak(regroup(influenza))
@@ -482,9 +480,7 @@ weekly_incidence <- incidence_(
 weekly_incidence |> 
     subset(gender == "f" & hospital == "Rokupa Hospital") |> 
     class()
-weekly_incidence |> 
-    dplyr::filter(gender == "f", hospital == "Rokupa Hospital") |> 
-    class()
+
 class(weekly_incidence[c(1L, 3L, 5L), ])
 
 # Adding columns preserve class
@@ -505,9 +501,7 @@ str(weekly_incidence[, -6L])
 
 # duplicating rows will drop the class but only if duplicate rows
 class(rbind(weekly_incidence, weekly_incidence))
-class(dplyr::bind_rows(weekly_incidence, weekly_incidence))
 class(rbind(weekly_incidence[1:5, ], weekly_incidence[6:10, ]))
-class(dplyr::bind_rows(weekly_incidence[1:5, ], weekly_incidence[6:10, ]))
 ```
 
 ### Accessing variable information

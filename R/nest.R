@@ -31,7 +31,7 @@ tidyr::nest
 #' if (requireNamespace("outbreaks", quietly = TRUE)) {
 #'     data(ebola_sim_clean, package = "outbreaks")
 #'     ebola_sim_clean$linelist |>
-#'         dplyr::filter(!is.na(hospital)) |>
+#'         subset(!is.na(hospital)) |>
 #'         incidence_(date_of_onset, hospital, interval = "isoweek") |>
 #'         nest()
 #' }
