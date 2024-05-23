@@ -9,7 +9,7 @@ vignette: >
   %\VignetteIndexEntry{An introduction to incidence2}
   %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{outbreaks}
+  %\VignetteDepends{outbreaks, ggplot2}
 ---
 
 ```{r, include = FALSE}
@@ -404,7 +404,7 @@ the following assumptions:
 
 ```{r}
 influenza <- incidence_(
-    fluH7N9_china_2013,
+    outbreaks::fluH7N9_china_2013,
     date_index = date_of_onset,
     groups = province
 )
