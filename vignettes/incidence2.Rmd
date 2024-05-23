@@ -93,7 +93,6 @@ To create and work with `incidence2` objects we provide a number of functions:
 - Methods for generics from the wider R package ecosystem, including:
     - `mutate.incidence2()`
     - `summarise.incidence2()`
-    - `reframe.incidence2()`
     - `nest.incidence2()`
     - `as_tibble.incidence2()`
     - `as.data.table.incidence2()`

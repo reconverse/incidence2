@@ -12,7 +12,6 @@
     - `split.incidence2()`
     - `mutate.incidence2()`
     - `summarise.incidence2()`
-    - `reframe.incidence2()`
     - `nest.incidence2()`
     
 - Added coercion methods for [tibble](https://cran.r-project.org/package=tibble)
