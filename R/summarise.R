@@ -2,6 +2,34 @@
 #' @export
 dplyr::summarise
 
+#' Summarise each grouping down to one row
+#'
+#' Method for [dplyr::summarise] that implicitly accounts for the inherent
+#' grouping structure of [incidence2][incidence2::incidence] objects.
+#'
+#' @inheritParams dplyr::mutate
+#'
+#' @param .data An [incidence2][incidence2::incidence] object.
+#'
+#' @param .by Not used as grouping structure implicit.
+#'
+#' @param .groups Not used.
+#'
+#' @return
+#'
+#' A [tibble][tibble::tibble].
+#'
+#' @examples
+#' \dontshow{.old <- data.table::setDTthreads(2)}
+#' if (requireNamespace("outbreaks", quietly = TRUE)) {
+#'     data(ebola_sim_clean, package = "outbreaks")
+#'     ebola_sim_clean$linelist |>
+#'         dplyr::filter(!is.na(hospital)) |>
+#'         incidence_(date_of_onset, hospital, interval = "isoweek") |>
+#'         summarise(model = list(glm(count ~ date_index, family = "poisson")))
+#' }
+#' \dontshow{data.table::setDTthreads(.old)}
+#'
 #' @export
 summarise.incidence2 <- function(
     .data,
