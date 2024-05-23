@@ -11,11 +11,7 @@
 
 \item{keep.rownames}{Not used.}
 
-\item{...}{
-  Arguments passed on to \code{\link[data.table:as.data.table]{data.table::as.data.table}}
-  \describe{
-    \item{\code{}}{}
-  }}
+\item{...}{Passed to other methods.}
 }
 \value{
 A \link[data.table:data.table]{data.table} of the original input but with no

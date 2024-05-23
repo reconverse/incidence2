@@ -6,11 +6,11 @@ data.table::as.data.table
 #' Coerce to a data.table
 #'
 # -------------------------------------------------------------------------
-#' @inheritDotParams data.table::as.data.table
-#
 #' @param x An [incidence2][incidence2::incidence] object.
 #'
 #' @param keep.rownames Not used.
+#'
+#' @param ... Passed to other methods.
 #'
 # -------------------------------------------------------------------------
 #' @return
