@@ -144,54 +144,54 @@ plot.incidence2 <- function(
 ) {
 
     if (!requireNamespace("ggplot2", quietly = TRUE))
-        stopf("'ggplot2' is required for the incidence plot method but is not present.")
+        .stop_suggested("'ggplot2' is required for the incidence plot method but is not present.")
 
     # type checking
     if (!is.numeric(width) || length(width) != 1L)
-        stopf("`width` must be a numeric scalar.")
+        .stop_argument("`width` must be a numeric scalar.")
 
     if (!is.na(border_colour)) {
         if (!is.character(border_colour) || length(border_colour) != 1L) {
-            stopf("`border_colour` must be a scalar character or, NA.")
+            .stop_argument("`border_colour` must be a scalar character or, NA.")
         }
     }
 
     if (!is.character(na_colour) || length(na_colour) != 1L)
-        stopf("`na_colour` must be a scalar character.")
+        .stop_argument("`na_colour` must be a scalar character.")
 
     if (!is.numeric(alpha) || length(alpha) != 1L)
-        stopf("`alpha` must be a numeric scalar.")
+        .stop_argument("`alpha` must be a numeric scalar.")
 
     if (!is.null(fill)) {
         if (!is.character(fill) || length(fill) != 1L) {
-            stopf("`fill` must be a scalar character.")
+            .stop_argument("`fill` must be a scalar character.")
         }
     }
 
     if (!is.null(title)) {
         if (!is.character(title) || length(title) != 1L) {
-            stopf("`title` must be a scalar character.")
+            .stop_argument("`title` must be a scalar character.")
         }
     }
 
     if (!is.numeric(angle) || length(angle) != 1L)
-        stopf("`angle` must be a numeric scalar.")
+        .stop_argument("`angle` must be a numeric scalar.")
 
     if (!is.null(size)) {
         if (!is.numeric(size) || length(size) != 1L) {
-            stopf("`size` must be a numeric scalar or NULL.")
+            .stop_argument("`size` must be a numeric scalar or NULL.")
         }
     }
 
     if (!is.null(nrow)) {
         if (!is.numeric(nrow) || length(nrow) != 1L) {
-            stopf("`nrow` must be a numeric scalar or NULL.")
+            .stop_argument("`nrow` must be a numeric scalar or NULL.")
         }
         nrow <- as.integer(nrow)
     }
 
     if (!is.numeric(n_breaks) || length(n_breaks) != 1L) {
-        stopf("`n_breaks` must be a numeric scalar.")
+        .stop_argument("`n_breaks` must be a numeric scalar.")
     }
     n_breaks <- as.integer(n_breaks)
 
@@ -221,7 +221,7 @@ plot.incidence2 <- function(
     )
     dates <- .subset2(x, x_axis)
     if (!inherits(dates, supported)) {
-        stopf(paste0(
+        .stop_argument(paste0(
             "The `date_index` of `x` must be a <Date> or <grates> object to use the provided `plot` method. ",
             "Please raise an issue at https://github.com/reconverse/incidence2/issues If you would like another object <type> supported"
         ))
@@ -235,7 +235,7 @@ plot.incidence2 <- function(
         fill_var <- count_var
     } else {
         if (!fill_var %in% names(x)) {
-            stopf("`fill` must be the name of a column in `x`.")
+            .stop_argument("`fill` must be the name of a column in `x`.")
         }
     }
     fill <- .subset2(x, fill_var)

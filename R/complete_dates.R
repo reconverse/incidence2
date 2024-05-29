@@ -59,13 +59,13 @@ complete_dates <- function(
 ) {
 
     if (!inherits(x, "incidence2"))
-        stopf("`%s` is not an 'incidence2' object", deparse(substitute(x)))
+        .stopf_argument("`%s` is not an 'incidence2' object", deparse(substitute(x)))
 
     .assert_bool(expand)
     .assert_bool(allow_POSIXct)
 
     if (length(fill) != 1L)
-        stopf("`fill` must be of lenth 1.")
+        .stopf_argument("`fill` must be of lenth 1.")
 
     date_variable <- get_date_index_name.incidence2(x)
     dates <- get_date_index.incidence2(x)
@@ -74,7 +74,8 @@ complete_dates <- function(
     # https://github.com/reconverse/incidence2/issues/104
     .assert_bool(allow_POSIXct)
     if (inherits(dates, "POSIXct") && !allow_POSIXct) {
-        stopf(paste0(
+        # TODO - Do we want/need a different error condition here?
+        .stop_argument(paste0(
             "<POSIXct> date_index columns detected. Internally <POSIXct> objects ",
             "are represented as seconds since the UNIX epoch and calling ",
             "`complete_dates()` on an object of granularity can lead to ",
@@ -88,7 +89,7 @@ complete_dates <- function(
     }
 
     if (by != 1)
-        stopf("`by` argument is now Defunct. Setting `by = 1L` or `by = 1` is permitted for compatibility only.")
+        .stopf_argument("`by` argument is now Defunct. Setting `by = 1L` or `by = 1` is permitted for compatibility only.")
 
     # TODO - catch this and give better / combined error message
     if (expand)

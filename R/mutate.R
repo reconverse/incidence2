@@ -49,7 +49,7 @@ mutate.incidence2 <- function(
     .after = NULL
 ) {
     if(!missing(.by)) {
-        stop("`.by` argument is not used in `mutate.incidence2()` as the groupings are implicit.")
+        .stop_argument("`.by` argument is not used in `mutate.incidence2()` as the groupings are implicit.")
     }
 
     groupings <- c(get_count_variable_name(.data), get_group_names(.data))

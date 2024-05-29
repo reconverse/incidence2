@@ -40,9 +40,9 @@
 split.incidence2 <- function(x, f, drop, ...) {
 
     if (!missing(f))
-        stop("`f` argument cannot be used in `split.incidence2()` as the groupings are implicit.")
+        .stop_argument("`f` argument cannot be used in `split.incidence2()` as the groupings are implicit.")
     if (!missing(drop))
-        stop("`drop` argument cannot be used with `split.incidence2()`.")
+        .stop_argument("`drop` argument cannot be used with `split.incidence2()`.")
 
     groupings <- c(get_count_variable_name(x), get_group_names(x))
 

@@ -50,7 +50,7 @@
 bootstrap_incidence <- function(x, randomise_groups = FALSE) {
 
     if (!inherits(x, "incidence2"))
-        stopf("`%s` is not an 'incidence2' object", deparse(substitute(x)))
+        .stopf_argument("`%s` is not an 'incidence2' object", deparse(substitute(x)))
 
     .assert_bool(randomise_groups)
 

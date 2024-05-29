@@ -39,7 +39,7 @@
 regroup <- function(x, groups = NULL){
 
     if (!inherits(x, "incidence2"))
-        stopf("`x` must be an <incidence2> object.")
+        .stop_argument("`x` must be an <incidence2> object.")
 
     # group checks
     group_variables <- attr(x, "groups")
@@ -47,9 +47,9 @@ regroup <- function(x, groups = NULL){
         if (!length(group_variables))
             return(x)
     } else if(!(is.character(groups) && length(groups) >= 1L)) {
-        stopf("`groups` must be NULL or a character vector.")
+        .stop_argument("`groups` must be NULL or a character vector.")
     } else if (!all(groups %in% group_variables)) {
-        stopf("Not all variables from `groups` are groupings of `x`.")
+        .stop_argument("Not all variables from `groups` are groupings of `x`.")
     }
 
     # rebuild incidence
@@ -121,7 +121,7 @@ regroup <- function(x, groups = NULL){
 regroup_ <- function(x, groups = NULL){
 
     if (!inherits(x, "incidence2"))
-        stopf("`x` must be an <incidence2> object.")
+        .stop_argument("`x` must be an <incidence2> object.")
 
     groups_expr <- rlang::enquo(groups)
     groups_position <- tidyselect::eval_select(groups_expr, data = x)
@@ -132,7 +132,7 @@ regroup_ <- function(x, groups = NULL){
         return(x)
 
     if (!all(groups %in% group_variables))
-        stop("Not all variables from `groups` are groupings of `x`.")
+        .stop_argument("Not all variables from `groups` are groupings of `x`.")
 
     # rebuild incidence
     date_variable <- attr(x, "date_index")

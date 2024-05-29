@@ -46,10 +46,10 @@ summarise.incidence2 <- function(
     .groups
 ) {
     if(!missing(.by))
-        stop("`.by` argument cannot be used in `summary.incidence2()` as the groupings are implicit.")
+        .stop_argument("`.by` argument cannot be used in `summary.incidence2()` as the groupings are implicit.")
 
     if(!missing(.groups))
-        stop("`.groups` argument cannot be not used with `summary.incidence2()`.")
+        .stop_argument("`.groups` argument cannot be not used with `summary.incidence2()`.")
 
     groupings <- c(get_count_variable_name(.data), get_group_names(.data))
     .data <- tibble::as_tibble(.data)

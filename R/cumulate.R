@@ -20,7 +20,7 @@
 cumulate <- function(x) {
 
     if (!inherits(x, "incidence2"))
-        stopf("`%s` is not an 'incidence2' object", deparse(substitute(x)))
+        .stopf_argument("`%s` is not an 'incidence2' object", deparse(substitute(x)))
 
     group_vars <- get_group_names.incidence2(x)
     count_var <- get_count_variable_name.incidence2(x)

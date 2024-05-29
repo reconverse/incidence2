@@ -27,7 +27,7 @@ Imports:
     utils,
     stats,
     tibble,
-    ympes (>= 1.1.0),
+    ympes (> 1.2.0),
     tidyr,
     dplyr (>= 1.1.0),
     tidyselect,
@@ -45,3 +45,4 @@ Suggests:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 LazyData: true
+Remotes: git::git@git.sr.ht:~tim-taylor/ympes
