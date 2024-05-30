@@ -44,4 +44,5 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+Config/runiverse/noindex: true
 LazyData: true
