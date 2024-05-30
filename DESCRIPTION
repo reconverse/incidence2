@@ -45,4 +45,4 @@ Suggests:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 LazyData: true
-Remotes: git::git@git.sr.ht:~tim-taylor/ympes
+Remotes: git::https://git.sr.ht/~tim-taylor/ympes
