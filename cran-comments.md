@@ -1,5 +1,5 @@
-## Tested on the following environments
-* fedora 40, R Under development (unstable) (2024-05-23 r86605)
+Patch release tested on:
+- fedora 40, R Under development (unstable) (2024-05-29 r86640)
 
 ## R CMD check results
 Status: OK
