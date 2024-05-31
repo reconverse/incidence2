@@ -1,5 +1,10 @@
 # incidence2 (development version)
 
+- Temporarily remove the [ympes](https://cran.r-project.org/package=ympes)
+  dependency due to up stream changes.
+  
+- No other user facing changes.
+
 # incidence2 2.3.0
 
 ## New functions / features

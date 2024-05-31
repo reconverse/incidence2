@@ -27,7 +27,6 @@ Imports:
     utils,
     stats,
     tibble,
-    ympes (> 1.2.0),
     tidyr,
     dplyr (>= 1.1.0),
     tidyselect,
