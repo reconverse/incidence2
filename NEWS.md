@@ -1,3 +1,5 @@
+# incidence2 (development version)
+
 # incidence2 2.3.1
 
 - Temporarily remove the [ympes](https://cran.r-project.org/package=ympes)
