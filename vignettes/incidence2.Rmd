@@ -9,7 +9,7 @@ vignette: >
   %\VignetteIndexEntry{An introduction to incidence2}
   %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{outbreaks, ggplot2}
+  %\VignetteDepends{outbreaks, ggplot2, MASS, ciTools, tidyr}
 ---
 
 ```{r, include = FALSE}
@@ -411,11 +411,11 @@ influenza <- incidence_(
 
 # across provinces (we suspend progress bar for markdown)
 estimate_peak(influenza, progress = FALSE) |> 
-    subset(select = -count_variable)
+    select(-count_variable)
 # regrouping for overall peak
 plot(regroup(influenza))
 estimate_peak(regroup(influenza), progress = FALSE) |> 
-    subset(select = -count_variable)
+    select(-count_variable)
 # return the first peak of the grouped and ungrouped data
 first_peak(influenza)
 first_peak(regroup(influenza))
@@ -544,6 +544,52 @@ and the wider package ecosystem:
 When called on incidence2 objects, these methods will utilise the
 underlying grouping structure without the user needing to explicitly state
 what it is. This makes it very easy to utilise in analysis pipelines.
+
+#### Example fitting a negative binomial model
+
+```{r}
+# first twenty weeks of the ebola data set across hospitals
+dat <- incidence_(ebola, date_of_onset, groups = hospital, interval = "isoweek")
+dat <- keep_first(dat, 20L)
+
+# fit a negative binomial to the grouped data
+(fitted <-
+    dat |>
+    nest(.key = "data") |>
+    mutate(model  = lapply(data, \(x) MASS::glm.nb(count ~ date_index, x))))
+# Add confidence intervals to the result
+(intervals <-
+    fitted |>
+    mutate(result = Map(
+        function(data, model) {
+            data |>
+                ciTools::add_ci(
+                    model,
+                    alpha = 0.05,
+                    names = c("lower_ci", "upper_ci")
+                ) |>
+                as_tibble()
+        },
+        data,
+        model
+    )) |>
+    select(hospital, result) |>
+    unnest(result))
+# plot
+plot(dat, angle = 45) +
+    ggplot2::geom_line(
+        ggplot2::aes(date_index, y = pred),
+        data = intervals,
+        inherit.aes = FALSE
+    ) +
+    ggplot2::geom_ribbon(
+        ggplot2::aes(date_index, ymin = lower_ci, ymax = upper_ci),
+        alpha = 0.2,
+        data = intervals,
+        inherit.aes = FALSE,
+        fill = "#BBB67E"
+    )
+```
 
 #### Example - Adding a rolling average
 
