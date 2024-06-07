@@ -476,7 +476,11 @@ test_that("miscellaneous incidence error messaging works as expected", {
         fixed = TRUE
     )
 
-
+    expect_error(
+        incidence(dat, c("dates","dates2"), fill = 9),
+        "`fill` can only be given when `complete_dates = TRUE`.",
+        fixed = TRUE
+    )
 
 
 })

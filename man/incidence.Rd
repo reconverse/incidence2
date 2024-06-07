@@ -16,6 +16,7 @@ incidence(
   interval = NULL,
   offset = NULL,
   complete_dates = FALSE,
+  fill = 0L,
   ...
 )
 }
@@ -102,13 +103,22 @@ counting periods from relative to the Unix Epoch:
 
 Should the resulting object have the same range of dates for each grouping.
 
-Missing counts will be filled with \code{0L}.
+Missing counts will be filled with \code{0L} unless the \code{fill} argument is
+provided (and this value will take precedence).
 
 Will attempt to use \code{function(x) seq(min(x), max(x), by = 1)} on the
 resultant date_index column to generate a complete sequence of dates.
 
 More flexible completion is possible by using the \code{complete_dates()}
 function.}
+
+\item{fill}{\code{numeric}.
+
+Only applicable when \code{complete_dates = TRUE}.
+
+The value to replace missing counts caused by completing dates.
+
+If unset then will default to \code{0L}.}
 
 \item{...}{Not currently used.}
 }

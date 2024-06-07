@@ -129,13 +129,22 @@
 #'
 #' Should the resulting object have the same range of dates for each grouping.
 #'
-#' Missing counts will be filled with `0L`.
+#' Missing counts will be filled with `0L` unless the `fill` argument is
+#' provided (and this value will take precedence).
 #'
 #' Will attempt to use `function(x) seq(min(x), max(x), by = 1)` on the
 #' resultant date_index column to generate a complete sequence of dates.
 #'
 #' More flexible completion is possible by using the `complete_dates()`
 #' function.
+#'
+#' @param fill `numeric`.
+#'
+#' Only applicable when `complete_dates = TRUE`.
+#'
+#' The value to replace missing counts caused by completing dates.
+#'
+#' If unset then will default to `0L`.
 #'
 #' @param ...
 #'
@@ -176,6 +185,7 @@ incidence <- function(
     interval = NULL,
     offset = NULL,
     complete_dates = FALSE,
+    fill = 0L,
     ...
 ) {
 
@@ -464,7 +474,16 @@ incidence <- function(
 
     # complete dates if flag set
     # TODO - this could be more efficient but this is safest for now
-    if (complete_dates) complete_dates(out) else out
+    if (complete_dates) {
+        if (missing(fill))
+            fill <- 0L
+        .assert_scalar_numeric(fill)
+        out <- complete_dates(out, fill = fill)
+    } else if (!missing(fill)) {
+        .stop_argument("`fill` can only be given when `complete_dates = TRUE`.")
+    }
+
+    out
 }
 
 

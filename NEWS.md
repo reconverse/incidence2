@@ -1,5 +1,12 @@
 # incidence2 (development version)
 
+- `incidence()` gains a `fill` parameter. This is passed to `complete_dates()`
+  so is only valid when the argument `complete_dates = TRUE`.
+
+- For convenience we now reexport `select()` from
+  [dplyr](https://cran.r-project.org/package=dplyr) as well as 
+  `unnest()` and `unpack()` from [tidyr](https://cran.r-project.org/package=tidyr).
+
 # incidence2 2.3.1
 
 - Temporarily remove the [ympes](https://cran.r-project.org/package=ympes)

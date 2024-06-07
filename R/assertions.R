@@ -18,6 +18,16 @@
 }
 
 # -------------------------------------------------------------------------
+.assert_scalar_numeric <- function(x) {
+    assert_scalar_numeric(
+        x,
+        .arg = deparse(substitute(x)),
+        .call = sys.call(-1L),
+        .subclass = NULL
+    )
+}
+
+# -------------------------------------------------------------------------
 .assert_scalar_numeric_not_na <- function(x) {
     assert_scalar_numeric_not_na(
         x,
