@@ -42,7 +42,6 @@ Suggests:
     knitr,
     markdown,
     testthat (>= 3.0.0),
-    MASS,
     ciTools
 VignetteBuilder: knitr
 Config/testthat/edition: 3
