@@ -45,5 +45,4 @@ Suggests:
     ciTools
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-Config/runiverse/noindex: true
 LazyData: true
