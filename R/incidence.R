@@ -210,17 +210,17 @@ incidence <- function(
         .stop_argument("`x` must be a data frame.")
 
     # count_names_to check
-    .assert_scalar_character(count_names_to)
+    assert_scalar_character(count_names_to)
 
     # count_values_to check
-    .assert_scalar_character(count_values_to)
+    assert_scalar_character(count_values_to)
 
     # date_names_to check
-    .assert_scalar_character(date_names_to)
+    assert_scalar_character(date_names_to)
 
     # boolean checks
-    .assert_bool(rm_na_dates)
-    .assert_bool(complete_dates)
+    assert_bool(rm_na_dates)
+    assert_bool(complete_dates)
 
 
     # date_index checks
@@ -477,7 +477,7 @@ incidence <- function(
     if (complete_dates) {
         if (missing(fill))
             fill <- 0L
-        .assert_scalar_numeric(fill)
+        assert_scalar_numeric(fill)
         out <- complete_dates(out, fill = fill)
     } else if (!missing(fill)) {
         .stop_argument("`fill` can only be given when `complete_dates = TRUE`.")

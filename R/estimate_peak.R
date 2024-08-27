@@ -91,11 +91,11 @@ estimate_peak <- function(x, n = 100L, alpha = 0.05, first_only = TRUE, progress
     if (!inherits(x, "incidence2"))
         .stopf_argument("`%s` is not an 'incidence2' object", deparse(substitute(x)))
 
-    .assert_scalar_whole(n)
-    .assert_scalar_numeric_not_na(alpha)
+    assert_scalar_whole(n)
+    assert_scalar_numeric_not_na(alpha)
 
-    .assert_bool(first_only)
-    .assert_bool(progress)
+    assert_bool(first_only)
+    assert_bool(progress)
 
     # Needed for CRAN/data.table
     ..date_var <- bootstrap_peaks <- ..observed_peak <- observed_count <- . <- i.bootstrap_peaks <- NULL

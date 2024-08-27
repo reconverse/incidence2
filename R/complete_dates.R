@@ -61,8 +61,8 @@ complete_dates <- function(
     if (!inherits(x, "incidence2"))
         .stopf_argument("`%s` is not an 'incidence2' object", deparse(substitute(x)))
 
-    .assert_bool(expand)
-    .assert_bool(allow_POSIXct)
+    assert_bool(expand)
+    assert_bool(allow_POSIXct)
 
     if (length(fill) != 1L)
         .stopf_argument("`fill` must be of lenth 1.")
@@ -72,7 +72,6 @@ complete_dates <- function(
 
     # Note the following was motivated by
     # https://github.com/reconverse/incidence2/issues/104
-    .assert_bool(allow_POSIXct)
     if (inherits(dates, "POSIXct") && !allow_POSIXct) {
         # TODO - Do we want/need a different error condition here?
         .stop_argument(paste0(
