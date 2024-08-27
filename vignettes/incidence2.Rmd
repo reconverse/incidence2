@@ -137,7 +137,12 @@ restriction on it's type, save the requirement that is has an inherent ordering.
 incidence2 also provides a simple plot method (see `help("plot.incidence2")`)
 built upon [ggplot2](https://cran.r-project.org/package=ggplot2).  
 
-```{r fig.height = 5, dpi = 90}
+```{r}
+#| fig.height: 5
+#| dpi: 90
+#| fig.alt: >
+#|   Bar chart of daily incidence covering the period April 2014 to April 2015
+#|   inclusive. The graph appears to peaks around September 2014.
 plot(daily_incidence)
 ```
 
@@ -150,6 +155,10 @@ directly to users. Here we use the `as_isoweek()` function to convert the
 to calculate the incidence:
 
 ```{r}
+#| fig.alt: >
+#|   Bar chart of weekly incidence covering 2014-W15 to 2015-W18 inclusive.
+#|   The graph peaks at 2014-W38. The "descent" from the peak tapers off 
+#|   slower than the initial "ascent".
 (weekly_incidence <- 
     ebola |>
     mutate(date_of_onset = as_isoweek(date_of_onset)) |> 
@@ -192,12 +201,26 @@ For grouped data, the plot method will create a faceted plot across groups
 unless a fill variable is specified:
 
 ```{r}
+#| fig.alt: >
+#|   Two bar charts (side by side) of weekly incidence covering 2014-W15 to
+#|   2015-W18 inclusive. Females are on the left, Males the right. The graphs
+#|   peak between 2014-W35 and 2014-W45. The "descent" from the peak tapers off
+#|   slower than the initial "ascent".
 plot(weekly_incidence_gender, border_colour = "white", angle = 45)
+```
+
+```{r}
+#| fig.alt: >
+#|   Bar chart of weekly incidence covering 2014-W15 to 2015-W18 inclusive.
+#|   The graph peaks at 2014-W38. The "descent" from the peak tapers off 
+#|   slower than the initial "ascent". The graph is "filled" by the number of
+#|   male versus female but it is hard to descern the difference.
 plot(weekly_incidence_gender, border_colour = "white", angle = 45, fill = "gender")
 ```
 
 `incidence()` also supports multiple date inputs and allows renaming via the
 use of named vectors:
+
 ```{r}
 (weekly_multi_dates <- incidence(
     ebola,
@@ -218,8 +241,25 @@ summary(weekly_multi_dates)
 
 When multiple date indices are given, they are used for rows of the resultant
 plot, unless the resultant variable is used to fill:
+
 ```{r}
+#| fig.alt: >
+#|   Four bar charts arranged in a 2 by 2 grid. The top row represents incidence
+#|   by date of infection, the bottom row by date of onset. Each row is arranged
+#|   with females in the left plots and males the right. The graphs all peak
+#|   between 2014-W35 and 2014-W45. The "descent" from the peaks tapers off
+#|   slower than the initial "ascent".
 plot(weekly_multi_dates, angle = 45, border_colour = "white")
+```
+
+```{r}
+#| fig.alt: >
+#|   Two bar charts (side by side) of weekly incidence covering 2014-W15 to
+#|   2015-W18 inclusive. Females are on the left, Males the right. The graphs
+#|   peak between 2014-W35 and 2014-W45. The "descent" from the peak tapers off
+#|   slower than the initial "ascent". The graph is "filled" by the incidence
+#|   according to date of onset and the incidence accorsing to date of
+#|   infection.
 plot(weekly_multi_dates, angle = 45, border_colour = "white", fill = "count_variable")
 ```
 
@@ -263,6 +303,11 @@ values as zero counts we can simply replace them in the data prior to calling
 `incidence()`:
 
 ```{r}
+#| fig.alt: >
+#|   Nine bar charts arranged in a 3 by 3 grid representing incidence new covid
+#|   cases by month across nine English regions. Each plot goes from the start
+#|   of 2020 to mid 2021. In each plot we see an increase in cases towards the 
+#|   end of 2020 and in to early 2021.
 (monthly_covid <-
      covid |>
      tidyr::replace_na(list(cases_new = 0)) |> 
@@ -282,22 +327,36 @@ rectangles. We can do this by setting `show_cases = TRUE` in the call to
 `plot()` which will display each case as an individual square with a white
 border.
 
-```{r, fig.height=3}
+```{r}
+#| fig.height: 3
+#| fig.alt: >
+#|   Bar chart of daily incidence covering the period 2014-07-08 to 2014-07-16
+#|   inclusive. It shows 21 cases, with each case represented by an individual
+#|   square. 
 dat <- ebola[160:180, ]
 
-incidence(
+(small <- incidence(
     dat,
     date_index = "date_of_onset",
     date_names_to = "date"
-) |> 
-plot(color = "white", show_cases = TRUE, angle = 45, n_breaks = 10)
-incidence(
+))
+plot(small, show_cases = TRUE, angle = 45, n_breaks = 10)
+```
+
+```{r}
+#| fig.height: 3
+#| fig.alt: >
+#|   Bar chart of daily incidence covering the period 2014-07-08 to 2014-07-16
+#|   inclusive. It shows 21 cases, with each case represented by an individual
+#|   square filled with a colour based on an individuals gender. There is a peak
+#|   on 2014-07-13 with 5 cases.
+(small_gender <- incidence(
     dat,
     date_index = "date_of_onset",
     groups = "gender",
     date_names_to = "date"
-) |> 
-plot(show_cases = TRUE, color = "white", angle = 45, n_breaks = 10, fill = "gender")
+)) 
+plot(small_gender, show_cases = TRUE, angle = 45, n_breaks = 10, fill = "gender")
 ```
 
 ## Support for tidy-select semantics
@@ -403,6 +462,9 @@ the following assumptions:
 
 
 ```{r}
+#| fig.alt: >
+#|   Bar chart of daily incidence covering the period March 2013 to August 2013
+#|   inclusive. The graph appears to peak around the start of April.
 influenza <- incidence_(
     outbreaks::fluH7N9_china_2013,
     date_index = date_of_onset,
@@ -427,6 +489,11 @@ bootstrap_incidence(influenza)
 You can use `cumulate()` to easily generate cumulative incidences:
 
 ```{r}
+#| fig.alt: >
+#|   Fives graphs representing cumulative weekly incidence covering 2014-W15 to
+#|   2015-W18 inclusive. Each graph represents a hospital in the data set. The
+#|   five graphs fill a 3 by 2 grid with the bottom-right square being left
+#|   blank.
 (y <- cumulate(weekly_incidence))
 plot(y, angle = 45, nrow = 3)
 ```
@@ -548,6 +615,12 @@ what it is. This makes it very easy to utilise in analysis pipelines.
 #### Example fitting a poisson model
 
 ```{r}
+#| fig.alt: >
+#|   Fives bar charts representing weekly incidence covering 2014-W15 to
+#|   2014-W35 inclusive. Each graph represents a hospital in the data set. The
+#|   five graphs fill a 3 by 2 grid with the bottom-right square being left
+#|   blank. On top of each bar graph is a line along with associated confidence
+#|   intervals showing an increasing trend over the displayed weeks.
 # first twenty weeks of the ebola data set across hospitals
 dat <- incidence_(ebola, date_of_onset, groups = hospital, interval = "isoweek")
 dat <- keep_first(dat, 20L)
@@ -599,6 +672,12 @@ plot(dat, angle = 45) +
 #### Example - Adding a rolling average
 
 ```{r}
+#| fig.alt: >
+#|   Fives bar charts representing weekly incidence covering 2014-W15 to
+#|   2015-W18 inclusive. Each graph represents a hospital in the data set. The
+#|   five graphs fill a 3 by 2 grid with the bottom-right square being left
+#|   blank. On top of each bar graph is a line along that displays the rolling
+#|   average.
 weekly_incidence |>
     regroup_(hospital) |> 
     mutate(rolling_average = data.table::frollmean(count, n = 3L, align = "right")) |> 
