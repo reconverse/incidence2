@@ -20,7 +20,7 @@ as_incidence <- function(x, ...) {
 #' @rdname as_incidence
 #' @export
 as_incidence.default <- function(x, ...) {
-    .stopf_argument("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    .stopf_argument("Not implemented for class [%s].", toString(class(x)))
 }
 
 #' @rdname as_incidence
