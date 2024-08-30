@@ -195,18 +195,18 @@ incidence <- function(
         idx <- nms %in% c("na_as_group", "firstdate")
         if (any(idx)) {
             nms <- nms[idx]
-            .stopf_argument("As of incidence 2.0.0, `%s` is no longer a valid parameter name. See `help('incidence')` for supported parameters.", nms[1L])
+            .stopf("As of incidence 2.0.0, `%s` is no longer a valid parameter name. See `help('incidence')` for supported parameters.", nms[1L])
         }
         if (is.null(nms))
-            .stop_argument("Too many arguments given.")
+            stop("Too many arguments given.")
 
         nms <- nms[nms != ""]
-        .stopf_argument("`%s` is not a valid parameter", nms[1L])
+        .stopf("`%s` is not a valid parameter", nms[1L])
     }
 
     # x must be a data frame
     if (!is.data.frame(x))
-        .stop_argument("`x` must be a data frame.")
+        stop("`x` must be a data frame.")
 
     # count_names_to check
     assert_scalar_character(count_names_to)
@@ -226,66 +226,66 @@ incidence <- function(
     length_date_index <- length(date_index)
 
     if (!(is.character(date_index) && length_date_index))
-        .stop_argument("`date_index` must be a character vector of length 1 or more.")
+        stop("`date_index` must be a character vector of length 1 or more.")
 
     if (anyDuplicated(date_index))
-        .stop_argument("`date_index` values must be unique.")
+        stop("`date_index` values must be unique.")
 
     if (!all(date_index %in% names(x)))
-        .stop_argument("Not all variables from `date_index` are present in `x`.")
+        stop("Not all variables from `date_index` are present in `x`.")
 
     date_cols <- .subset(x, date_index)
     date_classes <- vapply(date_cols, function(x) class(x)[1L], "")
     if (length(unique(date_classes)) != 1L)
-        .stop_argument("`date_index` columns must be of the same class.")
+        stop("`date_index` columns must be of the same class.")
 
     # error if date_index cols are vctrs_rcrd type
     is_vctrs_rcrd <- vapply(date_cols, inherits, TRUE, what = "vctrs_rcrd")
     if (any(is_vctrs_rcrd))
-        .stop_argument("vctrs_rcrd date_index columns are not currently supported.")
+        stop("vctrs_rcrd date_index columns are not currently supported.")
 
     # error if date_index cols are POSIXlt
     is_POSIXlt <- vapply(date_cols, inherits, TRUE, what = "POSIXlt")
     if (any(is_POSIXlt))
-        .stop_argument("POSIXlt date_index columns are not currently supported.")
+        stop("POSIXlt date_index columns are not currently supported.")
 
     # counts checks
     if (!is.null(counts)) {
         if (!is.character(counts) || length(counts) < 1L)
-            .stop_argument("`counts` must be NULL or a character vector of length 1 or more.")
+            stop("`counts` must be NULL or a character vector of length 1 or more.")
 
         if (anyDuplicated(counts))
-            .stop_argument("`counts` values must be unique.")
+            stop("`counts` values must be unique.")
 
         if (length_date_index > 1L)
-            .stop_argument("If `counts` is specified `date_index` must be of length 1.")
+            stop("If `counts` is specified `date_index` must be of length 1.")
     }
 
     if (!all(counts %in% names(x)))
-        .stop_argument("Not all variables from `counts` are present in `x`.")
+        stop("Not all variables from `counts` are present in `x`.")
 
     # group checks
     if (!(is.null(groups) || is.character(groups)))
-        .stop_argument("`groups` must be NULL or a character vector.")
+        stop("`groups` must be NULL or a character vector.")
 
     if (length(groups)) {
         # ensure groups are present
         if (!all(groups %in% names(x)))
-            .stop_argument("Not all variables from `groups` are present in `x`.")
+            stop("Not all variables from `groups` are present in `x`.")
 
         if (anyDuplicated(groups))
-            .stop_argument("`group` values must be unique.")
+            stop("`group` values must be unique.")
 
         # error if group cols are vctrs_rcrd type
         group_cols <- .subset(x, groups)
         is_vctrs_rcrd <- vapply(group_cols, inherits, TRUE, what = "vctrs_rcrd")
         if (any(is_vctrs_rcrd))
-            .stop_argument("vctrs_rcrd group columns are not currently supported.")
+            stop("vctrs_rcrd group columns are not currently supported.")
 
         # error if group cols are POSIXlt
         is_POSIXlt <- vapply(group_cols, inherits, TRUE, what = "POSIXlt")
         if (any(is_POSIXlt))
-            .stop_argument("POSIXlt group columns are not currently supported.")
+            stop("POSIXlt group columns are not currently supported.")
     }
 
     # check interval and apply transformation across date index
@@ -293,7 +293,7 @@ incidence <- function(
 
         # check interval is valid length
         if (length(interval) != 1L)
-            .stop_argument("`interval` must be a character or integer vector of length 1.")
+            stop("`interval` must be a character or integer vector of length 1.")
 
         # For numeric we coerce to integer and use as_period
         if (is.numeric(interval)) {
@@ -305,14 +305,14 @@ incidence <- function(
                     offset <- floor(as.numeric(offset))
 
                 if (!.is_scalar_whole(offset))
-                    .stop_argument("`offset` must be an integer or date of length 1.")
+                    stop("`offset` must be an integer or date of length 1.")
             } else {
                 offset <- 0L
             }
             x[date_index] <- lapply(x[date_index], as_period, n = n, offset = offset)
         } else if (!is.null(offset)) {
             # offset only valid for numeric interval
-            .stop_argument("`offset` can only be used with a numeric (period) interval.")
+            stop("`offset` can only be used with a numeric (period) interval.")
         } else if (is.character(interval)) {
             # We are restrictive on intervals we allow to keep the code simple.
             # Users can always call grates functionality directly (reccomended)
@@ -340,7 +340,7 @@ incidence <- function(
                 year        =,
                 years       =,
                 yearly       = as_year,
-                .stop_argument(paste(
+                stop(paste(
                     "`interval` must be one of:",
                     "    - an <integer> value;",
                     "    - 'day' or 'daily';",
@@ -354,27 +354,27 @@ incidence <- function(
             )
             x[date_index] <- lapply(x[date_index], FUN)
         } else {
-            .stop_argument("`interval` must be a character or integer vector of length 1.")
+            stop("`interval` must be a character or integer vector of length 1.")
         }
     } else if (any(vapply(date_cols, inherits, TRUE, what = "POSIXct"))) {
-        warning(paste0(
+        .warn(
             "<POSIXct> date_index columns detected. Internally <POSIXct> objects ",
             "are represented as seconds since the UNIX epoch and, in our experience, ",
             "this level of granularity is not normally desired for aggregation. ",
             "For daily incidence consider converting the inputs to <Dates>. This can ",
             "be done prior to calling `incidence()` or, alternatively, by setting the ",
             "argument `interval = 'day'` within the call itself."
-        ))
+        )
 
         if (complete_dates) {
             # TODO - Do we want/need a different error condition here?
-            .stop_argument(paste0(
+            .stop(
                 "`complete_dates = TRUE` is not compatible with <POSIXct> ",
                 "date_index columns due to the aforementioned warning. ",
                 "If you wish to use <POSIXct> columns then set `complete_dates = FALSE` ",
                 "and call the `complete_dates()` function directly after the call ",
                 "to incidence."
-            ))
+            )
         }
     }
 
@@ -447,7 +447,7 @@ incidence <- function(
         nas_present <- vapply(.subset(DT,counts), anyNA, TRUE)
         if (any(nas_present)) {
             missing_names <- names(nas_present)[nas_present]
-            warnf(
+            .warnf(
                 "`%s` contains NA values. Consider imputing these and calling `incidence()` again.",
                 missing_names[1L]
             )
@@ -485,7 +485,7 @@ incidence <- function(
         assert_scalar_numeric(fill)
         out <- complete_dates(out, fill = fill)
     } else if (!missing(fill)) {
-        .stop_argument("`fill` can only be given when `complete_dates = TRUE`.")
+        stop("`fill` can only be given when `complete_dates = TRUE`.")
     }
 
     out
@@ -679,7 +679,7 @@ incidence_ <- function(
     date_position <- tidyselect::eval_select(date_expr, data = x)
     length_date_index <- length(date_position)
     if (!length_date_index)
-        .stop_argument("`date_index` must be of length 1 or more.")
+        stop("`date_index` must be of length 1 or more.")
     date_index <- names(date_position)
     names(x)[date_position] <- date_index
 
@@ -688,11 +688,11 @@ incidence_ <- function(
     counts_position <- tidyselect::eval_select(counts_expr, data = x)
     if (length(counts_position)) {
         if (length_date_index > 1L)
-            .stop_argument("If `counts` is specified `date_index` must be of length 1.")
+            stop("If `counts` is specified `date_index` must be of length 1.")
         counts <- names(counts_position)
         names(x)[counts_position] <- counts
     } else if (!is.null(counts)) {
-        .stop_argument("`counts` must be NULL or a column in `x`.")
+        stop("`counts` must be NULL or a column in `x`.")
     }
 
     # group checks
@@ -705,13 +705,13 @@ incidence_ <- function(
 
     # ensure selected columns are distinct
     if (length(intersect(date_index, groups)))
-        .stop_argument("`date_index` columns must be distinct from `groups`.")
+        stop("`date_index` columns must be distinct from `groups`.")
 
     if (length(intersect(date_index, counts)))
-        .stop_argument("`date_index` columns must be distinct from `counts`.")
+        stop("`date_index` columns must be distinct from `counts`.")
 
     if (length(intersect(groups, counts)))
-        .stop_argument("`group` columns must be distinct from `counts`.")
+        stop("`group` columns must be distinct from `counts`.")
 
     incidence(
         x = x,

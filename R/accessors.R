@@ -53,7 +53,7 @@ get_date_index_name <- function(x, ...) {
 #' @rdname accessors
 #' @export
 get_date_index_name.default <- function(x, ...) {
-    .stopf_argument("Not implemented for class [%s].", toString(class(x)))
+    .stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
@@ -82,7 +82,7 @@ get_count_variable_name <- function(x, ...) {
 #' @rdname accessors
 #' @export
 get_count_variable_name.default <- function(x, ...) {
-    .stopf_argument("Not implemented for class [%s].", toString(class(x)))
+    .stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
@@ -106,7 +106,7 @@ get_count_value_name <- function(x, ...) {
 #' @rdname accessors
 #' @export
 get_count_value_name.default <- function(x, ...) {
-    .stopf_argument("Not implemented for class [%s].", toString(class(x)))
+    .stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
@@ -130,7 +130,7 @@ get_group_names <- function(x, ...) {
 #' @rdname accessors
 #' @export
 get_group_names.default <- function(x, ...) {
-    .stopf_argument("Not implemented for class [%s].", toString(class(x)))
+    .stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
@@ -155,7 +155,7 @@ get_date_index <- function(x, ...) {
 #' @rdname accessors
 #' @export
 get_date_index.default <- function(x, ...) {
-    .stopf_argument("Not implemented for class [%s].", toString(class(x)))
+    .stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
@@ -184,7 +184,7 @@ get_count_variable <- function(x, ...) {
 #' @rdname accessors
 #' @export
 get_count_variable.default <- function(x, ...) {
-    .stopf_argument("Not implemented for class [%s].", toString(class(x)))
+    .stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
@@ -208,7 +208,7 @@ get_count_value <- function(x, ...) {
 #' @rdname accessors
 #' @export
 get_count_value.default <- function(x, ...) {
-    .stopf_argument("Not implemented for class [%s].", toString(class(x)))
+    .stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
@@ -232,7 +232,7 @@ get_groups <- function(x, ...) {
 #' @rdname accessors
 #' @export
 get_groups.default <- function(x, ...) {
-    .stopf_argument("Not implemented for class [%s].", toString(class(x)))
+    .stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------

@@ -1,21 +1,21 @@
-.stopf_argument <- function(fmt, ..., .call = sys.call(-1L)) {
+.stop <- function(..., .call = sys.call(-1L)) {
+    msg <- if (...length() == 1L) ..1 else paste0(...)
+    stop(errorCondition(msg, call = .call[1L]))
+}
+
+.stopf <- function(fmt, ..., .call = sys.call(-1L)) {
     msg <- sprintf(fmt, ...)
-    stop(errorCondition(msg, class = error_types$argument, call = .call[1L]))
+    stop(errorCondition(msg, call = .call[1L]))
 }
 
-.stop_argument <- function(msg, .call = sys.call(-1L)) {
-    stop(errorCondition(msg, class = error_types$argument, call = .call[1L]))
-}
-
-.stop_suggested <- function(msg, .call = sys.call(-1L)) {
-    stop(errorCondition(msg, class = error_types$suggested, call = .call[1L]))
-}
-
-warnf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
-    .call <- if (isTRUE(.use_call)) .call[1L] else NULL
+.warnf <- function(fmt, ..., .call = sys.call(-1L)) {
     msg <- sprintf(fmt, ...)
-    err <- simpleWarning(msg, .call)
-    warning(err)
+    warning(simpleWarning(msg, .call[1L]))
+}
+
+.warn <- function(..., .call = sys.call(-1L)) {
+    msg <- if (...length() == 1L) ..1 else paste0(...)
+    warning(simpleWarning(msg, call = .call[1L]))
 }
 
 .is_scalar_whole <- function(x, tol = .Machine$double.eps^0.5) {

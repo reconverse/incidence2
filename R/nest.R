@@ -44,10 +44,10 @@ tidyr::nest
 #' @export
 nest.incidence2 <- function(.data, ..., .by, .key, .names_sep) {
     if (!missing(.by))
-        .stop_argument("`.by` argument cannot be used in `nest.incidence2()` as the groupings are implicit.")
+        stop("`.by` argument cannot be used in `nest.incidence2()` as the groupings are implicit.")
 
     if (!missing(.names_sep))
-        .stop_argument("`.names_sep` argument cannot be used with `nest.incidence2()`.")
+        stop("`.names_sep` argument cannot be used with `nest.incidence2()`.")
 
     groupings <- c(get_count_variable_name(.data), get_group_names(.data))
     nest(as.data.frame(.data), .by = tidyr::all_of(groupings), .key = .key)
