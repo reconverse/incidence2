@@ -26,7 +26,7 @@
 #'
 # -------------------------------------------------------------------------
 #' @export
-as.data.frame.incidence2 <- function(x, row.names, optional,...) {
+as.data.frame.incidence2 <- function(x, row.names, optional, ...) {
     attributes(x) <- list(
         names = attr(x, "names"),
         row.names = .row_names_info(x, type = 0L),

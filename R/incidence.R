@@ -193,16 +193,15 @@ incidence <- function(
     if (...length()) {
         nms <- ...names()
         idx <- nms %in% c("na_as_group", "firstdate")
-        if(any(idx)) {
+        if (any(idx)) {
             nms <- nms[idx]
             .stopf_argument("As of incidence 2.0.0, `%s` is no longer a valid parameter name. See `help('incidence')` for supported parameters.", nms[1L])
-        } else if (is.null(nms)) {
-            .stop_argument("Too many arguments given.")
-        } else {
-            nms <- nms[nms != ""]
-            .stopf_argument("`%s` is not a valid parameter", nms[1L])
         }
+        if (is.null(nms))
+            .stop_argument("Too many arguments given.")
 
+        nms <- nms[nms != ""]
+        .stopf_argument("`%s` is not a valid parameter", nms[1L])
     }
 
     # x must be a data frame
@@ -236,17 +235,17 @@ incidence <- function(
         .stop_argument("Not all variables from `date_index` are present in `x`.")
 
     date_cols <- .subset(x, date_index)
-    date_classes <- vapply(date_cols, function(x) class(x)[1], "")
+    date_classes <- vapply(date_cols, function(x) class(x)[1L], "")
     if (length(unique(date_classes)) != 1L)
         .stop_argument("`date_index` columns must be of the same class.")
 
     # error if date_index cols are vctrs_rcrd type
-    is_vctrs_rcrd <- sapply(date_cols, inherits, "vctrs_rcrd")
+    is_vctrs_rcrd <- vapply(date_cols, inherits, TRUE, what = "vctrs_rcrd")
     if (any(is_vctrs_rcrd))
         .stop_argument("vctrs_rcrd date_index columns are not currently supported.")
 
     # error if date_index cols are POSIXlt
-    is_POSIXlt <- sapply(date_cols, inherits, "POSIXlt")
+    is_POSIXlt <- vapply(date_cols, inherits, TRUE, what = "POSIXlt")
     if (any(is_POSIXlt))
         .stop_argument("POSIXlt date_index columns are not currently supported.")
 
@@ -258,7 +257,7 @@ incidence <- function(
         if (anyDuplicated(counts))
             .stop_argument("`counts` values must be unique.")
 
-        if (length_date_index > 1)
+        if (length_date_index > 1L)
             .stop_argument("If `counts` is specified `date_index` must be of length 1.")
     }
 
@@ -279,12 +278,12 @@ incidence <- function(
 
         # error if group cols are vctrs_rcrd type
         group_cols <- .subset(x, groups)
-        is_vctrs_rcrd <- sapply(group_cols, inherits, "vctrs_rcrd")
+        is_vctrs_rcrd <- vapply(group_cols, inherits, TRUE, what = "vctrs_rcrd")
         if (any(is_vctrs_rcrd))
             .stop_argument("vctrs_rcrd group columns are not currently supported.")
 
         # error if group cols are POSIXlt
-        is_POSIXlt <- sapply(group_cols, inherits, "POSIXlt")
+        is_POSIXlt <- vapply(group_cols, inherits, TRUE, what = "POSIXlt")
         if (any(is_POSIXlt))
             .stop_argument("POSIXlt group columns are not currently supported.")
     }
@@ -300,7 +299,7 @@ incidence <- function(
         if (is.numeric(interval)) {
             n <- as.integer(interval)
 
-            # coerce offset (do here rather than in grates for better easier error messagin)
+            # coerce offset (do here rather than in grates for better easier error messaging)
             if (!is.null(offset)) {
                 if (inherits(offset, "Date"))
                     offset <- floor(as.numeric(offset))
@@ -357,7 +356,7 @@ incidence <- function(
         } else {
             .stop_argument("`interval` must be a character or integer vector of length 1.")
         }
-    } else if (any(sapply(date_cols, inherits, "POSIXct"))) {
+    } else if (any(vapply(date_cols, inherits, TRUE, what = "POSIXct"))) {
         warning(paste0(
             "<POSIXct> date_index columns detected. Internally <POSIXct> objects ",
             "are represented as seconds since the UNIX epoch and, in our experience, ",
@@ -385,50 +384,56 @@ incidence <- function(
     # generate name for date_index column (ensure coerced to DT before using setnames)
     nms <- names(date_index)
     if (!is.null(nms)) {
-     if (length_date_index == 1L && nms != "") {
-         setnames(DT, date_index, nms)
-         date_index <- nms
-     } else if (any(nms != "")) {
-         new_names <- date_index
-         new_names[nms != ""] <- nms
-         setnames(DT, date_index, new_names)
-         date_index <- new_names
-     }
+        if (length_date_index == 1L && nms != "") {
+            setnames(DT, date_index, nms)
+            date_index <- nms
+        } else if (any(nms != "")) {
+            new_names <- date_index
+            new_names[nms != ""] <- nms
+            setnames(DT, date_index, new_names)
+            date_index <- new_names
+        }
     }
 
     # generate names for group columns (ensure coerced to DT before using setnames)
     nms <- names(groups)
     if (!is.null(nms)) {
-     if (length(groups) == 1L && nms != "") {
-         setnames(DT, groups, nms)
-         groups <- nms
-     } else if (any(nms != "")) {
-         new_names <- groups
-         new_names[nms != ""] <- nms
-         setnames(DT, groups, new_names)
-         groups <- new_names
-     }
+        if (length(groups) == 1L && nms != "") {
+            setnames(DT, groups, nms)
+            groups <- nms
+        } else if (any(nms != "")) {
+            new_names <- groups
+            new_names[nms != ""] <- nms
+            setnames(DT, groups, new_names)
+            groups <- new_names
+        }
     }
 
     # generate names for count columns (ensure coerced to DT before using setnames)
-     nms <- names(counts)
-     if (!is.null(nms)) {
-         if (length(counts) == 1L && nms != "") {
-             setnames(DT, counts, nms)
-             counts <- nms
-         } else if (any(nms != "")) {
-             new_names <- counts
-             new_names[nms != ""] <- nms
-             setnames(DT, counts, new_names)
-             counts <- new_names
-         }
-     }
+    nms <- names(counts)
+    if (!is.null(nms)) {
+        if (length(counts) == 1L && nms != "") {
+            setnames(DT, counts, nms)
+            counts <- nms
+        } else if (any(nms != "")) {
+            new_names <- counts
+            new_names[nms != ""] <- nms
+            setnames(DT, counts, new_names)
+            counts <- new_names
+        }
+    }
 
     # switch behaviour depending on if counts are already present
     if (is.null(counts)) {
 
         # make from wide to long
-        DT <- melt(DT, measure.vars = date_index, variable.name = count_names_to, value.name = date_names_to, variable.factor = FALSE)
+        DT <- melt(
+            DT,
+            measure.vars = date_index,
+            variable.name = count_names_to,
+            value.name = date_names_to,
+            variable.factor = FALSE
+        )
 
         # filter out NA dates if desired
         if (rm_na_dates) {
@@ -439,7 +444,7 @@ incidence <- function(
         res <- DT[, .N, keyby = c(date_names_to, groups, count_names_to)]
         setnames(res, length(res), count_values_to)
     } else {
-        nas_present <- sapply(.subset(DT,counts), anyNA)
+        nas_present <- vapply(.subset(DT,counts), anyNA, TRUE)
         if (any(nas_present)) {
             missing_names <- names(nas_present)[nas_present]
             warnf(
@@ -655,25 +660,25 @@ incidence <- function(
 # -------------------------------------------------------------------------
 #' @export
 incidence_ <- function(
-        x,
-        date_index,
-        groups = NULL,
-        counts = NULL,
-        count_names_to = "count_variable",
-        count_values_to = "count",
-        date_names_to = "date_index",
-        rm_na_dates = TRUE,
-        interval = NULL,
-        offset = NULL,
-        complete_dates = FALSE,
-        ...
+    x,
+    date_index,
+    groups = NULL,
+    counts = NULL,
+    count_names_to = "count_variable",
+    count_values_to = "count",
+    date_names_to = "date_index",
+    rm_na_dates = TRUE,
+    interval = NULL,
+    offset = NULL,
+    complete_dates = FALSE,
+    ...
 ) {
 
     # date_index
     date_expr <- rlang::enquo(date_index)
     date_position <- tidyselect::eval_select(date_expr, data = x)
     length_date_index <- length(date_position)
-    if(!length_date_index)
+    if (!length_date_index)
         .stop_argument("`date_index` must be of length 1 or more.")
     date_index <- names(date_position)
     names(x)[date_position] <- date_index
@@ -682,7 +687,7 @@ incidence_ <- function(
     counts_expr <- rlang::enquo(counts)
     counts_position <- tidyselect::eval_select(counts_expr, data = x)
     if (length(counts_position)) {
-        if (length_date_index > 1)
+        if (length_date_index > 1L)
             .stop_argument("If `counts` is specified `date_index` must be of length 1.")
         counts <- names(counts_position)
         names(x)[counts_position] <- counts
@@ -724,4 +729,3 @@ incidence_ <- function(
     )
 
 }
-

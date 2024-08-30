@@ -111,7 +111,7 @@ estimate_peak <- function(x, n = 100L, alpha = 0.05, first_only = TRUE, progress
     observed_peak <- keep_peaks(x, first_only = first_only)
     setDT(observed_peak)
     if (!first_only)
-        observed_peak <- observed_peak[,lapply(.SD, list), by = c(grouping_variables, count_val)]
+        observed_peak <- observed_peak[, lapply(.SD, list), by = c(grouping_variables, count_val)]
 
     # Calculate peaks from bootstrapped data samples with optional progress bar
     if (progress) {
@@ -135,7 +135,7 @@ estimate_peak <- function(x, n = 100L, alpha = 0.05, first_only = TRUE, progress
 
     # TODO - check this with Thibaut
     # specify probabilities (lower_ci, median, upper_ci)
-    probs <- c(alpha/2, 0.5, 1 - alpha/2)
+    probs <- c(alpha / 2, 0.5, 1 - alpha / 2)
 
     # group peaks by group_vars and count_var
     peaks <- out[, .(bootstrap_peaks = list(.SD)), by = grouping_variables]

@@ -36,8 +36,7 @@
 #'
 # -------------------------------------------------------------------------
 #' @export
-regroup <- function(x, groups = NULL){
-
+regroup <- function(x, groups = NULL) {
     if (!inherits(x, "incidence2"))
         .stop_argument("`x` must be an <incidence2> object.")
 
@@ -46,7 +45,7 @@ regroup <- function(x, groups = NULL){
     if (is.null(groups)) {
         if (!length(group_variables))
             return(x)
-    } else if(!(is.character(groups) && length(groups) >= 1L)) {
+    } else if (!(is.character(groups) && length(groups) >= 1L)) {
         .stop_argument("`groups` must be NULL or a character vector.")
     } else if (!all(groups %in% group_variables)) {
         .stop_argument("Not all variables from `groups` are groupings of `x`.")
@@ -58,7 +57,7 @@ regroup <- function(x, groups = NULL){
     count_value <- attr(x, "count_value")
 
     # this is a little hacky
-    count_names_to = "temp_name"
+    count_names_to <- "temp_name"
     while (count_names_to %in% names(x))
         count_names_to <- basename(tempfile())
 
@@ -118,8 +117,7 @@ regroup <- function(x, groups = NULL){
 #'
 # -------------------------------------------------------------------------
 #' @export
-regroup_ <- function(x, groups = NULL){
-
+regroup_ <- function(x, groups = NULL) {
     if (!inherits(x, "incidence2"))
         .stop_argument("`x` must be an <incidence2> object.")
 
@@ -140,7 +138,7 @@ regroup_ <- function(x, groups = NULL){
     count_value <- attr(x, "count_value")
 
     # this is a little hacky
-    count_names_to = "temp_name"
+    count_names_to <- "temp_name"
     while (count_names_to %in% names(x))
         count_names_to <- basename(tempfile())
 

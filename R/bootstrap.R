@@ -76,7 +76,7 @@ bootstrap_incidence <- function(x, randomise_groups = FALSE) {
 
     # convert back to data frame
     setDF(out)
-    old$names <- names(out)
+    old[["names"]] <- names(out)
 
     # restore attributes and return
     attributes(out) <- old

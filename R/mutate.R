@@ -48,7 +48,7 @@ mutate.incidence2 <- function(
     .before = NULL,
     .after = NULL
 ) {
-    if(!missing(.by)) {
+    if (!missing(.by)) {
         .stop_argument("`.by` argument is not used in `mutate.incidence2()` as the groupings are implicit.")
     }
 

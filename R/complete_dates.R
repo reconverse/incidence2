@@ -87,8 +87,13 @@ complete_dates <- function(
         ))
     }
 
-    if (by != 1)
-        .stopf_argument("`by` argument is now Defunct. Setting `by = 1L` or `by = 1` is permitted for compatibility only.")
+    if (by != 1) {
+        .stopf_argument(paste0(
+            "`by` argument is now Defunct. ",
+            "Setting `by = 1L` or `by = 1` is permitted for compatibility only."
+        ))
+    }
+
 
     # TODO - catch this and give better / combined error message
     if (expand)
@@ -107,11 +112,18 @@ complete_dates <- function(
 
     dat <- do.call(CJ, groups)
     out <- as.data.table(x)
-    out <- as.data.frame(merge(dat, out, by = c(date_variable, group_variables, count_variable), all.x = TRUE))
+    out <- as.data.frame(
+        merge(
+            dat,
+            out,
+            by = c(date_variable, group_variables, count_variable),
+            all.x = TRUE
+        )
+    )
 
     tmp <- .set_row_names(nrow(out))
     attributes(out) <- attributes(x)
-    attr(out,"row.names") <- tmp
+    attr(out, "row.names") <- tmp
     setnafill(out, fill = fill, cols = get_count_value_name.incidence2(x))
     out
 }

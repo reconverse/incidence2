@@ -147,35 +147,33 @@ plot.incidence2 <- function(
         .stop_suggested("'ggplot2' is required for the incidence plot method but is not present.")
 
     # type checking
-    if (!is.numeric(width) || length(width) != 1L)
-        .stop_argument("`width` must be a numeric scalar.")
+    assert_scalar_numeric(width)
 
+    # NOTE - we keep this like this for backwards compatibility.
+    #        if we had used NA_character_ as the default we could just use
+    #        ympes::assert_scalar_character directly
     if (!is.na(border_colour)) {
-        if (!is.character(border_colour) || length(border_colour) != 1L) {
-            .stop_argument("`border_colour` must be a scalar character or, NA.")
-        }
+        assert_scalar_character(border_colour)
     }
 
-    if (!is.character(na_colour) || length(na_colour) != 1L)
-        .stop_argument("`na_colour` must be a scalar character.")
+    assert_scalar_character(na_colour)
 
-    if (!is.numeric(alpha) || length(alpha) != 1L)
-        .stop_argument("`alpha` must be a numeric scalar.")
+    assert_scalar_numeric(alpha)
 
     if (!is.null(fill)) {
+        assert_scalar_character(fill)
         if (!is.character(fill) || length(fill) != 1L) {
-            .stop_argument("`fill` must be a scalar character.")
+            .stop_argument("`fill` must be a scalar character or NULL.")
         }
     }
 
     if (!is.null(title)) {
         if (!is.character(title) || length(title) != 1L) {
-            .stop_argument("`title` must be a scalar character.")
+            .stop_argument("`title` must be a scalar character or NULL.")
         }
     }
 
-    if (!is.numeric(angle) || length(angle) != 1L)
-        .stop_argument("`angle` must be a numeric scalar.")
+    assert_scalar_numeric(angle)
 
     if (!is.null(size)) {
         if (!is.numeric(size) || length(size) != 1L) {
@@ -190,9 +188,7 @@ plot.incidence2 <- function(
         nrow <- as.integer(nrow)
     }
 
-    if (!is.numeric(n_breaks) || length(n_breaks) != 1L) {
-        .stop_argument("`n_breaks` must be a numeric scalar.")
-    }
+    assert_scalar_numeric(n_breaks)
     n_breaks <- as.integer(n_breaks)
 
     legend <- match.arg(legend)
@@ -209,7 +205,7 @@ plot.incidence2 <- function(
     x_axis<- get_date_index_name.incidence2(x)
 
     # TODO - temporary measure until I can think about this more
-    supported = c(
+    supported <- c(
         "Date",
         "grates_period",
         "grates_isoweek",

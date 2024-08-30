@@ -45,7 +45,7 @@ summarise.incidence2 <- function(
     .by,
     .groups
 ) {
-    if(!missing(.by))
+    if (!missing(.by))
         .stop_argument("`.by` argument cannot be used in `summary.incidence2()` as the groupings are implicit.")
 
     if(!missing(.groups))

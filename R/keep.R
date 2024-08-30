@@ -146,6 +146,7 @@ keep_peaks <- function(x, complete_dates = TRUE, first_only = FALSE, ...) {
     # convert to data.table
     tmp <- as.data.table(x)
 
+    # TODO - do this better
     # avoid check warnings
     tmp___index <- NULL
 

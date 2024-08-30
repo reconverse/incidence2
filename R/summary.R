@@ -23,14 +23,14 @@ summary.incidence2 <- function(object, ...) {
 
     # range
     dates <- range(.subset2(object, date_variable))
-    from  <- sprintf("From:          %s", format(dates[1]))
-    to    <- sprintf("To:            %s", format(dates[2]))
+    from  <- sprintf("From:          %s", format(dates[1L]))
+    to    <- sprintf("To:            %s", format(dates[2L]))
 
     # group summary
     if (is.null(group_variables)) {
         groups_text <- "Groups:      NULL"
     } else {
-        groups_text <- sprintf("Groups:        %s", paste(group_variables, collapse =", " ))
+        groups_text <- sprintf("Groups:        %s", toString(group_variables))
     }
 
     # observation summary
