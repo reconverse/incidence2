@@ -6,6 +6,8 @@
 - For convenience we now reexport `select()` from
   [dplyr](https://cran.r-project.org/package=dplyr) as well as 
   `unnest()` and `unpack()` from [tidyr](https://cran.r-project.org/package=tidyr).
+  
+- Alt text has been added to all vignette images.
 
 # incidence2 2.3.1
 
