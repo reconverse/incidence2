@@ -20,10 +20,7 @@ new_incidence <- function(
     validate = TRUE
 ) {
     .Defunct(
-        msg = sprintf(
-            "`%s` is defunct and has been removed from incidence2.",
-            as.character(sys.call()[1L])
-        )
+        msg = "`new_incidence` is defunct and has been removed from incidence2."
     )
 }
 
@@ -32,10 +29,7 @@ new_incidence <- function(
 #' @export
 validate_incidence <- function(x) {
     .Defunct(
-        msg = sprintf(
-            "`%s` is defunct and has been removed from incidence2.",
-            as.character(sys.call()[1L])
-        )
+        msg = "`validate_incidence` is defunct and has been removed from incidence2."
     )
 }
 
@@ -52,10 +46,7 @@ build_incidence <- function(
     args = list()
 ) {
     .Defunct(
-        msg = sprintf(
-            "`%s` is defunct and has been removed from incidence2.",
-            as.character(sys.call()[1L])
-        )
+        msg = "`build_incidence` is defunct and has been removed from incidence2."
     )
 }
 
@@ -63,10 +54,7 @@ build_incidence <- function(
 #' @rdname incidence2-defunct
 get_n <- function(x) {
     .Defunct(
-        msg = sprintf(
-            "`%s` is defunct and has been removed from incidence2.",
-            as.character(sys.call()[1L])
-        )
+        msg = "`get_n` is defunct and has been removed from incidence2."
     )
 }
 
@@ -75,10 +63,7 @@ get_n <- function(x) {
 #' @export
 get_interval <- function(x, ...) {
     .Defunct(
-        msg = sprintf(
-            "`%s` is defunct and has been removed from incidence2.",
-            as.character(sys.call()[1L])
-        )
+        msg = "`get_interval` is defunct and has been removed from incidence2."
     )
 }
 
@@ -87,10 +72,7 @@ get_interval <- function(x, ...) {
 #' @export
 get_timespan <- function(x, ...) {
     .Defunct(
-        msg = sprintf(
-            "`%s` is defunct and has been removed from incidence2.",
-            as.character(sys.call()[1L])
-        )
+        msg = "`get_timespan` is defunct and has been removed from incidence2."
     )
 }
 
@@ -99,9 +81,6 @@ get_timespan <- function(x, ...) {
 #' @export
 facet_plot <- function(x, ...) {
     .Defunct(
-        msg = sprintf(
-            "`%s` is defunct and has been removed from incidence2.",
-            as.character(sys.call()[1L])
-        )
+        msg = "`facet_plot` is defunct and has been removed from incidence2."
     )
 }
