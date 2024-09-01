@@ -1,3 +1,7 @@
+test_that("Fails with good error for bad input", {
+    expect_snapshot(error = TRUE, cumulate(mtcars))
+})
+
 test_that("cumulate works with groupings", {
     int <- sample(-3L:50L, 100, replace = TRUE)
     dates <- as.Date("2018-01-31") + int
