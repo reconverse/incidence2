@@ -10,4 +10,9 @@ test_that("nest works", {
         nest(dat),
         nest(as_tibble(dat), .by = c(count_variable, hospital))
     )
+
+    expect_error(nest(dat, .by = "hospital"))
+    expect_error(nest(dat, .names_sep = "-"))
+    expect_snapshot(error = TRUE, nest(dat, .by = "hospital"))
+    expect_snapshot(error = TRUE, nest(dat, .names_sep = "-"))
 })
