@@ -1,3 +1,25 @@
+test_that("Fails for bad input", {
+    dat <- data.frame(
+        dates = Sys.Date() + 1:10,
+        count = 1:10,
+        dates2 = Sys.Date() + 11:20
+    )
+    dummy <- "bob"
+    expect_error(incidence(dummy))
+    expect_error(incidence(dat, date_index = character()))
+    expect_error(incidence(dat, date_index = 1L))
+    expect_error(incidence(dat, date_index = "bob"))
+    expect_error(incidence(dat, date_index = "dates", counts = character()))
+    expect_error(incidence(dat, date_index = "dates", counts = 1L))
+    expect_error(incidence(dat, date_index = c("dates", "dates2"), counts = "count"))
+    expect_error(incidence(dat, date_index = c("dates", "dates"), counts = "count"))
+    expect_error(incidence(dat, date_index = "dates", counts = "bob"))
+    expect_error(incidence(dat, date_index = "dates", counts = "count", groups = 1))
+    expect_error(incidence(dat, c("dates","dates2"), fill = 9))
+    dat2 <- transform(dat, dates = as.POSIXlt(dates))
+    expect_error(incidence(dat2, date_index = "dates"))
+})
+
 test_that("Fails with good error for bad input", {
     dat <- data.frame(
         dates = Sys.Date() + 1:10,

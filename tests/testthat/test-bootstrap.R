@@ -1,3 +1,7 @@
+test_that("Fails with error", {
+    expect_error(bootstrap_incidence(mtcars))
+})
+
 test_that("Fails with good error", {
     blobby <- mtcars
     expect_snapshot(error = TRUE, bootstrap_incidence(blobby))

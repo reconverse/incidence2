@@ -1,3 +1,7 @@
+test_that("Fails with bad input", {
+    expect_error(cumulate(mtcars))
+})
+
 test_that("Fails with good error for bad input", {
     expect_snapshot(error = TRUE, cumulate(mtcars))
 })

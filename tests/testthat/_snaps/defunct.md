@@ -1,4 +1,4 @@
-# defunct functions are defunct!
+# defunct functions give good error messaging!
 
     Code
       new_incidence(mtcars)

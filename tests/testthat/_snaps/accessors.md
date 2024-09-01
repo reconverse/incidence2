@@ -1,4 +1,4 @@
-# Default dispatch gives error
+# Default dispatch gives good error message
 
     Code
       get_count_value(mtcars)

@@ -1,4 +1,15 @@
 test_that("Default dispatch gives error", {
+    expect_error(get_count_value(mtcars))
+    expect_error(get_count_value_name(mtcars))
+    expect_error(get_count_variable(mtcars))
+    expect_error(get_count_variable_name(mtcars))
+    expect_error(get_date_index(mtcars))
+    expect_error(get_date_index_name(mtcars))
+    expect_error(get_group_names(mtcars))
+    expect_error(get_groups(mtcars))
+})
+
+test_that("Default dispatch gives good error message", {
     expect_snapshot(error = TRUE, get_count_value(mtcars))
     expect_snapshot(error = TRUE, get_count_value_name(mtcars))
     expect_snapshot(error = TRUE, get_count_variable(mtcars))
