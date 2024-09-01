@@ -1,3 +1,11 @@
+test_that("Fails for bad input", {
+    expect_error(keep_first("bob"))
+    expect_error(keep_last("bob"))
+    expect_snapshot(error = TRUE, keep_first("bob"))
+    expect_snapshot(error = TRUE, keep_last("bob"))
+
+})
+
 test_that("keep_first works", {
     firstday <- as.Date("2021-01-01")
     lastday <- as.Date("2021-12-31")
