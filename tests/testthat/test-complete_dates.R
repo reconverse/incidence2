@@ -18,6 +18,7 @@ test_that("Fails with good error for bad input", {
     expect_snapshot(error = TRUE, complete_dates(i, expand = "bob"))
     expect_snapshot(error = TRUE, complete_dates(i, allow_POSIXct = "bob"))
     expect_snapshot(error = TRUE, complete_dates(i, fill = 1:2))
+    expect_snapshot(error = TRUE, complete_dates(i, by = 2))
 
     i$date_index <- as.POSIXct(i$date_index)
     expect_snapshot(error = TRUE, complete_dates(i))

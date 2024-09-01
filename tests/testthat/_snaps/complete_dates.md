@@ -33,6 +33,14 @@
 ---
 
     Code
+      complete_dates(i, by = 2)
+    Condition
+      Error in `complete_dates()`:
+      ! `by` argument is now Defunct. Setting `by = 1L` or `by = 1` is permitted for compatibility only.
+
+---
+
+    Code
       complete_dates(i)
     Condition
       Error in `complete_dates()`:
