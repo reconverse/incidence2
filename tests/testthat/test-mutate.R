@@ -22,4 +22,12 @@ test_that("mutate works", {
         )
     )
 
+    expect_error(
+        mutate(dat, ave = data.table::frollmean(count, n = 3L, align = "right"), .by = "hospital")
+    )
+
+    expect_snapshot(
+        error = TRUE,
+        mutate(dat, ave = data.table::frollmean(count, n = 3L, align = "right"), .by = "hospital")
+    )
 })
