@@ -59,7 +59,7 @@ complete_dates <- function(
 ) {
 
     if (!inherits(x, "incidence2"))
-        .stopf("`%s` is not an 'incidence2' object", deparse(substitute(x)))
+        .stopf("`%s` is not an 'incidence2' object.", deparse(substitute(x)))
 
     assert_bool(expand)
     assert_bool(allow_POSIXct)
