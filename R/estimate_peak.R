@@ -114,7 +114,7 @@ estimate_peak <- function(x, n = 100L, alpha = 0.05, first_only = TRUE, progress
         observed_peak <- observed_peak[, lapply(.SD, list), by = c(grouping_variables, count_val)]
 
     # Calculate peaks from bootstrapped data samples with optional progress bar
-    if (progress) {
+    if (interactive() && progress) {
         out <- vector("list", n)
         message("Estimating peaks from bootstrap samples:")
         pb <- utils::txtProgressBar(min = 0, max = n, style = 3)

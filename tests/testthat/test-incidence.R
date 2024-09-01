@@ -1,3 +1,25 @@
+test_that("Fails with good error for bad input", {
+    dat <- data.frame(
+        dates = Sys.Date() + 1:10,
+        count = 1:10,
+        dates2 = Sys.Date() + 11:20
+    )
+    dummy <- "bob"
+    expect_snapshot(error = TRUE, incidence(dummy))
+    expect_snapshot(error = TRUE, incidence(dat, date_index = character()))
+    expect_snapshot(error = TRUE, incidence(dat, date_index = 1L))
+    expect_snapshot(error = TRUE, incidence(dat, date_index = "bob"))
+    expect_snapshot(error = TRUE, incidence(dat, date_index = "dates", counts = character()))
+    expect_snapshot(error = TRUE, incidence(dat, date_index = "dates", counts = 1L))
+    expect_snapshot(error = TRUE, incidence(dat, date_index = c("dates", "dates2"), counts = "count"))
+    expect_snapshot(error = TRUE, incidence(dat, date_index = c("dates", "dates"), counts = "count"))
+    expect_snapshot(error = TRUE, incidence(dat, date_index = "dates", counts = "bob"))
+    expect_snapshot(error = TRUE, incidence(dat, date_index = "dates", counts = "count", groups = 1))
+    expect_snapshot(error = TRUE, incidence(dat, c("dates","dates2"), fill = 9))
+    dat2 <- transform(dat, dates = as.POSIXlt(dates))
+    expect_snapshot(error = TRUE, incidence(dat2, date_index = "dates"))
+})
+
 test_that("incidence with no groupings and no intervals works", {
     firstday <- as.Date("2020-01-01") # Wednesday
     lastday <- as.Date("2021-12-31")  # Friday
@@ -402,85 +424,4 @@ test_that("10 incidence with no groupings but with a count works", {
 })
 
 
-test_that("miscellaneous incidence error messaging works as expected", {
-    dat <- data.frame(
-        dates = Sys.Date() + 1:10,
-        count = 1:10,
-        dates2 = Sys.Date() + 11:20
-    )
 
-    expect_error(
-        incidence("bob"),
-        "`x` must be a data frame.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, date_index = character()),
-        "`date_index` must be a character vector of length 1 or more.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, date_index = 1L),
-        "`date_index` must be a character vector of length 1 or more.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, date_index = "bob"),
-        "Not all variables from `date_index` are present in `x`.",
-        fixed = TRUE
-    )
-
-    dat2 <- transform(dat, dates = as.POSIXlt(dates))
-    expect_error(
-        incidence(dat2, date_index = "dates"),
-        "POSIXlt date_index columns are not currently supported.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, date_index = "dates", counts = character()),
-        "`counts` must be NULL or a character vector of length 1 or more.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, date_index = "dates", counts = 1L),
-        "`counts` must be NULL or a character vector of length 1 or more.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, date_index = c("dates", "dates2"), counts = "count"),
-        "If `counts` is specified `date_index` must be of length 1.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, date_index = c("dates", "dates"), counts = "count"),
-        "`date_index` values must be unique.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, date_index = "dates", counts = "bob"),
-        "Not all variables from `counts` are present in `x`.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, date_index = "dates", counts = "count", groups = 1),
-        "`groups` must be NULL or a character vector.",
-        fixed = TRUE
-    )
-
-    expect_error(
-        incidence(dat, c("dates","dates2"), fill = 9),
-        "`fill` can only be given when `complete_dates = TRUE`.",
-        fixed = TRUE
-    )
-
-
-})
