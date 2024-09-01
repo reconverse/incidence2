@@ -21,5 +21,22 @@ test_that("regroup_ works", {
     expect_equal(regroup_(expected), expected)
 
     # regroup none-incidence object
-    expect_error(regroup_("test"), "`x` must be an <incidence2> object.")
+    expect_error(regroup_("test"))
+    expect_snapshot(error = TRUE, regroup_("test"))
+
+    # other errors
+    expect_error(
+        regroup_(
+            incidence(dat, date_index = "dates", groups = "group_1"),
+            groups = bob
+        )
+    )
+    expect_snapshot(
+        error = TRUE,
+        regroup_(
+            incidence(dat, date_index = "dates", groups = "group_1"),
+            groups = bob
+        )
+    )
+
 })
