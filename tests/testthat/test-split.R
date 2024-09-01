@@ -14,4 +14,11 @@ test_that("split works", {
 
     expect_identical(c(out), expected$val)
     expect_identical(attr(out, "key"), expected$key)
+
+    expect_error(split(dat, f = dat$hospital))
+    expect_snapshot(error = TRUE, split(dat, f = dat$hospital))
+
+    expect_error(split(dat, drop = TRUE))
+    expect_snapshot(error = TRUE, split(dat, drop = TRUE))
+
 })
