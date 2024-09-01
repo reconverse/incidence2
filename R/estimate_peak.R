@@ -89,7 +89,7 @@
 estimate_peak <- function(x, n = 100L, alpha = 0.05, first_only = TRUE, progress = TRUE) {
 
     if (!inherits(x, "incidence2"))
-        .stopf("`%s` is not an 'incidence2' object", deparse(substitute(x)))
+        .stopf("`%s` is not an 'incidence2' object.", deparse(substitute(x)))
 
     assert_scalar_whole(n)
     assert_scalar_numeric_not_na(alpha)
