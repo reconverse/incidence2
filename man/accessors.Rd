@@ -109,9 +109,11 @@ Access various elements of an incidence object
 if (requireNamespace("outbreaks", quietly = TRUE)) {
     data(ebola_sim_clean, package = "outbreaks")
     dat <- ebola_sim_clean$linelist
-    i <- incidence(dat, date_index = "date_of_onset",
-                   groups = c("gender", "hospital"))
-
+    i <- incidence(
+        dat,
+        date_index = "date_of_onset",
+        groups = c("gender", "hospital")
+    )
     get_count_variable_name(i)
     get_group_names(i)
     get_dates_name(i)
