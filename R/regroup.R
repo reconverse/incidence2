@@ -56,7 +56,7 @@ regroup <- function(x, groups = NULL) {
     count_variable <- attr(x, "count_variable")
     count_value <- attr(x, "count_value")
 
-    # this is a little hacky
+    # choose name not in use
     count_names_to <- "temp_name"
     while (count_names_to %in% names(x))
         count_names_to <- basename(tempfile())
@@ -137,7 +137,7 @@ regroup_ <- function(x, groups = NULL) {
     count_variable <- attr(x, "count_variable")
     count_value <- attr(x, "count_value")
 
-    # this is a little hacky
+    # choose name not in use
     count_names_to <- "temp_name"
     while (count_names_to %in% names(x))
         count_names_to <- basename(tempfile())
