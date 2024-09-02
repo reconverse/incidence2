@@ -74,6 +74,13 @@ keep_first <- function(x, n, complete_dates = TRUE, ...) {
     tmp___index <- NULL
 
     # convert to data.table and order by date
+    if ("tmp___index" %in% names(x)) {
+        .stop(
+            "`keep_first` does not work if a column is already named 'tmp___index'. ",
+            "Please rename and try again. ",
+            "If this is problematic, please raise an issue."
+        )
+    }
     tmp <- as.data.table(x)
     tmp[, tmp___index := .I]
     setorderv(tmp, get_date_index_name.incidence2(x), order = 1L)
@@ -109,6 +116,13 @@ keep_last <- function(x, n, complete_dates = TRUE, ...) {
     tmp___index <- NULL
 
     # convert to data.table and order by date
+    if ("tmp___index" %in% names(x)) {
+        .stop(
+            "`keep_last` does not work if a column is already named 'tmp___index'. ",
+            "Please rename and try again. ",
+            "If this is problematic, please raise an issue."
+        )
+    }
     tmp <- as.data.table(x)
     tmp[, tmp___index := .I]
     setorderv(tmp, get_date_index_name.incidence2(x))
@@ -151,6 +165,13 @@ keep_peaks <- function(x, complete_dates = TRUE, first_only = FALSE, ...) {
     tmp___index <- NULL
 
     # order by count
+    if ("tmp___index" %in% names(x)) {
+        .stop(
+            "`keep_peaks` does not work if a column is already named 'tmp___index'. ",
+            "Please rename and try again. ",
+            "If this is problematic, please raise an issue."
+        )
+    }
     tmp[, tmp___index := .I]
     tmp <- tmp[,
                list(tmp___index = tmp___index[.SD == max(.SD)]),
