@@ -1,3 +1,5 @@
+# incidence2 (development version)
+
 # incidence2 2.4.0
 
 - `incidence()` gains a `fill` parameter. This is passed to `complete_dates()`
