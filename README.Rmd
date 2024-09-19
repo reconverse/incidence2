@@ -32,7 +32,7 @@ calculation, manipulation and plotting of the resultant *incidence* objects.
 
 ## Installing the package
 
-You can install the incidence2 from [CRAN](https://cran.r-project.org/) with:
+You can install incidence2 from [CRAN](https://cran.r-project.org/) with:
 
 ```{r, eval=FALSE}
 install.packages("incidence2")

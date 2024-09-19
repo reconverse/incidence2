@@ -19,7 +19,7 @@ objects.
 
 ## Installing the package
 
-You can install the incidence2 from [CRAN](https://cran.r-project.org/)
+You can install incidence2 from [CRAN](https://cran.r-project.org/)
 with:
 
 ``` r
