@@ -111,7 +111,10 @@
         # strip most attributes from data.frame
         a <- list(names = names(x), row.names = attr(x, "row.names"), class = "data.frame")
         attributes(x) <- a
-        x
+
+        # fix for #120 (https://github.com/reconverse/incidence2/issues/120)
+        # TODO - make this more efficient
+        tibble::as_tibble(x)
     }
 }
 

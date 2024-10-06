@@ -561,7 +561,7 @@ weekly_incidence |>
 names(weekly_incidence)[names(weekly_incidence) == "date_index"] <- "isoweek"
 str(weekly_incidence)
 
-# select returns a data frame unless all date, count and group variables are
+# select returns a tibble unless all date, count and group variables are
 # preserved in the output
 str(weekly_incidence[,-1L])
 str(weekly_incidence[, -6L])

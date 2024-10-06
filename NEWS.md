@@ -1,5 +1,11 @@
 # incidence2 (development version)
 
+- When the incidence2 class is dropped during an operation we now return a 
+  tibble instead of a data frame. This is a **breaking change** due to
+  tibble / data frame difference but should have been made as part of the 2.3.0
+  release where the underlying class changed from a simple data frame to a
+  tibble. Thanks to @avallecam for the report (#120). 
+
 # incidence2 2.4.0
 
 - `incidence()` gains a `fill` parameter. This is passed to `complete_dates()`
