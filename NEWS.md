@@ -1,4 +1,4 @@
-# incidence2 (development version)
+# incidence2 2.5.0
 
 - When the incidence2 class is dropped during an operation we now return a 
   tibble instead of a data frame. This is a **breaking change** due to
