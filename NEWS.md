@@ -1,3 +1,5 @@
+# incidence2 (development version)
+
 # incidence2 2.5.0
 
 - When the incidence2 class is dropped during an operation we now return a 
