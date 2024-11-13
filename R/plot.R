@@ -213,7 +213,8 @@ plot.incidence2 <- function(
         "grates_yearweek",
         "grates_yearmonth",
         "grates_yearquarter",
-        "grates_year"
+        "grates_year",
+        "grates_int_period"
     )
     dates <- .subset2(x, x_axis)
     if (!inherits(dates, supported)) {
@@ -290,6 +291,9 @@ plot.incidence2 <- function(
                 n = n,
                 offset = offset
             )
+    } else if (inherits(dates, "grates_int_period")) {
+        n <- grates::get_n(dates)
+        out <- out + grates::scale_x_grates_int_period(n.breaks = n_breaks, n = n)
     } else {
         scale_fun <- .grates_scale(dates)
         out <-  out + scale_fun(n.breaks = n_breaks)

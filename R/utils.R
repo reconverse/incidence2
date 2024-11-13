@@ -68,4 +68,6 @@
         return(grates::scale_x_grates_year)
     if (inherits(x, "grates_period"))
         return(grates::scale_x_grates_period)
+    if (inherits(x, "grates_int_period"))
+        return(grates::scale_x_grates_int_period)
 }

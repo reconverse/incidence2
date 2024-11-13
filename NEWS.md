@@ -1,5 +1,32 @@
 # incidence2 (development version)
 
+- **Experimental:** When calling `incidence()` if users specify an integer(ish)
+  interval on an (integerish) date input these inputs will be coerced in 
+  to `grates_int_period` objects. This fixes
+  https://github.com/reconverse/incidence2/issues/121 and (broadly) restores
+  earlier behaviour of the `incidence()` function. This functionality is subject
+  to change and, for that reason, is not widely documented.
+  
+  ```
+  library(incidence2)
+  x <- data.frame(onset = c(1, 3, 4, 4, 3, 4, 10))
+  
+  # 2.5.0 release would error, e.g.
+  incidence(x, "onset", interval = 1)
+  #> Error in as_period.default(): Not implemented for class [numeric].
+  
+  # This release - now works
+  incidence(x, "onset", interval = 1)
+  #> # incidence:  4 x 3
+  #> # count vars: onset
+  #>   date_index count_variable count
+  #>   <intper>   <chr>          <int>
+  #> 1 1          onset              1
+  #> 2 3          onset              2
+  #> 3 4          onset              3
+  #> 4 10         onset              1
+  ```
+
 # incidence2 2.5.0
 
 - When the incidence2 class is dropped during an operation we now return a 

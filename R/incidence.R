@@ -299,17 +299,23 @@ incidence <- function(
         if (is.numeric(interval)) {
             n <- as.integer(interval)
 
-            # coerce offset (do here rather than in grates for better easier error messaging)
-            if (!is.null(offset)) {
-                if (inherits(offset, "Date"))
-                    offset <- floor(as.numeric(offset))
-
-                if (!.is_scalar_whole(offset))
-                    stop("`offset` must be an integer or date of length 1.")
+            if (is.numeric(date_cols[[1L]])) {
+                if (!is.null(offset))
+                    stop("`offset` can only be used with non-numeric date input.")
+                x[date_index] <- lapply(x[date_index], as_int_period, n = n)
             } else {
-                offset <- 0L
+                # coerce offset (do here rather than in grates for better easier error messaging)
+                if (!is.null(offset)) {
+                    if (inherits(offset, "Date"))
+                        offset <- floor(as.numeric(offset))
+
+                    if (!.is_scalar_whole(offset))
+                        stop("`offset` must be an integer or date of length 1.")
+                } else {
+                    offset <- 0L
+                }
+                x[date_index] <- lapply(x[date_index], as_period, n = n, offset = offset)
             }
-            x[date_index] <- lapply(x[date_index], as_period, n = n, offset = offset)
         } else if (!is.null(offset)) {
             # offset only valid for numeric interval
             stop("`offset` can only be used with a numeric (period) interval.")
