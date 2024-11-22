@@ -1,4 +1,4 @@
-# incidence2 (development version)
+# incidence2 2.6.0
 
 - **Experimental:** When calling `incidence()` if users specify an integer(ish)
   interval on an (integerish) date input these inputs will be coerced in 
