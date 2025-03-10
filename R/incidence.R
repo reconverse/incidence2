@@ -1,7 +1,8 @@
 #' Compute the incidence of events
 #'
 #' `incidence()` calculates the *incidence* of different events across specified
-#' time periods and groupings.
+#' time periods and groupings. `incidence_()` does the same but with support for
+#' [tidy-select][dplyr::dplyr_tidy_select] semantics in some of its arguments.
 #'
 # -------------------------------------------------------------------------
 #' `incidence2` objects are a sub class of data frame with some
@@ -45,7 +46,9 @@
 #'
 #' A data frame object representing a linelist or pre-aggregated dataset.
 #'
-#' @param date_index `character`.
+#' @param date_index
+#'
+#' `character` for `incidence()` or [tidy-select][dplyr::dplyr_tidy_select] for `incidence_()`.
 #'
 #' The time index(es) of the given data.
 #'
@@ -55,14 +58,18 @@
 #'
 #' Multiple indices only make sense when  `x` is a linelist.
 #'
-#' @param groups `character`.
+#' @param groups
+#'
+#' `character` for `incidence()` or [tidy-select][dplyr::dplyr_tidy_select] for `incidence_()`.
 #'
 #' An optional vector giving the names of the groups of observations for which
 #' incidence should be grouped.
 #'
 #' A named vector can be used for convenient relabelling of the resultant output.
 #'
-#' @param counts `character`.
+#' @param counts
+#'
+#' `character` for `incidence()` or [tidy-select][dplyr::dplyr_tidy_select] for `incidence_()`.
 #'
 #' The count variables of the given data.  If NULL (default) the data is taken
 #' to be a linelist of individual observations.
@@ -152,9 +159,7 @@
 #'
 # -------------------------------------------------------------------------
 #' @seealso
-#' - `browseVignettes("grates")` for more details on the grate object classes.
-#' - `incidence_()` for a version supporting
-#'   [tidy-select][dplyr::dplyr_tidy_select] semantics in some arguments.
+#' `browseVignettes("grates")` for more details on the grate object classes.
 #'
 # -------------------------------------------------------------------------
 #' @return
@@ -167,7 +172,9 @@
 #'     data(ebola_sim_clean, package = "outbreaks")
 #'     dat <- ebola_sim_clean$linelist
 #'     incidence(dat, "date_of_onset")
+#'     incidence_(dat, date_of_onset)
 #'     incidence(dat, "date_of_onset", groups = c("gender", "hospital"))
+#'     incidence_(dat, date_of_onset, groups = c(gender, hospital))
 #' }
 #' \dontshow{data.table::setDTthreads(.old)}
 #'
@@ -498,172 +505,8 @@ incidence <- function(
 }
 
 
-#' Compute the incidence of events (tidyselect compatible)
-#'
-#' `incidence_()` calculates the *incidence* of different events across
-#' specified time periods and groupings. It differs from `incidence()` only in
-#' its support for [tidy-select][dplyr::dplyr_tidy_select]
-#' semantics in some of its arguments.
-#'
 # -------------------------------------------------------------------------
-#' `<incidence2>` objects are a sub class of data frame with some
-#' additional invariants. That is, an `<incidence2>` object must:
-#'
-#' - have one column representing the date index (this does not need to be a
-#'   `date` object but must have an inherent ordering over time);
-#'
-#' - have one column representing the count variable (i.e. what is being
-#'   counted) and one variable representing the associated count;
-#'
-#' - have zero or more columns representing groups;
-#'
-#' - not have duplicated rows with regards to the date and group variables.
-#'
-# -------------------------------------------------------------------------
-#' # Interval specification
-#'
-#' Where `interval` is specified, `incidence_()`, predominantly uses the
-#' [`grates`](https://cran.r-project.org/package=grates) package to generate
-#' appropriate date groupings. The grouping used depends on the value of
-#' `interval`. This can be specified as either an integer value or a string
-#' corresponding to one of the classes:
-#'
-#' - integer values:                     [`<grates_period>`][grates::new_period] object, grouped by the specified number of days.
-#' - day, daily:                         [`<Date>`][base::Dates] objects.
-#' - week(s), weekly, isoweek:           [`<grates_isoweek>`][grates::isoweek] objects.
-#' - epiweek(s):                         [`<grates_epiweek>`][grates::epiweek] objects.
-#' - month(s), monthly, yearmonth:       [`<grates_yearmonth>`][grates::yearmonth] objects.
-#' - quarter(s), quarterly, yearquarter: [`<grates_yearquarter>`][grates::yearquarter] objects.
-#' - year(s) and yearly:                 [`<grates_year>`][grates::year] objects.
-#'
-#' For "day" or "daily" interval, we provide a thin wrapper around `as.Date()`
-#' that ensures the underlying data are whole numbers and that time zones are
-#' respected. Note that additional arguments are not forwarded to `as.Date()`
-#' so for greater flexibility users are advised to modifying your input prior to
-#' calling `incidence_()`.
-#'
-# -------------------------------------------------------------------------
-#' @param x
-#'
-#' A data frame object representing a linelist or pre-aggregated dataset.
-#'
-#' @param date_index [tidyselect][dplyr::dplyr_tidy_select].
-#'
-#' The time index(es) of the given data.
-#'
-#' This should be the name(s) corresponding to the desired date column(s) in x.
-#'
-#' A named vector can be used for convenient relabelling of the resultant output.
-#'
-#' Multiple indices only make sense when  `x` is a linelist.
-#'
-#' @param groups [tidyselect][dplyr::dplyr_tidy_select].
-#'
-#' An optional vector giving the names of the groups of observations for which
-#' incidence should be grouped.
-#'
-#' A named vector can be used for convenient relabelling of the resultant output.
-#'
-#' @param counts [tidyselect][dplyr::dplyr_tidy_select].
-#'
-#' The count variables of the given data.  If NULL (default) the data is taken
-#' to be a linelist of individual observations.
-#'
-#' A named vector can be used for convenient relabelling of the resultant output.
-#'
-#' @param count_names_to `character`.
-#'
-#' The column to create which will store the `counts` column names provided that
-#' `counts` is not NULL.
-#'
-#' @param count_values_to `character`.
-#'
-#' The name of the column to store the resultant count values in.
-#'
-#' @param date_names_to `character`.
-#'
-#' The name of the column to store the date variables in.
-#'
-#' @param rm_na_dates `bool`.
-#'
-#' Should `NA` dates be removed prior to aggregation?
-#'
-#' @param interval
-#'
-#' An optional scalar integer or string indicating the (fixed) size of
-#' the desired time interval you wish to use for for computing the incidence.
-#'
-#' Defaults to NULL in which case the date_index columns are left unchanged.
-#'
-#' Numeric values are coerced to integer and treated as a number of days to
-#' group.
-#'
-#' Text strings can be one of:
-#'
-#'     * day or daily
-#'     * week(s) or weekly
-#'     * epiweek(s)
-#'     * isoweek(s)
-#'     * month(s) or monthly
-#'     * yearmonth(s)
-#'     * quarter(s) or quarterly
-#'     * yearquarter(s)
-#'     * year(s) or yearly
-#'
-#' More details can be found in the "Interval specification" section.
-#'
-#' @param offset
-#'
-#' Only applicable when `interval` is not NULL.
-#'
-#' An optional scalar integer or date indicating the value you wish to start
-#' counting periods from relative to the Unix Epoch:
-#'
-#' - Default value of NULL corresponds to 0L.
-#'
-#' - For other integer values this is stored scaled by `n`
-#'   (`offset <- as.integer(offset) %% n`).
-#'
-#' - For date values this is first converted to an integer offset
-#'   (`offset <- floor(as.numeric(offset))`) and then scaled via `n` as above.
-#'
-#' @param complete_dates `bool`.
-#'
-#' Should the resulting object have the same range of dates for each grouping.
-#'
-#' Missing counts will be filled with `0L`.
-#'
-#' Will attempt to use `function(x) seq(min(x), max(x), by = 1)` on the
-#' resultant date_index column to generate a complete sequence of dates.
-#'
-#' More flexible completion is possible by using the `complete_dates()`
-#'
-#' @param ...
-#'
-#' Not currently used.
-#'
-# -------------------------------------------------------------------------
-#' @seealso
-#' - `browseVignettes("grates")` for more details on the grate object classes.
-#' - `incidence()` for a the underlying function without support for tidyselect
-#'   semantics. This may be preferable for programatic usage.
-#'
-# -------------------------------------------------------------------------
-#' @return
-#' A [`tibble`][tibble::tibble] with subclass `incidence2`.
-#'
-# -------------------------------------------------------------------------
-#' @examples
-#' \dontshow{.old <- data.table::setDTthreads(2)}
-#' if (requireNamespace("outbreaks", quietly = TRUE)) {
-#'     data(ebola_sim_clean, package = "outbreaks")
-#'     dat <- ebola_sim_clean$linelist
-#'     incidence_(dat, date_of_onset)
-#'     incidence_(dat, date_of_onset, groups = c(gender, hospital))
-#' }
-#' \dontshow{data.table::setDTthreads(.old)}
-#'
-# -------------------------------------------------------------------------
+#' @rdname incidence
 #' @export
 incidence_ <- function(
     x,

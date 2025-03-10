@@ -2,12 +2,17 @@
 #'
 #' This function regroups an [incidence2][incidence2::incidence] object across
 #' the specified groups. The resulting [incidence2][incidence2::incidence]
-#' object will contains counts aggregated over the specified groups.
+#' object will contains counts aggregated over the specified groups. The only
+#' difference between `regroup()` and `regroup_()` is that the latter is built
+#' on top of [tidy-select][dplyr::dplyr_tidy_select] semantics for the `group`
+#' input.
 #'
 # -------------------------------------------------------------------------
 #' @param x `<incidence2>` object.
 #'
-#' @param groups `character`.
+#' @param groups
+#'
+#' `character` for `regroup()` or [tidy-select][dplyr::dplyr_tidy_select] for `regroup_()`.
 #'
 #' The groups to sum over.
 #'
@@ -26,13 +31,11 @@
 #'         groups = c("gender", "hospital")
 #'     )
 #'     regroup(i)
+#'     regroup_(i)
 #'     regroup(i, "hospital")
+#'     regroup_(i, hospital)
 #' }
 #' \dontshow{data.table::setDTthreads(.old)}
-#'
-# -------------------------------------------------------------------------
-#' @seealso
-#' `regroup_()` for a version supporting
 #'
 # -------------------------------------------------------------------------
 #' @export
@@ -76,46 +79,8 @@ regroup <- function(x, groups = NULL) {
 }
 
 
-#' Regroup 'incidence' objects (tidyselect compatible)
-#'
-#' This function regroups an `<incidence2>` object across the specified groups.
-#' The resulting `<incidence2>` object will contains counts summed over the
-#' groups present in the input.  It differs from `regroup()` only in
-#' support for [`<tidy-select>`][dplyr::dplyr_tidy_select]
-#' semantics in the `groups` argument.
-#'
 # -------------------------------------------------------------------------
-#' @param x `<incidence2>` object.
-#'
-#' @param groups [`<tidyselect>`][dplyr::dplyr_tidy_select]
-#'
-#' The groups to sum over.
-#'
-#' If `NULL` (default) then the function returns the corresponding object with
-#' no groupings.
-#'
-# -------------------------------------------------------------------------
-#' @examples
-#' \dontshow{.old <- data.table::setDTthreads(2)}
-#' if (requireNamespace("outbreaks", quietly = TRUE)) {
-#'     data(ebola_sim_clean, package = "outbreaks")
-#'     dat <- ebola_sim_clean$linelist
-#'     i <- incidence_(
-#'         dat,
-#'         date_index = date_of_onset,
-#'         groups = c(gender, hospital)
-#'     )
-#'     regroup_(i)
-#'     regroup_(i, hospital)
-#' }
-#' \dontshow{data.table::setDTthreads(.old)}
-#'
-# -------------------------------------------------------------------------
-#' @seealso
-#' `regroup()` for a version without tidyselect semantics. This may be
-#' preferable for programatic usage.
-#'
-# -------------------------------------------------------------------------
+#' @rdname regroup
 #' @export
 regroup_ <- function(x, groups = NULL) {
     if (!inherits(x, "incidence2"))

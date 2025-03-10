@@ -2,14 +2,17 @@
 % Please edit documentation in R/regroup.R
 \name{regroup}
 \alias{regroup}
+\alias{regroup_}
 \title{Regroup 'incidence' objects}
 \usage{
 regroup(x, groups = NULL)
+
+regroup_(x, groups = NULL)
 }
 \arguments{
 \item{x}{\verb{<incidence2>} object.}
 
-\item{groups}{\code{character}.
+\item{groups}{\code{character} for \code{regroup()} or \link[dplyr:dplyr_tidy_select]{tidy-select} for \code{regroup_()}.
 
 The groups to sum over.
 
@@ -19,7 +22,10 @@ no groupings.}
 \description{
 This function regroups an \link[=incidence]{incidence2} object across
 the specified groups. The resulting \link[=incidence]{incidence2}
-object will contains counts aggregated over the specified groups.
+object will contains counts aggregated over the specified groups. The only
+difference between \code{regroup()} and \code{regroup_()} is that the latter is built
+on top of \link[dplyr:dplyr_tidy_select]{tidy-select} semantics for the \code{group}
+input.
 }
 \examples{
 \dontshow{.old <- data.table::setDTthreads(2)}
@@ -32,11 +38,10 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
         groups = c("gender", "hospital")
     )
     regroup(i)
+    regroup_(i)
     regroup(i, "hospital")
+    regroup_(i, hospital)
 }
 \dontshow{data.table::setDTthreads(.old)}
 
-}
-\seealso{
-\code{regroup_()} for a version supporting
 }

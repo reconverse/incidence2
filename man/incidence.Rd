@@ -2,6 +2,7 @@
 % Please edit documentation in R/incidence.R
 \name{incidence}
 \alias{incidence}
+\alias{incidence_}
 \title{Compute the incidence of events}
 \usage{
 incidence(
@@ -19,11 +20,26 @@ incidence(
   fill = 0L,
   ...
 )
+
+incidence_(
+  x,
+  date_index,
+  groups = NULL,
+  counts = NULL,
+  count_names_to = "count_variable",
+  count_values_to = "count",
+  date_names_to = "date_index",
+  rm_na_dates = TRUE,
+  interval = NULL,
+  offset = NULL,
+  complete_dates = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{A data frame object representing a linelist or pre-aggregated dataset.}
 
-\item{date_index}{\code{character}.
+\item{date_index}{\code{character} for \code{incidence()} or \link[dplyr:dplyr_tidy_select]{tidy-select} for \code{incidence_()}.
 
 The time index(es) of the given data.
 
@@ -33,14 +49,14 @@ A named vector can be used for convenient relabelling of the resultant output.
 
 Multiple indices only make sense when  \code{x} is a linelist.}
 
-\item{groups}{\code{character}.
+\item{groups}{\code{character} for \code{incidence()} or \link[dplyr:dplyr_tidy_select]{tidy-select} for \code{incidence_()}.
 
 An optional vector giving the names of the groups of observations for which
 incidence should be grouped.
 
 A named vector can be used for convenient relabelling of the resultant output.}
 
-\item{counts}{\code{character}.
+\item{counts}{\code{character} for \code{incidence()} or \link[dplyr:dplyr_tidy_select]{tidy-select} for \code{incidence_()}.
 
 The count variables of the given data.  If NULL (default) the data is taken
 to be a linelist of individual observations.
@@ -127,7 +143,8 @@ A \code{\link[tibble:tibble]{tibble}} with subclass \code{incidence2}.
 }
 \description{
 \code{incidence()} calculates the \emph{incidence} of different events across specified
-time periods and groupings.
+time periods and groupings. \code{incidence_()} does the same but with support for
+\link[dplyr:dplyr_tidy_select]{tidy-select} semantics in some of its arguments.
 }
 \details{
 \code{incidence2} objects are a sub class of data frame with some
@@ -148,13 +165,13 @@ appropriate date groupings. The grouping used depends on the value of
 \code{interval}. This can be specified as either an integer value or a string
 corresponding to one of the classes:
 \itemize{
-\item integer values:                     \code{\link[grates:new_period]{<grates_period>}} object, grouped by the specified number of days.
+\item integer values:                     \code{\link[grates:period_class]{<grates_period>}} object, grouped by the specified number of days.
 \item day, daily:                         \code{\link[base:Dates]{<Date>}} objects.
-\item week(s), weekly, isoweek:           \code{\link[grates:isoweek]{<grates_isoweek>}} objects.
-\item epiweek(s):                         \code{\link[grates:epiweek]{<grates_epiweek>}} objects.
-\item month(s), monthly, yearmonth:       \code{\link[grates:yearmonth]{<grates_yearmonth>}} objects.
-\item quarter(s), quarterly, yearquarter: \code{\link[grates:yearquarter]{<grates_yearquarter>}} objects.
-\item year(s) and yearly:                 \code{\link[grates:year]{<grates_year>}} objects.
+\item week(s), weekly, isoweek:           \code{\link[grates:isoweek_class]{<grates_isoweek>}} objects.
+\item epiweek(s):                         \code{\link[grates:epiweek_class]{<grates_epiweek>}} objects.
+\item month(s), monthly, yearmonth:       \code{\link[grates:yearmonth_class]{<grates_yearmonth>}} objects.
+\item quarter(s), quarterly, yearquarter: \code{\link[grates:yearquarter_class]{<grates_yearquarter>}} objects.
+\item year(s) and yearly:                 \code{\link[grates:year_class]{<grates_year>}} objects.
 }
 
 For "day" or "daily" interval, we provide a thin wrapper around \code{as.Date()}
@@ -170,15 +187,13 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
     data(ebola_sim_clean, package = "outbreaks")
     dat <- ebola_sim_clean$linelist
     incidence(dat, "date_of_onset")
+    incidence_(dat, date_of_onset)
     incidence(dat, "date_of_onset", groups = c("gender", "hospital"))
+    incidence_(dat, date_of_onset, groups = c(gender, hospital))
 }
 \dontshow{data.table::setDTthreads(.old)}
 
 }
 \seealso{
-\itemize{
-\item \code{browseVignettes("grates")} for more details on the grate object classes.
-\item \code{incidence_()} for a version supporting
-\link[dplyr:dplyr_tidy_select]{tidy-select} semantics in some arguments.
-}
+\code{browseVignettes("grates")} for more details on the grate object classes.
 }
