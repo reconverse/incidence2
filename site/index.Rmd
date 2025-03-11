@@ -33,10 +33,3 @@ if (file.exists(readme <- file.path(pkg_path, 'README.md'))) {
 }
 ```
 
-## Appendix {.appendix}
-
-To cite the package **`{r} pkg_name`** in publications, please use:
-
-```{r, warning = FALSE}
-litedown::pkg_citation(pkg_name)
-```
