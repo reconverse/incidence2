@@ -41,5 +41,9 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# revdep folder
-revdep/*
+# pkgdown site
+docs/
+inst/doc
+docs
+/doc/
+/Meta/

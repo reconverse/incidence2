@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="generator" content="litedown 0.6">
+<title>News</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/article.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/copy-button.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/heading-anchor.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/pages.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/site.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/sidenotes.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/appendix.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/toc-highlight.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/copy-button.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/heading-anchor.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/pages.min.js" defer></script>
+</head>
+<body>
+<nav><p><a href="index.html">Home</a>
+<a href="articles.html">Articles</a>
+<a href="manual.html">Manual</a>
+<a href="news.html">News</a></p></nav>
+<div class="frontmatter">
+<div class="title"><h1>News</h1></div>
+</div>
+<div class="body">
+<div id="TOC">
+<ul>
+<li><a href="#sec:incidence2-development-version">incidence2 (development version)</a></li>
+<li><a href="#sec:incidence2-2-6-0">incidence2 2.6.0</a></li>
+<li><a href="#sec:incidence2-2-5-0">incidence2 2.5.0</a></li>
+<li><a href="#sec:incidence2-2-4-0">incidence2 2.4.0</a></li>
+<li><a href="#sec:incidence2-2-3-1">incidence2 2.3.1</a></li>
+<li><a href="#sec:incidence2-2-3-0">incidence2 2.3.0</a>
+<ul>
+<li><a href="#sec:new-functions-features">New functions / features</a></li>
+<li><a href="#sec:breaking-changes_1">Breaking changes</a></li>
+</ul>
+</li>
+<li><a href="#sec:incidence2-2-2-3">incidence2 2.2.3</a>
+<ul>
+<li><a href="#sec:bug-fixes_1">Bug fixes</a></li>
+</ul>
+</li>
+<li><a href="#sec:incidence2-2-2-1">incidence2 2.2.1</a>
+<ul>
+<li><a href="#sec:new-features_1">New features</a></li>
+</ul>
+</li>
+<li><a href="#sec:incidence2-2-1-0">incidence2 2.1.0</a>
+<ul>
+<li><a href="#sec:new-features_2">New features</a></li>
+<li><a href="#sec:minor-breaking-changes">(minor) breaking changes</a></li>
+</ul>
+</li>
+<li><a href="#sec:incidence2-2-0-0">incidence2 2.0.0</a>
+<ul>
+<li><a href="#sec:breaking-changes_2">breaking changes</a></li>
+</ul>
+</li>
+<li><a href="#sec:incidence2-1-2-3">incidence2 1.2.3</a>
+<ul>
+<li><a href="#sec:new-functions_1">New functions</a></li>
+<li><a href="#sec:breaking-changes_3">Breaking changes</a></li>
+</ul>
+</li>
+<li><a href="#sec:incidence2-1-2-2">incidence2 1.2.2</a>
+<ul>
+<li><a href="#sec:bug-fixes_2">Bug fixes</a></li>
+</ul>
+</li>
+<li><a href="#sec:incidence2-1-2-1">incidence2 1.2.1</a>
+<ul>
+<li><a href="#sec:bug-fixes_3">Bug fixes</a></li>
+</ul>
+</li>
+<li><a href="#sec:incidence2-1-2-0">incidence2 1.2.0</a>
+<ul>
+<li><a href="#sec:new-functions_2">New functions</a></li>
+<li><a href="#sec:deprecated-functions">Deprecated functions</a></li>
+<li><a href="#sec:bug-fixes_4">Bug fixes</a></li>
+<li><a href="#sec:other-updates">Other updates</a></li>
+</ul>
+</li>
+<li><a href="#sec:incidence2-1-1-0">incidence2 1.1.0</a></li>
+<li><a href="#sec:incidence2-1-0-0">incidence2 1.0.0</a></li>
+<li><a href="#sec:incidence2-0-2-2">incidence2 0.2.2</a></li>
+<li><a href="#sec:incidence2-0-2-1">incidence2 0.2.1</a></li>
+<li><a href="#sec:incidence2-0-2-0">incidence2 0.2.0</a></li>
+<li><a href="#sec:incidence2-0-1-0">incidence2 0.1.0</a></li>
+</ul>
+</div>
+<h2 id="sec:incidence2-development-version" class="unnumbered">incidence2 (development version)</h2>
+<ul>
+<li>Now uses litedown for the vignette.</li>
+</ul>
+<h2 id="sec:incidence2-2-6-0" class="unnumbered">incidence2 2.6.0</h2>
+<ul>
+<li>
+<p><strong>Experimental:</strong> When calling <code>incidence()</code> if users specify an integer(ish)
+interval on an (integerish) date input these inputs will be coerced in
+to <code>grates_int_period</code> objects. This fixes
+<a href="https://github.com/reconverse/incidence2/issues/121">https://github.com/reconverse/incidence2/issues/121</a> and (broadly) restores
+earlier behaviour of the <code>incidence()</code> function. This functionality is subject
+to change and, for that reason, is not widely documented.</p>
+<pre><code>library(incidence2)
+x &lt;- data.frame(onset = c(1, 3, 4, 4, 3, 4, 10))
+
+# 2.5.0 release would error, e.g.
+incidence(x, &quot;onset&quot;, interval = 1)
+#&gt; Error in as_period.default(): Not implemented for class [numeric].
+
+# This release - now works
+incidence(x, &quot;onset&quot;, interval = 1)
+#&gt; # incidence:  4 x 3
+#&gt; # count vars: onset
+#&gt;   date_index count_variable count
+#&gt;   &lt;intper&gt;   &lt;chr&gt;          &lt;int&gt;
+#&gt; 1 1          onset              1
+#&gt; 2 3          onset              2
+#&gt; 3 4          onset              3
+#&gt; 4 10         onset              1
+</code></pre>
+</li>
+</ul>
+<h2 id="sec:incidence2-2-5-0" class="unnumbered">incidence2 2.5.0</h2>
+<ul>
+<li>When the incidence2 class is dropped during an operation we now return a
+tibble instead of a data frame. This is a <strong>breaking change</strong> due to
+tibble / data frame difference but should have been made as part of the 2.3.0
+release where the underlying class changed from a simple data frame to a
+tibble. Thanks to @avallecam for the report (#120).</li>
+</ul>
+<h2 id="sec:incidence2-2-4-0" class="unnumbered">incidence2 2.4.0</h2>
+<ul>
+<li>
+<p><code>incidence()</code> gains a <code>fill</code> parameter. This is passed to <code>complete_dates()</code>
+so is only valid when the argument <code>complete_dates = TRUE</code>.</p>
+</li>
+<li>
+<p>For convenience we now reexport <code>select()</code> from
+<a href="https://cran.r-project.org/package=dplyr">dplyr</a> as well as
+<code>unnest()</code> and <code>unpack()</code> from <a href="https://cran.r-project.org/package=tidyr">tidyr</a>.</p>
+</li>
+<li>
+<p>Alt text has been added to all vignette images.</p>
+</li>
+<li>
+<p>Improved input checking for <code>keep_first()</code> and <code>keep_last()</code>.</p>
+</li>
+</ul>
+<h2 id="sec:incidence2-2-3-1" class="unnumbered">incidence2 2.3.1</h2>
+<ul>
+<li>
+<p>Temporarily remove the <a href="https://cran.r-project.org/package=ympes">ympes</a>
+dependency due to up stream changes.</p>
+</li>
+<li>
+<p>No other user facing changes.</p>
+</li>
+</ul>
+<h2 id="sec:incidence2-2-3-0" class="unnumbered">incidence2 2.3.0</h2>
+<h3 id="sec:new-functions-features" class="unnumbered">New functions / features</h3>
+<ul>
+<li>
+<p>The <code>bootstrap_incidence()</code>, <code>estimate_peak()</code> and <code>first_peak()</code> functions,
+and have been integrated from the downstream
+<a href="https://cran.r-project.org/package=i2extras">i2extras</a> package.</p>
+</li>
+<li>
+<p>Added group-aware methods for common generics in base R,
+<a href="https://cran.r-project.org/package=dplyr">dplyr</a> and
+<a href="https://cran.r-project.org/package=tidyr">tidyr</a>:</p>
+<ul>
+<li><code>split.incidence2()</code></li>
+<li><code>mutate.incidence2()</code></li>
+<li><code>summarise.incidence2()</code></li>
+<li><code>nest.incidence2()</code></li>
+</ul>
+</li>
+<li>
+<p>Added coercion methods for <a href="https://cran.r-project.org/package=tibble">tibble</a>
+and <a href="https://cran.r-project.org/package=data.table">data.table</a>:</p>
+<ul>
+<li><code>as_tibble.incidence2()</code></li>
+<li><code>as.data.table.incidence2()</code></li>
+</ul>
+</li>
+<li>
+<p>New methods, <code>$&lt;-.incidence2</code> and <code>rbind.incidence2</code>, that drop the incidence2
+class if the required invariants are broken.</p>
+</li>
+<li>
+<p>New functions <code>incidence_()</code> and <code>regroup_()</code> that work similar to their
+existing namesakes save for additional support for
+<a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html">tidy-select</a>
+semantics in some of their arguments.</p>
+</li>
+<li>
+<p>Named vectors can now be used for the <code>groups</code> and <code>counts</code> arguments of
+<code>incidence()</code> to allow renaming prior to aggregation. Previously this was
+only possible with the <code>date_index</code> input.</p>
+</li>
+<li>
+<p><code>incidence()</code> gains a <code>complete_dates</code> argument defaulting to <code>FALSE</code>. If set
+this is equivalent of a call to <code>incidence()</code> followed by a call to
+<code>complete_dates()</code> with the default arguments. Users wanting more flexibility
+can still call the <code>complete_dates()</code> function with different arguments.</p>
+</li>
+</ul>
+<h3 id="sec:breaking-changes_1" class="unnumbered">Breaking changes</h3>
+<ul>
+<li>
+<p>All of the aforementioned new methods would previously have dispatched on the
+underlying data.frame method. If you were relying on this behaviour then you
+will now need to add a call to <code>as.data.frame()</code> prior to continuing your
+pipeline.</p>
+</li>
+<li>
+<p><code>incidence2</code> objects are now built upon tibbles rather than standard data
+frames. This means where we do not provide methods for <code>incidence2</code> objects,
+tibble, as opposed to data.frame, methods will be called. An overview of the
+differences between tibbles and data.frames can be found at
+<a href="https://tibble.tidyverse.org/articles/invariants.html">https://tibble.tidyverse.org/articles/invariants.html</a>.</p>
+</li>
+<li>
+<p><code>incidence()</code> now warns if a count variable contains missing values and
+encourages users to handle these prior to calling <code>incidence()</code>.</p>
+</li>
+<li>
+<p>The Package now has a hard dependency on the R version (&gt;= 4.1.0).</p>
+</li>
+</ul>
+<h2 id="sec:incidence2-2-2-3" class="unnumbered">incidence2 2.2.3</h2>
+<h3 id="sec:bug-fixes_1" class="unnumbered">Bug fixes</h3>
+<ul>
+<li><code>plot.incidence2()</code> now works again when applied to <code>incidence2</code> objects with
+a <code>grates_period</code> <code>date_index</code>. This was inadvertently broken in the 2.2.1
+release. Thanks to @Bisaloo for the report (#110).</li>
+</ul>
+<h2 id="sec:incidence2-2-2-1" class="unnumbered">incidence2 2.2.1</h2>
+<h3 id="sec:new-features_1" class="unnumbered">New features</h3>
+<ul>
+<li><code>plot.incidence2()</code> gains arguments <code>n_breaks</code>, <code>fill</code>, <code>show_cases</code> and
+<code>legend</code> allowing for a wider range of plot styles. See
+<code>vignette(&quot;incidence2&quot;, package = &quot;incidence2&quot;)</code> for examples.</li>
+</ul>
+<h2 id="sec:incidence2-2-1-0" class="unnumbered">incidence2 2.1.0</h2>
+<h3 id="sec:new-features_2" class="unnumbered">New features</h3>
+<ul>
+<li>Specifying <code>interval = &quot;day&quot;</code> or <code>interval = daily</code> in a call to incidence
+will force the resultant <code>date_index</code> variable to be a <code>Date</code>. Functionally
+this is a wrapper around <code>as.Date()</code> that ensures the underlying data are
+whole numbers and that time zones are respected.</li>
+</ul>
+<h3 id="sec:minor-breaking-changes" class="unnumbered">(minor) breaking changes</h3>
+<ul>
+<li>
+<p><code>incidence()</code> will now warn if objects are created with <code>POSIXct</code> columns.
+The motivation for this is that, internally, <code>POSIXct</code> objects are represented
+as seconds since the UNIX epoch and, in our experience, this level of
+granularity is not normally desired for aggregation.</p>
+</li>
+<li>
+<p>The <code>by</code> parameter of <code>complete_dates()</code> is now defunct. This was previously
+passed to an underlying <code>seq</code> function when, in practice, it should always
+have been forced to 1 to match the precision of the underlying date_index.</p>
+</li>
+<li>
+<p><code>complete_dates()</code> will now error if called on an input with a <POSIXct>
+date_index. Users must now explicitly set the argument <code>allow_POSIXct = TRUE</code>
+to maintain old behaviour.</p>
+</li>
+</ul>
+<h2 id="sec:incidence2-2-0-0" class="unnumbered">incidence2 2.0.0</h2>
+<p>Version 2.0.0 is a major, breaking release of incidence2. We have undertaken a
+significant refactor that both simplifies the underlying code base and makes the
+user interface more consistent and robust. Although the main changes are
+highlighted below, users are strongly advised to read through the accompanying
+documentation and vignettes.</p>
+<h3 id="sec:breaking-changes_2" class="unnumbered">breaking changes</h3>
+<ul>
+<li>
+<p>We no longer support NSE (e.g. tidyselect semantics) within the package. Our
+motivation for removing support for NSE are both the complexity it can bring
+to the underlying code (making long term maintenance harder) and the
+complexity it can cause for other users / developers who want to build on
+top of incidence2.</p>
+</li>
+<li>
+<p><code>new_incidence()</code>, <code>validate_incidence()</code>, <code>build_incidence()</code>, <code>get_n()</code>,
+<code>get_interval()</code>, <code>get_timespan()</code> and <code>facet_plot()</code> are now defunct and
+will error if called.</p>
+</li>
+<li>
+<p><code>complete_counts()</code> is now renamed <code>complete_dates()</code> and gains two new
+parameters, <code>expand</code> and <code>by</code>. If <code>expand</code> is TRUE (default) then
+<code>complete_dates()</code> will attempt to use
+<code>function(x) seq(min(x), max(x), by = by)</code> to generate a complete sequence of
+dates.</p>
+</li>
+<li>
+<p>The <code>incidence()</code> function now always returns output in long format with
+dedicated columns for the count variables and values (set by arguments
+<code>count_names_to</code> and <code>count_values_to</code>).</p>
+</li>
+<li>
+<p><code>incidence()</code> is now less flexible in what it can accept for the <code>interval</code>
+argument. For more complex date groupings users are encouraged to perform
+their require data transformations prior to calling <code>incidence()</code>.</p>
+</li>
+<li>
+<p>The default plotting of incidence objects as been greatly simplified. Sensible
+defaults have been chosen to enable a quick visual overview of incidence
+objects but users are advised to call ggplot2 directly for more bespoke
+plotting.</p>
+</li>
+</ul>
+<h2 id="sec:incidence2-1-2-3" class="unnumbered">incidence2 1.2.3</h2>
+<h3 id="sec:new-functions_1" class="unnumbered">New functions</h3>
+<ul>
+<li>Reintroduces the <code>cumulate()</code> functionality (previously deprecated in 1.2.0).</li>
+</ul>
+<h3 id="sec:breaking-changes_3" class="unnumbered">Breaking changes</h3>
+<ul>
+<li>Default <code>fill</code> argument in <code>complete_counts()</code> is now 0 rather than NA.</li>
+</ul>
+<h2 id="sec:incidence2-1-2-2" class="unnumbered">incidence2 1.2.2</h2>
+<h3 id="sec:bug-fixes_2" class="unnumbered">Bug fixes</h3>
+<ul>
+<li>Fixes bug when input object to incidence is a data.table.</li>
+</ul>
+<h2 id="sec:incidence2-1-2-1" class="unnumbered">incidence2 1.2.1</h2>
+<h3 id="sec:bug-fixes_3" class="unnumbered">Bug fixes</h3>
+<ul>
+<li>Fixes bug in <code>incidence()</code> when more than one column was given for the date_index.</li>
+<li>Fixes incorrect test that did not take in to account changing time zones.</li>
+</ul>
+<h2 id="sec:incidence2-1-2-0" class="unnumbered">incidence2 1.2.0</h2>
+<h3 id="sec:new-functions_2" class="unnumbered">New functions</h3>
+<ul>
+<li><code>new_incidence()</code>: A minimal incidence constructor.</li>
+<li><code>validate_incidence()</code>: Check for internal consistency of incidence-like object.</li>
+<li><code>build_incidence()</code>: Allows you to construct an incidence object whilst specifying
+your own date grouping function.</li>
+<li><code>format.incidence()</code></li>
+</ul>
+<h3 id="sec:deprecated-functions" class="unnumbered">Deprecated functions</h3>
+<ul>
+<li><code>cumulate()</code> will now give a deprecation error. We have removed the function
+to avoid users erroneously regressing against a cumulative count.</li>
+</ul>
+<h3 id="sec:bug-fixes_4" class="unnumbered">Bug fixes</h3>
+<ul>
+<li>Fixes bug in <code>incidence()</code> when dates were a character vector and the the
+default, daily, interval was specified.</li>
+</ul>
+<h3 id="sec:other-updates" class="unnumbered">Other updates</h3>
+<ul>
+<li>Now uses <code>dplyr</code> to handle list based columns (e.g. record-type objects from
+<code>vctrs</code>). For data.frames with only atomic columns, data.table is still used.</li>
+<li>Printing and summaries of incidence objects have been improved to remove
+duplication in the overview section.</li>
+</ul>
+<h2 id="sec:incidence2-1-1-0" class="unnumbered">incidence2 1.1.0</h2>
+<ul>
+<li>New function <code>complete_counts()</code>.</li>
+<li><code>plot()</code> and <code>facet_plot()</code> now have a <code>centre_dates</code> argument which can be
+set to <code>FALSE</code> to get histogram-esque date labels for single month, quarter
+and yearweek groupings.</li>
+<li>Internal refactoring due to breakages changes in the upstream grates package.</li>
+</ul>
+<h2 id="sec:incidence2-1-0-0" class="unnumbered">incidence2 1.0.0</h2>
+<p>Due to multiple changes in the underlying representation of incidence2 objects
+this release may possibly break old workflows particularly those relying on
+the old implementations of date grouping:</p>
+<ul>
+<li>Now uses the package <a href="https://github.com/reconverse/grates"><code>grates</code></a> for
+date grouping.  This introduces the s3 classes <code>yrwk</code>, <code>yrmon</code>, <code>yrqtr</code>, <code>yr</code>,
+<code>period</code> and <code>int_period</code> as well as associated constructors which <code>incidence</code>
+now builds upon. As a result of this the
+<a href="https://cran.r-project.org/package=aweek">aweek</a> dependency has been dropped.</li>
+<li>Add’s <code>keep_first</code> and <code>keep_last</code> functions.</li>
+<li>Construction of <code>incidence</code> objects now faster due to underlying use of
+data.table.</li>
+</ul>
+<h2 id="sec:incidence2-0-2-2" class="unnumbered">incidence2 0.2.2</h2>
+<ul>
+<li>Fixes bug in get_interval.</li>
+<li>Removes message that was displayed when incidence class dropped.</li>
+<li>Refactoring of internal code to improve maintainability.</li>
+<li>Tests now use the 3rd edition of testthat.</li>
+</ul>
+<h2 id="sec:incidence2-0-2-1" class="unnumbered">incidence2 0.2.1</h2>
+<ul>
+<li>Fixes bug in as.data.frame.incidence2</li>
+<li>Limits internal reliance on dplyr.</li>
+</ul>
+<h2 id="sec:incidence2-0-2-0" class="unnumbered">incidence2 0.2.0</h2>
+<ul>
+<li>Fixes issue with monthly incidence objects when <code>show_cases = TRUE</code> (see #42).</li>
+<li>Additional checks added for assessing whether a manipulated incidence object
+maintains its class.</li>
+<li>Improved implementation speed.</li>
+<li>NA’s now ignored in the <code>count</code> variable of a pre-aggregated input to
+<code>incidence</code> function.</li>
+<li>Fixes axis labelling and spacing.</li>
+</ul>
+<h2 id="sec:incidence2-0-1-0" class="unnumbered">incidence2 0.1.0</h2>
+<ul>
+<li>Initial release.</li>
+</ul>
+</div>
+<footer><div class="flex-col">
+<p>Developed by Tim Taylor</p>
+<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.6</p>
+</div></footer>
+</body>
+</html>
