@@ -1,6 +1,9 @@
-# incidence2 (development version)
+# incidence2 2.6.1
 
-- Now uses litedown for the vignette.
+- No functional changes, only:
+    - documentation consolidation; and
+    - we now use [litedown](https://cran.r-project.org/package=litedown) for the
+      vignette.
 
 # incidence2 2.6.0
 
