@@ -382,8 +382,8 @@ instead using the post-fix underscore to distinguish functionality. Whilst this
 is not aesthetically pleasing it did ensure no existing code broke. With
 hindsight, whilst I do like having a separate interface for programmatic use,
 I wish I could swap the function names around and have `incidence()` as the
-[tidy-select](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html) and
-`incidence_()` for programmatic use. C'est la vie.
+tidy-select supporting interactive interface and `incidence_()` for programmatic
+use. C'est la vie.
 
 :::
 
