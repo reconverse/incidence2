@@ -39,11 +39,10 @@ Suggests:
     outbreaks,
     ggplot2,
     scales,
-    knitr,
-    markdown,
+    litedown,
     testthat (>= 3.0.0),
     ciTools,
     withr
-VignetteBuilder: knitr
+VignetteBuilder: litedown
 Config/testthat/edition: 3
 LazyData: true

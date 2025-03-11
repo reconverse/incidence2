@@ -1,5 +1,7 @@
 # incidence2 (development version)
 
+- Now uses litedown for the vignette.
+
 # incidence2 2.6.0
 
 - **Experimental:** When calling `incidence()` if users specify an integer(ish)
@@ -104,8 +106,8 @@
   pipeline.
 
 - `incidence2` objects are now built upon tibbles rather than standard data
-  frames. This means where we do not provide methods for `incidence2` objects
-  tibble (as opposed to data.frame) methods will be called. An overview of the
+  frames. This means where we do not provide methods for `incidence2` objects,
+  tibble, as opposed to data.frame, methods will be called. An overview of the
   differences between tibbles and data.frames can be found at
   https://tibble.tidyverse.org/articles/invariants.html.
   

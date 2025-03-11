@@ -1,24 +1,27 @@
 ---
 title: "An introduction to incidence2"
 output:
-    markdown::html_format:
+    html:
+        meta:
+            css: ["@default@1.13.67", "@copy-button@1.13.67", "@callout@1.13.67", "@article@1.13.67"]
+            js: ["@sidenotes@1.13.67", "@center-img@1.13.67", "@copy-button@1.13.67", "@callout@1.13.67", "@toc-highlight@1.13.67"]
         options:
             toc: true
-            number_sections: true
+            js_highlight:
+                package: prism
+                version: 1.29.0
+
 vignette: >
+  %\VignetteEngine{litedown::vignette}
   %\VignetteIndexEntry{An introduction to incidence2}
-  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{outbreaks, ggplot2, ciTools}
 ---
 
+
 ```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.align = "center"
-)
 data.table::setDTthreads(2)
+litedown::reactor(error = TRUE, message = TRUE, print = NA, fig.dim = c(8, 5))
 ```
 
 ## What does it do?
@@ -361,16 +364,35 @@ plot(small_gender, show_cases = TRUE, angle = 45, n_breaks = 10, fill = "gender"
 
 ## Support for tidy-select semantics
 
-When working interactively it can feel a little onerous constantly having to
-quote inputs for column names. To alleviate this we include the functions
-`incidence_()` and `regroup_()` which both support
+::: {.callout-important data-legend="Non-standard evaluation (NSE)"}
+
+With the 2.0.0 release of incidence2 I removed the NSE support from the
+`incidence()` function. At the time, my thinking was that this made the
+functions harder to use programmatically and quoting out inputs was not too
+onerous. I wanted The 2.0.0 series to be the last major release and thought the
+change was sensible. Whilst I still believe it is tricky to use NSE
+programmatically, I now view incidence2 as a more interactive package and there
+is a definite elegance to NSE in this situation. To this end, the 2.3.0, release
+added functions `incidence_()` and `regroup_()`which both support
 [tidy-select](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)
 semantics in their column arguments (i.e. `date_index`, `groups` and `counts`).
 
-For now we have chosen to distinguish the functions via the post-fix underscore
-and have a preference for the standard version for non-interactive (e.g.
-programmatic usage). This could change over time if users feel having two
-similar functions is confusing.
+To avoid any breaking changes, I chose not to change the existing functions
+instead using the post-fix underscore to distinguish functionality. Whilst this
+is not aesthetically pleasing it did ensure no existing code broke. With
+hindsight, whilst I do like having a separate interface for programmatic use,
+I wish I could swap the function names around and have `incidence()` as the
+[tidy-select](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html) and
+`incidence_()` for programmatic use. C'est la vie.
+
+:::
+
+::: callout-note
+
+The following sections utilise the aforementioned tidy-select semantics and,
+hence, the post-fix version of the incidence function.
+
+:::
 
 ## Working with incidence objects
 
@@ -378,8 +400,6 @@ On top of the incidence constructor function and the basic plotting, printing
 and summary we provide a number of other useful functions and integrations for
 working with incidence2 objects.
 
-**Note:** The following sections utilise tidy-select semantics and hence use the
-post-fix version of the incidence function (`incidence_()`)
 
 ### `regroup()`
 
