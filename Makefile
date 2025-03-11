@@ -1,6 +1,6 @@
 .PHONY: doc pkg install check cran test manual revdep site clean readme
 
-doc: pkg/README.md
+doc: README.md
 	R -s -e "roxygen2::roxygenize('pkg', load_code = roxygen2::load_pkgload)"
 
 pkg: doc
