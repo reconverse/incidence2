@@ -1,5 +1,6 @@
 data.table::setDTthreads(2)
 litedown::reactor(error = TRUE, message = TRUE, print = NA, fig.dim = c(8, 5))
+set.seed(1)
 
 library(incidence2)
 

@@ -776,19 +776,19 @@ estimate_peak(influenza, progress = FALSE) |&gt;
 <pre><code>#&gt; # A tibble: 13 × 7
 #&gt;    province  observed_peak observed_count bootstrap_peaks lower_ci   median    
 #&gt;    &lt;fct&gt;     &lt;date&gt;                 &lt;int&gt; &lt;list&gt;          &lt;date&gt;     &lt;date&gt;    
-#&gt;  1 Anhui     2013-03-09                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-03-28
+#&gt;  1 Anhui     2013-03-09                 1 &lt;df [100 × 1]&gt;  2013-03-09 2013-03-28
 #&gt;  2 Beijing   2013-04-11                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-04-11
-#&gt;  3 Fujian    2013-04-17                 1 &lt;df [100 × 1]&gt;  2013-04-17 2013-04-18
+#&gt;  3 Fujian    2013-04-17                 1 &lt;df [100 × 1]&gt;  2013-04-17 2013-04-21
 #&gt;  4 Guangdong 2013-07-27                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-07-27
 #&gt;  5 Hebei     2013-07-10                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-07-10
 #&gt;  6 Henan     2013-04-06                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-04-08
 #&gt;  7 Hunan     2013-04-14                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-04-14
-#&gt;  8 Jiangsu   2013-03-19                 2 &lt;df [100 × 1]&gt;  2013-03-08 2013-03-21
+#&gt;  8 Jiangsu   2013-03-19                 2 &lt;df [100 × 1]&gt;  2013-03-08 2013-03-20
 #&gt;  9 Jiangxi   2013-04-15                 1 &lt;df [100 × 1]&gt;  2013-04-15 2013-04-19
 #&gt; 10 Shandong  2013-04-16                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-04-16
 #&gt; 11 Shanghai  2013-04-01                 4 &lt;df [100 × 1]&gt;  2013-03-17 2013-04-01
 #&gt; 12 Taiwan    2013-04-12                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-04-12
-#&gt; 13 Zhejiang  2013-04-06                 5 &lt;df [100 × 1]&gt;  2013-03-29 2013-04-08
+#&gt; 13 Zhejiang  2013-04-06                 5 &lt;df [100 × 1]&gt;  2013-03-29 2013-04-10
 #&gt; # ℹ 1 more variable: upper_ci &lt;date&gt;
 </code></pre>
 <pre><code class="language-r"># regrouping for overall peak
@@ -801,7 +801,7 @@ plot(regroup(influenza))
 <pre><code>#&gt; # A tibble: 1 × 6
 #&gt;   observed_peak observed_count bootstrap_peaks lower_ci   median     upper_ci  
 #&gt;   &lt;date&gt;                 &lt;int&gt; &lt;list&gt;          &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-#&gt; 1 2013-04-03                 7 &lt;df [100 × 1]&gt;  2013-03-29 2013-04-06 2013-04-16
+#&gt; 1 2013-04-03                 7 &lt;df [100 × 1]&gt;  2013-03-29 2013-04-06 2013-04-17
 </code></pre>
 <pre><code class="language-r"># return the first peak of the grouped and ungrouped data
 first_peak(influenza)
@@ -841,15 +841,15 @@ bootstrap_incidence(influenza)
 #&gt; # groups:     province
 #&gt;    date_index province count_variable count
 #&gt;  * &lt;date&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt;
-#&gt;  1 2013-02-19 Shanghai date_of_onset      0
-#&gt;  2 2013-02-27 Shanghai date_of_onset      0
+#&gt;  1 2013-02-19 Shanghai date_of_onset      1
+#&gt;  2 2013-02-27 Shanghai date_of_onset      1
 #&gt;  3 2013-03-07 Zhejiang date_of_onset      0
-#&gt;  4 2013-03-08 Jiangsu  date_of_onset      2
+#&gt;  4 2013-03-08 Jiangsu  date_of_onset      0
 #&gt;  5 2013-03-09 Anhui    date_of_onset      1
 #&gt;  6 2013-03-13 Zhejiang date_of_onset      0
 #&gt;  7 2013-03-17 Shanghai date_of_onset      1
-#&gt;  8 2013-03-19 Jiangsu  date_of_onset      2
-#&gt;  9 2013-03-20 Jiangsu  date_of_onset      4
+#&gt;  8 2013-03-19 Jiangsu  date_of_onset      1
+#&gt;  9 2013-03-20 Jiangsu  date_of_onset      3
 #&gt; 10 2013-03-21 Jiangsu  date_of_onset      1
 #&gt; # ℹ 74 more rows
 </code></pre>
