@@ -15,7 +15,8 @@ check: pkg
 	TZ=NZ R CMD check *.tar.gz
 
 cran: pkg
-	R CMD check --as-cran *.tar.gz
+	Rdevel CMD check --as-cran *.tar.gz
+	TZ=NZ Rdevel CMD check *.tar.gz
 
 test: doc
 	R -s -e "testthat::test_local('pkg')"
