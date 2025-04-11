@@ -29,7 +29,7 @@
 .is_whole_or_NA <- function (x, tol = .Machine$double.eps^0.5) {
     if (is.integer(x))
         return(TRUE)
-    if (is.vector(x, "double") && all(abs(x - round(x)) < tol | is.na(x)))
+    if (is.double(x) && all(abs(x - round(x)) < tol | is.na(x)))
         return(TRUE)
     FALSE
 }
