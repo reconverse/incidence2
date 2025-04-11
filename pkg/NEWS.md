@@ -1,6 +1,6 @@
 # incidence2 (development version)
 
-- Where <Dates> are used for `date_index` inputs without specification of an
+- Where `Dates` are used for `date_index` inputs without specification of an
   `interval` argument, they are checked for 'wholeness' and a warning given
   if any fractional parts are present. Motivated by discussion with @avallecam
   and @joshwlambert over in https://github.com/reconhub/incidence/issues/134.
@@ -165,7 +165,7 @@
   passed to an underlying `seq` function when, in practice, it should always
   have been forced to 1 to match the precision of the underlying date_index.
 
-- `complete_dates()` will now error if called on an input with a <POSIXct>
+- `complete_dates()` will now error if called on an input with a `POSIXct`
   date_index. Users must now explicitly set the argument `allow_POSIXct = TRUE`
   to maintain old behaviour.
 
