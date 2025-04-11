@@ -224,9 +224,6 @@ plot.incidence2 <- function(
         )
     }
 
-    # scale the width
-    width <- width * ggplot2::resolution(as.numeric(dates))
-
     # create fill palette
     fill_var <- fill
     use_fill <- TRUE
