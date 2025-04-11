@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="generator" content="litedown 0.6">
+<meta name="generator" content="litedown 0.6.2">
 <title>News</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/default.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/article.min.css">
@@ -29,6 +29,7 @@
 <div class="body">
 <div id="TOC">
 <ul>
+<li><a href="#sec:incidence2-development-version">incidence2 (development version)</a></li>
 <li><a href="#sec:incidence2-2-6-1">incidence2 2.6.1</a></li>
 <li><a href="#sec:incidence2-2-6-0">incidence2 2.6.0</a></li>
 <li><a href="#sec:incidence2-2-5-0">incidence2 2.5.0</a></li>
@@ -93,6 +94,13 @@
 <li><a href="#sec:incidence2-0-1-0">incidence2 0.1.0</a></li>
 </ul>
 </div>
+<h2 id="sec:incidence2-development-version" class="unnumbered">incidence2 (development version)</h2>
+<ul>
+<li>Where <code>Dates</code> are used for <code>date_index</code> inputs without specification of an
+<code>interval</code> argument, they are checked for ‘wholeness’ and a warning given
+if any fractional parts are present. Motivated by discussion with @avallecam
+and @joshwlambert over in <a href="https://github.com/reconhub/incidence/issues/134">https://github.com/reconhub/incidence/issues/134</a>.</li>
+</ul>
 <h2 id="sec:incidence2-2-6-1" class="unnumbered">incidence2 2.6.1</h2>
 <ul>
 <li>No functional changes, only:
@@ -276,7 +284,7 @@ passed to an underlying <code>seq</code> function when, in practice, it should a
 have been forced to 1 to match the precision of the underlying date_index.</p>
 </li>
 <li>
-<p><code>complete_dates()</code> will now error if called on an input with a <POSIXct>
+<p><code>complete_dates()</code> will now error if called on an input with a <code>POSIXct</code>
 date_index. Users must now explicitly set the argument <code>allow_POSIXct = TRUE</code>
 to maintain old behaviour.</p>
 </li>
@@ -422,7 +430,7 @@ maintains its class.</li>
 </div>
 <footer><div class="flex-col">
 <p>Developed by Tim Taylor</p>
-<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.6</p>
+<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.6.2</p>
 </div></footer>
 </body>
 </html>

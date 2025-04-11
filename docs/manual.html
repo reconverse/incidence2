@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="generator" content="litedown 0.6">
+<meta name="generator" content="litedown 0.6.2">
 <title>Help pages</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/default.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/article.min.css">
@@ -310,6 +310,8 @@ get_groups(x, ...)</code></pre>
     get_dates_name(i)
 }
 </code></pre>
+<pre><code class="language-plain warning">#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+</code></pre>
 <pre><code>#&gt; [1] &quot;date_index&quot;
 </code></pre>
 <h2 id="sec:man-as">Coerce to and from an incidence object</h2>
@@ -423,6 +425,8 @@ Use <code>as_tibble(rownames_to_column(...))</code> to safeguard against this ca
     as_tibble(x)
 }
 </code></pre>
+<pre><code class="language-plain warning">#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+</code></pre>
 <pre><code>#&gt; # A tibble: 367 × 3
 #&gt;    date_index count_variable count
 #&gt;    &lt;date&gt;     &lt;chr&gt;          &lt;int&gt;
@@ -485,21 +489,23 @@ weighted by their relative incidence.
    bootstrap_incidence(i)
 }
 </code></pre>
+<pre><code class="language-plain warning">#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+</code></pre>
 <pre><code>#&gt; # incidence:  67 x 4
 #&gt; # count vars: date_of_onset
 #&gt; # groups:     gender
 #&gt;    date_index gender count_variable count
 #&gt;  * &lt;date&gt;     &lt;fct&gt;  &lt;chr&gt;          &lt;int&gt;
-#&gt;  1 2013-02-19 m      date_of_onset      0
-#&gt;  2 2013-02-27 m      date_of_onset      1
-#&gt;  3 2013-03-07 m      date_of_onset      1
-#&gt;  4 2013-03-08 m      date_of_onset      0
+#&gt;  1 2013-02-19 m      date_of_onset      1
+#&gt;  2 2013-02-27 m      date_of_onset      3
+#&gt;  3 2013-03-07 m      date_of_onset      0
+#&gt;  4 2013-03-08 m      date_of_onset      1
 #&gt;  5 2013-03-09 f      date_of_onset      0
 #&gt;  6 2013-03-13 f      date_of_onset      0
 #&gt;  7 2013-03-17 m      date_of_onset      1
-#&gt;  8 2013-03-19 f      date_of_onset      5
-#&gt;  9 2013-03-20 f      date_of_onset      2
-#&gt; 10 2013-03-20 m      date_of_onset      1
+#&gt;  8 2013-03-19 f      date_of_onset      0
+#&gt;  9 2013-03-20 f      date_of_onset      1
+#&gt; 10 2013-03-20 m      date_of_onset      0
 #&gt; # ℹ 57 more rows
 </code></pre>
 <h2 id="sec:man-complete_dates">Complete dates for all group combinations</h2>
@@ -560,21 +566,24 @@ dates.</p>
 )
 
 i &lt;- incidence(x, date_index = &quot;dates&quot;, groups = &quot;groups&quot;, counts = &quot;counts&quot;)
-complete_dates(i)
+</code></pre>
+<pre><code class="language-plain warning">#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+</code></pre>
+<pre><code class="language-r">complete_dates(i)
 </code></pre>
 <pre><code>#&gt; # incidence:  8 x 4
 #&gt; # count vars: counts
 #&gt; # groups:     groups
 #&gt;   date_index groups count_variable count
 #&gt;   &lt;date&gt;     &lt;chr&gt;  &lt;fct&gt;          &lt;int&gt;
-#&gt; 1 2025-03-12 grp1   counts             1
-#&gt; 2 2025-03-12 grp2   counts             0
-#&gt; 3 2025-03-13 grp1   counts             0
-#&gt; 4 2025-03-13 grp2   counts             0
-#&gt; 5 2025-03-14 grp1   counts             0
-#&gt; 6 2025-03-14 grp2   counts             2
-#&gt; 7 2025-03-15 grp1   counts             3
-#&gt; 8 2025-03-15 grp2   counts             0
+#&gt; 1 2025-04-12 grp1   counts             1
+#&gt; 2 2025-04-12 grp2   counts             0
+#&gt; 3 2025-04-13 grp1   counts             0
+#&gt; 4 2025-04-13 grp2   counts             0
+#&gt; 5 2025-04-14 grp1   counts             0
+#&gt; 6 2025-04-14 grp2   counts             2
+#&gt; 7 2025-04-15 grp1   counts             3
+#&gt; 8 2025-04-15 grp2   counts             0
 </code></pre>
 <h2 id="sec:man-covidregionaldataUK">Regional data for COVID-19 cases in the UK</h2>
 <h3 id="sec:description_5" class="unnumbered unlisted">Description</h3>
@@ -883,6 +892,8 @@ bootstrapped datasets.
   estimate_peak(i)
 }
 </code></pre>
+<pre><code class="language-plain warning">#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+</code></pre>
 <pre><code>#&gt; # A tibble: 1 × 7
 #&gt;   count_variable observed_peak observed_count bootstrap_peaks lower_ci  
 #&gt;   &lt;chr&gt;          &lt;date&gt;                 &lt;int&gt; &lt;list&gt;          &lt;date&gt;    
@@ -1131,6 +1142,11 @@ calling <code>incidence()</code>.
     incidence_(dat, date_of_onset, groups = c(gender, hospital))
 }
 </code></pre>
+<pre><code class="language-plain warning">#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+</code></pre>
 <pre><code>#&gt; # incidence:  2,535 x 5
 #&gt; # count vars: date_of_onset
 #&gt; # groups:     gender, hospital
@@ -1243,6 +1259,8 @@ entries.
     keep_first(inci, 3)
     keep_last(inci, 3)
 }
+</code></pre>
+<pre><code class="language-plain warning">#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
 </code></pre>
 <pre><code>#&gt; # incidence:  3 x 3
 #&gt; # count vars: date_of_onset
@@ -1469,6 +1487,9 @@ row of the resulting plot.
     plot(inci2)
 }
 </code></pre>
+<pre><code class="language-plain warning">#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+</code></pre>
 <p><img src="manual/plot.incidence2-1.png" alt="A plot recorded by xfun::record()" /></p>
 <h2 id="sec:man-reexports">Objects exported from other packages</h2>
 <h3 id="sec:description_14" class="unnumbered unlisted">Description</h3>
@@ -1528,6 +1549,12 @@ no groupings.</p>
     regroup(i, &quot;hospital&quot;)
     regroup_(i, hospital)
 }
+</code></pre>
+<pre><code class="language-plain warning">#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
 </code></pre>
 <pre><code>#&gt; # incidence:  1,635 x 4
 #&gt; # count vars: date_of_onset
@@ -1705,7 +1732,10 @@ summary(object, ...)</code></pre>
 <pre><code class="language-r">data(ebola_sim_clean, package = &quot;outbreaks&quot;)
 dat &lt;- ebola_sim_clean$linelist
 inci &lt;- incidence(dat, &quot;date_of_onset&quot;, groups = c(&quot;gender&quot;, &quot;hospital&quot;))
-summary(inci)
+</code></pre>
+<pre><code class="language-plain warning">#&gt; Non-whole &lt;Date&gt; columns detected. These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. For daily incidence consider removing the fractional part. This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself.
+</code></pre>
+<pre><code class="language-r">summary(inci)
 </code></pre>
 <pre><code>#&gt; From:          2014-04-07
 #&gt; To:            2015-04-30
@@ -1732,7 +1762,7 @@ summary(inci)
 </div>
 <footer><div class="flex-col">
 <p>Developed by Tim Taylor</p>
-<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.6</p>
+<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.6.2</p>
 </div></footer>
 </body>
 </html>
