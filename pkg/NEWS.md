@@ -2,7 +2,8 @@
 
 - Where <Dates> are used for `date_index` inputs without specification of an
   `interval` argument, they are checked for 'wholeness' and a warning given
-  if any fractional parts are present.
+  if any fractional parts are present. Motivated by discussion with @avallecam
+  and @joshwlambert over in https://github.com/reconhub/incidence/issues/134.
 
 # incidence2 2.6.1
 
