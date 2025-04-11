@@ -42,6 +42,12 @@ test_that("Fails with good error for bad input", {
     expect_snapshot(error = TRUE, incidence(dat2, date_index = "dates"))
 })
 
+test_that("Warning is good for non-whole dates", {
+    dat <- data.frame(dates = Sys.Date() + 1:10 + 0.5)
+    expect_snapshot(incidence(dat, date_index = "dates"))
+})
+
+
 test_that("incidence with no groupings and no intervals works", {
     firstday <- as.Date("2020-01-01") # Wednesday
     lastday <- as.Date("2021-12-31")  # Friday
