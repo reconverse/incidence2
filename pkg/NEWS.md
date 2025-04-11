@@ -1,3 +1,5 @@
+# incidence2 (development version)
+
 # incidence2 2.6.1
 
 - No functional changes, only:
