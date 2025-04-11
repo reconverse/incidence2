@@ -1,5 +1,9 @@
 # incidence2 (development version)
 
+- Where <Dates> are used for `date_index` inputs without specification of an
+  `interval` argument, they are checked for 'wholeness' and a warning given
+  if any fractional parts are present.
+
 # incidence2 2.6.1
 
 - No functional changes, only:

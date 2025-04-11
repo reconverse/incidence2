@@ -389,6 +389,17 @@ incidence <- function(
                 "to incidence."
             )
         }
+    } else if (inherits(date_cols[[1L]], "Date")) {
+        whole <- vapply(date_cols, .is_whole_or_NA, TRUE)
+        if (!all(whole)) {
+            not_whole <- date_index[!whole]
+            .warn(
+                "Non-whole <Date> columns detected. ",
+                "These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. ",
+                "For daily incidence consider removing the fractional part. ",
+                "This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself."
+            )
+        }
     }
 
     # create data.table
