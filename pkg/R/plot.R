@@ -270,7 +270,7 @@ plot.incidence2 <- function(
                 ggplot2::aes(x = .data[[x_axis]], y = .data[[y_axis]]),
                 colour = border_colour,
                 alpha = alpha,
-                width = width,
+                width = width
             ) +
             ggplot2::theme_bw() +
             ggplot2::aes(fill = .data[[fill_var]]) +
