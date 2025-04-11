@@ -396,7 +396,7 @@ incidence <- function(
             .warn(
                 "Non-whole <Date> columns detected. ",
                 "These can be confusing as they are displayed without the fractional element and can also cause oddities when plotting. ",
-                "For daily incidence consider removing the fractional part. ",
+                "If you are interested in daily incidence, consider removing the fractional part. ",
                 "This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself."
             )
         }
