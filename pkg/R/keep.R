@@ -121,6 +121,8 @@ keep_last <- function(x, n, complete_dates = TRUE, ...) {
 #' @export
 keep_peaks <- function(x, complete_dates = TRUE, first_only = FALSE, ...) {
 
+    nm <- NULL # for CRAN note
+
     if (!inherits(x, "incidence2"))
         .stop("`x` must be an incidence2 object.")
 
@@ -144,7 +146,7 @@ keep_peaks <- function(x, complete_dates = TRUE, first_only = FALSE, ...) {
     tmp <- as.data.table(x)
 
     tmp <- tmp[,
-               .(nm = .I[.SD == max(.SD)]),
+               list(nm = .I[.SD == max(.SD)]),
                by = c(count_var, groups),
                .SDcols = count_value,
                env = list(nm = name)]
@@ -154,7 +156,7 @@ keep_peaks <- function(x, complete_dates = TRUE, first_only = FALSE, ...) {
     # do we want to keep only the first peak
     if (first_only) {
         tmp <- tmp[,
-                   .(nm = nm[which.min(.SD[[1L]])]),
+                   list(nm = nm[which.min(.SD[[1L]])]),
                    by = c(count_var, groups),
                    .SDcols = date_var,
                    env = list(nm = name)]
