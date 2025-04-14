@@ -97,7 +97,7 @@ mutate.incidence2 <- function(
         .after = NULL
 ) {
     if (!missing(.by)) {
-        stop("`.by` argument is not used in `mutate.incidence2()` as the groupings are implicit.")
+        .stop("`.by` argument is not used in `mutate.incidence2()` as the groupings are implicit.")
     }
 
     groupings <- c(get_count_variable_name(.data), get_group_names(.data))
@@ -119,10 +119,10 @@ mutate.incidence2 <- function(
 #' @export
 nest.incidence2 <- function(.data, ..., .by, .key, .names_sep) {
     if (!missing(.by))
-        stop("`.by` argument cannot be used in `nest.incidence2()` as the groupings are implicit.")
+        .stop("`.by` argument cannot be used in `nest.incidence2()` as the groupings are implicit.")
 
     if (!missing(.names_sep))
-        stop("`.names_sep` argument cannot be used with `nest.incidence2()`.")
+        .stop("`.names_sep` argument cannot be used with `nest.incidence2()`.")
 
     groupings <- c(get_count_variable_name(.data), get_group_names(.data))
     nest(as.data.frame(.data), .by = tidyr::all_of(groupings), .key = .key)
@@ -139,10 +139,10 @@ summarise.incidence2 <- function(
     .groups
 ) {
     if (!missing(.by))
-        stop("`.by` argument cannot be used in `summary.incidence2()` as the groupings are implicit.")
+        .stop("`.by` argument cannot be used in `summary.incidence2()` as the groupings are implicit.")
 
     if(!missing(.groups))
-        stop("`.groups` argument cannot be used with `summary.incidence2()`.")
+        .stop("`.groups` argument cannot be used with `summary.incidence2()`.")
 
     groupings <- c(get_count_variable_name(.data), get_group_names(.data))
     .data <- tibble::as_tibble(.data)

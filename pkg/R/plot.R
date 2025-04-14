@@ -144,7 +144,7 @@ plot.incidence2 <- function(
 ) {
 
     if (!requireNamespace("ggplot2", quietly = TRUE))
-        stop("'ggplot2' is required for the incidence plot method but is not present.")
+        .stop("'ggplot2' is required for the incidence plot method but is not present.")
 
     # type checking
     assert_scalar_numeric(width)
@@ -163,13 +163,13 @@ plot.incidence2 <- function(
     if (!is.null(fill)) {
         assert_scalar_character(fill)
         if (!is.character(fill) || length(fill) != 1L) {
-            stop("`fill` must be a scalar character or NULL.")
+            .stop("`fill` must be a scalar character or NULL.")
         }
     }
 
     if (!is.null(title)) {
         if (!is.character(title) || length(title) != 1L) {
-            stop("`title` must be a scalar character or NULL.")
+            .stop("`title` must be a scalar character or NULL.")
         }
     }
 
@@ -177,13 +177,13 @@ plot.incidence2 <- function(
 
     if (!is.null(size)) {
         if (!is.numeric(size) || length(size) != 1L) {
-            stop("`size` must be a numeric scalar or NULL.")
+            .stop("`size` must be a numeric scalar or NULL.")
         }
     }
 
     if (!is.null(nrow)) {
         if (!is.numeric(nrow) || length(nrow) != 1L) {
-            stop("`nrow` must be a numeric scalar or NULL.")
+            .stop("`nrow` must be a numeric scalar or NULL.")
         }
         nrow <- as.integer(nrow)
     }
@@ -232,7 +232,7 @@ plot.incidence2 <- function(
         fill_var <- count_var
     } else {
         if (!fill_var %in% names(x)) {
-            stop("`fill` must be the name of a column in `x`.")
+            .stop("`fill` must be the name of a column in `x`.")
         }
     }
     fill <- .subset2(x, fill_var)

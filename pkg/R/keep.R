@@ -56,11 +56,11 @@ NULL
 keep_first <- function(x, n, complete_dates = TRUE, ...) {
 
     if (!inherits(x, "incidence2"))
-        stop("`x` must be an incidence2 object.")
+        .stop("`x` must be an incidence2 object.")
 
     assert_scalar_whole(n)
     if (n <= 0L)
-        stop("`n` must be non-negative")
+        .stop("`n` must be non-negative")
 
     assert_bool(complete_dates)
     if (complete_dates)
@@ -98,11 +98,11 @@ keep_first <- function(x, n, complete_dates = TRUE, ...) {
 keep_last <- function(x, n, complete_dates = TRUE, ...) {
 
     if (!inherits(x, "incidence2"))
-        stop("`x` must be an incidence2 object.")
+        .stop("`x` must be an incidence2 object.")
 
     assert_scalar_whole(n)
     if (n <= 0L)
-        stop("`n` must be non-negative")
+        .stop("`n` must be non-negative")
 
     assert_bool(complete_dates)
     if (complete_dates)
@@ -140,7 +140,7 @@ keep_last <- function(x, n, complete_dates = TRUE, ...) {
 keep_peaks <- function(x, complete_dates = TRUE, first_only = FALSE, ...) {
 
     if (!inherits(x, "incidence2"))
-        stop("`x` must be an incidence2 object.")
+        .stop("`x` must be an incidence2 object.")
 
     assert_bool(complete_dates)
     if (complete_dates)

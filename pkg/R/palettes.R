@@ -49,7 +49,7 @@ muted <- function(n) {
             if (is.vector(n, "double")) {
                 n <- as.integer(n)
             } else {
-                stop("`n` must be integer.")
+                .stop("`n` must be integer.")
             }
         }
 

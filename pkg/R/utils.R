@@ -1,21 +1,25 @@
 .stop <- function(..., .call = sys.call(-1L)) {
     msg <- if (...length() == 1L) ..1 else paste0(...)
-    stop(errorCondition(msg, call = .call[1L]))
+    condition <- errorCondition(msg, class = "incidence2_error", call = .call[1L])
+    stop(condition)
 }
 
 .stopf <- function(fmt, ..., .call = sys.call(-1L)) {
     msg <- sprintf(fmt, ...)
-    stop(errorCondition(msg, call = .call[1L]))
+    condition <- errorCondition(msg, class = "incidence2_error", call = .call[1L])
+    stop(condition)
 }
 
 .warnf <- function(fmt, ..., .call = sys.call(-1L)) {
     msg <- sprintf(fmt, ...)
-    warning(simpleWarning(msg, .call[1L]))
+    condition <- warningCondition(msg, class = "incidence2_warning", call = .call[1L])
+    warning(condition)
 }
 
 .warn <- function(..., .call = sys.call(-1L)) {
     msg <- if (...length() == 1L) ..1 else paste0(...)
-    warning(simpleWarning(msg, call = .call[1L]))
+    condition <- warningCondition(msg, class = "incidence2_warning", call = .call[1L])
+    warning(condition)
 }
 
 .is_scalar_whole <- function(x, tol = .Machine$double.eps^0.5) {

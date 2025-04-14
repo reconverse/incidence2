@@ -1,5 +1,8 @@
 # incidence2 (development version)
 
+- Error and warning conditions thrown by incidence2 now have classes
+  `incidence2_error` and `incidence2_warning` respectively.
+
 - Where `Dates` are used for `date_index` inputs without specification of an
   `interval` argument, they are checked for 'wholeness' and a warning given
   if any fractional parts are present. Motivated by discussion with @avallecam
