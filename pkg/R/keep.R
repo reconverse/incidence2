@@ -70,24 +70,15 @@ keep_first <- function(x, n, complete_dates = TRUE, ...) {
     groups <- get_group_names.incidence2(x)
     count_var <- get_count_variable_name.incidence2(x)
 
-    # avoid check warnings
-    tmp___index <- NULL
-
     # convert to data.table and order by date
-    if ("tmp___index" %in% names(x)) {
-        .stop(
-            "`keep_first` does not work if a column is already named 'tmp___index'. ",
-            "Please rename and try again. ",
-            "If this is problematic, please raise an issue."
-        )
-    }
+    name <- ympes::new_name(x)
     tmp <- as.data.table(x)
-    tmp[, tmp___index := .I]
+    tmp[, (name) := .I]
     setorderv(tmp, get_date_index_name.incidence2(x), order = 1L)
 
     # pull out n entries for each group
-    tmp <- tmp[, list(tmp___index = utils::head(tmp___index, n)), by = c(count_var, groups)]
-    idx <- tmp$tmp___index
+    tmp <- tmp[, lapply(.SD, utils::head, n), by = c(count_var, groups), .SDcols = name]
+    idx <- tmp[[name]]
 
     # index input
     x[idx, ]
@@ -112,24 +103,15 @@ keep_last <- function(x, n, complete_dates = TRUE, ...) {
     groups <- get_group_names.incidence2(x)
     count_var <- get_count_variable_name.incidence2(x)
 
-    # avoid check warnings
-    tmp___index <- NULL
-
     # convert to data.table and order by date
-    if ("tmp___index" %in% names(x)) {
-        .stop(
-            "`keep_last` does not work if a column is already named 'tmp___index'. ",
-            "Please rename and try again. ",
-            "If this is problematic, please raise an issue."
-        )
-    }
+    name <- ympes::new_name(x)
     tmp <- as.data.table(x)
-    tmp[, tmp___index := .I]
-    setorderv(tmp, get_date_index_name.incidence2(x))
+    tmp[, (name) := .I]
+    setorderv(tmp, get_date_index_name.incidence2(x), order = 1L)
 
     # pull out n entries for each group
-    tmp <- tmp[, list(tmp___index = utils::tail(tmp___index, n)), by = c(count_var, groups)]
-    idx <- tmp$tmp___index
+    tmp <- tmp[, lapply(.SD, utils::tail, n), by = c(count_var, groups), .SDcols = name]
+    idx <- tmp[[name]]
 
     # index input
     x[idx, ]
@@ -157,38 +139,29 @@ keep_peaks <- function(x, complete_dates = TRUE, first_only = FALSE, ...) {
     date_var <- get_date_index_name.incidence2(x)
     date_values <- get_date_index.incidence2(x)
 
-    # convert to data.table
+    # convert to data.table and order by peak size
+    name <- ympes::new_name(x)
     tmp <- as.data.table(x)
 
-    # TODO - do this better
-    # avoid check warnings
-    tmp___index <- NULL
-
-    # order by count
-    if ("tmp___index" %in% names(x)) {
-        .stop(
-            "`keep_peaks` does not work if a column is already named 'tmp___index'. ",
-            "Please rename and try again. ",
-            "If this is problematic, please raise an issue."
-        )
-    }
-    tmp[, tmp___index := .I]
     tmp <- tmp[,
-               list(tmp___index = tmp___index[.SD == max(.SD)]),
+               .(nm = .I[.SD == max(.SD)]),
                by = c(count_var, groups),
-               .SDcols = count_value]
-    tmp[, (date_var) := date_values[tmp$tmp___index]]
+               .SDcols = count_value,
+               env = list(nm = name)]
+
+    tmp[, (date_var) := date_values[tmp[[name]]]]
 
     # do we want to keep only the first peak
     if (first_only) {
         tmp <- tmp[,
-                   list(tmp___index = tmp___index[which.min(.SD[[1L]])]),
+                   .(nm = nm[which.min(.SD[[1L]])]),
                    by = c(count_var, groups),
-                   .SDcols = date_var]
+                   .SDcols = date_var,
+                   env = list(nm = name)]
     }
 
     # index input
-    idx <- tmp$tmp___index
+    idx <- tmp[[name]]
     x[idx, ]
 }
 

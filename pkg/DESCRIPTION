@@ -20,7 +20,7 @@ Depends:
     R (>= 4.1.0)
 Imports:
     grDevices,
-    data.table,
+    data.table (>= 1.15.0),
     pillar,
     utils,
     stats,
