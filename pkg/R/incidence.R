@@ -371,22 +371,17 @@ incidence <- function(
         }
     } else if (any(vapply(date_cols, inherits, TRUE, what = "POSIXct"))) {
         .warn(
-            "<POSIXct> date_index columns detected. Internally <POSIXct> objects ",
-            "are represented as seconds since the UNIX epoch and, in our experience, ",
-            "this level of granularity is not normally desired for aggregation. ",
-            "For daily incidence consider converting the inputs to <Dates>. This can ",
-            "be done prior to calling `incidence()` or, alternatively, by setting the ",
-            "argument `interval = 'day'` within the call itself."
+            "<POSIXct> date_index columns detected. ",
+            "Internally <POSIXct> objects are represented as seconds since the UNIX epoch and, in our experience, this level of granularity is not normally desired for aggregation. ",
+            "For daily incidence consider converting the inputs to <Dates>. ",
+            "This can be done prior to calling `incidence()` or, alternatively, by setting the argument `interval = 'day'` within the call itself."
         )
 
         if (complete_dates) {
             # TODO - Do we want/need a different error condition here?
             .stop(
-                "`complete_dates = TRUE` is not compatible with <POSIXct> ",
-                "date_index columns due to the aforementioned warning. ",
-                "If you wish to use <POSIXct> columns then set `complete_dates = FALSE` ",
-                "and call the `complete_dates()` function directly after the call ",
-                "to incidence."
+                "`complete_dates = TRUE` is not compatible with <POSIXct> date_index columns due to the aforementioned warning. ",
+                "If you wish to use <POSIXct> columns then set `complete_dates = FALSE` and call the `complete_dates()` function directly after the call to incidence."
             )
         }
     } else if (inherits(date_cols[[1L]], "Date")) {
