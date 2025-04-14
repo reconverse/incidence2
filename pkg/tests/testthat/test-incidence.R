@@ -43,7 +43,7 @@ test_that("Fails with good error for bad input", {
 })
 
 test_that("Warning is good for non-whole dates", {
-    dat <- data.frame(dates = Sys.Date() + 1:10 + 0.5)
+    dat <- data.frame(dates = as.Date("2025-04-11") + 1:10 + 0.5)
     expect_snapshot(incidence(dat, date_index = "dates"))
 })
 
