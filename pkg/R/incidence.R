@@ -384,7 +384,7 @@ incidence <- function(
             )
         }
     } else if (inherits(date_cols[[1L]], "Date")) {
-        whole <- vapply(date_cols, .is_whole_or_NA, TRUE)
+        whole <- vapply(date_cols, \(x) .is_whole_or_NA(unclass(x)), TRUE)
         if (!all(whole)) {
             not_whole <- date_index[!whole]
             .warn(
