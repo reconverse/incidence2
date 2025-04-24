@@ -61,8 +61,8 @@ complete_dates <- function(
     if (!inherits(x, "incidence2"))
         .stopf("`%s` is not an 'incidence2' object.", deparse(substitute(x)))
 
-    assert_bool(expand)
-    assert_bool(allow_POSIXct)
+    assert_bool(expand, .subclass = "incidence2_error")
+    assert_bool(allow_POSIXct, .subclass = "incidence2_error")
 
     if (length(fill) != 1L)
         .stopf("`fill` must be of lenth 1.")

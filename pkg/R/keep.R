@@ -58,11 +58,11 @@ keep_first <- function(x, n, complete_dates = TRUE, ...) {
     if (!inherits(x, "incidence2"))
         .stop("`x` must be an incidence2 object.")
 
-    assert_scalar_whole(n)
+    assert_scalar_whole(n, .subclass = "incidence2_error")
     if (n <= 0L)
         .stop("`n` must be non-negative")
 
-    assert_bool(complete_dates)
+    assert_bool(complete_dates, .subclass = "incidence2_error")
     if (complete_dates)
         x <- complete_dates(x, ...)
 
@@ -91,11 +91,11 @@ keep_last <- function(x, n, complete_dates = TRUE, ...) {
     if (!inherits(x, "incidence2"))
         .stop("`x` must be an incidence2 object.")
 
-    assert_scalar_whole(n)
+    assert_scalar_whole(n, .subclass = "incidence2_error")
     if (n <= 0L)
         .stop("`n` must be non-negative")
 
-    assert_bool(complete_dates)
+    assert_bool(complete_dates, .subclass = "incidence2_error")
     if (complete_dates)
         x <- complete_dates(x, ...)
 
@@ -126,11 +126,11 @@ keep_peaks <- function(x, complete_dates = TRUE, first_only = FALSE, ...) {
     if (!inherits(x, "incidence2"))
         .stop("`x` must be an incidence2 object.")
 
-    assert_bool(complete_dates)
+    assert_bool(complete_dates, .subclass = "incidence2_error")
     if (complete_dates)
         x <- complete_dates(x, ...)
 
-    assert_bool(first_only)
+    assert_bool(first_only, .subclass = "incidence2_error")
 
     # pull out grouping variables
     groups <- get_group_names.incidence2(x)

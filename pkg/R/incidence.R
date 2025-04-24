@@ -225,9 +225,8 @@ incidence <- function(
     assert_scalar_character(date_names_to, .subclass = "incidence2_error")
 
     # boolean checks
-    assert_bool(rm_na_dates)
-    assert_bool(complete_dates)
-
+    assert_bool(rm_na_dates, .subclass = "incidence2_error")
+    assert_bool(complete_dates, .subclass = "incidence2_error")
 
     # date_index checks
     length_date_index <- length(date_index)
@@ -501,7 +500,7 @@ incidence <- function(
     if (complete_dates) {
         if (missing(fill))
             fill <- 0L
-        assert_scalar_numeric(fill)
+        assert_scalar_numeric(fill, .subclass = "incidence2_error")
         out <- complete_dates(out, fill = fill)
     } else if (!missing(fill)) {
         .stop("`fill` can only be given when `complete_dates = TRUE`.")

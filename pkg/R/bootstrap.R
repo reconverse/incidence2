@@ -52,7 +52,7 @@ bootstrap_incidence <- function(x, randomise_groups = FALSE) {
     if (!inherits(x, "incidence2"))
         .stopf("`%s` is not an 'incidence2' object.", deparse(substitute(x)))
 
-    assert_bool(randomise_groups)
+    assert_bool(randomise_groups, .subclass = "incidence2_error")
 
     # prepare to restore attributes later
     row.names(x) <- NULL

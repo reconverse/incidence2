@@ -147,21 +147,21 @@ plot.incidence2 <- function(
         .stop("'ggplot2' is required for the incidence plot method but is not present.")
 
     # type checking
-    assert_scalar_numeric(width)
+    assert_scalar_numeric(width, .subclass = "incidence2_error")
 
     # NOTE - we keep this like this for backwards compatibility.
     #        if we had used NA_character_ as the default we could just use
     #        ympes::assert_scalar_character directly
     if (!is.na(border_colour)) {
-        assert_scalar_character(border_colour)
+        assert_scalar_character(border_colour, .subclass = "incidence2_error")
     }
 
-    assert_scalar_character(na_colour)
+    assert_scalar_character(na_colour, .subclass = "incidence2_error")
 
-    assert_scalar_numeric(alpha)
+    assert_scalar_numeric(alpha, .subclass = "incidence2_error")
 
     if (!is.null(fill)) {
-        assert_scalar_character(fill)
+        assert_scalar_character(fill, .subclass = "incidence2_error")
         if (!is.character(fill) || length(fill) != 1L) {
             .stop("`fill` must be a scalar character or NULL.")
         }
@@ -173,7 +173,7 @@ plot.incidence2 <- function(
         }
     }
 
-    assert_scalar_numeric(angle)
+    assert_scalar_numeric(angle, .subclass = "incidence2_error")
 
     if (!is.null(size)) {
         if (!is.numeric(size) || length(size) != 1L) {
@@ -188,7 +188,7 @@ plot.incidence2 <- function(
         nrow <- as.integer(nrow)
     }
 
-    assert_scalar_numeric(n_breaks)
+    assert_scalar_numeric(n_breaks, .subclass = "incidence2_error")
     n_breaks <- as.integer(n_breaks)
 
     legend <- match.arg(legend)
