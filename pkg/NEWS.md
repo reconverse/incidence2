@@ -1,4 +1,4 @@
-# incidence2 (development version)
+# incidence2 2.6.3
 
 - Error and warning conditions thrown by incidence2 now have classes
   `incidence2_error` and `incidence2_warning` respectively. This was announced
