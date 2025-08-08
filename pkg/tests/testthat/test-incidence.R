@@ -443,7 +443,7 @@ test_that("10 incidence with no groupings but with a count works", {
     count <- integer(366L) + 1L
     dat_dates <- data.frame(date = dates, count = count)
     x <- incidence(dat_dates, date_index = "date", counts = "count", interval = 10, offset = firstday)
-    expected_dates <- seq.Date(from = firstday, to = lastday, by = "10 days", counts = "count")
+    expected_dates <- seq.Date(from = firstday, to = lastday, by = "10 days")
     expected_counts <- c(integer(36L) + 10L, 6L)
     expect_s3_class(x$date_index, "grates_period")
     expect_equal(nrow(x), 37L)
