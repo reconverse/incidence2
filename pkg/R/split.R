@@ -32,10 +32,6 @@
 #' \dontshow{data.table::setDTthreads(.old)}
 #'
 # -------------------------------------------------------------------------
-#' @seealso
-#' [vctrs::vec_split()] on which `split.incidence2()` is built.
-#'
-# -------------------------------------------------------------------------
 #' @export
 split.incidence2 <- function(x, f, drop, ...) {
 

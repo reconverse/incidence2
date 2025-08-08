@@ -36,6 +36,3 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 \dontshow{data.table::setDTthreads(.old)}
 
 }
-\seealso{
-\code{\link[vctrs:vec_split]{vctrs::vec_split()}} on which \code{split.incidence2()} is built.
-}
