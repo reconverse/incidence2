@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="generator" content="litedown 0.6.2">
+<meta name="generator" content="litedown 0.7">
 <title>Help pages</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/default.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/article.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/copy-button.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/heading-anchor.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/pages.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/site.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/prism-xcode.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/sidenotes.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/appendix.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/toc-highlight.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/copy-button.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/heading-anchor.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/pages.min.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/article.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/copy-button.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/heading-anchor.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/pages.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/site.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/prism-xcode.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/sidenotes.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/appendix.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/toc-highlight.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/copy-button.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/heading-anchor.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/pages.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
 </head>
@@ -41,11 +41,9 @@
 <li><a href="#sec:man-dplyr-verbs">dplyr and tidyr verbs</a></li>
 <li><a href="#sec:man-estimate_peak">Estimate the peak date of an incidence curve</a></li>
 <li><a href="#sec:man-incidence">Compute the incidence of events</a></li>
-<li><a href="#sec:man-incidence2-defunct">Functions now defunct in package incidence2</a></li>
 <li><a href="#sec:man-keep">Keep first, last and peak occurences</a></li>
 <li><a href="#sec:man-palettes">Color palettes used in incidence</a></li>
 <li><a href="#sec:man-plot.incidence2">Plot an incidence object</a></li>
-<li><a href="#sec:man-reexports">Objects exported from other packages</a></li>
 <li><a href="#sec:man-regroup">Regroup 'incidence' objects</a></li>
 <li><a href="#sec:man-split.incidence2">Divide an incidence2 object in to it's implicit groupings</a></li>
 <li><a href="#sec:man-summary.incidence2">Summary of an incidence object</a></li>
@@ -67,13 +65,10 @@ h2 {
 <a href="#sec:man-as"><code>as.data.frame.incidence2()</code></a>
 <a href="#sec:man-as"><code>as.data.table.incidence2()</code></a>
 <a href="#sec:man-as"><code>as_tibble.incidence2()</code></a>
-<a href="#sec:man-reexports"><code>as.data.table</code></a>
-<a href="#sec:man-reexports"><code>as_tibble</code></a>
 </p>
 <p>
 <b>-- <kbd>B</kbd> --</b>
 <a href="#sec:man-bootstrap_incidence"><code>bootstrap_incidence()</code></a>
-<a href="#sec:man-incidence2-defunct"><code>build_incidence()</code></a>
 </p>
 <p>
 <b>-- <kbd>C</kbd> --</b>
@@ -92,7 +87,6 @@ h2 {
 </p>
 <p>
 <b>-- <kbd>F</kbd> --</b>
-<a href="#sec:man-incidence2-defunct"><code>facet_plot()</code></a>
 <a href="#sec:man-keep"><code>first_peak()</code></a>
 </p>
 <p>
@@ -123,15 +117,11 @@ h2 {
 <a href="#sec:man-accessors"><code>get_groups()</code></a>
 <a href="#sec:man-accessors"><code>get_groups.default()</code></a>
 <a href="#sec:man-accessors"><code>get_groups.incidence2()</code></a>
-<a href="#sec:man-incidence2-defunct"><code>get_n()</code></a>
-<a href="#sec:man-incidence2-defunct"><code>get_interval()</code></a>
-<a href="#sec:man-incidence2-defunct"><code>get_timespan()</code></a>
 </p>
 <p>
 <b>-- <kbd>I</kbd> --</b>
 <a href="#sec:man-incidence"><code>incidence()</code></a>
 <a href="#sec:man-incidence"><code>incidence_()</code></a>
-<a href="#sec:man-incidence2-defunct"><code>incidence2-defunct</code></a>
 </p>
 <p>
 <b>-- <kbd>K</kbd> --</b>
@@ -144,13 +134,10 @@ h2 {
 <b>-- <kbd>M</kbd> --</b>
 <a href="#sec:man-dplyr-verbs"><code>mutate.incidence2()</code></a>
 <a href="#sec:man-palettes"><code>muted()</code></a>
-<a href="#sec:man-reexports"><code>mutate</code></a>
 </p>
 <p>
 <b>-- <kbd>N</kbd> --</b>
 <a href="#sec:man-dplyr-verbs"><code>nest.incidence2()</code></a>
-<a href="#sec:man-incidence2-defunct"><code>new_incidence()</code></a>
-<a href="#sec:man-reexports"><code>nest</code></a>
 </p>
 <p>
 <b>-- <kbd>P</kbd> --</b>
@@ -159,26 +146,17 @@ h2 {
 </p>
 <p>
 <b>-- <kbd>R</kbd> --</b>
-<a href="#sec:man-reexports"><code>reexports</code></a>
 <a href="#sec:man-regroup"><code>regroup()</code></a>
 <a href="#sec:man-regroup"><code>regroup_()</code></a>
 </p>
 <p>
 <b>-- <kbd>S</kbd> --</b>
 <a href="#sec:man-dplyr-verbs"><code>summarise.incidence2()</code></a>
-<a href="#sec:man-reexports"><code>select</code></a>
-<a href="#sec:man-reexports"><code>summarise</code></a>
 <a href="#sec:man-split.incidence2"><code>split.incidence2()</code></a>
 <a href="#sec:man-summary.incidence2"><code>summary.incidence2()</code></a>
 </p>
 <p>
-<b>-- <kbd>U</kbd> --</b>
-<a href="#sec:man-reexports"><code>unpack</code></a>
-<a href="#sec:man-reexports"><code>unnest</code></a>
-</p>
-<p>
 <b>-- <kbd>V</kbd> --</b>
-<a href="#sec:man-incidence2-defunct"><code>validate_incidence()</code></a>
 <a href="#sec:man-palettes"><code>vibrant()</code></a>
 </p>
 <h2 id="sec:man-accessors">Access various elements of an incidence object</h2>
@@ -254,7 +232,7 @@ get_groups(x, ...)
 ## S3 method for class 'incidence2'
 get_groups(x, ...)</code></pre>
 <h3 id="sec:arguments_1" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p>An <span class="rlang"><b>R</b></span> object.</p>
@@ -334,7 +312,7 @@ as.data.table(x, keep.rownames, ...)
 ## S3 method for class 'incidence2'
 as_tibble(x, ..., .rows, .name_repair, rownames)</code></pre>
 <h3 id="sec:arguments_2" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p>An <span class="rlang"><b>R</b></span> object.</p>
@@ -376,6 +354,12 @@ just as an additional check.</p>
 </p>
 </li>
 <li> <p><code>"universal"</code>: Make the names <code>unique</code> and syntactic
+</p>
+</li>
+<li> <p><code>"unique_quiet"</code>: Same as <code>"unique"</code>, but &quot;quiet&quot;
+</p>
+</li>
+<li> <p><code>"universal_quiet"</code>: Same as <code>"universal"</code>, but &quot;quiet&quot;
 </p>
 </li>
 <li><p> a function: apply custom name repair (e.g., <code>.name_repair = make.names</code>
@@ -447,7 +431,7 @@ input dates.
 <h3 id="sec:usage_3" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">bootstrap_incidence(x, randomise_groups = FALSE)</code></pre>
 <h3 id="sec:arguments_3" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p>An <a href="#sec:man-incidence">incidence2</a> object.</p>
@@ -491,15 +475,15 @@ weighted by their relative incidence.
 #&gt;    date_index gender count_variable count
 #&gt;  * &lt;date&gt;     &lt;fct&gt;  &lt;chr&gt;          &lt;int&gt;
 #&gt;  1 2013-02-19 m      date_of_onset      0
-#&gt;  2 2013-02-27 m      date_of_onset      0
-#&gt;  3 2013-03-07 m      date_of_onset      0
+#&gt;  2 2013-02-27 m      date_of_onset      1
+#&gt;  3 2013-03-07 m      date_of_onset      1
 #&gt;  4 2013-03-08 m      date_of_onset      1
-#&gt;  5 2013-03-09 f      date_of_onset      1
-#&gt;  6 2013-03-13 f      date_of_onset      2
-#&gt;  7 2013-03-17 m      date_of_onset      1
-#&gt;  8 2013-03-19 f      date_of_onset      0
+#&gt;  5 2013-03-09 f      date_of_onset      2
+#&gt;  6 2013-03-13 f      date_of_onset      1
+#&gt;  7 2013-03-17 m      date_of_onset      2
+#&gt;  8 2013-03-19 f      date_of_onset      1
 #&gt;  9 2013-03-20 f      date_of_onset      0
-#&gt; 10 2013-03-20 m      date_of_onset      0
+#&gt; 10 2013-03-20 m      date_of_onset      1
 #&gt; # ℹ 57 more rows
 </code></pre>
 <h2 id="sec:man-complete_dates">Complete dates for all group combinations</h2>
@@ -510,7 +494,7 @@ for each grouping. By default missing counts will be filled with <code>0L</code>
 <h3 id="sec:usage_4" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">complete_dates(x, expand = TRUE, fill = 0L, by = 1L, allow_POSIXct = FALSE)</code></pre>
 <h3 id="sec:arguments_4" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p><code>&lt;incidence2&gt;</code> object.</p>
@@ -567,14 +551,14 @@ complete_dates(i)
 #&gt; # groups:     groups
 #&gt;   date_index groups count_variable count
 #&gt;   &lt;date&gt;     &lt;chr&gt;  &lt;fct&gt;          &lt;int&gt;
-#&gt; 1 2025-06-05 grp1   counts             1
-#&gt; 2 2025-06-05 grp2   counts             0
-#&gt; 3 2025-06-06 grp1   counts             0
-#&gt; 4 2025-06-06 grp2   counts             0
-#&gt; 5 2025-06-07 grp1   counts             0
-#&gt; 6 2025-06-07 grp2   counts             2
-#&gt; 7 2025-06-08 grp1   counts             3
-#&gt; 8 2025-06-08 grp2   counts             0
+#&gt; 1 2025-08-12 grp1   counts             1
+#&gt; 2 2025-08-12 grp2   counts             0
+#&gt; 3 2025-08-13 grp1   counts             0
+#&gt; 4 2025-08-13 grp2   counts             0
+#&gt; 5 2025-08-14 grp1   counts             0
+#&gt; 6 2025-08-14 grp2   counts             2
+#&gt; 7 2025-08-15 grp1   counts             3
+#&gt; 8 2025-08-15 grp2   counts             0
 </code></pre>
 <h2 id="sec:man-covidregionaldataUK">Regional data for COVID-19 cases in the UK</h2>
 <h3 id="sec:description_5" class="unnumbered unlisted">Description</h3>
@@ -630,7 +614,7 @@ package on 2021-06-03.
 <h3 id="sec:usage_6" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">cumulate(x)</code></pre>
 <h3 id="sec:arguments_5" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p><a href="#sec:man-incidence">incidence2</a> object.</p>
@@ -679,7 +663,7 @@ nest(.data, ..., .by, .key, .names_sep)
 ## S3 method for class 'incidence2'
 summarise(.data, ..., .by, .groups)</code></pre>
 <h3 id="sec:arguments_6" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>.data</code></td>
 <td>
 <p>An <a href="#sec:man-incidence">incidence2</a> object.</p>
@@ -790,7 +774,7 @@ bootstrapped samples of the available data.
 <h3 id="sec:usage_8" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">estimate_peak(x, n = 100L, alpha = 0.05, first_only = TRUE, progress = TRUE)</code></pre>
 <h3 id="sec:arguments_7" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p>An <a href="#sec:man-incidence">incidence2</a> object.</p>
@@ -886,7 +870,7 @@ bootstrapped datasets.
 <pre><code>#&gt; # A tibble: 1 × 7
 #&gt;   count_variable observed_peak observed_count bootstrap_peaks lower_ci  
 #&gt;   &lt;chr&gt;          &lt;date&gt;                 &lt;int&gt; &lt;list&gt;          &lt;date&gt;    
-#&gt; 1 date_of_onset  2013-04-03                 7 &lt;df [100 × 1]&gt;  2013-03-28
+#&gt; 1 date_of_onset  2013-04-03                 7 &lt;df [100 × 1]&gt;  2013-03-29
 #&gt; # ℹ 2 more variables: median &lt;date&gt;, upper_ci &lt;date&gt;
 </code></pre>
 <h2 id="sec:man-incidence">Compute the incidence of events</h2>
@@ -927,7 +911,7 @@ incidence_(
   ...
 )</code></pre>
 <h3 id="sec:arguments_8" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p>A data frame object representing a linelist or pre-aggregated dataset.</p>
@@ -1148,47 +1132,14 @@ calling <code>incidence()</code>.
 #&gt; 10 2014-05-03 f      Connaught Hospital                     date_of_onset      1
 #&gt; # ℹ 2,525 more rows
 </code></pre>
-<h2 id="sec:man-incidence2-defunct">Functions now defunct in package incidence2</h2>
-<h3 id="sec:description_10" class="unnumbered unlisted">Description</h3>
-<p>These functions are now defunct.
-</p>
-<h3 id="sec:usage_10" class="unnumbered unlisted">Usage</h3>
-<pre><code class="language-r">new_incidence(
-  x,
-  date,
-  groups = NULL,
-  counts,
-  measurements = NULL,
-  validate = TRUE
-)
-
-validate_incidence(x)
-
-build_incidence(
-  x,
-  date_index,
-  groups = NULL,
-  counts = NULL,
-  na_as_group = TRUE,
-  FUN = identity,
-  args = list()
-)
-
-get_n(x)
-
-get_interval(x, ...)
-
-get_timespan(x, ...)
-
-facet_plot(x, ...)</code></pre>
 <h2 id="sec:man-keep">Keep first, last and peak occurences</h2>
-<h3 id="sec:description_11" class="unnumbered unlisted">Description</h3>
+<h3 id="sec:description_10" class="unnumbered unlisted">Description</h3>
 <p><code>keep_first()</code> and <code>keep_last()</code> keep the first and last <code>n</code> rows to occur
 for each grouping when in ascending date order. <code>keep_peaks()</code> keeps the rows
 with the maximum count value for each group. <code>first_peak()</code> is a convenience
 wrapper around <code>keep_peaks()</code> with the <code>first_only</code> argument set to <code>TRUE</code>.
 </p>
-<h3 id="sec:usage_11" class="unnumbered unlisted">Usage</h3>
+<h3 id="sec:usage_10" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">keep_first(x, n, complete_dates = TRUE, ...)
 
 keep_last(x, n, complete_dates = TRUE, ...)
@@ -1197,7 +1148,7 @@ keep_peaks(x, complete_dates = TRUE, first_only = FALSE, ...)
 
 first_peak(x, complete_dates = TRUE, ...)</code></pre>
 <h3 id="sec:arguments_9" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p><a href="#sec:man-incidence">incidence2</a> object.</p>
@@ -1253,17 +1204,17 @@ entries.
 #&gt; 3 2015-04-30 date_of_onset      2
 </code></pre>
 <h2 id="sec:man-palettes">Color palettes used in incidence</h2>
-<h3 id="sec:description_12" class="unnumbered unlisted">Description</h3>
+<h3 id="sec:description_11" class="unnumbered unlisted">Description</h3>
 <p>These functions are color palettes used in incidence. The palettes come from
 https://personal.sron.nl/~pault/#sec:qualitative and exclude <code>grey</code>, which
 is reserved for missing data.
 </p>
-<h3 id="sec:usage_12" class="unnumbered unlisted">Usage</h3>
+<h3 id="sec:usage_11" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">vibrant(n)
 
 muted(n)</code></pre>
 <h3 id="sec:arguments_10" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>n</code></td>
 <td>
 <p><code>integer</code>.
@@ -1286,12 +1237,12 @@ muted(n)</code></pre>
 #&gt;  [8] &quot;#BC566F&quot; &quot;#8B255C&quot; &quot;#AA4499&quot;
 </code></pre>
 <h2 id="sec:man-plot.incidence2">Plot an incidence object</h2>
-<h3 id="sec:description_13" class="unnumbered unlisted">Description</h3>
+<h3 id="sec:description_12" class="unnumbered unlisted">Description</h3>
 <p><code>plot()</code> can be used to provide a bar plot of an incidence object. Due
 to the complexities with automating plotting it is some what experimental in
 nature and it may be better to use ggplot2 directly.
 </p>
-<h3 id="sec:usage_13" class="unnumbered unlisted">Usage</h3>
+<h3 id="sec:usage_12" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">## S3 method for class 'incidence2'
 plot(
   x,
@@ -1312,7 +1263,7 @@ plot(
   ...
 )</code></pre>
 <h3 id="sec:arguments_11" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p><a href="#sec:man-incidence">incidence2</a> object.</p>
@@ -1470,23 +1421,8 @@ row of the resulting plot.
 }
 </code></pre>
 <p><img src="manual/plot.incidence2-1.png" alt="A plot recorded by xfun::record()" /></p>
-<h2 id="sec:man-reexports">Objects exported from other packages</h2>
-<h3 id="sec:description_14" class="unnumbered unlisted">Description</h3>
-<p>These objects are imported from other packages. Follow the links
-below to see their documentation.
-</p>
-<dl>
-<dt>data.table</dt><dd><p><code><a href="https://rdrr.io/cran/data.table/man/as.data.table.html">as.data.table</a></code></p>
-</dd>
-<dt>dplyr</dt><dd><p><code><a href="https://rdrr.io/cran/dplyr/man/mutate.html">mutate</a></code>, <code><a href="https://rdrr.io/cran/dplyr/man/select.html">select</a></code>, <code><a href="https://rdrr.io/cran/dplyr/man/summarise.html">summarise</a></code></p>
-</dd>
-<dt>tibble</dt><dd><p><code><a href="https://rdrr.io/cran/tibble/man/as_tibble.html">as_tibble</a></code></p>
-</dd>
-<dt>tidyr</dt><dd><p><code><a href="https://rdrr.io/cran/tidyr/man/nest.html">nest</a></code>, <code><a href="https://rdrr.io/cran/tidyr/man/unnest.html">unnest</a></code>, <code><a href="https://rdrr.io/cran/tidyr/man/pack.html">unpack</a></code></p>
-</dd>
-</dl>
 <h2 id="sec:man-regroup">Regroup 'incidence' objects</h2>
-<h3 id="sec:description_15" class="unnumbered unlisted">Description</h3>
+<h3 id="sec:description_13" class="unnumbered unlisted">Description</h3>
 <p>This function regroups an <a href="#sec:man-incidence">incidence2</a> object across
 the specified groups. The resulting <a href="#sec:man-incidence">incidence2</a>
 object will contains counts aggregated over the specified groups. The only
@@ -1494,12 +1430,12 @@ difference between <code>regroup()</code> and <code>regroup_()</code> is that th
 on top of <a href="https://rdrr.io/cran/dplyr/man/dplyr_tidy_select.html">tidy-select</a> semantics for the <code>group</code>
 input.
 </p>
-<h3 id="sec:usage_14" class="unnumbered unlisted">Usage</h3>
+<h3 id="sec:usage_13" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">regroup(x, groups = NULL)
 
 regroup_(x, groups = NULL)</code></pre>
 <h3 id="sec:arguments_12" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p><code>&lt;incidence2&gt;</code> object.</p>
@@ -1547,15 +1483,15 @@ no groupings.</p>
 #&gt; # ℹ 1,625 more rows
 </code></pre>
 <h2 id="sec:man-split.incidence2">Divide an incidence2 object in to it's implicit groupings</h2>
-<h3 id="sec:description_16" class="unnumbered unlisted">Description</h3>
+<h3 id="sec:description_14" class="unnumbered unlisted">Description</h3>
 <p>Split divides and <a href="#sec:man-incidence">incidence2</a> object in to it's
 underlying groupings (count variable and optionally groups).
 </p>
-<h3 id="sec:usage_15" class="unnumbered unlisted">Usage</h3>
+<h3 id="sec:usage_14" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">## S3 method for class 'incidence2'
 split(x, f, drop, ...)</code></pre>
 <h3 id="sec:arguments_13" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p>An <a href="#sec:man-incidence">incidence2</a> object.</p>
@@ -1577,9 +1513,6 @@ split(x, f, drop, ...)</code></pre>
 <p>A list of tibbles contained the split data. This list also has a &quot;key&quot;
 attribute which is a tibble with rows corresponding to the grouping of
 each split.
-</p>
-<h3 id="sec:see-also_4" class="unnumbered unlisted">See Also</h3>
-<p><code><a href="https://rdrr.io/cran/vctrs/man/vec_split.html">vctrs::vec_split()</a></code> on which <code>split.incidence2()</code> is built.
 </p>
 <h3 id="sec:examples_13" class="unnumbered unlisted">Examples</h3>
 <pre><code class="language-r">if (requireNamespace(&quot;outbreaks&quot;, quietly = TRUE)) {
@@ -1681,14 +1614,14 @@ each split.
 #&gt; 5 date_of_onset  Rokupa Hospital                             
 </code></pre>
 <h2 id="sec:man-summary.incidence2">Summary of an incidence object</h2>
-<h3 id="sec:description_17" class="unnumbered unlisted">Description</h3>
+<h3 id="sec:description_15" class="unnumbered unlisted">Description</h3>
 <p>Summary of an incidence object
 </p>
-<h3 id="sec:usage_16" class="unnumbered unlisted">Usage</h3>
+<h3 id="sec:usage_15" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">## S3 method for class 'incidence2'
 summary(object, ...)</code></pre>
 <h3 id="sec:arguments_14" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>object</code></td>
 <td>
 <p>An <a href="#sec:man-incidence">incidence2</a> object.</p>
@@ -1728,11 +1661,11 @@ summary(inci)
 #&gt; 11 m      Princess Christian Maternity Hospital (PCMH) date_of_onset    200
 #&gt; 12 m      &lt;NA&gt;                                         date_of_onset    717
 </code></pre>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/manual.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/manual.min.css">
 </div>
 <footer><div class="flex-col">
 <p>Developed by Tim Taylor</p>
-<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.6.2</p>
+<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.7</p>
 </div></footer>
 </body>
 </html>

@@ -32,12 +32,8 @@ revdep: pkg
 
 readme: README.md
 
-pkg/README.md: pkg/README.Rmd
-	cd pkg; Rscript -e "litedown::fuse('README.Rmd', '.md')"
-
-README.md: pkg/README.md
-	cp pkg/README.md README.md
-
+README.md: README.Rmd
+	Rscript -e "litedown::fuse('README.Rmd', '.md')"
 
 site: install
 	mkdir -p sitebuild

@@ -10,7 +10,7 @@ robust outbreak analytic pipelines.
 You can install the latest release of incidence2 from
 [CRAN](https://cran.r-project.org/) with:
 
-``` {.r}
+```{r, eval = FALSE}
 install.packages("incidence2")
 ```
 
