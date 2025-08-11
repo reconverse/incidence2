@@ -19,7 +19,7 @@ test_that("cumulate works with groupings", {
     xc_dates <- seq(min(xc$date_index), max(xc$date_index))
     tmp <- expand.grid(date_index = xc_dates, group_1 = unique(group_1))
     tmp2 <- merge(tmp, xc, by = c("date_index", "group_1"), all.x = TRUE)
-    tmp2[,"count"][is.na(tmp2[,"count"])] <- 0
+    tmp2[, "count"][is.na(tmp2[, "count"])] <- 0
     tmp2$count_variable <- "dates"
     tmp2$group_1 <- as.character(tmp2$group_1)
     for (gr in unique(group_1)) {
@@ -42,7 +42,6 @@ test_that("cumulate works without groupings", {
     dates <- as.Date("2018-01-31") + 1:100
     dat <- data.frame(dates)
     x <- incidence(dat, date_index = "dates")
-    expected_count <- cumsum(rep(1,nrow(dat)))
+    expected_count <- cumsum(rep(1, nrow(dat)))
     expect_equal(cumulate(x)$cumulative_count, expected_count)
 })
-

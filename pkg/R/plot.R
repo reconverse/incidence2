@@ -167,18 +167,14 @@ plot.incidence2 <- function(
         }
     }
 
-    if (!is.null(title)) {
-        if (!is.character(title) || length(title) != 1L) {
-            .stop("`title` must be a scalar character or NULL.")
-        }
+    if (!is.null(title) && (!is.character(title) || length(title) != 1L)) {
+        .stop("`title` must be a scalar character or NULL.")
     }
 
     assert_scalar_numeric(angle, .subclass = "incidence2_error")
 
-    if (!is.null(size)) {
-        if (!is.numeric(size) || length(size) != 1L) {
-            .stop("`size` must be a numeric scalar or NULL.")
-        }
+    if (!is.null(size) && (!is.numeric(size) || length(size) != 1L)) {
+        .stop("`size` must be a numeric scalar or NULL.")
     }
 
     if (!is.null(nrow)) {
@@ -202,7 +198,7 @@ plot.incidence2 <- function(
     counts <- get_count_variable.incidence2(x)
 
     y_axis <- get_count_value_name.incidence2(x)
-    x_axis<- get_date_index_name.incidence2(x)
+    x_axis <- get_date_index_name.incidence2(x)
 
     # TODO - temporary measure until I can think about this more
     supported <- c(
@@ -230,10 +226,8 @@ plot.incidence2 <- function(
     if (is.null(fill_var)) {
         use_fill <- FALSE
         fill_var <- count_var
-    } else {
-        if (!fill_var %in% names(x)) {
-            .stop("`fill` must be the name of a column in `x`.")
-        }
+    } else if (!fill_var %in% names(x)) {
+        .stop("`fill` must be the name of a column in `x`.")
     }
     fill <- .subset2(x, fill_var)
     n_fill_colours <- length(unique(fill))

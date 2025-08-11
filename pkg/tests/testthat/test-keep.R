@@ -18,7 +18,7 @@ test_that("keep_first works", {
     dates <- seq.Date(from = firstday, to = lastday, by = "day")
     dat <- data.frame(dates = as_yearmonth(dates))
     x <- incidence(dat, date_index = "dates")
-    x <- x[sample.int(nrow(x)),]
+    x <- x[sample.int(nrow(x)), ]
     fx <- keep_first(x, 3)
 
     expect_identical(sort(as.Date(fx$date_index)), seq(firstday, as.Date("2021-03-01"), by = "month"))
@@ -32,7 +32,7 @@ test_that("keep_last works", {
     dates <- seq.Date(from = firstday, to = lastday, by = "day")
     dat <- data.frame(dates = as_yearmonth(dates))
     x <- incidence(dat, date_index = "dates")
-    x <- x[sample.int(nrow(x)),]
+    x <- x[sample.int(nrow(x)), ]
     lx <- keep_last(x, 3)
 
     expect_equal(sort(as.Date(lx$date_index)), seq(as.Date("2021-10-01"), lastday, by = "month"))
@@ -50,4 +50,3 @@ test_that("Regresison test for hack removal ", {
     expect_no_condition(keep_first(x, 3))
     expect_no_condition(keep_last(x, 3))
 })
-

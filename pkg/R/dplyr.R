@@ -141,7 +141,7 @@ summarise.incidence2 <- function(
     if (!missing(.by))
         .stop("`.by` argument cannot be used in `summary.incidence2()` as the groupings are implicit.")
 
-    if(!missing(.groups))
+    if (!missing(.groups))
         .stop("`.groups` argument cannot be used with `summary.incidence2()`.")
 
     groupings <- c(get_count_variable_name(.data), get_group_names(.data))

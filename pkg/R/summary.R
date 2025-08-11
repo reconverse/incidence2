@@ -39,7 +39,7 @@ summary.incidence2 <- function(object, ...) {
     tmp <- tmp[, lapply(.SD, sum), by = c(group_variables, count_variable)]
     setDF(tmp)
     class(tmp) <- c("tbl", class(tmp))
-    observations <- c("\nTotal observations:", format(tmp, n=nrow(tmp)))
+    observations <- c("\nTotal observations:", format(tmp, n = nrow(tmp)))
 
     out <- c(from, to, groups_text, observations)
     writeLines(out)

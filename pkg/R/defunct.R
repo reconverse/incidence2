@@ -15,7 +15,7 @@ new_incidence <- function(
     x,
     date,
     groups = NULL,
-    counts,
+    counts, # nolint: function_argument_linter.
     measurements = NULL,
     validate = TRUE
 ) {

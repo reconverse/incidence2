@@ -202,12 +202,15 @@ incidence <- function(
         idx <- nms %in% c("na_as_group", "firstdate")
         if (any(idx)) {
             nms <- nms[idx]
-            .stopf("As of incidence 2.0.0, `%s` is no longer a valid parameter name. See `help('incidence')` for supported parameters.", nms[1L])
+            .stop(
+                sprintf("As of incidence 2.0.0, `%s` is no longer a valid parameter name. ", nms[1L]),
+                "See `help('incidence')` for supported parameters."
+            )
         }
         if (is.null(nms))
             .stop("Too many arguments given.")
 
-        nms <- nms[nms != ""]
+        nms <- nms[nzchar(nms), keepNA = TRUE]
         .stopf("`%s` is not a valid parameter", nms[1L])
     }
 
@@ -332,26 +335,26 @@ incidence <- function(
             # for new users and interactive work.
             interval <- tolower(interval)
             FUN <- switch(EXPR = interval,
-                day         =,
+                day         = ,
                 daily       = .as_date,
-                week        =,
-                weeks       =,
-                weekly      =,
-                isoweek     =,
+                week        = ,
+                weeks       = ,
+                weekly      = ,
+                isoweek     = ,
                 isoweeks    = as_isoweek,
-                epiweek     =,
+                epiweek     = ,
                 epiweeks    = as_epiweek,
-                month       =,
-                months      =,
-                monthly     =,
+                month       = ,
+                months      = ,
+                monthly     = ,
                 yearmonth   = as_yearmonth,
-                quarter     =,
-                quarters    =,
-                quarterly   =,
+                quarter     = ,
+                quarters    = ,
+                quarterly   = ,
                 yearquarter = as_yearquarter,
-                year        =,
-                years       =,
-                yearly       = as_year,
+                year        = ,
+                years       = ,
+                yearly      = as_year,
                 .stop(paste(
                     "`interval` must be one of:",
                     "    - an <integer> value;",
@@ -402,12 +405,12 @@ incidence <- function(
     # generate name for date_index column (ensure coerced to DT before using setnames)
     nms <- names(date_index)
     if (!is.null(nms)) {
-        if (length_date_index == 1L && nms != "") {
+        if (length_date_index == 1L && nzchar(nms, keepNA = TRUE)) {
             setnames(DT, date_index, nms)
             date_index <- nms
-        } else if (any(nms != "")) {
+        } else if (any(nzchar(nms, keepNA = TRUE))) {
             new_names <- date_index
-            new_names[nms != ""] <- nms
+            new_names[nzchar(nms, keepNA = TRUE)] <- nms
             setnames(DT, date_index, new_names)
             date_index <- new_names
         }
@@ -416,12 +419,12 @@ incidence <- function(
     # generate names for group columns (ensure coerced to DT before using setnames)
     nms <- names(groups)
     if (!is.null(nms)) {
-        if (length(groups) == 1L && nms != "") {
+        if (length(groups) == 1L && nzchar(nms, keepNA = TRUE)) {
             setnames(DT, groups, nms)
             groups <- nms
-        } else if (any(nms != "")) {
+        } else if (any(nzchar(nms, keepNA = TRUE))) {
             new_names <- groups
-            new_names[nms != ""] <- nms
+            new_names[nzchar(nms, keepNA = TRUE)] <- nms
             setnames(DT, groups, new_names)
             groups <- new_names
         }
@@ -430,12 +433,12 @@ incidence <- function(
     # generate names for count columns (ensure coerced to DT before using setnames)
     nms <- names(counts)
     if (!is.null(nms)) {
-        if (length(counts) == 1L && nms != "") {
+        if (length(counts) == 1L && nzchar(nms, keepNA = TRUE)) {
             setnames(DT, counts, nms)
             counts <- nms
-        } else if (any(nms != "")) {
+        } else if (any(nzchar(nms, keepNA = TRUE))) {
             new_names <- counts
-            new_names[nms != ""] <- nms
+            new_names[nzchar(nms, keepNA = TRUE)] <- nms
             setnames(DT, counts, new_names)
             counts <- new_names
         }
@@ -462,7 +465,7 @@ incidence <- function(
         res <- DT[, .N, keyby = c(date_names_to, groups, count_names_to)]
         setnames(res, length(res), count_values_to)
     } else {
-        nas_present <- vapply(.subset(DT,counts), anyNA, TRUE)
+        nas_present <- vapply(.subset(DT, counts), anyNA, TRUE)
         if (any(nas_present)) {
             missing_names <- names(nas_present)[nas_present]
             .warnf(

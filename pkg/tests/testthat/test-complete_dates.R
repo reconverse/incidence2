@@ -1,7 +1,7 @@
 test_that("Fails with error for bad input", {
     dat <- data.frame(
         dates = Sys.Date() + 1:4,
-        groups1 = rep(c("bob","george"), 2),
+        groups1 = rep(c("bob", "george"), 2),
         groups2 = c(rep("groupa", 2), rep("groupb", 2)),
         counts1 = 1:4,
         counts2 = 11:14
@@ -27,7 +27,7 @@ test_that("Fails with error for bad input", {
 test_that("Fails with good error for bad input", {
     dat <- data.frame(
         dates = Sys.Date() + 1:4,
-        groups1 = rep(c("bob","george"), 2),
+        groups1 = rep(c("bob", "george"), 2),
         groups2 = c(rep("groupa", 2), rep("groupb", 2)),
         counts1 = 1:4,
         counts2 = 11:14
@@ -53,7 +53,7 @@ test_that("Fails with good error for bad input", {
 test_that("complete_dates works", {
     dat <- data.frame(
         dates = Sys.Date() + 1:4,
-        groups1 = rep(c("bob","george"), 2),
+        groups1 = rep(c("bob", "george"), 2),
         groups2 = c(rep("groupa", 2), rep("groupb", 2)),
         counts1 = 1:4,
         counts2 = 11:14
@@ -68,7 +68,7 @@ test_that("complete_dates works", {
 
     res <- complete_dates(i, fill = NA)
     expect_identical(nrow(res), 32L)
-    tmp <- res[complete.cases(res),]
+    tmp <- res[complete.cases(res), ]
     row.names(tmp) <- NULL
     expect_identical(tmp, i)
     res2 <- complete_dates(i)

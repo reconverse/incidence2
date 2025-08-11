@@ -44,9 +44,9 @@ test_that("operations preserve class as expected", {
 
     # Adding rows that are multiple of 2 weeks maintains class
     x <-
-        inci %>%
-        dplyr::slice_head(n = 2) %>%
-        dplyr::mutate(date_index = date_index + 112) %>%
+        inci |>
+        dplyr::slice_head(n = 2) |>
+        dplyr::mutate(date_index = date_index + 112) |>
         dplyr::bind_rows(inci)
     expect_s3_class(x, "incidence2")
 
@@ -90,16 +90,3 @@ test_that("operations drop class as expected", {
         dplyr::bind_rows(inci)
     expect_false(inherits(x, "incidence2"))
 })
-
-
-
-
-
-
-
-
-
-
-
-
-

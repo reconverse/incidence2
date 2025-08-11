@@ -23,7 +23,7 @@ expect_snapshot_plot <- function(name, code) {
 }
 
 test_that("plotting works", {
-    ebola <- subset(outbreaks::ebola_sim_clean$linelist ,!is.na(hospital))
+    ebola <- subset(outbreaks::ebola_sim_clean$linelist, !is.na(hospital))
     daily_incidence <- incidence(ebola, date_index = "date_of_onset")
     daily_incidence_plot <- plot(daily_incidence)
     expect_snapshot_plot("daily_incidence_plot", daily_incidence_plot)

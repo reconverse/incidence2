@@ -15,7 +15,7 @@ test_that("Fails for bad input", {
     expect_error(incidence(dat, date_index = c("dates", "dates"), counts = "count"))
     expect_error(incidence(dat, date_index = "dates", counts = "bob"))
     expect_error(incidence(dat, date_index = "dates", counts = "count", groups = 1))
-    expect_error(incidence(dat, c("dates","dates2"), fill = 9))
+    expect_error(incidence(dat, c("dates", "dates2"), fill = 9))
     dat2 <- transform(dat, dates = as.POSIXlt(dates))
     expect_error(incidence(dat2, date_index = "dates"))
 })
@@ -37,7 +37,7 @@ test_that("Fails with good error for bad input", {
     expect_snapshot(error = TRUE, incidence(dat, date_index = c("dates", "dates"), counts = "count"))
     expect_snapshot(error = TRUE, incidence(dat, date_index = "dates", counts = "bob"))
     expect_snapshot(error = TRUE, incidence(dat, date_index = "dates", counts = "count", groups = 1))
-    expect_snapshot(error = TRUE, incidence(dat, c("dates","dates2"), fill = 9))
+    expect_snapshot(error = TRUE, incidence(dat, c("dates", "dates2"), fill = 9))
     dat2 <- transform(dat, dates = as.POSIXlt(dates))
     expect_snapshot(error = TRUE, incidence(dat2, date_index = "dates"))
 })
@@ -53,7 +53,7 @@ test_that("incidence with no groupings and no intervals works", {
     lastday <- as.Date("2021-12-31")  # Friday
     dates <- seq.Date(from = firstday, to = lastday, by = "day")
     count <- c(rep(1L, 366), rep(2L, 365))
-    dat <- data.frame(date = c(dates,dates), count = c(count, count))
+    dat <- data.frame(date = c(dates, dates), count = c(count, count))
 
     # no groupings and no counts
     x <- incidence(dat, date_index = "date")
@@ -62,7 +62,7 @@ test_that("incidence with no groupings and no intervals works", {
         c("incidence2", class(tibble::new_tibble(mtcars))),
         exact = TRUE
     )
-    expect_equal(nrow(x), 731L)
+    expect_identical(nrow(x), 731L)
     expect_true(all(x$count == 2L))
     expect_equal(x$date_index, dates)
 
@@ -73,7 +73,7 @@ test_that("incidence with no groupings and no intervals works", {
         c("incidence2", class(tibble::new_tibble(mtcars))),
         exact = TRUE
     )
-    expect_equal(nrow(x), 731L)
+    expect_identical(nrow(x), 731L)
     expect_equal(sum(x$count == 2L), 366L)
     expect_equal(sum(x$count == 4L), 365L)
     expect_equal(x$date_index, dates)
@@ -102,7 +102,7 @@ test_that("incidence with groupings but no intervals works", {
 
     # groupings and counts
     x <- incidence(dat, date_index = "dates", groups = "size", counts = "count")
-    expected_count <- c(rep(2L,14L), rep(4L, 14L))
+    expected_count <- c(rep(2L, 14L), rep(4L, 14L))
     expect_equal(x$count, expected_count)
     expect_equal(x$size, size)
 })
@@ -112,10 +112,10 @@ test_that("incidence with mutiple date indices but no intervals works", {
     lastday <- as.Date("2021-12-31")
     dates_1 <- seq.Date(from = firstday, to = lastday, by = "day")
     dates_2 <- dates_1 - 31
-    dates_1 <- as.POSIXlt(dates_1, tz="UTC")
+    dates_1 <- as.POSIXlt(dates_1, tz = "UTC")
     dates_1$mday <- 1
     dates_1 <- as.Date.POSIXlt(dates_1)
-    dates_2 <- as.POSIXlt(dates_2, tz="UTC")
+    dates_2 <- as.POSIXlt(dates_2, tz = "UTC")
     dates_2$mday <- 1
     dates_2 <- as.Date.POSIXlt(dates_2)
     dat <- data.frame(dates_1, dates_2)
@@ -127,7 +127,7 @@ test_that("incidence with mutiple date indices but no intervals works", {
     expected_deaths <- c(31L, 28L, 31L, 30L, 31L, 30L, 31L, 31L, 30L, 31L, 30L, 31L)
     expected_onsets <- c(31L, 31L, 28L, 31L, 30L, 31L, 30L, 31L, 31L, 30L, 31L, 30L)
     expect_equal(as.Date(x$date_index), expected_dates)
-    expect_equal(x$count,c(expected_deaths, expected_onsets))
+    expect_equal(x$count, c(expected_deaths, expected_onsets))
 
     # incidence cannot work with different date_index types"
     dat <- data.frame(dates1 = c(1, 2), dates2 = Sys.Date() + 1:2)
@@ -142,7 +142,7 @@ test_that("tibble, and data.frame input all match", {
     dat2 <- tibble::as_tibble(dat)
     i <- incidence(dat, "date", counts = "count", groups = "nhs_region")
     i2 <- incidence(dat2, "date", counts = "count", groups = "nhs_region")
-    expect_identical(i,i2)
+    expect_identical(i, i2)
 })
 
 test_that("data.table, and data.frame input all match", {
@@ -151,7 +151,7 @@ test_that("data.table, and data.frame input all match", {
     dat2 <- data.table::as.data.table(dat)
     i <- incidence(dat, "date", counts = "count", groups = "nhs_region")
     i2 <- incidence(dat2, "date", counts = "count", groups = "nhs_region")
-    expect_identical(i,i2)
+    expect_identical(i, i2)
 })
 
 test_that("isoweek incidence with no groupings or count works", {
@@ -164,7 +164,7 @@ test_that("isoweek incidence with no groupings or count works", {
     expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
     expected_counts <- c(rep(7L, 104), 3L)
     expect_s3_class(x$date_index, "grates_isoweek")
-    expect_equal(nrow(x), 105L)
+    expect_identical(nrow(x), 105L)
     expect_equal(as.Date(x$date_index), expected_dates)
     expect_equal(x$count, expected_counts)
 
@@ -199,7 +199,7 @@ test_that("yearweek incidence with groups and without count works", {
     expected_heights <- rep(c("short", "tall"), 4)
     expected_sizes <- c(rep("small", 2), rep("large", 6))
     expect_s3_class(x$date_index, "grates_yearweek_monday")
-    expect_equal(nrow(x), 8L)
+    expect_identical(nrow(x), 8L)
     expect_equal(as.Date(x$date_index), expected_dates)
     expect_equal(x$count, expected_counts)
     expect_equal(x$height, expected_heights)
@@ -226,7 +226,7 @@ test_that("yearweek incidence with groups and count works", {
     expected_heights <- rep(c("short", "tall"), 4)
     expected_sizes <- c(rep("small", 2), rep("large", 6))
     expect_s3_class(x$date_index, "grates_yearweek_sunday")
-    expect_equal(nrow(x), 8L)
+    expect_identical(nrow(x), 8L)
     expect_equal(as.Date(x$date_index), expected_dates)
     expect_equal(x$count, expected_counts)
     expect_equal(x$height, expected_heights)
@@ -243,7 +243,7 @@ test_that("yearweek incidence with no groupings but with count works", {
     expected_dates <- seq.Date(from = firstday, to = lastday, by = "7 days")
     expected_counts <- c(rep(7L, 52), 12L, rep(14L, 51), 6L)
     expect_s3_class(x$date_index, "grates_isoweek")
-    expect_equal(nrow(x), 105L)
+    expect_identical(nrow(x), 105L)
     expect_equal(as.Date(x$date_index), expected_dates)
     expect_equal(x$count, expected_counts)
 })
@@ -260,7 +260,7 @@ test_that("yearmonth incidence with no groupings and without count works", {
         31L, 28L, 31L, 30L, 31L, 30L, 31L, 31L, 30L, 31L, 30L, 31L
     )
     expect_s3_class(x$date_index, "grates_yearmonth")
-    expect_equal(nrow(x), 24L)
+    expect_identical(nrow(x), 24L)
     expect_equal(as.Date(x$date_index), expected_dates)
     expect_equal(x$count, expected_counts)
 
@@ -297,7 +297,7 @@ test_that("yearmonth incidence with no groupings but with count", {
         62L, 56L, 62L, 60L, 62L, 60L, 62L, 62L, 60L, 62L, 60L, 62L
     )
     expect_s3_class(x$date_index, "grates_yearmonth")
-    expect_equal(nrow(x), 24L)
+    expect_identical(nrow(x), 24L)
     expect_equal(as.Date(x$date_index), expected_dates)
     expect_equal(x$count, expected_counts)
 
@@ -315,7 +315,7 @@ test_that("yearquarter incidence with no groupings and without count works", {
         90L, 91L, 92L, 92L
     )
     expect_s3_class(x$date_index, "grates_yearquarter")
-    expect_equal(nrow(x), 8L)
+    expect_identical(nrow(x), 8L)
     expect_equal(as.Date(x$date_index), expected_dates)
     expect_equal(x$count, expected_counts)
 
@@ -352,7 +352,7 @@ test_that("yearquarter incidence with no groupings but with count works", {
         180L, 182L, 184L, 184L
     )
     expect_s3_class(x$date_index, "grates_yearquarter")
-    expect_equal(nrow(x), 8L)
+    expect_identical(nrow(x), 8L)
     expect_equal(as.Date(x$date_index), expected_dates)
     expect_equal(x$count, expected_counts)
 
@@ -385,7 +385,7 @@ test_that("year incidence with no groupings and without count works", {
     expected_dates <- seq.Date(from = firstday, to = lastday, by = "1 year")
     expected_counts <- c(366L, 365L)
     expect_s3_class(x$date_index, "grates_year")
-    expect_equal(nrow(x), 2L)
+    expect_identical(nrow(x), 2L)
     expect_equal(as.Date(x$date_index), expected_dates)
     expect_equal(x$count, expected_counts)
 
@@ -415,7 +415,7 @@ test_that("year incidence with no groupings but with a count works", {
     expected_dates <- seq.Date(from = firstday, to = lastday, by = "1 year")
     expected_counts <- c(366, 730L)
     expect_s3_class(x$date_index, "grates_year")
-    expect_equal(nrow(x), 2L)
+    expect_identical(nrow(x), 2L)
     expect_equal(as.Date(x$date_index), expected_dates)
     expect_equal(x$count, expected_counts)
 
@@ -446,10 +446,7 @@ test_that("10 incidence with no groupings but with a count works", {
     expected_dates <- seq.Date(from = firstday, to = lastday, by = "10 days")
     expected_counts <- c(integer(36L) + 10L, 6L)
     expect_s3_class(x$date_index, "grates_period")
-    expect_equal(nrow(x), 37L)
+    expect_identical(nrow(x), 37L)
     expect_equal(as.Date(x$date_index), expected_dates)
     expect_equal(x$count, expected_counts)
 })
-
-
-

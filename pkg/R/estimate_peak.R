@@ -98,7 +98,8 @@ estimate_peak <- function(x, n = 100L, alpha = 0.05, first_only = TRUE, progress
     assert_bool(progress, .subclass = "incidence2_error")
 
     # Needed for CRAN/data.table
-    ..date_var <- bootstrap_peaks <- ..observed_peak <- observed_count <- . <- i.bootstrap_peaks <- NULL
+    ..date_var <- bootstrap_peaks <- ..observed_peak <- NULL
+    observed_count <- . <- i.bootstrap_peaks <- NULL
 
     # get relevant column names
     date_var <- get_date_index_name(x)

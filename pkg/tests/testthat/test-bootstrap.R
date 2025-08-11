@@ -25,7 +25,7 @@ test_that("bootstrap_incidence works as expected", {
 
     expect_identical(sum(x$count), sum(y$count))
     expect_identical(sum(x$count), sum(z$count))
-    expect_identical(names(x), names(y))
-    expect_identical(names(x), names(z))
+    expect_named(x, names(y))
+    expect_named(x, names(z))
     expect_true(setequal(y$groups, z$groups))
 })

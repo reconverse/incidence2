@@ -125,7 +125,7 @@ Broadly speaking, we refer to data with one row of observations (e.g. 'Sex',
 library(incidence2)
 
 # linelist from the simulated ebola outbreak  (removing some missing entries)
-ebola <- subset(outbreaks::ebola_sim_clean$linelist ,!is.na(hospital))
+ebola <- subset(outbreaks::ebola_sim_clean$linelist, !is.na(hospital))
 str(ebola)
 ```
 
@@ -161,11 +161,11 @@ to calculate the incidence:
 ```{r}
 #| fig.alt: >
 #|   Bar chart of weekly incidence covering 2014-W15 to 2015-W18 inclusive.
-#|   The graph peaks at 2014-W38. The "descent" from the peak tapers off 
+#|   The graph peaks at 2014-W38. The "descent" from the peak tapers off
 #|   slower than the initial "ascent".
-(weekly_incidence <- 
+(weekly_incidence <-
     ebola |>
-    mutate(date_of_onset = as_isoweek(date_of_onset)) |> 
+    mutate(date_of_onset = as_isoweek(date_of_onset)) |>
     incidence(date_index = "date_of_onset"))
 plot(weekly_incidence, border_colour = "white")
 ```
@@ -216,7 +216,7 @@ plot(weekly_incidence_gender, border_colour = "white", angle = 45)
 ```{r}
 #| fig.alt: >
 #|   Bar chart of weekly incidence covering 2014-W15 to 2015-W18 inclusive.
-#|   The graph peaks at 2014-W38. The "descent" from the peak tapers off 
+#|   The graph peaks at 2014-W38. The "descent" from the peak tapers off
 #|   slower than the initial "ascent". The graph is "filled" by the number of
 #|   male versus female but it is hard to descern the difference.
 plot(weekly_incidence_gender, border_colour = "white", angle = 45, fill = "gender")
@@ -231,7 +231,7 @@ use of named vectors:
     date_index = c(
         onset = "date_of_onset",
         infection = "date_of_infection"
-    ), 
+    ),
     interval = "isoweek",
     groups = "gender"
 ))
@@ -310,11 +310,11 @@ values as zero counts we can simply replace them in the data prior to calling
 #| fig.alt: >
 #|   Nine bar charts arranged in a 3 by 3 grid representing incidence new covid
 #|   cases by month across nine English regions. Each plot goes from the start
-#|   of 2020 to mid 2021. In each plot we see an increase in cases towards the 
+#|   of 2020 to mid 2021. In each plot we see an increase in cases towards the
 #|   end of 2020 and in to early 2021.
 (monthly_covid <-
      covid |>
-     tidyr::replace_na(list(cases_new = 0)) |> 
+     tidyr::replace_na(list(cases_new = 0)) |>
      incidence(
          date_index = "date",
          groups = "region",
@@ -336,7 +336,7 @@ border.
 #| fig.alt: >
 #|   Bar chart of daily incidence covering the period 2014-07-08 to 2014-07-16
 #|   inclusive. It shows 21 cases, with each case represented by an individual
-#|   square. 
+#|   square.
 dat <- ebola[160:180, ]
 
 (small <- incidence(
@@ -359,7 +359,7 @@ plot(small, show_cases = TRUE, angle = 45, n_breaks = 10)
     date_index = "date_of_onset",
     groups = "gender",
     date_names_to = "date"
-)) 
+))
 plot(small_gender, show_cases = TRUE, angle = 45, n_breaks = 10, fill = "gender")
 ```
 
@@ -493,11 +493,11 @@ influenza <- incidence_(
 )
 
 # across provinces (we suspend progress bar for markdown)
-estimate_peak(influenza, progress = FALSE) |> 
+estimate_peak(influenza, progress = FALSE) |>
     select(-count_variable)
 # regrouping for overall peak
 plot(regroup(influenza))
-estimate_peak(regroup(influenza), progress = FALSE) |> 
+estimate_peak(regroup(influenza), progress = FALSE) |>
     select(-count_variable)
 # return the first peak of the grouped and ungrouped data
 first_peak(influenza)
@@ -565,8 +565,8 @@ weekly_incidence <- incidence_(
 )
 
 # filtering preserves class
-weekly_incidence |> 
-    subset(gender == "f" & hospital == "Rokupa Hospital") |> 
+weekly_incidence |>
+    subset(gender == "f" & hospital == "Rokupa Hospital") |>
     class()
 
 class(weekly_incidence[c(1L, 3L, 5L), ])
@@ -574,8 +574,8 @@ class(weekly_incidence[c(1L, 3L, 5L), ])
 # Adding columns preserve class
 weekly_incidence$future <- weekly_incidence$date_index + 999L
 class(weekly_incidence)
-weekly_incidence |> 
-    mutate(past = date_index - 999L) |> 
+weekly_incidence |>
+    mutate(past = date_index - 999L) |>
     class()
 
 # rename preserve class
@@ -584,7 +584,7 @@ str(weekly_incidence)
 
 # select returns a tibble unless all date, count and group variables are
 # preserved in the output
-str(weekly_incidence[,-1L])
+str(weekly_incidence[, -1L])
 str(weekly_incidence[, -6L])
 
 # duplicating rows will drop the class but only if duplicate rows
@@ -700,8 +700,8 @@ plot(dat, angle = 45) +
 #|   blank. On top of each bar graph is a line along that displays the rolling
 #|   average.
 weekly_incidence |>
-    regroup_(hospital) |> 
-    mutate(rolling_average = data.table::frollmean(count, n = 3L, align = "right")) |> 
+    regroup_(hospital) |>
+    mutate(rolling_average = data.table::frollmean(count, n = 3L, align = "right")) |>
     plot(border_colour = "white", angle = 45) +
     ggplot2::geom_line(ggplot2::aes(x = date_index, y = rolling_average))
 ```

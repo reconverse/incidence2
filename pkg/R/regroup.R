@@ -74,7 +74,7 @@ regroup <- function(x, groups = NULL) {
     )
     out[[count_names_to]] <- NULL
     attr(out, "count_variable") <- count_variable
-    attr(out, "groups") <- if (is.null(groups)) character() else groups
+    attr(out, "groups") <- groups %||% character()
     out
 }
 
@@ -88,7 +88,7 @@ regroup_ <- function(x, groups = NULL) {
 
     groups_expr <- rlang::enquo(groups)
     groups_position <- tidyselect::eval_select(groups_expr, data = x)
-    groups <- if(length(groups_position)) names(x)[groups_position] else NULL
+    groups <- if (length(groups_position)) names(x)[groups_position] else NULL
 
     group_variables <- attr(x, "groups")
     if (is.null(groups) && !length(group_variables))
@@ -117,6 +117,6 @@ regroup_ <- function(x, groups = NULL) {
     )
     out[[count_names_to]] <- NULL
     attr(out, "count_variable") <- count_variable
-    attr(out, "groups") <- if (is.null(groups)) character() else groups
+    attr(out, "groups") <- groups %||% character()
     out
 }
