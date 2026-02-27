@@ -39,6 +39,7 @@ site: install
 	mkdir -p sitebuild
 	rm -rf sitebuild/* docs
 	cp -r site/* sitebuild/
+	cp pkg/vignettes/incidence2.Rmd sitebuild/vignette.Rmd
 	cd sitebuild; Rscript -e "litedown::fuse('_footer.Rmd', '.md')"
 	cd sitebuild; Rscript -e "litedown::fuse_site()"
 	cd sitebuild; rm -f *.Rmd *.yml _*

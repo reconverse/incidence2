@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="generator" content="litedown 0.9.2.1">
+<title>An introduction to incidence2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/css/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/css/article.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/css/copy-button.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/css/heading-anchor.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/css/pages.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/css/site.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/css/callout.min.css">
+<link rel="stylesheet" href="assets/tweaks.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/css/prism-xcode.min.css">
+</head>
+<body>
+<nav><p><a href="index.html">Home</a>
+<a href="manual.html">Manual</a>
+<a href="news.html">News</a>
+<a href="vignette.html">Vignette</a></p></nav>
+<div class="frontmatter">
+<div class="title"><h1>An introduction to incidence2</h1></div>
+</div>
+<div class="body">
+<div id="TOC">
+<ul>
+<li><a href="#sec:what-does-it-do">What does it do?</a></li>
+<li><a href="#sec:functions-at-a-glance">Functions at a glance</a></li>
+<li><a href="#sec:basic-usage">Basic Usage</a>
+<ul>
+<li><a href="#sec:computing-incidence-from-a-linelist">Computing incidence from a linelist</a></li>
+<li><a href="#sec:computing-incidence-from-pre-aggregated-data">Computing incidence from pre-aggregated data</a></li>
+<li><a href="#sec:plotting-in-style-of-european-programme-for-intervention-epidemiology-training-epiet">Plotting in style of European Programme for Intervention Epidemiology Training (EPIET)</a></li>
+</ul>
+</li>
+<li><a href="#sec:support-for-tidy-select-semantics">Support for tidy-select semantics</a></li>
+<li><a href="#sec:working-with-incidence-objects">Working with incidence objects</a>
+<ul>
+<li><a href="#sec:regroup"><code>regroup()</code></a></li>
+<li><a href="#sec:complete-dates"><code>complete_dates()</code></a></li>
+<li><a href="#sec:keep-first-keep-last-and-keep-peaks"><code>keep_first()</code>, <code>keep_last()</code> and <code>keep_peaks()</code></a></li>
+<li><a href="#sec:bootstrapping-and-estimating-peaks">Bootstrapping and estimating peaks</a></li>
+<li><a href="#sec:cumulate"><code>cumulate()</code></a></li>
+</ul>
+</li>
+<li><a href="#sec:building-on-incidence2">Building on incidence2</a>
+<ul>
+<li><a href="#sec:class-preservation">Class preservation</a></li>
+<li><a href="#sec:accessing-variable-information">Accessing variable information</a></li>
+<li><a href="#sec:grouping-aware-methods">Grouping aware methods</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="sec:what-does-it-do">What does it do?</h2>
+<p><strong>incidence2</strong> is an R package that implements functions to compute, handle
+and visualise <em>incidence</em> data. It aims to be intuitive to use for both
+interactive data exploration and as part of more robust outbreak analytic
+pipelines.</p>
+<p>The package is based around objects of the namesake class, <code>incidence2</code>. These
+objects are a <a href="https://cran.r-project.org/package=tibble"><code>tibble</code></a> subclass
+with some additional invariants. That is, an <code>incidence2</code> object must:</p>
+<ul>
+<li>
+<p>have one column representing the date index (this does not need to be a <code>Date</code>
+object but must have an inherent ordering over time);</p>
+</li>
+<li>
+<p>have one column representing the count variable (i.e. what is being counted)
+and one variable representing the associated count;</p>
+</li>
+<li>
+<p>have zero or more columns representing groups;</p>
+</li>
+<li>
+<p>not have duplicated rows with regards to the date, group and count variables.</p>
+</li>
+</ul>
+<h2 id="sec:functions-at-a-glance">Functions at a glance</h2>
+<p>To create and work with <code>incidence2</code> objects we provide a number of functions:</p>
+<ul>
+<li>
+<p><code>incidence()</code>: for the construction of incidence objects from both linelists
+and pre-aggregated data sets.</p>
+</li>
+<li>
+<p><code>regroup()</code>: regroup incidence from different groups into one global incidence
+time series.</p>
+</li>
+<li>
+<p><code>incidence_()</code> and <code>regroup_()</code>: These work similar to their aforementioned
+namesakes but also add support for
+<a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html">tidy-select</a>
+semantics in their arguments.</p>
+</li>
+<li>
+<p><code>plot.incidence2()</code>: generate simple plots with reasonable defaults.</p>
+</li>
+<li>
+<p><code>cumulate()</code>: calculate the cumulative incidence over time.</p>
+</li>
+<li>
+<p><code>complete_dates()</code>: ensure every possible combination of date and groupings
+is represented with a count.</p>
+</li>
+<li>
+<p><code>keep_first()</code>, <code>keep_last()</code>: keep the rows corresponding to the first (or
+last) set of grouped dates (ordered by time) from an <code>incidence2</code> object.</p>
+</li>
+<li>
+<p><code>keep_peaks()</code>; keep the rows corresponding to the maximum count value for
+each grouping of an <code>incidence2</code> object. A convenience wrapper around this,
+<code>first_peak()</code> keeps returns the earliest occurring peak row.</p>
+</li>
+<li>
+<p><code>bootstrap_incidence()</code>; sampling (with replacement and optional randomisation)
+from incidence2 objects.</p>
+</li>
+<li>
+<p><code>estimate_peak()</code>; estimate the peak of an epidemic curve using bootstrapped
+samples of the available data.</p>
+</li>
+<li>
+<p>Accessors for underlying variables: <code>get_date_index()</code>, <code>get_count_variable()</code>,
+<code>get_count_value()</code>, <code>get_groups()</code>, <code>get_count_value_name()</code>,
+<code>get_count_variable_name()</code>, <code>get_date_index_name()</code> and <code>get_group_names()</code>.</p>
+</li>
+<li>
+<p>Methods for common base R generics:</p>
+<ul>
+<li><code>as.data.frame.incidence2()</code></li>
+<li><code>$&lt;-.incidence2()</code></li>
+<li><code>[.incidence2()</code></li>
+<li><code>[&lt;-.incidence2()</code></li>
+<li><code>names&lt;-.incidence2()</code></li>
+<li><code>split.incidence2()</code></li>
+<li><code>rbind.incidence2()</code></li>
+</ul>
+</li>
+<li>
+<p>Methods for generics from the wider R package ecosystem, including:</p>
+<ul>
+<li><code>mutate.incidence2()</code></li>
+<li><code>summarise.incidence2()</code></li>
+<li><code>nest.incidence2()</code></li>
+<li><code>as_tibble.incidence2()</code></li>
+<li><code>as.data.table.incidence2()</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="sec:basic-usage">Basic Usage</h2>
+<p>Examples in the vignette utilise three different sets of data:</p>
+<ul>
+<li>
+<p>A synthetic linelist generated from a simulated Ebola Virus Disease
+(EVD) outbreak and available in the
+<a href="https://cran.r-project.org/package=outbreaks">outbreaks</a> package.</p>
+</li>
+<li>
+<p>A pre-aggregated time-series of Covid cases, tests, hospitalisations,
+and deaths for UK regions that is included within the incidence2 package.</p>
+</li>
+<li>
+<p>136 cases of influenza A H7N9 in China. Again available in the outbreaks
+package.</p>
+</li>
+</ul>
+<h3 id="sec:computing-incidence-from-a-linelist">Computing incidence from a linelist</h3>
+<p>Broadly speaking, we refer to data with one row of observations (e.g. ‘Sex’,
+‘Date of symptom onset’, ‘Date of Hospitalisation’) per individual as a linelist</p>
+<pre><code class="language-r">library(incidence2)
+</code></pre>
+<pre><code class="language-plain message">#&gt; Loading required package: grates
+</code></pre>
+<pre><code class="language-r"># linelist from the simulated ebola outbreak  (removing some missing entries)
+ebola &lt;- subset(outbreaks::ebola_sim_clean$linelist, !is.na(hospital))
+str(ebola)
+</code></pre>
+<pre><code>#&gt; 'data.frame':	4373 obs. of  11 variables:
+#&gt;  $ case_id                : chr  &quot;d1fafd&quot; &quot;53371b&quot; &quot;f5c3d8&quot; &quot;0f58c4&quot; ...
+#&gt;  $ generation             : int  0 1 1 2 3 3 2 3 4 3 ...
+#&gt;  $ date_of_infection      : Date, format: NA &quot;2014-04-09&quot; ...
+#&gt;  $ date_of_onset          : Date, format: &quot;2014-04-07&quot; &quot;2014-04-15&quot; ...
+#&gt;  $ date_of_hospitalisation: Date, format: &quot;2014-04-17&quot; &quot;2014-04-20&quot; ...
+#&gt;  $ date_of_outcome        : Date, format: &quot;2014-04-19&quot; NA ...
+#&gt;  $ outcome                : Factor w/ 2 levels &quot;Death&quot;,&quot;Recover&quot;: NA NA 2 2 2 1 2 1 NA 2 ...
+#&gt;  $ gender                 : Factor w/ 2 levels &quot;f&quot;,&quot;m&quot;: 1 2 1 1 1 1 2 2 1 1 ...
+#&gt;  $ hospital               : Factor w/ 5 levels &quot;Connaught Hospital&quot;,..: 2 1 3 3 1 4 3 5 1 1 ...
+#&gt;  $ lon                    : num  -13.2 -13.2 -13.2 -13.2 -13.2 ...
+#&gt;  $ lat                    : num  8.47 8.46 8.48 8.45 8.46 ...
+</code></pre>
+<p>To compute daily incidence we pass to <code>incidence()</code> our linelist data frame
+as well as the name of a column in the data that we can use to index over
+time. Whilst we refer to this index as the <code>date_index</code> there is no
+restriction on it’s type, save the requirement that is has an inherent ordering.</p>
+<pre><code class="language-r">(daily_incidence &lt;- incidence(ebola, date_index = &quot;date_of_onset&quot;))
+</code></pre>
+<pre><code>#&gt; # incidence:  361 x 3
+#&gt; # count vars: date_of_onset
+#&gt;    date_index count_variable count
+#&gt;    &lt;date&gt;     &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2014-04-07 date_of_onset      1
+#&gt;  2 2014-04-15 date_of_onset      1
+#&gt;  3 2014-04-21 date_of_onset      2
+#&gt;  4 2014-04-26 date_of_onset      1
+#&gt;  5 2014-05-01 date_of_onset      2
+#&gt;  6 2014-05-03 date_of_onset      1
+#&gt;  7 2014-05-05 date_of_onset      1
+#&gt;  8 2014-05-06 date_of_onset      2
+#&gt;  9 2014-05-07 date_of_onset      2
+#&gt; 10 2014-05-08 date_of_onset      2
+#&gt; # ℹ 351 more rows
+</code></pre>
+<p>incidence2 also provides a simple plot method (see <code>help(&quot;plot.incidence2&quot;)</code>)
+built upon <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a>.</p>
+<pre><code class="language-r">plot(daily_incidence)
+</code></pre>
+<p><img src="vignette__files/chunk-4-1.png" alt="&gt;" /></p>
+<p>The daily data is quite noisy, so it may be worth grouping the dates prior to
+calculating the incidence. One way to do this is to utilise functions from the
+<a href="https://cran.r-project.org/package=grates">grates</a> package. incidence2
+depends on the grates package so all of it’s functionality is available
+directly to users. Here we use the <code>as_isoweek()</code> function to convert the
+‘date of onset’ to an isoweek (a week starting on a Monday) before proceeding
+to calculate the incidence:</p>
+<pre><code class="language-r">(weekly_incidence &lt;-
+    ebola |&gt;
+    mutate(date_of_onset = as_isoweek(date_of_onset)) |&gt;
+    incidence(date_index = &quot;date_of_onset&quot;))
+</code></pre>
+<pre><code>#&gt; # incidence:  56 x 3
+#&gt; # count vars: date_of_onset
+#&gt;    date_index count_variable count
+#&gt;    &lt;isowk&gt;    &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2014-W15   date_of_onset      1
+#&gt;  2 2014-W16   date_of_onset      1
+#&gt;  3 2014-W17   date_of_onset      3
+#&gt;  4 2014-W18   date_of_onset      3
+#&gt;  5 2014-W19   date_of_onset     11
+#&gt;  6 2014-W20   date_of_onset     13
+#&gt;  7 2014-W21   date_of_onset     11
+#&gt;  8 2014-W22   date_of_onset     15
+#&gt;  9 2014-W23   date_of_onset     13
+#&gt; 10 2014-W24   date_of_onset     13
+#&gt; # ℹ 46 more rows
+</code></pre>
+<pre><code class="language-r">plot(weekly_incidence, border_colour = &quot;white&quot;)
+</code></pre>
+<p><img src="vignette__files/chunk-5-1.png" alt="&gt;" /></p>
+<p>As this sort of date grouping is often required we have chosen to integrate this
+within the <code>incidence()</code> function via the <code>interval</code> parameter.
+<code>interval</code> can take any of the following values:</p>
+<ul>
+<li>‘day’ or ‘daily’ (mapping to <code>Date</code> objects);</li>
+<li>‘week(s)’, ‘isoweek(s)’ or ‘weekly’ (mapping to <code>grates_isoweek</code>);</li>
+<li>‘epiweek(s)’ (mapping to <code>grates_epiweek</code>);</li>
+<li>‘month(s)’, ‘yearmonth(s)’ or ‘monthly’ (<code>grates_yearmonth</code>);</li>
+<li>‘quarter(s)’, ‘yearquarter(s)’ or ‘quarterly’ (<code>grates_yearquarter</code>);</li>
+<li>‘year(s)’ or ‘yearly’ (<code>grates_year</code>).</li>
+</ul>
+<p>As an example, the following is equivalent to the <code>weekly_incidence</code> output above:</p>
+<pre><code class="language-r">(dat &lt;- incidence(ebola, date_index = &quot;date_of_onset&quot;, interval = &quot;isoweek&quot;))
+</code></pre>
+<pre><code>#&gt; # incidence:  56 x 3
+#&gt; # count vars: date_of_onset
+#&gt;    date_index count_variable count
+#&gt;    &lt;isowk&gt;    &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2014-W15   date_of_onset      1
+#&gt;  2 2014-W16   date_of_onset      1
+#&gt;  3 2014-W17   date_of_onset      3
+#&gt;  4 2014-W18   date_of_onset      3
+#&gt;  5 2014-W19   date_of_onset     11
+#&gt;  6 2014-W20   date_of_onset     13
+#&gt;  7 2014-W21   date_of_onset     11
+#&gt;  8 2014-W22   date_of_onset     15
+#&gt;  9 2014-W23   date_of_onset     13
+#&gt; 10 2014-W24   date_of_onset     13
+#&gt; # ℹ 46 more rows
+</code></pre>
+<pre><code class="language-r"># check equivalent
+identical(dat, weekly_incidence)
+</code></pre>
+<pre><code>#&gt; [1] TRUE
+</code></pre>
+<p>If we wish to aggregate by specified groups we can use the <code>groups</code> argument.
+For instance, to compute the weekly incidence by gender:</p>
+<pre><code class="language-r">(weekly_incidence_gender &lt;- incidence(
+    ebola,
+    date_index = &quot;date_of_onset&quot;,
+    groups = &quot;gender&quot;,
+    interval = &quot;isoweek&quot;
+))
+</code></pre>
+<pre><code>#&gt; # incidence:  109 x 4
+#&gt; # count vars: date_of_onset
+#&gt; # groups:     gender
+#&gt;    date_index gender count_variable count
+#&gt;    &lt;isowk&gt;    &lt;fct&gt;  &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2014-W15   f      date_of_onset      1
+#&gt;  2 2014-W16   m      date_of_onset      1
+#&gt;  3 2014-W17   f      date_of_onset      2
+#&gt;  4 2014-W17   m      date_of_onset      1
+#&gt;  5 2014-W18   f      date_of_onset      3
+#&gt;  6 2014-W19   f      date_of_onset      8
+#&gt;  7 2014-W19   m      date_of_onset      3
+#&gt;  8 2014-W20   f      date_of_onset      4
+#&gt;  9 2014-W20   m      date_of_onset      9
+#&gt; 10 2014-W21   f      date_of_onset      6
+#&gt; # ℹ 99 more rows
+</code></pre>
+<p>For grouped data, the plot method will create a faceted plot across groups
+unless a fill variable is specified:</p>
+<pre><code class="language-r">plot(weekly_incidence_gender, border_colour = &quot;white&quot;, angle = 45)
+</code></pre>
+<p><img src="vignette__files/chunk-8-1.png" alt="&gt;" /></p>
+<pre><code class="language-r">plot(weekly_incidence_gender, border_colour = &quot;white&quot;, angle = 45, fill = &quot;gender&quot;)
+</code></pre>
+<p><img src="vignette__files/chunk-9-1.png" alt="&gt;" /></p>
+<p><code>incidence()</code> also supports multiple date inputs and allows renaming via the
+use of named vectors:</p>
+<pre><code class="language-r">(weekly_multi_dates &lt;- incidence(
+    ebola,
+    date_index = c(
+        onset = &quot;date_of_onset&quot;,
+        infection = &quot;date_of_infection&quot;
+    ),
+    interval = &quot;isoweek&quot;,
+    groups = &quot;gender&quot;
+))
+</code></pre>
+<pre><code>#&gt; # incidence:  216 x 4
+#&gt; # count vars: onset, infection
+#&gt; # groups:     gender
+#&gt;    date_index gender count_variable count
+#&gt;    &lt;isowk&gt;    &lt;fct&gt;  &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2014-W15   f      onset              1
+#&gt;  2 2014-W15   m      infection          1
+#&gt;  3 2014-W16   f      infection          1
+#&gt;  4 2014-W16   m      onset              1
+#&gt;  5 2014-W17   f      infection          3
+#&gt;  6 2014-W17   f      onset              2
+#&gt;  7 2014-W17   m      onset              1
+#&gt;  8 2014-W18   f      infection          6
+#&gt;  9 2014-W18   f      onset              3
+#&gt; 10 2014-W19   f      infection          6
+#&gt; # ℹ 206 more rows
+</code></pre>
+<p>For a quick, high-level, overview of grouped data we can use the <code>summary()</code> method:</p>
+<pre><code class="language-r">summary(weekly_multi_dates)
+</code></pre>
+<pre><code>#&gt; From:          2014-W15
+#&gt; To:            2015-W18
+#&gt; Groups:        gender
+#&gt; 
+#&gt; Total observations:
+#&gt; # A data frame: 4 × 3
+#&gt;   gender count_variable count
+#&gt;   &lt;fct&gt;  &lt;chr&gt;          &lt;int&gt;
+#&gt; 1 f      onset           2195
+#&gt; 2 m      infection       1390
+#&gt; 3 f      infection       1408
+#&gt; 4 m      onset           2178
+</code></pre>
+<p>When multiple date indices are given, they are used for rows of the resultant
+plot, unless the resultant variable is used to fill:</p>
+<pre><code class="language-r">plot(weekly_multi_dates, angle = 45, border_colour = &quot;white&quot;)
+</code></pre>
+<p><img src="vignette__files/chunk-12-1.png" alt="&gt;" /></p>
+<pre><code class="language-r">plot(weekly_multi_dates, angle = 45, border_colour = &quot;white&quot;, fill = &quot;count_variable&quot;)
+</code></pre>
+<p><img src="vignette__files/chunk-13-1.png" alt="&gt;" /></p>
+<h3 id="sec:computing-incidence-from-pre-aggregated-data">Computing incidence from pre-aggregated data</h3>
+<p>In terms of this package, pre-aggregated data, is data where we have a single
+column representing time and associated counts linked to those times (still
+optionally split by characteristics). The included Covid data set is in this
+wide format with multiple count values given for each day.</p>
+<pre><code class="language-r">covid &lt;- subset(
+    covidregionaldataUK,
+    !region %in% c(&quot;England&quot;, &quot;Scotland&quot;, &quot;Northern Ireland&quot;, &quot;Wales&quot;)
+)
+str(covid)
+</code></pre>
+<pre><code>#&gt; 'data.frame':	4410 obs. of  13 variables:
+#&gt;  $ date           : Date, format: &quot;2020-01-30&quot; &quot;2020-01-30&quot; ...
+#&gt;  $ region         : chr  &quot;East Midlands&quot; &quot;East of England&quot; &quot;London&quot; &quot;North East&quot; ...
+#&gt;  $ region_code    : chr  &quot;E12000004&quot; &quot;E12000006&quot; &quot;E12000007&quot; &quot;E12000001&quot; ...
+#&gt;  $ cases_new      : num  NA NA NA NA NA NA NA NA 1 NA ...
+#&gt;  $ cases_total    : num  NA NA NA NA NA NA NA NA 1 NA ...
+#&gt;  $ deaths_new     : num  NA NA NA NA NA NA NA NA NA NA ...
+#&gt;  $ deaths_total   : num  NA NA NA NA NA NA NA NA NA NA ...
+#&gt;  $ recovered_new  : num  NA NA NA NA NA NA NA NA NA NA ...
+#&gt;  $ recovered_total: num  NA NA NA NA NA NA NA NA NA NA ...
+#&gt;  $ hosp_new       : num  NA NA NA NA NA NA NA NA NA NA ...
+#&gt;  $ hosp_total     : num  NA NA NA NA NA NA NA NA NA NA ...
+#&gt;  $ tested_new     : num  NA NA NA NA NA NA NA NA NA NA ...
+#&gt;  $ tested_total   : num  NA NA NA NA NA NA NA NA NA NA ...
+</code></pre>
+<p>Like with our linelist data, <code>incidence()</code> requires us to specify a <code>date_index</code>
+column and optionally our <code>groups</code> and/or <code>interval</code>. In addition we must now
+also provide the <code>counts</code> variable(s) that we are interested in.</p>
+<p>Before continuing, take note of the missing values in output above. Where
+these occur in one of the count variables, <code>incidence()</code> warns users:</p>
+<pre><code class="language-r">monthly_covid &lt;- incidence(
+    covid,
+    date_index = &quot;date&quot;,
+    groups = &quot;region&quot;,
+    counts = &quot;cases_new&quot;,
+    interval = &quot;yearmonth&quot;
+)
+</code></pre>
+<pre><code class="language-plain warning">#&gt; `cases_new` contains NA values. Consider imputing these and calling `incidence()` again.
+</code></pre>
+<pre><code class="language-r">monthly_covid
+</code></pre>
+<pre><code>#&gt; # incidence:  162 x 4
+#&gt; # count vars: cases_new
+#&gt; # groups:     region
+#&gt;    date_index region                   count_variable count
+#&gt;    &lt;yrmon&gt;    &lt;chr&gt;                    &lt;fct&gt;          &lt;dbl&gt;
+#&gt;  1 2020-Jan   East Midlands            cases_new         NA
+#&gt;  2 2020-Jan   East of England          cases_new         NA
+#&gt;  3 2020-Jan   London                   cases_new         NA
+#&gt;  4 2020-Jan   North East               cases_new         NA
+#&gt;  5 2020-Jan   North West               cases_new         NA
+#&gt;  6 2020-Jan   South East               cases_new         NA
+#&gt;  7 2020-Jan   South West               cases_new         NA
+#&gt;  8 2020-Jan   West Midlands            cases_new         NA
+#&gt;  9 2020-Jan   Yorkshire and The Humber cases_new          1
+#&gt; 10 2020-Feb   East Midlands            cases_new         NA
+#&gt; # ℹ 152 more rows
+</code></pre>
+<p>Whilst we could have let <code>incidence()</code> ignore missing values (equivalent to
+setting <code>sum(..., na.rm=TRUE)</code>), we prefer that users make an explicit choice
+on how these should (or should not) be imputed. For example, to treat missing
+values as zero counts we can simply replace them in the data prior to calling
+<code>incidence()</code>:</p>
+<pre><code class="language-r">(monthly_covid &lt;-
+     covid |&gt;
+     tidyr::replace_na(list(cases_new = 0)) |&gt;
+     incidence(
+         date_index = &quot;date&quot;,
+         groups = &quot;region&quot;,
+         counts = &quot;cases_new&quot;,
+         interval = &quot;yearmonth&quot;
+     ))
+</code></pre>
+<pre><code>#&gt; # incidence:  162 x 4
+#&gt; # count vars: cases_new
+#&gt; # groups:     region
+#&gt;    date_index region                   count_variable count
+#&gt;    &lt;yrmon&gt;    &lt;chr&gt;                    &lt;fct&gt;          &lt;dbl&gt;
+#&gt;  1 2020-Jan   East Midlands            cases_new          0
+#&gt;  2 2020-Jan   East of England          cases_new          0
+#&gt;  3 2020-Jan   London                   cases_new          0
+#&gt;  4 2020-Jan   North East               cases_new          0
+#&gt;  5 2020-Jan   North West               cases_new          0
+#&gt;  6 2020-Jan   South East               cases_new          0
+#&gt;  7 2020-Jan   South West               cases_new          0
+#&gt;  8 2020-Jan   West Midlands            cases_new          0
+#&gt;  9 2020-Jan   Yorkshire and The Humber cases_new          1
+#&gt; 10 2020-Feb   East Midlands            cases_new          4
+#&gt; # ℹ 152 more rows
+</code></pre>
+<pre><code class="language-r">plot(monthly_covid, nrow = 3, angle = 45, border_colour = &quot;white&quot;)
+</code></pre>
+<p><img src="vignette__files/chunk-16-1.png" alt="&gt;" /></p>
+<h3 id="sec:plotting-in-style-of-european-programme-for-intervention-epidemiology-training-epiet">Plotting in style of European Programme for Intervention Epidemiology Training (EPIET)</h3>
+<p>For small datasets it is convention of EPIET to display individual cases as
+rectangles. We can do this by setting <code>show_cases = TRUE</code> in the call to
+<code>plot()</code> which will display each case as an individual square with a white
+border.</p>
+<pre><code class="language-r">dat &lt;- ebola[160:180, ]
+
+(small &lt;- incidence(
+    dat,
+    date_index = &quot;date_of_onset&quot;,
+    date_names_to = &quot;date&quot;
+))
+</code></pre>
+<pre><code>#&gt; # incidence:  9 x 3
+#&gt; # count vars: date_of_onset
+#&gt;   date       count_variable count
+#&gt;   &lt;date&gt;     &lt;chr&gt;          &lt;int&gt;
+#&gt; 1 2014-07-08 date_of_onset      2
+#&gt; 2 2014-07-09 date_of_onset      2
+#&gt; 3 2014-07-10 date_of_onset      1
+#&gt; 4 2014-07-11 date_of_onset      2
+#&gt; 5 2014-07-12 date_of_onset      3
+#&gt; 6 2014-07-13 date_of_onset      4
+#&gt; 7 2014-07-14 date_of_onset      5
+#&gt; 8 2014-07-15 date_of_onset      1
+#&gt; 9 2014-07-16 date_of_onset      1
+</code></pre>
+<pre><code class="language-r">plot(small, show_cases = TRUE, angle = 45, n_breaks = 10)
+</code></pre>
+<p><img src="vignette__files/chunk-17-1.png" alt="&gt;" /></p>
+<pre><code class="language-r">(small_gender &lt;- incidence(
+    dat,
+    date_index = &quot;date_of_onset&quot;,
+    groups = &quot;gender&quot;,
+    date_names_to = &quot;date&quot;
+))
+</code></pre>
+<pre><code>#&gt; # incidence:  13 x 4
+#&gt; # count vars: date_of_onset
+#&gt; # groups:     gender
+#&gt;    date       gender count_variable count
+#&gt;    &lt;date&gt;     &lt;fct&gt;  &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2014-07-08 m      date_of_onset      2
+#&gt;  2 2014-07-09 f      date_of_onset      1
+#&gt;  3 2014-07-09 m      date_of_onset      1
+#&gt;  4 2014-07-10 f      date_of_onset      1
+#&gt;  5 2014-07-11 f      date_of_onset      1
+#&gt;  6 2014-07-11 m      date_of_onset      1
+#&gt;  7 2014-07-12 f      date_of_onset      3
+#&gt;  8 2014-07-13 f      date_of_onset      3
+#&gt;  9 2014-07-13 m      date_of_onset      1
+#&gt; 10 2014-07-14 f      date_of_onset      1
+#&gt; 11 2014-07-14 m      date_of_onset      4
+#&gt; 12 2014-07-15 f      date_of_onset      1
+#&gt; 13 2014-07-16 f      date_of_onset      1
+</code></pre>
+<pre><code class="language-r">plot(small_gender, show_cases = TRUE, angle = 45, n_breaks = 10, fill = &quot;gender&quot;)
+</code></pre>
+<p><img src="vignette__files/chunk-18-1.png" alt="&gt;" /></p>
+<h2 id="sec:support-for-tidy-select-semantics">Support for tidy-select semantics</h2>
+<div class="callout-important" data-legend="Non-standard evaluation (NSE)">
+<p>With the 2.0.0 release of incidence2 I removed the NSE support from the
+<code>incidence()</code> function. At the time, my thinking was that this made the
+functions harder to use programmatically and quoting out inputs was not too
+onerous. I wanted The 2.0.0 series to be the last major release and thought the
+change was sensible. Whilst I still believe it is tricky to use NSE
+programmatically, I now view incidence2 as a more interactive package and there
+is a definite elegance to NSE in this situation. To this end, the 2.3.0, release
+added functions <code>incidence_()</code> and <code>regroup_()</code>which both support
+<a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html">tidy-select</a>
+semantics in their column arguments (i.e. <code>date_index</code>, <code>groups</code> and <code>counts</code>).</p>
+<p>To avoid any breaking changes, I chose not to change the existing functions
+instead using the post-fix underscore to distinguish functionality. Whilst this
+is not aesthetically pleasing it did ensure no existing code broke. With
+hindsight, whilst I do like having a separate interface for programmatic use,
+I wish I could swap the function names around and have <code>incidence()</code> as the
+tidy-select supporting interactive interface and <code>incidence_()</code> for programmatic
+use. C’est la vie.</p>
+</div>
+<div class="callout-note">
+<p>The following sections utilise the aforementioned tidy-select semantics and,
+hence, the post-fix version of the incidence function.</p>
+</div>
+<h2 id="sec:working-with-incidence-objects">Working with incidence objects</h2>
+<p>On top of the incidence constructor function and the basic plotting, printing
+and summary we provide a number of other useful functions and integrations for
+working with incidence2 objects.</p>
+<h3 id="sec:regroup"><code>regroup()</code></h3>
+<p>If you’ve created a grouped incidence object but now want to change the internal
+grouping, you can <code>regroup()</code> to the desired aggregation:</p>
+<pre><code class="language-r"># generate an incidence object with 3 groups
+(x &lt;- incidence_(
+    ebola,
+    date_index = date_of_onset,
+    groups = c(gender, hospital, outcome),
+    interval = &quot;isoweek&quot;
+))
+</code></pre>
+<pre><code>#&gt; # incidence:  1,167 x 6
+#&gt; # count vars: date_of_onset
+#&gt; # groups:     gender, hospital, outcome
+#&gt;    date_index gender hospital                       outcome count_variable count
+#&gt;    &lt;isowk&gt;    &lt;fct&gt;  &lt;fct&gt;                          &lt;fct&gt;   &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2014-W15   f      Military Hospital              &lt;NA&gt;    date_of_onset      1
+#&gt;  2 2014-W16   m      Connaught Hospital             &lt;NA&gt;    date_of_onset      1
+#&gt;  3 2014-W17   f      other                          Recover date_of_onset      2
+#&gt;  4 2014-W17   m      other                          Recover date_of_onset      1
+#&gt;  5 2014-W18   f      Connaught Hospital             Recover date_of_onset      1
+#&gt;  6 2014-W18   f      Princess Christian Maternity … Death   date_of_onset      1
+#&gt;  7 2014-W18   f      Rokupa Hospital                Recover date_of_onset      1
+#&gt;  8 2014-W19   f      Connaught Hospital             &lt;NA&gt;    date_of_onset      1
+#&gt;  9 2014-W19   f      Connaught Hospital             Recover date_of_onset      1
+#&gt; 10 2014-W19   f      Military Hospital              &lt;NA&gt;    date_of_onset      2
+#&gt; # ℹ 1,157 more rows
+</code></pre>
+<pre><code class="language-r"># regroup to just two groups
+regroup_(x, c(gender, outcome))
+</code></pre>
+<pre><code>#&gt; # incidence:  314 x 5
+#&gt; # count vars: date_of_onset
+#&gt; # groups:     gender, outcome
+#&gt;    date_index gender outcome count_variable count
+#&gt;    &lt;isowk&gt;    &lt;fct&gt;  &lt;fct&gt;   &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2014-W15   f      &lt;NA&gt;    date_of_onset      1
+#&gt;  2 2014-W16   m      &lt;NA&gt;    date_of_onset      1
+#&gt;  3 2014-W17   f      Recover date_of_onset      2
+#&gt;  4 2014-W17   m      Recover date_of_onset      1
+#&gt;  5 2014-W18   f      Death   date_of_onset      1
+#&gt;  6 2014-W18   f      Recover date_of_onset      2
+#&gt;  7 2014-W19   f      &lt;NA&gt;    date_of_onset      4
+#&gt;  8 2014-W19   f      Death   date_of_onset      1
+#&gt;  9 2014-W19   f      Recover date_of_onset      3
+#&gt; 10 2014-W19   m      &lt;NA&gt;    date_of_onset      1
+#&gt; # ℹ 304 more rows
+</code></pre>
+<pre><code class="language-r"># standard (non-tidy-select) version
+regroup(x, c(&quot;gender&quot;, &quot;outcome&quot;))
+</code></pre>
+<pre><code>#&gt; # incidence:  314 x 5
+#&gt; # count vars: date_of_onset
+#&gt; # groups:     gender, outcome
+#&gt;    date_index gender outcome count_variable count
+#&gt;    &lt;isowk&gt;    &lt;fct&gt;  &lt;fct&gt;   &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2014-W15   f      &lt;NA&gt;    date_of_onset      1
+#&gt;  2 2014-W16   m      &lt;NA&gt;    date_of_onset      1
+#&gt;  3 2014-W17   f      Recover date_of_onset      2
+#&gt;  4 2014-W17   m      Recover date_of_onset      1
+#&gt;  5 2014-W18   f      Death   date_of_onset      1
+#&gt;  6 2014-W18   f      Recover date_of_onset      2
+#&gt;  7 2014-W19   f      &lt;NA&gt;    date_of_onset      4
+#&gt;  8 2014-W19   f      Death   date_of_onset      1
+#&gt;  9 2014-W19   f      Recover date_of_onset      3
+#&gt; 10 2014-W19   m      &lt;NA&gt;    date_of_onset      1
+#&gt; # ℹ 304 more rows
+</code></pre>
+<pre><code class="language-r"># drop all groups
+regroup(x)
+</code></pre>
+<pre><code>#&gt; # incidence:  56 x 3
+#&gt; # count vars: date_of_onset
+#&gt;    date_index count_variable count
+#&gt;    &lt;isowk&gt;    &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2014-W15   date_of_onset      1
+#&gt;  2 2014-W16   date_of_onset      1
+#&gt;  3 2014-W17   date_of_onset      3
+#&gt;  4 2014-W18   date_of_onset      3
+#&gt;  5 2014-W19   date_of_onset     11
+#&gt;  6 2014-W20   date_of_onset     13
+#&gt;  7 2014-W21   date_of_onset     11
+#&gt;  8 2014-W22   date_of_onset     15
+#&gt;  9 2014-W23   date_of_onset     13
+#&gt; 10 2014-W24   date_of_onset     13
+#&gt; # ℹ 46 more rows
+</code></pre>
+<h3 id="sec:complete-dates"><code>complete_dates()</code></h3>
+<p>Sometimes your incidence data does not span consecutive units of time, or
+different groupings may cover different periods. To this end we provide a
+<code>complete_dates()</code> function which ensures a complete and identical range of
+dates are given counts (by default filling with a 0 value).</p>
+<pre><code class="language-r">dat &lt;- data.frame(
+    dates = as.Date(c(&quot;2020-01-01&quot;, &quot;2020-01-04&quot;)),
+    gender = c(&quot;male&quot;, &quot;female&quot;)
+)
+
+(incidence &lt;- incidence_(dat, date_index = dates, groups = gender))
+</code></pre>
+<pre><code>#&gt; # incidence:  2 x 4
+#&gt; # count vars: dates
+#&gt; # groups:     gender
+#&gt;   date_index gender count_variable count
+#&gt;   &lt;date&gt;     &lt;chr&gt;  &lt;chr&gt;          &lt;int&gt;
+#&gt; 1 2020-01-01 male   dates              1
+#&gt; 2 2020-01-04 female dates              1
+</code></pre>
+<pre><code class="language-r">complete_dates(incidence)
+</code></pre>
+<pre><code>#&gt; # incidence:  8 x 4
+#&gt; # count vars: dates
+#&gt; # groups:     gender
+#&gt;   date_index gender count_variable count
+#&gt;   &lt;date&gt;     &lt;chr&gt;  &lt;chr&gt;          &lt;int&gt;
+#&gt; 1 2020-01-01 female dates              0
+#&gt; 2 2020-01-01 male   dates              1
+#&gt; 3 2020-01-02 female dates              0
+#&gt; 4 2020-01-02 male   dates              0
+#&gt; 5 2020-01-03 female dates              0
+#&gt; 6 2020-01-03 male   dates              0
+#&gt; 7 2020-01-04 female dates              1
+#&gt; 8 2020-01-04 male   dates              0
+</code></pre>
+<h3 id="sec:keep-first-keep-last-and-keep-peaks"><code>keep_first()</code>, <code>keep_last()</code> and <code>keep_peaks()</code></h3>
+<p>Once your data is grouped by date, you can select the first or last few entries
+based on a particular date grouping using <code>keep_first()</code> and <code>keep_last()</code>:</p>
+<pre><code class="language-r">weekly_incidence &lt;- incidence_(
+    ebola,
+    date_index = date_of_onset,
+    groups = hospital,
+    interval = &quot;isoweek&quot;
+)
+
+keep_first(weekly_incidence, 3)
+</code></pre>
+<pre><code>#&gt; # incidence:  15 x 4
+#&gt; # count vars: date_of_onset
+#&gt; # groups:     hospital
+#&gt;    date_index hospital                                     count_variable count
+#&gt;    &lt;isowk&gt;    &lt;fct&gt;                                        &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2014-W15   Connaught Hospital                           date_of_onset      0
+#&gt;  2 2014-W16   Connaught Hospital                           date_of_onset      1
+#&gt;  3 2014-W17   Connaught Hospital                           date_of_onset      0
+#&gt;  4 2014-W15   Military Hospital                            date_of_onset      1
+#&gt;  5 2014-W16   Military Hospital                            date_of_onset      0
+#&gt;  6 2014-W17   Military Hospital                            date_of_onset      0
+#&gt;  7 2014-W15   other                                        date_of_onset      0
+#&gt;  8 2014-W16   other                                        date_of_onset      0
+#&gt;  9 2014-W17   other                                        date_of_onset      3
+#&gt; 10 2014-W15   Princess Christian Maternity Hospital (PCMH) date_of_onset      0
+#&gt; 11 2014-W16   Princess Christian Maternity Hospital (PCMH) date_of_onset      0
+#&gt; 12 2014-W17   Princess Christian Maternity Hospital (PCMH) date_of_onset      0
+#&gt; 13 2014-W15   Rokupa Hospital                              date_of_onset      0
+#&gt; 14 2014-W16   Rokupa Hospital                              date_of_onset      0
+#&gt; 15 2014-W17   Rokupa Hospital                              date_of_onset      0
+</code></pre>
+<pre><code class="language-r">keep_last(weekly_incidence, 3)
+</code></pre>
+<pre><code>#&gt; # incidence:  15 x 4
+#&gt; # count vars: date_of_onset
+#&gt; # groups:     hospital
+#&gt;    date_index hospital                                     count_variable count
+#&gt;    &lt;isowk&gt;    &lt;fct&gt;                                        &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2015-W16   Connaught Hospital                           date_of_onset     14
+#&gt;  2 2015-W17   Connaught Hospital                           date_of_onset     10
+#&gt;  3 2015-W18   Connaught Hospital                           date_of_onset      9
+#&gt;  4 2015-W16   Military Hospital                            date_of_onset      3
+#&gt;  5 2015-W17   Military Hospital                            date_of_onset      6
+#&gt;  6 2015-W18   Military Hospital                            date_of_onset      2
+#&gt;  7 2015-W16   other                                        date_of_onset      9
+#&gt;  8 2015-W17   other                                        date_of_onset      3
+#&gt;  9 2015-W18   other                                        date_of_onset      2
+#&gt; 10 2015-W16   Princess Christian Maternity Hospital (PCMH) date_of_onset      1
+#&gt; 11 2015-W17   Princess Christian Maternity Hospital (PCMH) date_of_onset      3
+#&gt; 12 2015-W18   Princess Christian Maternity Hospital (PCMH) date_of_onset      2
+#&gt; 13 2015-W16   Rokupa Hospital                              date_of_onset      3
+#&gt; 14 2015-W17   Rokupa Hospital                              date_of_onset      6
+#&gt; 15 2015-W18   Rokupa Hospital                              date_of_onset      2
+</code></pre>
+<p>Similarly <code>keep_peaks()</code>returns the rows corresponding to the maximum count
+value for each grouping of an <code>incidence2</code> object:</p>
+<pre><code class="language-r">keep_peaks(weekly_incidence)
+</code></pre>
+<pre><code>#&gt; # incidence:  5 x 4
+#&gt; # count vars: date_of_onset
+#&gt; # groups:     hospital
+#&gt;   date_index hospital                                     count_variable count
+#&gt;   &lt;isowk&gt;    &lt;fct&gt;                                        &lt;chr&gt;          &lt;int&gt;
+#&gt; 1 2014-W39   Connaught Hospital                           date_of_onset    100
+#&gt; 2 2014-W38   Military Hospital                            date_of_onset     54
+#&gt; 3 2014-W42   other                                        date_of_onset     52
+#&gt; 4 2014-W38   Princess Christian Maternity Hospital (PCMH) date_of_onset     25
+#&gt; 5 2014-W42   Rokupa Hospital                              date_of_onset     28
+</code></pre>
+<h3 id="sec:bootstrapping-and-estimating-peaks">Bootstrapping and estimating peaks</h3>
+<p><code>estimate_peak()</code> returns an estimate of the peak of an epidemic curve using
+bootstrapped samples of the available data. It is a wrapper around two functions:</p>
+<ul>
+<li>Firstly, the imaginatively named, <code>first_peak()</code>, that returns the earliest
+occurring peak row per group; and,</li>
+<li>Secondly, <code>bootstrap_incidence()</code> which samples (with replacement and optional
+randomisation) from incidence2 objects.</li>
+</ul>
+<p>Note that the bootstrapping approach used for estimating the peak time makes
+the following assumptions:</p>
+<ul>
+<li>the total number of event is known (no uncertainty on total incidence);</li>
+<li>dates with no events (zero incidence) will never be in bootstrapped datasets; and</li>
+<li>the reporting is assumed to be constant over time, i.e. every case is
+equally likely to be reported.</li>
+</ul>
+<pre><code class="language-r">influenza &lt;- incidence_(
+    outbreaks::fluH7N9_china_2013,
+    date_index = date_of_onset,
+    groups = province
+)
+
+# across provinces (we suspend progress bar for markdown)
+estimate_peak(influenza, progress = FALSE) |&gt;
+    select(-count_variable)
+</code></pre>
+<pre><code>#&gt; # A tibble: 13 × 7
+#&gt;    province  observed_peak observed_count bootstrap_peaks lower_ci   median    
+#&gt;    &lt;fct&gt;     &lt;date&gt;                 &lt;int&gt; &lt;list&gt;          &lt;date&gt;     &lt;date&gt;    
+#&gt;  1 Anhui     2013-03-09                 1 &lt;df [100 × 1]&gt;  2013-03-09 2013-03-28
+#&gt;  2 Beijing   2013-04-11                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-04-11
+#&gt;  3 Fujian    2013-04-17                 1 &lt;df [100 × 1]&gt;  2013-04-17 2013-04-21
+#&gt;  4 Guangdong 2013-07-27                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-07-27
+#&gt;  5 Hebei     2013-07-10                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-07-10
+#&gt;  6 Henan     2013-04-06                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-04-08
+#&gt;  7 Hunan     2013-04-14                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-04-14
+#&gt;  8 Jiangsu   2013-03-19                 2 &lt;df [100 × 1]&gt;  2013-03-08 2013-03-20
+#&gt;  9 Jiangxi   2013-04-15                 1 &lt;df [100 × 1]&gt;  2013-04-15 2013-04-19
+#&gt; 10 Shandong  2013-04-16                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-04-16
+#&gt; 11 Shanghai  2013-04-01                 4 &lt;df [100 × 1]&gt;  2013-03-17 2013-04-01
+#&gt; 12 Taiwan    2013-04-12                 1 &lt;df [100 × 1]&gt;  2013-02-19 2013-04-12
+#&gt; 13 Zhejiang  2013-04-06                 5 &lt;df [100 × 1]&gt;  2013-03-29 2013-04-10
+#&gt; # ℹ 1 more variable: upper_ci &lt;date&gt;
+</code></pre>
+<pre><code class="language-r"># regrouping for overall peak
+plot(regroup(influenza))
+</code></pre>
+<p><img src="vignette__files/chunk-23-1.png" alt="&gt;" /></p>
+<pre><code class="language-r">estimate_peak(regroup(influenza), progress = FALSE) |&gt;
+    select(-count_variable)
+</code></pre>
+<pre><code>#&gt; # A tibble: 1 × 6
+#&gt;   observed_peak observed_count bootstrap_peaks lower_ci   median     upper_ci  
+#&gt;   &lt;date&gt;                 &lt;int&gt; &lt;list&gt;          &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+#&gt; 1 2013-04-03                 7 &lt;df [100 × 1]&gt;  2013-03-29 2013-04-06 2013-04-17
+</code></pre>
+<pre><code class="language-r"># return the first peak of the grouped and ungrouped data
+first_peak(influenza)
+</code></pre>
+<pre><code>#&gt; # incidence:  13 x 4
+#&gt; # count vars: date_of_onset
+#&gt; # groups:     province
+#&gt;    date_index province  count_variable count
+#&gt;    &lt;date&gt;     &lt;fct&gt;     &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2013-03-09 Anhui     date_of_onset      1
+#&gt;  2 2013-04-11 Beijing   date_of_onset      1
+#&gt;  3 2013-04-17 Fujian    date_of_onset      1
+#&gt;  4 2013-07-27 Guangdong date_of_onset      1
+#&gt;  5 2013-07-10 Hebei     date_of_onset      1
+#&gt;  6 2013-04-06 Henan     date_of_onset      1
+#&gt;  7 2013-04-14 Hunan     date_of_onset      1
+#&gt;  8 2013-03-19 Jiangsu   date_of_onset      2
+#&gt;  9 2013-04-15 Jiangxi   date_of_onset      1
+#&gt; 10 2013-04-16 Shandong  date_of_onset      1
+#&gt; 11 2013-04-01 Shanghai  date_of_onset      4
+#&gt; 12 2013-04-12 Taiwan    date_of_onset      1
+#&gt; 13 2013-04-06 Zhejiang  date_of_onset      5
+</code></pre>
+<pre><code class="language-r">first_peak(regroup(influenza))
+</code></pre>
+<pre><code>#&gt; # incidence:  1 x 3
+#&gt; # count vars: date_of_onset
+#&gt;   date_index count_variable count
+#&gt;   &lt;date&gt;     &lt;chr&gt;          &lt;int&gt;
+#&gt; 1 2013-04-03 date_of_onset      7
+</code></pre>
+<pre><code class="language-r"># bootstrap a single sample
+bootstrap_incidence(influenza)
+</code></pre>
+<pre><code>#&gt; # incidence:  84 x 4
+#&gt; # count vars: date_of_onset
+#&gt; # groups:     province
+#&gt;    date_index province count_variable count
+#&gt;  * &lt;date&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt;
+#&gt;  1 2013-02-19 Shanghai date_of_onset      1
+#&gt;  2 2013-02-27 Shanghai date_of_onset      1
+#&gt;  3 2013-03-07 Zhejiang date_of_onset      0
+#&gt;  4 2013-03-08 Jiangsu  date_of_onset      0
+#&gt;  5 2013-03-09 Anhui    date_of_onset      1
+#&gt;  6 2013-03-13 Zhejiang date_of_onset      0
+#&gt;  7 2013-03-17 Shanghai date_of_onset      1
+#&gt;  8 2013-03-19 Jiangsu  date_of_onset      1
+#&gt;  9 2013-03-20 Jiangsu  date_of_onset      3
+#&gt; 10 2013-03-21 Jiangsu  date_of_onset      1
+#&gt; # ℹ 74 more rows
+</code></pre>
+<h3 id="sec:cumulate"><code>cumulate()</code></h3>
+<p>You can use <code>cumulate()</code> to easily generate cumulative incidences:</p>
+<pre><code class="language-r">(y &lt;- cumulate(weekly_incidence))
+</code></pre>
+<pre><code>#&gt; # incidence:  261 x 4
+#&gt; # count vars: date_of_onset
+#&gt; # groups:     hospital
+#&gt;    date_index hospital           count_variable cumulative_count
+#&gt;  * &lt;isowk&gt;    &lt;fct&gt;              &lt;chr&gt;                     &lt;int&gt;
+#&gt;  1 2014-W16   Connaught Hospital date_of_onset                 1
+#&gt;  2 2014-W18   Connaught Hospital date_of_onset                 2
+#&gt;  3 2014-W19   Connaught Hospital date_of_onset                 5
+#&gt;  4 2014-W20   Connaught Hospital date_of_onset                 7
+#&gt;  5 2014-W21   Connaught Hospital date_of_onset                12
+#&gt;  6 2014-W22   Connaught Hospital date_of_onset                16
+#&gt;  7 2014-W23   Connaught Hospital date_of_onset                22
+#&gt;  8 2014-W24   Connaught Hospital date_of_onset                28
+#&gt;  9 2014-W25   Connaught Hospital date_of_onset                40
+#&gt; 10 2014-W26   Connaught Hospital date_of_onset                48
+#&gt; # ℹ 251 more rows
+</code></pre>
+<pre><code class="language-r">plot(y, angle = 45, nrow = 3)
+</code></pre>
+<p><img src="vignette__files/chunk-24-1.png" alt="&gt;" /></p>
+<h2 id="sec:building-on-incidence2">Building on incidence2</h2>
+<p>The benefit incidence2 brings is not in the functionality it provides (which is
+predominantly wrapping around the functionality of other packages) but in the
+guarantees incidence2 objects give to a user about the underlying object
+structure and invariants that must hold.</p>
+<p>To make these objects easier to build upon we give sensible behaviour when the
+invariants are broken, an interface to access the variables underlying the
+<code>incidence2</code> object and methods, for popular group-aware generics, that
+implicitly utilise the underlying grouping structure.</p>
+<h3 id="sec:class-preservation">Class preservation</h3>
+<p>As mentioned at the beginning of the vignetted, by definition, <code>incidence2</code>
+objects must:</p>
+<ul>
+<li>
+<p>have one column representing the date index (this does not need to be a <code>Date</code>
+object but must have an inherent ordering over time);</p>
+</li>
+<li>
+<p>have one column representing the count variable (i.e. what is being counted)
+and one variable representing the associated count;</p>
+</li>
+<li>
+<p>have zero or more columns representing groups;</p>
+</li>
+<li>
+<p>not have duplicated rows with regards to the date, group and count
+variables.</p>
+</li>
+</ul>
+<p>Due to these requirements it is important that these objects preserve (or drop)
+their structure appropriately under the range of different operations that can
+be applied to data frames. By this we mean that if an operation is applied to an
+incidence2 object then as long as the invariants of the object are preserved
+(i.e. required columns and uniqueness of rows) then the object will retain it’s
+incidence class. If the invariants are not preserved then a <code>tibble</code> will be
+returned instead.</p>
+<pre><code class="language-r"># create a weekly incidence object
+weekly_incidence &lt;- incidence_(
+    ebola,
+    date_index = date_of_onset,
+    groups = c(gender, hospital),
+    interval = &quot;isoweek&quot;
+)
+
+# filtering preserves class
+weekly_incidence |&gt;
+    subset(gender == &quot;f&quot; &amp; hospital == &quot;Rokupa Hospital&quot;) |&gt;
+    class()
+</code></pre>
+<pre><code>#&gt; [1] &quot;incidence2&quot; &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
+</code></pre>
+<pre><code class="language-r">class(weekly_incidence[c(1L, 3L, 5L), ])
+</code></pre>
+<pre><code>#&gt; [1] &quot;incidence2&quot; &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
+</code></pre>
+<pre><code class="language-r"># Adding columns preserve class
+weekly_incidence$future &lt;- weekly_incidence$date_index + 999L
+class(weekly_incidence)
+</code></pre>
+<pre><code>#&gt; [1] &quot;incidence2&quot; &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
+</code></pre>
+<pre><code class="language-r">weekly_incidence |&gt;
+    mutate(past = date_index - 999L) |&gt;
+    class()
+</code></pre>
+<pre><code>#&gt; [1] &quot;incidence2&quot; &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
+</code></pre>
+<pre><code class="language-r"># rename preserve class
+names(weekly_incidence)[names(weekly_incidence) == &quot;date_index&quot;] &lt;- &quot;isoweek&quot;
+str(weekly_incidence)
+</code></pre>
+<pre><code>#&gt; incidnc2 [496 × 6] (S3: incidence2/tbl_df/tbl/data.frame)
+#&gt;  $ isoweek       : 'grates_isoweek' int [1:496] 2014-W15 2014-W16 2014-W17 2014-W17 ...
+#&gt;  $ gender        : Factor w/ 2 levels &quot;f&quot;,&quot;m&quot;: 1 2 1 2 1 1 1 1 1 1 ...
+#&gt;  $ hospital      : Factor w/ 5 levels &quot;Connaught Hospital&quot;,..: 2 1 3 3 1 4 5 1 2 4 ...
+#&gt;  $ count_variable: chr [1:496] &quot;date_of_onset&quot; &quot;date_of_onset&quot; &quot;date_of_onset&quot; &quot;date_of_onset&quot; ...
+#&gt;  $ count         : int [1:496] 1 1 2 1 1 1 1 2 5 1 ...
+#&gt;  $ future        : 'grates_isoweek' int [1:496] 2033-W22 2033-W23 2033-W24 2033-W24 ...
+#&gt;  - attr(*, &quot;date_index&quot;)= chr &quot;isoweek&quot;
+#&gt;  - attr(*, &quot;count_variable&quot;)= chr &quot;count_variable&quot;
+#&gt;  - attr(*, &quot;count_value&quot;)= chr &quot;count&quot;
+#&gt;  - attr(*, &quot;groups&quot;)= chr [1:2] &quot;gender&quot; &quot;hospital&quot;
+</code></pre>
+<pre><code class="language-r"># select returns a tibble unless all date, count and group variables are
+# preserved in the output
+str(weekly_incidence[, -1L])
+</code></pre>
+<pre><code>#&gt; tibble [496 × 5] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ gender        : Factor w/ 2 levels &quot;f&quot;,&quot;m&quot;: 1 2 1 2 1 1 1 1 1 1 ...
+#&gt;  $ hospital      : Factor w/ 5 levels &quot;Connaught Hospital&quot;,..: 2 1 3 3 1 4 5 1 2 4 ...
+#&gt;  $ count_variable: chr [1:496] &quot;date_of_onset&quot; &quot;date_of_onset&quot; &quot;date_of_onset&quot; &quot;date_of_onset&quot; ...
+#&gt;  $ count         : int [1:496] 1 1 2 1 1 1 1 2 5 1 ...
+#&gt;  $ future        : 'grates_isoweek' int [1:496] 2033-W22 2033-W23 2033-W24 2033-W24 ...
+</code></pre>
+<pre><code class="language-r">str(weekly_incidence[, -6L])
+</code></pre>
+<pre><code>#&gt; incidnc2 [496 × 5] (S3: incidence2/tbl_df/tbl/data.frame)
+#&gt;  $ isoweek       : 'grates_isoweek' int [1:496] 2014-W15 2014-W16 2014-W17 2014-W17 ...
+#&gt;  $ gender        : Factor w/ 2 levels &quot;f&quot;,&quot;m&quot;: 1 2 1 2 1 1 1 1 1 1 ...
+#&gt;  $ hospital      : Factor w/ 5 levels &quot;Connaught Hospital&quot;,..: 2 1 3 3 1 4 5 1 2 4 ...
+#&gt;  $ count_variable: chr [1:496] &quot;date_of_onset&quot; &quot;date_of_onset&quot; &quot;date_of_onset&quot; &quot;date_of_onset&quot; ...
+#&gt;  $ count         : int [1:496] 1 1 2 1 1 1 1 2 5 1 ...
+#&gt;  - attr(*, &quot;date_index&quot;)= chr &quot;isoweek&quot;
+#&gt;  - attr(*, &quot;count_variable&quot;)= chr &quot;count_variable&quot;
+#&gt;  - attr(*, &quot;count_value&quot;)= chr &quot;count&quot;
+#&gt;  - attr(*, &quot;groups&quot;)= chr [1:2] &quot;gender&quot; &quot;hospital&quot;
+</code></pre>
+<pre><code class="language-r"># duplicating rows will drop the class but only if duplicate rows
+class(rbind(weekly_incidence, weekly_incidence))
+</code></pre>
+<pre><code>#&gt; [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
+</code></pre>
+<pre><code class="language-r">class(rbind(weekly_incidence[1:5, ], weekly_incidence[6:10, ]))
+</code></pre>
+<pre><code>#&gt; [1] &quot;incidence2&quot; &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
+</code></pre>
+<h3 id="sec:accessing-variable-information">Accessing variable information</h3>
+<p>We provide multiple accessors to easily access information about an
+<code>incidence2</code> object’s structure:</p>
+<pre><code class="language-r"># the name of the date_index variable of x
+get_date_index_name(weekly_incidence)
+</code></pre>
+<pre><code>#&gt; [1] &quot;isoweek&quot;
+</code></pre>
+<pre><code class="language-r"># alias for `get_date_index_name()`
+get_dates_name(weekly_incidence)
+</code></pre>
+<pre><code>#&gt; [1] &quot;isoweek&quot;
+</code></pre>
+<pre><code class="language-r"># the name of the count variable of x
+get_count_variable_name(weekly_incidence)
+</code></pre>
+<pre><code>#&gt; [1] &quot;count_variable&quot;
+</code></pre>
+<pre><code class="language-r"># the name of the count value of x
+get_count_value_name(weekly_incidence)
+</code></pre>
+<pre><code>#&gt; [1] &quot;count&quot;
+</code></pre>
+<pre><code class="language-r"># the name(s) of the group variable(s) of x
+get_group_names(weekly_incidence)
+</code></pre>
+<pre><code>#&gt; [1] &quot;gender&quot;   &quot;hospital&quot;
+</code></pre>
+<pre><code class="language-r"># the date_index variable of x
+str(get_date_index(weekly_incidence))
+</code></pre>
+<pre><code>#&gt;  'grates_isoweek' int [1:496] 2014-W15 2014-W16 2014-W17 2014-W17 ...
+</code></pre>
+<pre><code class="language-r"># alias for get_date_index
+str(get_dates(weekly_incidence))
+</code></pre>
+<pre><code>#&gt;  'grates_isoweek' int [1:496] 2014-W15 2014-W16 2014-W17 2014-W17 ...
+</code></pre>
+<pre><code class="language-r"># the count variable of x
+str(get_count_variable(weekly_incidence))
+</code></pre>
+<pre><code>#&gt;  chr [1:496] &quot;date_of_onset&quot; &quot;date_of_onset&quot; &quot;date_of_onset&quot; ...
+</code></pre>
+<pre><code class="language-r"># the count value of x
+str(get_count_value(weekly_incidence))
+</code></pre>
+<pre><code>#&gt;  int [1:496] 1 1 2 1 1 1 1 2 5 1 ...
+</code></pre>
+<pre><code class="language-r"># list of the group variable(s) of x
+str(get_groups(weekly_incidence))
+</code></pre>
+<pre><code>#&gt; List of 2
+#&gt;  $ gender  : Factor w/ 2 levels &quot;f&quot;,&quot;m&quot;: 1 2 1 2 1 1 1 1 1 1 ...
+#&gt;  $ hospital: Factor w/ 5 levels &quot;Connaught Hospital&quot;,..: 2 1 3 3 1 4 5 1 2 4 ...
+</code></pre>
+<h3 id="sec:grouping-aware-methods">Grouping aware methods</h3>
+<p>incidence2 provides methods for popular group-aware generics from both base R
+and the wider package ecosystem:</p>
+<ul>
+<li>base: <code>split()</code>.</li>
+<li><a href="https://cran.r-project.org/package=dplyr">dplyr</a>: <code>mutate()</code> and <code>summarise()</code>.</li>
+<li><a href="https://cran.r-project.org/package=tidyr">tidyr</a>: <code>nest()</code>.</li>
+</ul>
+<p>When called on incidence2 objects, these methods will utilise the
+underlying grouping structure without the user needing to explicitly state
+what it is. This makes it very easy to utilise in analysis pipelines.</p>
+<h4 id="sec:example-fitting-a-poisson-model">Example fitting a poisson model</h4>
+<pre><code class="language-r"># first twenty weeks of the ebola data set across hospitals
+dat &lt;- incidence_(ebola, date_of_onset, groups = hospital, interval = &quot;isoweek&quot;)
+dat &lt;- keep_first(dat, 20L)
+
+# fit a poisson model to the grouped data
+(fitted &lt;-
+    dat |&gt;
+    nest(.key = &quot;data&quot;) |&gt;
+    mutate(
+        model  = lapply(
+            data,
+            function(x) glm(count ~ date_index, data = x, family = poisson)
+        )
+    ))
+</code></pre>
+<pre><code>#&gt; # A tibble: 5 × 4
+#&gt;   count_variable hospital                                     data     model 
+#&gt;   &lt;chr&gt;          &lt;fct&gt;                                        &lt;list&gt;   &lt;list&gt;
+#&gt; 1 date_of_onset  Connaught Hospital                           &lt;tibble&gt; &lt;glm&gt; 
+#&gt; 2 date_of_onset  Military Hospital                            &lt;tibble&gt; &lt;glm&gt; 
+#&gt; 3 date_of_onset  other                                        &lt;tibble&gt; &lt;glm&gt; 
+#&gt; 4 date_of_onset  Princess Christian Maternity Hospital (PCMH) &lt;tibble&gt; &lt;glm&gt; 
+#&gt; 5 date_of_onset  Rokupa Hospital                              &lt;tibble&gt; &lt;glm&gt; 
+</code></pre>
+<pre><code class="language-r"># Add confidence intervals to the result
+(intervals &lt;-
+    fitted |&gt;
+    mutate(result = Map(
+        function(data, model) {
+            data |&gt;
+                ciTools::add_ci(
+                    model,
+                    alpha = 0.05,
+                    names = c(&quot;lower_ci&quot;, &quot;upper_ci&quot;)
+                ) |&gt;
+                as_tibble()
+        },
+        data,
+        model
+    )) |&gt;
+    select(hospital, result) |&gt;
+    unnest(result))
+</code></pre>
+<pre><code>#&gt; # A tibble: 100 × 6
+#&gt;    hospital           date_index count  pred lower_ci upper_ci
+#&gt;    &lt;fct&gt;              &lt;isowk&gt;    &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+#&gt;  1 Connaught Hospital 2014-W15       0 0.968    0.599     1.56
+#&gt;  2 Connaught Hospital 2014-W16       1 1.18     0.751     1.85
+#&gt;  3 Connaught Hospital 2014-W17       0 1.44     0.942     2.19
+#&gt;  4 Connaught Hospital 2014-W18       1 1.75     1.18      2.58
+#&gt;  5 Connaught Hospital 2014-W19       3 2.13     1.48      3.06
+#&gt;  6 Connaught Hospital 2014-W20       2 2.59     1.86      3.61
+#&gt;  7 Connaught Hospital 2014-W21       5 3.16     2.33      4.28
+#&gt;  8 Connaught Hospital 2014-W22       4 3.84     2.91      5.07
+#&gt;  9 Connaught Hospital 2014-W23       6 4.68     3.65      6.00
+#&gt; 10 Connaught Hospital 2014-W24       6 5.70     4.56      7.12
+#&gt; # ℹ 90 more rows
+</code></pre>
+<pre><code class="language-r"># plot
+plot(dat, angle = 45) +
+    ggplot2::geom_line(
+        ggplot2::aes(date_index, y = pred),
+        data = intervals,
+        inherit.aes = FALSE
+    ) +
+    ggplot2::geom_ribbon(
+        ggplot2::aes(date_index, ymin = lower_ci, ymax = upper_ci),
+        alpha = 0.2,
+        data = intervals,
+        inherit.aes = FALSE,
+        fill = &quot;#BBB67E&quot;
+    )
+</code></pre>
+<p><img src="vignette__files/chunk-27-1.png" alt="&gt;" /></p>
+<h4 id="sec:example-adding-a-rolling-average">Example - Adding a rolling average</h4>
+<pre><code class="language-r">weekly_incidence |&gt;
+    regroup_(hospital) |&gt;
+    mutate(rolling_average = data.table::frollmean(count, n = 3L, align = &quot;right&quot;)) |&gt;
+    plot(border_colour = &quot;white&quot;, angle = 45) +
+    ggplot2::geom_line(ggplot2::aes(x = date_index, y = rolling_average))
+</code></pre>
+<pre><code class="language-plain warning">#&gt; Removed 10 rows containing missing values or values outside the scale range (`geom_line()`).
+</code></pre>
+<p><img src="vignette__files/chunk-28-1.png" alt="&gt;" /></p>
+</div>
+<footer><div class="flex-col">
+<p>Developed by Tim Taylor</p>
+<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.9.2.1</p>
+</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/js/sidenotes.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/js/appendix.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/js/toc-highlight.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/js/copy-button.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/js/heading-anchor.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/js/pages.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/js/center-img.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/js/callout.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
