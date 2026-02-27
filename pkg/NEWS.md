@@ -1,5 +1,7 @@
 # incidence2 (development version)
 
+- Small tweaks to vignette css and js.
+
 # incidence2 2.6.3
 
 - Error and warning conditions thrown by incidence2 now have classes
