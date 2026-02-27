@@ -47,7 +47,7 @@ should appear (the default is to add to the right hand side). See
 \code{\link[dplyr:relocate]{relocate()}} for more details.}
 
 \item{.key}{The name of the resulting nested column. Only applicable when
-\code{...} isn't specified, i.e. in the case of \code{df \%>\% nest(.by = x)}.
+\code{...} isn't specified, i.e. in the case of \code{df |> nest(.by = x)}.
 
 If \code{NULL}, then \code{"data"} will be used by default.}
 
