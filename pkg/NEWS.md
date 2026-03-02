@@ -1,4 +1,4 @@
-# incidence2 (development version)
+# incidence2 2.6.4
 
 - Small tweaks to vignette css and js.
 
