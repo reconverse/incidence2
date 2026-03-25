@@ -16,7 +16,7 @@ License: MIT + file LICENSE
 URL: https://www.reconverse.org/incidence2/, https://github.com/reconverse/incidence2
 BugReports: https://github.com/reconverse/incidence2/issues
 Depends: 
-    grates (>= 1.7.2.9000),
+    grates (>= 1.8.0),
     R (>= 4.1.0)
 Imports:
     grDevices,
@@ -47,4 +47,3 @@ Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/testthat/start-first: plot, incidence, bootstrap
 LazyData: true
-Remotes: reconverse/grates/pkg
