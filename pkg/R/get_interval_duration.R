@@ -36,7 +36,13 @@ grates::get_interval_duration
 get_interval_duration.incidence2 <- function(x, ...) {
     dates <- get_date_index(x)
     if (inherits(dates, "Date")) {
-        rep(1, length(dates))
+        if (.is_whole_or_NA(dates)) {
+            return(rep(1, length(dates)))
+        }
+        .stopf(
+            "Some values of '%s' are fractional dates so we cannot infer a duration.",
+            get_date_index_name(x)
+        )
     } else {
         get_interval_duration(dates)
     }
