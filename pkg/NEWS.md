@@ -1,5 +1,8 @@
 # incidence2 (development version)
 
+- New method `get_interval_duration()` which returns the number of days
+  covered by an element of an incidence objects date_index.
+
 # incidence2 2.6.4
 
 - Small tweaks to vignette css and js.

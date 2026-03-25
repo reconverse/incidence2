@@ -16,7 +16,7 @@ License: MIT + file LICENSE
 URL: https://www.reconverse.org/incidence2/, https://github.com/reconverse/incidence2
 BugReports: https://github.com/reconverse/incidence2/issues
 Depends: 
-    grates (>= 1.3.0),
+    grates (>= 1.7.2.9000),
     R (>= 4.1.0)
 Imports:
     grDevices,
