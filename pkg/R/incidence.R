@@ -297,6 +297,13 @@ incidence <- function(
             .stop("POSIXlt group columns are not currently supported.")
     }
 
+    # For #134
+    if (is.null(interval) && is.numeric(date_cols[[1L]])) {
+        if (all(vapply(date_cols, .is_whole_or_NA, TRUE))) {
+            interval <- 1
+        }
+    }
+
     # check interval and apply transformation across date index
     if (!is.null(interval)) {
 
