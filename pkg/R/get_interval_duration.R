@@ -1,6 +1,6 @@
 #' @importFrom grates get_interval_duration
 #' @export
-get_interval_duration
+grates::get_interval_duration
 
 # -------------------------------------------------------------------------
 #' Days covered by the date index of an incidence object
